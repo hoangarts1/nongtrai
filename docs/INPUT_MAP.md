@@ -26,6 +26,7 @@ Gameplay reads these through `_unhandled_input` (so UI can consume events first)
 | `camera_zoom_out` | - , Numpad - | zoom out | 1 |
 | `pause` | Escape | pause / menu (also closes the top UI layer) | 2 |
 | `toggle_debug` | F3 | debug overlay (debug builds only) | 0 |
+| `toggle_debug_menu` | Ctrl+M | developer debug menu (debug builds only) | 0 |
 
 Notes
 - Wheel is reserved for the hotbar, so zoom uses keys. If you prefer wheel-zoom, change here first.

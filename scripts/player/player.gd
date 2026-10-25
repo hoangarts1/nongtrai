@@ -8,12 +8,16 @@ extends CharacterBody3D
 @export var config: PlayerConfig
 @export var map_min: Vector2 = Vector2(-10.5, -10.5)
 @export var map_max: Vector2 = Vector2(10.5, 10.5)
+var movement_enabled: bool = true
 
 func _ready() -> void:
 	if config == null:
 		config = PlayerConfig.new()
 
 func _physics_process(_delta: float) -> void:
+	if not movement_enabled:
+		velocity = Vector3.ZERO
+		return
 	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var movement_basis: Basis = Basis.IDENTITY
 	if camera != null:

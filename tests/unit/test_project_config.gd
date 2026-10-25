@@ -6,7 +6,8 @@ const REQUIRED_ACTIONS: Array[StringName] = [
 	&"hotbar_1", &"hotbar_2", &"hotbar_3", &"hotbar_4", &"hotbar_5",
 	&"hotbar_6", &"hotbar_7", &"hotbar_8", &"hotbar_9", &"open_inventory",
 	&"open_build", &"open_journal", &"rotate_cw", &"rotate_ccw",
-	&"camera_zoom_in", &"camera_zoom_out", &"pause", &"toggle_debug"
+	&"camera_zoom_in", &"camera_zoom_out", &"pause", &"toggle_debug",
+	&"toggle_debug_menu"
 ]
 
 const REQUIRED_LAYERS: Array[String] = [

@@ -1,7 +1,75 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
+[ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
+[ext_resource type="Script" path="res://scripts/view/main.gd" id="3_main"]
+[ext_resource type="Script" path="res://scripts/view/debug_menu.gd" id="4_debug"]
+[ext_resource type="Script" path="res://scripts/view/inventory_panel.gd" id="5_inventory"]
+[ext_resource type="Script" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
+
+[sub_resource type="StyleBoxFlat" id="Style_debug"]
+bg_color = Color(0.03, 0.04, 0.06, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.7, 0.95, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_inventory"]
+bg_color = Color(0.03, 0.04, 0.06, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.85, 0.55, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_hud_bar"]
+bg_color = Color(0.03, 0.04, 0.06, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.85, 0.55, 1)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("3_main")
 
 [node name="GrayBoxWorld" parent="." instance=ExtResource("1_world")]
+
+[node name="ClockHud" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 180.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "D1  06:00"
+script = ExtResource("2_clock")
+
+[node name="DebugMenu" type="PanelContainer" parent="."]
+offset_left = 24.0
+offset_top = 70.0
+offset_right = 330.0
+offset_bottom = 620.0
+theme_override_styles/panel = SubResource("Style_debug")
+script = ExtResource("4_debug")
+
+[node name="InventoryPanel" type="PanelContainer" parent="."]
+offset_left = 420.0
+offset_top = 70.0
+offset_right = 720.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("Style_inventory")
+script = ExtResource("5_inventory")
+
+[node name="HudButtonBar" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -90.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_styles/panel = SubResource("Style_hud_bar")
+script = ExtResource("6_hud_bar")

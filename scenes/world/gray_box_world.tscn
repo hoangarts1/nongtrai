@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/view/gray_box_world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://scripts/view/camera_rig.gd" id="3_camera_rig"]
+[ext_resource type="Script" path="res://scripts/components/interaction_prompt.gd" id="4_prompt"]
 
 [sub_resource type="Environment" id="Environment_world"]
 background_mode = 1
@@ -41,6 +42,18 @@ material = SubResource("Material_house")
 [sub_resource type="BoxMesh" id="Mesh_obstacle"]
 size = Vector3(1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="Style_prompt"]
+bg_color = Color(0.04, 0.08, 0.06, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.82, 0.95, 0.65, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="GrayBoxWorld" type="Node3D"]
 script = ExtResource("1_world")
 
@@ -72,6 +85,10 @@ position = Vector3(0.5, 0.04, 0.5)
 mesh = SubResource("Mesh_house")
 position = Vector3(5.5, 1, 4.5)
 
+[node name="BedMarker" type="Marker3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(5.5, 0, 4.5)
+
 [node name="Obstacle" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_obstacle")
 position = Vector3(-3.5, 0.5, 2.5)
@@ -93,3 +110,27 @@ position = Vector3(0.5, 0, 0.5)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector3(0.5, 0, 0.5)
+
+[node name="InteractionLayer" type="CanvasLayer" parent="."]
+
+[node name="InteractionPrompt" type="PanelContainer" parent="InteractionLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -130.0
+offset_right = 180.0
+offset_bottom = -75.0
+theme_override_styles/panel = SubResource("Style_prompt")
+script = ExtResource("4_prompt")
+
+[node name="Message" type="Label" parent="InteractionLayer/InteractionPrompt"]
+custom_minimum_size = Vector2(356, 51)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (starter integrated)
+Last updated: 2026-10-25 (inventory HUD button)
 
 ## Current milestone
 `P-3` — integrate the starter into the existing Godot project, then begin Phase 0 foundations. The full list is in `docs/ROADMAP.md`.
@@ -22,7 +22,22 @@ Last updated: 2026-10-25 (starter integrated)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- Developer playtest of smooth camera follow and map bounds
+- Developer playtest of the inventory HUD button
+
+## Done
+- [x] Reusable interaction prompt anchored to the viewport with readable background and outline
+- [x] Prompt integration tests for near/far player positions and visible text
+- [x] Debug-only Ctrl+M menu with clock, player position, FPS, time controls and extensible action registry
+- [x] GameClock debug time and speed APIs with tests
+- [x] Overnight sleep runs at x20 until 06:00, then restores the previous time speed
+- [x] Daytime sleep prompt and interaction are hidden/no-op
+- [x] Clock display wraps overnight hours to 00:00, 01:00 and 02:00 instead of showing 24:00+ or 25:00+
+- [x] HUD and debug menu use the shared GameClock.format_time() formatter
+- [x] Sleeping continues through displayed 00:00–05:59 and finishes at 06:00; awake rollover at 02:00 remains unchanged
+- [x] InventoryState supports capacity, stacking, add/remove validation, signals and save serialization
+- [x] DataRegistry loads temporary seed and harvest item definitions from Resource data
+- [x] Basic inventory panel opens with I and debug menu can add seeds or clear the inventory
+- [x] Shared HUD button bar adds a mouse inventory button with tooltip, active state and sleep lock
 
 ## Known issues / tech debt
 - The Godot executable is not currently available as `godot` on the terminal PATH.
@@ -31,12 +46,13 @@ Last updated: 2026-10-25 (starter integrated)
 ## Decisions since last update
 - D08 and D13 confirmed from the submitted project form.
 - Placeholder geometry is allowed until the developer supplies final models.
+- While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: implement camera-relative player movement, then the day clock and farm domain state.
+- Next: after interaction/sleep playtest approval, implement InventoryState.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.
