@@ -91,6 +91,12 @@ Format:
 - signal plot_changed(cell: Vector2i) — emitted whenever a plot mutates
 - Notes: does not touch UI; all view updates listen to signals from the world state.
 
+## SaveService  (scripts/core/save_service.gd)
+- func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v1 envelope and atomically writes a JSON save with rotating backups
+- func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
+- func delete_save(slot: int = 1) -> void — removes one save slot
+- Notes: the autoload owns file I/O only; Main composes clock, player, inventory and farm state.
+
 ## FarmView  (scripts/view/farm_view.gd)
 - func configure(farm_state: FarmGridState) -> void — binds the placeholder view to the farm domain state
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell

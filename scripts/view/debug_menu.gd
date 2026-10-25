@@ -12,6 +12,8 @@ var _status_label: Label
 var _inventory
 var _farm_state: FarmGridState
 var _farm_view: Node
+var _save_callback: Callable
+var _load_callback: Callable
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -51,6 +53,12 @@ func configure_farm(farm_state: FarmGridState, farm_view: Node) -> void:
 	register_action(tr("UI_DEBUG_WATER_ALL"), _water_all)
 	register_action(tr("UI_DEBUG_GROW_DAY"), _grow_one_day)
 	register_action(tr("UI_DEBUG_RESET_FARM"), _reset_farm)
+
+func configure_save_load(save_callback: Callable, load_callback: Callable) -> void:
+	_save_callback = save_callback
+	_load_callback = load_callback
+	register_action(tr("UI_DEBUG_SAVE"), _save_callback)
+	register_action(tr("UI_DEBUG_LOAD"), _load_callback)
 
 func register_action(label: String, callback: Callable) -> void:
 	_actions.append({"label": label, "callback": callback})

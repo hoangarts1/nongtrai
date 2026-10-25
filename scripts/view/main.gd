@@ -29,6 +29,7 @@ func _ready() -> void:
 	hotbar_panel.register_tool(&"harvest", tr("UI_TOOL_HARVEST"), func() -> void: tool_controller.select_tool(&"harvest"))
 	debug_menu.configure_inventory(inventory)
 	debug_menu.configure_farm(farm_state, farm_view)
+	debug_menu.configure_save_load(_save_game, _load_game)
 	if not GameClock.day_started.is_connected(_on_day_started):
 		GameClock.day_started.connect(_on_day_started)
 	var _inventory_button: Button = hud_button_bar.register_button(
@@ -45,3 +46,34 @@ func _ready() -> void:
 
 func _on_day_started(_day_index: int) -> void:
 	day_simulator.call("simulate_day", farm_state)
+
+func _save_game() -> void:
+	var payload: Dictionary = {
+		"clock": GameClock.serialize(),
+		"player": {
+			"position": {
+				"x": world.player.global_position.x,
+				"y": world.player.global_position.y,
+				"z": world.player.global_position.z
+			}
+		},
+		"inventory": inventory.serialize(),
+		"farm": farm_state.serialize()
+	}
+	SaveService.save_game(payload)
+
+func _load_game() -> void:
+	var payload: Dictionary = SaveService.load_game()
+	if payload.is_empty():
+		return
+	GameClock.deserialize(payload.get("clock", {}))
+	inventory.deserialize(payload.get("inventory", {}))
+	farm_state.deserialize(payload.get("farm", {}))
+	var player_data: Dictionary = payload.get("player", {})
+	var position_data: Dictionary = player_data.get("position", {})
+	if not position_data.is_empty():
+		world.player.global_position = Vector3(
+			float(position_data.get("x", world.player.global_position.x)),
+			float(position_data.get("y", world.player.global_position.y)),
+			float(position_data.get("z", world.player.global_position.z))
+		)

@@ -1,9 +1,9 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (DaySimulator)
+Last updated: 2026-10-25 (Save/Load v1)
 
 ## Current milestone
-`4.5` — DaySimulator v0 runs farm growth at the morning boundary. The full list is in `docs/ROADMAP.md`.
+`4.6` — Save/Load v1 stores clock, player position, inventory and farm state as versioned JSON. The full list is in `docs/ROADMAP.md`.
 
 ## Last commit / tag
 (none yet)
@@ -51,6 +51,8 @@ Last updated: 2026-10-25 (DaySimulator)
 - [x] Mature crops preview their harvest, deliver products to InventoryState, and remain planted when the full inventory blocks delivery
 - [x] DaySimulator advances only watered crops and dries plots; Main connects it to GameClock.day_started
 - [x] Debug menu includes seed, hoe-all, water-all, grow-one-day and reset-farm actions
+- [x] SaveService writes versioned JSON atomically, rotates three backups and ignores corrupted/future saves safely
+- [x] Debug menu exposes localized save/load actions; Main restores clock, player, inventory and farm state
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -64,7 +66,7 @@ Last updated: 2026-10-25 (DaySimulator)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: implement 4.6 Save/Load v1 for clock, player, inventory and farm state.
+- Next: run the final MVP suite, create the `mvp-farming-loop` tag and prepare the manual play checklist.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.

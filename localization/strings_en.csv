@@ -33,6 +33,8 @@ UI_DEBUG_GROW_DAY,Grow crops 1 day
 UI_DEBUG_RESET_FARM,Reset farm
 UI_DEBUG_ADD_SEEDS,Add 10 turnip seeds
 UI_DEBUG_CLEAR_INVENTORY,Clear inventory
+UI_DEBUG_SAVE,Save game
+UI_DEBUG_LOAD,Load game
 UI_INVENTORY_BUTTON_LABEL,Inventory
 UI_HOUSE_NEAR,Near home
 UI_HOUSE_FAR,Far from home
