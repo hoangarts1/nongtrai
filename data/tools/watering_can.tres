@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ToolData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/tool_data.gd" id="1_tool"]
+
+[resource]
+script = ExtResource("1_tool")
+tool_id = &"watering_can"
+action_id = &"water"
+reach_cells = 2

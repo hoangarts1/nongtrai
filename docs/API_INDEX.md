@@ -95,6 +95,23 @@ Format:
 - func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop placeholder for a cell
 - Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState.
 
+## ToolData  (scripts/data/tool_data.gd)
+- tool_id: StringName — stable tool identifier
+- action_id: StringName — domain action selected by the tool
+- reach_cells: int — maximum logical-cell reach
+- item_id: StringName — optional inventory item backing the tool
+
+## ToolAction  (scripts/domain/tool_action.gd)
+- static func is_in_reach(player_cell: Vector2i, target_cell: Vector2i, reach_cells: int) -> bool — checks Chebyshev grid reach
+- static func apply(tool_id: StringName, farm_state: FarmGridState, cell: Vector2i, crop_id: StringName) -> bool — applies hoe, water or seed action
+- Notes: pure domain dispatcher; inventory consumption and UI locks are handled by the view controller.
+
+## ToolActionController  (scripts/view/tool_action_controller.gd)
+- func configure(world: GrayBoxWorld, farm_state: FarmGridState, inventory: InventoryState, farm_view: Node, player: Player, inventory_panel: InventoryPanel, debug_menu: DebugMenu) -> void — wires world targeting and farm action state
+- func select_tool(tool_id: StringName) -> void — selects a data-defined tool action
+- func select_seed() -> void — selects seed planting
+- func get_selected_tool() -> StringName — returns the selected action
+
 ## ItemData  (scripts/data/item_data.gd)
 - item_id: StringName — stable data identifier
 - display_name: String — localized-ready display name

@@ -7,6 +7,7 @@ extends Node3D
 @onready var hud_button_bar = $HudButtonBar
 @onready var hotbar_panel = $HotbarPanel
 @onready var farm_view: Node3D = $GrayBoxWorld/FarmView
+@onready var tool_controller: Node = $ToolActionController
 var inventory
 var farm_state: FarmGridState
 
@@ -19,6 +20,10 @@ func _ready() -> void:
 	inventory_panel.configure(inventory, world.player)
 	hotbar_panel.configure(inventory)
 	farm_view.call("configure", farm_state)
+	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu)
+	hotbar_panel.register_tool(&"hoe", tr("UI_TOOL_HOE"), func() -> void: tool_controller.select_tool(&"hoe"))
+	hotbar_panel.register_tool(&"watering_can", tr("UI_TOOL_WATER"), func() -> void: tool_controller.select_tool(&"watering_can"))
+	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)
 	debug_menu.configure_inventory(inventory)
 	var _inventory_button: Button = hud_button_bar.register_button(
 		&"inventory",

@@ -1,9 +1,9 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (FarmView)
+Last updated: 2026-10-25 (ToolAction)
 
 ## Current milestone
-`4.2` — `FarmView` placeholder grid driven by `FarmGridState`. The full list is in `docs/ROADMAP.md`.
+`4.3` — ToolAction hoe/water/seed actions with hotbar selection and target highlighting. The full list is in `docs/ROADMAP.md`.
 
 ## Last commit / tag
 (none yet)
@@ -45,6 +45,9 @@ Last updated: 2026-10-25 (FarmView)
 - [x] Official runner discovers Godot at `D:\godot\Godot_v4.7.2-stable_win64.exe`, uses bounded non-debug runs, scans error text, and starts the main scene headless
 - [x] FarmGridState parse/runtime error fixed; 4.1 lifecycle tests pass
 - [x] FarmView builds a visible GridMath-aligned placeholder grid and updates soil/crop visuals from domain signals
+- [x] ToolData and ToolAction support hoe, watering and seed actions with reach checks
+- [x] Hotbar tool buttons select actions; target highlight distinguishes reachable and unreachable cells
+- [x] World tool input is handled through unhandled input and is blocked by inventory, debug menu and sleep
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -58,7 +61,7 @@ Last updated: 2026-10-25 (FarmView)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: implement 4.3 ToolAction for hoe, water and seed actions.
+- Next: implement 4.4 harvest-to-inventory with full-inventory protection.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.

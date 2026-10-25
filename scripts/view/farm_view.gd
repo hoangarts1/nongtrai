@@ -12,6 +12,7 @@ extends Node3D
 var _farm_state: FarmGridState
 var _cells: Dictionary = {}
 var _crops: Dictionary = {}
+var _highlight: MeshInstance3D
 
 func _ready() -> void:
 	_build_grid()
@@ -52,7 +53,35 @@ func _build_grid() -> void:
 			crop.visible = false
 			add_child(crop)
 			_crops[cell] = crop
+	_highlight = MeshInstance3D.new()
+	_highlight.name = "TargetHighlight"
+	var highlight_mesh: BoxMesh = BoxMesh.new()
+	highlight_mesh.size = Vector3(cell_size * 0.96, 0.02, cell_size * 0.96)
+	_highlight.mesh = highlight_mesh
+	_highlight.visible = false
+	add_child(_highlight)
 	_render_all()
+
+func set_hovered_cell(cell: Vector2i, visible: bool, in_reach: bool) -> void:
+	if _highlight == null:
+		return
+	_highlight.visible = visible
+	if not visible:
+		return
+	_highlight.position = GridMath.cell_to_world(cell) + Vector3(0.0, 0.10, 0.0)
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_color = Color(0.35, 0.90, 0.30, 0.65) if in_reach else Color(0.90, 0.25, 0.20, 0.65)
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_highlight.material_override = material
+
+func is_target_highlight_visible() -> bool:
+	return _highlight != null and _highlight.visible
+
+func is_target_in_reach() -> bool:
+	if _highlight == null or not _highlight.visible:
+		return false
+	var material: Material = _highlight.material_override
+	return material != null and (material as StandardMaterial3D).albedo_color.g > 0.5
 
 func _render_all() -> void:
 	for cell: Vector2i in _cells.keys():

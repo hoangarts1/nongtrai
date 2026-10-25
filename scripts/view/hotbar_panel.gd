@@ -9,6 +9,7 @@ signal slot_selected(slot_index: int)
 
 var _inventory
 var _slot_row: HBoxContainer
+var _tool_row: HBoxContainer
 var _selected_slot_index: int = -1
 
 func _ready() -> void:
@@ -38,6 +39,20 @@ func _build_ui() -> void:
 	_slot_row.name = "HBoxContainer"
 	_slot_row.add_theme_constant_override("separation", 4)
 	margin.add_child(_slot_row)
+	_tool_row = HBoxContainer.new()
+	_tool_row.name = "ToolRow"
+	_tool_row.add_theme_constant_override("separation", 4)
+	margin.add_child(_tool_row)
+
+func register_tool(tool_id: StringName, label: String, callback: Callable) -> Button:
+	var button: Button = Button.new()
+	button.name = "Tool_%s" % tool_id
+	button.text = label
+	button.toggle_mode = true
+	button.mouse_filter = Control.MOUSE_FILTER_STOP
+	button.pressed.connect(callback)
+	_tool_row.add_child(button)
+	return button
 
 func _on_inventory_changed(_slots: Array[Dictionary]) -> void:
 	_render_slots()

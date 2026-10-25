@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/view/inventory_panel.gd" id="5_inventory"]
 [ext_resource type="Script" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
 [ext_resource type="Script" path="res://scripts/view/hotbar_panel.gd" id="7_hotbar"]
+[ext_resource type="Script" path="res://scripts/view/tool_action_controller.gd" id="8_tool"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -94,3 +95,6 @@ offset_right = 390.0
 offset_bottom = -18.0
 theme_override_styles/panel = SubResource("Style_hotbar")
 script = ExtResource("7_hotbar")
+
+[node name="ToolActionController" type="Node" parent="."]
+script = ExtResource("8_tool")
