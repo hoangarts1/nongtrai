@@ -60,3 +60,25 @@ UI_DEBUG_LOAD,Tải game
 UI_INVENTORY_BUTTON_LABEL,Kho đồ
 UI_HOUSE_NEAR,Nhà gần
 UI_HOUSE_FAR,Nhà xa
+UI_PAUSE_TITLE,TẠM DỪNG
+UI_RESUME,Tiếp tục
+UI_SAVE,Lưu game
+UI_LOAD,Tải game
+UI_SETTINGS,Cài đặt
+UI_EXIT_MENU,Về màn hình chính
+UI_LANGUAGE,Ngôn ngữ
+UI_VIETNAMESE,Tiếng Việt
+UI_ENGLISH,Tiếng Anh
+UI_MUSIC_VOLUME,Âm lượng nhạc
+UI_EFFECTS_VOLUME,Âm lượng hiệu ứng
+UI_MAIN_NEW_GAME,Game mới
+UI_MAIN_CONTINUE,Tiếp tục
+UI_MAIN_EXIT,Thoát
+UI_PLAYER_NAME,Tên người chơi
+UI_FARM_NAME,Tên trang trại
+UI_DEFAULT_PLAYER,Người làm vườn
+UI_DEFAULT_FARM,Trang trại Mùa An Lành
+UI_CONFIRM,Đồng ý
+UI_CANCEL,Hủy
+UI_SAVED,Đã lưu
+UI_GAME_TITLE,The Life

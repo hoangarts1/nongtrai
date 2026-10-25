@@ -23,6 +23,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"inventory": payload.get("inventory", {}),
 		"farm": payload.get("farm", {}),
 		"quests": payload.get("quests", {})
+		,"profile": payload.get("profile", {})
 	}
 	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
 	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
@@ -62,6 +63,9 @@ func load_game(slot: int = 1) -> Dictionary:
 	if version > CURRENT_VERSION:
 		return {}
 	return _migrate(data, version)
+
+func has_save(slot: int = 1) -> bool:
+	return not load_game(slot).is_empty()
 
 func delete_save(slot: int = 1) -> void:
 	if slot < 0:

@@ -96,6 +96,7 @@ Format:
 - func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v1 envelope and atomically writes a JSON save with rotating backups
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
 - func delete_save(slot: int = 1) -> void — removes one save slot
+- func has_save(slot: int = 1) -> bool — reports whether a valid save exists
 - Notes: the autoload owns file I/O only; Main composes clock, player, inventory and farm state.
 
 ## TutorialQuestState  (scripts/domain/tutorial_quest_state.gd)

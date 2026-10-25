@@ -10,10 +10,14 @@ extends Node3D
 @onready var tool_controller: Node = $ToolActionController
 @onready var tutorial_panel: Node = $TutorialPanel
 @onready var quest_panel: Node = $QuestPanel
+@onready var pause_menu: PanelContainer = $PauseMenu
+@onready var start_menu: PanelContainer = $StartMenu
+@onready var toast: Label = $Toast
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
 var quest_state: Variant
+var profile: Dictionary = {}
 
 func _ready() -> void:
 	Localization.load_translations()
@@ -43,6 +47,10 @@ func _ready() -> void:
 	debug_menu.configure_inventory(inventory)
 	debug_menu.configure_farm(farm_state, farm_view)
 	debug_menu.configure_save_load(_save_game, _load_game)
+	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
+	start_menu.configure(_start_new_game, _continue_game, func() -> void: get_tree().quit())
+	start_menu.visible = not SaveService.has_save()
+	world.player.movement_enabled = not start_menu.visible
 	if not GameClock.day_started.is_connected(_on_day_started):
 		GameClock.day_started.connect(_on_day_started)
 	var _inventory_button: Button = hud_button_bar.register_button(
@@ -66,8 +74,14 @@ func _ready() -> void:
 
 func _on_day_started(_day_index: int) -> void:
 	day_simulator.call("simulate_day", farm_state)
+	_save_game_to_slot(0)
+	_show_toast(tr("UI_SAVED"))
 
 func _save_game() -> void:
+	_save_game_to_slot(1)
+	_show_toast(tr("UI_SAVED"))
+
+func _save_game_to_slot(slot: int) -> void:
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
 		"player": {
@@ -79,18 +93,23 @@ func _save_game() -> void:
 		},
 		"inventory": inventory.serialize(),
 		"farm": farm_state.serialize(),
-		"quests": quest_state.serialize()
+		"quests": quest_state.serialize(),
+		"profile": profile
 	}
-	SaveService.save_game(payload)
+	SaveService.save_game(payload, slot)
 
 func _load_game() -> void:
-	var payload: Dictionary = SaveService.load_game()
+	_load_game_from_slot(1)
+
+func _load_game_from_slot(slot: int) -> void:
+	var payload: Dictionary = SaveService.load_game(slot)
 	if payload.is_empty():
 		return
 	GameClock.deserialize(payload.get("clock", {}))
 	inventory.deserialize(payload.get("inventory", {}))
 	farm_state.deserialize(payload.get("farm", {}))
 	quest_state.deserialize(payload.get("quests", {}))
+	profile = payload.get("profile", {})
 	var player_data: Dictionary = payload.get("player", {})
 	var position_data: Dictionary = player_data.get("position", {})
 	if not position_data.is_empty():
@@ -99,3 +118,25 @@ func _load_game() -> void:
 			float(position_data.get("y", world.player.global_position.y)),
 			float(position_data.get("z", world.player.global_position.z))
 		)
+
+func _start_new_game(player_name: String, farm_name: String) -> void:
+	profile = {"player_name": player_name, "farm_name": farm_name}
+	world.player.movement_enabled = true
+	start_menu.visible = false
+	_save_game_to_slot(1)
+
+func _continue_game() -> void:
+	_load_game_from_slot(1)
+	start_menu.visible = false
+	world.player.movement_enabled = true
+
+func _return_to_start_menu() -> void:
+	pause_menu.close()
+	start_menu.visible = true
+	world.player.movement_enabled = false
+
+func _show_toast(message: String) -> void:
+	toast.text = message
+	toast.visible = true
+	var timer: SceneTreeTimer = get_tree().create_timer(1.5)
+	timer.timeout.connect(func() -> void: toast.visible = false)

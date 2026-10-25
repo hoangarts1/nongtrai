@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/view/tutorial_panel.gd" id="9_tutorial"]
 [ext_resource type="Script" path="res://scripts/view/quest_panel.gd" id="10_quest"]
 [ext_resource type="Theme" path="res://scenes/main/ui_theme.tres" id="11_theme"]
+[ext_resource type="Script" path="res://scripts/view/pause_menu.gd" id="12_pause"]
+[ext_resource type="Script" path="res://scripts/view/start_menu.gd" id="13_start"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -139,3 +141,42 @@ script = ExtResource("7_hotbar")
 
 [node name="ToolActionController" type="Node" parent="."]
 script = ExtResource("8_tool")
+
+[node name="PauseMenu" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -220.0
+offset_right = 180.0
+offset_bottom = 220.0
+theme = ExtResource("11_theme")
+theme_override_styles/panel = SubResource("Style_inventory")
+script = ExtResource("12_pause")
+
+[node name="StartMenu" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -220.0
+offset_right = 220.0
+offset_bottom = 220.0
+theme = ExtResource("11_theme")
+theme_override_styles/panel = SubResource("Style_inventory")
+script = ExtResource("13_start")
+
+[node name="Toast" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -205.0
+offset_right = 80.0
+offset_bottom = -175.0
+theme = ExtResource("11_theme")
+horizontal_alignment = 1
+visible = false
