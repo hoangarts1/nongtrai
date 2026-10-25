@@ -1,12 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (UI polish)
+Last updated: 2026-10-25 (NV0 verification)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
-`dbbb83e` — `fix: default UI language to Vietnamese`
+`2e9d625` — `fix: unify UI theme and modal layout`
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -61,6 +61,8 @@ Last updated: 2026-10-25 (UI polish)
 - [x] FarmView grid fits the brown FarmPlot and its projected centers avoid UI and the house at supported viewport sizes
 - [x] Vietnamese is the default locale; item and crop names use translation keys with complete English/Vietnamese CSV coverage
 - [x] Shared 14 px UI Theme, compact help modal, quest suppression and three-resolution all-panel layout tests
+- [x] Official runner verified after UI polish: 21 scripts, 61 tests, 61 passing, 1185 asserts
+- [x] Godot-generated `.uid` files are tracked project metadata and are not ignored
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
