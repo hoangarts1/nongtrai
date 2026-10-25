@@ -77,6 +77,7 @@ Format:
 - Notes: this is a data Resource; scripts must not contain crop balance numbers or rules.
 
 ## FarmGridState  (scripts/domain/farm_grid_state.gd)
+- func get_plot(cell: Vector2i) -> Dictionary — returns a defensive copy of one plot's current state
 - func till_cell(cell: Vector2i) -> bool — tills an unworked plot; returns false if the plot is already tilled
 - func plant_crop(cell: Vector2i, crop_id: StringName) -> bool — plants a crop on a tilled empty plot; returns false if invalid
 - func water_cell(cell: Vector2i) -> bool — marks the plot as watered when it is planted and needs water
@@ -87,6 +88,12 @@ Format:
 - func deserialize(data: Dictionary) -> void — restores plot state from the save payload
 - signal plot_changed(cell: Vector2i) — emitted whenever a plot mutates
 - Notes: does not touch UI; all view updates listen to signals from the world state.
+
+## FarmView  (scripts/view/farm_view.gd)
+- func configure(farm_state: FarmGridState) -> void — binds the placeholder view to the farm domain state
+- func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell
+- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop placeholder for a cell
+- Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState.
 
 ## ItemData  (scripts/data/item_data.gd)
 - item_id: StringName — stable data identifier

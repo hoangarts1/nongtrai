@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://scripts/view/camera_rig.gd" id="3_camera_rig"]
 [ext_resource type="Script" path="res://scripts/components/interaction_prompt.gd" id="4_prompt"]
+[ext_resource type="Script" path="res://scripts/view/farm_view.gd" id="5_farm"]
 
 [sub_resource type="Environment" id="Environment_world"]
 background_mode = 1
@@ -80,6 +81,9 @@ position = Vector3(0, -0.1, 0)
 [node name="FarmPlot" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_soil")
 position = Vector3(0.5, 0.04, 0.5)
+
+[node name="FarmView" type="Node3D" parent="."]
+script = ExtResource("5_farm")
 
 [node name="House" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_house")

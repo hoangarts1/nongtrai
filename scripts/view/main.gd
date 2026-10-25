@@ -6,15 +6,19 @@ extends Node3D
 @onready var inventory_panel: InventoryPanel = $InventoryPanel
 @onready var hud_button_bar = $HudButtonBar
 @onready var hotbar_panel = $HotbarPanel
+@onready var farm_view: Node3D = $GrayBoxWorld/FarmView
 var inventory
+var farm_state: FarmGridState
 
 func _ready() -> void:
 	Localization.load_translations()
 	if is_instance_valid(debug_menu):
 		debug_menu.configure(world.player)
 	inventory = preload("res://scripts/domain/inventory_state.gd").new()
+	farm_state = preload("res://scripts/domain/farm_grid_state.gd").new()
 	inventory_panel.configure(inventory, world.player)
 	hotbar_panel.configure(inventory)
+	farm_view.call("configure", farm_state)
 	debug_menu.configure_inventory(inventory)
 	var _inventory_button: Button = hud_button_bar.register_button(
 		&"inventory",

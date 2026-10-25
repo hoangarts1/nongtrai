@@ -15,6 +15,9 @@ signal plot_changed(cell: Vector2i)
 
 var _plots: Dictionary = {}
 
+func get_plot(cell: Vector2i) -> Dictionary:
+	return (_plots.get(cell, {}) as Dictionary).duplicate(true)
+
 func till_cell(cell: Vector2i) -> bool:
 	var plot: Dictionary = _plots.get(cell, {})
 	if plot.is_empty():
