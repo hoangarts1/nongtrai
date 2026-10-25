@@ -1,9 +1,9 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (Harvest)
+Last updated: 2026-10-25 (DaySimulator)
 
 ## Current milestone
-`4.4` — Harvest-to-inventory with atomic full-inventory protection. The full list is in `docs/ROADMAP.md`.
+`4.5` — DaySimulator v0 runs farm growth at the morning boundary. The full list is in `docs/ROADMAP.md`.
 
 ## Last commit / tag
 (none yet)
@@ -49,6 +49,8 @@ Last updated: 2026-10-25 (Harvest)
 - [x] Hotbar tool buttons select actions; target highlight distinguishes reachable and unreachable cells
 - [x] World tool input is handled through unhandled input and is blocked by inventory, debug menu and sleep
 - [x] Mature crops preview their harvest, deliver products to InventoryState, and remain planted when the full inventory blocks delivery
+- [x] DaySimulator advances only watered crops and dries plots; Main connects it to GameClock.day_started
+- [x] Debug menu includes seed, hoe-all, water-all, grow-one-day and reset-farm actions
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -62,7 +64,7 @@ Last updated: 2026-10-25 (Harvest)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: implement 4.5 DaySimulator v0 and connect it to the sleep/day transition.
+- Next: implement 4.6 Save/Load v1 for clock, player, inventory and farm state.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.

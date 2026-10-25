@@ -29,6 +29,11 @@ if not errorlevel 1 (
   echo [run_tests] ERROR TEXT FOUND
   exit /b 1
 )
+powershell -NoProfile -Command "$text = (Get-Content -Raw '%TEMP%\the_life_gut.log.stdout') + (Get-Content -Raw '%TEMP%\the_life_gut.log.stderr'); if ($text -notmatch '---- All tests passed! ----' -or $text -match 'Failing Tests\s+[1-9][0-9]*') { exit 1 }"
+if errorlevel 1 (
+  echo [run_tests] TEST SUMMARY FAILED
+  exit /b 1
+)
 echo [run_tests] starting main scene headless
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "--headless --path . --quit-after 120" -OutputPath "%TEMP%\the_life_main.log"
 set MAIN_EXIT=%ERRORLEVEL%

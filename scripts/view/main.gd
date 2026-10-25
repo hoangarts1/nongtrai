@@ -10,6 +10,7 @@ extends Node3D
 @onready var tool_controller: Node = $ToolActionController
 var inventory
 var farm_state: FarmGridState
+var day_simulator: Object
 
 func _ready() -> void:
 	Localization.load_translations()
@@ -17,6 +18,7 @@ func _ready() -> void:
 		debug_menu.configure(world.player)
 	inventory = preload("res://scripts/domain/inventory_state.gd").new()
 	farm_state = preload("res://scripts/domain/farm_grid_state.gd").new()
+	day_simulator = preload("res://scripts/domain/day_simulator.gd").new()
 	inventory_panel.configure(inventory, world.player)
 	hotbar_panel.configure(inventory)
 	farm_view.call("configure", farm_state)
@@ -26,6 +28,9 @@ func _ready() -> void:
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)
 	hotbar_panel.register_tool(&"harvest", tr("UI_TOOL_HARVEST"), func() -> void: tool_controller.select_tool(&"harvest"))
 	debug_menu.configure_inventory(inventory)
+	debug_menu.configure_farm(farm_state, farm_view)
+	if not GameClock.day_started.is_connected(_on_day_started):
+		GameClock.day_started.connect(_on_day_started)
 	var _inventory_button: Button = hud_button_bar.register_button(
 		&"inventory",
 		tr("UI_INV_BUTTON"),
@@ -37,3 +42,6 @@ func _ready() -> void:
 		hud_button_bar.set_button_active(&"inventory", is_open)
 	)
 	hud_button_bar.set_button_active(&"inventory", inventory_panel.visible)
+
+func _on_day_started(_day_index: int) -> void:
+	day_simulator.call("simulate_day", farm_state)

@@ -27,6 +27,12 @@ UI_TOOL_HOE,Hoe
 UI_TOOL_WATER,Water
 UI_TOOL_SEED,Seed
 UI_TOOL_HARVEST,Harvest
+UI_DEBUG_HOE_ALL,Hoe all plots
+UI_DEBUG_WATER_ALL,Water all plots
+UI_DEBUG_GROW_DAY,Grow crops 1 day
+UI_DEBUG_RESET_FARM,Reset farm
+UI_DEBUG_ADD_SEEDS,Add 10 turnip seeds
+UI_DEBUG_CLEAR_INVENTORY,Clear inventory
 UI_INVENTORY_BUTTON_LABEL,Inventory
 UI_HOUSE_NEAR,Near home
 UI_HOUSE_FAR,Far from home

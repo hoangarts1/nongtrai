@@ -10,6 +10,8 @@ var _actions: Array[Dictionary] = []
 var _action_buttons: VBoxContainer
 var _status_label: Label
 var _inventory
+var _farm_state: FarmGridState
+var _farm_view: Node
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -39,8 +41,16 @@ func configure(player_node: Player) -> void:
 
 func configure_inventory(inventory) -> void:
 	_inventory = inventory
-	register_action("Thêm 10 hạt củ cải", func() -> void: _inventory.add_item(&"turnip_seed", 10))
-	register_action("Xóa kho", func() -> void: _inventory.clear())
+	register_action(tr("UI_DEBUG_ADD_SEEDS"), func() -> void: _inventory.add_item(&"turnip_seed", 10))
+	register_action(tr("UI_DEBUG_CLEAR_INVENTORY"), func() -> void: _inventory.clear())
+
+func configure_farm(farm_state: FarmGridState, farm_view: Node) -> void:
+	_farm_state = farm_state
+	_farm_view = farm_view
+	register_action(tr("UI_DEBUG_HOE_ALL"), _hoe_all)
+	register_action(tr("UI_DEBUG_WATER_ALL"), _water_all)
+	register_action(tr("UI_DEBUG_GROW_DAY"), _grow_one_day)
+	register_action(tr("UI_DEBUG_RESET_FARM"), _reset_farm)
 
 func register_action(label: String, callback: Callable) -> void:
 	_actions.append({"label": label, "callback": callback})
@@ -106,6 +116,30 @@ func _start_next_day() -> void:
 func _move_near_house() -> void:
 	if _player != null:
 		_player.global_position = Vector3(5.5, 0.0, 2.5)
+
+func _hoe_all() -> void:
+	if _farm_state == null:
+		return
+	for z: int in range(6):
+		for x: int in range(6):
+			_farm_state.till_cell(Vector2i(x, z))
+
+func _water_all() -> void:
+	if _farm_state == null:
+		return
+	for z: int in range(6):
+		for x: int in range(6):
+			_farm_state.water_cell(Vector2i(x, z))
+
+func _grow_one_day() -> void:
+	if _farm_state == null:
+		return
+	var simulator: Object = preload("res://scripts/domain/day_simulator.gd").new()
+	simulator.call("simulate_day", _farm_state)
+
+func _reset_farm() -> void:
+	if _farm_state != null:
+		_farm_state.reset()
 
 func _update_status() -> void:
 	if _player == null:

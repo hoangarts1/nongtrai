@@ -114,6 +114,10 @@ Format:
 - func select_seed() -> void — selects seed planting
 - func get_selected_tool() -> StringName — returns the selected action
 
+## DaySimulator  (scripts/domain/day_simulator.gd)
+- func simulate_day(farm_state: FarmGridState) -> void — advances watered planted crops once and dries plots
+- Notes: called by the main game flow at GameClock.day_started; the domain owns no nodes or UI.
+
 ## ItemData  (scripts/data/item_data.gd)
 - item_id: StringName — stable data identifier
 - display_name: String — localized-ready display name
