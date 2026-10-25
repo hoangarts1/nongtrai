@@ -13,6 +13,8 @@ extends Node3D
 @onready var pause_menu: PanelContainer = $PauseMenu
 @onready var start_menu: PanelContainer = $StartMenu
 @onready var toast: Label = $Toast
+@onready var feedback: Label = $FeedbackPopup
+@onready var audio_service: Node = $AudioService
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
@@ -39,7 +41,8 @@ func _ready() -> void:
 	if get_tree().current_scene == self and SaveService.load_game().is_empty():
 		inventory.add_item(&"turnip_seed", 10)
 	farm_view.call("configure", farm_state)
-	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu)
+	feedback.configure(inventory)
+	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service)
 	hotbar_panel.register_tool(&"hoe", tr("UI_TOOL_HOE"), func() -> void: tool_controller.select_tool(&"hoe"))
 	hotbar_panel.register_tool(&"watering_can", tr("UI_TOOL_WATER"), func() -> void: tool_controller.select_tool(&"watering_can"))
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)

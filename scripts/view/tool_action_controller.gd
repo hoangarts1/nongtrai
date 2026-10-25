@@ -9,6 +9,8 @@ var _farm_view: Node
 var _player: Player
 var _inventory_panel: InventoryPanel
 var _debug_menu: DebugMenu
+var _feedback: Node
+var _audio: Node
 var _selected_tool: StringName = &"hoe"
 var _selected_crop: StringName = &"turnip"
 var _hovered_cell: Vector2i
@@ -21,7 +23,9 @@ func configure(
 	farm_view: Node,
 	player: Player,
 	inventory_panel: InventoryPanel,
-	debug_menu: DebugMenu
+	debug_menu: DebugMenu,
+	feedback: Node = null,
+	audio: Node = null
 ) -> void:
 	_world = world
 	_farm_state = farm_state
@@ -30,6 +34,8 @@ func configure(
 	_player = player
 	_inventory_panel = inventory_panel
 	_debug_menu = debug_menu
+	_feedback = feedback
+	_audio = audio
 
 func select_tool(tool_id: StringName) -> void:
 	var tool_data: Resource = DataRegistry.get_tool(tool_id)
@@ -72,24 +78,42 @@ func _use_selected_tool() -> void:
 	var crop_id: StringName = _selected_crop
 	if _selected_tool == &"seed":
 		if not _inventory.has_item(&"turnip_seed", 1):
+			_show_feedback("UI_FEEDBACK_NO_SEEDS")
 			return
 		if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, crop_id):
 			return
 		_inventory.remove_item(&"turnip_seed", 1)
+		_play_sound(&"seed")
 		return
-	ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &"")
+	if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &""):
+		_show_feedback("UI_FEEDBACK_NOT_READY")
+	else:
+		_play_sound(&"hoe" if _selected_tool == &"hoe" else &"water")
 
 func _harvest_selected_crop() -> void:
 	var payload: Dictionary = _farm_state.get_harvest_payload(_hovered_cell)
 	if not bool(payload.get("success", false)):
+		_show_feedback("UI_FEEDBACK_NOT_READY")
 		return
 	var product_item: StringName = payload.get("product_item", &"")
 	var quantity: int = int(payload.get("quantity", 0))
 	if not _inventory.can_add_item(product_item, quantity):
+		_show_feedback("UI_FEEDBACK_INVENTORY_FULL")
 		return
 	var result: Dictionary = _farm_state.harvest_cell(_hovered_cell)
 	if bool(result.get("success", false)):
 		_inventory.add_item(product_item, quantity)
+		_play_sound(&"harvest")
+	elif _farm_state.get_plot(_hovered_cell).is_empty():
+		_show_feedback("UI_FEEDBACK_NOT_READY")
+
+func _show_feedback(key: StringName) -> void:
+	if _feedback != null:
+		_feedback.call("show_message", tr(String(key)))
+
+func _play_sound(sound_id: StringName) -> void:
+	if _audio != null:
+		_audio.call("play_sound", sound_id)
 
 func _reach_for_selected_tool() -> int:
 	var tool_id: StringName = &"hoe" if _selected_tool == &"hoe" else &"watering_can"

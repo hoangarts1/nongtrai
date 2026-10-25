@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (pause and start menus)
+Last updated: 2026-10-25 (game-feel pass)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
@@ -64,6 +64,7 @@ Last updated: 2026-10-25 (pause and start menus)
 - [x] Official runner verified after UI polish: 21 scripts, 61 tests, 61 passing, 1185 asserts
 - [x] Godot-generated `.uid` files are tracked project metadata and are not ignored
 - [x] Pause menu, start menu, profile names, autosave slot 0 and save notification are implemented
+- [x] Game-feel feedback includes animated item/invalid-action messages, soil response, crop growth stages and optional AudioService
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.

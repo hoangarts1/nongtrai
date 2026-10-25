@@ -89,6 +89,13 @@ func _render_all() -> void:
 
 func _on_plot_changed(cell: Vector2i) -> void:
 	_render_cell(cell)
+	var soil: MeshInstance3D = get_cell_view(cell)
+	if soil == null:
+		return
+	soil.scale = Vector3.ONE
+	var tween: Tween = create_tween()
+	tween.tween_property(soil, "scale", Vector3(1.06, 0.82, 1.06), 0.08)
+	tween.tween_property(soil, "scale", Vector3.ONE, 0.12)
 
 func _render_cell(cell: Vector2i) -> void:
 	var soil: MeshInstance3D = get_cell_view(cell)
@@ -109,6 +116,14 @@ func _render_cell(cell: Vector2i) -> void:
 	soil.material_override = material
 	crop.visible = not crop_id.is_empty()
 	if crop.visible:
+		var crop_data: Resource = DataRegistry.get_crop(crop_id)
+		var growth_days: int = int(plot.get("growth_days", 0))
+		var required_days: int = maxi(1, int(crop_data.get("growth_days"))) if crop_data != null else 1
+		var growth_ratio: float = clampf(float(growth_days) / float(required_days), 0.0, 1.0)
+		var crop_size: float = lerpf(0.18, 0.52, growth_ratio)
+		crop.mesh = BoxMesh.new()
+		(crop.mesh as BoxMesh).size = Vector3(crop_size, 0.22 + crop_size, crop_size)
+		crop.position.y = 0.18 + crop_size * 0.5
 		var crop_material: StandardMaterial3D = StandardMaterial3D.new()
-		crop_material.albedo_color = Color(0.32, 0.75, 0.20, 1.0)
+		crop_material.albedo_color = Color(0.40, 0.82, 0.18, 1.0) if growth_ratio < 1.0 else Color(0.95, 0.78, 0.18, 1.0)
 		crop.material_override = crop_material

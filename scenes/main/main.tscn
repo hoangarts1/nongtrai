@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -13,6 +13,8 @@
 [ext_resource type="Theme" path="res://scenes/main/ui_theme.tres" id="11_theme"]
 [ext_resource type="Script" path="res://scripts/view/pause_menu.gd" id="12_pause"]
 [ext_resource type="Script" path="res://scripts/view/start_menu.gd" id="13_start"]
+[ext_resource type="Script" path="res://scripts/view/feedback_popup.gd" id="14_feedback"]
+[ext_resource type="Script" path="res://scripts/core/audio_service.gd" id="15_audio"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -180,3 +182,20 @@ offset_bottom = -175.0
 theme = ExtResource("11_theme")
 horizontal_alignment = 1
 visible = false
+
+[node name="FeedbackPopup" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 150.0
+offset_bottom = 10.0
+theme = ExtResource("11_theme")
+theme_override_colors/font_color = Color(1, 0.9, 0.45, 1)
+horizontal_alignment = 1
+script = ExtResource("14_feedback")
+
+[node name="AudioService" type="Node" parent="."]
+script = ExtResource("15_audio")

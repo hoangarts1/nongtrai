@@ -92,6 +92,12 @@ Format:
 - signal plot_changed(cell: Vector2i) — emitted whenever a plot mutates
 - Notes: does not touch UI; all view updates listen to signals from the world state.
 
+## AudioService  (scripts/core/audio_service.gd)
+- func play_sound(sound_id: StringName) -> void — plays `assets/audio/<id>.ogg` when present; missing files are silent
+
+## FeedbackPopup  (scripts/view/feedback_popup.gd)
+- func show_message(message: String) -> void — displays a short animated result message
+
 ## SaveService  (scripts/core/save_service.gd)
 - func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v1 envelope and atomically writes a JSON save with rotating backups
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
