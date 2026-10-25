@@ -170,6 +170,22 @@ Format:
 - func load_translations() -> bool — loads the Vietnamese and English CSV translations
 - Notes: player-facing item and crop names must reference translation keys rather than storing display text in Resources.
 
+## Settings  (scripts/core/settings.gd)
+- func get_locale() -> String — returns the saved locale, defaulting to Vietnamese
+- func set_locale(locale: String) -> void — persists and applies a locale
+- func get_music_volume() -> float — returns saved music volume
+- func set_music_volume(volume: float) -> void — clamps and persists music volume
+- func get_effects_volume() -> float — returns saved effects volume
+- func set_effects_volume(volume: float) -> void — clamps and persists effects volume
+
+## PauseMenu  (scripts/view/pause_menu.gd)
+- func open() -> void — pauses the game clock and locks player movement
+- func close() -> void — resumes the game clock and unlocks player movement
+- func toggle() -> void — toggles the pause overlay
+
+## StartMenu  (scripts/view/start_menu.gd)
+- func configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable) -> void — wires start-screen actions
+
 ## DataValidator  (scripts/core/data_validator.gd)
 - static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray — validates resource presence, unique snake_case IDs and positive stack limits
 - static func validate_item_paths(paths: Array[String]) -> PackedStringArray — loads and validates declared data paths

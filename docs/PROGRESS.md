@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (game-feel pass)
+Last updated: 2026-10-25 (MVP polish 1)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
@@ -65,6 +65,8 @@ Last updated: 2026-10-25 (game-feel pass)
 - [x] Godot-generated `.uid` files are tracked project metadata and are not ignored
 - [x] Pause menu, start menu, profile names, autosave slot 0 and save notification are implemented
 - [x] Game-feel feedback includes animated item/invalid-action messages, soil response, crop growth stages and optional AudioService
+- [x] NV1 pause/start menus include settings, profile naming, slot 0 autosave and save toast
+- [x] NV2 optional audio naming is documented in `CREDITS.md`; missing audio files are silent
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -77,13 +79,14 @@ Last updated: 2026-10-25 (game-feel pass)
 - Farm grid cells are inside the brown plot; red target highlighting means the selected tool is out of reach, green means usable.
 - Player-facing item and crop names are stored as translation keys and rendered through `tr()`; Vietnamese is selected on startup when no settings override exists.
 - UI uses `scenes/main/ui_theme.tres`; the help panel is limited to 36% viewport width and hides the quest panel while open.
+- Pause and start overlays use the same Theme and are included in the documented modal layout; start menu blocks world input until a game is started or continued.
 - While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- MVP farming-loop implementation is complete through 4.6; 4.7 game-feel polish remains outside this checkpoint.
+- MVP farming loop and the requested first polish pass are complete; final models and audio assets remain developer-supplied.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.
