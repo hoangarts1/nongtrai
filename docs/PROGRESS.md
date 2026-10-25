@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (Hotbar layout)
+Last updated: 2026-10-25 (Farm layout)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
@@ -58,6 +58,7 @@ Last updated: 2026-10-25 (Hotbar layout)
 - [x] New players receive turnip seeds and the farming checklist tracks domain events through harvest
 - [x] Onboarding checklist is included in save/load state
 - [x] Hotbar slots use contained key/name/quantity labels without overlap at all supported viewport sizes
+- [x] FarmView grid fits the brown FarmPlot and its projected centers avoid UI and the house at supported viewport sizes
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -67,6 +68,7 @@ Last updated: 2026-10-25 (Hotbar layout)
 - Placeholder geometry is allowed until the developer supplies final models.
 - HUD layout is documented in `docs/UI_LAYOUT.md`; prompt sits above the hotbar and inventory is centered with a close button.
 - Hotbar item slots use a two-row responsive container and reserve space above the bottom HUD regions.
+- Farm grid cells are inside the brown plot; red target highlighting means the selected tool is out of reach, green means usable.
 - While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)

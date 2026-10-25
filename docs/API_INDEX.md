@@ -128,6 +128,7 @@ Format:
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell
 - func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop placeholder for a cell
 - Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState.
+- Notes: the gray-box scene places the 6×6 grid inside the 6 m × 6 m `FarmPlot`; target green means reachable and red means outside tool reach.
 
 ## ToolData  (scripts/data/tool_data.gd)
 - tool_id: StringName — stable tool identifier

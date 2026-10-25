@@ -84,7 +84,8 @@ func _build_instruction_text() -> String:
 		tr("UI_HELP_HOTBAR") % _keys_for_hotbar(),
 		tr("UI_HELP_TOOL") % _key_for_action(&"use_tool"),
 		tr("UI_HELP_SLEEP") % _key_for_action(&"interact"),
-		tr("UI_HELP_INVENTORY") % _key_for_action(&"open_inventory")
+		tr("UI_HELP_INVENTORY") % _key_for_action(&"open_inventory"),
+		tr("UI_HELP_TARGET_COLORS")
 	]
 	if OS.is_debug_build():
 		lines.append(tr("UI_HELP_DEBUG") % _key_for_action(&"toggle_debug_menu"))

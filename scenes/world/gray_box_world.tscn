@@ -80,18 +80,18 @@ position = Vector3(0, -0.1, 0)
 
 [node name="FarmPlot" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_soil")
-position = Vector3(0.5, 0.04, 0.5)
+position = Vector3(3.0, 0.04, 3.0)
 
 [node name="FarmView" type="Node3D" parent="."]
 script = ExtResource("5_farm")
 
 [node name="House" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_house")
-position = Vector3(5.5, 1, 4.5)
+position = Vector3(11.0, 1, 10.0)
 
 [node name="BedMarker" type="Marker3D" parent="."]
 unique_name_in_owner = true
-position = Vector3(5.5, 0, 4.5)
+position = Vector3(11.0, 0, 10.0)
 
 [node name="Obstacle" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_obstacle")
@@ -106,14 +106,14 @@ unique_name_in_owner = true
 position = Vector3(8, 10, 8)
 rotation_degrees = Vector3(-35, 45, 0)
 projection = 1
-size = 14.0
+size = 18.0
 current = true
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
-position = Vector3(0.5, 0, 0.5)
+position = Vector3(3.5, 0, 3.5)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector3(0.5, 0, 0.5)
+position = Vector3(3.5, 0, 3.5)
 
 [node name="InteractionLayer" type="CanvasLayer" parent="."]
 

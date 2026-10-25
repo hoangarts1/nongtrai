@@ -21,6 +21,12 @@ GrayBoxWorld (Node3D)
 └─ PlayerSpawn (Marker3D)               %PlayerSpawn at cell (0,0) center = (0.5, 0, 0.5)
 ```
 
+## Farming gray-box placement
+
+- `FarmPlot` is a 6 m × 6 m placeholder centered at `(3, 0.04, 3)`.
+- `FarmView` owns cells `(0,0)` through `(5,5)`; their centers are `(0.5..5.5, 0, 0.5..5.5)`.
+- `House` and `%BedMarker` are at `(11, 0, 10)`, outside the farm footprint, so the initial farm view is not blocked by the house.
+
 ## @export variables
 | Variable | Type | Notes |
 |---|---|---|

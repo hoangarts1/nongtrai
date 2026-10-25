@@ -9,6 +9,7 @@ UI_HELP_HOTBAR,Chọn ô hotbar: %s
 UI_HELP_TOOL,Dùng công cụ: %s
 UI_HELP_SLEEP,Ngủ ở nhà: %s
 UI_HELP_INVENTORY,Mở kho đồ: %s
+UI_HELP_TARGET_COLORS,Ô xanh: dùng được; ô đỏ: ngoài tầm với
 UI_HELP_DEBUG,Debug menu: %s
 UI_HELP_DONT_SHOW,Không hiện lại
 UI_HELP_UNDERSTOOD,Đã hiểu

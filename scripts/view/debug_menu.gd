@@ -128,7 +128,7 @@ func _start_next_day() -> void:
 
 func _move_near_house() -> void:
 	if _player != null:
-		_player.global_position = Vector3(5.5, 0.0, 2.5)
+		_player.global_position = Vector3(11.0, 0.0, 8.0)
 
 func _hoe_all() -> void:
 	if _farm_state == null:
