@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/view/gray_box_world.gd" id="1_world"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/view/camera_rig.gd" id="3_camera_rig"]
+
+[sub_resource type="Environment" id="Environment_world"]
+background_mode = 1
+background_color = Color(0.28, 0.42, 0.56, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.7, 0.78, 0.9, 1)
+ambient_light_energy = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.34, 0.5, 0.28, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_ground"]
+size = Vector3(24, 0.2, 24)
+material = SubResource("Material_ground")
+
+[sub_resource type="BoxShape3D" id="Shape_ground"]
+size = Vector3(24, 0.2, 24)
+
+[sub_resource type="StandardMaterial3D" id="Material_soil"]
+albedo_color = Color(0.35, 0.2, 0.1, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_soil"]
+size = Vector3(6, 0.08, 6)
+material = SubResource("Material_soil")
+
+[sub_resource type="StandardMaterial3D" id="Material_house"]
+albedo_color = Color(0.52, 0.34, 0.2, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_house"]
+size = Vector3(3, 2, 3)
+material = SubResource("Material_house")
+
+[sub_resource type="BoxMesh" id="Mesh_obstacle"]
+size = Vector3(1, 1, 1)
+
+[node name="GrayBoxWorld" type="Node3D"]
+script = ExtResource("1_world")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_world")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, -30, 0)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("Mesh_ground")
+position = Vector3(0, -0.1, 0)
+
+[node name="GroundShape" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("Shape_ground")
+position = Vector3(0, -0.1, 0)
+
+[node name="FarmPlot" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_soil")
+position = Vector3(0.5, 0.04, 0.5)
+
+[node name="House" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_house")
+position = Vector3(5.5, 1, 4.5)
+
+[node name="Obstacle" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_obstacle")
+position = Vector3(-3.5, 0.5, 2.5)
+
+[node name="CameraRig" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_camera_rig")
+
+[node name="Camera" type="Camera3D" parent="CameraRig"]
+unique_name_in_owner = true
+position = Vector3(8, 10, 8)
+rotation_degrees = Vector3(-35, 45, 0)
+projection = 1
+size = 14.0
+current = true
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+position = Vector3(0.5, 0, 0.5)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector3(0.5, 0, 0.5)

@@ -1,0 +1,26 @@
+# Godot 4
+.godot/
+*.translation
+/build/
+/export/
+
+# Secrets (never commit)
+.env
+export_credentials.cfg
+*.key
+*.pem
+
+# Temp / OS
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# Editor extras (keep .vscode/settings.json if you want shared settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# NOTE: DO commit *.import files that sit next to assets. Only the .godot/ folder is ignored.

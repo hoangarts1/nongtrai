@@ -1,0 +1,3158 @@
+################################################################################
+#                                                                              #
+#   THE LIFE — THUNG LŨNG SỐNG                                                 #
+#   MASTER PLAN: KẾ HOẠCH TỔNG THỂ ĐỂ LÀM GAME BẰNG AI                         #
+#   (Godot 4 + GDScript + VS Code / Google Antigravity)                        #
+#                                                                              #
+#   Phiên bản tài liệu: 1.0  |  Ngày tạo: 24/10/2026                           #
+#   Hợp nhất từ 3 nguồn: (A) bản phân tích của một phiên Claude khác,           #
+#   (B) bản ý tưởng của Gemini, (C) bản ý tưởng của ChatGPT.                   #
+#                                                                              #
+################################################################################
+
+
+CÁCH DÙNG FILE NÀY
+------------------
+Đây là tài liệu "một file làm tất cả": từ ý tưởng, quyết định, hệ thống, flow chạy
+game, dữ liệu, kinh tế, kiến trúc, asset, quy trình làm việc với AI, lộ trình từng
+bước, cho tới mẫu file rules/prompt có thể copy thẳng vào dự án.
+
+- Chỉ có 10 phút:       đọc PHẦN 0, PHẦN 13, PHẦN 21.
+- Chuẩn bị bắt đầu:     đọc PHẦN 2, 3, 11, 12, 14, rồi làm theo PHẦN 21.
+- Đang làm, cần tra:    dùng mục lục bên dưới (mỗi PHẦN có tiêu đề rõ ràng).
+- Khi trao việc cho AI: copy khối prompt ở PHẦN 14, kèm 1 milestone ở PHẦN 13.
+
+Quy ước trong tài liệu:
+  [MẶC ĐỊNH ĐÃ CHỐT]  = mình đã chọn sẵn một hướng để bạn không bị kẹt. Bạn đổi được,
+                        nhưng phải ghi lại trong docs/DECISIONS.md và đổi trước mốc
+                        được ghi ở mục "Còn đổi được đến".
+  [GATE]              = cổng chất lượng. Chưa qua cổng thì KHÔNG làm tiếp phần sau.
+  [AI LÀM]            = việc phù hợp giao cho coding agent.
+  [BẠN LÀM]           = việc chỉ con người làm tốt (quyết định, chơi thử, đánh giá "vui").
+  [CHƯA CHẮC]         = chỗ mình không chắc chắn, cần bạn kiểm chứng (xem PHỤ LỤC C).
+
+
+MỤC LỤC
+-------
+  PHẦN 0   Tóm tắt một trang & thứ tự làm việc
+  PHẦN 1   Tầm nhìn hợp nhất (GDD v3): lấy gì từ 3 nguồn
+  PHẦN 2   Các quyết định đã chốt (DECISIONS)
+  PHẦN 3   Phạm vi: bản nào có gì, cái gì để sau
+  PHẦN 4   Cốt truyện đã hợp nhất & nhịp tiến trình
+  PHẦN 5   Chức năng chính: đặc tả từng hệ thống
+  PHẦN 6   Flow chạy của game (sơ đồ luồng)
+  PHẦN 7   Dữ liệu: schema + số liệu khởi điểm cho MVP
+  PHẦN 8   Kinh tế: mô hình, cân bằng, chống khai thác
+  PHẦN 9   Kiến trúc kỹ thuật Godot
+  PHẦN 10  Pipeline asset (3D, UI, âm thanh, asset do AI tạo)
+  PHẦN 11  Chuẩn bị trước khi code (Giai đoạn 0)
+  PHẦN 12  Quy trình làm việc với AI agent (VS Code + Antigravity)
+  PHẦN 13  Lộ trình milestone chi tiết (làm phần nào trước)
+  PHẦN 14  Bộ file docs & mẫu prompt sẵn dùng (copy-paste)
+  PHẦN 15  Rủi ro & nút cổ chai kỹ thuật
+  PHẦN 16  Test, QA, playtest
+  PHẦN 17  Social bất đồng bộ & backend (giai đoạn sau)
+  PHẦN 18  Danh sách "ĐỪNG LÀM"
+  PHẦN 19  Checklist tổng (trước / trong / sau)
+  PHẦN 20  Phát hành, pháp lý, hậu kỳ
+  PHẦN 21  24 giờ đầu tiên & câu hỏi còn mở
+  PHỤ LỤC A  Nội dung gốc cần giữ (kịch bản 3 phút, NPC, mùa, thời tiết)
+  PHỤ LỤC B  Thuật ngữ
+  PHỤ LỤC C  Những điều chưa chắc chắn / cần bạn kiểm chứng
+
+
+================================================================================
+PHẦN 0 — TÓM TẮT MỘT TRANG & THỨ TỰ LÀM VIỆC
+================================================================================
+
+0.1  GAME LÀ GÌ
+The Life (Thung Lũng Sống) là game mô phỏng nông trại/cuộc sống 2.5D, góc nhìn đẳng
+phối (isometric), phong cách 3D cách điệu ấm áp, làm bằng Godot 4. Người chơi nhận
+một mảnh đất cũ của bà, trồng trọt, chế biến, xây dựng, kết bạn với dân làng và dần
+phục hồi cả Thung Lũng Mùa. Điểm khác biệt: thế giới NHỚ những gì bạn làm (sinh thái
+thay đổi nhìn thấy được), có một "Cỗ máy Mùa" cổ ở trạm quan trắc phản ứng theo cách
+bạn chơi, và (về sau) chơi cùng bạn bè theo kiểu bất đồng bộ.
+
+0.2  VÒNG LẶP LÕI (thứ phải VUI trước mọi thứ khác)
+  Thức dậy -> xem thời tiết -> cuốc/gieo/tưới -> làm việc khác (khám phá, NPC, xây)
+  -> thu hoạch -> chế biến/bán/giao đơn -> nhận coin -> tái đầu tư (hạt giống, máy,
+  mở đất, trang trí) -> ngủ -> sáng hôm sau thấy tiến bộ.
+
+0.3  CÔNG THỨC THÀNH CÔNG CHO DỰ ÁN "THUẦN AI"
+  - AI viết code RẤT nhanh, nhưng AI không biết game có vui hay không, không tự đảm
+    bảo các lần sinh code khác nhau chạy khớp nhau, và hay "bịa" node path / API.
+  - Vì vậy: BẠN làm người chốt quyết định + giám đốc sản phẩm + tester. AI làm lập
+    trình viên chạy theo hợp đồng bằng văn bản (docs), chia việc cực nhỏ, có test chạy
+    bằng dòng lệnh, commit trước/sau mỗi task.
+  - Mọi thứ trong tài liệu này phục vụ đúng một mục đích: biến việc "làm game" thành
+    chuỗi task nhỏ, kiểm tra được, không phá được cái đã chạy.
+
+0.4  THỨ TỰ LÀM VIỆC (bản rút gọn của PHẦN 13)
+
+  GIAI ĐOẠN CHUẨN BỊ (làm TRƯỚC khi mở Godot viết gameplay)
+    P-1  Đọc tài liệu này, chốt các quyết định (PHẦN 2) vào docs/DECISIONS.md
+    P-2  SPIKE ASSET 1 tuần: chứng minh bạn có thể có 1 nhân vật + 1 ô đất + 1 cây
+         đúng góc camera (PHẦN 10.9). Nếu không -> cân nhắc chuyển 2D hoặc dùng asset
+         CC0 trước.
+    P-3  Cài công cụ, tạo repo, viết bộ docs/rules (PHẦN 11, 14)
+
+  GIAI ĐOẠN CODE
+    Phase 0   Nền móng: repo, test headless, InputMap, GridMath, gray-box
+    Phase 1   Nhân vật: di chuyển, va chạm, camera, state machine, tương tác
+    Phase 2   Thời gian: GameClock, HUD
+    Phase 3   Kho & dữ liệu: ItemData, Registry, Validator, Inventory, Hotbar
+    Phase 4   Nông nghiệp: domain thuần -> view -> công cụ -> thu hoạch -> SAVE
+    ===> [GATE A] "Vòng lặp trồng-thu có vui không?" (chơi 10-15 phút, tự đánh giá)
+    Phase 5   Kinh tế: EconomyService, cửa hàng, đơn hàng, script mô phỏng
+    Phase 6   Sản xuất & xây dựng: máy chế biến, OccupancyMap, build mode
+    Phase 7   Thế giới sống: thời tiết seeded, ngày/đêm, sinh thái, EventDirector v0
+    Phase 8   NPC, hội thoại, nhiệm vụ, lịch NPC
+    Phase 9   Vertical slice + playtest với người lạ
+    ===> [GATE B] "Người lạ chơi 30 phút có muốn chơi tiếp không?"
+    Phase 10  Social bất đồng bộ (CHỈ khi Gate B đạt)
+    Phase 11+ Offline progress, mở rộng nội dung, đánh bóng, phát hành
+
+0.5  KỲ VỌNG THỜI GIAN (ước đoán thô, [CHƯA CHẮC])
+  Giả sử 10-15 giờ/tuần, dùng agent hằng ngày (số giờ theo bảng ở PHẦN 13): Phase 0-4 mất
+  ~2-5 tháng (120-225 giờ); đến vertical slice (Phase 9) khoảng 7-18 tháng (430-765 giờ,
+  chưa tính Phase P chuẩn bị ~20-40 giờ); social + đánh bóng + phát hành thêm vài tháng đến
+  hơn một năm tùy phạm vi bạn giữ lại.
+  Con số này sẽ lệch thật nhiều tùy kinh nghiệm và số lần agent làm hỏng thứ đã chạy.
+  Hãy đo "số milestone hoàn thành/tuần" trong 4 tuần đầu rồi tự tính lại.
+
+0.6  BA ĐIỀU QUAN TRỌNG NHẤT
+  1) Chốt quyết định trước khi code (PHẦN 2). Đổi 2D/3D hay nền tảng giữa chừng là
+     cách nhanh nhất để mất vài tháng.
+  2) Domain (logic thuần) tách khỏi View (hiển thị) ngay từ commit đầu. Đây là thứ
+     làm cho save/load, test, offline và multiplayer sau này KHÔNG phải viết lại.
+  3) Một task = một hệ thống nhỏ = có tiêu chí nghiệm thu = có test chạy bằng lệnh.
+
+
+================================================================================
+PHẦN 1 — TẦM NHÌN HỢP NHẤT (GDD v3): LẤY GÌ TỪ 3 NGUỒN
+================================================================================
+
+1.1  BẢNG ĐỐI CHIẾU NGUỒN
+
+  NGUỒN C (ChatGPT) — dùng làm THÂN của tài liệu:
+    Giữ: tầm nhìn, 4 trụ cột, 5 điểm khác biệt, cốt truyện gốc + 3 chương, vòng lặp
+    ngày, nông trại + xây dựng, thời tiết/ngày đêm/4 mùa, kinh tế coin, 6-8 NPC,
+    social 3 cấp, bản đồ mở dần, khoảnh khắc WOW, kịch bản 3 phút đầu, 5 giai đoạn
+    tiến trình, định hướng nghệ thuật/âm thanh, cấu trúc thư mục, phạm vi bản đầu,
+    danh sách "chưa nên làm".
+    Lý do: có phạm vi MVP rõ, có tiêu chí nghiệm thu trong prompt, không phóng đại.
+
+  NGUỒN B (Gemini) — chỉ lấy 3 ý hay, đã "thuần hóa":
+    Giữ 1) Bộ điều phối sự kiện theo cách chơi (Director) -> đổi tên EventDirector,
+            rule-based, KHÔNG gọi là AI, bật từ Chương II.
+    Giữ 2) Cần coin sink lặp lại để chống lạm phát -> giữ ý, thay bằng sink không
+            phạt người vắng mặt (trang trí, mở rộng, nâng cấp, lễ hội, cosmetics).
+    Giữ 3) Multiplayer bất đồng bộ trước, real-time để rất sau.
+    Giữ 4) Twist cốt truyện "cỗ máy thời tiết ở trạm quan trắc" -> trình bày kiểu cơ khí
+            đồng hồ bằng đồng ("Cỗ máy Mùa"), không dùng ngôn ngữ sci-fi/"lõi AI".
+    BỎ/HOÃN: "Chuyến đi bí ẩn" kiểu roguelite (hoãn sau 1.0 dưới dạng thám hiểm bản đồ
+            vẽ tay); phí bảo trì hàng tuần (phạt người vắng mặt, mâu thuẫn "không cần
+            online"); "đơn hàng AI tự sinh" (thay bằng công thức có trần);
+            CharacterBody2D (vì hướng kỹ thuật chọn 3D); emit_signal bằng chuỗi;
+            ghi chú sai về move_and_slide(velocity) (Godot 4 không nhận tham số).
+
+  NGUỒN A (phân tích Claude) — dùng làm KHUNG KỸ THUẬT:
+    Giữ: 8 quyết định phải chốt, danh sách lỗ hổng (vòng lặp ngày, kinh tế, Director,
+    async), 11 lỗ khai thác kinh tế E1-E11 (bản này mở rộng thành E1-E18 ở mục 8.5), pipeline asset 3D, kiến trúc 3 tầng, bộ
+    docs cho agent, milestone siêu nhỏ, prompt nền cải tiến, danh sách ĐỪNG LÀM.
+
+1.2  CÁC MÂU THUẪN ĐÃ ĐƯỢC GIẢI QUYẾT
+  M1  Thời tiết trừng phạt hay không?
+      -> KHÔNG trừng phạt ngầm. Áp lực (gió bụi, mưa lớn) luôn có: báo trước 1-3 ngày
+         (khi có trạm quan trắc), giải thích nguyên nhân (nhật ký sinh thái), và có
+         cách đối phó cụ thể. Không có sự kiện nào phá hủy mùa màng; hậu quả tối đa là
+         tăng nhu cầu tưới / có vật cản tạm thời / tạm giảm thưởng phụ.
+  M2  Nguyên nhân cơn bão năm xưa (trạm bị bão phá, hay trạm gây ra bão)?
+      -> HỢP NHẤT: trạm là Cỗ máy Mùa. Người ta khai thác quá mức (chặt rừng, lấp suối),
+         cảm biến của cỗ máy đọc thấy mất cân bằng nên nó "chỉnh quá tay" tạo ra cơn bão
+         lớn; cơn bão đó đồng thời phá hỏng chính trạm và hệ kênh tưới. Cả hai file đều
+         đúng, chỉ là hai nửa của một chuỗi nhân quả.
+  M3  Multiplayer 3 cấp (real-time) hay chỉ async?
+      -> Async. Cấp 3 (real-time) chuyển vào "Rất sau / có thể không bao giờ".
+  M4  "AI Director" hay rule-based?
+      -> Rule-based, đặt tên EventDirector. Cấm gắn LLM lúc chạy game.
+  M5  2D hay 3D?
+      -> 3D thật với Camera3D orthographic (xem D01). Mọi chỗ nhắc CharacterBody2D
+         đổi thành CharacterBody3D.
+  M6  Hay Day (mobile) hay WASD (PC)?
+      -> PC trước (xem D02). Cảm hứng Hay Day = tinh thần sản xuất/đơn hàng, không phải
+         nền tảng.
+  M7  "Cây vẫn lớn khi offline" vs "ngủ để qua ngày" vs "ngày 20-30 phút".
+      -> Tách 3 loại thời gian và chốt mô hình (xem D03).
+  M8  File B bỏ rơi nhiều thứ của File C (NPC, build mode, trang trí, 4 mùa).
+      -> Khôi phục toàn bộ, đưa trang trí/mở rộng/nâng cấp vào danh sách coin sink.
+
+1.3  CÂU GIỚI THIỆU MỘT DÒNG (pitch)
+  "Trở về Thung Lũng Mùa, biến mảnh đất bà để lại thành nhà — và nhìn cả thung lũng
+   hồi sinh theo từng việc bạn làm."
+
+1.4  BỐN TRỤ CỘT
+  1. Nông trại: trồng cây, chăn nuôi, sản xuất, kinh doanh.
+  2. Nhân vật tự do: đi bộ, chạy, khám phá, trực tiếp tương tác (không phải chạm icon).
+  3. Thế giới sống: ngày đêm, bốn mùa, mưa nắng, hệ sinh thái nhớ hành động bạn.
+  4. Cộng đồng: dân làng trước, bạn bè (bất đồng bộ) sau.
+
+1.5  NĂM ĐIỂM KHÁC BIỆT (USP)
+  U1  Bắt đầu từ con số 0 — mọi tiến bộ NHÌN THẤY được trên bản đồ.
+  U2  Bạn thực sự sống trong trang trại (nhân vật điều khiển trực tiếp, công cụ có
+      animation riêng, thú cưng, thay trang phục).
+  U3  Thế giới nhớ những gì bạn làm (sinh thái: suối trong hơn, bướm/ong/chim quay về).
+  U4  Cỗ máy Mùa & EventDirector: tình huống sinh ra theo cách bạn chơi, luôn có báo
+      trước/giải thích/đối phó.
+  U5  Giàu lên cùng bạn bè (bất đồng bộ: thăm trang trại, quà, dự án cộng đồng).
+
+1.6  MƯỜI NGUYÊN TẮC THIẾT KẾ XUYÊN SUỐT (dán lên tường)
+  N1  Mỗi hành động phải có ý nghĩa.
+  N2  Mọi thành quả phải nhìn thấy được trên bản đồ, không chỉ là số.
+  N3  Người chơi tự định nghĩa cuộc sống (thương nhân, người làm vườn, nhà sưu tầm...).
+  N4  Áp lực luôn có: báo trước -> giải thích -> cách đối phó. Không phạt ngầm.
+  N5  Chơi một mình phải TRỌN VẸN. Social là phần thưởng, không phải điều kiện.
+  N6  Không phạt người vắng mặt (không máy hỏng, không cây chết, không nợ).
+  N7  Thưởng sự đa dạng; không phạt phong cách chuyên môn hóa.
+  N8  Dữ liệu tách khỏi logic; logic tách khỏi hiển thị.
+  N9  Mô phỏng phải tất định (cùng seed -> cùng kết quả) để test và chống save-scum.
+  N10 Vui trước, đẹp sau. Đừng đánh bóng thứ chưa vui.
+
+1.7  ĐỊNH HƯỚNG NGHỆ THUẬT (tóm tắt, chi tiết ở PHẦN 10)
+  - 3D cách điệu, camera đẳng phối cố định, ánh sáng mềm, nhân vật đầu hơi to.
+  - Ban ngày ấm; ban đêm xanh tím + đèn vàng; mưa dịu; thu vàng cam.
+  - Tránh cây/nhà che hoàn toàn nhân vật (dùng dithering/fade).
+  - Âm thanh theo khu vực + theo giờ + theo thời tiết; tiếng công cụ rõ ràng.
+
+
+================================================================================
+PHẦN 2 — CÁC QUYẾT ĐỊNH ĐÃ CHỐT (DECISIONS)
+================================================================================
+
+Chép toàn bộ PHẦN này vào docs/DECISIONS.md (mẫu ở PHẦN 14). Mỗi quyết định có:
+mặc định đã chốt, lý do, hệ quả, và "còn đổi được đến" (mốc sau đó đổi rất đắt).
+
+----------------------------------------------------------------------
+D01  Hướng kỹ thuật: 2D hay 3D                         [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: 3D thật + Camera3D orthographic, lưới logic 2D (Vector2i) ánh xạ lên mặt phẳng
+XZ. Aseprite chỉ dùng cho icon UI/texture pixel, không dùng làm sprite thế giới.
+Lý do: ánh sáng ngày/đêm/mưa/bóng đổ; depth buffer giải quyết thứ tự vẽ (tránh ác mộng
+Z-sort của isometric 2D); công trình nhiều ô không bị lỗi y-sort; nguồn asset 3D CC0
+dồi dào.
+Rủi ro: pipeline asset 3D nặng hơn 2D với người làm một mình.
+Điều kiện quay đầu (quy tắc "spike"): nếu sau SPIKE ASSET (PHẦN 10.9) bạn không tạo/lấy
+được 1 nhân vật + 1 cây + 1 ô đất đúng tỉ lệ & góc camera trong ~1 tuần, thì chuyển
+phương án 2D (PHẦN 10.8). Phải quyết định XONG TRƯỚC Phase 0.4.
+Còn đổi được đến: trước khi bắt đầu Phase 0.4 (gray-box). Sau đó gần như không đổi.
+
+----------------------------------------------------------------------
+D02  Nền tảng                                          [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: PC (Windows trước; Linux/macOS xuất thêm sau nếu muốn). Điều khiển WASD + chuột.
+Mobile là một dự án khác (UI, hiệu năng, input, kích thước nút...). Phát hành dự kiến:
+Steam (và/hoặc itch.io để thử nghiệm).
+Còn đổi được đến: trước Phase 1 (di chuyển/camera/input).
+
+----------------------------------------------------------------------
+D03  Mô hình thời gian                                 [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Có BA loại thời gian, không được trộn:
+  (1) Thời gian thực của người chơi (phút/giờ ngoài đời).
+  (2) Giờ trong game: đồng hồ chạy từ 06:00 đến 26:00 (tức 02:00 sáng hôm sau).
+      Một ngày game = DAY_REAL_SECONDS giây thực. Mặc định 720 giây (12 phút), là
+      THAM SỐ trong data (không hardcode), để cân bằng sau.
+  (3) Bộ đếm sinh trưởng/máy móc: tính theo day_index (số ngày game) và tổng phút game,
+      KHÔNG cộng delta mỗi frame cho từng cây.
+Quy tắc:
+  - Cây lưu planted_day; giai đoạn là giá trị suy ra từ ngày. Máy chế biến lưu
+    finish_at_total_minutes (= day_index*1440 + phút). Ngủ nhảy ngày thì mọi thứ tự
+    hoàn thành đúng.
+  - Đóng game = THẾ GIỚI TẠM DỪNG (MVP). Không có chỉnh giờ máy để khai thác, không cần
+    catch-up phức tạp.
+  - Chỉ có MỘT đường mô phỏng: simulate_day(). Ngủ, qua ngày bình thường, và (sau này)
+    offline catch-up đều gọi lặp lại đúng hàm này.
+  - "Offline progress kiểu Hay Day" (cây/máy tiếp tục chạy khi đóng game) = Phase 11,
+    tùy chọn, có trần (ví dụ tối đa 5 ngày game mỗi lần mở), sự kiện tiêu cực TẮT khi
+    offline, phát hiện giờ lùi. Kiến trúc từ đầu đã sẵn sàng nên không viết lại.
+Còn đổi được đến: trước Phase 2 (GameClock).
+
+----------------------------------------------------------------------
+D04  Ai nắm quyền dữ liệu (authority)                  [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: thế giới LOCAL-AUTHORITATIVE (save nằm máy người chơi). Server chỉ phục vụ lớp
+social KHÔNG mang tính kinh tế cạnh tranh: quà cosmetic, lời nhắn câu mẫu, snapshot
+thăm trang trại, dự án cộng đồng có trần, bảng vinh danh nhãn "casual".
+Vì sao: nếu client tự báo cáo coin/vật phẩm lên server thì sửa file save là có 9999 vật
+phẩm hiếm để bán. Lựa chọn (b) trong phân tích A: an toàn nhất cho MVP. Mức (a) "chấp
+nhận và siết trần" cho bản sau. Mức (c) "server nắm toàn bộ" quá đắt -> tránh.
+Còn đổi được đến: trước Phase 10.
+
+----------------------------------------------------------------------
+D05  Mô hình kiếm tiền                                 [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: Premium (mua một lần). Không IAP, không tiền premium, không gacha, không quảng
+cáo. Kinh tế chỉ có Coin (+ có thể một chỉ số "danh tiếng/phát triển cộng đồng" không
+phải tiền).
+Lý do: đơn giản hóa cân bằng kinh tế và chi phí server; hợp "cozy".
+Còn đổi được đến: trước Phase 5 (kinh tế).
+
+----------------------------------------------------------------------
+D06  Triết lý áp lực/thời tiết                         [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: "Báo trước - Giải thích - Đối phó". Không sự kiện nào phá hủy mùa màng hay phạt
+người AFK/vắng mặt. Xem PHẦN 5 (S12-S14).
+
+----------------------------------------------------------------------
+D07  Ngôn ngữ                                          [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: Tiếng Việt + Tiếng Anh. Mọi chuỗi hiển thị qua tr() và file dịch (CSV/PO) ngay từ
+ngày đầu; id chuỗi dạng KEY_SNAKE (ví dụ ITEM_WHEAT_NAME). Font phải hỗ trợ đầy đủ dấu
+tiếng Việt (kiểm tra ngay Phase 0: gõ "Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ" lên một Label).
+Còn đổi được đến: trước Phase 3 (UI/Hotbar); thêm ngôn ngữ mới thì lúc nào cũng được.
+
+----------------------------------------------------------------------
+D08  Phiên bản Godot & renderer                        [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: khóa MỘT bản Godot 4.x stable (bản stable mới nhất tại thời điểm bắt đầu), ghi số
+chính xác vào PROJECT_RULES.md, không nâng cấp giữa dự án trừ bản vá (patch) khi cần.
+Khi mình tra cứu (24/10/2026) có nguồn nhắc tới 4.6.1 (02/2026) và 4.7.x; số liệu có
+thể đã đổi -> HÃY VÀO godotengine.org/download XEM BẢN STABLE MỚI NHẤT RỒI GHI LẠI.
+Renderer: chọn một trong Forward+ / Mobile / Compatibility rồi KHÓA. Gợi ý: Forward+ nếu
+nhắm PC tầm trung trở lên và muốn ánh sáng đẹp; Compatibility nếu muốn chạy máy yếu.
+Đổi renderer = đổi shader, ánh sáng, hậu kỳ.
+Lưu ý API thay đổi giữa các bản (ví dụ TileMapLayer từ 4.3; typed Dictionary từ 4.4):
+mọi gợi ý code trong tài liệu này phải được agent kiểm tra theo ĐÚNG bản bạn khóa.
+
+----------------------------------------------------------------------
+D09  Điều khiển                                        [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: WASD di chuyển (tương đối camera). Chuột chọn ô trong tầm với (reach = 2 ô quanh
+người, hiển thị highlight). Phím/chuột dùng công cụ: use_tool. Hotbar phím 1-9, lăn
+chuột đổi công cụ. Gamepad: để sau (Phase 11+) nhưng InputMap đặt tên action chuẩn từ đầu.
+
+----------------------------------------------------------------------
+D10  "Nút thắt" mỗi ngày (đơn vị khan hiếm)            [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Vấn đề (từ phân tích A): nếu không có giới hạn thì người chơi "làm hết rồi ngủ".
+Chốt (MVP, không có stamina, không có "chết vì kiệt sức"):
+  1. Số ô đất canh tác (bị khóa bởi mở rộng đất bằng coin/nhiệm vụ).
+  2. Sức chứa bình tưới (ví dụ 20 ô; nâng cấp được; đổ đầy ở giếng/suối). Giải pháp
+     tự động hóa (vòi phun/kênh) mở khóa ở Chương II để bớt việc vặt.
+  3. Giờ trong ngày: 02:00 là hết ngày; ngủ muộn không phạt nặng (chỉ dậy muộn hơn một
+     chút, không mất đồ).
+  4. Đơn hàng làm mới theo ngày, số slot máy chế biến, thời gian chạy máy.
+  5. Kho có giới hạn (nâng cấp kho là coin sink).
+Tùy chọn Phase 11: thanh năng lượng nhẹ (stamina) nếu playtest cho thấy thiếu nút thắt.
+
+----------------------------------------------------------------------
+D11  Lý do ở lại ban đêm / không ngủ ngay              [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Nếu ngủ lúc nào cũng được thì "ngày dài" vô nghĩa. Cần thứ chỉ có theo giờ:
+  - Thương nhân Minh ở chợ 17:00-22:00 (một số ngày trong tuần).
+  - Cá/đom đóm/côn trùng phát sáng/vật phẩm sưu tầm chỉ xuất hiện ban đêm.
+  - NPC theo lịch (An mở tiệm 07:00-18:00; Lâm ở xưởng đến 17:00; Linh ở rừng buổi chiều...).
+  - Máy chế biến hoàn thành đúng giờ (để lấy trong ngày), đơn hàng có hạn giờ cuối ngày.
+  - Sự kiện lễ hội theo giờ.
+
+----------------------------------------------------------------------
+D12  Tên gọi & thuật ngữ                               [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+  - Trong game (player-facing): "Cỗ máy Mùa" / "Bánh răng của Mùa". Không dùng từ "AI".
+  - Trong code/docs: EventDirector (hệ thống chọn sự kiện), WeatherService, EcologyState.
+  - Cấm gọi hệ thống rule-based là "AI" trong code và tài liệu. Cấm gắn LLM lúc chạy.
+
+----------------------------------------------------------------------
+D13  Camera                                            [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Chốt: Camera3D projection = orthogonal; yaw 45 độ; pitch nhìn xuống khoảng 35-40 độ
+(chọn MỘT cặp giá trị ở Phase 0.4, ghi vào PROJECT_RULES). Khóa trước khi làm asset
+vì bóng, chiều cao model, UI chọn ô đều phụ thuộc góc này. Zoom: cho phép 2-3 mức nhỏ,
+không xoay tự do ở MVP (xoay camera sẽ phá việc che khuất/asset hướng).
+
+----------------------------------------------------------------------
+D14  Kích thước ô lưới                                 [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+1 ô logic = 1 x 1 mét (1 đơn vị Blender = 1 mét Godot). Nhân vật cao ~1,2-1,5 ô.
+Công trình khai báo footprint bằng Vector2i trong data.
+
+----------------------------------------------------------------------
+D15  Chat/nội dung người dùng                          [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Không có chat tự do. Chỉ lời nhắn dạng câu mẫu (chọn sẵn) và emote. Nếu sau này cho
+nhập tự do thì bắt buộc có lọc/kiểm duyệt + nút báo cáo.
+
+----------------------------------------------------------------------
+D16  Công cụ làm việc                                  [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+  - Godot Editor: dựng scene, gán Inspector, chạy game.
+  - VS Code (hoặc Antigravity) là trình soạn code bên ngoài; agent viết script/.tres.
+  - Git + GitHub (private) cho phiên bản; Git LFS cho asset nhị phân lớn.
+  - Test: chọn MỘT trong GUT hoặc gdUnit4 (không dùng cả hai).
+  - Lint/format: gdtoolkit (gdlint, gdformat) nếu hợp bản Godot đã khóa.
+
+----------------------------------------------------------------------
+D17  Chính sách Director & Cỗ máy Mùa                  [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+  - Chương I: Cỗ máy "ngủ" (hỏng). Thời tiết chỉ là seeded theo mùa, đơn giản.
+  - Chương II (khi sửa xong trạm quan trắc): bật EventDirector + dự báo.
+  - Sau 100% cân bằng: Director chuyển "chế độ duy trì" (ít sự kiện tiêu cực, thêm thử
+    thách tùy chọn), không biến mất.
+
+----------------------------------------------------------------------
+D18  Nội dung hậu cốt truyện                           [MẶC ĐỊNH ĐÃ CHỐT]
+----------------------------------------------------------------------
+Hoàn thành cốt truyện KHÔNG phải kết thúc game. Hậu game: bộ sưu tập, trang trí tự do,
+lễ hội theo mùa, đơn hàng đặc biệt, dự án cộng đồng, mục tiêu cá nhân tự đặt.
+
+----------------------------------------------------------------------
+BẢNG TÓM TẮT NHANH
+----------------------------------------------------------------------
+  D01 Hướng kỹ thuật ........ 3D thật + Camera3D ortho (lưới logic Vector2i)
+  D02 Nền tảng .............. PC trước (WASD + chuột), Steam
+  D03 Thời gian ............. day_index; ngày game 12 phút thực (tham số); đóng game = dừng
+  D04 Authority ............. Local-authoritative; server chỉ lớp social phi kinh tế
+  D05 Kiếm tiền ............. Premium, không IAP
+  D06 Áp lực/thời tiết ...... Báo trước - Giải thích - Đối phó; không trừng phạt
+  D07 Ngôn ngữ .............. vi + en, tr() từ đầu, font hỗ trợ dấu
+  D08 Godot ................. khóa 1 bản 4.x stable + 1 renderer
+  D09 Điều khiển ............ WASD + chuột chọn ô (reach 2 ô)
+  D10 Nút thắt/ngày ......... ô đất, bình tưới, giờ 02:00, slot máy, kho, đơn hàng ngày
+  D11 Lý do ở lại đêm ....... NPC/thương nhân/cá/đom đóm/máy theo giờ
+  D12 Tên gọi ............... "Cỗ máy Mùa" (game) / EventDirector (code); không "AI"
+  D13 Camera ................ ortho, yaw 45, pitch 35-40, khóa trước khi làm asset
+  D14 Ô lưới ................ 1x1 m
+  D15 Chat .................. không chat tự do
+  D16 Công cụ ............... Godot + VS Code/Antigravity + Git(LFS) + GUT hoặc gdUnit4
+  D17 Director .............. bật từ Chương II; chế độ duy trì ở hậu game
+  D18 Hậu game .............. game tiếp tục sau cốt truyện
+
+
+================================================================================
+PHẦN 3 — PHẠM VI: BẢN NÀO CÓ GÌ, CÁI GÌ ĐỂ SAU
+================================================================================
+
+3.1  CÁC CỘT MỐC PHIÊN BẢN
+  v0.1 "Người nông dân biết đi"   = Phase 0-4  (trồng-thu-lưu, chưa có tiền)   -> GATE A
+  v0.2 "Vòng lặp kinh tế"         = Phase 5-6  (bán, mua, đơn hàng, máy, xây)
+  v0.3 "Thế giới sống"            = Phase 7-8  (ngày/đêm, mưa, sinh thái, NPC, nhiệm vụ)
+  v0.5 "Vertical slice"           = Phase 9    (một lát cắt đủ trải nghiệm)       -> GATE B
+  v0.8 "Cùng nhau"                = Phase 10   (social bất đồng bộ) — chỉ khi Gate B đạt
+  v1.0 "Thung lũng hoàn chỉnh"    = nội dung đủ, đánh bóng, phát hành
+
+3.2  NỘI DUNG VERTICAL SLICE (v0.5) — mục tiêu "nhỏ nhưng hoàn chỉnh"
+  Thế giới:
+    - 1 trang trại (vùng đầu 24x24 ô, mở rộng dần tới ~48x48), 1 căn nhà sửa được,
+      1 phần làng (chợ + tiệm bánh + xưởng mộc), 1 khu rừng nhỏ, 1 đoạn sông/suối.
+  Nhân vật & NPC:
+    - 1 nhân vật chính, 1 chú chó, 4 NPC: An (thợ bánh), Bác Lâm (thợ mộc), Linh (người
+      yêu thiên nhiên), Minh (thương nhân lưu động). (Đủ 6-8 NPC ở bản 1.0.)
+  Nông nghiệp:
+    - 4 cây trồng (lúa mì, cà rốt, ngô, cà chua), 1 mùa đầy đủ (Xuân) + dữ liệu mùa Hạ;
+      1 vật nuôi (gà).
+  Sản xuất & kinh tế:
+    - Coin, kho, cửa hàng hạt giống, bảng đơn hàng, 1 chuỗi chế biến (lúa mì -> bột ->
+      bánh mì), 3 loại công trình đặt được (ví dụ cối xay, lò bánh, kho/hộp thư/nhà gà).
+  Thế giới sống:
+    - Ngày/đêm, nắng + mưa nhẹ, âm thanh môi trường cơ bản, bộ đếm sinh thái đọc được,
+      2-3 thay đổi hình ảnh thấy được (nước trong hơn, bướm, chim).
+  Cốt truyện:
+    - Chương I trọn vẹn + hai cột mốc đầu Chương II, kết thúc slice bằng khoảnh khắc sửa
+      xong trạm quan trắc: Cỗ máy Mùa "thức giấc", EventDirector bật, dự báo thời tiết
+      xuất hiện. (Đây là điểm WOW của slice.)
+  Hệ thống nền:
+    - Save/Load ổn định (có migrate, backup), tr() vi/en, cài đặt cơ bản, tutorial 3 phút
+      đầu, công cụ debug.
+
+3.3  BẢNG IN / OUT
+  Hạng mục                                   | MVP/Slice | Sau (1.0) | Rất sau/Không
+  -------------------------------------------+-----------+-----------+--------------
+  Trồng trọt, tưới, thu hoạch                | CÓ        |           |
+  Chăm vật nuôi (1 loại)                     | CÓ        | thêm loại |
+  Chế biến (1 chuỗi)                         | CÓ        | nhiều     |
+  Xây dựng + mở rộng đất                     | CÓ (đơn giản) | trang trí sâu |
+  Thời tiết nắng/mưa + ngày/đêm              | CÓ        |           |
+  Sương mù, nắng nóng, mưa lớn, tuyết        |           | CÓ        |
+  4 mùa đầy đủ                               | dữ liệu Hạ| CÓ        |
+  Sinh thái + thay đổi hình ảnh              | CÓ (3)    | nhiều     |
+  EventDirector                              | v0 (3 sự kiện) | 15-25 sự kiện |
+  NPC + hội thoại + nhiệm vụ                 | 4 NPC     | 6-8 NPC   |
+  Câu cá                                     | tùy chọn  | CÓ        |
+  Hái lượm (nấm, quả dại)                    | CÓ (đơn giản) | nhiều |
+  Thay trang phục                            |           | CÓ        |
+  Social bất đồng bộ (thăm, quà, dự án)      |           | CÓ (sau Gate B) |
+  Offline progress                           |           | CÓ (Phase 11) |
+  Gamepad                                    |           | CÓ        |
+  Mobile                                     |           |           | Dự án khác
+  Real-time multiplayer                      |           |           | Rất sau/không
+  PvP, cướp bóc                              |           |           | KHÔNG
+  NPC hội thoại bằng LLM lúc chạy            |           |           | KHÔNG
+  Roguelite "Chuyến đi bí ẩn"                |           | (thám hiểm bản đồ vẽ tay) |
+  Tiền premium/gacha/quảng cáo               |           |           | KHÔNG
+  Hàng chục bản đồ                           |           |           | KHÔNG (bản đồ liền mạch)
+
+3.4  ĐỊNH NGHĨA "XONG" (Definition of Done) CHO MỖI TASK
+  - Có tiêu chí nghiệm thu viết trước; tất cả đạt.
+  - Test tự động liên quan chạy được bằng dòng lệnh headless và PASS (log thật được dán).
+  - Bạn đã chạy thử bằng tay trong editor theo "test cases thủ công" của task.
+  - docs/API_INDEX.md và docs/PROGRESS.md đã cập nhật.
+  - Đã commit (có thông điệp rõ) và gắn tag nếu là cuối milestone.
+  - Không còn lỗi/cảnh báo mới trong Output/Debugger.
+
+3.5  ĐỊNH NGHĨA "GATE"
+  GATE A (sau Phase 4): chơi 10-15 phút vòng trồng-thu. Câu hỏi: có muốn làm thêm một
+    vòng không? Di chuyển có mượt không? Nhìn cây lớn có thỏa mãn không? Nếu KHÔNG ->
+    sửa cảm giác (animation, âm thanh, tốc độ, phản hồi) TRƯỚC khi làm kinh tế.
+  GATE B (sau Phase 9): 3-5 người lạ chơi 30 phút, không hướng dẫn trực tiếp. Quan sát:
+    họ có hiểu mục tiêu không, có kẹt ở đâu, có hỏi "chơi tiếp được không". Nếu ít hơn
+    ~60% muốn chơi tiếp -> sửa onboarding/vòng lặp trước khi làm social.
+
+
+================================================================================
+PHẦN 4 — CỐT TRUYỆN ĐÃ HỢP NHẤT & NHỊP TIẾN TRÌNH
+================================================================================
+
+4.1  BỐI CẢNH (bản hợp nhất)
+Thung Lũng Mùa từng nổi tiếng với cánh đồng màu mỡ, dòng suối trong, khu rừng đầy muông
+thú và ngôi làng nhộn nhịp. Trên đồi quan trắc có một cỗ máy bằng đồng cổ — CỖ MÁY MÙA —
+do những người lập nên thung lũng dựng lên để điều hòa thời tiết, hoạt động nhờ những
+"cảm biến" đọc đất, nước và sự đa dạng sinh vật. Nhiều năm trước, người ta khai thác quá
+mức: chặt rừng, lấp suối. Cảm biến của cỗ máy đọc thấy thung lũng mất cân bằng và nó
+chỉnh quá tay, gây ra một cơn bão lớn; cơn bão phá hỏng chính trạm và hệ kênh tưới. Làng
+dần bị bỏ hoang. Bà của người chơi là NGƯỜI GIỮ MÁY CUỐI CÙNG, bà muốn phục hồi nhưng
+chưa kịp.
+
+Người chơi nhận mảnh đất của bà. Cuốn sổ tay viết:
+  "Một mảnh đất không trở nên giàu có chỉ nhờ những gì ta thu hoạch. Nó trở nên giàu có
+   nhờ những gì ta để lại."
+Câu này vừa là câu đẹp vừa là QUY TẮC CƠ CHẾ: sinh thái (những gì bạn để lại) là thứ
+cỗ máy đọc và đáp lại.
+
+4.2  CUỐN SỔ TAY CỦA BÀ = TUTORIAL + NHẬT KÝ VẬN HÀNH
+  Mỗi trang sổ mở khóa theo cột mốc, vừa kể chuyện vừa dạy một cơ chế (cuốc/tưới, máy
+  chế biến, dự báo thời tiết, đọc chỉ số sinh thái...). Tránh các hộp thoại hướng dẫn dài.
+
+4.3  BA CHƯƠNG (Chương II chia nhỏ thành cột mốc phục hồi, mỗi cột mốc mở một cơ chế)
+
+  CHƯƠNG I — MẦM SỐNG (ngày 1 đến khoảng ngày 20)
+    Mục tiêu: dựng trang trại đầu tiên, lấy lại lòng tin dân làng.
+    Việc: dọn đất, sửa hộp thư, sửa nhà, gieo vụ đầu, bán lần đầu, gặp An và Bác Lâm,
+          mở kho, mở rộng đất lần 1, làm đơn hàng đầu tiên.
+    Mở khóa: cửa hàng hạt giống, bảng đơn hàng, chế biến cơ bản, mở rộng đất #1.
+    Cỗ máy: ngủ. Thời tiết seeded đơn giản (nắng/mưa nhẹ).
+
+  CHƯƠNG II — NHỮNG BÁNH RĂNG CỦA MÙA (khoảng ngày 20-80)
+    Mục tiêu: khôi phục trạm quan trắc, phát hiện Cỗ máy Mùa.
+    Cột mốc:
+      M2.1  Sửa kênh tưới   -> mở: vòi phun/tưới tự động (giảm việc vặt), nước suối chảy
+      M2.2  Khôi phục cối xay -> mở: chuỗi bột mì/bánh, đơn hàng tiệm bánh nâng cấp
+      M2.3  Sửa cầu qua sông -> mở: Minh (thương nhân) ghé chợ, khu đông, hạt giống mới
+      M2.4  Sửa trạm quan trắc -> mở: dự báo thời tiết 1-3 ngày; BẬT EventDirector; phát
+            hiện Cỗ máy Mùa (cảnh WOW)
+      M2.5  Nhật ký của bà   -> mở: sổ sinh thái (đọc chỉ số), tiết lộ vai trò của bà
+    Mở khóa: vùng đất mới, cây trồng mới, dự báo, EventDirector.
+
+  CHƯƠNG III — MỘT THUNG LŨNG THUỘC VỀ TẤT CẢ (khoảng ngày 80+)
+    Mục tiêu: cùng dân làng tổ chức lễ hội, hồi sinh hệ sinh thái, đưa cỗ máy về cân bằng.
+    Việc: các ngưỡng sinh thái (nước trong, rừng, hoa/ong bướm), quảng trường, lễ hội mùa,
+          dự án cộng đồng (đơn lẻ trước, chung với bạn bè sau). Người chơi chọn "phong cách":
+          kinh doanh, nông nghiệp sinh thái, chế tác, du lịch hay kết hợp.
+    Kết thúc: cỗ máy cân bằng -> Director sang chế độ duy trì; game vẫn tiếp tục (D18).
+
+4.4  NHỊP TIẾN TRÌNH (5 giai đoạn từ nguồn C, gắn với chương)
+  GĐ1 Người mới:           học trồng, kiếm coin đầu tiên, sửa nhà, mở kho. Phần thưởng nhanh.
+  GĐ2 Chủ trang trại:      mở rộng ruộng, nuôi vật, xây máy, làm đơn hàng.
+  GĐ3 Nhà kinh doanh:      nhiều sản phẩm, trao đổi, chuỗi sản xuất, thương hiệu trang trại.
+  GĐ4 Người kiến tạo:      khôi phục nhiều khu vực, lễ hội, loài hiếm, công trình biểu tượng.
+  GĐ5 Cuộc sống trong mơ:  thiết kế tự do, bộ sưu tập, mục tiêu cá nhân, nội dung hợp tác.
+  Không để "giàu" là thước đo duy nhất: trang trại nhỏ + vườn hoa đẹp + bộ sưu tập đủ +
+  nhóm bạn thân cũng phải cảm thấy "đã thành công".
+
+4.5  KHOẢNH KHẮC WOW CẦN LẬP LỊCH (mỗi cái gắn với một điều kiện dữ liệu, không ngẫu nhiên)
+  W1  Cơn mưa đầu tiên của mùa xuân sau khi trồng nhiều hoa -> đàn bướm xuất hiện.
+  W2  Đêm đầu sau khi sửa hồ/suối -> mặt nước phản chiếu trăng, đom đóm.
+  W3  Quảng trường hoàn thành -> dân làng tự đến dự lễ hội.
+  W4  Sửa xong trạm quan trắc -> cỗ máy chuyển động lần đầu, dự báo hiện ra.
+  W5  Ngày hội thu hoạch -> nhìn lại mùa vụ và các công trình đã hoàn thành.
+  W6  Bạn ghé thăm lần đầu -> thấy bảng thành tựu hành trình xây dựng của bạn.
+  Mỗi WOW = một "Moment" trong data: điều kiện (sinh thái/cột mốc/giờ/thời tiết) + hiệu
+  ứng (VFX, nhạc, hội thoại). Không viết cứng trong code.
+
+
+================================================================================
+PHẦN 5 — CHỨC NĂNG CHÍNH: ĐẶC TẢ TỪNG HỆ THỐNG
+================================================================================
+
+Mỗi hệ thống có: MỤC ĐÍCH, NGƯỜI CHƠI THẤY/LÀM, QUY TẮC, STATE (domain, có
+serialize/deserialize), SIGNAL, DATA, TRƯỜNG HỢP BIÊN, TEST BẮT BUỘC, PHASE.
+Nguyên tắc chung cho mọi hệ thống có state: có serialize()/deserialize() từ commit đầu;
+domain là RefCounted thuần (không Node); view chỉ lắng nghe và hiển thị.
+
+------------------------------------------------------------------------
+S01  INPUT & ĐIỀU KHIỂN                                       Phase 0.2, 1
+------------------------------------------------------------------------
+Mục đích: một nơi định nghĩa mọi hành động người chơi.
+Action tên chuẩn (khai báo trong project.godot): move_up, move_down, move_left,
+  move_right, interact, use_tool, cancel, tool_next, tool_prev, hotbar_1..hotbar_9,
+  open_inventory, open_build, open_journal, pause, rotate_cw, rotate_ccw,
+  camera_zoom_in, camera_zoom_out, toggle_debug.
+Quy tắc: dùng Input.get_vector cho di chuyển; dùng _unhandled_input cho phím gameplay để
+  UI có thể "nuốt" sự kiện trước; không đọc phím cứng (KEY_W) trong gameplay.
+Biên: đổi bàn phím/layout; rê chuột ra ngoài cửa sổ; mở menu thì chặn input gameplay.
+Test: test action tồn tại (tên khớp docs/INPUT_MAP.md).
+
+------------------------------------------------------------------------
+S02  NHÂN VẬT & CAMERA                                        Phase 1
+------------------------------------------------------------------------
+Mục đích: cảm giác điều khiển mượt, "sống trong trang trại".
+Người chơi: đi/chạy theo hướng màn hình ("lên" = lên màn hình), đi chéo không nhanh
+  hơn, trượt dọc tường, camera theo mượt, giới hạn biên bản đồ.
+Quy tắc:
+  - Player là CharacterBody3D; di chuyển bằng velocity + move_and_slide() (KHÔNG tham số).
+  - Vector input phải xoay theo yaw camera (camera-relative), nếu không "lên" sẽ chạy chéo.
+  - State machine node: mỗi state một script (idle_state, move_state, use_tool_state,
+    interact_state...) có enter()/exit()/physics_update()/handle_input().
+  - Camera follow có damping; clamp theo biên bản đồ; zoom 2-3 mức.
+  - Khóa input khi hội thoại/UI/chuyển cảnh.
+State: vị trí lưu DƯỚI DẠNG ô + hướng mặt (không lưu world position làm sự thật).
+Data: tốc độ đi/chạy, gia tốc, reach_cells, camera offset/zoom (Resource PlayerConfig).
+Biên: kẹt trong va chạm sau khi load; spawn ở ô bị chiếm; đi xuyên vật mỏng.
+Test: tích hợp thủ công (di chuyển 8 hướng, đi dọc tường); unit test cho hàm tính
+  hướng camera-relative (thuần).
+
+------------------------------------------------------------------------
+S03  LƯỚI, GRIDMATH & OCCUPANCYMAP                             Phase 0.3, 6.2
+------------------------------------------------------------------------
+Mục đích: nguồn sự thật duy nhất cho "ô nào là gì".
+GridMath (static, thuần): world_to_cell(Vector3)->Vector2i dùng floori (KHÔNG int());
+  cell_to_world(Vector2i)->Vector3 trả TÂM ô, y=0; cell.y <-> world.z; footprint_cells(
+  origin, size, rotation); xử lý footprint chẵn/lẻ offset ở MỘT chỗ.
+OccupancyMap (domain): Dictionary[Vector2i] -> occupant{kind, uid}; API: can_place(
+  footprint, rule), place(), remove(), query(cell). Loại ô: terrain (đất cho canh tác,
+  nước, đá, đường), occupant (cây, công trình, trang trí).
+Quy tắc: lưới logic luôn là Vector2i trục thẳng; chỉ camera xoay 45 độ. TUYỆT ĐỐI không
+  dùng hệ tọa độ kim cương làm logic.
+Chọn ô bằng chuột: tia từ Camera3D ortho (project_ray_origin/normal) cắt mặt phẳng y=0
+  -> GridMath.world_to_cell. MỘT hàm duy nhất, có test.
+Pathfinding NPC/chó: AStarGrid2D dựng từ OccupancyMap; cập nhật vùng khi xây/phá, không
+  bake navmesh lúc chạy.
+Test: tọa độ âm, biên ô (0.999 vs 1.0), footprint chẵn/lẻ, xoay 90 độ, không đặt chồng.
+
+------------------------------------------------------------------------
+S04  TƯƠNG TÁC (INTERACTABLE) & NHẮM Ô                          Phase 1.5, 4.3
+------------------------------------------------------------------------
+Mục đích: cách duy nhất người chơi tác động lên thế giới.
+Hai kiểu: (a) Interactable: node component phát interacted(actor) (cửa, hộp thư, NPC,
+  giường, máy); bộ dò đối tượng gần nhất trước mặt, prompt "[E] Mở". (b) Nhắm ô: ô được
+  highlight bởi chuột trong reach; công cụ tác động lên ô.
+Quy tắc: component dùng lại cho mọi vật; không get_node("../../X"); phụ thuộc qua
+  @export có kiểu hoặc signal.
+Biên: nhiều đối tượng chồng nhau (ưu tiên theo khoảng cách + hướng mặt); chuột ngoài reach
+  (highlight đỏ/xám, không thực thi).
+
+------------------------------------------------------------------------
+S05  GAMECLOCK (THỜI GIAN, NGÀY, MÙA)                          Phase 2
+------------------------------------------------------------------------
+State: day_index (từ 0), minute_of_day (360 = 06:00 ... 1560 = 02:00 hôm sau), season,
+  day_in_season (1..28), year; total_minutes = day_index*1440 + minute.
+Signal (Events): day_started(day_index), hour_changed(hour), minute_changed? (tuỳ),
+  season_changed(season), day_ending(), sleep_requested().
+API: advance(delta_seconds) (online), set_paused(bool), sleep_to_morning(), speed_scale
+  (1x, 2x debug). simulate_day() KHÔNG nằm trong GameClock; GameClock chỉ phát tín hiệu,
+  DaySimulator điều phối (xem PHẦN 6 F3).
+Quy tắc: 28 ngày/mùa, 4 mùa/năm (tham số). Dừng đồng hồ khi mở UI chính/hội thoại/
+  menu. Đến 02:00 -> nhân vật tự về giường ngủ, KHÔNG mất coin
+  hay vật phẩm; hậu quả duy nhất là sáng hôm sau dậy muộn hơn một chút (D10).
+Biên: nhảy ngày khi đang hội thoại; chuyển mùa giữa lúc cây còn trồng.
+Test: chuyển ngày/mùa/năm đúng; pause không trôi; sleep giữ đúng total_minutes.
+
+------------------------------------------------------------------------
+S06  KHO ĐỒ, VẬT PHẨM, HOTBAR                                  Phase 3
+------------------------------------------------------------------------
+ItemStack: item_id (StringName), quantity (int), quality (int, mặc định 0 — thêm TRƯỜNG
+  NÀY NGAY TỪ ĐẦU để tránh phải migrate về sau), tùy chọn metadata nhỏ.
+InventoryState (domain): N ô (ví dụ 24, nâng cấp được), add(item,qty)->phần dư, remove,
+  has, count, move/swap, stack theo stack_max. Mọi phép toán trả kết quả tường minh
+  (không âm thầm mất đồ).
+Hotbar: 9-10 ô tham chiếu; công cụ không phải "vật phẩm tiêu thụ".
+Quy tắc: đầy kho -> thao tác bị chặn kèm thông báo, KHÔNG mất vật phẩm (ví dụ thu hoạch bị
+  hoãn, cây vẫn ở đó). Quantity là int; validate mọi input ngoài.
+Signal: inventory_changed(slot indices), item_added(item_id, qty), item_removed(...).
+Test: cộng/trừ/stack, đầy kho trả phần dư đúng, quantity âm bị từ chối, serialize
+  round-trip.
+
+------------------------------------------------------------------------
+S07  CÔNG CỤ & TOOLACTION                                      Phase 4.3
+------------------------------------------------------------------------
+ToolData (Resource): id, tên (key dịch), icon, tool_action (Resource con của ToolAction),
+  tier (đồng/sắt...), tham số (reach, tốn gì).
+ToolAction (Resource, strategy): can_execute(world, cell, actor)->Result; execute(
+  world, cell, actor)->Result. Lớp con: HoeAction, WaterAction, SeedAction, HarvestAction
+  (không cần dụng cụ), AxeAction (chặt cây), PickaxeAction, ScytheAction, FishingAction.
+Quy tắc: thêm công cụ = thêm file mới + data, không sửa player.gd. Animation phát tín hiệu
+  tool_hit đúng khoảnh khắc chạm; logic nông trại phản ứng theo tín hiệu này, không theo
+  Timer đoán giờ.
+Bình tưới: có sức chứa (water_charges) lưu trong state; đổ đầy ở giếng/suối.
+Test: mỗi action có test can_execute/execute trên world giả (không cần scene).
+
+------------------------------------------------------------------------
+S08  NÔNG NGHIỆP (FARMING)                                     Phase 4
+------------------------------------------------------------------------
+FarmGridState (domain): Dictionary[Vector2i] -> PlotState{ soil: NONE|TILLED, crop_id,
+  planted_day, growth_days, watered_today, stage, fertilized, quality_seed }.
+Vòng đời: cuốc (TILLED) -> gieo (PLANTED, stage 0) -> tưới (watered_today) -> qua ngày
+  -> nếu được tưới (hoặc trời mưa) thì growth_days += 1 -> đủ ngày -> HARVESTABLE ->
+  thu hoạch -> (cây tái sinh: quay lại stage tái sinh sau regrow_days; cây thường: ô về
+  TILLED hoặc NONE theo data).
+Quy tắc cozy:
+  - Không tưới thì cây KHÔNG CHẾT, chỉ ngừng lớn.
+  - Cây ngoài mùa thích hợp -> "ngủ đông" (dormant): ngừng lớn, không mất; nhà kính cho
+    phép trồng quanh năm. Người chơi không bị khóa tiến độ vì đổi mùa.
+  - Thu hoạch phải nguyên tử: một trạng thái chuyển (HARVESTABLE -> trống) + một lần cộng
+    kho; không thu hoạch hai lần; đầy kho -> chặn (S06).
+  - Mưa tự tưới mọi ô ngoài trời (không trong nhà kính).
+  - Chất lượng (thường/bạc/vàng), phân bón, độ phì đất: trường dữ liệu có sẵn từ đầu,
+    cơ chế đầy đủ ở Phase 11 (MVP chỉ chất lượng thường).
+  - Giai đoạn hiển thị (stage) = hàm của growth_days/total_days: stage_model[i].
+Signal: plot_changed(cell, plot_state), crop_planted, crop_matured, crop_harvested(cell,
+  crop_id, qty, quality).
+Data: CropData (PHẦN 7).
+Test: một vòng đời trọn vẹn; không tưới -> không lớn; mưa -> lớn; qua mùa -> dormant;
+  thu hoạch hai lần bị chặn; serialize round-trip; kho đầy.
+
+------------------------------------------------------------------------
+S09  KINH TẾ (ECONOMYSERVICE, CỬA HÀNG, ĐƠN HÀNG)             Phase 5
+------------------------------------------------------------------------
+Mục đích: coin có nguồn thu, nơi tiêu, không khai thác được.
+EconomyService (domain, DUY NHẤT được đổi coin): try_spend(amount, reason, key?),
+  earn(amount, reason, key?), balance (int). Mọi thay đổi ghi vào sổ cái (ledger):
+  {seq, day, reason, delta, balance_after, source}. coin là int, KHÔNG BAO GIỜ float.
+InventoryService là nơi DUY NHẤT đổi vật phẩm. Giao dịch mua/bán = một transaction gộp
+  (trừ coin + cộng vật phẩm, hoặc ngược lại) có rollback nếu một vế thất bại.
+Cửa hàng: ShopData (danh sách mua + giá), bán theo base_value × hệ số bão hòa. HẠT GIỐNG
+  CƠ BẢN LUÔN MUA ĐƯỢC với giá rất rẻ (chống softlock hết tiền hết hạt).
+Giá bão hòa: giá bán một mặt hàng giảm khi bán nhiều trong ngày, hồi dần mỗi ngày
+  (chống "cây tối ưu duy nhất"). Giá mua NPC luôn >= giá bán NPC cùng vật phẩm.
+Bảng đơn hàng (OrderBoard): sinh theo CÔNG THỨC có seed (KHÔNG gọi là AI): chọn mẫu từ
+  OrderTemplateData theo giai đoạn người chơi + mùa; thưởng = base_value_tổng × hệ số
+  (1.15-1.5), CÓ TRẦN; hết hạn không phạt. Số đơn mỗi ngày: 3-5.
+Sink lặp lại (chống lạm phát): trang trí, mở rộng đất, nâng cấp kho/công cụ, công trình,
+  lễ hội mùa (đóng góp), cosmetics, hạt giống/nguyên liệu. KHÔNG có phí hàng tuần phạt
+  người vắng mặt.
+Signal: coins_changed(new_total, delta, reason), transaction_failed(reason).
+Test: không âm; reason bắt buộc; atomic; không cộng hai lần; mô phỏng script PHẦN 8.
+
+------------------------------------------------------------------------
+S10  SẢN XUẤT / CHẾ BIẾN (CRAFTING MACHINES)                   Phase 6.1
+------------------------------------------------------------------------
+RecipeData: id, loại máy, input[{item,qty}], output[{item,qty}], duration_minutes (phút
+  game), mở khóa bởi (quest/level), ghi chú.
+MachineState (domain): slots, current_job{recipe_id, start_total_minutes, finish_at_total_
+  minutes}, output_buffer.
+Quy tắc:
+  - Hoàn thành tính theo finish_at_total_minutes so với GameClock -> ngủ/qua ngày vẫn
+    hoàn thành đúng (kể cả offline sau này).
+  - Máy KHÔNG hỏng, KHÔNG phạt vắng mặt: nếu bộ đệm đầu ra đầy thì máy TẠM DỪNG.
+  - Thêm công thức = thêm .tres, không sửa code.
+  - DataValidator tính lợi nhuận/giờ của từng công thức; vượt trần theo giai đoạn thì
+    build FAIL (xem PHẦN 8).
+Chuỗi mẫu: Lúa mì -> Bột mì (cối xay) -> Bánh mì (lò bánh). Sau: Sữa -> Bơ -> Bánh; Hoa ->
+  Bó hoa; Trái cây -> Mứt.
+Test: hoàn thành sau N ngày; bộ đệm đầy -> tạm dừng; hủy công việc hoàn nguyên liệu (quy
+  tắc rõ); serialize.
+
+------------------------------------------------------------------------
+S11  XÂY DỰNG & MỞ RỘNG ĐẤT                                    Phase 6.2-6.3
+------------------------------------------------------------------------
+BuildingData: id, scene, footprint (Vector2i), giá, slot, mở khóa, loại ô cho phép.
+Build mode: camera zoom out, ghost của công trình, xanh/đỏ theo can_place; xoay (rotate_cw/
+  ccw), đặt, di chuyển, tháo dỡ (hoàn tiền theo tham số, mặc định 100% để không bực).
+Mở rộng đất: mua theo mảnh (ví dụ 8x8 ô), giá tăng dần; mở khóa bởi cột mốc cốt truyện/
+  coin. Mảnh chưa mở: bị che bằng cỏ dại/hàng rào đổ, hiển thị rõ ranh giới.
+Quy tắc: công trình có uid; state lưu {uid, building_id, origin_cell, rotation}; scene
+  được dựng lại từ state khi load. Không lưu node.
+Nhóm công trình (từ nguồn C): nhà ở; canh tác (ruộng, vườn cây, nhà kính, hệ tưới,
+  chuồng); sản xuất (cối xay, lò bánh, xưởng mộc, bếp, nhà máy); sáng tạo (ao cá, đường,
+  cầu gỗ, đèn, ghế, quảng trường mini).
+Test: không đặt chồng; không đặt ngoài đất mở khóa; reload không mất công trình;
+  hoàn tiền đúng.
+
+------------------------------------------------------------------------
+S12  THỜI TIẾT (WEATHERSERVICE, CÓ SEED)                       Phase 7.1
+------------------------------------------------------------------------
+Mục đích: thời tiết tạo CƠ HỘI và LỰA CHỌN, không trừng phạt.
+Quy tắc:
+  - Thời tiết ngày D = hàm tất định của (world_seed, D, mùa, bảng xác suất mùa). KHÔNG
+    dùng randi() toàn cục. Cùng seed -> cùng chuỗi (golden test).
+  - Pre-roll trước 3 ngày và LƯU vào save -> load lại không reroll (chống save-scum).
+  - MVP: nắng + mưa nhẹ. Về sau: sương mù, nắng nóng, mưa lớn, tuyết.
+  - Hiệu ứng theo kiểu: Mưa nhẹ = tưới tự động + đất ẩm + (ốc sên/nấm); Mưa lớn = nước
+    suối dâng, một số lối tạm khó đi, cành cây rơi (việc dọn sau mưa); Sương mù = tầm nhìn
+    giảm nhẹ + vật phẩm khám phá; Nắng nóng = tăng nhu cầu tưới; Tuyết = hoạt động mùa
+    đông.
+  - Mưa lớn KHÔNG phá toàn bộ mùa màng sau vài phút AFK.
+Dự báo: bị khóa cho tới M2.4 (sửa trạm quan trắc). Trước đó người chơi chỉ thấy thời
+  tiết hôm nay (và các dấu hiệu tự nhiên nhẹ: mây vào chiều).
+Signal: weather_changed(weather_id), forecast_updated(days[]).
+Data: WeatherStateData (xác suất theo mùa, hiệu ứng, âm thanh, có dự báo được không).
+Test: golden test seed -> chuỗi; load không reroll; mưa tưới đúng; serialize.
+
+------------------------------------------------------------------------
+S13  SINH THÁI (ECOLOGYSTATE)                                  Phase 7.3
+------------------------------------------------------------------------
+Mục đích: "thế giới nhớ" — và là CẢM BIẾN của Cỗ máy Mùa (cốt truyện, Director và
+  gameplay là cùng một thứ).
+Chỉ số (0..100): tree_cover, water_clarity, biodiversity (có thể thêm soil_health).
+Cách tính (đơn giản, tất định, dễ test): mỗi chỉ số = hàm của SỐ ĐẾM trong thế giới
+  (cây trưởng thành đang sống / mục tiêu; số ô suối đã dọn / tổng; số ô hoa, số loài cây
+  khác nhau) -> điểm mục tiêu target; giá trị hiện tại tiến về target mỗi ngày (làm mượt,
+  ví dụ 5-10%/ngày) để thay đổi nhìn thấy dần dần, không nhảy vọt.
+Ngưỡng mở khóa (data): biodiversity >= 25 -> bướm/ong; tree_cover >= 30 -> chim; water_
+  clarity >= 50 -> nước trong + cá mới; đa ngưỡng -> đom đóm/loài hiếm; vượt ngưỡng cuối
+  -> sự kiện WOW.
+Cái này cũng sửa lỗ hổng "gỗ là nguyên liệu bắt buộc": người chơi luôn có CÁCH trồng cây
+  để bù (cây non lớn trong vài ngày, hạt giống gỗ rẻ) -> không bị phạt vì làm điều game
+  yêu cầu.
+Hiển thị: Nhật ký sinh thái (journal): thanh chỉ số, "vì sao" (nguyên nhân), gợi ý hành
+  động. (Đây là lớp GIẢI THÍCH trong "báo trước - giải thích - đối phó".)
+Signal: ecology_changed(metrics), threshold_crossed(threshold_id).
+Test: thêm/bớt cây -> chỉ số đổi đúng; làm mượt; vượt/xuống ngưỡng phát đúng một lần;
+  serialize.
+
+------------------------------------------------------------------------
+S14  EVENTDIRECTOR (ex-"Eco-AI Director")                      Phase 7.4
+------------------------------------------------------------------------
+Bản chất: bộ chọn sự kiện RULE-BASED có trọng số. Không LLM. Bật từ M2.4 (D17).
+Hàm thuần: decide(day, snapshot, rng) -> DirectorDecision { event_id, reason_trace,
+  seed_used }.
+  1. Lọc ứng viên theo điều kiện (dữ liệu), cooldown, trần sự kiện tiêu cực/mùa, thời gian
+     ân hạn, mức độ sinh thái.
+  2. Chấm điểm bằng trọng số (dữ liệu) + cộng bù ĐA DẠNG (thưởng đa dạng, đẩy nhẹ khi
+     mất cân bằng; không phạt phong cách chơi).
+  3. Chọn bằng RNG seed = mix(world_seed, day, TAG_DIRECTOR).
+  4. Trả quyết định kèm lý do (decision trace).
+Đầu vào chỉ đọc: DirectorSnapshot = chỉ số sinh thái + thống kê hoạt động trong CỬA SỔ
+  TRƯỢT 7-14 ngày (không dùng số liệu thô một ngày, để không bị thao túng kiểu "câu cá
+  một hôm gọi thương nhân").
+Sự kiện (DirectorEventData): id, tags, điều kiện, trọng số, cooldown, trần/mùa, hiệu ứng
+  (Effect là Resource dữ liệu hóa: đổi trọng số thời tiết, thêm khách, thêm modifier có
+  thời hạn, đảo ngược được), explanation_key (lời giải thích hiện cho người chơi).
+Sự kiện MVP (3): (1) Gió bụi nhẹ (tiêu cực nhẹ: tăng nhu cầu tưới 1-2 ngày; báo trước 2
+  ngày; đối phó: trồng cây/hàng rào chắn gió); (2) Thương nhân ghé bờ sông (tích cực);
+  (3) Mùa hoa nở rộ/đàn bướm (tích cực, gắn biodiversity). Thêm biến thể có tham số để
+  tránh lặp (cùng sự kiện nhiều biến thể).
+Quy tắc:
+  - Mọi quyết định được LƯU vào save (director.history, rng_state, cooldowns) -> load
+    không roll lại.
+  - Tiêu cực tối đa 2 sự kiện/mùa; cách nhau >= 3 ngày; pity timer cho tích cực.
+  - Mọi áp lực có báo trước (forecast), giải thích (explanation_key), đối phó (hành động).
+  - Công tắc director_enabled để test hệ thống khác không bị nhiễu.
+Công cụ debug (BẮT BUỘC): panel hiển thị chỉ số, ứng viên, điểm, lý do chọn; nút ép sự
+  kiện; harness mô phỏng headless 1000 ngày với "hồ sơ người chơi" giả (thợ đốn gỗ, người
+  câu cá, cân bằng) kiểm tra bất biến: tiêu cực/mùa <= trần; không hai sự kiện xung đột
+  cùng lúc; sản lượng không dưới ngưỡng.
+Golden test: seed X -> danh sách sự kiện Y.
+
+
+------------------------------------------------------------------------
+S15  NPC, HỘI THOẠI, NHIỆM VỤ, QUAN HỆ                         Phase 8
+------------------------------------------------------------------------
+NPCData: id, tên (key dịch), nghề, lịch trình (thời gian -> địa điểm -> hoạt động),
+  hội thoại theo điều kiện, nhiệm vụ gắn kèm, quà/đồ họ trả giá tốt.
+Hội thoại dữ liệu hóa (DialogueData): nút (node) có text key, lựa chọn, điều kiện (cờ,
+  nhiệm vụ, mùa, sinh thái), hành động (nhận nhiệm vụ, thưởng, đặt cờ). Đọc từ data, không
+  hardcode trong code.
+Quest state machine: NOT_STARTED -> ACTIVE -> READY -> COMPLETED (+FAILED chỉ khi thật sự
+  cần; mặc định không có thất bại). Mỗi nhiệm vụ: mục tiêu (objectives) đo bằng sự kiện
+  (Events.crop_harvested, Events.item_delivered...). Lưu state vào save.
+NPC theo lịch: AStarGrid2D trên OccupancyMap; đi đúng giờ, không kẹt; fallback teleport an
+  toàn nếu kẹt quá N giây (và log lỗi).
+Quan hệ: KHÔNG chỉ thanh tim. Giúp NPC mở khóa: công thức, hạt giống/đồ trang trí độc
+  quyền, câu chuyện quá khứ, công trình/khu vực mới, sự kiện cộng đồng. Không ép tặng quà
+  mỗi ngày.
+Dàn NPC (nguồn C): An (thợ bánh), Bác Lâm (thợ mộc, giữ lịch sử thung lũng), Linh (yêu
+  thiên nhiên, phục hồi suối/rừng), Minh (thương nhân lưu động, theo lịch; hàng thay đổi).
+  Bản 1.0 thêm: người câu cá, quản lý chợ, người gắn với trạm quan trắc (tổng 6-8).
+Test: hội thoại đọc từ data; quest lưu/tải đúng; NPC đến đúng giờ; không kẹt sau reload.
+
+------------------------------------------------------------------------
+S16  LƯU / TẢI GAME (SAVESERVICE)                              Phase 4.5 (+mọi phase)
+------------------------------------------------------------------------
+Quy tắc vàng: lưu DOMAIN STATE, không lưu cây node (không PackedScene.pack). Scene được
+  dựng lại từ state.
+Cấu trúc JSON (mẫu, PHẦN 9.6): meta{save_version, game_version, saved_utc, world_seed,
+  playtime_s}, clock, player, inventory, economy{coins, ledger_tail}, farm{plots[]},
+  buildings[], ecology, weather{today, forecast[]}, director{rng_state, history,
+  cooldowns}, quests, npcs, flags.
+Codec tường minh (to_dict/from_dict): JSON làm mất kiểu (số nguyên đọc lại thành float;
+  Vector2i/StringName không tự khôi phục) -> ép kiểu khi đọc; key ô dạng "x,y".
+Phiên bản & migrate: save_version + chuỗi hàm migrate_N_to_N+1; giữ "golden saves" (file
+  save mẫu mỗi phiên bản) trong tests/ và test nạp từng cái.
+Ghi nguyên tử: ghi save.tmp -> đổi tên; giữ 3 bản backup luân phiên; CHÚ Ý: đổi tên đè
+  file có thể lỗi trên một số nền tảng -> làm theo thứ tự "chuyển bản cũ sang .bak, rồi
+  đổi tên .tmp" và test trên Windows.
+Thời điểm lưu: tự động khi ngủ qua ngày + khi thoát từ menu; chỉ lưu ở "điểm an toàn"
+  (không có giao dịch dở/đang hội thoại bắt buộc).
+Khi tải: validate từng trường (clamp, id tồn tại), bỏ phần lạ kèm cảnh báo, KHÔNG crash;
+  test "fuzz" nạp JSON hỏng/thiếu trường.
+Bảo mật: không tải .tres/.res từ nguồn không tin cậy (có thể chứa script nhúng). Dữ liệu
+  chia sẻ (snapshot mạng) chỉ dùng JSON + validate. Đường dẫn lưu: user://saves/slot_N.json.
+ID ổn định: item_id/crop_id không bao giờ đổi tên; nếu bắt buộc, thêm bảng deprecated_ids
+  -> new_id để migrate.
+Test: round-trip (save->load->save giống nhau); mỗi golden save nạp được; fuzz; backup
+  khôi phục khi file chính hỏng.
+
+------------------------------------------------------------------------
+S17  UI / HUD / MENU                                           Phase 2.2, 3.3 trở đi
+------------------------------------------------------------------------
+Màn hình: Title (Tiếp tục/Mới/Cài đặt/Thoát), HUD (ngày/giờ/mùa/thời tiết, coin, hotbar,
+  gợi ý tương tác, nhiệm vụ đang theo dõi), Kho đồ, Cửa hàng (mua/bán), Bảng đơn hàng,
+  Build UI, Sổ tay (nhiệm vụ + sinh thái + bộ sưu tập), Hội thoại, Pause/Settings.
+Quy tắc: canvas 1920x1080, stretch mode canvas_items; UI chỉ ĐỌC state và gửi YÊU CẦU
+  (qua service/Events); không chứa logic game; theme dùng chung (một Theme resource);
+  mọi chuỗi qua tr(); hỗ trợ phóng to chữ.
+Phản hồi (juice) bắt buộc cho cảm giác: số coin nhảy, âm thanh nhận đồ, rung nhẹ
+  nút... — nhưng làm SAU khi vòng lặp vui (N10).
+Test: UI hiển thị khớp state (thủ công); không crash khi state rỗng.
+
+------------------------------------------------------------------------
+S18  ÂM THANH                                                  Phase 7.2+, 9
+------------------------------------------------------------------------
+Bus: Master, Music, SFX, Ambience, UI (tạo sẵn Phase 0). Định dạng .ogg.
+Hệ thống: AudioService (autoload nhẹ hoặc service) phát theo tín hiệu; ambience đổi theo
+  khu vực (ruộng/rừng/làng/hồ), giờ (ngày/đêm), thời tiết (mưa); nhạc dịu theo buổi
+  chiều; âm công cụ chọn biến thể ngẫu nhiên (seed không bắt buộc, vì đây không phải
+  gameplay logic).
+Đặt tên: sfx_hoe_hit_01.ogg, amb_forest_day.ogg, mus_farm_morning.ogg.
+
+------------------------------------------------------------------------
+S19  ĐA NGÔN NGỮ (LOCALIZATION)                                Phase 0 (khung), mọi phase
+------------------------------------------------------------------------
+Quy tắc: không hardcode chuỗi hiển thị trong code. Key dạng KEY_SNAKE. File dịch CSV/PO
+  (Godot hỗ trợ). Có script kiểm tra: key thiếu bản dịch, chuỗi dài vỡ layout (thử
+  chuỗi tiếng Anh dài). Font hỗ trợ Latin + dấu Việt.
+
+------------------------------------------------------------------------
+S20  CÀI ĐẶT & TRỢ NĂNG (ACCESSIBILITY)                        Phase 9 (cơ bản), 11
+------------------------------------------------------------------------
+Âm lượng từng bus, ngôn ngữ, cỡ chữ, bật/tắt rung màn hình, màu cao tương phản cho
+  highlight ô, gán phím, chế độ tắt hiệu ứng nhấp nháy, tốc độ ngày game (chậm/thường).
+  Lưu Settings riêng (user://settings.cfg), không lẫn save game.
+
+------------------------------------------------------------------------
+S21  THÚ CƯNG (CHÚ CHÓ)                                        Phase 8-9
+------------------------------------------------------------------------
+Chạy theo người chơi bằng AStarGrid2D; hành vi đơn giản (idle, follow, lượn quanh ruộng);
+  người chơi đặt tên; phản ứng vui khi mưa/thu hoạch. Không ảnh hưởng gameplay kinh tế
+  (đừng làm chó trở thành hệ thống nặng).
+
+------------------------------------------------------------------------
+S22  VẬT NUÔI (MVP: GÀ)                                        Phase 9 (hoặc 6.x)
+------------------------------------------------------------------------
+Nhà gà (công trình), mỗi ngày sinh trứng nếu được cho ăn (không ăn thì không sinh,
+  KHÔNG chết); trứng -> chế biến. State đơn giản, domain thuần, theo ngày.
+
+------------------------------------------------------------------------
+S23  CÂU CÁ & HÁI LƯỢM                                         Slice (tùy chọn) / 1.0
+------------------------------------------------------------------------
+Hái lượm: điểm spawn theo mùa/thời tiết/giờ (nấm sau mưa, ven rừng khi sương mù).
+Câu cá: minigame nhẹ (thời điểm kéo), cá theo khu vực/giờ/thời tiết (cá ban đêm). Đây là
+  chỗ gắn D11. Làm sau khi vòng lặp chính vững.
+
+------------------------------------------------------------------------
+S24  CÔNG CỤ DEBUG & CHEAT CONSOLE                             Phase 2+ (mở rộng dần)
+------------------------------------------------------------------------
+BẮT BUỘC có từ sớm vì QA game mô phỏng dài là bất khả thi nếu không có:
+  - Phím bật/tắt panel debug (toggle_debug).
+  - Lệnh: set_day N, set_season S, set_time HH:MM, give_item id qty, give_coins N,
+    set_weather id, force_event id, unlock_quest id, tp_cell x y, speed 1/2/5/10/50,
+    director on/off, dump_state, simulate_days N.
+  - Overlay: lưới ô, occupancy, đường đi NPC, chỉ số sinh thái, decision trace Director.
+  - Chỉ có trong bản debug (cờ feature OS.is_debug_build()).
+
+------------------------------------------------------------------------
+S25  SOCIAL BẤT ĐỒNG BỘ                                        Phase 10 (chi tiết PHẦN 17)
+------------------------------------------------------------------------
+NetworkGateway (interface) + MockBackend; đăng nhập; kết bạn (mã bạn bè/link mời);
+  hòm thư tặng quà (idempotent); snapshot trang trại để thăm; dự án cộng đồng (sổ cái);
+  bảng vinh danh "casual". Game phải trọn vẹn khi server chết hoặc không có bạn bè.
+
+------------------------------------------------------------------------
+S26  ONBOARDING (3 PHÚT ĐẦU)                                   Phase 9
+------------------------------------------------------------------------
+Dựng thành chuỗi "beat" dữ liệu hóa (xem PHẦN 6 F10 và PHỤ LỤC A): tàu về -> thư của bà ->
+  đặt tên trang trại/chú chó -> nhặt cành, cuốc, gieo, tưới, sửa hộp thư -> mưa nhẹ -> thư
+  kết -> camera lộ cối xay/làng/trạm -> mục tiêu đầu "Hãy biến nơi này thành nhà của bạn".
+  Không đoạn phim dài thiếu tương tác. Mỗi beat có điều kiện thoát và có thể bỏ qua.
+
+------------------------------------------------------------------------
+S27  SỔ TAY, BỘ SƯU TẬP, THÀNH TỰU                              Phase 9, 1.0
+------------------------------------------------------------------------
+Sổ tay: trang theo cột mốc (tutorial + lore), sinh thái, nhiệm vụ. Bộ sưu tập (cá, nấm,
+  hoa, côn trùng, vật phẩm hiếm), thành tựu nội bộ (và Steam achievements sau). Dữ liệu
+  hóa, đo bằng sự kiện.
+
+------------------------------------------------------------------------
+S28  TELEMETRY / ANALYTICS (TÙY CHỌN, CHỈ KHI CÓ CHẤP THUẬN)    Sau 1.0
+------------------------------------------------------------------------
+Chỉ thu thập ẩn danh nếu người chơi đồng ý; cần chính sách riêng tư (PHẦN 20). Trong giai
+  đoạn playtest, dùng quan sát trực tiếp + bảng câu hỏi thay vì telemetry.
+
+
+================================================================================
+PHẦN 6 — FLOW CHẠY CỦA GAME (SƠ ĐỒ LUỒNG)
+================================================================================
+
+Các flow dưới đây là "bản đồ" để bạn và AI cùng hiểu hệ thống nối với nhau thế nào. Khi
+giao task cho agent, dán flow liên quan vào phần READ-ONLY CONTEXT.
+
+------------------------------------------------------------------------
+F0  KIẾN TRÚC TỔNG: BA TẦNG MỘT CHIỀU
+------------------------------------------------------------------------
+
+  DATA (Resource .tres / CSV)  --->  DOMAIN (RefCounted thuần)  --->  VIEW (Scene/UI)
+        |                                  |                              |
+   CropData, ItemData,             WorldState gồm: ClockState,      FarmView, HUD,
+   RecipeData, NPCData,            FarmGridState, InventoryState,   BuildingView, NPC
+   DirectorEventData...            EconomyService, OccupancyMap,    nodes, VFX, Audio
+                                   EcologyState, WeatherService,
+                                   DirectorState, QuestState
+        Phụ thuộc CHỈ đi một chiều: View đọc Domain; Domain đọc Data; Data không biết ai.
+        View -> Domain bằng "yêu cầu" (gọi service / phát tín hiệu lệnh).
+        Domain -> View bằng tín hiệu (Events bus có kiểu).
+
+------------------------------------------------------------------------
+F1  KHỞI ĐỘNG GAME (BOOT)
+------------------------------------------------------------------------
+
+  Mở game
+    |
+    v
+  Autoload khởi tạo theo thứ tự cố định (khai báo trong project.godot):
+    1. Events        (signal bus có kiểu, không logic)
+    2. Settings      (đọc user://settings.cfg, áp dụng ngôn ngữ/âm lượng)
+    3. DataRegistry  (nạp mọi .tres/CSV -> dictionary theo id; chạy DataValidator ở debug)
+    4. SaveService   (biết đường dẫn save, codec, migrate)
+    5. GameClock     (chưa chạy)
+    6. Net           (sau này; mặc định MockBackend/offline)
+    |
+    v
+  Title Screen --[Mới]--> WorldFactory.new_game(seed) ----+
+        |                                                |
+        +--[Tiếp tục]--> SaveService.load(slot) -> validate -> migrate -> WorldState
+                                  | (hỏng?) -> thử backup 1,2,3 -> báo lỗi thân thiện
+                                  v
+                          Dựng scene thế giới từ WorldState (farm_world.tscn)
+                          Views gán WorldState (qua @export/inject), vẽ trạng thái ban đầu
+                                  |
+                                  v
+                          GameClock bắt đầu -> phát day_started (nếu ngày mới)
+
+------------------------------------------------------------------------
+F2  MỘT HÀNH ĐỘNG CỦA NGƯỜI CHƠI (VÍ DỤ: CUỐC ĐẤT)
+------------------------------------------------------------------------
+
+  Input (use_tool)
+     |
+     v
+  Player.UseToolState.enter()
+     |-- xác định ô nhắm: GridMath.pick_cell(camera, mouse) hoặc ô trước mặt
+     |-- kiểm tra tầm (reach) ; ngoài tầm -> phản hồi "xa quá", dừng
+     v
+  tool = hotbar.current_tool.tool_action
+  result = tool.can_execute(world, cell, actor)
+     | không được -> phản hồi (âm thanh/rung nhẹ/thông báo), dừng, KHÔNG đổi state
+     v
+  phát animation công cụ ... đến frame "tool_hit" (AnimationPlayer phát tín hiệu)
+     |
+     v
+  on_tool_hit(): result = tool.execute(world, cell, actor)
+     |  (HoeAction -> FarmGridState.till(cell))
+     |   Domain đổi state ATOMIC, phát tín hiệu: Events.plot_changed(cell, plot)
+     v
+  FarmView nghe plot_changed -> cập nhật mesh ô đất (không chứa luật)
+  Audio/VFX nghe -> tiếng cuốc, hạt bụi
+  UI (nếu cần) nghe -> cập nhật hotbar/bình tưới
+     |
+     v
+  UseToolState.exit() -> Idle
+
+  Điểm then chốt: Player/Tool KHÔNG tự sửa mesh. Domain đổi state; View phản ứng.
+
+------------------------------------------------------------------------
+F3  QUA NGÀY (DAYSIMULATOR) — THỨ TỰ CỐ ĐỊNH
+------------------------------------------------------------------------
+
+  Kích hoạt: người chơi ngủ (giường) HOẶC đến 02:00 HOẶC (sau này) offline catch-up gọi
+  lặp lại N lần. LUÔN gọi cùng một hàm DaySimulator.simulate_day(world).
+
+  sleep_requested
+     |
+     v
+  1. Khóa input, fade ra
+  2. TÍNH KẾT QUẢ NGÀY HÔM NAY (không chạm render):
+       a. Weather.resolve_today()      -> thời tiết của ngày D đã pre-roll (đọc từ save)
+       b. Farm.advance_day(weather)    -> cây lớn nếu được tưới/mưa; dormant theo mùa
+       c. Animals.advance_day()        -> trứng/sản phẩm
+       d. Machines.advance_to(total_minutes_sáng_hôm_sau) -> hoàn thành job đến hạn
+       e. Ecology.update(counts)       -> làm mượt về target; kiểm tra ngưỡng
+       f. Economy.new_day()            -> hồi giá bão hòa; sinh bảng đơn hàng ngày mới
+       g. Quests/NPC.advance_day()     -> lịch, hạn nhiệm vụ, vị trí NPC
+  3. CHUẨN BỊ NGÀY MỚI:
+       h. Weather.preroll(D+3) nếu thiếu (seeded)
+       i. Director.decide(D+1) (nếu bật) -> lưu quyết định + áp hiệu ứng có thời hạn
+  4. GameClock: day_index += 1; minute = 360 (06:00); xử lý chuyển mùa
+  5. SaveService.autosave()  (điểm an toàn)
+  6. Phát day_started(day_index) -> View/UI/Audio/Lighting cập nhật; fade vào
+  7. Hiển thị tóm tắt buổi sáng: thời tiết, dự báo, đơn hàng mới, sự kiện, việc cần làm
+
+  Vì sao thứ tự này: thời tiết quyết định cây lớn; cây/máy xong trước khi sinh thái và đơn
+  hàng; Director dùng snapshot SAU khi mọi thứ đã cập nhật; lưu cuối cùng để không lưu
+  trạng thái nửa vời.
+
+  Bất biến test: simulate_day N lần liên tiếp cho kết quả y hệt đi qua N lần ngủ.
+
+------------------------------------------------------------------------
+F4  MỘT NGÀY TRÔI QUA (GÓC NHÌN NGƯỜI CHƠI + HỆ THỐNG)
+------------------------------------------------------------------------
+
+  06:00 Sáng      Tóm tắt buổi sáng -> kiểm tra cây/máy/vật nuôi -> thu hoạch & thu máy
+  07:00           NPC bắt đầu lịch (tiệm bánh mở, thương nhân đến theo ngày)
+  Buổi sáng-trưa  Tưới/trồng/làm đơn/chế biến/xây/dọn đất/khám phá (hành động F2)
+  17:00 Chiều tối Ánh sáng vàng, nhạc dịu; NPC rời việc; thương nhân Minh ở chợ
+  Tối             Đom đóm, cá đêm, vật phẩm đêm; đơn hàng cuối ngày; hoàn thành việc cuối
+  02:00           Hết ngày (tự về giường nếu chưa ngủ) -> F3
+
+  Mỗi mốc giờ phát hour_changed -> Lighting (đổi môi trường), Audio (ambience), NPC
+  (schedule), Shops (mở/đóng) chỉ ĐỌC tín hiệu, không tự đếm giờ riêng.
+
+------------------------------------------------------------------------
+F5  LƯU / TẢI
+------------------------------------------------------------------------
+
+  LƯU:  WorldState --each domain.serialize()--> Dictionary --JSON.stringify-->
+        ghi save.tmp -> (bản cũ -> .bak, xoay 3 bản) -> đổi tên save.tmp -> save.json
+  TẢI:  đọc file -> JSON.parse -> kiểm tra save_version -> migrate_N_to_N+1 lặp lại ->
+        từng domain.deserialize() với VALIDATE (clamp, id tồn tại, bỏ phần lạ + cảnh báo)
+        -> WorldState -> dựng scene từ state -> day_started/state_loaded -> chơi tiếp.
+  Lỗi:  file hỏng -> thử bản backup liền kề -> nếu hết -> thông báo "không tải được" và
+        KHÔNG ghi đè file lỗi (giữ lại để cứu).
+
+------------------------------------------------------------------------
+F6  GIAO DỊCH KINH TẾ (MUA/BÁN) — NGUYÊN TỬ
+------------------------------------------------------------------------
+
+  UI "Mua 10 hạt cà rốt"
+     |
+     v
+  ShopService.buy(item, qty)
+     |-- tính giá (data + hệ số) ; kiểm tra tồn kho cửa hàng/giới hạn
+     |-- tx = Transaction.begin()
+     |-- Economy.try_spend(price, reason=&"shop_buy", key=idempotency)  --lỗi--> hủy tx
+     |-- Inventory.try_add(item, qty)  --không đủ chỗ--> Economy.refund(...) ; hủy tx
+     |-- tx.commit(): ghi ledger {delta, reason, balance_after}
+     v
+  Events.coins_changed(new_total, delta, reason) ; Events.inventory_changed(...)
+  UI cập nhật; âm thanh "xong".
+
+  Bán: ngược lại (Inventory.try_remove trước, rồi Economy.earn). Quy tắc: TRỪ TRƯỚC, CỘNG
+  SAU; mọi thay đổi coin đi qua EconomyService; coin luôn int.
+
+------------------------------------------------------------------------
+F7  QUYẾT ĐỊNH CỦA EVENTDIRECTOR (MỖI SÁNG, TRONG F3 BƯỚC i)
+------------------------------------------------------------------------
+
+  snapshot = DirectorSnapshot( sinh thái, thống kê hoạt động cửa sổ 7-14 ngày, mùa,
+                               cột mốc cốt truyện, sự kiện gần đây, cooldown )
+     |
+     v
+  candidates = lọc(DirectorEventData, điều kiện, cooldown, trần tiêu cực/mùa, ân hạn)
+     |
+     v
+  scores = trọng số dữ liệu + bù đa dạng (+ pity timer)
+     |
+     v
+  rng.seed = mix(world_seed, day, TAG_DIRECTOR) ; chọn có trọng số
+     |
+     v
+  decision{event_id, reason_trace, seed_used}  --> LƯU vào save (director.history)
+     |
+     v
+  Áp Effects có thời hạn (đảo ngược được) ; đặt "dự báo" 1-3 ngày trước nếu là sự kiện
+  tiêu cực (báo trước) ; ghi explanation_key vào Nhật ký sinh thái (giải thích).
+  Debug: panel hiện candidates/điểm/lý do ; có nút ép sự kiện.
+
+------------------------------------------------------------------------
+F8  NHIỆM VỤ & HỘI THOẠI
+------------------------------------------------------------------------
+
+  Interact(NPC) -> DialogueService.start(npc, context) -> chọn node theo điều kiện
+     -> hiển thị (text key + tr()) -> lựa chọn -> Actions(data): start_quest / reward /
+        set_flag -> Quest.state đổi -> Events.quest_updated -> HUD cập nhật mục tiêu
+  Mục tiêu nhiệm vụ lắng nghe sự kiện (Events.crop_harvested, item_delivered...) -> tăng
+  tiến độ -> READY -> trả nhiệm vụ -> COMPLETED -> mở khóa (công thức/khu vực/công trình)
+  (ví dụ M2.x mở cơ chế mới và "trang sổ tay" tương ứng).
+
+------------------------------------------------------------------------
+F9  BUILD MODE
+------------------------------------------------------------------------
+
+  open_build -> camera zoom out, hiện lưới -> chọn công trình (BuildingData)
+     -> ghost theo chuột: footprint -> OccupancyMap.can_place -> xanh/đỏ
+     -> xoay (rotate_cw) -> xác nhận -> Economy.try_spend -> Occupancy.place -> state mới
+     -> BuildingView dựng scene từ state -> Events.building_placed
+  Di chuyển/phá: chọn -> remove khỏi Occupancy -> (hoàn tiền theo tham số) -> View hủy.
+
+------------------------------------------------------------------------
+F10  ONBOARDING 3 PHÚT ĐẦU (CHUỖI BEAT DỮ LIỆU HÓA)
+------------------------------------------------------------------------
+
+  Beat 01 (00:00-00:30) Tàu về: tiếng mưa/bánh xe -> sương -> hộp thư -> nhà gỗ dây leo
+  Beat 02 (00:30-01:15) Thư của bà (câu 1) -> camera lùi -> chú chó xuất hiện
+                        -> đặt tên trang trại + tên chó (UI nhập, validate độ dài/ký tự)
+  Beat 03 (01:15-02:15) Người chơi tự đi -> nhặt cành chắn đường -> cuốc 1 ô -> gieo -> tưới
+                        -> sửa hộp thư; mưa nhỏ bắt đầu; chó chạy quanh
+  Beat 04 (02:15-03:00) Thư kết ("Đừng cố khôi phục nơi này trong một ngày...") -> nhạc mở ra
+                        -> camera lộ đường làng, cối xay ngừng quay, đồi trạm quan trắc
+                        -> Mục tiêu 1: "Hãy biến nơi này thành nhà của bạn."
+  Mỗi beat: điều kiện bắt đầu, điều kiện thoát (hành động người chơi), có thể bỏ qua;
+  không khóa người chơi trong đoạn phim dài. Trạng thái beat lưu vào flags (không lặp).
+
+------------------------------------------------------------------------
+F11  VÒNG LẶP PHÁT TRIỂN (CON NGƯỜI + AI) — QUAN TRỌNG NHẤT CHO DỰ ÁN
+------------------------------------------------------------------------
+
+  [BẠN] chọn milestone kế tiếp trong PHẦN 13 (chỉ 1 dòng)
+     |
+     v
+  [BẠN] viết task theo mẫu (MILESTONE, READ-ONLY CONTEXT, ALLOW_LIST, DO NOT TOUCH, TASK,
+        ACCEPTANCE) — PHẦN 14
+     |
+     v
+  git commit "before task X"
+     |
+     v
+  [AI] đọc docs -> đề xuất kế hoạch (Planning mode) -> [BẠN] duyệt kế hoạch
+     |
+     v
+  [AI] viết/sửa đúng ALLOW_LIST ; chạy test headless ; dán log thật
+     |
+     v
+  [BẠN] mở Godot, làm các bước Inspector/scene nếu có, chạy test thủ công
+     |
+     +-- sai -> gửi LỖI THẬT (log nguyên văn) + file liên quan + cách tái hiện, yêu cầu
+     |          "chỉ sửa file X" -> lặp
+     v
+  [BẠN] review diff (git diff) + checklist review PHẦN 12.7
+     |
+     v
+  [AI] cập nhật docs/API_INDEX.md + docs/PROGRESS.md
+     |
+     v
+  git commit "task X done" (+ tag nếu hết milestone)  --> sang milestone tiếp theo
+
+------------------------------------------------------------------------
+F12  ĐƯỜNG PHÁT HIỆN LỖI (ERROR/RECOVERY)
+------------------------------------------------------------------------
+
+  Lỗi runtime -> log có ngữ cảnh -> Debugger Godot -> bạn copy nguyên văn lỗi
+  Save hỏng -> backup -> báo người chơi
+  Dữ liệu sai (id thiếu) -> DataValidator fail lúc build/debug, KHÔNG để lọt lên runtime
+  Giao dịch fail -> rollback, ghi ledger lỗi, thông báo thân thiện
+  Server chết (social) -> Net.status = OFFLINE ; ẩn/disable tính năng social ; game vẫn chơi
+
+
+================================================================================
+PHẦN 7 — DỮ LIỆU: SCHEMA + SỐ LIỆU KHỞI ĐIỂM CHO MVP
+================================================================================
+
+7.1  NGUYÊN TẮC DỮ LIỆU
+  - Mọi giá trị gameplay (giá, thời gian, xác suất, trọng số) nằm trong Resource/CSV, KHÔNG
+    nằm trong script.
+  - id: StringName snake_case, không bao giờ đổi tên (nếu bắt buộc: bảng deprecated_ids).
+  - tên file = id: item "wheat" -> icon_item_wheat.png, model crp_wheat_s0..s3.glb.
+  - Bảng lớn (giá, công thức, đơn hàng) viết ở CSV trong data_src/ rồi script sinh .tres,
+    hoặc nạp trực tiếp bằng DataRegistry. Thứ cần tham chiếu icon/scene thì dùng .tres.
+  - DataValidator (chạy headless, và chạy trong CI/trước mỗi commit) kiểm tra: id tồn tại
+    và không trùng, không tham chiếu thiếu, giá trị trong khoảng, công thức/cây không vượt
+    trần lợi nhuận, mọi key dịch tồn tại ở cả vi và en.
+
+7.2  THỨ TỰ THIẾT KẾ CÁC LỚP DỮ LIỆU (làm theo thứ tự này)
+  1. ItemData        2. CropData         3. ToolData (+ ToolAction)  4. RecipeData
+  5. BuildingData    6. WeatherStateData + SeasonData   7. EcologyMetricData
+  8. DirectorEventData (+ Effect/Condition Resource)    9. NPCData, DialogueData, QuestData
+  10. ShopData, OrderTemplateData, LootTable (nếu có)   11. MomentData (khoảnh khắc WOW)
+
+7.3  SCHEMA MẪU (GDScript, kiểm tra theo bản Godot đã khóa)
+
+  # scripts/data/item_data.gd
+  class_name ItemData
+  extends Resource
+  @export var id: StringName
+  @export var name_key: String              # key dịch, ví dụ "ITEM_WHEAT_NAME"
+  @export var category: StringName          # crop | product | seed | tool | decor | quest
+  @export var stack_max: int = 99
+  @export var base_value: int = 0           # coin, int
+  @export var icon: Texture2D
+  @export var tags: PackedStringArray
+
+  # scripts/data/crop_data.gd
+  class_name CropData
+  extends Resource
+  @export var id: StringName
+  @export var seed_item: StringName
+  @export var product_item: StringName
+  @export var yield_qty: int = 1
+  @export var growth_days: int = 3          # số ngày được tưới/mưa để chín
+  @export var regrow_days: int = 0          # 0 = thu một lần
+  @export var seasons: Array[StringName]    # &"spring", &"summer", ...
+  @export var water_need: int = 1
+  @export var stage_scene_ids: Array[StringName]  # model theo giai đoạn
+  @export var quality_rule_id: StringName   # để Phase 11
+
+  # scripts/data/recipe_data.gd
+  class_name RecipeData
+  extends Resource
+  @export var id: StringName
+  @export var machine_id: StringName
+  @export var inputs: Array[Dictionary]     # [{"item": &"wheat", "qty": 2}]
+  @export var outputs: Array[Dictionary]
+  @export var duration_minutes: int = 60    # phút GAME
+  @export var unlock_flag: StringName
+
+  # scripts/data/building_data.gd
+  class_name BuildingData
+  extends Resource
+  @export var id: StringName
+  @export var scene_id: StringName
+  @export var footprint: Vector2i = Vector2i(1, 1)
+  @export var cost: int = 0
+  @export var slots: int = 0
+  @export var allowed_terrain: Array[StringName]
+  @export var unlock_flag: StringName
+
+  # scripts/data/director_event_data.gd
+  class_name DirectorEventData
+  extends Resource
+  @export var id: StringName
+  @export var tags: Array[StringName]
+  @export var conditions: Array[Resource]   # DirectorCondition (Resource con)
+  @export var effects: Array[Resource]      # DirectorEffect (Resource con, có thời hạn)
+  @export var weight: float = 1.0           # float OK vì không phải coin/số lượng
+  @export var cooldown_days: int = 7
+  @export var max_per_season: int = 2
+  @export var is_negative: bool = false
+  @export var telegraph_days: int = 2       # số ngày báo trước (0 nếu tích cực bất ngờ)
+  @export var counter_hint_key: String      # gợi ý cách đối phó
+  @export var explanation_key: String       # giải thích vì sao
+
+  (Ghi chú: Array[Dictionary] export được trong Godot 4 nhưng khó chỉnh trong Inspector.
+   Nếu thấy bất tiện, dùng Resource con kiểu RecipeIO {item, qty}. Agent phải kiểm tra
+   theo phiên bản bạn khóa.)
+
+7.4  SỐ LIỆU KHỞI ĐIỂM (sẽ chỉnh bằng script mô phỏng PHẦN 8 — đừng coi là chân lý)
+
+  Giả định: 1 ngày game = 12 phút thực; 28 ngày/mùa; bắt đầu với 200 coin, bình tưới
+  20 ô, kho 24 ô, 8 ô đất canh tác khả dụng ngay (sau khi dọn), mở rộng dần.
+
+  VẬT PHẨM CÂY TRỒNG (base_value = giá bán cơ sở)
+  id        | mùa            | ngày lớn | tái sinh | giá hạt | sản lượng | base_value
+  wheat     | xuân,hạ,thu    | 2        | -        | 8       | 1         | 20
+  carrot    | xuân,thu       | 3        | -        | 15      | 1         | 45
+  corn      | xuân,hạ        | 4        | -        | 30      | 1         | 90
+  tomato    | hạ,thu         | 5        | 2 ngày   | 40      | 1/lần     | 55
+
+  Lợi nhuận mỗi ô mỗi ngày (một chu kỳ, bỏ qua tưới thiếu):
+    wheat : (20-8)/2          = 6,0
+    carrot: (45-15)/3         = 10,0
+    corn  : (90-30)/4         = 15,0
+    tomato: chu kỳ 11 ngày: thu ở ngày 5,7,9,11 = 4x55=220; trừ hạt 40 -> 180/11 = 16,4
+  -> càng "đầu tư" (đắt, lâu) càng lời hơn nhưng có ràng buộc mùa; giá bão hòa (PHẦN 8)
+     làm cho không có cây "tối ưu duy nhất".
+
+  VẬT PHẨM SẢN PHẨM
+  flour (bột mì) base 55 | bread (bánh mì) base 150 | egg (trứng) base 30
+  (có thể thêm: jam, flower_bouquet... ở bản sau)
+
+  CÔNG THỨC
+  recipe_flour : máy cối xay  | in: 2 wheat (=40)  | out: 1 flour (=55)  | 90 phút game
+  recipe_bread : máy lò bánh  | in: 2 flour (=110) | out: 1 bread (=150) | 180 phút game
+  -> giá trị tăng thêm/giờ game: flour (55-40)/1,5 = 10 ; bread (150-110)/3 = 13,3
+  Nhà gà: 4 gà, cho ăn 1 wheat/ngày/gà -> mỗi gà ra 1 egg/ngày (lời ~10 coin/gà/ngày).
+
+  MỤC TIÊU TIẾN TRÌNH & NƠI TIÊU COIN (gợi ý để khởi động bảng tính)
+  Giai đoạn        | Ngày  | Thu nhập/ngày game (mục tiêu) | Mục tiêu chi tiêu
+  GĐ1 Người mới    | 1-7   | 40-150                        | kho +12 ô (300), mở rộng đất #1 (500)
+  GĐ2 Chủ trang trại| 8-30 | 150-500                       | cối xay (600), lò bánh (900), nhà gà (700), mở rộng #2 (1.100)
+  GĐ3 Nhà kinh doanh| 31-80| 500-1.500                     | mở rộng #3-#4, nhà kính (6.000), dự án cầu (8.000)
+  GĐ4 Kiến tạo     | 80-200| 1.500-4.000                   | quảng trường (25.000), lễ hội, công trình biểu tượng
+  GĐ5 Cuộc sống mơ | 200+  | tùy                           | trang trí, cosmetics, bộ sưu tập, dự án lớn
+
+  Công thức giá mở rộng đất (gợi ý): cost(n) = làm tròn 50 của 500 x 2,2^(n-1)
+    n=1: 500 ; n=2: 1.100 ; n=3: 2.400 ; n=4: 5.300 ; n=5: 11.700 ...
+  Nâng cấp bình tưới: 20 -> 40 -> 80 ô: 200, 600, 1.800. Nâng cấp kho: 24 -> 36 -> 48 -> 60.
+
+  THỜI TIẾT (xác suất mỗi ngày, bản MVP)
+  mùa   | nắng | mưa nhẹ
+  xuân  | 70%  | 30%
+  hạ    | 75%  | 25%
+  thu   | 70%  | 30%
+  (bản sau: sương mù, mưa lớn, nắng nóng, tuyết; mỗi thời tiết có tag dự báo được)
+
+  SINH THÁI (ví dụ ngưỡng, data)
+  biodiversity >= 25 -> bướm/ong | tree_cover >= 30 -> chim | water_clarity >= 50 -> nước trong
+  hai chỉ số >= 60 -> đom đóm | cả ba >= 80 -> khoảnh khắc WOW "thung lũng hồi sinh"
+
+  NPC & LỊCH (ví dụ)
+  An    : tiệm bánh 07:00-18:00 ; 18:00-21:00 ở nhà ; mua tốt: flour, bread
+  Lâm   : xưởng mộc 08:00-17:00 ; chiều tối ở quán ; bán: gỗ/hàng rào/cầu
+  Linh  : rừng 10:00-17:00 ; ven suối buổi sáng ; dạy phục hồi suối
+  Minh  : chợ 17:00-22:00 vào ngày 3 và ngày 6 mỗi tuần (tuần 7 ngày) ; hàng đổi theo lần
+
+7.5  ĐƠN HÀNG (OrderTemplateData) — công thức, không "AI"
+  Mẫu: người đặt (An/chợ/Minh), danh sách yêu cầu (item, qty min-max), hạn (1-3 ngày),
+  thưởng = round(tổng base_value x hệ số_ngẫu_nhiên_có_seed[1,15..1,5]), trần = 2,0 x tổng
+  base_value, có thể kèm 1 vật phẩm thưởng phi-coin (hạt giống/đồ trang trí) theo bảng.
+  Số đơn/ngày: 3-5. Hết hạn: biến mất, không phạt. Seed: mix(world_seed, day, TAG_ORDERS).
+
+7.6  MOMENTDATA (khoảnh khắc WOW)
+  id, điều kiện (đọc từ ecology/quest/weather/giờ), hiệu ứng (VFX id, nhạc, camera, hội
+  thoại), cooldown/một lần, cờ đã xem. Ví dụ moment_first_butterflies: điều kiện
+  biodiversity>=25 AND weather==rain_just_ended AND season==spring.
+
+
+================================================================================
+PHẦN 8 — KINH TẾ: MÔ HÌNH, CÂN BẰNG, CHỐNG KHAI THÁC
+================================================================================
+
+8.1  MÔ HÌNH FAUCET / SINK
+  FAUCET (nguồn coin): bán nông sản; bán sản phẩm chế biến; đơn hàng; trứng/sữa; hái lượm;
+    câu cá; thưởng nhiệm vụ (có hạn); lễ hội.
+  SINK (nơi tiêu): mở rộng đất; công trình; nâng cấp (kho, bình tưới, công cụ); trang trí;
+    cosmetics/trang phục; hạt giống & nguyên liệu; đóng góp lễ hội; dự án cộng đồng.
+  Nguyên tắc: sink phải LẶP LẠI được (trang trí, cosmetics, lễ hội theo mùa, nâng cấp theo
+  bậc) để không lạm phát hậu game. KHÔNG dùng phí duy trì hàng tuần phạt người vắng mặt.
+  Dự án lớn (cầu, quảng trường, nhà ga) có chi phí CO GIÃN theo số người tham gia để solo
+  vẫn hoàn thành được.
+
+8.2  BA SỐ PHẢI ĐO TRƯỚC KHI LÀM NỘI DUNG
+  1) coin / ngày game / ô đất ở từng giai đoạn
+  2) coin / giờ THỰC của người chơi (đã gồm thời gian tưới/di chuyển/chế biến)
+  3) thời gian đến mốc tiếp theo (mở rộng #1, cối xay, lò bánh...) so với mục tiêu
+  Công cụ: tools/sim_economy.gd (headless) chạy các "chiến lược" giả: chỉ trồng lúa mì;
+  cân bằng cà rốt/ngô; người chế biến; người chơi lười (chỉ chơi 3 ngày/tuần); tối ưu hóa
+  (cố khai thác). Output CSV: ngày, coin, thu nhập ngày, số ô, số máy, tài sản. Kiểm
+  tra: coin không âm; thời gian đến mốc nằm trong dải mục tiêu; chiến lược "tối ưu" không
+  vượt chiến lược "cân bằng" quá ~1,5 lần (nếu vượt = có lỗ hổng).
+
+8.3  GIÁ BÃO HÒA (chống cây tối ưu duy nhất)
+  Mỗi mặt hàng có sold_pressure (int). Bán 1 đơn vị: pressure += 1. Mỗi ngày: pressure =
+  max(0, pressure - 3). Hệ số giá = max(0,6 ; 1 - 0,02 x max(0, pressure - 5)). Giá bán =
+  floor(base_value x hệ số). Các tham số nằm trong data. Hiển thị cho người chơi (mũi tên
+  giá xu hướng) để họ HIỂU, không thấy bị "phạt ngầm".
+
+8.4  QUY TẮC VÀNG
+  - coin là int; số lượng là int; không float cho tiền. (Trọng số xác suất float được.)
+  - Mọi thay đổi coin đi qua MỘT service (EconomyService) và ghi sổ cái có reason.
+  - Mọi thay đổi vật phẩm đi qua MỘT service (InventoryService).
+  - Giá mua NPC của một vật phẩm >= giá bán NPC của chính vật phẩm đó.
+  - Hạt giống cơ bản luôn mua được (chống softlock).
+  - DataValidator tính lợi nhuận mỗi ô/ngày (cây) và giá trị tăng thêm/giờ game (công
+    thức); vượt trần theo giai đoạn -> build FAIL. Trần ví dụ (coin/ô/ngày cho cây; coin/giờ
+    game cho công thức): GĐ1 cây <= 18 và công thức <= 15 ; GĐ2 cây <= 30 và công thức <= 40 ;
+    GĐ3 cây <= 60 và công thức <= 120. (GĐ1 đặt 18 để chứa ngô 15,0 và cà chua 16,4 trong
+    bảng 7.4; số này chưa tính công tưới/di chuyển của người chơi, nên chỉ là trần an toàn,
+    không phải thu nhập thực. Chỉnh lại sau khi chạy sim_economy ở task 5.4.)
+
+8.5  LỖ HỔNG KHAI THÁC (E1-E18) VÀ CÁCH CHẶN
+  E1  Tài khoản phụ/"mule" chuyển coin   -> không cho chuyển coin; chỉ trao đổi vật phẩm có thuế, trần theo ngày và theo cấp tài khoản (khi có social).
+  E2  Arbitrage NPC <-> chợ người chơi   -> dải giá min/max theo base_value; giá mua NPC >= giá bán NPC.
+  E3  Công thức "in tiền"                -> validator lợi nhuận/giờ; vượt trần thì fail build.
+  E4  Cây tối ưu duy nhất                -> giá bão hòa; đơn hàng xoay vòng; ràng buộc mùa.
+  E5  Đơn hàng bị thao túng bằng tích trữ -> thưởng = base_value x hệ số, có trần; không để hệ thống "quyết định giá trị".
+  E6  Phí bảo trì phạt người offline     -> KHÔNG dùng; máy tạm dừng chứ không hỏng.
+  E7  Sink một lần -> lạm phát về sau    -> sink lặp lại: trang trí, mở rộng, nâng cấp, lễ hội, cosmetics.
+  E8  Quỹ chung "đại gia gánh"           -> trần đóng góp theo người; dự án luôn hoàn thành được solo.
+  E9  Dupe qua hòm thư/crash giữa chừng  -> idempotency key; trừ kho trước, gửi sau (escrow); server có sổ cái.
+  E10 Chỉnh giờ máy                      -> MVP: thế giới dừng khi đóng game; về sau lưu last_save_utc, chặn catch-up vượt trần, phát hiện giờ lùi; social dùng giờ server.
+  E11 Sink có kỳ vọng dương (loot/vé)    -> không có trong MVP; nếu có sau này, tính EV so với giá vé.
+  E12 Thu hoạch hai lần / nhân đôi       -> chuyển trạng thái nguyên tử; test.
+  E13 Save-scum (reroll thời tiết/sự kiện/đơn hàng) -> pre-roll bằng seed và LƯU vào save; load không roll lại.
+  E14 Race trong UI (kéo thả/nhấp nhanh) nhân đôi vật phẩm -> mọi thao tác kho đi qua InventoryService đồng bộ; UI chỉ gửi yêu cầu.
+  E15 Overflow/âm số lượng, giá âm       -> validate mọi input; clamp; test biên.
+  E16 Mua-bán vòng lặp cùng mặt hàng     -> điều kiện giá mua >= bán + validator.
+  E17 Ngủ liên tục để "tua ngày"         -> không phải exploit (tăng ngày chứ không tăng thu nhập/ngày); nhưng mọi giới hạn theo ngày (đơn hàng, giá hồi, mùa) tính theo ngày game nên tua ngày chỉ tiêu hao mùa/cây theo ngày chứ không "in" coin.
+  E18 Chỉnh file save                    -> chấp nhận ở single-player; lớp social KHÔNG tin save (D04).
+
+8.6  HỆ THỐNG DANH TIẾNG / PHÁT TRIỂN CỘNG ĐỒNG (không phải tiền)
+  Một chỉ số "Phát triển thung lũng" tăng theo cột mốc + sinh thái + dự án. Dùng để mở
+  khóa nội dung (không mua được bằng coin). Tránh nhiều loại tiền ở bản đầu (D05).
+
+8.7  CHECKLIST CÂN BẰNG TRƯỚC KHI THÊM NỘI DUNG MỚI
+  [ ] Có bảng tính hoặc sim cho thứ mới (cây/máy/công thức)?
+  [ ] Validator pass (không vượt trần)?
+  [ ] Có sink tương ứng ở giai đoạn đó?
+  [ ] Người chơi lười (3 ngày/tuần) vẫn tiến bộ?
+  [ ] Có thể khai thác bằng vòng lặp mua-bán/tích trữ không? (đã thử bằng sim)
+
+
+================================================================================
+PHẦN 9 — KIẾN TRÚC KỸ THUẬT GODOT
+================================================================================
+
+9.1  QUY TẮC PHỤ THUỘC
+  DATA -> DOMAIN -> VIEW, một chiều. Domain là RefCounted/Resource, KHÔNG có Node, KHÔNG
+  biết scene. View đọc domain, gửi yêu cầu qua service/tín hiệu lệnh. Scene không lưu
+  state quan trọng. Test domain không cần mở editor.
+
+9.2  AUTOLOAD (TỐI ĐA ~6; không giữ tham chiếu tới node; không biến thành "god object")
+  Tên          | Vai trò
+  Events       | Signal bus có kiểu, KHÔNG logic
+  Settings     | Cấu hình người chơi (ngôn ngữ, âm lượng, phím)
+  DataRegistry | Nạp mọi .tres/CSV vào dictionary theo id; API get_item(id)...
+  SaveService  | Ghi/đọc/migrate; giữ codec
+  GameClock    | Thời gian, ngày, mùa (state + tín hiệu)
+  Net (sau)    | Truy cập NetworkGateway (Mock mặc định)
+  Ghi chú: WorldState (gom FarmGridState, InventoryState, EconomyService...) là object
+  domain được GameClock/main sở hữu, không phải autoload. Logging dùng lớp static Log
+  (không phải autoload).
+
+9.3  CẤU TRÚC THƯ MỤC (hợp nhất nguồn C + A)
+
+  TheLife/
+  ├── project.godot
+  ├── AGENTS.md                  (rules cho agent; Antigravity/Cursor/Claude Code đều đọc)
+  ├── GEMINI.md                  (tùy chọn: ghi đè riêng cho Antigravity)
+  ├── .agent/                    (rules/ và workflows/ của Antigravity — xem PHẦN 12)
+  ├── .gitignore  .gitattributes (Git LFS)
+  ├── docs/                      (bộ tài liệu cho agent — PHẦN 14)
+  ├── data_src/                  (CSV/nguồn bảng dữ liệu; script sinh .tres)
+  ├── tools/                     (script headless: sim_economy.gd, validate_data.gd, sim_director.gd)
+  ├── scenes/
+  │   ├── main/main.tscn
+  │   ├── world/farm_world.tscn  village.tscn ...
+  │   ├── player/player.tscn
+  │   ├── farming/ (plot visuals)  buildings/  characters/  ui/  fx/
+  ├── scripts/
+  │   ├── core/        events.gd game_clock.gd save_service.gd data_registry.gd settings.gd
+  │   ├── util/        grid_math.gd det_random.gd log.gd
+  │   ├── data/        item_data.gd crop_data.gd recipe_data.gd building_data.gd ...
+  │   ├── domain/      world_state.gd
+  │   │                farm/farm_grid_state.gd  plot_state.gd
+  │   │                inventory/inventory_state.gd  item_stack.gd
+  │   │                economy/economy_service.gd  ledger.gd  shop_service.gd  order_board.gd
+  │   │                world/occupancy_map.gd  day_simulator.gd  weather_service.gd
+  │   │                ecology/ecology_state.gd
+  │   │                director/event_director.gd  director_snapshot.gd  effects/ conditions/
+  │   │                production/machine_state.gd
+  │   │                quests/quest_state.gd  dialogue_service.gd
+  │   ├── components/  interactable.gd  grid_actor.gd  ...
+  │   ├── player/      player.gd  states/ (idle_state.gd move_state.gd use_tool_state.gd ...)
+  │   ├── actions/     tool_action.gd hoe_action.gd water_action.gd seed_action.gd ...
+  │   ├── view/        farm_view.gd building_view.gd lighting_view.gd weather_fx_view.gd ...
+  │   ├── ui/          hud.gd hotbar.gd inventory_ui.gd shop_ui.gd build_ui.gd journal_ui.gd ...
+  │   └── net/         network_gateway.gd mock_backend.gd supabase_backend.gd (sau)
+  ├── data/            (các .tres)
+  │   ├── items/ crops/ recipes/ buildings/ tools/ weather/ ecology/ director_events/
+  │   ├── npcs/ dialogue/ quests/ shops/ orders/ moments/
+  ├── assets/
+  │   ├── characters/ environment/ buildings/ crops/ props/ icons/ audio/ vfx/ fonts/
+  │   └── (ghi nguồn + giấy phép vào docs/CREDITS.md)
+  ├── localization/    (CSV/PO: vi, en)
+  └── tests/
+      ├── unit/ domain/ view/ golden_saves/ fixtures/
+
+9.4  MẪU CODE QUAN TRỌNG (agent phải kiểm tra theo bản Godot đã khóa; đây là hình mẫu)
+
+(a) Signal bus có kiểu (KHÔNG dùng emit_signal bằng chuỗi)
+
+  # scripts/core/events.gd   (autoload "Events")
+  extends Node
+  @warning_ignore("unused_signal")
+  signal day_started(day_index: int)
+  @warning_ignore("unused_signal")
+  signal crop_harvested(cell: Vector2i, crop_id: StringName, quantity: int, quality: int)
+  @warning_ignore("unused_signal")
+  signal coins_changed(new_total: int, delta: int, reason: StringName)
+  # phát:  Events.crop_harvested.emit(cell, crop_id, qty, quality)
+  # nhận:  Events.day_started.connect(_on_day_started)
+  Quy tắc: signal cục bộ cho quan hệ cha-con; bus chỉ cho sự kiện xuyên hệ thống. (Cảnh
+  báo "unused signal" của Godot với signal chỉ phát từ nơi khác: dùng @warning_ignore hoặc
+  chỉnh mức cảnh báo trong Project Settings.)
+
+(b) GridMath — nơi DUY NHẤT đổi world <-> cell
+
+  class_name GridMath
+  extends RefCounted
+  const CELL_SIZE := 1.0
+  static func world_to_cell(p: Vector3) -> Vector2i:
+      return Vector2i(floori(p.x / CELL_SIZE), floori(p.z / CELL_SIZE))   # floori, không int()
+  static func cell_to_world(c: Vector2i) -> Vector3:
+      return Vector3((c.x + 0.5) * CELL_SIZE, 0.0, (c.y + 0.5) * CELL_SIZE)  # tâm ô
+
+(c) Chọn ô bằng chuột với Camera3D orthographic
+
+  func pick_cell(camera: Camera3D, mouse_pos: Vector2) -> Variant:   # Vector2i hoặc null
+      var from := camera.project_ray_origin(mouse_pos)
+      var dir := camera.project_ray_normal(mouse_pos)
+      var hit: Variant = Plane(Vector3.UP, 0.0).intersects_ray(from, dir)
+      if hit == null:
+          return null
+      return GridMath.world_to_cell(hit as Vector3)
+
+(d) Di chuyển tương đối camera (CharacterBody3D)
+
+  func _physics_process(delta: float) -> void:
+      var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+      var b := camera.global_transform.basis
+      var fwd := Vector3(-b.z.x, 0.0, -b.z.z).normalized()
+      var right := Vector3(b.x.x, 0.0, b.x.z).normalized()
+      var dir := (right * input.x + fwd * -input.y)
+      velocity.x = dir.x * speed
+      velocity.z = dir.z * speed
+      move_and_slide()          # KHÔNG tham số (Godot 4)
+  (Gravity/độ cao: mặt đất phẳng ở MVP; thêm sau nếu cần.)
+
+(e) Ngẫu nhiên có seed, tất định (không dùng randi() toàn cục cho gameplay)
+
+  class_name DetRandom
+  extends RefCounted
+  const TAG_WEATHER := 1
+  const TAG_DIRECTOR := 2
+  const TAG_ORDERS := 3
+  const TAG_FORAGE := 4
+  const MOD := 2147483647
+  static func mix(a: int, b: int) -> int:
+      var h: int = posmod(a, MOD) * 1103515245 + posmod(b, MOD) + 12345  # <2^62: không tràn
+      return posmod(h, MOD)
+  static func make_rng(world_seed: int, day: int, tag: int) -> RandomNumberGenerator:
+      var rng := RandomNumberGenerator.new()
+      rng.seed = mix(mix(world_seed, day), tag)
+      return rng
+  Lý do dùng TAG số nguyên + hàm mix tự viết: hash() và String.hash() của engine không
+  đảm bảo ổn định giữa các phiên bản -> golden test sẽ vỡ khi nâng cấp. Golden test cũng
+  sẽ báo nếu chuỗi RNG của engine đổi sau khi nâng cấp Godot.
+
+(f) State machine node (mỗi state một file)
+
+  class_name PlayerState
+  extends Node
+  signal transition_requested(next_state: StringName, msg: Dictionary)
+  func enter(_msg: Dictionary = {}) -> void: pass
+  func exit() -> void: pass
+  func handle_input(_event: InputEvent) -> void: pass
+  func physics_update(_delta: float) -> void: pass
+
+(g) Strategy cho công cụ
+
+  class_name ToolAction
+  extends Resource
+  func can_execute(_world: WorldState, _cell: Vector2i, _actor: Node) -> bool: return false
+  func execute(_world: WorldState, _cell: Vector2i, _actor: Node) -> bool: return false
+  # HoeAction, WaterAction, SeedAction... kế thừa; ToolData trỏ tới ToolAction.
+
+(h) Component Interactable
+
+  class_name Interactable
+  extends Area3D
+  signal interacted(actor: Node)
+  @export var prompt_key: String = "PROMPT_INTERACT"
+  func interact(actor: Node) -> void:
+      interacted.emit(actor)
+
+9.5  QUY ƯỚC ĐẶT TÊN & PHONG CÁCH GDSCRIPT
+  - File/biến/hàm: snake_case. class_name: PascalCase. Hằng: UPPER_SNAKE. Signal: động từ quá
+    khứ (day_started, crop_harvested). Hàm/biến private: tiền tố _.
+  - Kiểu tĩnh khắp nơi (var x: int; func f(a: int) -> bool). Bật cảnh báo "untyped declaration".
+  - Mỗi script <= ~250 dòng, một trách nhiệm. Dài hơn -> tách.
+  - Header API mỗi script domain: "## API:" liệt kê hàm công khai + signal (tổng hợp thành
+    docs/API_INDEX.md).
+  - Không get_node("../../X"). Dùng @export var x: Type, %UniqueName trong cùng scene, hoặc
+    service. Kết nối signal bằng CODE (để agent nhìn thấy).
+  - Không hardcode giá trị gameplay. Không string-based emit_signal. Không randi() toàn cục.
+  - Xử lý lỗi: hàm domain trả kết quả tường minh (bool/Result/code lỗi), không "nuốt" lỗi;
+    log có ngữ cảnh qua Log.warn/Log.error.
+
+9.6  CẤU TRÚC FILE SAVE (JSON)
+
+  {
+    "meta":    { "save_version": 1, "game_version": "0.1.0", "saved_utc": 0,
+                 "world_seed": 0, "playtime_s": 0 },
+    "clock":   { "day_index": 0, "minute": 360 },
+    "player":  { "cell": "0,0", "facing": 0, "tool_state": {} },
+    "inventory": { "slots": [] },
+    "economy": { "coins": 0, "ledger_tail": [], "sold_pressure": {} },
+    "farm":    { "plots": [] },
+    "buildings": [],
+    "ecology": { "metrics": {}, "triggered": [] },
+    "weather": { "today": "sunny", "forecast": [] },
+    "director": { "enabled": false, "rng_state": 0, "history": [], "cooldowns": {} },
+    "quests":  {},
+    "npcs":    {},
+    "flags":   {}
+  }
+  Quy tắc: số nguyên đọc lại có thể thành float -> ép int khi nạp; Vector2i lưu "x,y";
+  StringName lưu string rồi chuyển lại; không lưu đường dẫn tài nguyên làm khóa chính (lưu id).
+
+9.7  COLLISION LAYERS (đặt tên trong Project Settings -> Layer Names -> 3D Physics TRƯỚC khi code)
+  Layer | Tên           | Mục đích
+   1    | world_static  | Địa hình/tường/công trình cứng
+   2    | player        | Nhân vật chính
+   3    | interactable  | Area dò tương tác
+   4    | npc           | NPC và thú cưng
+   5    | trigger       | Vùng kích hoạt (sự kiện, khu vực âm thanh)
+   6    | water         | Nước (câu cá, tiếng bước chân)
+   7    | occluder_fade | Vùng làm mờ vật che khuất
+   8    | placement     | Vật chặn đặt công trình
+  Agent KHÔNG được tự bịa số layer/mask; chỉ dùng bảng này.
+
+9.8  CÀI ĐẶT PROJECT CẦN KHÓA NGAY (Phase 0)
+  - Display: cửa sổ 1920x1080; Stretch mode = canvas_items; aspect = expand (hoặc keep).
+  - Renderer (D08) + Physics 3D engine (nếu bản Godot có lựa chọn như Jolt, chọn một và khóa).
+  - Physics ticks 60/giây. Tắt vsync? (giữ bật). Giới hạn FPS tùy chọn trong Settings.
+  - Layer Names; Autoload theo thứ tự (9.2); InputMap (S01); Localization (vi, en).
+  - Import defaults cho 3D (.glb) và texture; Git LFS cho .glb/.png/.ogg/.blend.
+  - Bật cảnh báo kiểu tĩnh; đặt "treat warnings as errors" cho CI headless nếu khả thi.
+
+9.9  HỢP ĐỒNG SCENE (SCENE CONTRACT) — chống ảo giác đường dẫn node
+  Mỗi scene quan trọng có docs/SCENE_CONTRACTS/<tên>.md: cây node, tên unique (%Name),
+  biến @export (kiểu), signal, group, collision layer/mask, script gắn ở đâu. Agent không
+  được dùng node không có trong hợp đồng; nếu cần node mới -> hỏi hoặc tạo stub rồi báo.
+  Agent viết script + .tres đơn giản; BẠN dựng scene phức tạp trong editor (tránh merge
+  .tscn và UID resource hỏng).
+
+9.10  GIAO DIỆN MẠNG (NetworkGateway) — chuẩn bị từ Phase 10, nhưng tách ngay từ thiết kế
+  class_name NetworkGateway extends RefCounted
+  # Tất cả hàm async (await) trả Result{ok, error, data}
+  func sign_in() -> Result
+  func send_gift(to_player_id, item_id, qty, idempotency_key) -> Result
+  func fetch_inbox() -> Result
+  func claim_gift(gift_id) -> Result
+  func upload_snapshot(snapshot_json) -> Result
+  func fetch_friend_snapshot(player_id) -> Result
+  func contribute_project(project_id, contribution, idempotency_key) -> Result
+  MockBackend: lưu trong bộ nhớ/tệp local -> dev và test offline.
+  Game KHÔNG gọi HTTP trực tiếp từ gameplay; chỉ qua Net -> gateway.
+
+9.11  NGÂN SÁCH HIỆU NĂNG (điểm xuất phát, tinh chỉnh bằng đo đạc [CHƯA CHẮC])
+  - Mục tiêu: 60 FPS ổn định trên PC tầm trung (ghi cấu hình mục tiêu vào PROJECT_RULES).
+  - Tam giác: prop vài trăm; công trình vài nghìn; nhân vật vài nghìn đến ~10k.
+  - Foliage dùng alpha scissor/hash; tránh alpha blend cho vật lớn.
+  - Ít material (dùng atlas màu/gradient); MultiMeshInstance3D cho cỏ/hoa/cây lặp.
+  - Cập nhật theo sự kiện, không _process cho mọi cây/ô. Cây lưu planted_day.
+  - Đo bằng Profiler/Monitors của Godot trước khi tối ưu.
+
+
+================================================================================
+PHẦN 10 — PIPELINE ASSET (3D, UI, ÂM THANH, ASSET DO AI TẠO)
+================================================================================
+
+10.1  NGUYÊN TẮC
+  - Asset "thật" phải kiểm tra: kích thước/tỉ lệ, góc nhìn, pivot, nền trong suốt, animation,
+    quyền sử dụng. Concept art từ AI KHÔNG phải asset dùng được ngay.
+  - Chốt camera (D13) và 1 model mẫu trước khi làm hàng loạt.
+  - Đừng tạo 100 vật phẩm trước khi có 4 loại cây chạy tốt.
+
+10.2  ĐƠN VỊ & TRỤC
+  - 1 đơn vị Blender = 1 mét Godot. Ô lưới = 1x1 m. Nhân vật cao ~1,2-1,5 ô (kiểu chibi).
+  - Trước khi export: Apply Scale/Rotation (scale 1, rotation 0). Xuất .glb (glTF 2.0).
+  - Chốt hướng mặt của model, test bằng một model mẫu ở tuần đầu rồi ghi lại.
+
+10.3  PIVOT (ĐIỂM NEO) & FOOTPRINT
+  - Origin đặt ở tâm footprint, mặt đất (y = 0), KHÔNG đặt ở tâm hình học.
+  - Công trình khai báo footprint Vector2i trong data (không đoán từ mesh). Xử lý offset
+    footprint chẵn/lẻ trong GridMath, một chỗ duy nhất.
+
+10.4  QUY TẮC ĐẶT TÊN (snake_case, tiền tố theo nhóm; tên file = id dữ liệu)
+  chr_player_base.glb   env_tree_oak_01.glb   bld_bakery_lv1.glb   prop_fence_wood_a.glb
+  crp_wheat_s0.glb ... crp_wheat_s3.glb       fx_rain_drop.tscn   mat_grass_a.tres
+  icon_item_wheat.png   sfx_hoe_hit_01.ogg    amb_forest_day.ogg  mus_farm_morning.ogg
+  Quy tắc vàng: id vật phẩm = tên icon = tên model. Agent suy ra đường dẫn từ id nên không
+  bịa path.
+
+10.5  IMPORT HINTS (đặt hậu tố tên node/animation trong Blender — kiểm tra tài liệu import
+      của bản Godot đã khóa)
+  -col, -convcol, -colonly, -noimp cho va chạm/bỏ qua; -loop (hoặc -cycle) cho animation lặp.
+
+10.6  NHÂN VẬT & ANIMATION
+  - Một skeleton chung cho mọi nhân vật; tên bone cố định và ghi vào tài liệu (ví dụ hand_r).
+  - Animation chuẩn: idle-loop, walk-loop, run-loop, hoe, water, harvest, pickup, axe, fish_cast,
+    interact, sleep, emote_*.
+  - Công cụ gắn qua BoneAttachment3D ở bone hand_r. Thay trang phục = mesh module (tóc, áo,
+    quần, giày) dùng chung skeleton.
+  - Mỗi animation công cụ có điểm "tool_hit" (Call Method/Signal track) -> logic nông trại
+    phản ứng theo tín hiệu, không theo Timer.
+  - NPC: dùng chung skeleton nếu có thể; biến thể bằng mesh/màu.
+
+10.7  VẬT LIỆU, SHADER, ÁNH SÁNG
+  - Phong cách: toon/stylized nhẹ, atlas màu hoặc gradient vẽ tay.
+  - Shader cần làm: (1) dithering/fade vật che khuất quanh người chơi (hoặc Area3D occluder
+    chỉnh tham số shader); (2) lá/cỏ đung đưa theo gió; (3) nước (độ trong lấy từ
+    water_clarity); (4) mặt đất ướt khi mưa; (5) hậu kỳ nhẹ (bloom/color grading theo giờ).
+  - Ánh sáng ngày/đêm: DirectionalLight3D (màu/năng lượng/góc theo giờ qua Gradient/Curve),
+    WorldEnvironment (sương, ambient), đèn cửa sổ bật theo giờ.
+  - Bóng đổ với camera ortho: chỉnh khoảng cách bóng/cascade để không nhấp nháy.
+  - Mưa: GPUParticles3D theo camera + âm thanh + đất ướt; đom đóm: particles phát sáng.
+
+10.8  PHƯƠNG ÁN 2D (FALLBACK NẾU SPIKE THẤT BẠI)
+  - Render sprite từ Blender bằng camera ortho cố định, nền trong suốt; mọi sprite cùng góc
+    và cùng tỉ lệ pixel/mét; anchor ở điểm chân (bottom-center); tên name_dir_frame.
+  - Godot: TileMapLayer (từ 4.3), y_sort_enabled ở node cha chung, origin ở chân; công trình
+    nhiều ô dễ lỗi y-sort -> cắt lớp hoặc dùng "sort point"; không dùng z_index để sửa sort.
+  - Chấp nhận ánh sáng ngày/đêm khó hơn (normal map hoặc tint).
+  - Nếu chuyển 2D: đổi CharacterBody3D -> CharacterBody2D, Camera3D -> Camera2D; GridMath
+    chuyển sang hệ 2D (giữ API); domain/data KHÔNG đổi (đây là lợi ích của kiến trúc 3 tầng).
+
+10.9  SPIKE ASSET (1 TUẦN, LÀM TRƯỚC PHASE 0.4) — [BẠN LÀM] + công cụ AI
+  Mục tiêu: chứng minh pipeline asset khả thi, không làm đẹp.
+  Việc: (1) camera ortho đúng góc D13; (2) một ô đất 1x1 m (cỏ, đất cuốc); (3) một cây trồng
+  3 giai đoạn đơn giản; (4) một nhân vật đứng/đi có skeleton + 2 animation (idle, walk) và
+  1 animation công cụ có tool_hit; (5) một công trình 2x2 với footprint đúng; (6) import
+  vào Godot, đặt lên lưới, bật ánh sáng ngày/đêm đơn giản.
+  Tiêu chí ĐẠT: tỉ lệ và pivot đúng (ô đặt khít lưới); không lỗi che khuất nghiêm trọng;
+  animation chạy; thời gian tạo mỗi model <= ~1 ngày (để biết sức chứa nội dung).
+  Nếu KHÔNG đạt: dùng asset CC0 (10.10, tầng T1) hoặc chuyển 2D (10.8).
+
+10.10  NGUỒN ASSET CHO DỰ ÁN "THUẦN AI" (CHIA TẦNG; luôn ghi nguồn + giấy phép vào CREDITS)
+  T0  Gray-box bằng primitive: hộp/trụ/cầu dựng ngay trong Godot (CSG hoặc MeshInstance3D).
+      Agent làm tốt. DÙNG cho Phase 0-6 để tập trung vào gameplay.
+  T1  Asset miễn phí giấy phép rộng (CC0): ví dụ các thư viện 3D low-poly như Kenney,
+      Quaternius, KayKit. [CHƯA CHẮC về từng gói cụ thể — kiểm tra giấy phép của TỪNG gói
+      trước khi dùng thương mại; giữ bản sao trang giấy phép]. Nên chọn một họ phong cách
+      và bám vào để nhất quán.
+  T2  Mô hình do AI sinh (text/image-to-3D) + dọn trong Blender (tỉ lệ, pivot, số tam giác,
+      texture, skeleton). Rủi ro: phong cách không đồng nhất, topology xấu, điều khoản giấy
+      phép/thương mại của công cụ -> đọc kỹ ToS. Không dùng cho nhân vật có animation nếu
+      chưa chắc rig.
+  T3  Tự dựng trong Blender (có thể nhờ agent viết script Python Blender (bpy) để sinh prop
+      low-poly như hàng rào, thùng, bàn ghế theo tham số).
+  Concept art do AI tạo: chỉ để tham khảo định hướng; kiểm tra tỉ lệ/góc nhìn trước khi dựa
+  vào. Âm thanh: SFX/ambience từ kho CC0/được cấp phép (kiểm tra từng nguồn); nhạc do AI
+  sinh: đọc kỹ điều khoản thương mại của công cụ.
+
+10.11  UI & FONT
+  - Canvas 1920x1080; stretch canvas_items. Một Theme dùng chung. Icon 64x64 và 128x128
+    (Aseprite hoặc công cụ khác; filter nearest nếu là pixel). Panel 9-slice.
+  - Font: BẮT BUỘC hỗ trợ đầy đủ dấu tiếng Việt. Gợi ý ứng viên (giấy phép mở, KIỂM TRA bộ
+    ký tự): Be Vietnam Pro, Nunito, Quicksand, Noto Sans. Nhiều font pixel không có dấu.
+    Test bằng chuỗi "Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ" ngay Phase 0.
+
+10.12  ÂM THANH
+  - .ogg; bus Master/Music/SFX/Ambience/UI; đặt tên theo nhóm (10.4); chuẩn hóa âm lượng;
+    loop mượt; ambience theo khu vực/giờ/thời tiết (S18).
+
+10.13  QUẢN LÝ NGUỒN & GIẤY PHÉP
+  - docs/CREDITS.md + assets_manifest.csv: id, nguồn, tác giả, giấy phép, URL, ngày lấy,
+    ghi chú sửa đổi. Cập nhật mỗi lần thêm asset ngoài.
+
+10.14  CHECKLIST TRƯỚC KHI ĐƯA ASSET VÀO GAME
+  [ ] Tên đúng quy ước, đặt đúng thư mục  [ ] Scale/rotation đã apply  [ ] Pivot đúng
+  [ ] Footprint khai trong data            [ ] Va chạm đặt tên đúng    [ ] Tam giác trong ngân sách
+  [ ] Texture/atlas đúng             [ ] Animation đủ + tool_hit    [ ] Giấy phép ghi vào CREDITS
+  [ ] Test đặt lên lưới + ánh sáng ngày/đêm + khi bị che khuất
+
+
+================================================================================
+PHẦN 11 — CHUẨN BỊ TRƯỚC KHI CODE (GIAI ĐOẠN 0)
+================================================================================
+
+11.1  DANH SÁCH CÔNG CỤ & TÀI KHOẢN
+  [ ] Godot 4.x stable (bản mới nhất lúc bắt đầu; ghi số chính xác)  — godotengine.org
+  [ ] Git + Git LFS                                                  — git-scm.com
+  [ ] Tài khoản GitHub (repo private)
+  [ ] VS Code (+ extension "godot-tools" để có GDScript + kết nối LSP với Godot editor)
+  [ ] Google Antigravity (cài, đăng nhập bằng tài khoản Google) — tùy chọn thay/bổ sung VS Code
+  [ ] Blender (bản LTS ổn định)                                      — cho asset 3D
+  [ ] Python 3 (cho gdtoolkit: gdlint/gdformat; và script công cụ nếu cần)
+  [ ] Công cụ icon/pixel (Aseprite trả phí; hoặc LibreSprite/Krita/GIMP miễn phí)
+  [ ] Addon test: GUT hoặc gdUnit4 (chọn MỘT)
+  [ ] Trình ghi chú/devlog (file docs/DEVLOG.md trong repo là đủ)
+
+11.2  CÀI ĐẶT TỪNG BƯỚC (tóm tắt)
+  1) Godot: tải bản stable, giải nén vào thư mục cố định (ví dụ C:\Godot\4.x-stable\), ghi
+     đường dẫn exe. Thử "godot --version" từ terminal (thêm vào PATH hoặc dùng đường dẫn
+     đầy đủ). Ghi số phiên bản vào PROJECT_RULES.md.
+  2) Git: cài Git; chạy "git lfs install".
+  3) VS Code <-> Godot: trong Godot, Editor Settings -> Text Editor -> External: bật Use
+     External Editor; Exec Path = đường dẫn VS Code (code); Exec Flags =
+     {project} --goto {file}:{line}:{col}. Trong VS Code cài extension godot-tools, đặt
+     đường dẫn Godot editor; mở Godot editor để extension kết nối language server.
+  4) Antigravity: sau khi cài, khi vào màn hình cấu hình, chọn mức tự chủ của agent. Khuyến
+     nghị khi mới làm: chế độ yêu cầu duyệt lệnh terminal ("Request Review"); đọc kỹ mô tả
+     từng tùy chọn vì UI có thể đã đổi [CHƯA CHẮC].
+  5) gdtoolkit: pip install "gdtoolkit==4.*" (chọn phiên bản khớp Godot 4); thử gdlint /
+     gdformat --check trên một file.
+  6) Test addon: cài GUT hoặc gdUnit4 theo README của addon cho ĐÚNG bản Godot; chạy một
+     test mẫu bằng dòng lệnh headless (Phase 0.1).
+
+11.3  TẠO REPO (Phase 0.1)
+  git init ; tạo .gitignore ; .gitattributes (LFS) ; commit đầu "chore: init".
+  .gitignore (tối thiểu):
+      .godot/
+      *.translation
+      /build/
+      .env
+      *.tmp
+      .DS_Store
+      export_credentials.cfg
+  Lưu ý: COMMIT các file .import cạnh asset; BỎ QUA thư mục .godot/.
+  .gitattributes (Git LFS cho file nhị phân lớn):
+      *.glb   filter=lfs diff=lfs merge=lfs -text
+      *.blend filter=lfs diff=lfs merge=lfs -text
+      *.png   filter=lfs diff=lfs merge=lfs -text
+      *.ogg   filter=lfs diff=lfs merge=lfs -text
+      *.wav   filter=lfs diff=lfs merge=lfs -text
+  Commit TRƯỚC mỗi task giao cho AI; commit SAU khi nghiệm thu.
+
+11.4  BỘ DOCS PHẢI CÓ TRƯỚC KHI VIẾT GAMEPLAY (nội dung mẫu ở PHẦN 14)
+  AGENTS.md (hoặc GEMINI.md/.agent/rules) + docs/PROJECT_RULES.md
+  docs/ARCHITECTURE.md, docs/API_INDEX.md (khởi tạo rỗng), docs/DECISIONS.md,
+  docs/DATA_SCHEMA.md, docs/GLOSSARY.md, docs/INPUT_MAP.md, docs/COLLISION_LAYERS.md,
+  docs/SCENE_CONTRACTS/ (thư mục), docs/PROGRESS.md, docs/CREDITS.md, docs/STYLE_GUIDE.md,
+  docs/DEVLOG.md.
+
+11.5  KHỞI TẠO PROJECT GODOT (Phase 0.1-0.2)
+  1) Tạo project (chọn renderer đã chốt). 2) Đặt Project Settings theo 9.8. 3) Tạo khung thư
+  mục 9.3. 4) Tạo autoload stub (Events, Settings, DataRegistry, SaveService, GameClock) theo
+  đúng thứ tự. 5) Khai InputMap (S01). 6) Đặt Layer Names (9.7). 7) Thêm font + test dấu
+  tiếng Việt. 8) Commit.
+
+11.6  HẠ TẦNG TEST CHẠY BẰNG DÒNG LỆNH (Phase 0.1)
+  Mục tiêu: agent TỰ chạy test và đọc lỗi thật, không "tin là chạy được".
+  Việc: kiểm tra "godot --help" của bản bạn dùng để biết cờ: --headless, --path, -s/--script,
+  --quit, --check-only. Ví dụ hình mẫu (KIỂM TRA lại theo bản bạn dùng và README addon):
+     godot --headless --path . --quit                         (mở/đóng project để bắt lỗi parse)
+     godot --headless --path . -s res://tools/validate_data.gd
+     <lệnh chạy GUT/gdUnit4 theo README addon, thêm cờ thoát khi xong>
+  Tạo tools/run_tests.bat (Windows) hoặc run_tests.sh để gói các lệnh, trả mã thoát khác 0
+  khi test lỗi. Ghi lệnh chính xác vào PROJECT_RULES.md để agent copy.
+
+11.7  NHỊP LÀM VIỆC & TINH THẦN (để dự án không chết giữa đường)
+  - Đặt nhịp cố định (ví dụ 4-5 buổi/tuần, 2-3 giờ/buổi). Mỗi buổi: 1-2 task nhỏ.
+  - "Thứ Sáu chơi thử": cuối tuần chơi bản mới 15 phút, ghi cảm nhận vào DEVLOG.
+  - Quay video ngắn/ảnh chụp mỗi cột mốc (để thấy tiến bộ, giữ động lực).
+  - Quy tắc "đóng băng phạm vi": ý tưởng mới -> ghi vào docs/IDEAS.md, KHÔNG chen vào
+    milestone đang làm.
+  - Cứ mỗi 4 tuần: đo lại số milestone/tuần, cập nhật ước lượng.
+
+11.8  SAO LƯU
+  GitHub (private) + bản sao định kỳ ra ổ ngoài/đám mây (zip repo + .blend nguồn). Giữ các
+  nguồn gốc (.blend, .aseprite) NGOÀI thư mục import nếu quá nặng, nhưng phải có bản sao.
+
+11.9  CHECKLIST "SẴN SÀNG BẮT ĐẦU PHASE 0"
+  [ ] DECISIONS.md đã điền đủ D01-D18 (đặc biệt D01, D02, D03, D08, D13)
+  [ ] Spike asset (10.9) có kết quả: đạt/không đạt và hướng đã chọn
+  [ ] Công cụ đã cài; godot --version chạy được; số phiên bản đã ghi
+  [ ] Repo + .gitignore + LFS; commit đầu tiên
+  [ ] Bộ docs khung đã có (PROJECT_RULES, ARCHITECTURE, DECISIONS... ít nhất bản đầu)
+  [ ] AGENTS.md/rules đã đặt vào công cụ agent
+  [ ] Đã thử cho agent làm một task cực nhỏ (đọc rules, in "hello" test) để kiểm tra nó
+      thực sự đọc và tuân thủ rules
+
+
+================================================================================
+PHẦN 12 — QUY TRÌNH LÀM VIỆC VỚI AI AGENT (VS CODE + ANTIGRAVITY)
+================================================================================
+
+12.1  PHÂN VAI
+  BẠN: chốt thiết kế/quyết định; viết task + tiêu chí nghiệm thu; dựng scene phức tạp trong
+       editor; chạy game; đánh giá "vui"; review diff; duyệt asset bằng mắt; quản lý phạm vi;
+       pháp lý/kinh doanh.
+  AGENT: viết GDScript, Resource .tres đơn giản, test, script công cụ, tài liệu API; tạo dữ
+       liệu nháp (vật phẩm, hội thoại, nhiệm vụ, bản dịch) để bạn duyệt.
+
+12.2  THIẾT LẬP AGENT TRONG ANTIGRAVITY / VS CODE (theo thông tin tra cứu 24/10/2026;
+      giao diện có thể đã đổi — đối chiếu tài liệu chính thức [CHƯA CHẮC])
+  - Rules (chỉ dẫn thường trực nạp trước mỗi task): đặt trong AGENTS.md ở gốc dự án (định dạng
+    dùng chung cho nhiều công cụ: Antigravity, Cursor, Claude Code, Codex đều có thể đọc) —
+    KHUYẾN NGHỊ. GEMINI.md ở gốc dùng cho ghi đè riêng Antigravity (ưu tiên hơn AGENTS.md).
+    Thư mục .agent/rules/ (rules theo phạm vi) và .agent/workflows/ (các "prompt lưu sẵn" gọi
+    bằng dấu / trong khung chat) cũng được hỗ trợ.
+  - Cách dùng gợi ý: AGENTS.md = bản rút gọn quy tắc cứng + trỏ tới docs/PROJECT_RULES.md
+    và các docs khác ("đọc trước khi viết code"). Workflow /task-start, /task-review,
+    /task-finish (xem PHẦN 14) để lặp lại cùng một quy trình.
+  - Chế độ: "Planning" cho task nhiều bước/nhiều file (agent lập kế hoạch để bạn duyệt trước);
+    "Fast" cho sửa nhỏ. Bắt đầu bằng Planning cho đến khi tin tưởng.
+  - Mức tự chủ: để chạy lệnh terminal ở chế độ cần bạn duyệt khi mới làm; chỉ nới sau khi đã
+    có commit sạch + test tin cậy. Không bật tự động duyệt cho lệnh xóa/force push.
+  - Nhiều agent song song: CHỈ cho các task độc lập có ALLOW_LIST không giao nhau, và nên
+    mỗi agent một nhánh git/worktree; hợp nhất từng cái, chạy test sau mỗi lần hợp nhất.
+  - Trong VS Code: dùng extension godot-tools cho tô màu/hoàn thành mã/LSP; chạy game từ
+    Godot editor (hoặc lệnh terminal); đọc lỗi từ Output/Debugger của Godot và dán NGUYÊN VĂN.
+
+12.3  NGUYÊN TẮC VẬN HÀNH
+  1. Một task = một hệ thống = tối đa vài file mới. Chỉ sửa file trong ALLOW_LIST.
+  2. Domain trước, view sau. Logic thuần + test, rồi mới hiển thị.
+  3. Mọi hệ thống có state phải có serialize()/deserialize() ngay từ commit đầu.
+  4. Agent không sửa .tscn phức tạp. Bạn dựng scene trong editor; agent viết script/.tres đơn
+     giản. Scene dùng %UniqueName và @export có kiểu.
+  5. Thêm tính năng = thêm file, không sửa file cũ (đăng ký qua data/registry).
+  6. File <= ~250 dòng. Dài hơn thì tách.
+  7. Commit trước và sau mỗi task. Lỗi thì quay lại, không vá chồng vá.
+  8. Không nói "xong" nếu chưa chạy test headless và dán log thật.
+
+12.4  VÒNG LẶP MỖI TASK (12 BƯỚC)
+  1) Chọn đúng một milestone trong PHẦN 13.
+  2) Viết task theo mẫu (PHẦN 14.8): MILESTONE / READ-ONLY CONTEXT / ALLOW_LIST / DO NOT TOUCH
+     / TASK / ACCEPTANCE.
+  3) git status sạch -> commit "before task X".
+  4) Mở phiên chat/agent MỚI (ngữ cảnh sạch). Dán prompt nền (đã nằm trong rules) + task.
+  5) Yêu cầu agent TRẢ KẾ HOẠCH trước (Planning): file sẽ tạo/sửa, giả định, rủi ro. Bạn duyệt.
+  6) Agent viết code + test; chạy test headless; dán log.
+  7) Bạn làm các bước thủ công trong Godot (scene/Inspector) agent liệt kê.
+  8) Chạy thử bằng tay theo "manual test cases".
+  9) Lỗi? Gửi LỖI THẬT + file liên quan + cách tái hiện + "chỉ sửa file X". Lặp lại 6-8.
+  10) Review diff theo checklist 12.7.
+  11) Agent cập nhật docs/API_INDEX.md, docs/PROGRESS.md (và SCENE_CONTRACT nếu có).
+  12) Commit "task X done"; tag nếu hết milestone; ghi một dòng vào DEVLOG.
+
+12.5  QUẢN LÝ NGỮ CẢNH (agent không nhớ giữa các phiên)
+  - docs/PROGRESS.md là "bộ nhớ": trạng thái milestone, việc đã xong, việc dang dở, quyết
+    định mới, lỗi đã biết. Agent đọc đầu phiên, cập nhật cuối phiên.
+  - docs/API_INDEX.md: agent đọc chỉ mục thay vì đọc toàn bộ code.
+  - Mỗi task một phiên chat mới; không kéo dài một cuộc trò chuyện hàng giờ (ngữ cảnh loãng,
+    agent quên quy tắc).
+  - Dán Context tối thiểu cần thiết (file liên quan), không dán cả repo.
+  - Mẫu "mở đầu phiên" và "kết thúc phiên": PHẦN 14.9.
+
+12.6  CHỐNG ẢO GIÁC (NODE PATH, API, LAYER)
+  - Hợp đồng scene bằng văn bản; tham chiếu bằng @export var x: Type (có kiểu) hoặc %Name.
+  - class_name cho script quan trọng để agent tham chiếu bằng kiểu.
+  - Kết nối signal bằng code (không chỉ trong editor) để agent nhìn thấy trong script.
+  - Quy tắc "STOP and ask": nếu thiếu trong docs, agent phải hỏi hoặc tạo stub tối thiểu và
+    báo cáo; cấm bịa node path/layer/action/autoload/đường dẫn tài nguyên.
+  - Cấm mẫu Godot 3 (danh sách trong PROJECT_RULES): onready var, export var, yield,
+    connect("sig", obj, "method"), instance(), KinematicBody, Spatial, .translation,
+    rand_range, OS.get_ticks_msec; move_and_slide() không tham số.
+  - Yêu cầu agent chạy "godot --headless --path . --quit" sau mỗi thay đổi để bắt lỗi parse.
+
+12.7  CHECKLIST REVIEW DIFF (bạn tự làm hoặc nhờ một phiên AI khác review)
+  [ ] Chỉ chạm file trong ALLOW_LIST; không đổi tên/xóa file, id, signal, hàm công khai
+  [ ] Không còn cú pháp Godot 3; kiểu tĩnh đầy đủ
+  [ ] Không hardcode giá trị gameplay; dữ liệu nằm ở Resource/CSV
+  [ ] Domain không chứa Node/UI; View không chứa luật game; View không tự đổi domain
+  [ ] Có serialize()/deserialize() nếu có state
+  [ ] coin/số lượng là int; validate input; không tin dữ liệu save
+  [ ] RNG có seed (DetRandom), không randi() toàn cục
+  [ ] Không get_node("../..") dài; dùng @export/%Name/service
+  [ ] Có test mới; test PASS (log thật); không tắt/skip test để "xanh"
+  [ ] Chuỗi hiển thị qua tr(); key đã thêm vào file dịch
+  [ ] Cập nhật API_INDEX/PROGRESS; không để TODO/FIXME mơ hồ
+
+12.8  KHI AGENT LÀM HỎNG
+  - Dừng, KHÔNG nhờ agent "sửa tiếp" chồng chất. git diff xem thay đổi; nếu rối -> git
+    restore/reset về commit "before task".
+  - Yêu cầu agent giải thích NGUYÊN NHÂN GỐC trước khi sửa; tái hiện lỗi tối thiểu.
+  - Sau 3 lần sửa thất bại: chia nhỏ task hơn, hoặc viết lại spec (thiếu ràng buộc?), hoặc
+    chuyển sang phiên/mô hình khác để có "ý kiến thứ hai".
+  - Dùng git bisect hoặc commit nhỏ để xác định commit gây lỗi.
+  - Không bao giờ để agent "viết lại cả hệ thống" khi gặp một bug.
+
+12.9  DÙNG NHIỀU PHIÊN/MÔ HÌNH
+  - Một phiên "review" riêng (chưa thấy quá trình viết) kiểm tra diff theo checklist 12.7.
+  - Mô hình mạnh cho thiết kế kiến trúc/debug khó; mô hình rẻ/nhanh cho boilerplate, dữ liệu,
+    dịch thuật (ý chung, tùy hạn mức của bạn).
+  - Khi hai mô hình bất đồng về thiết kế -> bạn quyết định và ghi vào DECISIONS.
+
+12.10  AI CHO NỘI DUNG (hội thoại, vật phẩm, nhiệm vụ, bản dịch)
+  - Quy trình: AI nháp -> DataValidator kiểm tra cấu trúc -> bạn duyệt giọng văn.
+  - docs/STYLE_GUIDE.md: giọng văn (ấm áp, giản dị, không sến), xưng hô của từng NPC, danh
+    từ riêng (Thung Lũng Mùa, Cỗ máy Mùa...), từ cấm ("AI", "cấp độ" kiểu RPG nếu không hợp),
+    độ dài hội thoại tối đa/hộp.
+  - Mọi nội dung vào game ở dạng DATA (CSV/.tres) có key dịch, KHÔNG nhét vào code.
+  - Không dùng LLM lúc chạy game cho NPC/Director (D12).
+
+12.11  NHỮNG VIỆC AI KHÔNG THAY ĐƯỢC BẠN
+  Chơi thử và cảm nhận "vui/chán"; quyết định thiết kế; kiểm tra asset bằng mắt (tỉ lệ,
+  phong cách); thử trên máy khác; đánh giá pháp lý/giấy phép; marketing; quyết định cắt tính
+  năng.
+
+12.12  AN TOÀN & BẢO MẬT
+  - Không commit khóa API/service_role/mật khẩu. Dùng .env (ignored) hoặc cơ chế bí mật của
+    dịch vụ. Client game chỉ chứa khóa công khai (anon) và phải có Row-Level Security phía server.
+  - Cẩn thận khi cho agent chạy lệnh: tránh rm -rf, git push --force, cài gói lạ không kiểm
+    chứng. Kiểm tra gói pip/npm do agent đề xuất.
+  - Không dán dữ liệu cá nhân/khóa vào prompt.
+
+
+================================================================================
+PHẦN 13 — LỘ TRÌNH MILESTONE CHI TIẾT (LÀM PHẦN NÀO TRƯỚC)
+================================================================================
+
+Quy tắc: mỗi dòng là MỘT task riêng giao cho agent. Chỉ sang dòng kế khi dòng trước đã
+nghiệm thu + commit. Mỗi dòng gồm: ID | Phạm vi DUY NHẤT | Nghiệm thu (đo được) | Phụ thuộc.
+Ước lượng giờ = số giờ làm việc của BẠN (gồm duyệt, chạy thử, sửa) — chỉ để lập kế hoạch
+[CHƯA CHẮC]; hãy đo thực tế rồi chỉnh.
+
+SƠ ĐỒ PHỤ THUỘC TỔNG QUÁT
+
+  P(chuẩn bị) -> Ph0 -> Ph1 -> Ph2 -> Ph3 -> Ph4 -> [GATE A] -> Ph5 -> Ph6
+                                                                   |       |
+                                                                   v       v
+                                                                  Ph7 (thế giới sống) -> Ph8 (NPC/quest)
+                                                                                           |
+                                                                                           v
+                                                           Ph9 vertical slice -> [GATE B] -> Ph10 social -> Ph11+ -> Ph12 phát hành
+  Song song (không chặn code): làm/lấy asset (BẠN), viết nội dung (AI nháp -> bạn duyệt), nhạc/SFX.
+
+------------------------------------------------------------------------
+PHASE P — CHUẨN BỊ (không viết gameplay)                      ~20-40 giờ
+------------------------------------------------------------------------
+P-1  Chốt D01-D18 vào docs/DECISIONS.md | file tồn tại, không ô trống | -
+P-2  Spike asset 1 tuần (10.9)          | tiêu chí ĐẠT/KHÔNG ĐẠT ghi lại; quyết định 3D/2D | P-1
+P-3  Cài công cụ + repo + bộ docs khung + đặt rules cho agent (PHẦN 11) | checklist 11.9 xong | P-1
+------------------------------------------------------------------------
+PHASE 0 — NỀN MÓNG                                            ~15-30 giờ
+------------------------------------------------------------------------
+0.1  Repo + project config + rules + test headless chạy được
+     Nghiệm thu: một test mẫu PASS bằng dòng lệnh; "godot --headless --path . --quit" thoát 0;
+     run_tests.bat/sh hoạt động.
+0.2  InputMap + Layer Names + khung thư mục + autoload stub + test font tiếng Việt
+     Nghiệm thu: docs INPUT_MAP/COLLISION_LAYERS khớp project.godot; Label hiển thị đúng dấu.
+0.3  GridMath thuần (world<->cell) + unit test
+     Nghiệm thu: test tọa độ ÂM, biên ô (0.999 vs 1.0), cell_to_world tâm ô, footprint chẵn/lẻ.
+0.4  Gray-box: mặt phẳng + Camera3D ortho khóa góc (D13) + lưới debug + pick_cell
+     Nghiệm thu: click ra đúng ô; ô (0,0) đúng vị trí; highlight theo chuột.
+0.5  DetRandom + test golden
+     Nghiệm thu: seed X -> chuỗi Y cố định; cùng (seed, ngày, tag) cho cùng kết quả.
+0.6  Log util + khung Debug overlay (toggle_debug)
+     Nghiệm thu: Log.warn/error có ngữ cảnh; phím bật/tắt overlay.
+------------------------------------------------------------------------
+PHASE 1 — NHÂN VẬT                                            ~20-40 giờ
+------------------------------------------------------------------------
+1.1  Di chuyển tương đối camera (chưa va chạm)
+     Nghiệm thu: "Lên" = lên màn hình; đi chéo không nhanh hơn.
+1.2  Va chạm với vật cản tĩnh (CharacterBody3D)
+     Nghiệm thu: không xuyên; trượt dọc tường; không kẹt ở góc.
+1.3  Camera follow mượt + giới hạn biên + zoom 2-3 mức
+     Nghiệm thu: không rung; không lố biên; zoom giữ góc.
+1.4  State machine Idle/Move (node-based)
+     Nghiệm thu: thêm state mới KHÔNG phải sửa player.gd.
+1.5  Interactable + bộ dò đối tượng gần nhất + prompt
+     Nghiệm thu: prompt đúng đối tượng; vật mẫu in chuỗi; nhiều đối tượng chọn đúng.
+1.6  (tùy chọn, sau khi có asset) Dithering/fade vật che khuất người chơi (view-only)
+     Nghiệm thu: nhân vật luôn nhìn thấy sau cây/nhà cao.
+------------------------------------------------------------------------
+PHASE 2 — THỜI GIAN                                           ~10-20 giờ
+------------------------------------------------------------------------
+2.1  GameClock (domain) + signal + pause + sleep_to_morning()
+     Nghiệm thu: test chuyển ngày/mùa/năm đúng; pause không trôi; tốc độ debug.
+2.2  HUD ngày/giờ/mùa (view)
+     Nghiệm thu: khớp clock; không chứa logic.
+2.3  Console debug cơ bản: set_time, set_day, speed N
+     Nghiệm thu: lệnh chạy được; chỉ có ở debug build.
+------------------------------------------------------------------------
+PHASE 3 — KHO & DỮ LIỆU                                       ~25-45 giờ
+------------------------------------------------------------------------
+3.1  ItemData + DataRegistry + DataValidator (headless)
+     Nghiệm thu: validator BÁO LỖI khi id sai/trùng/thiếu icon/thiếu key dịch.
+3.2  InventoryState (domain) + test
+     Nghiệm thu: cộng/trừ/stack/đầy kho trả phần dư đúng; quantity âm bị từ chối; serialize.
+3.3  Hotbar + Inventory UI (view)
+     Nghiệm thu: hiển thị khớp state; kéo thả đi qua service (không nhân đôi).
+3.4  Localization wiring (tr() + CSV vi/en) cho tên vật phẩm/UI
+     Nghiệm thu: đổi ngôn ngữ trong Settings đổi toàn UI; script báo key thiếu.
+------------------------------------------------------------------------
+PHASE 4 — NÔNG NGHIỆP (TRÁI TIM CỦA GAME)                     ~50-90 giờ
+------------------------------------------------------------------------
+4.1  CropData (1 cây) + FarmGridState (thuần): cuốc/gieo/tưới/qua ngày/thu hoạch
+     Nghiệm thu: test một vòng đời; không tưới -> không lớn; mưa -> lớn; dormant ngoài mùa.
+4.2  FarmView hiển thị placeholder (gray-box)
+     Nghiệm thu: state đổi thì hình đổi; view không chứa logic và không đổi state.
+4.3  ToolAction (Hoe, Water, Seed) + highlight ô nhắm + animation tool_hit (placeholder)
+     Nghiệm thu: dùng công cụ lên đúng ô; ngoài tầm bị từ chối kèm phản hồi.
+4.4  Thu hoạch -> kho qua Events
+     Nghiệm thu: không thu hoạch hai lần; đầy kho -> chặn, cây còn nguyên.
+4.5  DaySimulator v0 (nối ngủ -> advance_day của farm)
+     Nghiệm thu: ngủ N lần == simulate_day N lần; thứ tự bước đúng F3.
+4.6  Save/Load v1 (clock, player, inventory, farm) + migrate khung + backup + fuzz test
+     Nghiệm thu: round-trip save->load->save giống hệt; file hỏng không crash; golden save v1.
+4.7  Game-feel pass: âm thanh công cụ, hạt bụi, số nhảy, animation chạm đất
+     Nghiệm thu: bạn muốn "làm thêm một vòng".
+   ==> [GATE A]  Chơi 10-15 phút. Chỉ qua cổng khi vòng trồng-thu THỎA MÃN.
+------------------------------------------------------------------------
+PHASE 5 — KINH TẾ                                             ~40-70 giờ
+------------------------------------------------------------------------
+5.1  EconomyService + sổ cái
+     Nghiệm thu: coin int, không âm, bắt buộc reason, atomic với inventory.
+5.2  Cửa hàng mua/bán + giá bão hòa + "hạt cơ bản luôn mua được"
+     Nghiệm thu: không softlock; giá mua >= giá bán cùng vật phẩm; test biên.
+5.3  Bảng đơn hàng theo công thức có seed
+     Nghiệm thu: thưởng nằm trong trần; hết hạn không phạt; load không reroll.
+5.4  Script mô phỏng kinh tế headless (tools/sim_economy.gd)
+     Nghiệm thu: in bảng coin/ngày theo 4-5 chiến lược; kiểm tra bất biến 8.2.
+5.5  UI cửa hàng/bảng đơn hàng + tích hợp save
+     Nghiệm thu: mua bán qua UI đúng; save/load giữ coin, giá bão hòa, đơn.
+5.6  Cân bằng vòng 1 theo kết quả sim (chỉnh số liệu data, không đổi code)
+     Nghiệm thu: thời gian đến "mở rộng #1" nằm trong dải mục tiêu GĐ1.
+------------------------------------------------------------------------
+PHASE 6 — SẢN XUẤT & XÂY DỰNG                                 ~60-100 giờ
+------------------------------------------------------------------------
+6.1  RecipeData + MachineState (hoàn thành theo total_minutes, cả khi ngủ)
+     Nghiệm thu: test hoàn thành sau N ngày; bộ đệm đầy -> tạm dừng, không hỏng.
+6.2  OccupancyMap + kiểm tra footprint
+     Nghiệm thu: không đặt chồng, không đặt ngoài đất mở khóa; xoay 90 độ đúng.
+6.3  Build mode: đặt/xoay/di chuyển/tháo + hoàn tiền + save
+     Nghiệm thu: reload không mất công trình; hoàn tiền đúng; ghost xanh/đỏ đúng.
+6.4  Mở rộng đất theo mảnh
+     Nghiệm thu: mảnh chưa mở không canh tác được; giá theo công thức; save.
+6.5  Nâng cấp kho/bình tưới
+     Nghiệm thu: giới hạn mới có hiệu lực; serialize.
+6.6  Nhà gà + sản phẩm trứng (domain theo ngày)
+     Nghiệm thu: không cho ăn -> không sinh trứng, KHÔNG chết.
+6.7  DataValidator mở rộng: trần lợi nhuận công thức/cây
+     Nghiệm thu: thêm công thức "in tiền" thử -> validator FAIL.
+------------------------------------------------------------------------
+PHASE 7 — THẾ GIỚI SỐNG                                       ~70-120 giờ
+------------------------------------------------------------------------
+7.1  WeatherService có seed (nắng/mưa) + pre-roll 3 ngày + save
+     Nghiệm thu: cùng seed -> cùng chuỗi (golden); load không reroll; mưa tưới đúng.
+7.2  Ánh sáng ngày/đêm + VFX mưa + ambience theo giờ/thời tiết (view, chỉ nghe signal)
+     Nghiệm thu: đổi mượt; không logic trong view.
+7.3  EcologyState (chỉ đọc, chưa tác động)
+     Nghiệm thu: chỉ số đổi đúng theo hành động; làm mượt; ngưỡng phát đúng một lần.
+7.4  Phản hồi hình ảnh sinh thái (bướm, chim, nước trong) theo ngưỡng
+     Nghiệm thu: nhìn thấy thay đổi khi vượt ngưỡng; không tải nặng.
+7.5  EventDirector v0: 3 sự kiện + decision trace + panel debug + harness mô phỏng
+     Nghiệm thu: golden test seed->sự kiện; bất biến 1000 ngày (S14); công tắc tắt Director.
+7.6  Dự báo thời tiết + Nhật ký sinh thái (UI) — "báo trước/giải thích/đối phó"
+     Nghiệm thu: mọi sự kiện tiêu cực đều có dự báo + lời giải thích + gợi ý đối phó.
+------------------------------------------------------------------------
+PHASE 8 — NPC & NHIỆM VỤ                                      ~60-110 giờ
+------------------------------------------------------------------------
+8.1  DialogueData + DialogueService (dữ liệu hóa)
+     Nghiệm thu: đọc từ data, không hardcode; điều kiện/hành động hoạt động.
+8.2  Quest state machine (1 nhiệm vụ) + save
+     Nghiệm thu: lưu/tải trạng thái; mục tiêu đo bằng sự kiện.
+8.3  NPC theo lịch trên AStarGrid2D
+     Nghiệm thu: đi đúng giờ, không kẹt, không kẹt sau load.
+8.4  Cửa hàng NPC + thương nhân Minh theo lịch
+     Nghiệm thu: Minh xuất hiện đúng ngày/giờ; hàng thay đổi theo lần (seeded).
+8.5  Chú chó (follow, đặt tên)
+     Nghiệm thu: theo người, không kẹt, không ảnh hưởng hiệu năng.
+8.6  Triển khai Chương I + M2.1-M2.4 bằng dữ liệu quest/dialogue/moment
+     Nghiệm thu: chơi từ ngày 1 đến "trạm quan trắc thức giấc" không lỗi chặn.
+------------------------------------------------------------------------
+PHASE 9 — VERTICAL SLICE                                      ~80-140 giờ
+------------------------------------------------------------------------
+9.1  Onboarding 3 phút (chuỗi beat)               Nghiệm thu: người lạ qua được không cần hỏi
+9.2  Làng + khu rừng (đủ cho slice) + âm thanh khu vực
+9.3  Thay asset gray-box bằng asset thật theo tầng (10.10); thống nhất phong cách
+9.4  Settings + accessibility cơ bản + sổ tay/journal
+9.5  Bug bash: playthrough từ ngày 1 -> hết slice; sửa lỗi chặn; kiểm tra save qua mọi cột mốc
+9.6  Build có thể gửi cho người khác (export Windows) + hướng dẫn cài đặt
+9.7  Playtest 3-5 người lạ (PHẦN 16.6)
+   ==> [GATE B]  >= ~60% muốn chơi tiếp; không có lỗi chặn; onboarding hiểu mục tiêu.
+------------------------------------------------------------------------
+PHASE 10 — SOCIAL BẤT ĐỒNG BỘ (chỉ khi Gate B đạt)           ~80-150 giờ
+------------------------------------------------------------------------
+10.1  NetworkGateway interface + MockBackend       Nghiệm thu: game chạy khi KHÔNG có server
+10.2  Đăng nhập + mã bạn bè + hòm thư tặng quà (cosmetic/vật phẩm có trần) | idempotent, chống dupe
+10.3  Snapshot trang trại để thăm bạn              | có version; xử lý cosmetic thiếu bằng placeholder
+10.4  Sổ cái dự án cộng đồng                       | hoàn thành một lần; solo vẫn xong được; trần đóng góp
+10.5  Bảng vinh danh "casual" + báo cáo/lọc        | server kiểm tra; không tin điểm từ client
+10.6  Chính sách riêng tư + xóa tài khoản + xử lý server chết
+------------------------------------------------------------------------
+PHASE 11+ — MỞ RỘNG & ĐÁNH BÓNG
+------------------------------------------------------------------------
+11.1  Offline progress (tùy chọn): gọi lặp simulate_day, trần ngày, tắt sự kiện tiêu cực, phát hiện giờ lùi
+11.2  Bốn mùa đầy đủ + cây/hoạt động/trang trí theo mùa + lễ hội
+11.3  Thời tiết mở rộng (sương mù, mưa lớn, nắng nóng, tuyết) + sự kiện Director mở rộng (15-25)
+11.4  Câu cá + hái lượm hoàn chỉnh + bộ sưu tập
+11.5  Chất lượng nông sản, phân bón, độ phì đất, tự động hóa tưới nâng cao
+11.6  NPC còn lại (6-8), thay trang phục, trang trí sâu, thú cưng bổ sung
+11.7  Chương III + hậu game (Director chế độ duy trì, mục tiêu cá nhân)
+11.8  Gamepad + trợ năng đầy đủ + thành tựu (Steam)
+11.9  Hiệu năng (profiling), chất lượng đồ họa tùy chọn, tối ưu tải
+11.10 Localization hoàn thiện (kiểm tra chuỗi dài/bản dịch thật)
+------------------------------------------------------------------------
+PHASE 12 — PHÁT HÀNH (chi tiết PHẦN 20)
+------------------------------------------------------------------------
+12.1 Trang Steam + trailer + ảnh chụp + mô tả  12.2 Bản beta khép kín  12.3 Sửa lỗi + cân bằng
+12.4 Pháp lý/riêng tư xong  12.5 Phát hành  12.6 Hậu kỳ: vá lỗi, cập nhật nội dung
+
+ƯỚC LƯỢNG TỔNG (rất thô) — Ph0-4: ~120-225 giờ ; Ph5-6: ~100-170 ; Ph7-8: ~130-230 ;
+Ph9: ~80-140. Cộng đến slice: ~430-765 giờ làm việc của bạn (chưa gồm Phase P ~20-40 giờ). Ở 10-15
+giờ/tuần ~ 7-18 tháng.
+(Khoảng rộng vì phụ thuộc kinh nghiệm, việc có sẵn asset, và số lần sửa lỗi do agent.)
+
+NGUYÊN TẮC CẮT PHẠM VI KHI TRỄ
+  Cắt theo thứ tự: (1) thay trang phục, (2) câu cá, (3) 2 trong 4 NPC, (4) chuỗi chế biến thứ
+  hai, (5) hiệu ứng thời tiết ngoài nắng/mưa. KHÔNG cắt: vòng lặp trồng-thu, save/load,
+  DataValidator, test, onboarding.
+
+
+================================================================================
+PHẦN 14 — BỘ FILE DOCS & MẪU PROMPT SẴN DÙNG (COPY-PASTE)
+================================================================================
+
+(Phần nội dung kỹ thuật cho agent viết bằng tiếng Anh để agent tuân thủ tốt hơn; chú
+thích cho bạn viết bằng tiếng Việt. Thay chỗ <...> bằng giá trị thật.)
+
+------------------------------------------------------------------------
+14.1  AGENTS.md (đặt ở gốc dự án; ngắn, trỏ tới docs; Antigravity/Cursor/Claude Code đọc)
+------------------------------------------------------------------------
+# AGENTS.md — THE LIFE (Godot 4 cozy farming sim)
+
+You are a senior Godot 4.x engineer. Before writing ANY code, read:
+  docs/PROJECT_RULES.md, docs/ARCHITECTURE.md, docs/API_INDEX.md, docs/PROGRESS.md,
+  and every docs/SCENE_CONTRACTS/*.md relevant to the task.
+
+Non-negotiables (full list in docs/PROJECT_RULES.md):
+- Modify ONLY files in the task's ALLOW_LIST. Never rename/move/delete files, ids, signals,
+  or public methods unless asked.
+- Never invent node paths, input actions, collision layers, resource paths, autoloads or
+  Godot APIs. If something is missing from docs: STOP and ask, or create a minimal stub and
+  report it.
+- Godot 4 only, GDScript 2.0, static typing. Forbidden Godot 3 patterns are listed in
+  PROJECT_RULES.md.
+- Architecture: DATA (Resources) -> DOMAIN (pure RefCounted, no Nodes) -> VIEW (scenes/UI).
+  Views never own state. Domain never touches UI.
+- No gameplay values in scripts (they belong in Resources/CSV). Coins and quantities are int.
+- Randomness in gameplay: DetRandom (seeded). Never global randi().
+- NEVER claim something is tested unless you ran it. Run the headless tests and paste output.
+- One milestone at a time. Do not implement future systems.
+
+------------------------------------------------------------------------
+14.2  docs/PROJECT_RULES.md (mẫu đầy đủ)
+------------------------------------------------------------------------
+# PROJECT RULES — THE LIFE
+
+## 1. Engine & tooling (LOCKED — do not change without an entry in DECISIONS.md)
+- Godot version: <EXACT_VERSION> stable. Renderer: <Forward+|Mobile|Compatibility>.
+- Language: GDScript 2.0 with static typing on every var/param/return.
+- Test framework: <GUT|gdUnit4>. Run all tests: `<EXACT COMMAND>` (headless). Parse check:
+  `godot --headless --path . --quit`.
+- Lint/format: gdlint / gdformat (gdtoolkit <version>) before commit.
+
+## 2. Architecture
+- Layers: DATA (Resource/CSV) -> DOMAIN (RefCounted, no Node) -> VIEW (Node/Control).
+- Dependency direction is one-way. View reads domain; domain reads data.
+- Autoloads (max 6): Events, Settings, DataRegistry, SaveService, GameClock, Net(later).
+  Autoloads hold no node references. Do NOT give an autoload script a class_name identical to
+  the autoload name.
+- Single services: only EconomyService changes coins; only InventoryService changes items.
+- Time: crops/machines use day_index and total_minutes, NOT per-frame delta accumulation.
+- One simulation path: DaySimulator.simulate_day(world). Sleep/offline all call it.
+- World/grid: logical grid is Vector2i on the XZ plane. GridMath is the ONLY converter between
+  world and cell. Use floori(), never int(), for negative-safe division. Never store world
+  position as truth; store cell + facing.
+
+## 3. Forbidden (Godot 3 / bad patterns)
+- `onready var`, `export var`, `yield`, `connect("sig", obj, "method")`, `instance()`,
+  `KinematicBody*`, `Spatial`, `.translation`, `rand_range`, `OS.get_ticks_msec`, `setget`,
+  `PoolStringArray`, `File`/`Directory` (use FileAccess/DirAccess), `change_scene()`.
+- `move_and_slide()` takes NO arguments in Godot 4 (uses `velocity`).
+- String-based `emit_signal("x")`. Use typed signals: `signal x(a: int)`, `x.emit(a)`,
+  `x.connect(callable)`.
+- `get_node("../../X")` chains, absolute scene paths, or node lookups in `_init`.
+- `randi()/randf()` globals for gameplay (use DetRandom).
+- Float for coins/quantities. Hardcoded gameplay numbers in scripts.
+- Loading .tres/.res from untrusted sources (saves, network). Shared data = validated JSON.
+- Trusting save data or client data. Validate every external input.
+- God scripts > ~250 lines; duplicated logic across systems.
+
+## 4. Data
+- All gameplay values live in Resources (data/**.tres) or CSV (data_src/**). Ids are
+  StringName snake_case and never renamed (use deprecated_ids map if unavoidable).
+- Asset file name == data id (see docs/DATA_SCHEMA.md). Do not invent paths; derive from id.
+- Every user-visible string uses tr() with KEY_SNAKE keys present in localization/*.csv.
+
+## 5. State & saving
+- Every stateful domain class implements serialize() -> Dictionary and deserialize(Dictionary).
+- JSON loses types: cast ints explicitly; Vector2i as "x,y"; StringName via String.
+- Never save node trees. Save domain state; rebuild scenes from state.
+- Writes are atomic (tmp -> rename) with rolling backups. Bump save_version + migration on any
+  schema change; add a golden save.
+
+## 6. Scenes
+- Agents write scripts and simple .tres; the human builds complex scenes in the editor.
+- Do not edit .tscn unless explicitly listed in ALLOW_LIST.
+- References via `@export var x: Type` or `%UniqueName` within a scene. Connect signals in CODE.
+- Only use nodes/exports/signals documented in docs/SCENE_CONTRACTS/<scene>.md.
+
+## 7. Physics
+- Layer names/numbers only from docs/COLLISION_LAYERS.md. Input actions only from
+  docs/INPUT_MAP.md.
+
+## 8. Testing & honesty
+- Every task adds/updates tests. Run them. Paste real output. Never claim "tested" otherwise.
+- If a test fails, fix the code, not the test (unless the test is wrong — explain why).
+
+## 9. Process
+- Work ONLY within the ALLOW_LIST. No drive-by refactors. Preserve working behavior.
+- Output for every task: (1) acceptance criteria, (2) exact files created/modified, (3) full
+  contents, (4) required manual editor steps, (5) how to run + manual test cases, (6)
+  assumptions + known failure points, (7) updates to docs/API_INDEX.md and docs/PROGRESS.md.
+- If requirements are ambiguous, ask ONE concise question before coding.
+
+------------------------------------------------------------------------
+14.3  docs/ARCHITECTURE.md (khung)
+------------------------------------------------------------------------
+# ARCHITECTURE
+## Layers & dependency diagram        (dán F0 từ PHẦN 6)
+## Autoloads                           (bảng 9.2)
+## WorldState composition              (liệt kê các domain class và ai sở hữu)
+## Event catalog                       (tên signal + tham số + ai phát + ai nghe)
+## Day simulation order                (dán F3)
+## Save format                         (dán 9.6) + migration policy
+## Determinism policy                  (DetRandom, tag)
+## Network boundary                    (D04, NetworkGateway)
+## Directory map                       (dán 9.3)
+
+------------------------------------------------------------------------
+14.4  docs/DECISIONS.md (định dạng + mục đã chốt)
+------------------------------------------------------------------------
+Mỗi mục: ID | Ngày | Quyết định | Lý do | Hệ quả | Còn đổi được đến | Trạng thái (Chốt/Đề xuất/
+Thay thế bởi Dxx).
+Dán D01-D18 từ PHẦN 2. Mỗi lần đổi quyết định: KHÔNG sửa đè, thêm mục mới "Thay thế D0x".
+
+------------------------------------------------------------------------
+14.5  docs/INPUT_MAP.md và docs/COLLISION_LAYERS.md
+------------------------------------------------------------------------
+INPUT_MAP: bảng action -> phím/chuột mặc định (từ S01). COLLISION_LAYERS: bảng 9.7.
+Hai file này PHẢI khớp project.godot; test hoặc script kiểm tra đối chiếu.
+
+------------------------------------------------------------------------
+14.6  docs/PROGRESS.md (mẫu)
+------------------------------------------------------------------------
+# PROGRESS
+Current milestone: <ID + tên>
+Last commit/tag: <hash/tag>
+## Done
+- [x] 0.1 ...   (kèm ngày)
+## In progress
+- [ ] <task đang làm> — trạng thái, file đã chạm
+## Known issues / tech debt
+- <mô tả> (nguồn, mức độ)
+## Decisions since last update
+- <DXX> ...
+## Next up (đề xuất của agent)
+- <milestone kế tiếp + rủi ro>
+## How to run
+- <lệnh test, cách mở scene chính>
+
+------------------------------------------------------------------------
+14.7  CÁC FILE MẪU KHÁC
+------------------------------------------------------------------------
+docs/API_INDEX.md (agent cập nhật):
+  ## EconomyService (scripts/domain/economy/economy_service.gd)
+  - func try_spend(amount: int, reason: StringName, key: StringName = &"") -> bool
+  - func earn(amount: int, reason: StringName, key: StringName = &"") -> void
+  - signal coins_changed(new_total: int, delta: int, reason: StringName)   (via Events)
+  - Notes: coins are int; every change logged to Ledger.
+
+docs/SCENE_CONTRACTS/<scene>.md (mẫu):
+  # player.tscn
+  Root: Player (CharacterBody3D) script: scripts/player/player.gd
+  Children: CollisionShape3D ; Visual (Node3D) [%Visual] ; StateMachine (Node) [%StateMachine]
+  @export: camera: Camera3D ; config: PlayerConfig
+  Signals: tool_hit() (from AnimationPlayer call-method track)
+  Groups: player ; Collision: layer 2 (player), mask 1 (world_static)
+  Notes: camera is a sibling rig, not a child.
+
+docs/GLOSSARY.md (mầm): ô/cell, footprint, day_index, total_minutes, domain/view, ToolAction,
+  Cỗ máy Mùa, EventDirector, sinh thái (ecology), moment, golden save, gate, ALLOW_LIST.
+docs/STYLE_GUIDE.md: giọng văn, xưng hô NPC, từ cấm (PHẦN 12.10).
+
+------------------------------------------------------------------------
+14.8  MẪU TASK (dán sau khi rules đã nằm trong agent)
+------------------------------------------------------------------------
+MILESTONE: <ID> <tên>
+READ-ONLY CONTEXT: <các file/doc chỉ đọc>
+ALLOW_LIST (may create/modify): <danh sách file>
+DO NOT TOUCH: everything else, including all .tscn unless listed
+TASK: <một đoạn mô tả hành vi>
+ACCEPTANCE: <3-6 gạch đầu dòng đo được>
+DELIVERABLES: per PROJECT_RULES section 9 (plan first; wait for my approval before coding).
+
+--- VÍ DỤ 1: 0.3 GridMath ---
+MILESTONE: 0.3  GridMath
+READ-ONLY CONTEXT: docs/PROJECT_RULES.md, docs/DECISIONS.md (D13, D14), docs/ARCHITECTURE.md
+ALLOW_LIST: scripts/util/grid_math.gd, tests/unit/test_grid_math.gd, docs/API_INDEX.md
+DO NOT TOUCH: everything else
+TASK: Implement static, pure class GridMath (class_name GridMath, extends RefCounted):
+  CELL_SIZE const (1.0); world_to_cell(Vector3)->Vector2i using floori; cell_to_world(
+  Vector2i)->Vector3 returning the CELL CENTER with y=0; footprint_cells(origin: Vector2i,
+  size: Vector2i, rotation_steps: int)->Array[Vector2i] (rotation in 90-degree steps;
+  handle even/odd sizes consistently, document the anchor rule in the header).
+ACCEPTANCE:
+ - negative coordinates map correctly (e.g. (-0.01,*,-0.01) -> (-1,-1))
+ - cell boundaries: x=0.999 -> 0 ; x=1.0 -> 1
+ - cell_to_world(world_to_cell(p)) is within half a cell of p
+ - footprint (2,3) rotated 1 step yields 6 unique cells with swapped dimensions
+ - tests pass headless (paste output)
+
+--- VÍ DỤ 2: 1.1 Di chuyển tương đối camera ---
+MILESTONE: 1.1  Camera-relative movement
+READ-ONLY CONTEXT: docs/SCENE_CONTRACTS/player.md, docs/SCENE_CONTRACTS/gray_box_world.md,
+  docs/INPUT_MAP.md, docs/PROJECT_RULES.md
+ALLOW_LIST: scripts/player/player.gd, scripts/player/player_config.gd, tests/unit/test_move_dir.gd
+DO NOT TOUCH: all .tscn (the human built player.tscn per the contract), everything else
+TASK: Player (CharacterBody3D) moves with move_up/down/left/right relative to the camera yaw
+  (assigned via @export var camera: Camera3D). Speed from PlayerConfig resource. Extract the
+  direction math to a pure static function (testable). move_and_slide() with no arguments.
+ACCEPTANCE:
+ - pressing "up" moves the character toward the TOP of the screen
+ - diagonal speed equals cardinal speed
+ - no movement when input is zero; no jitter at rest
+ - direction function unit-tested for yaw = 0, 45, 90 degrees
+
+--- VÍ DỤ 3: 4.1 FarmGridState (thuần) ---
+MILESTONE: 4.1  CropData + FarmGridState (pure domain)
+READ-ONLY CONTEXT: docs/PROJECT_RULES.md, docs/ARCHITECTURE.md, docs/DATA_SCHEMA.md (CropData),
+  docs/API_INDEX.md
+ALLOW_LIST: scripts/data/crop_data.gd, scripts/domain/farm/plot_state.gd,
+  scripts/domain/farm/farm_grid_state.gd, data/crops/wheat.tres, tests/domain/test_farm_grid_state.gd
+DO NOT TOUCH: everything else; no Node, no scenes, no UI
+TASK: FarmGridState manages plots by Vector2i: till(cell), plant(cell, crop_id), water(cell),
+  advance_day(is_raining: bool, season: StringName), harvest(cell)->Dictionary(crop_id, qty).
+  Rules: not watered -> no growth (no death); out-of-season -> dormant; rain waters outdoor
+  plots; harvest is atomic and cannot happen twice. serialize()/deserialize(). Emit domain
+  signals plot_changed(cell) etc. (local signals; the Events bus is wired in a later task).
+ACCEPTANCE:
+ - full lifecycle test (till->plant->water->advance x growth_days->harvest)
+ - no water -> growth_days unchanged ; rain -> grows ; out of season -> dormant, not destroyed
+ - double harvest returns empty result ; serialize->deserialize round-trips equal
+ - all values from CropData (no magic numbers in the class)
+
+------------------------------------------------------------------------
+14.9  PROMPT MỞ ĐẦU & KẾT THÚC PHIÊN
+------------------------------------------------------------------------
+MỞ ĐẦU:
+  "Read AGENTS.md, docs/PROJECT_RULES.md, docs/PROGRESS.md, docs/API_INDEX.md. In 5 bullets,
+   tell me the current state and the rules you will follow. Do NOT write code yet. Then wait
+   for my task."
+KẾT THÚC:
+  "Update docs/PROGRESS.md (done / in progress / known issues / next) and docs/API_INDEX.md for
+   what we changed. List every file you created or modified. Give me a one-line commit message.
+   Confirm which tests you actually ran and paste their output."
+
+------------------------------------------------------------------------
+14.10  MẪU BÁO LỖI
+------------------------------------------------------------------------
+BUG: <một dòng>
+EXPECTED: <điều đáng ra xảy ra>        ACTUAL: <điều thực sự xảy ra>
+REPRO: 1) ... 2) ... 3) ...
+ERROR LOG (verbatim from Godot Output/Debugger):
+  <dán nguyên văn>
+RELATED FILES: <đường dẫn>
+CONSTRAINTS: Only modify <file X>. Do not refactor. Explain the ROOT CAUSE first, then propose
+  the minimal fix, then wait for my OK. Add a regression test.
+
+------------------------------------------------------------------------
+14.11  PROMPT REVIEW (phiên AI khác, chưa thấy quá trình viết)
+------------------------------------------------------------------------
+"You are a strict reviewer who did not write this code. Review the git diff below against
+ docs/PROJECT_RULES.md and the checklist: ALLOW_LIST adherence; Godot 3 patterns; static
+ typing; hardcoded gameplay values; domain/view separation; serialize/deserialize present;
+ coins/quantities int; seeded RNG; node-path chains; tests present and meaningful (not
+ skipped); tr() for strings; docs updated. Output: a list of concrete defects with file:line,
+ severity (blocker/major/minor), and the minimal fix. Do not rewrite the code."
+
+------------------------------------------------------------------------
+14.12  WORKFLOWS CHO ANTIGRAVITY (đặt .agent/workflows/*.md; gọi bằng "/tên")
+------------------------------------------------------------------------
+task-start.md : chạy "mở đầu phiên" (14.9) + đọc milestone được nêu + lập kế hoạch + chờ duyệt.
+task-review.md: chạy prompt review (14.11) trên `git diff` của nhánh hiện tại.
+task-finish.md: chạy "kết thúc phiên" (14.9) + chạy toàn bộ test + validate data + gdlint.
+(Nội dung là các prompt ở trên; nếu công cụ đổi cách đặt workflow thì dán thẳng prompt.)
+
+------------------------------------------------------------------------
+14.13  PROMPT TẠO NỘI DUNG & CÔNG CỤ
+------------------------------------------------------------------------
+Hội thoại/nhiệm vụ (dữ liệu):
+  "Using docs/STYLE_GUIDE.md and docs/DATA_SCHEMA.md (DialogueData, QuestData), write the dialogue
+   and quest data for NPC <An> for milestone <M>. Output ONLY valid CSV/.tres in the schema,
+   with KEY_SNAKE text keys, plus the vi and en translation rows. No code. Keep each box <= 120
+   characters. Do not use the word 'AI' in player-facing text."
+Mô phỏng kinh tế (task 5.4):
+  "Write tools/sim_economy.gd (headless, no Nodes). It simulates D days for strategies:
+   wheat_only, balanced, processor, lazy (plays 3 of 7 days), exploiter (tries arbitrage and
+   hoarding). It uses the real EconomyService/FarmGridState/ShopService classes and data. Output a CSV
+   (day, coins, income, plots, machines) and assert invariants: coins never negative; exploiter
+   <= 1.5x balanced; time-to-expansion-1 within <MIN>-<MAX> days."
+DataValidator (task 3.1/6.7):
+  "Write tools/validate_data.gd. Check: unique ids; all references resolve; icons exist; every
+   name_key exists in vi and en; crop profit per plot-day <= stage cap; recipe added-value per
+   game-hour <= stage cap. Exit code != 0 on any error, with file and id in the message."
+
+
+================================================================================
+PHẦN 15 — RỦI RO & NÚT CỔ CHAI KỸ THUẬT
+================================================================================
+
+15.1  ÁC MỘNG #1: THỨ TỰ VẼ, CHỌN Ô, CHE KHUẤT (ISOMETRIC)
+  Nếu 3D (khuyến nghị): depth buffer lo thứ tự vẽ; nỗi đau chuyển sang:
+   - Che khuất nhân vật bởi cây/nhà cao -> shader dithering/fade theo vùng quanh người chơi
+     (hoặc Area3D "occluder" chỉnh tham số shader).
+   - Vật liệu trong suốt vẽ sai thứ tự -> alpha scissor/hash cho lá; tránh alpha blend cho vật lớn.
+   - Chọn ô bằng chuột -> tia từ camera ortho cắt y=0, GridMath.world_to_cell (9.4c). Một hàm, có test.
+   - Điều khiển lệch hướng -> xoay vector input theo yaw camera.
+   - Bóng đổ nhấp nháy với camera ortho -> chỉnh khoảng cách/cascade của DirectionalLight3D.
+  Nếu 2D: y_sort_enabled, origin ở chân, TileMapLayer; công trình nhiều ô lỗi sort -> cắt lớp
+  hoặc sort point; không dùng z_index để chữa.
+  Kiến trúc chống rủi ro: lưới logic luôn Vector2i trục thẳng (chỉ camera xoay 45 độ);
+  GridMath là điểm đổi tọa độ duy nhất; không lưu world position làm sự thật; dùng floori.
+
+15.2  ÁC MỘNG #2: SERIALIZATION, PHIÊN BẢN, OFFLINE
+  Bẫy cụ thể: JSON mất kiểu (int->float, Vector2i, StringName) -> codec tường minh; đừng lưu
+  cây node; đừng tải .tres/.res không tin cậy (script nhúng); id ổn định (item_id, uid).
+  Kiến trúc: save_version + migrate_N_to_N+1; golden saves; ghi nguyên tử + 3 backup; lưu ở
+  điểm an toàn; validate từng trường khi tải; fuzz test; MỘT đường mô phỏng (simulate_day) cho
+  cả online/offline; thời tiết/sự kiện seed theo ngày và LƯU.
+
+15.3  ÁC MỘNG #3: EVENTDIRECTOR KHÓ ĐOÁN, KHÓ TEST
+  Rủi ro: hành vi nổi lên từ nhiều luật chồng; khó tái hiện; save-scum; agent "sáng tạo" thêm.
+  Kiến trúc: hàm thuần decide(); snapshot chỉ đọc; hiệu ứng dữ liệu hóa có thời hạn/đảo
+  ngược; quyết định lưu vào save; công tắc director_enabled; harness 1000 ngày; golden test;
+  panel debug + decision trace; không LLM lúc chạy.
+  UX: nhân quả vô hình -> BẮT BUỘC 3 lớp (báo trước / giải thích / đối phó). Dễ bị thao
+  túng -> cửa sổ trượt 7-14 ngày, cooldown, trần tiêu cực, pity timer. Chi phí nội dung ẩn
+  -> sự kiện có tham số/biến thể; số sự kiện tối thiểu 15-25 cho 1.0.
+
+15.4  ĐỘ NHẤT QUÁN CỦA AGENT
+  Ba thứ agent không thấy nhưng phá dự án: (1) trạng thái chỉ nằm trong editor (gán Inspector,
+  kết nối signal bằng chuột), (2) merge .tscn, (3) UID của resource. Giảm: hợp đồng scene bằng
+  văn bản; kết nối signal bằng code; agent không sửa scene phức tạp; test chạy bằng dòng lệnh;
+  commit nhỏ; phiên mới cho mỗi task.
+
+15.5  PHẠM VI & TINH THẦN
+  Rủi ro: ý tưởng phình to (roguelite, hàng chục khu vực, multiplayer sớm), mất động lực khi
+  chưa có "thứ nhìn đẹp". Giảm: gate A/B; docs/IDEAS.md; chụp/quay mỗi cột mốc; nguyên tắc cắt
+  phạm vi (PHẦN 13); làm gray-box vui trước.
+
+15.6  HIỆU NĂNG
+  Rủi ro: hàng nghìn ô/cây _process; foliage alpha; bóng; particles mưa. Giảm: cập nhật theo
+  sự kiện; MultiMesh; alpha scissor; LOD đơn giản; đo bằng Profiler; ngân sách (9.11).
+
+15.7  PIPELINE ASSET
+  Rủi ro: phong cách không nhất quán; pivot/scale sai; AI-3D chất lượng không ổn; thiếu animation.
+  Giảm: spike sớm; chọn một họ phong cách; kiểm tra bằng checklist 10.14; manifest giấy phép.
+
+15.8  PHÁP LÝ / GIẤY PHÉP
+  Rủi ro: asset/nhạc/font sai giấy phép; tên "The Life" trùng thương hiệu; dữ liệu cá nhân khi có
+  tài khoản. Giảm: CREDITS/manifest; kiểm tra tên trước khi công bố; chính sách riêng tư (PHẦN 20).
+
+15.9  SỔ ĐĂNG KÝ RỦI RO (cập nhật mỗi 4 tuần)
+  ID | Rủi ro                              | Khả năng | Tác động | Giảm thiểu                          | Dấu hiệu sớm
+  R1 | Pipeline 3D không khả thi           | TB       | Cao      | Spike P-2; fallback CC0/2D           | Spike >1 tuần không ra được model đúng
+  R2 | Agent phá code đã chạy              | Cao      | TB       | Commit nhỏ, test, ALLOW_LIST         | Test đỏ sau task "không liên quan"
+  R3 | Save hỏng giữa các phiên bản        | TB       | Cao      | Migrate + golden saves + backup      | Phải xóa save để chạy được
+  R4 | Kinh tế lệch/khai thác              | TB       | TB       | Validator + sim + trần               | Sim "exploiter" > 1,5x
+  R5 | Director khó chịu/khó hiểu          | TB       | TB       | Báo trước/giải thích/đối phó; debug  | Người chơi hỏi "sao lại thế?"
+  R6 | Vòng lặp lõi không vui              | TB       | Rất cao  | Gate A; game-feel pass               | Bạn không muốn tự chơi
+  R7 | Scope creep                         | Cao      | Cao      | IDEAS.md; cắt phạm vi               | Milestone kéo dài gấp đôi ước tính
+  R8 | Burnout                             | TB       | Cao      | Nhịp ổn định; chia nhỏ; ăn mừng      | Bỏ ≥2 tuần không commit
+  R9 | Backend/server chi phí/ngừng        | Thấp     | TB       | Gateway + Mock; social tùy chọn      | Hóa đơn/giới hạn gói miễn phí
+  R10| Pháp lý/giấy phép                   | Thấp     | Cao      | CREDITS; luật sư khi cần             | Asset không rõ nguồn
+  R11| Nâng cấp Godot làm vỡ                | Thấp     | TB       | Khóa phiên bản                       | Muốn "thử bản mới"
+  R12| Lỗi font/dấu tiếng Việt              | Thấp     | Thấp     | Test Phase 0                         | Ký tự ô vuông
+
+
+================================================================================
+PHẦN 16 — TEST, QA, PLAYTEST
+================================================================================
+
+16.1  THÁP KIỂM THỬ
+  Tầng 1  Unit (domain thuần): GridMath, Inventory, Economy, FarmGridState, Weather, Director...
+  Tầng 2  Tích hợp headless: DaySimulator (ngủ N ngày), Save/Load round-trip, Giao dịch atomic.
+  Tầng 3  Dữ liệu: DataValidator (id, tham chiếu, trần lợi nhuận, key dịch).
+  Tầng 4  Mô phỏng: sim_economy, sim_director (1000 ngày, hồ sơ giả) kiểm tra bất biến.
+  Tầng 5  Golden: chuỗi thời tiết/sự kiện theo seed; golden saves theo phiên bản.
+  Tầng 6  Thủ công: smoke test mỗi build; kịch bản playthrough.
+  Tầng 7  Playtest người lạ: Gate B.
+
+16.2  ĐIỀU PHẢI KIỂM CHỨNG BẰNG TEST (từ nguồn C + A)
+  - Coin không bị cộng hai lần; coin không âm; mọi thay đổi có reason.
+  - Cây không thu hoạch liên tục; thu hoạch hai lần bị chặn.
+  - Công trình không biến mất khi tải lại game.
+  - Thời tiết không làm hỏng dữ liệu lưu; load không reroll thời tiết/sự kiện/đơn hàng.
+  - Ngủ N lần == simulate_day N lần.
+  - Máy hoàn thành đúng sau N ngày; không hỏng khi vắng.
+  - Dữ liệu id sai bị validator chặn; JSON save hỏng không crash.
+  - Seed X sinh đúng chuỗi Y (golden).
+
+16.3  GOLDEN SAVES & MIGRATION
+  Mỗi lần đổi save_version: giữ file save mẫu của phiên bản cũ trong tests/golden_saves/;
+  test nạp -> migrate -> state hợp lệ -> save lại -> nạp lại giống nhau. Không bao giờ xóa
+  golden save cũ.
+
+16.4  HARNESS MÔ PHỎNG
+  - sim_director: 1000 ngày x hồ sơ {thợ đốn gỗ, người câu cá, cân bằng, lười}; bất biến: số
+    sự kiện tiêu cực/mùa <= trần; không hai sự kiện xung đột; sản lượng không dưới ngưỡng;
+    mọi sự kiện tiêu cực có telegraph + explanation + counter.
+  - sim_economy: PHẦN 8.2.
+  - Soak: simulate_days 5000 trong headless, kiểm tra không rò bộ nhớ/không NaN/không âm.
+
+16.5  SMOKE TEST THỦ CÔNG MỖI BUILD (10 phút)
+  [ ] Mở game, New Game, onboarding chạy  [ ] Di chuyển 8 hướng, va chạm đúng
+  [ ] Cuốc/gieo/tưới/thu hoạch  [ ] Ngủ qua ngày; cây lớn  [ ] Mua/bán; coin đúng
+  [ ] Đặt/di chuyển/phá công trình  [ ] Save, thoát, Continue: mọi thứ còn nguyên
+  [ ] Đổi ngôn ngữ vi/en  [ ] Âm lượng/pause/thoát  [ ] Không lỗi đỏ trong Output
+
+16.6  GIAO THỨC PLAYTEST (GATE B)
+  - Người chơi: 3-5 người không biết dự án (ưu tiên người thích game cozy); không hướng dẫn trực
+    tiếp; chơi 30 phút; bạn ngồi cạnh KHÔNG nói, chỉ ghi chép (hoặc quay màn hình + tiếng nói).
+  - Ghi: thời điểm bối rối; chỗ kẹt; câu hỏi họ hỏi; lúc họ cười/thích; lúc muốn bỏ.
+  - Sau chơi 5 câu hỏi: (1) Game này về gì? (2) Mục tiêu hiện tại của bạn là gì? (3) Phần nào
+    thích nhất? (4) Phần nào khó chịu/khó hiểu nhất? (5) Có muốn chơi tiếp không, vì sao?
+  - Chỉ số: % hiểu mục tiêu trong 3 phút; số lần kẹt/người; % muốn chơi tiếp (>= ~60%).
+  - Quyết định: sửa top 3 vấn đề lặp lại trước khi làm thêm nội dung/social.
+
+16.7  PHÂN LOẠI LỖI
+  Blocker: crash, hỏng/mất save, không qua được cốt truyện, nhân đôi tiền/vật phẩm.
+  Major: tính năng chính hỏng nhưng có đường vòng; lỗi cân bằng nghiêm trọng.
+  Minor: lỗi hiển thị/chính tả/âm thanh. Polish: cải thiện cảm giác.
+  Quy tắc: lỗi hỏng save và nhân đôi tiền luôn là Blocker; sửa trước mọi tính năng mới.
+
+16.8  KIỂM TRA TƯƠNG THÍCH
+  Độ phân giải (1280x720, 1920x1080, 2560x1440, ultrawide), tỉ lệ khung, DPI, cấu hình máy yếu,
+  ngôn ngữ vi/en với chuỗi dài, bàn phím khác layout.
+
+
+================================================================================
+PHẦN 17 — SOCIAL BẤT ĐỒNG BỘ & BACKEND (GIAI ĐOẠN SAU, CHỈ KHI GATE B ĐẠT)
+================================================================================
+
+17.1  NGUYÊN TẮC
+  - D04: thế giới local-authoritative; lớp social KHÔNG mang tính kinh tế cạnh tranh.
+  - N5: game trọn vẹn khi chơi một mình; server chết hoặc không có bạn bè vẫn chơi được.
+  - Bất đồng bộ không "nhẹ" như tưởng: vẫn cần tài khoản, bảo mật, sổ cái, kiểm duyệt.
+  - Mọi truy cập mạng đi qua NetworkGateway (9.10); Mock để dev/test offline.
+
+17.2  TÍNH NĂNG THEO CẤP
+  Cấp 1 (làm trước): ghé thăm trang trại bạn bè (snapshot), để lại lời nhắn dạng CÂU MẪU/emote,
+    bảng thành tựu/hành trình xem được.
+  Cấp 2: hòm thư tặng quà (cosmetic hoặc vật phẩm có trần/ngày), "giúp đỡ" bằng TOKEN (ví dụ
+    water_boost vào hòm thư của chủ, chủ nhận mới có hiệu lực — giữ nguyên tắc local-
+    authoritative), dự án cộng đồng (sổ cái đóng góp có trần), hội chợ cuối tuần (mục tiêu
+    chung theo mùa).
+  Cấp 3 (KHÔNG nằm trong kế hoạch): real-time cùng đi lại/thu hoạch. Đánh giá lại sau 1.0.
+  Chợ liên server (người chơi bán cho nhau) = rủi ro kinh tế cao (E1, E2, E9); nếu làm thì làm
+  SAU, ở mức (a) "chấp nhận và siết trần"; cold start -> hiển thị niêm yết của NPC ghi rõ nguồn.
+
+17.3  CHỌN BACKEND
+  Tiêu chí: chi phí/giới hạn gói miễn phí, xác thực, chính sách bảo mật theo dòng (RLS), hàm
+  phía server (để kiểm tra), độ dễ gọi từ Godot (HTTP/REST), khả năng xuất/xóa dữ liệu.
+  Ứng viên: Supabase (Postgres + Row-Level Security + Edge Functions), Firebase (Firestore +
+  Rules + Cloud Functions), hoặc dịch vụ riêng nhỏ. Phương án thay thế về xã hội: Steamworks
+  (bạn bè Steam, Steam Cloud) qua addon cộng đồng như GodotSteam [CHƯA CHẮC: kiểm tra phiên bản/
+  giấy phép phù hợp bản Godot đã khóa]. Quyết định cuối ghi vào DECISIONS (D19...).
+  Bắt buộc: client chỉ giữ khóa CÔNG KHAI; KHÔNG bao giờ nhúng service_role/bí mật; mọi bảng bật
+  RLS; ghi quan trọng đi qua hàm server kiểm tra.
+
+17.4  MÔ HÌNH DỮ LIỆU (ví dụ)
+  players        (id, display_name, created_at, last_seen, deleted_at)
+  friendships    (a_id, b_id, status[pending|accepted|blocked], created_at)
+  gifts          (id, from_id, to_id, kind[cosmetic|item|token], payload_json, idempotency_key,
+                  status[sent|claimed|expired], created_at, claimed_at)
+  snapshots      (player_id, version, layout_json, farm_name, updated_at)   -- gọn, KHÔNG phải save
+  projects       (id, kind, goal_json, season, status)
+  contributions  (id, project_id, player_id, item/amount, idempotency_key, created_at) -- sổ cái
+  reports        (id, reporter_id, target_id, reason, created_at)
+  Quy tắc: thời gian dùng giờ SERVER; khóa idempotency duy nhất để chống nhân đôi khi gửi lại.
+
+17.5  BẢO MẬT & CHỐNG GIAN LẬN
+  - RLS: người chơi chỉ đọc/ghi hàng của mình hoặc hàng được cho phép (bạn bè).
+  - Hàm server kiểm tra: trần quà/ngày, trần đóng góp/người, kích thước snapshot, tốc độ gọi
+    (rate limit), định dạng; bảng vinh danh tính từ SỰ KIỆN đã xác thực, không nhận "điểm" từ
+    client.
+  - Tặng quà: escrow — client trừ kho trước (local), server ghi gift; nếu client crash giữa chừng,
+    idempotency key giúp thử lại an toàn; người nhận claim xong mới cộng kho (local).
+  - Không tin snapshot: validate (version, kích thước, id hợp lệ); id cosmetic lạ -> placeholder.
+  - Dữ liệu chia sẻ chỉ JSON đã validate; không .tres/.res từ mạng.
+
+17.6  FLOW QUÀ TẶNG (tóm tắt)
+  A (người gửi): chọn quà -> Inventory.try_remove (local) -> Net.send_gift(key) -> OK -> ghi
+                 ledger "gift_sent". Lỗi mạng -> giữ ở "outbox" cục bộ, thử lại với CÙNG key.
+  Server: kiểm tra trần + bạn bè + key chưa dùng -> ghi gifts(sent).
+  B (người nhận): mở hòm thư -> Net.fetch_inbox -> chọn nhận -> Net.claim_gift(id) -> server đổi
+                 trạng thái claimed (một lần) -> local Inventory.try_add -> nếu kho đầy: giữ ở
+                 hòm thư, chưa claim.
+
+17.7  FLOW THĂM TRANG TRẠI
+  Chủ: khi ngủ/lưu -> tạo snapshot gọn (layout JSON: công trình, trang trí, cây hiển thị, tên
+  trang trại, thành tựu) -> upload (nếu bật chia sẻ). Khách: fetch snapshot -> dựng scene chỉ
+  để xem (không tương tác kinh tế). Hiển thị nhãn "cập nhật lần cuối".
+
+17.8  DỰ ÁN CỘNG ĐỒNG
+  Sổ cái đóng góp idempotent; chi phí co giãn theo số người; hoàn thành kích hoạt MỘT lần; xử lý
+  người đóng góp rời game, người vào sau, hết hạn (NPC trợ cấp phần còn lại), giờ server; solo
+  vẫn hoàn thành được.
+
+17.9  KIỂM DUYỆT, RIÊNG TƯ
+  - Không chat tự do (D15). Câu mẫu/emote. Nút báo cáo + chặn người dùng.
+  - Chính sách riêng tư; cho phép xóa tài khoản (xóa/ẩn danh dữ liệu); tối thiểu hóa dữ liệu.
+  - Cân nhắc giới hạn độ tuổi/điều khoản sử dụng.
+
+17.10  CÁC TRƯỜNG HỢP LỖI
+  Server chết -> Net.status=OFFLINE, ẩn/disable social, hàng đợi outbox, game chạy bình thường.
+  Phiên bản schema lệch -> từ chối nhẹ nhàng + nhắc cập nhật. Snapshot lỗi -> bỏ qua + log.
+
+17.11  KIỂM THỬ SOCIAL
+  Contract test giữa client và MockBackend (cùng bộ test chạy với backend thật ở môi trường dev);
+  test idempotency (gửi hai lần cùng key); test crash giữa chừng; test trần; test RLS bằng tài
+  khoản thứ hai.
+
+
+================================================================================
+PHẦN 18 — DANH SÁCH "ĐỪNG LÀM" (HỢP NHẤT)
+================================================================================
+
+QUY TRÌNH & AGENT
+  [ ] Đừng bảo agent "viết cả game" hay "viết cả hệ thống X". Mỗi task một phạm vi nhỏ + nghiệm thu.
+  [ ] Đừng để agent tự sửa .tscn lớn hoặc đoán đường dẫn node.
+  [ ] Đừng chấp nhận code Godot 3 (onready var, yield, connect("sig",...), instance(), Spatial...).
+  [ ] Đừng đưa move_and_slide(velocity) vào prompt; Godot 4 không nhận tham số.
+  [ ] Đừng tin câu "đã test xong" của agent. Bắt nó chạy test headless và dán log.
+  [ ] Đừng để agent đổi tên file, id, signal, hàm công khai khi chưa được yêu cầu.
+  [ ] Đừng gom nhiều thay đổi rồi mới commit. Commit trước và sau mỗi task.
+  [ ] Đừng vá chồng vá. Lỗi -> quay lại commit sạch, chia nhỏ task.
+  [ ] Đừng kéo dài một cuộc chat hàng giờ; mỗi task một phiên mới.
+
+KIẾN TRÚC & KỸ THUẬT
+  [ ] Đừng hardcode giá trị gameplay trong script.
+  [ ] Đừng lưu state trong node. Domain state là nguồn sự thật; view chỉ hiển thị.
+  [ ] Đừng dùng _process/delta để tăng trưởng cây. Dùng day_index/total_minutes.
+  [ ] Đừng dùng float cho coin. Dùng int.
+  [ ] Đừng dùng randi() toàn cục cho logic gameplay. Dùng RNG có seed và lưu trạng thái.
+  [ ] Đừng tin giờ máy người chơi cho logic quan trọng, đặc biệt lớp social.
+  [ ] Đừng tải .tres/.res từ nguồn không tin cậy; dữ liệu chia sẻ chỉ JSON đã validate.
+  [ ] Đừng dùng hệ tọa độ kim cương làm logic; dùng Vector2i trục thẳng + GridMath.
+  [ ] Đừng dùng int() cho tọa độ âm; dùng floori().
+  [ ] Đừng nhồi thêm autoload hoặc để singleton thành "god object".
+  [ ] Đừng đổi phiên bản Godot hoặc renderer giữa dự án.
+  [ ] Đừng bake navmesh lúc chạy khi người chơi xây; dùng AStarGrid2D trên OccupancyMap.
+  [ ] Đừng dùng emit_signal bằng chuỗi; dùng signal có kiểu.
+
+THIẾT KẾ
+  [ ] Đừng làm multiplayer, Director, hay roguelite trước khi vòng lặp trồng -> thu -> bán vui.
+  [ ] Đừng làm bóng bẩy hình ảnh trước khi vòng lặp cốt lõi vui. Đừng tạo 100 vật phẩm trước khi
+      có 4 loại cây chạy tốt.
+  [ ] Đừng gọi hệ thống rule-based là "AI" trong code/tài liệu/player-facing; đừng gắn LLM vào
+      NPC/Director lúc chạy.
+  [ ] Đừng để Director trừng phạt âm thầm. Mọi áp lực: báo trước, giải thích, cách đối phó.
+  [ ] Đừng để phí bảo trì phạt người vắng mặt; máy tạm dừng, không hỏng.
+  [ ] Đừng xây tính năng social phụ thuộc có người chơi khác. Game phải trọn vẹn khi chơi một mình.
+  [ ] Đừng làm PvP/cướp bóc; đừng làm hàng chục bản đồ; đừng làm hàng trăm công thức trước khi
+      cân bằng; đừng thêm nhiều loại tiền premium khi gameplay chưa vui.
+  [ ] Đừng cho phép người khác phá công trình/lấy tài nguyên của bạn.
+
+ASSET & NỘI DUNG
+  [ ] Đừng dùng concept art làm asset thật mà không kiểm tra kích thước, góc nhìn, pivot, nền.
+  [ ] Đừng dùng font không hỗ trợ dấu tiếng Việt.
+  [ ] Đừng dùng asset/nhạc/font không rõ giấy phép; ghi mọi nguồn vào CREDITS.
+  [ ] Đừng để client tự viết số dư coin/điểm lên server; đừng nhúng khóa service_role/bí mật.
+
+
+================================================================================
+PHẦN 19 — CHECKLIST TỔNG (TRƯỚC / TRONG / SAU)
+================================================================================
+
+19.1  TRƯỚC KHI CODE            (xem 11.9) — quyết định, spike asset, công cụ, repo, docs, rules.
+19.2  SAU MỖI TASK              (xem 12.4 bước 10-12 và 3.4) — test pass (log), diff review, docs,
+                                commit.
+19.3  CUỐI MỖI PHASE
+  [ ] Tất cả milestone trong phase xong + tag git (v0.x)
+  [ ] Smoke test (16.5) sạch  [ ] Save cũ vẫn nạp được (golden saves)
+  [ ] DEVLOG có một đoạn tóm tắt + ảnh/video  [ ] Cập nhật ước lượng thời gian
+  [ ] Sổ rủi ro (15.9) được xem lại
+19.4  TRƯỚC KHI THÊM NỘI DUNG MỚI (cây/máy/sự kiện/NPC)
+  [ ] Có chỗ cho nó trong schema (không phải sửa code)  [ ] Có test/validator
+  [ ] Có key dịch vi/en  [ ] Có sink/faucet tương ứng  [ ] Không phá nguyên tắc N1-N10
+19.5  TRƯỚC KHI NÂNG CẤP BẤT KỲ THƯ VIỆN/ADDON/ENGINE
+  [ ] Commit sạch + tag  [ ] Đọc changelog  [ ] Chạy toàn bộ test + golden  [ ] Có đường rollback
+19.6  TRƯỚC KHI PHÁT HÀNH: xem PHẦN 20.
+
+
+================================================================================
+PHẦN 20 — PHÁT HÀNH, PHÁP LÝ, HẬU KỲ
+================================================================================
+(Các điểm dưới đây là kế hoạch chung; chi tiết quy định thay đổi — hãy kiểm chứng với nguồn
+chính thức hoặc chuyên gia pháp lý. Xem PHỤ LỤC C.)
+
+20.1  TÊN & THƯƠNG HIỆU
+  "The Life" khá chung và dễ trùng. Trước khi công bố: tra cứu tên trên Steam, itch.io, các
+  cơ sở dữ liệu nhãn hiệu; cân nhắc tên phụ ("The Life: Thung Lũng Mùa" hoặc tên khác).
+  Kiểm tra tên miền và tên tài khoản mạng xã hội.
+
+20.2  GIẤY PHÉP & CREDITS
+  Hoàn thiện docs/CREDITS.md + màn hình Credits trong game; lưu bản sao giấy phép của asset/font/
+  addon (Godot dùng giấy phép MIT — tuân thủ yêu cầu ghi nhận theo điều khoản Godot).
+
+20.3  RIÊNG TƯ & TÀI KHOẢN
+  Nếu có tài khoản/social: chính sách riêng tư, điều khoản, xóa tài khoản, tối thiểu hóa dữ liệu,
+  kiểm tra luật bảo vệ dữ liệu cá nhân nơi bạn phát hành (ví dụ Nghị định 13/2023/NĐ-CP tại Việt
+  Nam; GDPR nếu có người chơi EU) [CHƯA CHẮC — kiểm chứng]. Nếu phát hành trò chơi có yếu tố trực
+  tuyến tại Việt Nam, kiểm tra quy định về trò chơi điện tử trên mạng hiện hành [CHƯA CHẮC].
+  Bản chơi đơn không tài khoản đơn giản hơn nhiều: cân nhắc phát hành 1.0 KHÔNG social, thêm sau.
+
+20.4  STEAM (nếu chọn)
+  Đăng ký Steamworks, thanh toán phí đăng ký ứng dụng (khoảng 100 USD/ứng dụng — kiểm tra lại),
+  tạo trang cửa hàng "sắp ra mắt" sớm (có yêu cầu thời gian tối thiểu trước phát hành — kiểm
+  tra), ảnh chụp, trailer, mô tả, thẻ tag, ngưỡng tuổi, giá. Thành tựu Steam, Steam Cloud (tùy chọn).
+  Export Godot cho Windows (preset), kiểm tra trên máy sạch; ký mã nếu có thể.
+
+20.5  TIẾP THỊ NHẸ NHÀNG (cozy)
+  Đăng devlog/GIF đều đặn; cộng đồng game cozy/farming; danh sách wishlist; demo/Playtest trên
+  Steam; Next Fest (nếu phù hợp lịch). Trailer 60-90 giây tập trung "thế giới thay đổi theo
+  bạn".
+
+20.6  BETA KHÉP KÍN
+  20-100 người chơi; công cụ báo lỗi (nút "Gửi nhật ký" xuất log + save ẩn danh khi người chơi đồng
+  ý); vòng sửa lỗi 2-4 tuần; không thêm tính năng trong beta.
+
+20.7  HẬU KỲ
+  Lộ trình cập nhật miễn phí (mùa mới, sự kiện, NPC, khu vực); vá lỗi nhanh cho Blocker; ghi
+  chú thay đổi; giữ tương thích save (migrate + golden); cộng đồng phản hồi -> docs/IDEAS.md.
+
+
+================================================================================
+PHẦN 21 — 24 GIỜ ĐẦU TIÊN & CÂU HỎI CÒN MỞ
+================================================================================
+
+21.1  KẾ HOẠCH 24 GIỜ ĐẦU (không cần mở Godot viết gameplay)
+  Giờ 0-1   Đọc PHẦN 0-4 và 13. Mở docs/DECISIONS.md, chép PHẦN 2. Trả lời 10 câu hỏi ở 21.3.
+  Giờ 1-3   Cài công cụ (11.1-11.2): Godot (ghi số phiên bản), Git + LFS, VS Code (+ godot-tools),
+            Antigravity (nếu dùng), Blender, Python + gdtoolkit. Chạy "godot --version".
+  Giờ 3-5   git init, .gitignore, .gitattributes (11.3). Tạo khung thư mục (9.3). Commit đầu.
+  Giờ 5-8   Nhờ agent sinh bộ docs khung từ PHẦN 14 (PROJECT_RULES, ARCHITECTURE, PROGRESS...,
+            AGENTS.md). BẠN đọc và chỉnh. Đặt AGENTS.md vào gốc dự án.
+  Giờ 8-24  Bắt đầu SPIKE ASSET (10.9) nếu chưa có hướng asset; song song thử cho agent làm một
+            việc cực nhỏ (in "hello", đọc rules) để kiểm tra nó tuân thủ.
+  Tuần 1    Hoàn thành spike; chốt D01; bắt đầu Phase 0.1.
+
+21.2  TASK ĐẦU TIÊN (0.1) — copy nguyên văn cho agent sau khi rules đã đặt xong
+  MILESTONE: 0.1  Repo + project config + headless test
+  READ-ONLY CONTEXT: AGENTS.md, docs/PROJECT_RULES.md, docs/DECISIONS.md
+  ALLOW_LIST: project.godot, .gitignore, .gitattributes, tools/run_tests.bat, tools/run_tests.sh,
+    tests/unit/test_smoke.gd, docs/PROGRESS.md, docs/API_INDEX.md
+  DO NOT TOUCH: everything else (no scenes, no gameplay code)
+  TASK: Set up the test infrastructure for <GUT|gdUnit4> (I will install the addon manually in
+    the editor — tell me the exact steps). Create one smoke test (assert true) and tools/
+    run_tests.* that runs all tests headless and returns a non-zero exit code on failure. Ensure
+    `godot --headless --path . --quit` exits 0. Document the exact commands in PROJECT_RULES.md
+    section 1.
+  ACCEPTANCE:
+   - run_tests prints PASS for the smoke test; a deliberately failing test (temporary) makes it
+     exit non-zero (show both outputs)
+   - parse check command exits 0
+   - PROGRESS.md updated
+
+21.3  CÂU HỎI CÒN MỞ — trả lời trước khi chốt (và cách mỗi câu thay đổi kế hoạch)
+  Q1  Bạn có tự làm/đọc được Blender không? Ngân sách mua asset? -> quyết định tầng asset 10.10 và D01.
+  Q2  Bạn có bao nhiêu giờ/tuần? -> chia lại lộ trình, quyết định cắt phạm vi sớm hay muộn.
+  Q3  Mục tiêu: sản phẩm thương mại (Steam) hay dự án học/sở thích? -> mức độ pháp lý/tiếp thị/đánh bóng.
+  Q4  Cấu hình máy phát triển và máy mục tiêu của người chơi? -> chọn renderer, ngân sách hiệu năng.
+  Q5  Chấp nhận PC-only ở 1.0? -> D02.
+  Q6  Premium mua một lần có hợp ý bạn? -> D05.
+  Q7  Có muốn social ở 1.0 hay sau? (khuyến nghị: SAU, cập nhật miễn phí) -> thứ tự Phase 10.
+  Q8  Ngôn ngữ ưu tiên: vi trước hay en trước? -> thứ tự dịch, thị trường mục tiêu.
+  Q9  Tên chính thức? -> kiểm tra thương hiệu (20.1).
+  Q10 Bạn muốn offline progress kiểu Hay Day ở 1.0 không? (khuyến nghị: Phase 11, tùy chọn) -> D03.
+
+21.4  NHỮNG ĐIỀU ĐÃ BỊ LOẠI/HOÃN TỪ CÁC NGUỒN (và điều kiện để khôi phục)
+  - Roguelite "Chuyến đi bí ẩn": khôi phục sau 1.0 dưới dạng "thám hiểm" bản đồ vẽ tay + loot
+    ngẫu nhiên; cần tính EV so với giá vé; không gây xung đột định hướng cozy/không chiến đấu.
+  - Phí bảo trì hàng tuần: không khôi phục (phạt vắng mặt). Thay bằng chu kỳ máy tạm dừng.
+  - "Đơn hàng AI tự sinh": thay bằng công thức có seed + trần; không khôi phục thuật ngữ "AI".
+  - Multiplayer real-time: chỉ xem xét lại sau 1.0 nếu cộng đồng đòi hỏi và có ngân sách.
+  - Chợ liên server: sau social cơ bản, mức "chấp nhận và siết trần".
+
+
+================================================================================
+PHỤ LỤC A — NỘI DUNG GỐC CẦN GIỮ (từ bản ý tưởng)
+================================================================================
+
+A1  THƯ CỦA BÀ (dùng trong onboarding; chỉnh giọng theo STYLE_GUIDE)
+  Trang đầu sổ tay: "Một mảnh đất không trở nên giàu có chỉ nhờ những gì ta thu hoạch. Nó
+  trở nên giàu có nhờ những gì ta để lại."
+  Thư (cảnh 02): "Nếu con đang đọc những dòng này, có lẽ con đã trở lại thung lũng. Ta không
+  để lại cho con một trang trại giàu có. Ta chỉ để lại một nơi mà con có thể bắt đầu."
+  Thư kết (cảnh 04): "Đừng cố khôi phục nơi này trong một ngày. Hãy chăm sóc nó đủ lâu, và
+  một ngày nào đó, nó sẽ lại chăm sóc con."
+  Mục tiêu đầu tiên: "Hãy biến nơi này thành nhà của bạn."
+
+A2  HAI MỤC TIÊU SONG SONG CỦA NGƯỜI CHƠI
+  (1) Xây dựng một cuộc sống sung túc cho bản thân. (2) Khám phá vì sao thung lũng từng hưng
+  thịnh rồi bị bỏ quên (nay: vì sao Cỗ máy Mùa mất cân bằng).
+
+A3  VÒNG LẶP NGÀY (người chơi chọn việc mình thích; KHÔNG ép làm tất cả mỗi ngày)
+  1 Thức dậy, kiểm tra trang trại (thời tiết, cây, vật nuôi)
+  2 Trồng trọt và thu hoạch (nguyên liệu, chăm cây, sản phẩm vật nuôi)
+  3 Chế biến và kinh doanh (máy biến nguyên liệu thành sản phẩm giá trị cao hơn)
+  4 Nhận coin và tái đầu tư (hạt giống, máy, công trình, mở rộng đất)
+  5 Khám phá và kết nối (câu cá, NPC, thăm bạn, phát hiện điều đặc biệt)
+  Phiên ngắn: thu hoạch, vài đơn hàng, trang trí một góc. Phiên dài: nhà kính, khám phá rừng,
+  hỗ trợ bạn bè.
+
+A4  THỜI TIẾT (mỗi loại tạo cơ hội/lựa chọn; không liên tục trừng phạt)
+  Nắng đẹp: cảnh rực rỡ; hoạt động ngoài trời thuận tiện.
+  Mưa nhẹ: tưới tự động; đất ẩm hơn; ốc sên và một số loại nấm.
+  Mưa lớn: nước suối dâng; âm thanh/mặt đất đổi; vài khu tạm khó đi; (không phá mùa màng).
+  Sương mù: tầm nhìn giảm nhẹ; sinh vật/vật phẩm khám phá xuất hiện.
+  Nắng nóng: tăng nhu cầu tưới một số cây; hệ thống nước có giá trị hơn.
+  Tuyết: cảnh chuyển mùa; hoạt động mùa đông; tìm đồ theo mùa.
+  Ví dụ sau mưa lớn: cành cây rơi/lối tạm bị chắn -> có việc để làm sau mưa.
+
+A5  NGÀY & ĐÊM (khác biệt thực sự)
+  Sáng: tiệm bánh mở cửa; thương nhân ghé chợ; chim hót; NPC có thể gửi yêu cầu mới.
+  Chiều tối: ánh sáng vàng; người dân rời việc; nhạc dịu; hoàn thành việc cuối ngày/gặp hàng xóm.
+  Đêm: đom đóm/côn trùng phát sáng; cá hoạt động ban đêm; vật phẩm sưu tầm đặc biệt; cửa sổ nhà
+  sáng đèn; tiếng dế và nước thay đổi.
+
+A6  BỐN MÙA
+  Xuân: hoa nở; chim trở về; gieo trồng; hội hoa.
+  Hạ: cây ăn quả; nắng nóng; lễ hội ven hồ; câu cá đêm.
+  Thu: lá đổi màu; thu hoạch lớn; hội chợ nông sản.
+  Đông: trang trí tuyết; công việc mùa đông; nhà kính; lễ hội ánh đèn.
+  Mỗi mùa có cây trồng, đồ trang trí, hoạt động, vật phẩm riêng. Người chơi có cách bảo vệ cây
+  (nhà kính, điều chỉnh lịch) để không bị khóa tiến độ chỉ vì đổi mùa.
+
+A7  NPC (chi tiết nhân vật)
+  An — thợ làm bánh: chuỗi nhiệm vụ bột mì/bánh mì/bánh ngọt; trả giá tốt cho nguyên liệu chất
+    lượng, đổi lại người chơi cần mở rộng sản xuất.
+  Bác Lâm — thợ mộc: giúp chế tạo hàng rào, cầu, kho, máy móc; giữ một phần lịch sử thung lũng.
+  Linh — người yêu thiên nhiên: giới thiệu cây hiếm; hướng dẫn phục hồi suối; hé lộ bí mật khu rừng.
+  Minh — thương nhân lưu động: xuất hiện theo lịch; mang hạt giống/đồ trang trí/vật phẩm đặc biệt;
+    hàng thay đổi giữa các lần ghé.
+  Bản đầu thêm: người câu cá, quản lý chợ, nhân vật gắn với trạm quan trắc. Tổng 6-8 NPC.
+  Mở khóa từ quan hệ: công thức, hạt giống/đồ trang trí độc quyền, câu chuyện quá khứ,
+  công trình/khu vực mới, sự kiện cộng đồng. Không ép tặng quà mỗi ngày.
+
+A8  KHU VỰC (mở dần)
+  1 Trang trại: trồng trọt, chăn nuôi, sản xuất, xây dựng.
+  2 Làng trung tâm: chợ, cửa hàng, NPC, nhiệm vụ, lễ hội.
+  3 Khu rừng: nấm, quả dại, gỗ, sinh vật.
+  4 Hồ và bờ sông: câu cá, nguyên liệu dưới nước, thư giãn.
+  5 Đồng cỏ cao: hoa dại, ong, tổ chim, vật phẩm sưu tầm.
+  6 Đồi quan trắc: dự báo thời tiết, nhiệm vụ cốt truyện, ngắm thung lũng, Cỗ máy Mùa.
+  7 Thung lũng phía xa: mở về sau; cây/công trình/điều kiện thời tiết riêng.
+  Bản đầu: trang trại + một phần làng + một khu khám phá nhỏ. Bản đồ ngoài trời LIỀN MẠCH cho khu
+  vực đầu; tòa nhà lớn có nội thất riêng khi cần.
+
+A9  CÁC CÔNG TRÌNH & CÁCH XÂY (nhắc lại ý chính)
+  Nhóm: nhà ở (nhà chính, phòng ngủ, kho, sân vườn, nội thất, trang trí); canh tác (ruộng, vườn
+  cây, nhà kính, hệ tưới, chuồng); sản xuất (cối xay, lò bánh, xưởng mộc, bếp, nhà máy); sáng tạo
+  (ao cá, đường, cầu gỗ, đèn, ghế, quảng trường mini).
+  Cách xây: đi lại bình thường -> vào build mode: camera xem rộng, chọn công trình, đặt vào ô lưới;
+  xoay/di chuyển/tháo dỡ; mở rộng đất bằng coin theo giai đoạn; công trình sản xuất cần nguyên
+  liệu, thời gian, không gian.
+
+A10 CHUỖI SẢN XUẤT
+  Lúa mì -> Bột mì -> Bánh mì -> Đơn hàng tiệm bánh -> Coin -> Mở rộng. Về sau: Sữa -> Bơ -> Bánh;
+  Hoa -> Bó hoa; Trái cây -> Mứt. Lựa chọn chiến lược ví dụ cà chua: bán thẳng nhanh / đầu tư máy làm
+  nước sốt lời hơn nhưng chờ lâu / giữ cho đơn hàng đặc biệt mở khóa công trình.
+  Người chơi tự hỏi: đầu tư máy nào? sản xuất hàng loạt hay hàng cao cấp? mở rộng đất hay trang trí?
+  tự sản xuất hay trao đổi với bạn bè?
+
+A11 NGHỆ THUẬT & ÂM THANH (nguyên tắc)
+  Nhân vật: đầu hơi lớn, dễ đọc, chuyển động thân thiện; mỗi công cụ một animation.
+  Môi trường: chiều cao model, bóng đổ, tiền cảnh/hậu cảnh tạo chiều sâu; tránh cây lớn che hoàn toàn
+  nhân vật.
+  Màu: ngày ấm; đêm xanh tím + đèn vàng; mưa dịu; thu vàng cam.
+  Âm thanh: mỗi khu vực một ambience; tiếng cuốc chạm đất; bước chân trên cỏ; máy móc; mưa trên mái;
+  côn trùng đêm; đổi mượt khi đi từ ruộng vào rừng/làng ra hồ/ngày sang đêm.
+  Lý do chọn 3D cách điệu: nhóm nhỏ dễ nhất quán; dễ nhận biết từ camera cao; ánh sáng/mưa/tuyết/ngày
+  đêm tạo cảm xúc mà không cần siêu thực; asset mở rộng theo bộ.
+
+A12 TẦM NHÌN CUỐI (để nhớ "vì sao làm game này")
+  "Bạn đăng nhập sau một ngày bận rộn. Cánh đồng đang xanh, máy xay đã hoàn thành mẻ bột, chú chó chạy
+  ra đón bạn. Trời bắt đầu mưa nhẹ. Bạn vào kho lấy vài sản phẩm, giao hàng cho tiệm bánh rồi ghé thăm
+  người bạn đang xây trang trại phong cách Nhật Bản. Hai người rủ nhau ra hồ câu cá. Trời tối dần, đèn
+  trong làng sáng lên. Khi trở về, khu vườn trồng từ những ngày đầu đã nở hoa, dòng sông gần nhà trong
+  hơn từ ngày bạn hoàn thành dự án khôi phục. Bạn không cần một trận chiến hay nhiệm vụ khẩn cấp để
+  cảm thấy mình vừa có một phiên chơi ý nghĩa."
+  Ba nguyên tắc: (1) mỗi hành động phải có ý nghĩa; (2) mọi thành quả phải nhìn thấy được; (3) người
+  chơi tự định nghĩa cuộc sống của mình.
+
+A13 CÁC KHOẢNH KHẮC HIẾM (xem 4.5 để gắn thành MomentData)
+  Mưa xuân đầu tiên -> đàn bướm; đêm đầu sau khi sửa hồ -> trăng + đom đóm; quảng trường xong -> lễ hội;
+  ngày hội thu hoạch -> nhìn lại; bạn ghé thăm lần đầu -> bảng thành tựu hành trình.
+
+
+================================================================================
+PHỤ LỤC B — THUẬT NGỮ
+================================================================================
+  Agent/AI agent ...... công cụ AI viết/sửa code trong IDE, có thể chạy lệnh.
+  ALLOW_LIST .......... danh sách file agent được phép tạo/sửa trong một task.
+  Autoload ............ script/scene Godot nạp toàn cục (singleton).
+  Cell (ô) ............ đơn vị lưới logic Vector2i, 1x1 m.
+  Cỗ máy Mùa .......... thiết bị cơ khí cổ ở trạm quan trắc điều hòa thời tiết (tên player-facing).
+  Coin faucet/sink .... nguồn sinh coin / nơi tiêu coin.
+  Day index ........... số thứ tự ngày game từ 0.
+  DaySimulator ........ điều phối simulate_day() theo thứ tự cố định.
+  Decision trace ...... bản ghi lý do EventDirector chọn sự kiện.
+  Determinism ......... cùng đầu vào + seed -> cùng kết quả.
+  Domain / View ....... logic thuần (không Node) / lớp hiển thị.
+  Dormant ............. cây ngoài mùa ngừng lớn nhưng không mất.
+  Ecology (sinh thái) . tập chỉ số tree_cover, water_clarity, biodiversity...
+  EventDirector ....... bộ chọn sự kiện rule-based (ex "Eco-AI Director").
+  Footprint ........... số ô công trình chiếm (Vector2i).
+  Gate ................ cổng chất lượng (A sau Phase 4; B sau Phase 9).
+  Golden test/save .... test/file save mẫu đối chiếu kết quả/ phiên bản.
+  Gray-box ............ dựng thử bằng khối đơn giản, chưa có art thật.
+  Headless ............ chạy Godot không cửa sổ để test bằng dòng lệnh.
+  Idempotency key ..... khóa giúp gửi lại yêu cầu nhiều lần mà chỉ có hiệu lực một lần.
+  Ledger (sổ cái) ..... nhật ký bất biến mọi thay đổi coin.
+  Local-authoritative . dữ liệu thế giới do máy người chơi nắm quyền.
+  Milestone ........... một task nhỏ có nghiệm thu (ID như 4.1).
+  MomentData .......... dữ liệu khoảnh khắc WOW có điều kiện.
+  Occluder ............ vật che khuất nhân vật (cần dithering/fade).
+  OccupancyMap ........ bản đồ ô nào bị chiếm bởi gì.
+  Orthographic ........ camera không có phối cảnh (cùng kích thước dù xa/gần).
+  Pity timer .......... cơ chế đảm bảo sự kiện tích cực xuất hiện sau chuỗi dài không có.
+  Pre-roll ............ chọn trước kết quả ngẫu nhiên bằng seed và lưu lại.
+  Resource (.tres) .... dữ liệu Godot có thể chỉnh trong editor.
+  RLS ................. Row-Level Security — bảo mật theo dòng ở cơ sở dữ liệu.
+  Save-scum ........... nạp lại save để "reroll" kết quả ngẫu nhiên.
+  Scene contract ...... hợp đồng văn bản mô tả cây node/export/signal của một scene.
+  Seeded RNG .......... bộ ngẫu nhiên tái lập được theo seed.
+  Spike ............... thử nghiệm ngắn để trả lời một câu hỏi kỹ thuật.
+  Telegraph ........... báo trước một sự kiện (dự báo).
+  tool_hit ............ khoảnh khắc trong animation công cụ chạm mục tiêu (phát tín hiệu).
+  ToolAction .......... Resource chiến lược xử lý một công cụ.
+  total_minutes ....... day_index*1440 + phút trong ngày; dùng cho máy móc.
+  Vertical slice ...... một lát cắt nhỏ nhưng đủ trải nghiệm cốt lõi.
+  WorldState .......... đối tượng gom toàn bộ domain state.
+
+
+================================================================================
+PHỤ LỤC C — NHỮNG ĐIỀU CHƯA CHẮC CHẮN / CẦN BẠN KIỂM CHỨNG
+================================================================================
+Mình ghi rõ để bạn không tin nhầm. Những mục này đã được gắn [CHƯA CHẮC] trong văn bản.
+
+  C1  Phiên bản Godot: khi tra cứu (24/10/2026) mình thấy nguồn nhắc tới 4.6.1 (tháng 2/2026) và
+      4.7.x, nhưng các nguồn không đồng nhất. Hãy vào godotengine.org/download để lấy bản stable
+      mới nhất thật sự và GHI LẠI.
+  C2  Chi tiết API theo phiên bản (typed Dictionary, TileMapLayer, lựa chọn Jolt cho vật lý 3D,
+      tên hàm import hints) — agent phải đối chiếu tài liệu của ĐÚNG bản bạn khóa.
+  C3  Cờ dòng lệnh headless/chạy test của GUT hoặc gdUnit4: làm theo README addon + "godot --help".
+  C4  Antigravity: mình dựa trên hướng dẫn bên thứ ba (24/10/2026): AGENTS.md ở gốc (dùng chung
+      nhiều công cụ), GEMINI.md (ghi đè riêng Antigravity), .agent/rules/, .agent/workflows/ và
+      gọi workflow bằng "/". Giao diện/tùy chọn tự chủ có thể đã đổi — đối chiếu docs chính thức
+      (antigravity.google/docs).
+  C5  Giấy phép của gói asset CC0 (Kenney, Quaternius, KayKit...) và công cụ sinh 3D/âm thanh/nhạc
+      bằng AI: kiểm tra từng gói/điều khoản thương mại trước khi dùng.
+  C6  Font hỗ trợ tiếng Việt (Be Vietnam Pro, Nunito, Quicksand, Noto Sans): kiểm tra bộ ký tự
+      và giấy phép bản bạn tải.
+  C7  Steam: mức phí đăng ký ứng dụng và yêu cầu thời gian của trang "sắp ra mắt".
+  C8  Pháp lý: tham chiếu luật bảo vệ dữ liệu cá nhân và quy định trò chơi điện tử trực tuyến tại
+      Việt Nam là gợi ý để bạn tra cứu, không phải tư vấn pháp lý. Hãy hỏi chuyên gia khi phát hành
+      tính năng online/tài khoản.
+  C9  Ghi file nguyên tử (tmp -> rename) có thể khác hành vi giữa nền tảng khi file đích tồn tại:
+      test riêng trên Windows.
+  C10 Ổn định của hash()/RNG giữa các bản Godot: kế hoạch dùng DetRandom + golden test để phát
+      hiện thay đổi; nếu nâng cấp Godot, chạy lại golden và cập nhật có chủ đích.
+  C11 Toàn bộ SỐ LIỆU (giá, thời gian, trần lợi nhuận, xác suất, chỉ số sinh thái, ước lượng giờ,
+      ngân sách hiệu năng) chỉ là điểm xuất phát. Sự thật đến từ sim, playtest và đo đạc.
+  C12 Phép tính thời gian/giờ công mang tính ước lượng thô; hãy đo tốc độ thật trong 4 tuần đầu.
+  C13 GodotSteam và các addon cộng đồng: kiểm tra tương thích với phiên bản Godot đã khóa.
+  C14 Khả năng cozy-hóa của Cỗ máy Mùa: cần playtest để xem người chơi thấy "ấm áp" hay "lạnh"; nếu
+      lệch tông, giảm yếu tố cơ khí, tăng yếu tố tự nhiên/ký ức của bà.
+
+================================================================================
+KẾT THÚC TÀI LIỆU — THE LIFE MASTER PLAN v1.0
+Việc tiếp theo của bạn: PHẦN 21 (24 giờ đầu tiên). Chúc bạn làm game vui!
+================================================================================

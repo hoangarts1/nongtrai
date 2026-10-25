@@ -1,0 +1,19 @@
+## Events — typed cross-system signal bus.
+extends Node
+
+@warning_ignore("unused_signal")
+signal day_started(day_index: int)
+@warning_ignore("unused_signal")
+signal hour_changed(hour: int)
+@warning_ignore("unused_signal")
+signal season_changed(season: StringName)
+@warning_ignore("unused_signal")
+signal sleep_requested
+@warning_ignore("unused_signal")
+signal plot_changed(cell: Vector2i)
+@warning_ignore("unused_signal")
+signal crop_planted(cell: Vector2i, crop_id: StringName)
+@warning_ignore("unused_signal")
+signal crop_matured(cell: Vector2i, crop_id: StringName)
+@warning_ignore("unused_signal")
+signal crop_harvested(cell: Vector2i, crop_id: StringName, quantity: int, quality: int)

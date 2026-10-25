@@ -1,0 +1,146 @@
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: Getting Started
+   :name: sec-started
+
+   Install
+   Quick-Start
+   Command-Line
+   New-For-Godot-4
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: Test Scripts
+   :name: sec-guttest
+
+   Creating-Tests
+   Awaiting
+   Inner-Test-Classes
+   Error-Tracking
+   Parameterized-Tests
+   Simulate
+   Comparing-Things
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Doubling
+   :name: sec-doubles
+
+   Doubles
+   Partial-Doubles
+   Double-Strategy
+   Stubbing
+   Spies
+   Doubling-Singletons
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Other
+   :name: sec-other
+
+   Export-Test-Results
+   Hooks
+   Global-Lifecycle-Hooks
+   Memory-Management
+   Mocking-Input
+   Running-On-Devices
+   GDScript-Warnings
+   Contributing
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Class Reference
+   :name: class-ref
+   :glob:
+
+   Class-Ref
+   class_ref/*
+
+
+
+
+Gut 9.7.1 (Godot 4.7)
+=========
+
+
+GUT/Godot Versions
+------------------
+The Godot/GUT version list and download links can be found in the repo README https://github.com/bitwes/Gut/blob/main/README.md
+
+
+Getting Started
+---------------
+
+* :doc:`Quick-Start <Quick-Start>`
+* :doc:`Install <Install>`
+* :doc:`GutTest Class <class_ref/class_guttest>`
+* :doc:`Creating Tests <Creating-Tests>`
+* :doc:`Using Gut at the command line <Command-Line>`
+
+
+Advanced Testing
+----------------
+
+* :doc:`Inner Test Classes <Inner-Test-Classes>`
+* :doc:`Doubling <Doubles>`
+* :doc:`Spies <Spies>`
+* :doc:`Stubbing <Stubbing>`
+* :doc:`Parameterized Tests <Parameterized-Tests>`
+* :doc:`Simulate <Simulate>`
+* :doc:`Coroutines and await in tests <Awaiting>`
+* :doc:`Pre/Post Run Hooks <Hooks>`
+* :doc:`Exporting Results <Export-Test-Results>`
+* :doc:`Error Tracking <Error-Tracking>`
+
+
+Editor GUI
+----------
+
+.. image:: _static/images/gut_panel.png
+
+GUT GUI
+-------
+
+Normal
+
+.. image:: _static/images/GutGui.png
+
+Compact
+
+.. image:: _static/images/GuiCompact.png
+
+Engine Warnings
+---------------
+
+There are a fair number of warnings that Godot will show related to GUT.  Some of the warnings are valid and are being cleaned up overtime.  Most of the warnings are not valid and sometimes relate to generated code.  As of 3.2 you can disable warnings for addons, and it recommended you do so.
+
+.. image:: _static/images/exclude_addons.png
+
+
+License
+-------
+
+Gut is provided under the MIT license.  [The license is distributed with Gut so it is in the `addons/gut` folder](https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md).
+
+
+Contributing
+------------
+
+:doc:`Contributing <Contributing>`
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
+

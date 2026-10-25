@@ -1,0 +1,111 @@
+================================================================================
+THE LIFE — BỘ REPO KHỞI ĐỘNG (STARTER KIT)  —  ĐỌC FILE NÀY TRƯỚC
+================================================================================
+Tạo ngày 24/10/2026, từ THE_LIFE_MASTER_PLAN.txt (bản sao nằm ở docs/reference/).
+Đây là bộ "bộ não bằng văn bản" để AI agent (Antigravity / VS Code) làm việc đúng luật.
+Bạn có thể xóa file START_HERE_VN.txt này sau khi làm xong các bước dưới.
+
+
+1) TRONG BỘ NÀY CÓ GÌ
+----------------------
+  AGENTS.md                     Luật ngắn gọn, agent đọc ĐẦU TIÊN mỗi phiên (đặt ở gốc dự án)
+  docs/PROJECT_RULES.md         Luật đầy đủ: phiên bản Godot, kiến trúc, mẫu code bị cấm...
+  docs/ARCHITECTURE.md          Sơ đồ tầng, autoload, danh mục signal, thứ tự qua ngày, định dạng save
+  docs/CODE_PATTERNS.md         Các đoạn code mẫu đã duyệt (GridMath, DetRandom, di chuyển theo camera...)
+  docs/DECISIONS.md             18 quyết định mặc định (D01-D18) — bạn xác nhận từng cái
+  docs/DATA_SCHEMA.md           Schema dữ liệu + số liệu khởi điểm (cây, công thức, giá, trần lợi nhuận)
+  docs/ROADMAP.md               Toàn bộ milestone từ P-1 tới Phase 12, có tiêu chí nghiệm thu
+  docs/PROGRESS.md              "Bộ nhớ" của agent: đang ở đâu, việc gì tiếp theo
+  docs/API_INDEX.md             Chỉ mục API (trống, agent tự điền dần)
+  docs/INPUT_MAP.md             Danh sách phím/hành động
+  docs/COLLISION_LAYERS.md      Bảng 8 layer va chạm (agent không được bịa số layer)
+  docs/SCENE_CONTRACTS/         Hợp đồng scene: mẫu + bản nháp gray_box_world, player
+  docs/TASK_TEMPLATES.md        Mẫu prompt: mở phiên, giao task, báo lỗi, review + 5 task đầu COPY-PASTE
+  docs/STYLE_GUIDE.md           Giọng văn, xưng hô NPC, từ cấm, quy ước khóa dịch (tiếng Việt)
+  docs/GLOSSARY.md  CREDITS.md  DEVLOG.md  IDEAS.md
+  docs/reference/THE_LIFE_MASTER_PLAN.txt   Bản kế hoạch tổng thể (chỉ để tra cứu, agent KHÔNG cần đọc mỗi phiên)
+  .agent/workflows/             3 workflow cho Antigravity: task-start, task-review, task-finish
+  tools/                        check_parse + run_tests (.sh và .bat)
+  .gitignore  .gitattributes  .editorconfig  .vscode/extensions.json
+  Các thư mục rỗng (có .gitkeep): scenes/ scripts/ data/ assets/ localization/ tests/ ...
+
+  CHƯA CÓ project.godot — Godot sẽ tự tạo khi bạn tạo project (bước 2).
+
+
+2) ĐẶT VÀO DỰ ÁN (làm đúng thứ tự)
+-----------------------------------
+  a. Tạo thư mục dự án (ví dụ  D:\Games\TheLife ) và GIẢI NÉN toàn bộ bộ này vào đó
+     (AGENTS.md phải nằm ngay ở gốc, cạnh docs/).
+  b. Mở terminal trong thư mục đó:
+        git init
+        git lfs install            <-- làm TRƯỚC khi commit file .glb/.png/.ogg đầu tiên
+  c. Mở Godot -> Create New Project -> chọn CHÍNH thư mục này (đã có file khác cũng được)
+     -> chọn đúng renderer bạn đã quyết định -> Create.
+  d. Trên Mac/Linux, cấp quyền chạy cho script:   chmod +x tools/*.sh
+  e. Commit đầu:   git add -A   rồi   git commit -m "chore: init repo with docs scaffold"
+
+
+3) NHỮNG CHỖ BẠN PHẢI TỰ ĐIỀN  (tìm chuỗi  <<FILL  trong toàn bộ thư mục)
+--------------------------------------------------------------------------
+  - docs/PROJECT_RULES.md mục 1:
+        * Phiên bản Godot (vào godotengine.org/download lấy bản STABLE mới nhất rồi ghi số chính xác)
+        * Renderer (Forward+ / Mobile / Compatibility) và engine vật lý 3D nếu có lựa chọn
+        * Test framework: GUT hay gdUnit4 (chọn MỘT) + lệnh chạy test headless
+        * Phiên bản gdtoolkit; cấu hình máy mục tiêu
+  - docs/DECISIONS.md: D08 (phiên bản Godot, renderer), D13 (yaw/pitch camera — chốt ở task 0.4).
+        Đọc từng quyết định rồi đổi  [ ] confirmed  thành  [x] confirmed  khi bạn đồng ý.
+  - docs/CREDITS.md: font và addon test.
+  - tools/run_tests.sh và run_tests.bat: cố tình báo LỖI cho tới khi task 0.1 điền lệnh test thật
+    (để không ai tưởng "chưa có test" là "tất cả đã xanh").
+  Quy tắc: agent gặp <<FILL chưa điền thì phải DỪNG và hỏi bạn.
+
+
+4) 24 GIỜ ĐẦU (khớp PHẦN 21 của Master Plan)
+---------------------------------------------
+  Giờ 0-1    Đọc docs/DECISIONS.md, tick xác nhận. Trả lời 10 câu hỏi mục 21.3 trong Master Plan.
+  Giờ 1-3    Cài công cụ: Godot (ghi số phiên bản), Git + Git LFS, VS Code + extension godot-tools
+             (hoặc Antigravity), Blender, Python + gdtoolkit.  Chạy  godot --version.
+  Giờ 3-5    Làm bước 2 ở trên (repo + project).
+  Giờ 5-8    Điền các <<FILL. Đọc lướt PROJECT_RULES.md và AGENTS.md.
+  Giờ 8-24   Bắt đầu SPIKE ASSET 1 tuần (Master Plan mục 10.9) và thử cho agent làm 1 việc cực nhỏ
+             để kiểm tra nó THẬT SỰ đọc luật (dùng prompt "Session open" trong docs/TASK_TEMPLATES.md).
+  Tuần 1     Hoàn thành spike -> chốt D01 (3D hay 2D) -> bắt đầu task 0.1.
+
+
+5) DÙNG VỚI ANTIGRAVITY / VS CODE
+---------------------------------
+  - Antigravity đọc AGENTS.md ở gốc dự án làm "rules" thường trực (theo hướng dẫn bên thứ ba tra cứu
+    ngày 24/10/2026). Nếu bạn muốn ghi đè riêng cho Antigravity thì tạo GEMINI.md ở gốc.
+  - Workflows nằm ở .agent/workflows/ và gọi bằng dấu "/" trong khung chat (/task-start, /task-review,
+    /task-finish). [CHƯA CHẮC] định dạng/đường dẫn workflow có thể đã đổi — nếu "/" không thấy workflow,
+    mở file .md tương ứng và dán nội dung vào chat như một prompt bình thường.
+  - Khi mới làm: để agent chạy lệnh terminal ở chế độ CẦN BẠN DUYỆT; dùng chế độ Planning cho task
+    nhiều file. Không bật tự duyệt cho lệnh xóa / force push.
+  - VS Code: cài extension godot-tools (đã gợi ý sẵn trong .vscode/extensions.json); trong Godot vào
+    Editor Settings -> Text Editor -> External để dùng VS Code làm trình soạn code ngoài.
+
+
+6) VÒNG LÀM VIỆC MỖI TASK (tóm tắt — chi tiết ở docs/TASK_TEMPLATES.md)
+-----------------------------------------------------------------------
+  1. git commit "before task X"
+  2. Mở phiên chat/agent MỚI -> dán "Session open" -> agent trả lời 5 gạch đầu dòng
+  3. Dán MỘT task (mẫu có sẵn; 5 task đầu 0.1 / 0.2 / 0.3 / 0.5 / 1.1 đã viết sẵn)
+  4. Agent đưa KẾ HOẠCH trước -> bạn duyệt -> nó viết code + test + dán log thật
+  5. Bạn làm các bước thủ công trong Godot (dựng scene theo SCENE_CONTRACTS), chạy thử
+  6. Lỗi -> dán LỖI THẬT nguyên văn + file liên quan, bảo "chỉ sửa file X"
+  7. Review diff (phiên AI khác, dùng prompt review) -> "Session close" -> commit "task X done"
+
+
+7) NÓI THẲNG VỀ NHỮNG GÌ CHƯA ĐƯỢC KIỂM CHỨNG
+----------------------------------------------
+  - Mình chưa chạy được các file này với một bản Godot thật. Các đoạn code trong docs/CODE_PATTERNS.md là
+    HÌNH MẪU; agent phải đối chiếu theo đúng bản Godot bạn khóa và chạy parse check trước khi dùng.
+  - Lệnh chạy test của GUT/gdUnit4 mình KHÔNG viết sẵn vì phụ thuộc phiên bản — task 0.1 sẽ làm.
+  - Các số liệu cân bằng (giá, thời gian, trần lợi nhuận) chỉ là điểm xuất phát; sự thật đến từ
+    tools/sim_economy.gd và playtest.
+  - Workflow của Antigravity: xem mục 5.
+  - Việc AI không làm thay bạn: spike asset, chọn phiên bản Godot, chơi thử để biết "có vui không",
+    kiểm tra giấy phép asset, quyết định cắt phạm vi.
+
+Chúc bạn làm game vui!
+================================================================================
