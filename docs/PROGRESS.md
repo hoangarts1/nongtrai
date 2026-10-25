@@ -6,7 +6,7 @@ Last updated: 2026-10-25 (Save/Load v1)
 `4.6` — Save/Load v1 stores clock, player position, inventory and farm state as versioned JSON. The full list is in `docs/ROADMAP.md`.
 
 ## Last commit / tag
-(none yet)
+`3e2e221` — `feat: add save load v1`; final tag pending after the full-suite verification below.
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -66,7 +66,7 @@ Last updated: 2026-10-25 (Save/Load v1)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: run the final MVP suite, create the `mvp-farming-loop` tag and prepare the manual play checklist.
+- MVP farming-loop implementation is complete through 4.6; 4.7 game-feel polish remains outside this checkpoint.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.
