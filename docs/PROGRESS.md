@@ -6,7 +6,7 @@ Last updated: 2026-10-25 (HUD and onboarding)
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
-`3e2e221` — `feat: add save load v1`; final tag pending after the full-suite verification below.
+`6ad6eef` — `feat: add onboarding tutorial and quest guide`
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -22,7 +22,7 @@ Last updated: 2026-10-25 (HUD and onboarding)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- Phase 4.1 complete and verified; next is 4.2 FarmView placeholder.
+- HUD layout and onboarding guidance are complete; awaiting manual playtest feedback.
 
 ## Done
 - [x] Reusable interaction prompt anchored to the viewport with readable background and outline
