@@ -58,7 +58,8 @@ func _process(_delta: float) -> void:
 	_farm_view.call("set_hovered_cell", _hovered_cell, true, _hovered_valid)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed("use_tool"):
+	var is_mouse_use: bool = event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT and (event as InputEventMouseButton).pressed
+	if not event.is_action_pressed("use_tool") and not is_mouse_use:
 		return
 	if not _hovered_valid or _is_input_locked():
 		return

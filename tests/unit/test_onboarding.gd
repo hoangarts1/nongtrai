@@ -12,8 +12,10 @@ func test_help_action_and_tutorial_use_input_map_bindings() -> void:
 	var tutorial: Control = main.get_node("TutorialPanel")
 	assert_true(tutorial.visible)
 	var instructions: Label = tutorial.get_node("MarginContainer/VBoxContainer/Instructions")
-	assert_true(instructions.text.contains(InputMap.action_get_events(&"move_up")[0].as_text()))
-	assert_true(instructions.text.contains(InputMap.action_get_events(&"open_inventory")[0].as_text()))
+	assert_true(instructions.text.contains("W"))
+	assert_true(instructions.text.contains("I"))
+	assert_true(instructions.text.contains("Space hoặc chuột trái"))
+	assert_false(instructions.text.contains("Physical"))
 	var check: CheckButton = tutorial.get_node("MarginContainer/VBoxContainer/DoNotShowAgain")
 	check.button_pressed = true
 	tutorial.call("close_help")
