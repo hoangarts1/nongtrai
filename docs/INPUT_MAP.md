@@ -18,6 +18,7 @@ Gameplay reads these through `_unhandled_input` (so UI can consume events first)
 | `tool_prev` | Mouse Wheel Up | previous hotbar slot | 3 |
 | `hotbar_1` … `hotbar_9` | 1 … 9 | pick hotbar slot | 3 |
 | `open_inventory` | I, Tab | inventory | 3 |
+| `open_help` | H | how to play | 4 |
 | `open_build` | B | build mode | 6 |
 | `open_journal` | J | notebook: quests, ecology, collection | 7 |
 | `rotate_cw` | R | rotate ghost clockwise (build mode) | 6 |

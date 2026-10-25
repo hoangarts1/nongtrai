@@ -1,9 +1,9 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (Save/Load v1)
+Last updated: 2026-10-25 (HUD and onboarding)
 
 ## Current milestone
-`4.6` — Save/Load v1 stores clock, player position, inventory and farm state as versioned JSON. The full list is in `docs/ROADMAP.md`.
+`4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
 `3e2e221` — `feat: add save load v1`; final tag pending after the full-suite verification below.
@@ -53,6 +53,10 @@ Last updated: 2026-10-25 (Save/Load v1)
 - [x] Debug menu includes seed, hoe-all, water-all, grow-one-day and reset-farm actions
 - [x] SaveService writes versioned JSON atomically, rotates three backups and ignores corrupted/future saves safely
 - [x] Debug menu exposes localized save/load actions; Main restores clock, player, inventory and farm state
+- [x] HUD regions use anchors and containers; layout tests cover 1152x648, 1280x720 and 1920x1080
+- [x] First-run controls guide uses InputMap bindings, H and HUD `?`, with persistent opt-out in Settings
+- [x] New players receive turnip seeds and the farming checklist tracks domain events through harvest
+- [x] Onboarding checklist is included in save/load state
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -60,6 +64,7 @@ Last updated: 2026-10-25 (Save/Load v1)
 ## Decisions since last update
 - D08 and D13 confirmed from the submitted project form.
 - Placeholder geometry is allowed until the developer supplies final models.
+- HUD layout is documented in `docs/UI_LAYOUT.md`; prompt sits above the hotbar and inventory is centered with a close button.
 - While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)

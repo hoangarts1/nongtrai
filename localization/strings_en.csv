@@ -2,6 +2,23 @@ key,value
 UI_INVENTORY_TITLE,Inventory
 UI_INVENTORY_EMPTY,Empty
 UI_CLOSE,Close
+UI_HELP_TITLE,HOW TO PLAY
+UI_HELP_MOVE,Move: %s
+UI_HELP_SPRINT,Run: hold %s
+UI_HELP_HOTBAR,Choose hotbar slot: %s
+UI_HELP_TOOL,Use tool: %s
+UI_HELP_SLEEP,Sleep at home: %s
+UI_HELP_INVENTORY,Open inventory: %s
+UI_HELP_DEBUG,Debug menu: %s
+UI_HELP_DONT_SHOW,Do not show again
+UI_HELP_UNDERSTOOD,Got it
+UI_HELP_BUTTON,?
+UI_HELP_BUTTON_TOOLTIP,How to play [H]
+UI_QUEST_TILL,Hoe one plot
+UI_QUEST_PLANT,Plant a seed
+UI_QUEST_WATER,Water the crop
+UI_QUEST_SLEEP,Sleep at home to start a new day
+UI_QUEST_HARVEST,Harvest when the crop is ready
 UI_HOTBAR_EMPTY,Empty slot
 UI_DEBUG_TITLE,DEBUG MENU  (Ctrl+M)
 UI_DEBUG_TIME_DAY,Day

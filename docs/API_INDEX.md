@@ -97,6 +97,26 @@ Format:
 - func delete_save(slot: int = 1) -> void — removes one save slot
 - Notes: the autoload owns file I/O only; Main composes clock, player, inventory and farm state.
 
+## TutorialQuestState  (scripts/domain/tutorial_quest_state.gd)
+- func is_step_completed(step_index: int) -> bool — checks one onboarding milestone
+- func is_complete() -> bool — returns true when all five farming milestones are complete
+- func serialize() -> Dictionary — saves onboarding progress
+- func deserialize(data: Dictionary) -> void — restores onboarding progress
+- signal step_changed(step_index: int, completed: bool) — emitted when a domain event completes a step
+- signal all_completed() — emitted once all farming milestones are complete
+- Notes: listens to typed Events and GameClock.sleep_finished; the view only renders this state.
+
+## TutorialPanel  (scripts/view/tutorial_panel.gd)
+- func open_help() -> void — opens the controls guide and locks player movement
+- func close_help() -> void — closes the guide and persists the opt-out checkbox
+- func is_help_open() -> bool — reports whether the guide is visible
+- func configure_modal(close_other_modal: Callable) -> void — closes another modal before opening the guide
+- Notes: controls are formatted from InputMap bindings; player-facing text uses localization.
+
+## QuestPanel  (scripts/view/quest_panel.gd)
+- func configure(state: TutorialQuestState) -> void — binds checklist rendering to domain state
+- Notes: hides itself after all five onboarding steps are complete.
+
 ## FarmView  (scripts/view/farm_view.gd)
 - func configure(farm_state: FarmGridState) -> void — binds the placeholder view to the farm domain state
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell

@@ -2,6 +2,23 @@ key,value
 UI_INVENTORY_TITLE,KHO ĐỒ
 UI_INVENTORY_EMPTY,Trống
 UI_CLOSE,Đóng
+UI_HELP_TITLE,CÁCH CHƠI
+UI_HELP_MOVE,Di chuyển: %s
+UI_HELP_SPRINT,Chạy: giữ %s
+UI_HELP_HOTBAR,Chọn ô hotbar: %s
+UI_HELP_TOOL,Dùng công cụ: %s
+UI_HELP_SLEEP,Ngủ ở nhà: %s
+UI_HELP_INVENTORY,Mở kho đồ: %s
+UI_HELP_DEBUG,Debug menu: %s
+UI_HELP_DONT_SHOW,Không hiện lại
+UI_HELP_UNDERSTOOD,Đã hiểu
+UI_HELP_BUTTON,?
+UI_HELP_BUTTON_TOOLTIP,Cách chơi [H]
+UI_QUEST_TILL,Cuốc một ô đất
+UI_QUEST_PLANT,Gieo hạt
+UI_QUEST_WATER,Tưới cây
+UI_QUEST_SLEEP,Ngủ ở nhà để sang ngày mới
+UI_QUEST_HARVEST,Thu hoạch khi cây chín
 UI_HOTBAR_EMPTY,Ô trống
 UI_DEBUG_TITLE,DEBUG MENU  (Ctrl+M)
 UI_DEBUG_TIME_DAY,Ngày

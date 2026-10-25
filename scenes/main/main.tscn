@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
 [ext_resource type="Script" path="res://scripts/view/hotbar_panel.gd" id="7_hotbar"]
 [ext_resource type="Script" path="res://scripts/view/tool_action_controller.gd" id="8_tool"]
+[ext_resource type="Script" path="res://scripts/view/tutorial_panel.gd" id="9_tutorial"]
+[ext_resource type="Script" path="res://scripts/view/quest_panel.gd" id="10_quest"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -80,6 +82,28 @@ offset_right = 190.0
 offset_bottom = 170.0
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("5_inventory")
+
+[node name="QuestPanel" type="PanelContainer" parent="."]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 68.0
+offset_right = 330.0
+offset_bottom = 250.0
+theme_override_styles/panel = SubResource("Style_inventory")
+script = ExtResource("10_quest")
+
+[node name="TutorialPanel" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -220.0
+offset_right = 280.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("Style_inventory")
+script = ExtResource("9_tutorial")
 
 [node name="HudButtonBar" type="PanelContainer" parent="."]
 anchor_left = 1.0

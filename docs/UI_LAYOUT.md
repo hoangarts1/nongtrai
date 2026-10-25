@@ -8,7 +8,7 @@ single window size.
 | Top-left | `ClockHud` | Anchored to `(0, 0)` with a small margin |
 | Top-right | `DebugMenu` | Anchored to `(1, 0)`, hidden by default and debug-only |
 | Left-middle | `QuestPanel` | Reserved for the current farming checklist |
-| Center | `TutorialPanel` / `InventoryPanel` | Centered modal panels; inventory has a close button |
+| Center | `TutorialPanel` / `InventoryPanel` | Centered modal panels; only one opens at a time and inventory has a close button |
 | Bottom-center | `HotbarPanel` | Centered above the bottom safe margin |
 | Above bottom-center | `InteractionPrompt` | Positioned above the hotbar, never in its rectangle |
 | Bottom-right | `HudButtonBar` | Anchored to `(1, 1)` with a safe margin |

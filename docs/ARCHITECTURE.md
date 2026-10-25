@@ -62,6 +62,8 @@ Add a row BEFORE emitting a new bus signal.
 | `item_added` | `item_id: StringName, qty: int` | InventoryState | quests, UI feedback | 3 |
 | `item_removed` | `item_id: StringName, qty: int` | InventoryState | quests | 3 |
 | `plot_changed` | `cell: Vector2i` | FarmGridState | FarmView | 4 |
+| `plot_tilled` | `cell: Vector2i` | FarmGridState | onboarding state | 4 |
+| `plot_watered` | `cell: Vector2i` | FarmGridState | onboarding state | 4 |
 | `crop_planted` | `cell: Vector2i, crop_id: StringName` | FarmGridState | audio, quests | 4 |
 | `crop_matured` | `cell: Vector2i, crop_id: StringName` | FarmGridState | FarmView, audio | 4 |
 | `crop_harvested` | `cell, crop_id, quantity: int, quality: int` | FarmGridState | inventory, quests, ecology stats | 4 |
@@ -111,6 +113,7 @@ Invariant (tested): `simulate_day` called N times in a row == N nights of sleepi
   "inventory": { "slots": [] },
   "economy":   { "coins": 0, "ledger_tail": [], "sold_pressure": {} },
   "farm":      { "plots": [] },
+  "quests":    { "completed": [] },
   "buildings": [],
   "ecology":   { "metrics": {}, "triggered": [] },
   "weather":   { "today": "sunny", "forecast": [] },

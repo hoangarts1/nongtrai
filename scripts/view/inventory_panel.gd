@@ -33,6 +33,10 @@ func toggle_inventory() -> bool:
 	inventory_toggled.emit(visible)
 	return true
 
+func close_inventory() -> void:
+	if visible:
+		toggle_inventory()
+
 func _build_ui() -> void:
 	var margin: MarginContainer = MarginContainer.new()
 	for side: StringName in [&"margin_left", &"margin_top", &"margin_right", &"margin_bottom"]:

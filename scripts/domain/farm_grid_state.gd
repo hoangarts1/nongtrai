@@ -37,6 +37,7 @@ func till_cell(cell: Vector2i) -> bool:
 	_plots[cell] = plot
 	plot_changed.emit(cell)
 	Events.plot_changed.emit(cell)
+	Events.plot_tilled.emit(cell)
 	return true
 
 func plant_crop(cell: Vector2i, crop_id: StringName) -> bool:
@@ -68,6 +69,7 @@ func water_cell(cell: Vector2i) -> bool:
 	plot["watered"] = true
 	_plots[cell] = plot
 	plot_changed.emit(cell)
+	Events.plot_watered.emit(cell)
 	return true
 
 func advance_day() -> void:

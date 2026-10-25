@@ -21,7 +21,8 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
 		"inventory": payload.get("inventory", {}),
-		"farm": payload.get("farm", {})
+		"farm": payload.get("farm", {}),
+		"quests": payload.get("quests", {})
 	}
 	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
 	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
