@@ -1,0 +1,32 @@
+extends GutTest
+
+func test_harvest_preview_and_inventory_capacity_prevent_loss() -> void:
+	var farm: FarmGridState = preload("res://scripts/domain/farm_grid_state.gd").new()
+	var inventory: InventoryState = preload("res://scripts/domain/inventory_state.gd").new(1)
+	var cell: Vector2i = Vector2i(0, 0)
+	assert_true(farm.till_cell(cell))
+	assert_true(farm.plant_crop(cell, &"turnip"))
+	assert_true(farm.water_cell(cell))
+	farm.advance_day()
+	assert_true(farm.water_cell(cell))
+	farm.advance_day()
+	var payload: Dictionary = farm.get_harvest_payload(cell)
+	assert_true(bool(payload.get("success", false)))
+	assert_true(inventory.can_add_item(&"turnip", 1))
+	assert_true(farm.harvest_cell(cell).get("success", false))
+	assert_eq(inventory.add_item(&"turnip", 1), 1)
+	assert_false(farm.can_harvest(cell))
+
+func test_full_inventory_keeps_mature_crop() -> void:
+	var farm: FarmGridState = preload("res://scripts/domain/farm_grid_state.gd").new()
+	var inventory: InventoryState = preload("res://scripts/domain/inventory_state.gd").new(1)
+	inventory.add_item(&"turnip", 20)
+	var cell: Vector2i = Vector2i(1, 1)
+	farm.till_cell(cell)
+	farm.plant_crop(cell, &"turnip")
+	farm.water_cell(cell)
+	farm.advance_day()
+	farm.water_cell(cell)
+	farm.advance_day()
+	assert_false(inventory.can_add_item(&"turnip", 1))
+	assert_true(farm.can_harvest(cell))

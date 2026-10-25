@@ -53,6 +53,7 @@ Format:
 - Notes: view-only component; future tools, NPCs and interactables can use the same prompt surface.
 
 ## InventoryState  (scripts/domain/inventory_state.gd)
+- func can_add_item(item_id: StringName, quantity: int) -> bool — checks whether the entire quantity fits without changing inventory
 - func add_item(item_id: StringName, quantity: int) -> int — adds as many items as capacity and stack limits allow; returns the quantity added
 - func remove_item(item_id: StringName, quantity: int) -> bool — removes the requested quantity only when enough exists
 - func has_item(item_id: StringName, quantity: int = 1) -> bool — checks whether the requested quantity exists
@@ -84,6 +85,7 @@ Format:
 - func advance_day() -> void — advances each planted crop by one day if watered, then resets moisture
 - func can_harvest(cell: Vector2i) -> bool — returns true once the crop has matured
 - func harvest_cell(cell: Vector2i) -> Dictionary — removes the crop and returns the harvest payload
+- func get_harvest_payload(cell: Vector2i) -> Dictionary — previews the complete harvest result without changing the plot
 - func serialize() -> Dictionary — saves plot state for save/load
 - func deserialize(data: Dictionary) -> void — restores plot state from the save payload
 - signal plot_changed(cell: Vector2i) — emitted whenever a plot mutates

@@ -23,5 +23,7 @@ static func apply(
 			return farm_state.water_cell(cell)
 		&"seed":
 			return farm_state.plant_crop(cell, crop_id)
+		&"harvest":
+			return farm_state.can_harvest(cell)
 		_:
 			return false

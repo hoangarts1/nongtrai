@@ -95,17 +95,29 @@ func can_harvest(cell: Vector2i) -> bool:
 		return false
 	return int(plot.get("growth_days", 0)) >= int(crop_data.get("growth_days"))
 
-func harvest_cell(cell: Vector2i) -> Dictionary:
+func get_harvest_payload(cell: Vector2i) -> Dictionary:
 	if not can_harvest(cell):
-		return {"success": false, "crop_id": &"", "quantity": 0}
+		return {"success": false, "crop_id": &"", "product_item": &"", "quantity": 0}
 	var plot: Dictionary = _plots.get(cell, {})
 	var crop_id: StringName = plot.get("crop_id", &"")
 	var crop_data: Resource = DataRegistry.get_crop(crop_id)
-	var quantity: int = int(crop_data.get("yield_qty"))
+	return {
+		"success": true,
+		"crop_id": crop_id,
+		"product_item": StringName(crop_data.get("product_item")),
+		"quantity": int(crop_data.get("yield_qty"))
+	}
+
+func harvest_cell(cell: Vector2i) -> Dictionary:
+	var payload: Dictionary = get_harvest_payload(cell)
+	if not bool(payload.get("success", false)):
+		return payload
+	var crop_id: StringName = payload.get("crop_id", &"")
+	var quantity: int = int(payload.get("quantity", 0))
 	_plots.erase(cell)
 	plot_changed.emit(cell)
 	Events.crop_harvested.emit(cell, crop_id, quantity, 1)
-	return {"success": true, "crop_id": crop_id, "quantity": quantity}
+	return payload
 
 func serialize() -> Dictionary:
 	var entries: Array[Dictionary] = []

@@ -23,7 +23,8 @@ const REQUIRED_KEYS: PackedStringArray = [
 	"UI_SLEEP_PENDING",
 	"UI_TOOL_HOE",
 	"UI_TOOL_WATER",
-	"UI_TOOL_SEED"
+	"UI_TOOL_SEED",
+	"UI_TOOL_HARVEST"
 ]
 
 func _init() -> void:

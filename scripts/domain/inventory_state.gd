@@ -43,6 +43,20 @@ func add_item(item_id: StringName, quantity: int) -> int:
 		Events.item_added.emit(item_id, added_total)
 	return added_total
 
+func can_add_item(item_id: StringName, quantity: int) -> bool:
+	if quantity <= 0 or DataRegistry.get_item(item_id) == null:
+		return false
+	var item_data: Resource = DataRegistry.get_item(item_id)
+	var remaining: int = quantity
+	for slot: Dictionary in _slots:
+		if slot["item_id"] == item_id:
+			remaining -= mini(remaining, int(item_data.get("max_stack")) - int(slot["quantity"]))
+	if remaining <= 0:
+		return true
+	var free_slots: int = capacity - _slots.size()
+	var stack_max: int = int(item_data.get("max_stack"))
+	return free_slots >= ceili(float(remaining) / float(stack_max))
+
 func remove_item(item_id: StringName, quantity: int) -> bool:
 	if quantity <= 0 or not has_item(item_id, quantity):
 		return false

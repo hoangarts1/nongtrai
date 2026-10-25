@@ -65,6 +65,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	_use_selected_tool()
 
 func _use_selected_tool() -> void:
+	if _selected_tool == &"harvest":
+		_harvest_selected_crop()
+		return
 	var crop_id: StringName = _selected_crop
 	if _selected_tool == &"seed":
 		if not _inventory.has_item(&"turnip_seed", 1):
@@ -74,6 +77,18 @@ func _use_selected_tool() -> void:
 		_inventory.remove_item(&"turnip_seed", 1)
 		return
 	ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &"")
+
+func _harvest_selected_crop() -> void:
+	var payload: Dictionary = _farm_state.get_harvest_payload(_hovered_cell)
+	if not bool(payload.get("success", false)):
+		return
+	var product_item: StringName = payload.get("product_item", &"")
+	var quantity: int = int(payload.get("quantity", 0))
+	if not _inventory.can_add_item(product_item, quantity):
+		return
+	var result: Dictionary = _farm_state.harvest_cell(_hovered_cell)
+	if bool(result.get("success", false)):
+		_inventory.add_item(product_item, quantity)
 
 func _reach_for_selected_tool() -> int:
 	var tool_id: StringName = &"hoe" if _selected_tool == &"hoe" else &"watering_can"
