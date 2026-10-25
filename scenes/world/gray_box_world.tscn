@@ -123,9 +123,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -180.0
-offset_top = -154.0
+offset_top = -220.0
 offset_right = 180.0
-offset_bottom = -98.0
+offset_bottom = -160.0
 theme_override_styles/panel = SubResource("Style_prompt")
 script = ExtResource("4_prompt")
 

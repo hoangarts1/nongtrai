@@ -113,6 +113,12 @@ Format:
 - func configure_modal(close_other_modal: Callable) -> void — closes another modal before opening the guide
 - Notes: controls are formatted from InputMap bindings; player-facing text uses localization.
 
+## HotbarPanel  (scripts/view/hotbar_panel.gd)
+- func configure(inventory: InventoryState) -> void — binds the hotbar to inventory state
+- func get_selected_slot() -> Dictionary — returns the selected inventory slot
+- signal slot_selected(slot_index: int) — emitted when an occupied inventory slot is selected
+- Notes: each slot is a contained key/name/quantity layout; empty quantities are omitted and selected slots use the Button focus/pressed style.
+
 ## QuestPanel  (scripts/view/quest_panel.gd)
 - func configure(state: TutorialQuestState) -> void — binds checklist rendering to domain state
 - Notes: hides itself after all five onboarding steps are complete.

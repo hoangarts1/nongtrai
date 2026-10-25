@@ -11,6 +11,7 @@ var _inventory
 var _slot_row: HBoxContainer
 var _tool_row: HBoxContainer
 var _selected_slot_index: int = -1
+var _content: VBoxContainer
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -35,21 +36,33 @@ func _build_ui() -> void:
 	for side: StringName in [&"margin_left", &"margin_top", &"margin_right", &"margin_bottom"]:
 		margin.add_theme_constant_override(side, 8)
 	add_child(margin)
+	_content = VBoxContainer.new()
+	_content.name = "Content"
+	_content.add_theme_constant_override("separation", 4)
+	margin.add_child(_content)
 	_slot_row = HBoxContainer.new()
 	_slot_row.name = "HBoxContainer"
 	_slot_row.add_theme_constant_override("separation", 4)
-	margin.add_child(_slot_row)
+	_content.add_child(_slot_row)
 	_tool_row = HBoxContainer.new()
 	_tool_row.name = "ToolRow"
 	_tool_row.add_theme_constant_override("separation", 4)
-	margin.add_child(_tool_row)
+	_content.add_child(_tool_row)
 
 func register_tool(tool_id: StringName, label: String, callback: Callable) -> Button:
 	var button: Button = Button.new()
 	button.name = "Tool_%s" % tool_id
-	button.text = label
+	button.custom_minimum_size = Vector2(84, 42)
 	button.toggle_mode = true
 	button.mouse_filter = Control.MOUSE_FILTER_STOP
+	var tool_label: Label = Label.new()
+	tool_label.name = "ToolLabel"
+	tool_label.text = label
+	tool_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tool_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	tool_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tool_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(tool_label)
 	button.pressed.connect(callback)
 	_tool_row.add_child(button)
 	return button
@@ -68,15 +81,47 @@ func _render_slots() -> void:
 	var slots: Array[Dictionary] = _inventory.get_slots()
 	for index: int in range(_inventory.capacity):
 		var button: Button = Button.new()
-		button.custom_minimum_size = Vector2(42, 40)
+		button.name = "Slot_%d" % (index + 1)
+		button.custom_minimum_size = Vector2(52, 64)
 		button.toggle_mode = true
 		button.mouse_filter = Control.MOUSE_FILTER_STOP
-		button.tooltip_text = tr("UI_HOTBAR_EMPTY") if index >= slots.size() else String(DataRegistry.get_item(slots[index]["item_id"]).get("display_name"))
+		var content: VBoxContainer = VBoxContainer.new()
+		content.name = "Content"
+		content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.set_anchors_preset(Control.PRESET_FULL_RECT)
+		content.offset_left = 4.0
+		content.offset_top = 4.0
+		content.offset_right = -4.0
+		content.offset_bottom = -6.0
+		button.add_child(content)
+		var key_label: Label = Label.new()
+		key_label.name = "Key"
+		key_label.text = str(index + 1) if index < 9 else "-"
+		key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(key_label)
+		var name_label: Label = Label.new()
+		name_label.name = "Name"
+		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var quantity_label: Label = Label.new()
+		quantity_label.name = "Quantity"
+		quantity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		quantity_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if index < slots.size():
 			var item_data: Resource = DataRegistry.get_item(slots[index]["item_id"])
-			button.text = "%s\nx%d" % [item_data.get("display_name"), slots[index]["quantity"]]
+			name_label.text = String(item_data.get("display_name"))
+			quantity_label.text = "x%d" % slots[index]["quantity"]
+			button.tooltip_text = name_label.text
 		else:
-			button.text = "-"
+			name_label.text = tr("UI_HOTBAR_EMPTY")
+			quantity_label.text = ""
+			button.tooltip_text = tr("UI_HOTBAR_EMPTY")
+		content.add_child(name_label)
+		content.add_child(quantity_label)
 		button.button_pressed = index == _selected_slot_index
 		button.pressed.connect(func() -> void: _select_slot(index))
 		_slot_row.add_child(button)
