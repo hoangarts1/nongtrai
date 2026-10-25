@@ -6,7 +6,7 @@ Last updated: 2026-10-25 (Vietnamese UI)
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
-`d31a8c3` — `fix: align farm grid with plot`
+`dbbb83e` — `fix: default UI language to Vietnamese`
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
