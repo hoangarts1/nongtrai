@@ -71,6 +71,10 @@ Format:
 - display_name: String — localized-ready display name
 - max_stack: int — maximum quantity in one slot
 
+## DataValidator  (scripts/core/data_validator.gd)
+- static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray — validates resource presence, unique snake_case IDs and positive stack limits
+- static func validate_item_paths(paths: Array[String]) -> PackedStringArray — loads and validates declared data paths
+
 ## DebugMenu  (scripts/view/debug_menu.gd)
 - func configure(player_node: Player) -> void — connects the developer menu to the active player
 - func register_action(label: String, callback: Callable) -> void — adds an extensible developer action button

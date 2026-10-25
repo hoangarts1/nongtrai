@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (inventory HUD button)
+Last updated: 2026-10-25 (DataValidator)
 
 ## Current milestone
 `P-3` — integrate the starter into the existing Godot project, then begin Phase 0 foundations. The full list is in `docs/ROADMAP.md`.
@@ -22,7 +22,7 @@ Last updated: 2026-10-25 (inventory HUD button)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- Developer playtest of the inventory HUD button
+- Phase 3.1 complete; next is hotbar and inventory UI integration
 
 ## Done
 - [x] Reusable interaction prompt anchored to the viewport with readable background and outline
@@ -38,6 +38,7 @@ Last updated: 2026-10-25 (inventory HUD button)
 - [x] DataRegistry loads temporary seed and harvest item definitions from Resource data
 - [x] Basic inventory panel opens with I and debug menu can add seeds or clear the inventory
 - [x] Shared HUD button bar adds a mouse inventory button with tooltip, active state and sleep lock
+- [x] DataValidator checks item resource presence, unique IDs, snake_case IDs and positive max_stack values
 
 ## Known issues / tech debt
 - The Godot executable is not currently available as `godot` on the terminal PATH.

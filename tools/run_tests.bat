@@ -9,6 +9,13 @@ cd /d "%~dp0\.."
 call tools\check_parse.bat
 if errorlevel 1 exit /b 1
 
+echo [run_tests] validating data
+"%GODOT%" --headless --path . --script tools\validate_data.gd
+if errorlevel 1 (
+  echo [run_tests] DATA VALIDATION FAILED
+  exit /b 1
+)
+
 echo [run_tests] running GUT
 "%GODOT%" -d -s --path . addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gprefix=test_ -gexit
 if errorlevel 1 (
