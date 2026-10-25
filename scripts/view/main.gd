@@ -25,7 +25,11 @@ func _ready() -> void:
 	quest_state = preload("res://scripts/domain/tutorial_quest_state.gd").new()
 	inventory_panel.configure(inventory, world.player)
 	tutorial_panel.call("configure", world.player)
-	tutorial_panel.call("configure_modal", Callable(inventory_panel, &"close_inventory"))
+	tutorial_panel.call(
+		"configure_modal",
+		Callable(inventory_panel, &"close_inventory"),
+		Callable(quest_panel, &"set_help_suppressed")
+	)
 	quest_panel.call("configure", quest_state)
 	hotbar_panel.configure(inventory)
 	if get_tree().current_scene == self and SaveService.load_game().is_empty():

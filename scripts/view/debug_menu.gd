@@ -77,7 +77,7 @@ func _build_base_ui() -> void:
 	margin.add_child(column)
 	var title: Label = Label.new()
 	title.text = tr("UI_DEBUG_TITLE")
-	title.add_theme_font_size_override("font_size", 22)
+	title.add_theme_font_size_override("font_size", 18)
 	column.add_child(title)
 	_status_label = Label.new()
 	column.add_child(_status_label)

@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/view/tool_action_controller.gd" id="8_tool"]
 [ext_resource type="Script" path="res://scripts/view/tutorial_panel.gd" id="9_tutorial"]
 [ext_resource type="Script" path="res://scripts/view/quest_panel.gd" id="10_quest"]
+[ext_resource type="Theme" path="res://scenes/main/ui_theme.tres" id="11_theme"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -55,6 +56,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 220.0
 offset_bottom = 52.0
+theme = ExtResource("11_theme")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "D1  06:00"
@@ -68,18 +70,20 @@ offset_left = -360.0
 offset_top = 16.0
 offset_right = -16.0
 offset_bottom = 470.0
+theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_debug")
 script = ExtResource("4_debug")
 
 [node name="InventoryPanel" type="PanelContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.6
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.6
 offset_left = -190.0
-offset_top = -190.0
+offset_top = -90.0
 offset_right = 190.0
-offset_bottom = 150.0
+offset_bottom = 90.0
+theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("5_inventory")
 
@@ -90,19 +94,21 @@ offset_left = 16.0
 offset_top = 68.0
 offset_right = 330.0
 offset_bottom = 250.0
+theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("10_quest")
 
 [node name="TutorialPanel" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -220.0
-offset_right = 280.0
+anchor_left = 0.32
+anchor_top = 0.05
+anchor_right = 0.68
+anchor_bottom = 0.05
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
 offset_bottom = 220.0
 theme_override_styles/panel = SubResource("Style_inventory")
+theme = ExtResource("11_theme")
 script = ExtResource("9_tutorial")
 
 [node name="HudButtonBar" type="PanelContainer" parent="."]
@@ -115,6 +121,7 @@ offset_top = -90.0
 offset_right = -24.0
 offset_bottom = -24.0
 theme_override_styles/panel = SubResource("Style_hud_bar")
+theme = ExtResource("11_theme")
 script = ExtResource("6_hud_bar")
 
 [node name="HotbarPanel" type="PanelContainer" parent="."]
@@ -127,6 +134,7 @@ offset_top = -156.0
 offset_right = 340.0
 offset_bottom = -24.0
 theme_override_styles/panel = SubResource("Style_hotbar")
+theme = ExtResource("11_theme")
 script = ExtResource("7_hotbar")
 
 [node name="ToolActionController" type="Node" parent="."]

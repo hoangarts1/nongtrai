@@ -9,6 +9,7 @@ extends PanelContainer
 var _player: Player
 var _check: CheckButton
 var _close_other_modal: Callable
+var _set_quest_visible: Callable
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -20,8 +21,9 @@ func configure(player: Player) -> void:
 	if not Settings.is_tutorial_dismissed():
 		open_help()
 
-func configure_modal(close_other_modal: Callable) -> void:
+func configure_modal(close_other_modal: Callable, set_quest_visible: Callable = Callable()) -> void:
 	_close_other_modal = close_other_modal
+	_set_quest_visible = set_quest_visible
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_help"):
@@ -34,6 +36,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func open_help() -> void:
 	if _close_other_modal.is_valid():
 		_close_other_modal.call()
+	if _set_quest_visible.is_valid():
+		_set_quest_visible.call(false)
 	visible = true
 	if _player != null:
 		_player.movement_enabled = false
@@ -44,6 +48,8 @@ func close_help() -> void:
 	visible = false
 	if _player != null and not GameClock.is_sleeping():
 		_player.movement_enabled = true
+	if _set_quest_visible.is_valid():
+		_set_quest_visible.call(true)
 
 func is_help_open() -> bool:
 	return visible
@@ -60,7 +66,7 @@ func _build_ui() -> void:
 	margin.add_child(column)
 	var title: Label = Label.new()
 	title.text = tr("UI_HELP_TITLE")
-	title.add_theme_font_size_override("font_size", 24)
+	title.add_theme_font_size_override("font_size", 18)
 	column.add_child(title)
 	var instructions: Label = Label.new()
 	instructions.name = "Instructions"

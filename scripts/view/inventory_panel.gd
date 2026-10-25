@@ -55,7 +55,7 @@ func _update_list() -> void:
 		child.queue_free()
 	var title: Label = Label.new()
 	title.text = tr("UI_INVENTORY_TITLE")
-	title.add_theme_font_size_override("font_size", 24)
+	title.add_theme_font_size_override("font_size", 18)
 	var heading: HBoxContainer = HBoxContainer.new()
 	heading.add_theme_constant_override("separation", 12)
 	_list.add_child(heading)

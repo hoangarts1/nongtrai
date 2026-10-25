@@ -108,6 +108,7 @@ Format:
 - Notes: listens to typed Events and GameClock.sleep_finished; the view only renders this state.
 
 ## TutorialPanel  (scripts/view/tutorial_panel.gd)
+- func configure_modal(close_other_modal: Callable, set_quest_visible: Callable = Callable()) -> void — wires modal exclusivity and quest suppression
 - func open_help() -> void — opens the controls guide and locks player movement
 - func close_help() -> void — closes the guide and persists the opt-out checkbox
 - func is_help_open() -> bool — reports whether the guide is visible

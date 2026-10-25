@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (Vietnamese UI)
+Last updated: 2026-10-25 (UI polish)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
@@ -60,6 +60,7 @@ Last updated: 2026-10-25 (Vietnamese UI)
 - [x] Hotbar slots use contained key/name/quantity labels without overlap at all supported viewport sizes
 - [x] FarmView grid fits the brown FarmPlot and its projected centers avoid UI and the house at supported viewport sizes
 - [x] Vietnamese is the default locale; item and crop names use translation keys with complete English/Vietnamese CSV coverage
+- [x] Shared 14 px UI Theme, compact help modal, quest suppression and three-resolution all-panel layout tests
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -71,6 +72,7 @@ Last updated: 2026-10-25 (Vietnamese UI)
 - Hotbar item slots use a two-row responsive container and reserve space above the bottom HUD regions.
 - Farm grid cells are inside the brown plot; red target highlighting means the selected tool is out of reach, green means usable.
 - Player-facing item and crop names are stored as translation keys and rendered through `tr()`; Vietnamese is selected on startup when no settings override exists.
+- UI uses `scenes/main/ui_theme.tres`; the help panel is limited to 36% viewport width and hides the quest panel while open.
 - While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)

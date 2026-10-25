@@ -13,6 +13,7 @@ const STEP_KEYS: Array[StringName] = [
 ]
 var _state: Variant
 var _list: VBoxContainer
+var _help_suppressed: bool = false
 
 func _ready() -> void:
 	visible = true
@@ -22,6 +23,10 @@ func configure(state: Variant) -> void:
 	_state = state
 	_state.step_changed.connect(_on_step_changed)
 	_state.all_completed.connect(_on_all_completed)
+	_render()
+
+func set_help_suppressed(suppressed: bool) -> void:
+	_help_suppressed = suppressed
 	_render()
 
 func _build_ui() -> void:
@@ -43,7 +48,7 @@ func _render() -> void:
 		var marker: String = "[x]" if _state.is_step_completed(index) else "[ ]"
 		label.text = "%s %s" % [marker, tr(STEP_KEYS[index])]
 		_list.add_child(label)
-	visible = not _state.is_complete()
+	visible = not _state.is_complete() and not _help_suppressed
 
 func _on_step_changed(_step_index: int, _completed: bool) -> void:
 	_render()
