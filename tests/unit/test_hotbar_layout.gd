@@ -21,10 +21,24 @@ func test_hotbar_labels_fit_inside_each_slot_without_overlap() -> void:
 			_collect_labels(slot, labels)
 			for label: Label in labels:
 				assert_true(slot_rect.encloses(label.get_global_rect()), "Label outside %s at %s: slot=%s label=%s" % [slot.name, viewport_size, slot_rect, label.get_global_rect()])
+				assert_true(label.get_line_count() <= 2, "Label wraps too many lines in %s at %s" % [slot.name, viewport_size])
 			for first_index: int in range(labels.size()):
 				for second_index: int in range(first_index + 1, labels.size()):
 					assert_false(labels[first_index].get_global_rect().intersects(labels[second_index].get_global_rect()), "Labels overlap in %s at %s" % [slot.name, viewport_size])
 		main.queue_free()
+
+func test_tool_labels_fit_inside_buttons_without_character_wrapping() -> void:
+	var main: Node = preload("res://scenes/main/main.tscn").instantiate()
+	get_tree().root.add_child(main)
+	await get_tree().process_frame
+	var hotbar: Control = main.get_node("HotbarPanel")
+	var tool_row: HBoxContainer = hotbar.get_node("MarginContainer/Content/ToolRow")
+	for button: Button in tool_row.get_children():
+		var label: Label = button.get_node("ToolLabel")
+		assert_true(button.get_global_rect().encloses(label.get_global_rect()))
+		assert_true(label.get_line_count() <= 2)
+		assert_true(label.get_line_count() == 1, "Tool label is split into multiple lines: %s" % label.text)
+	main.queue_free()
 
 func _collect_labels(node: Node, labels: Array[Label]) -> void:
 	for child: Node in node.get_children():

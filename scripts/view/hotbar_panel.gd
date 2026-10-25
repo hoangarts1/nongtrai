@@ -52,16 +52,19 @@ func _build_ui() -> void:
 func register_tool(tool_id: StringName, label: String, callback: Callable) -> Button:
 	var button: Button = Button.new()
 	button.name = "Tool_%s" % tool_id
-	button.custom_minimum_size = Vector2(84, 42)
+	button.custom_minimum_size = Vector2(96, 36)
 	button.toggle_mode = true
 	button.mouse_filter = Control.MOUSE_FILTER_STOP
 	var tool_label: Label = Label.new()
 	tool_label.name = "ToolLabel"
 	tool_label.text = label
+	tool_label.add_theme_font_size_override("font_size", 13)
 	tool_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tool_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	tool_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tool_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	tool_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	tool_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tool_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 6)
 	button.add_child(tool_label)
 	button.pressed.connect(callback)
 	_tool_row.add_child(button)
