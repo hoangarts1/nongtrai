@@ -69,6 +69,29 @@ static func validate_translation_keys(paths: Array[String], required_keys: Packe
 			errors.append("missing translation key: %s" % key)
 	return errors
 
+static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	var english: Dictionary = _read_translation_values(english_path)
+	var vietnamese: Dictionary = _read_translation_values(vietnamese_path)
+	for key: String in english:
+		if not vietnamese.has(key) or String(vietnamese[key]).strip_edges().is_empty():
+			errors.append("missing Vietnamese translation: %s" % key)
+	return errors
+
+static func _read_translation_values(path: String) -> Dictionary:
+	var values: Dictionary = {}
+	if not FileAccess.file_exists(path):
+		return values
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return values
+	file.get_line()
+	while not file.eof_reached():
+		var fields: PackedStringArray = _parse_csv_line(file.get_line())
+		if fields.size() >= 2 and not fields[0].strip_edges().is_empty():
+			values[fields[0].strip_edges()] = fields[1].strip_edges()
+	return values
+
 static func _parse_csv_line(line: String) -> PackedStringArray:
 	var parts: PackedStringArray = []
 	var current: String = ""

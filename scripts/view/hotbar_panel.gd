@@ -113,7 +113,7 @@ func _render_slots() -> void:
 		quantity_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if index < slots.size():
 			var item_data: Resource = DataRegistry.get_item(slots[index]["item_id"])
-			name_label.text = String(item_data.get("display_name"))
+			name_label.text = tr(String(item_data.get("display_name_key")))
 			quantity_label.text = "x%d" % slots[index]["quantity"]
 			button.tooltip_text = name_label.text
 		else:

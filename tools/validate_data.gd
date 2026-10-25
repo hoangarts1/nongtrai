@@ -31,6 +31,9 @@ const REQUIRED_KEYS: PackedStringArray = [
 	"UI_DEBUG_RESET_FARM",
 	"UI_DEBUG_ADD_SEEDS",
 	"UI_DEBUG_CLEAR_INVENTORY"
+	,"ITEM_TURNIP_SEED"
+	,"ITEM_TURNIP"
+	,"CROP_TURNIP"
 ]
 
 func _init() -> void:
@@ -54,6 +57,11 @@ func _init() -> void:
 		"res://localization/strings_en.csv"
 	]
 	errors = VALIDATOR_SCRIPT.validate_translation_keys(locale_paths, REQUIRED_KEYS)
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_vietnamese_values(
+			"res://localization/strings_en.csv",
+			"res://localization/strings_vi.csv"
+		)
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)

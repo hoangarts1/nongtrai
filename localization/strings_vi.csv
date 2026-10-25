@@ -1,11 +1,14 @@
 key,value
+ITEM_TURNIP_SEED,Hạt củ cải
+ITEM_TURNIP,Củ cải
+CROP_TURNIP,Củ cải
 UI_INVENTORY_TITLE,KHO ĐỒ
 UI_INVENTORY_EMPTY,Trống
 UI_CLOSE,Đóng
 UI_HELP_TITLE,CÁCH CHƠI
 UI_HELP_MOVE,Di chuyển: %s
 UI_HELP_SPRINT,Chạy: giữ %s
-UI_HELP_HOTBAR,Chọn ô hotbar: %s
+UI_HELP_HOTBAR,Chọn ô thanh nhanh: %s
 UI_HELP_TOOL,Dùng công cụ: %s
 UI_HELP_SLEEP,Ngủ ở nhà: %s
 UI_HELP_INVENTORY,Mở kho đồ: %s
@@ -21,9 +24,9 @@ UI_QUEST_WATER,Tưới cây
 UI_QUEST_SLEEP,Ngủ ở nhà để sang ngày mới
 UI_QUEST_HARVEST,Thu hoạch khi cây chín
 UI_HOTBAR_EMPTY,Ô trống
-UI_DEBUG_TITLE,DEBUG MENU  (Ctrl+M)
+UI_DEBUG_TITLE,MENU GỠ LỖI  (Ctrl+M)
 UI_DEBUG_TIME_DAY,Ngày
-UI_DEBUG_TIME_PLAYER,Player
+UI_DEBUG_TIME_PLAYER,Người chơi
 UI_DEBUG_TIME_FPS,FPS
 UI_DEBUG_TIME_SPEED,Tốc độ
 UI_DEBUG_SET_0600,06:00
@@ -44,7 +47,7 @@ UI_SLEEP_HINT,[E] Ngủ
 UI_SLEEP_PENDING,Đang ngủ...
 UI_TOOL_HOE,Cuốc
 UI_TOOL_WATER,Tưới
-UI_TOOL_SEED,Hạt
+UI_TOOL_SEED,Hạt giống
 UI_TOOL_HARVEST,Thu hoạch
 UI_DEBUG_HOE_ALL,Cuốc hết đất
 UI_DEBUG_WATER_ALL,Tưới hết đất

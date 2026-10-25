@@ -10,8 +10,10 @@ var _loaded: bool = false
 
 func _ready() -> void:
 	_load_translations()
-	if TranslationServer.get_locale().is_empty():
-		TranslationServer.set_locale("vi")
+	apply_default_locale()
+
+func apply_default_locale() -> void:
+	TranslationServer.set_locale("vi")
 
 func load_translations() -> bool:
 	if _loaded:
@@ -27,8 +29,6 @@ func _load_translations() -> bool:
 			all_loaded = false
 			continue
 		TranslationServer.add_translation(translation)
-	if TranslationServer.get_locale().is_empty():
-		TranslationServer.set_locale("vi")
 	return all_loaded
 
 func _read_translation(locale: String) -> Translation:

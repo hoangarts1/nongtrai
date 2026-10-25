@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_item")
 item_id = &"turnip_seed"
-display_name = "Hạt củ cải"
+display_name_key = &"ITEM_TURNIP_SEED"
 max_stack = 99

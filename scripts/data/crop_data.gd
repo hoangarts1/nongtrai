@@ -3,6 +3,7 @@ class_name CropData
 extends Resource
 
 @export var crop_id: StringName = &""
+@export var display_name_key: StringName = &""
 @export var seed_item: StringName = &""
 @export var product_item: StringName = &""
 @export var yield_qty: int = 1

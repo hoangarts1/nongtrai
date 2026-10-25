@@ -75,5 +75,5 @@ func _update_list() -> void:
 	for slot: Dictionary in _inventory.get_slots():
 		var item_data: Resource = DataRegistry.get_item(slot["item_id"])
 		var row: Label = Label.new()
-		row.text = "%s  x%d" % [item_data.get("display_name"), slot["quantity"]]
+		row.text = "%s  x%d" % [tr(String(item_data.get("display_name_key"))), slot["quantity"]]
 		_list.add_child(row)

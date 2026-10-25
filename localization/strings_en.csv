@@ -1,4 +1,7 @@
 key,value
+ITEM_TURNIP_SEED,Turnip seeds
+ITEM_TURNIP,Turnip
+CROP_TURNIP,Turnip
 UI_INVENTORY_TITLE,Inventory
 UI_INVENTORY_EMPTY,Empty
 UI_CLOSE,Close

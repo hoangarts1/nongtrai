@@ -69,6 +69,7 @@ Format:
 
 ## CropData  (scripts/data/crop_data.gd)
 - crop_id: StringName — stable crop identifier used for all saved state and registry lookups
+- display_name_key: StringName — translation key for the crop name
 - seed_item: StringName — item required to plant the crop
 - product_item: StringName — item produced when harvested
 - yield_qty: int — number of product items produced on a completed harvest
@@ -153,8 +154,13 @@ Format:
 
 ## ItemData  (scripts/data/item_data.gd)
 - item_id: StringName — stable data identifier
-- display_name: String — localized-ready display name
+- display_name_key: StringName — translation key rendered through `tr()`
 - max_stack: int — maximum quantity in one slot
+
+## Localization  (scripts/core/localization.gd)
+- func apply_default_locale() -> void — selects Vietnamese for a new session without a settings override
+- func load_translations() -> bool — loads the Vietnamese and English CSV translations
+- Notes: player-facing item and crop names must reference translation keys rather than storing display text in Resources.
 
 ## DataValidator  (scripts/core/data_validator.gd)
 - static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray — validates resource presence, unique snake_case IDs and positive stack limits
