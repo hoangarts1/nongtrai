@@ -66,6 +66,28 @@ Format:
 - signal item_removed(item_id: StringName, quantity: int) — emitted after items are removed
 - Notes: item definitions come from DataRegistry; each occupied stack uses one capacity slot.
 
+## CropData  (scripts/data/crop_data.gd)
+- crop_id: StringName — stable crop identifier used for all saved state and registry lookups
+- seed_item: StringName — item required to plant the crop
+- product_item: StringName — item produced when harvested
+- yield_qty: int — number of product items produced on a completed harvest
+- growth_days: int — number of watered days required to mature
+- water_need: int — target watering requirement for the crop lifecycle
+- seasons: Array[StringName] — seasons in which the crop can grow
+- Notes: this is a data Resource; scripts must not contain crop balance numbers or rules.
+
+## FarmGridState  (scripts/domain/farm_grid_state.gd)
+- func till_cell(cell: Vector2i) -> bool — tills an unworked plot; returns false if the plot is already tilled
+- func plant_crop(cell: Vector2i, crop_id: StringName) -> bool — plants a crop on a tilled empty plot; returns false if invalid
+- func water_cell(cell: Vector2i) -> bool — marks the plot as watered when it is planted and needs water
+- func advance_day() -> void — advances each planted crop by one day if watered, then resets moisture
+- func can_harvest(cell: Vector2i) -> bool — returns true once the crop has matured
+- func harvest_cell(cell: Vector2i) -> Dictionary — removes the crop and returns the harvest payload
+- func serialize() -> Dictionary — saves plot state for save/load
+- func deserialize(data: Dictionary) -> void — restores plot state from the save payload
+- signal plot_changed(cell: Vector2i) — emitted whenever a plot mutates
+- Notes: does not touch UI; all view updates listen to signals from the world state.
+
 ## ItemData  (scripts/data/item_data.gd)
 - item_id: StringName — stable data identifier
 - display_name: String — localized-ready display name
@@ -90,6 +112,11 @@ Format:
 - func toggle_inventory() -> bool — opens or closes the inventory unless sleeping
 - signal inventory_toggled(is_open: bool) — emitted after the inventory visibility changes
 - Notes: keyboard I and the HUD button call the same toggle method; sleeping disables opening.
+
+## HotbarPanel  (scripts/view/hotbar_panel.gd)
+- func configure(inventory: InventoryState) -> void — binds the hotbar to inventory change signals
+- func get_selected_slot() -> Dictionary — returns the selected inventory slot without mutating inventory
+- signal slot_selected(slot_index: int) — emitted when a non-empty slot is selected
 
 ## GrayBoxWorld interaction helpers  (scripts/view/gray_box_world.gd)
 - static func is_player_near_interactable(player_position: Vector3, interactable_position: Vector3, reach: float) -> bool — checks flat XZ distance against interaction reach

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/view/debug_menu.gd" id="4_debug"]
 [ext_resource type="Script" path="res://scripts/view/inventory_panel.gd" id="5_inventory"]
 [ext_resource type="Script" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
+[ext_resource type="Script" path="res://scripts/view/hotbar_panel.gd" id="7_hotbar"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -24,6 +25,14 @@ border_width_bottom = 2
 border_color = Color(0.75, 0.85, 0.55, 1)
 
 [sub_resource type="StyleBoxFlat" id="Style_hud_bar"]
+bg_color = Color(0.03, 0.04, 0.06, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.85, 0.55, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_hotbar"]
 bg_color = Color(0.03, 0.04, 0.06, 0.90)
 border_width_left = 2
 border_width_top = 2
@@ -73,3 +82,15 @@ offset_right = -24.0
 offset_bottom = -24.0
 theme_override_styles/panel = SubResource("Style_hud_bar")
 script = ExtResource("6_hud_bar")
+
+[node name="HotbarPanel" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -390.0
+offset_top = -84.0
+offset_right = 390.0
+offset_bottom = -18.0
+theme_override_styles/panel = SubResource("Style_hotbar")
+script = ExtResource("7_hotbar")

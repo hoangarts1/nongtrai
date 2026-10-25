@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CropData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/crop_data.gd" id="1_crop"]
+
+[resource]
+script = ExtResource("1_crop")
+crop_id = &"turnip"
+seed_item = &"turnip_seed"
+product_item = &"turnip"
+yield_qty = 1
+growth_days = 2
+water_need = 1
+seasons = PackedStringArray("spring", "summer", "autumn")

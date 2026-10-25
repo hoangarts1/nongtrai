@@ -23,6 +23,7 @@ Settings="*res://scripts/core/settings.gd"
 DataRegistry="*res://scripts/core/data_registry.gd"
 SaveService="*res://scripts/core/save_service.gd"
 GameClock="*res://scripts/core/game_clock.gd"
+Localization="*res://scripts/core/localization.gd"
 
 [display]
 

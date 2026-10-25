@@ -58,7 +58,7 @@ func _build_base_ui() -> void:
 	column.add_theme_constant_override("separation", 8)
 	margin.add_child(column)
 	var title: Label = Label.new()
-	title.text = "DEBUG MENU  (Ctrl+M)"
+	title.text = tr("UI_DEBUG_TITLE")
 	title.add_theme_font_size_override("font_size", 22)
 	column.add_child(title)
 	_status_label = Label.new()
@@ -78,17 +78,17 @@ func _add_action_button(label: String, callback: Callable) -> void:
 	_action_buttons.add_child(button)
 
 func _register_default_actions() -> void:
-	register_action("06:00", func() -> void: _set_time(6, 0))
-	register_action("12:00", func() -> void: _set_time(12, 0))
-	register_action("20:00", func() -> void: _set_time(20, 0))
-	register_action("23:30", func() -> void: _set_time(23, 30))
-	register_action("+1 giờ", func() -> void: GameClock.advance_minutes(60))
-	register_action("Sang ngày mới", _start_next_day)
-	register_action("Tạm dừng / tiếp tục", _toggle_pause)
-	register_action("Tốc độ x1", func() -> void: GameClock.set_speed(1.0))
-	register_action("Tốc độ x5", func() -> void: GameClock.set_speed(5.0))
-	register_action("Tốc độ x20", func() -> void: GameClock.set_speed(20.0))
-	register_action("Dịch chuyển gần nhà", _move_near_house)
+	register_action(tr("UI_DEBUG_SET_0600"), func() -> void: _set_time(6, 0))
+	register_action(tr("UI_DEBUG_SET_1200"), func() -> void: _set_time(12, 0))
+	register_action(tr("UI_DEBUG_SET_2000"), func() -> void: _set_time(20, 0))
+	register_action(tr("UI_DEBUG_SET_2330"), func() -> void: _set_time(23, 30))
+	register_action(tr("UI_DEBUG_ADD_HOUR"), func() -> void: GameClock.advance_minutes(60))
+	register_action(tr("UI_DEBUG_NEXT_DAY"), _start_next_day)
+	register_action(tr("UI_DEBUG_PAUSE"), _toggle_pause)
+	register_action(tr("UI_DEBUG_SPEED_X1"), func() -> void: GameClock.set_speed(1.0))
+	register_action(tr("UI_DEBUG_SPEED_X5"), func() -> void: GameClock.set_speed(5.0))
+	register_action(tr("UI_DEBUG_SPEED_X20"), func() -> void: GameClock.set_speed(20.0))
+	register_action(tr("UI_DEBUG_MOVE_NEAR_HOME"), _move_near_house)
 
 func _set_time(hour: int, minute_in_hour: int) -> void:
 	GameClock.set_time(hour, minute_in_hour)
@@ -112,13 +112,17 @@ func _update_status() -> void:
 		return
 	if GameClock.is_sleeping():
 		_player.movement_enabled = false
-	_status_label.text = "Ngày %d  %s\nPlayer: (%.1f, %.1f, %.1f)\nFPS: %d  Tốc độ: x%.0f  %s" % [
+	_status_label.text = "%s %d  %s\n%s: (%.1f, %.1f, %.1f)\n%s: %d  %s: x%.0f  %s" % [
+		tr("UI_DEBUG_TIME_DAY"),
 		GameClock.day_index + 1,
 		GameClock.format_time(GameClock.minute),
+		tr("UI_DEBUG_TIME_PLAYER"),
 		_player.global_position.x,
 		_player.global_position.y,
 		_player.global_position.z,
+		tr("UI_DEBUG_TIME_FPS"),
 		Engine.get_frames_per_second(),
+		tr("UI_DEBUG_TIME_SPEED"),
 		GameClock.time_speed,
 		"PAUSED" if GameClock.paused else "RUNNING"
 	]

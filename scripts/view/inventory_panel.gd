@@ -50,12 +50,12 @@ func _update_list() -> void:
 	for child: Node in _list.get_children():
 		child.queue_free()
 	var title: Label = Label.new()
-	title.text = "KHO ĐỒ"
+	title.text = tr("UI_INVENTORY_TITLE")
 	title.add_theme_font_size_override("font_size", 24)
 	_list.add_child(title)
 	if _inventory == null or _inventory.get_slots().is_empty():
 		var empty_label: Label = Label.new()
-		empty_label.text = "Trống"
+		empty_label.text = tr("UI_INVENTORY_EMPTY")
 		_list.add_child(empty_label)
 		return
 	for slot: Dictionary in _inventory.get_slots():

@@ -3,7 +3,7 @@
 Last updated: 2026-10-25 (DataValidator)
 
 ## Current milestone
-`P-3` — integrate the starter into the existing Godot project, then begin Phase 0 foundations. The full list is in `docs/ROADMAP.md`.
+`4.1` — `CropData` + `FarmGridState` for the first crop lifecycle and plot state. The full list is in `docs/ROADMAP.md`.
 
 ## Last commit / tag
 (none yet)
@@ -22,7 +22,7 @@ Last updated: 2026-10-25 (DataValidator)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- Phase 3.1 complete; next is hotbar and inventory UI integration
+- Phase 3.3 complete; next is localization wiring
 
 ## Done
 - [x] Reusable interaction prompt anchored to the viewport with readable background and outline
@@ -39,6 +39,7 @@ Last updated: 2026-10-25 (DataValidator)
 - [x] Basic inventory panel opens with I and debug menu can add seeds or clear the inventory
 - [x] Shared HUD button bar adds a mouse inventory button with tooltip, active state and sleep lock
 - [x] DataValidator checks item resource presence, unique IDs, snake_case IDs and positive max_stack values
+- [x] Hotbar displays inventory stacks and selects non-empty slots without mutating quantities
 
 ## Known issues / tech debt
 - The Godot executable is not currently available as `godot` on the terminal PATH.

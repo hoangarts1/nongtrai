@@ -32,7 +32,7 @@ func register_button(
 	var button: Button = Button.new()
 	button.name = String(button_id)
 	button.text = label
-	button.tooltip_text = "Kho đồ [I]" if button_id == &"inventory" else label
+	button.tooltip_text = tr("UI_INV_BUTTON_TOOLTIP") if button_id == &"inventory" else label
 	button.custom_minimum_size = Vector2(86, 56)
 	button.toggle_mode = true
 	button.mouse_filter = Control.MOUSE_FILTER_STOP
