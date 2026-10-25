@@ -81,9 +81,14 @@ func _build_base_ui() -> void:
 	column.add_child(title)
 	_status_label = Label.new()
 	column.add_child(_status_label)
+	var action_scroll: ScrollContainer = ScrollContainer.new()
+	action_scroll.name = "ActionScroll"
+	action_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	action_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	column.add_child(action_scroll)
 	_action_buttons = VBoxContainer.new()
 	_action_buttons.add_theme_constant_override("separation", 4)
-	column.add_child(_action_buttons)
+	action_scroll.add_child(_action_buttons)
 	for action: Dictionary in _actions:
 		_add_action_button(action["label"] as String, action["callback"] as Callable)
 

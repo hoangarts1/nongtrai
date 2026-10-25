@@ -52,7 +52,17 @@ func _update_list() -> void:
 	var title: Label = Label.new()
 	title.text = tr("UI_INVENTORY_TITLE")
 	title.add_theme_font_size_override("font_size", 24)
-	_list.add_child(title)
+	var heading: HBoxContainer = HBoxContainer.new()
+	heading.add_theme_constant_override("separation", 12)
+	_list.add_child(heading)
+	heading.add_child(title)
+	var close_button: Button = Button.new()
+	close_button.text = tr("UI_CLOSE")
+	close_button.tooltip_text = tr("UI_CLOSE")
+	close_button.size_flags_horizontal = Control.SIZE_SHRINK_END
+	close_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	close_button.pressed.connect(toggle_inventory)
+	heading.add_child(close_button)
 	if _inventory == null or _inventory.get_slots().is_empty():
 		var empty_label: Label = Label.new()
 		empty_label.text = tr("UI_INVENTORY_EMPTY")

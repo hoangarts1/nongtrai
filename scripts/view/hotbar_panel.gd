@@ -68,7 +68,7 @@ func _render_slots() -> void:
 	var slots: Array[Dictionary] = _inventory.get_slots()
 	for index: int in range(_inventory.capacity):
 		var button: Button = Button.new()
-		button.custom_minimum_size = Vector2(68, 52)
+		button.custom_minimum_size = Vector2(42, 40)
 		button.toggle_mode = true
 		button.mouse_filter = Control.MOUSE_FILTER_STOP
 		button.tooltip_text = tr("UI_HOTBAR_EMPTY") if index >= slots.size() else String(DataRegistry.get_item(slots[index]["item_id"]).get("display_name"))
