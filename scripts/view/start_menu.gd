@@ -54,6 +54,8 @@ func _build_ui() -> void:
 	language.selected = 0 if Settings.get_locale() == "vi" else 1
 	language.item_selected.connect(func(index: int) -> void: Settings.set_locale("vi" if index == 0 else "en"))
 	_settings_box.add_child(language)
+	_add_slider(_settings_box, tr("UI_MUSIC_VOLUME"), Settings.get_music_volume(), Settings.set_music_volume)
+	_add_slider(_settings_box, tr("UI_EFFECTS_VOLUME"), Settings.get_effects_volume(), Settings.set_effects_volume)
 	column.add_child(_settings_box)
 	var new_button: Button = Button.new()
 	new_button.text = tr("UI_MAIN_NEW_GAME")
@@ -85,3 +87,18 @@ func _show_new_game_fields() -> void:
 		visible = false
 	)
 	_name_box.add_child(confirm)
+
+func _add_slider(parent: VBoxContainer, label: String, value: float, callback: Callable) -> void:
+	var row: HBoxContainer = HBoxContainer.new()
+	var caption: Label = Label.new()
+	caption.text = label
+	row.add_child(caption)
+	var slider: HSlider = HSlider.new()
+	slider.min_value = 0.0
+	slider.max_value = 1.0
+	slider.step = 0.05
+	slider.value = value
+	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slider.value_changed.connect(callback)
+	row.add_child(slider)
+	parent.add_child(row)
