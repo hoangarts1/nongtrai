@@ -13,6 +13,7 @@ func test_turnip_grows_after_watering_and_harvests() -> void:
 
 	farm.advance_day()
 	assert_false(farm.can_harvest(cell))
+	assert_true(farm.water_cell(cell))
 
 	farm.advance_day()
 	assert_true(farm.can_harvest(cell))
@@ -34,5 +35,6 @@ func test_crop_repairs_after_missing_water() -> void:
 	assert_true(farm.water_cell(cell))
 	farm.advance_day()
 	assert_false(farm.can_harvest(cell))
+	assert_true(farm.water_cell(cell))
 	farm.advance_day()
 	assert_true(farm.can_harvest(cell))

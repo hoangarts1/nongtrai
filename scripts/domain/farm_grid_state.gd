@@ -98,7 +98,7 @@ func harvest_cell(cell: Vector2i) -> Dictionary:
 	var plot: Dictionary = _plots.get(cell, {})
 	var crop_id: StringName = plot.get("crop_id", &"")
 	var crop_data: Resource = DataRegistry.get_crop(crop_id)
-	var quantity: int = int(crop_data.get("yield_qty", 1))
+	var quantity: int = int(crop_data.get("yield_qty"))
 	_plots.erase(cell)
 	plot_changed.emit(cell)
 	Events.crop_harvested.emit(cell, crop_id, quantity, 1)

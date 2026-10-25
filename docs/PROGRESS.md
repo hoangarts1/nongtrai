@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (DataValidator)
+Last updated: 2026-10-25 (FarmGridState verification)
 
 ## Current milestone
 `4.1` — `CropData` + `FarmGridState` for the first crop lifecycle and plot state. The full list is in `docs/ROADMAP.md`.
@@ -22,7 +22,7 @@ Last updated: 2026-10-25 (DataValidator)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- Phase 3.3 complete; next is localization wiring
+- Phase 4.1 complete and verified; next is 4.2 FarmView placeholder.
 
 ## Done
 - [x] Reusable interaction prompt anchored to the viewport with readable background and outline
@@ -40,9 +40,12 @@ Last updated: 2026-10-25 (DataValidator)
 - [x] Shared HUD button bar adds a mouse inventory button with tooltip, active state and sleep lock
 - [x] DataValidator checks item resource presence, unique IDs, snake_case IDs and positive max_stack values
 - [x] Hotbar displays inventory stacks and selects non-empty slots without mutating quantities
+- [x] Hotbar redraw is safe during inventory updates and button signals; 3.3 tests pass
+- [x] Localization autoload loads Vietnamese and English CSV translations; UI labels use `tr()`
+- [x] Official runner discovers Godot at `D:\godot\Godot_v4.7.2-stable_win64.exe`, uses bounded non-debug runs, scans error text, and starts the main scene headless
+- [x] FarmGridState parse/runtime error fixed; 4.1 lifecycle tests pass
 
 ## Known issues / tech debt
-- The Godot executable is not currently available as `godot` on the terminal PATH.
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
 
 ## Decisions since last update
@@ -54,7 +57,7 @@ Last updated: 2026-10-25 (DataValidator)
 - gdtoolkit 4.3.0 is selected but not installed yet
 
 ## Next up (agent proposal)
-- Next: after interaction/sleep playtest approval, implement InventoryState.
+- Next: implement 4.2 FarmView placeholder using GridMath and FarmGridState signals.
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.

@@ -30,10 +30,12 @@ func get_selected_slot() -> Dictionary:
 
 func _build_ui() -> void:
 	var margin: MarginContainer = MarginContainer.new()
+	margin.name = "MarginContainer"
 	for side: StringName in [&"margin_left", &"margin_top", &"margin_right", &"margin_bottom"]:
 		margin.add_theme_constant_override(side, 8)
 	add_child(margin)
 	_slot_row = HBoxContainer.new()
+	_slot_row.name = "HBoxContainer"
 	_slot_row.add_theme_constant_override("separation", 4)
 	margin.add_child(_slot_row)
 
@@ -44,7 +46,8 @@ func _render_slots() -> void:
 	if _slot_row == null:
 		return
 	for child: Node in _slot_row.get_children():
-		child.queue_free()
+		_slot_row.remove_child(child)
+		child.free()
 	if _inventory == null:
 		return
 	var slots: Array[Dictionary] = _inventory.get_slots()
@@ -67,5 +70,5 @@ func _select_slot(slot_index: int) -> void:
 	if _inventory == null or slot_index >= _inventory.get_slots().size():
 		return
 	_selected_slot_index = slot_index
-	_render_slots()
+	call_deferred("_render_slots")
 	slot_selected.emit(slot_index)

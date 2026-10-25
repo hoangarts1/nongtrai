@@ -117,6 +117,7 @@ Format:
 - func configure(inventory: InventoryState) -> void — binds the hotbar to inventory change signals
 - func get_selected_slot() -> Dictionary — returns the selected inventory slot without mutating inventory
 - signal slot_selected(slot_index: int) — emitted when a non-empty slot is selected
+- Notes: redraws after selection and removes old controls safely; UI selection never changes inventory quantities.
 
 ## GrayBoxWorld interaction helpers  (scripts/view/gray_box_world.gd)
 - static func is_player_near_interactable(player_position: Vector3, interactable_position: Vector3, reach: float) -> bool — checks flat XZ distance against interaction reach
