@@ -5,8 +5,13 @@ var _items: Dictionary = {}
 var _crops: Dictionary = {}
 var _tools: Dictionary = {}
 var _seasons: Dictionary = {}
+var _quests: Dictionary = {}
 
 func _ready() -> void:
+	for quest_data: Resource in [
+		preload("res://data/quests/quest_turnip_delivery.tres")
+	]:
+		_quests[quest_data.get("quest_id")] = quest_data
 	for item_data: Resource in [
 		preload("res://data/items/turnip_seed.tres"),
 		preload("res://data/items/turnip.tres"),
@@ -109,3 +114,11 @@ func get_starter_seed_for_season(season_id: StringName) -> StringName:
 		if seasons.is_empty() or seasons.has(String(season_id)):
 			return StringName(crop.get("seed_item"))
 	return &"turnip_seed"
+
+func get_quest(quest_id: StringName) -> Resource:
+	return _quests.get(quest_id) as Resource
+
+func get_all_quests() -> Array[Resource]:
+	var result: Array[Resource] = []
+	result.assign(_quests.values())
+	return result

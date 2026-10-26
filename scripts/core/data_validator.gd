@@ -168,6 +168,65 @@ static func validate_weather_profile(path: String) -> PackedStringArray:
 		errors.append("weather probabilities must have a positive total")
 	return errors
 
+static func validate_quest_resources(quests: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	var item_ids: Dictionary = {}
+	for item: Resource in items:
+		if item != null:
+			var i_id: Variant = item.get("item_id")
+			if i_id != null:
+				item_ids[StringName(i_id)] = true
+	var quest_ids: Dictionary = {}
+	for quest: Resource in quests:
+		if quest == null:
+			errors.append("quest resource is null")
+			continue
+		var q_id: String = String(quest.get("quest_id"))
+		if q_id.is_empty():
+			errors.append("quest id is empty")
+		elif not _is_snake_case(q_id):
+			errors.append("quest id is not snake_case: %s" % q_id)
+		elif quest_ids.has(q_id):
+			errors.append("duplicate quest id: %s" % q_id)
+		else:
+			quest_ids[q_id] = true
+		
+		var req_item: Variant = quest.get("required_item_id")
+		if req_item != null and not String(req_item).is_empty():
+			if not item_ids.has(StringName(req_item)):
+				errors.append("quest %s references unknown required_item %s" % [q_id, req_item])
+		var req_qty: int = int(quest.get("required_item_quantity"))
+		if req_qty < 0:
+			errors.append("quest %s required_item_quantity cannot be negative" % q_id)
+		
+		var rew_coins: int = int(quest.get("reward_coins"))
+		if rew_coins < 0:
+			errors.append("quest %s reward_coins cannot be negative" % q_id)
+		
+		var rew_item: Variant = quest.get("reward_item_id")
+		if rew_item != null and not String(rew_item).is_empty():
+			if not item_ids.has(StringName(rew_item)):
+				errors.append("quest %s references unknown reward_item %s" % [q_id, rew_item])
+		var rew_qty: int = int(quest.get("reward_item_quantity"))
+		if rew_qty < 0:
+			errors.append("quest %s reward_item_quantity cannot be negative" % q_id)
+	return errors
+
+static func validate_quest_paths(quest_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+	var quests: Array[Resource] = []
+	for path: String in quest_paths:
+		if ResourceLoader.exists(path):
+			quests.append(load(path))
+		else:
+			quests.append(null)
+	var items: Array[Resource] = []
+	for path: String in item_paths:
+		if ResourceLoader.exists(path):
+			items.append(load(path))
+		else:
+			items.append(null)
+	return validate_quest_resources(quests, items)
+
 static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
 	var english: Dictionary = _read_translation_values(english_path)

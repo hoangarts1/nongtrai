@@ -82,6 +82,14 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"UI_QUEST_BUY_SEED"
 	,"UI_DEBUG_ADD_COINS"
 	,"UI_DEBUG_ADD_ALL_SEEDS"
+	,"QUEST_TURNIP_DELIVERY_TITLE"
+	,"QUEST_TURNIP_DELIVERY_DESC"
+	,"UI_QUEST_DELIVERY_TITLE"
+	,"UI_QUEST_REQUIREMENT"
+	,"UI_QUEST_REWARD"
+	,"UI_CONFIRM_DELIVERY"
+	,"UI_FEEDBACK_QUEST_COMPLETED"
+	,"UI_FEEDBACK_NOT_ENOUGH_ITEMS"
 ]
 
 func _init() -> void:
@@ -116,11 +124,16 @@ func _init() -> void:
 		"res://data/crops/winter_cabbage.tres",
 		"res://data/crops/winter_radish.tres"
 	]
+	var quest_paths: Array[String] = [
+		"res://data/quests/quest_turnip_delivery.tres"
+	]
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_crop_paths(crop_paths, item_paths)
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_quest_paths(quest_paths, item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_weather_profile("res://data/weather_profile.tres")
 	if errors.size() > 0:

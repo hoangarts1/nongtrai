@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/quest_data.gd" id="1_quest"]
+
+[resource]
+script = ExtResource("1_quest")
+quest_id = &"turnip_delivery"
+title_key = &"QUEST_TURNIP_DELIVERY_TITLE"
+description_key = &"QUEST_TURNIP_DELIVERY_DESC"
+giver_id = &"minh"
+required_item_id = &"turnip"
+required_item_quantity = 3
+reward_coins = 60
+reward_item_id = &"spring_carrot_seed"
+reward_item_quantity = 2
