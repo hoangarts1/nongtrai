@@ -2,6 +2,8 @@
 ## API:
 ##   static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void
 ##   static func build_market(anchor: MeshInstance3D) -> void
+##   static func add_decorative_cottage(parent: Node3D, cottage_name: String, origin: Vector3, size: Vector3, wall_color: Color, roof_color: Color) -> MeshInstance3D
+##   static func add_ground_dressing(parent: Node3D) -> Node3D
 ##   static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D
 class_name WorldArtFactory
 extends RefCounted
@@ -52,6 +54,41 @@ static func decorate_shipping_bin(anchor: MeshInstance3D) -> void:
 	_box(anchor, "BinLid", Vector3(1.34, 0.13, 1.02), Vector3(0.0, 0.43, 0.0), Color("d8b788"))
 	_box(anchor, "BinHandle", Vector3(0.28, 0.20, 0.05), Vector3(0.0, 0.30, 0.52), Color("efd37b"))
 
+static func add_decorative_cottage(
+	parent: Node3D,
+	cottage_name: String,
+	origin: Vector3,
+	size: Vector3,
+	wall_color: Color,
+	roof_color: Color
+) -> MeshInstance3D:
+	var cottage: MeshInstance3D = MeshInstance3D.new()
+	cottage.name = cottage_name
+	cottage.position = origin
+	parent.add_child(cottage)
+	build_cottage(cottage, size, wall_color, roof_color)
+	return cottage
+
+static func add_ground_dressing(parent: Node3D) -> Node3D:
+	var dressing: Node3D = Node3D.new()
+	dressing.name = "GroundDressing"
+	parent.add_child(dressing)
+	var path_points: Array[Vector3] = [
+		Vector3(5.35, 0.025, 9.92), Vector3(6.28, 0.025, 10.03), Vector3(7.18, 0.025, 10.12),
+		Vector3(8.12, 0.025, 10.12), Vector3(9.04, 0.025, 10.06)
+	]
+	for index: int in range(path_points.size()):
+		var stone: MeshInstance3D = _box(dressing, "PathStone_%d" % index, Vector3(0.62, 0.035, 0.38), path_points[index], Color("c9ae80"))
+		stone.rotation.y = 0.20 if index % 2 == 0 else -0.18
+	var grass_points: Array[Vector3] = [
+		Vector3(-9.1, 0.02, -4.0), Vector3(-7.9, 0.02, 3.2), Vector3(-5.7, 0.02, 5.0),
+		Vector3(-3.6, 0.02, 8.7), Vector3(7.8, 0.02, 7.5), Vector3(9.9, 0.02, 3.8),
+		Vector3(8.0, 0.02, -4.6), Vector3(3.8, 0.02, -7.0), Vector3(-2.5, 0.02, -7.8)
+	]
+	for index: int in range(grass_points.size()):
+		_add_grass_tuft(dressing, "GrassTuft_%d" % index, grass_points[index], 0.75 + float(index % 3) * 0.12)
+	return dressing
+
 static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D:
 	var cluster: Node3D = Node3D.new()
 	cluster.name = cluster_name
@@ -76,6 +113,15 @@ static func _flower_box(parent: Node3D, name: String, origin: Vector3) -> void:
 	_box(parent, name, Vector3(0.30, 0.12, 0.14), origin, Color("b87f57"))
 	for index: int in range(2):
 		_sphere(parent, "%s_Bloom_%d" % [name, index], origin + Vector3(-0.08 + 0.16 * float(index), 0.12, 0.0), Vector3(0.08, 0.10, 0.08), Color("ef9e9e") if index == 0 else Color("f4d788"))
+
+static func _add_grass_tuft(parent: Node3D, name: String, origin: Vector3, scale_factor: float) -> void:
+	var tuft: Node3D = Node3D.new()
+	tuft.name = name
+	tuft.position = origin
+	parent.add_child(tuft)
+	for index: int in range(3):
+		var blade: MeshInstance3D = _box(tuft, "Blade_%d" % index, Vector3(0.045, 0.36 * scale_factor, 0.10), Vector3(0.11 * float(index - 1), 0.18 * scale_factor, 0.0), Color("5d8f43").lightened(float(index) * 0.04))
+		blade.rotation.z = -0.18 + float(index) * 0.18
 
 static func _clear_mesh_children(anchor: MeshInstance3D) -> void:
 	for child: Node in anchor.get_children():

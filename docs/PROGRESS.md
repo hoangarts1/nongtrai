@@ -1,11 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (world-art pass and master-prompt review)
+Last updated: 2026-10-27 (presentation/audio follow-up)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
 
 ## Last commit / tag
+`feat: add original farm audio and grounded world polish` — reproducible farming effects, separated sale landmark, extra cottages, terrain detail and warm daylight
 `npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
 
 ## Done
@@ -22,6 +23,28 @@ Last updated: 2026-10-27 (world-art pass and master-prompt review)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
+- 2026-10-27 presentation/audio follow-up completed (approved player scope; mechanics unchanged). Delivered: four reproducible original WAV effects for the existing hoe/seed/water/harvest calls; AudioService resolves OGG first then WAV and honors saved effects volume. The selling bin and its marker moved together to `(5.2, 0, 10)`, over 4 m from the cottage bed marker; the seed stall stays fixed. Two non-interactive cottages, grass tufts and a stone path distinguish village places. Farm cells now present dry tilled furrows and a subtle wet sheen, and warm low-cost fog/shadow/ground tuning improves sunlight without taking clock or weather authority. No domain, economy, growth, save, time, reach or input behavior changed.
+
+## Presentation/audio follow-up handoff (2026-10-27)
+
+- Files: original audio source/rebuild script `tools/build_audio.gd`; generated `assets/audio/{hoe,seed,water,harvest}.wav` plus Godot import metadata; `scripts/core/audio_service.gd`; view-only `scripts/view/soil_presentation.gd`, `farm_view.gd`, `world_art_factory.gd`, `world_presentation.gd`; the documented world-anchor scene movement, focused tests, and API/layout/scene/credits/decision docs.
+- Automated coverage: audio files resolve and load as `AudioStream`s; a normal tool sound creates a player; bin mesh/marker remain aligned at the separated sale point; cottages/path/ground dressing exist; warm sunlight properties are present; tilled/watered soil adds only the expected view meshes. Existing shipping-bin reach, shop, crop, interaction, save and year-economy coverage remain in the full suite.
+- Real final official runner:
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              43
+Tests               131
+Passing Tests       131
+Asserts            3857
+Time              17.811s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Error-text scan across the generator, parse, validator, GUT and main-scene logs: `0` matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:`. Godot imported the WAVs using `--headless --import`; the generated `.wav.import` files are tracked. No manual game-window automation was run because the player is using the existing game window.
+- Manual check: stop an old run, F5 and Continue/New Game. Use hoe, seed, watering can and harvest on reachable plots to hear four gentle effects; change Effects volume in Settings and repeat. Walk to the new sale-bin location south-west of the cottage and press E; verify sell panel opens. Visit cottage, seed stall, village homes and farm at morning/afternoon/rain/night; ensure all markers still show only their existing prompts. Tilled soil should have raised rows; watered planted soil should appear darker with a small sheen.
 - 2026-10-27 world-art pass, requested after the compact HUD review. Delivered: view-only native low-poly crops are distinct by family (sprout, roots, tomato, pea, corn, wheat, pumpkin, cabbage, wilted); healthy crops have a minimal sway and watered crops show dew. Existing crop root meshes and CropInspector remain the only click/detail path. Existing House, SeedShop, ShippingBin and NPC-home anchors now render as separate cottage/market/bin structures, and four exterior rock/moss clusters make the map edge less empty. Filmic color, restrained glow/fog and softened directional shadows improve daylight while retaining DayNightProfile/weather ownership and night house lights. No domain, timing, save, marker, collision, input or `.tscn` change.
 - Visual/manual evidence: launched the real 1152x648 game on 2026-10-27, used Continue, and inspected the daylight world: cottage, separate awning seed market, NPC homes, terrain rocks, compact HUD and farm grid appeared with no overlapping HUD or missing interaction surfaces. A user input event was then detected, so automation stopped without further game input. Automated proof is `test_world_presentation.gd` plus the normal interaction/layout suite.
 - The player added `Prompt tổng hoàn thiện game The Life.md` at the repository root (currently untracked/user-owned) and supplied the same Downloads copy. It was read as a long-term product reference, not treated as authority over `AGENTS.md`, `PROJECT_RULES.md`, Roadmap order, scene ownership or current user scope. Its direct art guidance matches this completed view-only pass; its suggested generator/palette/shader pipeline is a separate next milestone.

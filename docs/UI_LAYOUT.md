@@ -54,10 +54,10 @@ names are stored in the normal save slot; sleeping writes the autosave slot 0.
 
 ## World-art presentation contract (2026-10-27)
 
-- Existing `House`, `SeedShop`, `ShippingBin`, NPC-home and `FarmView` roots remain the interaction/display anchors documented by the world scene contract. `WorldPresentation` and `WorldArtFactory` only add mesh children and materials; markers, collision, cell coordinates and interaction reach do not move.
+- Existing `House`, `SeedShop`, `ShippingBin`, NPC-home and `FarmView` roots remain the interaction/display anchors documented by the world scene contract. The shipping bin and its marker now share the deliberately separated `(5.2, 0, 10.0)` sale location; all other presentation additions only add non-colliding mesh children and never own collision, cells or reach.
 - Player house uses a cottage silhouette; the seed shop is a separate awning market; the shipping bin remains visually distinct. Rock/moss clusters are view-only and positioned outside farm cells and expected routes.
 - Crop detail is a native 3D presentation: seedlings, roots, vines, tall stalks, wheat heads, pumpkins and cabbages are visibly different. Watered crops receive small dew accents, healthy crops sway subtly, and withered crops remain static/dry. The existing crop-click bounds and inspector remain the accessibility path for timing.
-- Forward+ presentation uses restrained filmic tonemapping, color adjustment, glow, shallow fog and softened directional shadows. DayNightProfile/WeatherState still own time/weather values; the presentation layer only applies them and retains the existing night-window light behavior.
+- Forward+ presentation uses warm restrained filmic tonemapping, color adjustment, glow, shallow fog and softened directional shadows. View-only grass tufts, path stones and soil furrows make ground readable without changing FarmGridState. DayNightProfile/WeatherState still own time/weather values; the presentation layer only applies them and retains the existing night-window light behavior.
 
 ## Phase 8 additions (scene contract for this task)
 - `Main/NpcSystem` (Node3D, `scripts/view/npc_system.gd`) creates placeholder `minh` and `linh` actors and home boxes from `data/npcs/phase8_world.tres`. It never edits the world scene or existing shop/bin nodes.

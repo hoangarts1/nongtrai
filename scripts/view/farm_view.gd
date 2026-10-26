@@ -8,6 +8,7 @@ class_name FarmView
 extends Node3D
 
 const CROP_PRESENTATION: Script = preload("res://scripts/view/crop_presentation.gd")
+const SOIL_PRESENTATION: Script = preload("res://scripts/view/soil_presentation.gd")
 
 @export var grid_size: Vector2i = Vector2i(6, 6)
 @export var cell_size: float = 1.0
@@ -156,14 +157,7 @@ func _render_cell(cell: Vector2i) -> void:
 	var watered: bool = bool(plot.get("watered", false))
 	var withered: bool = bool(plot.get("withered", false))
 	var crop_id: StringName = plot.get("crop_id", &"")
-	var color: Color = Color(0.30, 0.52, 0.24, 1.0)
-	if tilled:
-		color = Color(0.38, 0.22, 0.11, 1.0)
-	if watered:
-		color = Color(0.20, 0.32, 0.55, 1.0)
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.albedo_color = color
-	soil.material_override = material
+	SOIL_PRESENTATION.render(soil, tilled, watered, cell)
 	crop.visible = not crop_id.is_empty()
 	# Detailed status is shown in the readable click inspector, not over every crop.
 	label.visible = false

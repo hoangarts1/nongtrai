@@ -122,7 +122,8 @@ Format:
 - Notes: does not touch UI; all view updates listen to signals from the world state.
 
 ## AudioService  (scripts/core/audio_service.gd)
-- func play_sound(sound_id: StringName) -> void — plays `assets/audio/<id>.ogg` when present; missing files are silent
+- func play_sound(sound_id: StringName) -> void — plays the original `assets/audio/<id>.ogg` or `.wav` effect when present; missing files are silent and the player's saved effects-volume preference is applied at playback
+- func get_sound_path(sound_id: StringName) -> String — returns the resolved OGG/WAV asset path or an empty string
 
 ## FarmView  (scripts/view/farm_view.gd)
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder soil view
@@ -183,12 +184,17 @@ Format:
 - Notes: supports roots, tomato, corn, wheat, pumpkin, cabbage and pea silhouettes plus a wilted state. It owns no crop state, timers, inventory changes or save data.
 
 ## WorldArtFactory  (scripts/view/world_art_factory.gd)
+- static func add_decorative_cottage(parent: Node3D, cottage_name: String, origin: Vector3, size: Vector3, wall_color: Color, roof_color: Color) -> MeshInstance3D — adds a non-interactive cottage visual
+- static func add_ground_dressing(parent: Node3D) -> Node3D — adds non-colliding grass tufts and home-to-bin path stones
 - static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void — decorates an existing home anchor while retaining its world transform
 - static func build_market(anchor: MeshInstance3D) -> void — decorates the existing SeedShop anchor as a seed market stall
 - static func decorate_shipping_bin(anchor: MeshInstance3D) -> void — decorates the existing shipping-bin anchor
 - static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D — adds a non-colliding, view-only rock/moss group outside playable farm cells
 - Notes: no marker, collision, interaction or gameplay ownership changes. All meshes and materials are constructed locally at runtime.
 - Notes: the gray-box scene places the 6×6 grid inside the 6 m × 6 m `FarmPlot`; target green means reachable and red means outside tool reach.
+
+## SoilPresentation  (scripts/view/soil_presentation.gd)
+- static func render(soil: MeshInstance3D, tilled: bool, watered: bool, cell: Vector2i) -> void — adds only view-level furrows and a transparent moisture sheen; FarmGridState remains the source of truth
 
 ## ToolData  (scripts/data/tool_data.gd)
 - tool_id: StringName — stable tool identifier
@@ -325,7 +331,7 @@ Format:
 - `TitleBackdrop` (TextureRect): non-interactive generated illustration plus decorative motes, visible only while StartMenu is visible. Main constructs it in code.
 - `StartMenu.apply_chibi_style() -> void`, `refresh_continue() -> void`: title styling and consistent slot-0/slot-1 Continue availability. Existing configure callback API remains compatible.
 - `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
-- `WorldPresentation.configure(main: Node) -> void`: decorates existing Player/House/SeedShop/ShippingBin anchors, homes, trees and exterior rock clusters; applies Forward+ filmic/soft-glow/fog lighting while preserving all gameplay markers, collision and authority.
+- `WorldPresentation.configure(main: Node) -> void`: decorates Player/House/SeedShop/ShippingBin anchors, decorative cottages, paths, homes, trees and exterior rock clusters; applies warm Forward+ filmic/soft-glow/fog lighting while preserving collision and gameplay authority.
 - `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
 
 ## CropInspector / compact HUD (scripts/view/crop_inspector.gd)

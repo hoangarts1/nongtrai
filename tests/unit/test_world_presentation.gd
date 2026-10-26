@@ -22,7 +22,7 @@ func _game() -> Node:
 	main.ui_coordinator.close_active()
 	return main
 
-func test_world_art_preserves_interaction_anchors_and_builds_readable_places() -> void:
+func test_world_art_separates_readable_places_without_changing_their_interaction_logic() -> void:
 	var main: Node = _game()
 	await _settle()
 	var world: GrayBoxWorld = main.world as GrayBoxWorld
@@ -35,12 +35,20 @@ func test_world_art_preserves_interaction_anchors_and_builds_readable_places() -
 	assert_not_null(shop.get_node_or_null("MarketSign"))
 	assert_not_null(shipping_bin.get_node_or_null("BinLid"))
 	assert_eq(world.seed_shop_marker.global_position, Vector3(-2.0, 0.0, 7.5), "Market keeps the tested seed-shop marker")
-	assert_eq(world.shipping_bin_marker.global_position, Vector3(8.5, 0.0, 9.5), "Bin keeps the tested selling marker")
+	assert_eq(world.shipping_bin_marker.global_position, Vector3(5.2, 0.0, 10.0), "Bin and its interaction marker move together")
+	assert_eq(shipping_bin.global_position.x, world.shipping_bin_marker.global_position.x)
+	assert_gt(world.shipping_bin_marker.global_position.distance_to(world.bed_marker.global_position), 4.0, "The sale point is visibly separate from the player cottage")
 	var minh_home: MeshInstance3D = main.npc_system.get_node("Home_minh") as MeshInstance3D
 	var linh_home: MeshInstance3D = main.npc_system.get_node("Home_linh") as MeshInstance3D
 	assert_not_null(minh_home.get_node_or_null("CottageRoof"))
 	assert_not_null(linh_home.get_node_or_null("CottageRoof"))
 	var presentation: WorldPresentation = main.get_node("WorldPresentation") as WorldPresentation
+	assert_not_null(presentation.get_node_or_null("VillageCottageMeadow/CottageRoof"))
+	assert_not_null(presentation.get_node_or_null("VillageCottageHill/CottageRoof"))
+	var ground_dressing: Node3D = presentation.get_node("GroundDressing") as Node3D
+	assert_not_null(ground_dressing)
+	assert_not_null(ground_dressing.get_node_or_null("PathStone_0"))
+	assert_not_null(ground_dressing.get_node_or_null("GrassTuft_0/Blade_0"))
 	var moss_rocks: Node3D = presentation.get_node("RockClusterMoss") as Node3D
 	assert_not_null(moss_rocks)
 	assert_not_null(moss_rocks.get_node_or_null("Stone_3"), "Each exterior cluster includes a visible large boulder")
@@ -61,6 +69,7 @@ func test_lighting_is_gentle_forward_plus_post_processing_with_soft_sun_shadows(
 	assert_true(environment.fog_enabled)
 	assert_gt(environment.glow_bloom, 0.0)
 	assert_gt(environment.fog_density, 0.0)
+	assert_gt(environment.fog_light_color.r, environment.fog_light_color.b, "Daylight mist is warm rather than blue-grey")
 	assert_true(world.sun.shadow_enabled)
 	assert_true(world.sun.directional_shadow_blend_splits)
 	assert_gt(world.sun.light_angular_distance, 0.0)
@@ -86,6 +95,19 @@ func test_crop_visuals_progress_from_sprout_to_mature_and_clear_after_harvest() 
 	assert_false(crop.visible)
 	assert_null(crop.mesh)
 	assert_eq(crop.get_child_count(), 0)
+
+func test_tilled_soil_has_furrows_and_water_uses_a_subtle_moisture_sheen() -> void:
+	var main: Node = _game()
+	var cell: Vector2i = Vector2i(0, 0)
+	assert_true(main.farm_state.till_cell(cell))
+	assert_true(main.farm_state.plant_crop(cell, &"turnip"))
+	await _settle()
+	var soil: MeshInstance3D = main.farm_view.get_cell_view(cell)
+	assert_not_null(soil.get_node_or_null("SoilFurrow_0"))
+	assert_null(soil.get_node_or_null("MoistureSheen"))
+	assert_true(main.farm_state.water_cell(cell))
+	await _settle()
+	assert_not_null(soil.get_node_or_null("MoistureSheen"))
 
 func _settle() -> void:
 	await get_tree().process_frame
