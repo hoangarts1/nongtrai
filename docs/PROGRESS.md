@@ -108,6 +108,7 @@ Last updated: 2026-10-26 (mvp-economy)
 - MVP farming loop and the requested first polish pass are complete; final models and audio assets remain developer-supplied.
 
 ## Phase 8 execution plan (approved by product owner, 2026-10-26)
+- Task 1 verified: 34 scripts / 100 tests / 100 passing / 2345 asserts; parse, data validation and main smoke PASS. Delivery preview accounts for exact freed slots; confirmation rejects null wallet, shortage, oversized rewards and duplicate/reentrant payout.
 - Baseline: parse, validator, main smoke and GUT pass: 33 scripts / 97 tests / 2325 asserts; error-text scan zero matches. Existing NPC/quest base is committed separately; it is not yet integrated or covered by dedicated tests.
 - Task 1: harden `scripts/domain/quests/quest_manager.gd`, add delivery tests in `tests/unit/`: explicit confirmation, all-or-nothing requirements/rewards using existing wallet/inventory APIs, reject duplicate payout and full reward inventory.
 - Task 2: `scripts/data/merchant_offer_data.gd`, `data/npcs/`, `data/shops/`, `scripts/domain/quests/merchant_service.gd`: data-defined daily offer, deterministic selection, independent pricing; preserve the existing full-year test unchanged.

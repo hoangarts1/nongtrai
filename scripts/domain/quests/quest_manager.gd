@@ -22,6 +22,7 @@ signal quest_completed(quest_id: StringName, reward_coins: int, reward_item_id: 
 var _quests: Dictionary = {}
 var _active_quests: Array[StringName] = []
 var _completed_quests: Array[StringName] = []
+var _busy: bool = false
 
 func register_quest(quest: QuestData) -> void:
 	if quest != null and not quest.quest_id.is_empty():
@@ -56,52 +57,68 @@ func get_completed_quest_ids() -> Array[StringName]:
 	return result
 
 func can_deliver(quest_id: StringName, inventory: InventoryState) -> bool:
-	if not is_quest_active(quest_id):
+	if _busy or not is_quest_active(quest_id) or inventory == null:
 		return false
 	var quest: QuestData = get_quest(quest_id)
-	if quest == null:
+	if quest == null or quest.required_item_quantity < 0 or quest.reward_item_quantity < 0 or quest.reward_coins < 0:
 		return false
 	if not quest.required_item_id.is_empty() and quest.required_item_quantity > 0:
 		if inventory == null or not inventory.has_item(quest.required_item_id, quest.required_item_quantity):
 			return false
 	if not quest.reward_item_id.is_empty() and quest.reward_item_quantity > 0:
-		if inventory == null:
+		# Preview the exact post-delivery stacks without emitting global item events.
+		var preview: InventoryState = InventoryState.new(inventory.capacity)
+		var snapshot: Dictionary = inventory.serialize()
+		var slots: Array[Dictionary] = inventory.get_slots()
+		var remaining: int = quest.required_item_quantity
+		for index: int in range(slots.size() - 1, -1, -1):
+			if slots[index]["item_id"] != quest.required_item_id:
+				continue
+			var removed: int = mini(remaining, int(slots[index]["quantity"]))
+			slots[index]["quantity"] = int(slots[index]["quantity"]) - removed
+			remaining -= removed
+			if int(slots[index]["quantity"]) == 0:
+				slots.remove_at(index)
+			if remaining == 0:
+				break
+		snapshot["slots"] = slots
+		preview.deserialize(snapshot)
+		if not preview.can_add_item(quest.reward_item_id, quest.reward_item_quantity):
 			return false
-		if not inventory.can_add_item(quest.reward_item_id, quest.reward_item_quantity):
-			# If removing required item frees up a slot, delivering can still succeed
-			var freeing_slot: bool = false
-			if not quest.required_item_id.is_empty() and quest.required_item_quantity > 0:
-				if inventory.get_quantity(quest.required_item_id) == quest.required_item_quantity:
-					freeing_slot = true
-			if not freeing_slot:
-				return false
 	return true
 
 func confirm_delivery(quest_id: StringName, inventory: InventoryState, wallet: WalletState) -> bool:
-	if not can_deliver(quest_id, inventory):
+	if wallet == null or not can_deliver(quest_id, inventory):
 		return false
 	var quest: QuestData = get_quest(quest_id)
 	if quest == null:
 		return false
 	
-	# Atomically deduct required items only upon confirmed delivery
+	_busy = true
+	var snapshot: Dictionary = inventory.serialize()
 	if not quest.required_item_id.is_empty() and quest.required_item_quantity > 0:
 		var removed: bool = inventory.remove_item(quest.required_item_id, quest.required_item_quantity)
 		if not removed:
+			_busy = false
 			return false
-		Events.item_delivered.emit(quest.required_item_id, quest.required_item_quantity, quest.giver_id)
 	
 	# Payout rewards using WalletState and InventoryState
-	if quest.reward_coins > 0 and wallet != null:
-		wallet.add_coins(quest.reward_coins, &"quest_reward")
 	if not quest.reward_item_id.is_empty() and quest.reward_item_quantity > 0 and inventory != null:
-		inventory.add_item(quest.reward_item_id, quest.reward_item_quantity)
+		if inventory.add_item(quest.reward_item_id, quest.reward_item_quantity) != quest.reward_item_quantity:
+			inventory.deserialize(snapshot)
+			_busy = false
+			return false
 	
 	_active_quests.erase(quest_id)
 	if not _completed_quests.has(quest_id):
 		_completed_quests.append(quest_id)
+	if quest.reward_coins > 0:
+		wallet.add_coins(quest.reward_coins, &"quest_reward")
+	if quest.required_item_quantity > 0:
+		Events.item_delivered.emit(quest.required_item_id, quest.required_item_quantity, quest.giver_id)
 	
 	quest_completed.emit(quest_id, quest.reward_coins, quest.reward_item_id, quest.reward_item_quantity)
+	_busy = false
 	return true
 
 func serialize() -> Dictionary:
@@ -118,12 +135,18 @@ func serialize() -> Dictionary:
 
 func deserialize(data: Dictionary) -> void:
 	_active_quests.clear()
-	for item: Variant in data.get("active", []):
-		var q_id: StringName = StringName(item)
-		if not _active_quests.has(q_id):
-			_active_quests.append(q_id)
 	_completed_quests.clear()
-	for item: Variant in data.get("completed", []):
-		var q_id: StringName = StringName(item)
-		if not _completed_quests.has(q_id):
-			_completed_quests.append(q_id)
+	for field: String in ["completed", "active"]:
+		var values: Variant = data.get(field, [])
+		if not values is Array:
+			continue
+		for item: Variant in values:
+			if not item is String and not item is StringName:
+				continue
+			var q_id: StringName = StringName(item)
+			if not _quests.has(q_id) or _completed_quests.has(q_id) or _active_quests.has(q_id):
+				continue
+			if field == "completed":
+				_completed_quests.append(q_id)
+			else:
+				_active_quests.append(q_id)
