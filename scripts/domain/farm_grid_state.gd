@@ -72,6 +72,12 @@ func water_cell(cell: Vector2i) -> bool:
 	Events.plot_watered.emit(cell)
 	return true
 
+func water_all_crops() -> void:
+	for cell: Vector2i in _plots.keys():
+		var plot: Dictionary = _plots[cell]
+		if not StringName(plot.get("crop_id", &"")).is_empty() and not bool(plot.get("watered", false)):
+			water_cell(cell)
+
 func advance_day() -> void:
 	for cell: Vector2i in _plots.keys():
 		var plot: Dictionary = _plots[cell]

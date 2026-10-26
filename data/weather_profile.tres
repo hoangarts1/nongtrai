@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeatherProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weather_profile.gd" id="1_weather"]
+
+[resource]
+script = ExtResource("1_weather")
+entries = Array[Dictionary]([
+	{"id": &"sunny", "probability": 55, "darkness": 0.0, "rain": false, "storm": false},
+	{"id": &"cloudy", "probability": 25, "darkness": 0.12, "rain": false, "storm": false},
+	{"id": &"rain", "probability": 15, "darkness": 0.24, "rain": true, "storm": false},
+	{"id": &"storm", "probability": 5, "darkness": 0.34, "rain": true, "storm": true}
+])

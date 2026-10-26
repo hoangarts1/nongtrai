@@ -2,6 +2,7 @@
 ## API:
 ##   static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray
 ##   static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray
+##   static func validate_weather_profile(path: String) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
 
@@ -67,6 +68,28 @@ static func validate_translation_keys(paths: Array[String], required_keys: Packe
 	for key: String in required_keys:
 		if not found_keys.has(key):
 			errors.append("missing translation key: %s" % key)
+	return errors
+
+static func validate_weather_profile(path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if not ResourceLoader.exists(path):
+		errors.append("weather profile is missing: %s" % path)
+		return errors
+	var profile: Resource = load(path)
+	if profile == null:
+		errors.append("weather profile cannot be loaded: %s" % path)
+		return errors
+	var total: int = 0
+	for entry: Dictionary in profile.get("entries"):
+		var weather_id: String = String(entry.get("id", ""))
+		if weather_id.is_empty() or not _is_snake_case(weather_id):
+			errors.append("weather id is invalid: %s" % weather_id)
+		var probability: int = int(entry.get("probability", 0))
+		if probability < 0:
+			errors.append("weather probability is negative: %s" % weather_id)
+		total += probability
+	if total <= 0:
+		errors.append("weather probabilities must have a positive total")
 	return errors
 
 static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:

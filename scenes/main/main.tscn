@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/view/start_menu.gd" id="13_start"]
 [ext_resource type="Script" path="res://scripts/view/feedback_popup.gd" id="14_feedback"]
 [ext_resource type="Script" path="res://scripts/core/audio_service.gd" id="15_audio"]
+[ext_resource type="Script" path="res://scripts/view/weather_hud.gd" id="16_weather"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -65,6 +66,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "D1  06:00"
 script = ExtResource("2_clock")
+
+[node name="WeatherHud" type="Label" parent="."]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 54.0
+offset_right = 330.0
+offset_bottom = 82.0
+theme = ExtResource("11_theme")
+script = ExtResource("16_weather")
 
 [node name="DebugMenu" type="PanelContainer" parent="."]
 anchor_left = 1.0

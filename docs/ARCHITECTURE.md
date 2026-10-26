@@ -116,7 +116,7 @@ Invariant (tested): `simulate_day` called N times in a row == N nights of sleepi
   "quests":    { "completed": [] },
   "buildings": [],
   "ecology":   { "metrics": {}, "triggered": [] },
-  "weather":   { "today": "sunny", "forecast": [] },
+  "weather":   { "world_seed": 0, "today": "sunny", "forecast": [] },
   "director":  { "enabled": false, "rng_state": 0, "history": [], "cooldowns": {} },
   "quests":    {},
   "npcs":      {},
@@ -124,7 +124,7 @@ Invariant (tested): `simulate_day` called N times in a row == N nights of sleepi
 }
 ```
 
-Migration: `save_version` + `migrate_N_to_N+1` chain. Golden saves per version in `tests/golden_saves/`. Details: `docs/PROJECT_RULES.md` §10.
+Migration: `save_version` + `migrate_N_to_N+1` chain. Version 2 adds saved weather and forecast; v1 saves migrate with an empty weather payload. Golden saves per version in `tests/golden_saves/`. Details: `docs/PROJECT_RULES.md` §10.
 
 ## 7. Determinism policy
 

@@ -28,6 +28,16 @@ Format:
 - func sample(minute: int) -> Dictionary — interpolates the data keyframes for sun, moon, ambient and sky lighting
 - Notes: pure data/resource sampling; the view applies the result to world nodes.
 
+## WeatherState  (scripts/domain/weather_state.gd)
+- func advance_day(day_index: int) -> void — consumes the saved forecast and rolls the next forecast entry
+- func force_weather(weather_id: StringName) -> void — selects a valid data-defined weather for debug testing
+- func is_rainy() -> bool — reports whether today's weather automatically waters crops
+- func is_stormy() -> bool — reports whether storm presentation should flash
+- func serialize() -> Dictionary — saves seed, current weather and forecast
+- func deserialize(data: Dictionary) -> void — restores saved weather without re-rolling
+- signal weather_changed(weather_id: StringName) — emitted when today's weather changes
+- signal forecast_updated(forecast: Array[StringName]) — emitted when the forecast changes
+
 ## CameraRig  (scripts/view/camera_rig.gd)
 - func set_target(target_node: Node3D) -> void — assigns the node followed by the rig
 - Notes: follows with exponential smoothing and clamps the camera center to the gray-box map bounds.
@@ -111,7 +121,7 @@ Format:
 - func show_message(message: String) -> void — displays a short animated result message
 
 ## SaveService  (scripts/core/save_service.gd)
-- func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v1 envelope and atomically writes a JSON save with rotating backups
+- func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v2 envelope and atomically writes a JSON save with rotating backups
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
 - func delete_save(slot: int = 1) -> void — removes one save slot
 - func has_save(slot: int = 1) -> bool — reports whether a valid save exists

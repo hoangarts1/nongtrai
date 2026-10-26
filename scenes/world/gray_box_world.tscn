@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scripts/view/camera_rig.gd" id="3_camera_rig"]
 [ext_resource type="Script" path="res://scripts/components/interaction_prompt.gd" id="4_prompt"]
 [ext_resource type="Script" path="res://scripts/view/farm_view.gd" id="5_farm"]
+[ext_resource type="Script" path="res://scripts/view/weather_fx.gd" id="6_weather"]
 
 [sub_resource type="Environment" id="Environment_world"]
 background_mode = 1
@@ -90,6 +91,9 @@ position = Vector3(3.0, 0.04, 3.0)
 
 [node name="FarmView" type="Node3D" parent="."]
 script = ExtResource("5_farm")
+
+[node name="WeatherFx" type="Node3D" parent="."]
+script = ExtResource("6_weather")
 
 [node name="House" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_house")

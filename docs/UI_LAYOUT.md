@@ -17,6 +17,7 @@ single window size.
 | Lower-center overlay | `Toast` / `FeedbackPopup` | Short save/result messages; mouse input is ignored |
 | Farm world | `FarmView` crop labels | Billboard labels sit above each crop, use no-depth-test rendering, and are kept in the world-space farm region rather than a HUD panel |
 | Top-left clock | `ClockHud` period text | Shows day, time and localized dawn/morning/afternoon/dusk/night beside the clock |
+| Under clock | `WeatherHud` | Shows today's weather and tomorrow's forecast below the clock; it stays inside the top-left region |
 
 Panels must use `Container` children for internal layout. New HUD controls
 must register in the existing bars or use a documented region; they must not

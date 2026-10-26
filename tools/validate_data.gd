@@ -34,6 +34,20 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"ITEM_TURNIP_SEED"
 	,"ITEM_TURNIP"
 	,"CROP_TURNIP"
+	,"UI_CLOCK_DAY_TIME"
+	,"UI_TIME_DAWN"
+	,"UI_TIME_MORNING"
+	,"UI_TIME_AFTERNOON"
+	,"UI_TIME_DUSK"
+	,"UI_TIME_NIGHT"
+	,"UI_WEATHER_CURRENT"
+	,"WEATHER_SUNNY"
+	,"WEATHER_CLOUDY"
+	,"WEATHER_RAIN"
+	,"WEATHER_STORM"
+	,"UI_DEBUG_WEATHER_SUNNY"
+	,"UI_DEBUG_WEATHER_RAIN"
+	,"UI_DEBUG_WEATHER_STORM"
 ]
 
 func _init() -> void:
@@ -47,6 +61,8 @@ func _init() -> void:
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_weather_profile("res://data/weather_profile.tres")
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)

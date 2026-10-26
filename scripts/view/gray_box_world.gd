@@ -17,6 +17,7 @@ const BED_INTERACTION_REACH: float = 2.5
 @onready var moon: DirectionalLight3D = $Moon
 @onready var house_light: OmniLight3D = $House/HouseLight
 var _day_night_profile: Resource = preload("res://data/day_night_profile.tres")
+var _weather_darkness: float = 0.0
 
 func _ready() -> void:
 	camera.rotation_degrees = Vector3(-35.0, 45.0, 0.0)
@@ -25,6 +26,7 @@ func _ready() -> void:
 	GameClock.sleep_started.connect(_on_sleep_started)
 	GameClock.sleep_finished.connect(_on_sleep_finished)
 	GameClock.time_changed.connect(_on_time_changed)
+	Events.weather_changed.connect(_on_weather_changed)
 	_update_bed_prompt()
 	_apply_day_night(GameClock.minute)
 
@@ -74,13 +76,26 @@ func _apply_day_night(minute: int) -> void:
 	sun.rotation_degrees = Vector3(float(lighting["sun_angle"]), -30.0, 0.0)
 	moon.light_energy = float(lighting["moon_energy"])
 	world_environment.environment.ambient_light_color = lighting["ambient_color"] as Color
-	world_environment.environment.ambient_light_energy = float(lighting["ambient_energy"])
-	world_environment.environment.background_color = lighting["sky_color"] as Color
+	world_environment.environment.ambient_light_energy = float(lighting["ambient_energy"]) * (1.0 - _weather_darkness)
+	world_environment.environment.background_color = (lighting["sky_color"] as Color).lerp(
+		Color(0.18, 0.20, 0.24, 1.0),
+		_weather_darkness
+	)
 	house_light.visible = minute >= 1080 or minute < 360
 	house_light.light_energy = 0.65 if house_light.visible else 0.0
 
 func get_day_night_lighting(minute: int) -> Dictionary:
 	return _day_night_profile.call("sample", minute)
+
+func _on_weather_changed(weather_id: StringName) -> void:
+	var profile: Resource = preload("res://data/weather_profile.tres")
+	var entry: Dictionary = profile.call("get_entry", weather_id)
+	_weather_darkness = float(entry.get("darkness", 0.0))
+	_apply_day_night(GameClock.minute)
+	if bool(entry.get("storm", false)):
+		var flash_tween: Tween = create_tween()
+		flash_tween.tween_property(world_environment.environment, "ambient_light_energy", 1.0, 0.05)
+		flash_tween.tween_property(world_environment.environment, "ambient_light_energy", 0.25, 0.12)
 
 static func is_player_near_interactable(
 	player_position: Vector3,

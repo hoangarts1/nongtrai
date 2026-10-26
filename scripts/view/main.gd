@@ -15,6 +15,8 @@ extends Node3D
 @onready var toast: Label = $Toast
 @onready var feedback: Label = $FeedbackPopup
 @onready var audio_service: Node = $AudioService
+@onready var weather_hud: Label = $WeatherHud
+@onready var weather_fx: Node3D = $GrayBoxWorld/WeatherFx
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
@@ -24,6 +26,7 @@ var _game_started: bool = false
 var _real_seconds_since_save: float = 0.0
 var _seconds_since_dirty_save: float = 0.0
 var _save_dirty: bool = false
+var weather_state: Object
 
 func _process(delta: float) -> void:
 	if not _game_started:
@@ -56,6 +59,10 @@ func _ready() -> void:
 	farm_state = preload("res://scripts/domain/farm_grid_state.gd").new()
 	day_simulator = preload("res://scripts/domain/day_simulator.gd").new()
 	quest_state = preload("res://scripts/domain/tutorial_quest_state.gd").new()
+	weather_state = preload("res://scripts/domain/weather_state.gd").new()
+	weather_state.call("configure", preload("res://data/weather_profile.tres"), 0)
+	weather_hud.configure(weather_state)
+	weather_fx.configure(weather_state)
 	inventory_panel.configure(inventory, world.player)
 	tutorial_panel.call("configure", world.player)
 	tutorial_panel.call(
@@ -77,6 +84,7 @@ func _ready() -> void:
 	debug_menu.configure_inventory(inventory)
 	debug_menu.configure_farm(farm_state, farm_view)
 	debug_menu.configure_save_load(_save_game, _load_game)
+	debug_menu.configure_weather(weather_state)
 	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
 	start_menu.configure(_start_new_game, _continue_game, _quit_game)
 	start_menu.visible = not SaveService.has_save()
@@ -106,6 +114,9 @@ func _ready() -> void:
 	hud_button_bar.set_button_active(&"inventory", inventory_panel.visible)
 
 func _on_day_started(_day_index: int) -> void:
+	weather_state.call("advance_day", GameClock.day_index)
+	if bool(weather_state.call("is_rainy")):
+		farm_state.water_all_crops()
 	day_simulator.call("simulate_day", farm_state)
 	_save_game_to_slot(0)
 	_show_toast(tr("UI_SAVED"))
@@ -127,7 +138,8 @@ func _save_game_to_slot(slot: int) -> void:
 		"inventory": inventory.serialize(),
 		"farm": farm_state.serialize(),
 		"quests": quest_state.serialize(),
-		"profile": profile
+		"profile": profile,
+		"weather": weather_state.call("serialize")
 	}
 	if not SaveService.save_game(payload, slot):
 		push_warning("Main: could not save slot %d" % slot)
@@ -172,6 +184,8 @@ func _load_payload(payload: Dictionary) -> void:
 	inventory.deserialize(payload.get("inventory", {}))
 	farm_state.deserialize(payload.get("farm", {}))
 	quest_state.deserialize(payload.get("quests", {}))
+	weather_state.call("deserialize", payload.get("weather", {}))
+	weather_hud.configure(weather_state)
 	profile = payload.get("profile", {})
 	_game_started = true
 	var player_data: Dictionary = payload.get("player", {})

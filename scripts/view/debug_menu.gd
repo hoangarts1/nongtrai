@@ -14,6 +14,7 @@ var _farm_state: FarmGridState
 var _farm_view: Node
 var _save_callback: Callable
 var _load_callback: Callable
+var _weather: Object
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -59,6 +60,12 @@ func configure_save_load(save_callback: Callable, load_callback: Callable) -> vo
 	_load_callback = load_callback
 	register_action(tr("UI_DEBUG_SAVE"), _save_callback)
 	register_action(tr("UI_DEBUG_LOAD"), _load_callback)
+
+func configure_weather(weather_state: Object) -> void:
+	_weather = weather_state
+	register_action(tr("UI_DEBUG_WEATHER_SUNNY"), func() -> void: _weather.call("force_weather", &"sunny"))
+	register_action(tr("UI_DEBUG_WEATHER_RAIN"), func() -> void: _weather.call("force_weather", &"rain"))
+	register_action(tr("UI_DEBUG_WEATHER_STORM"), func() -> void: _weather.call("force_weather", &"storm"))
 
 func register_action(label: String, callback: Callable) -> void:
 	_actions.append({"label": label, "callback": callback})

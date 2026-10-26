@@ -14,7 +14,7 @@ func test_save_load_round_trip_preserves_payload() -> void:
 	}
 	assert_true(SaveService.save_game(payload, TEST_SLOT))
 	var loaded: Dictionary = SaveService.load_game(TEST_SLOT)
-	assert_eq(int((loaded["meta"] as Dictionary)["save_version"]), 1)
+	assert_eq(int((loaded["meta"] as Dictionary)["save_version"]), 2)
 	assert_eq(int((loaded["clock"] as Dictionary)["day_index"]), 4)
 	assert_eq((loaded["player"] as Dictionary)["position"]["x"], 1.5)
 	assert_eq(int((loaded["inventory"] as Dictionary)["slots"][0]["quantity"]), 3)

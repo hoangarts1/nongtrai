@@ -4,6 +4,7 @@
 extends Node
 
 const AUDIO_DIRECTORY: String = "res://assets/audio/"
+const WEATHER_SOUND_IDS: Array[StringName] = [&"rain"]
 
 func play_sound(sound_id: StringName) -> void:
 	var path: String = "%s%s.ogg" % [AUDIO_DIRECTORY, String(sound_id)]
