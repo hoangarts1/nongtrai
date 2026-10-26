@@ -134,13 +134,14 @@ Format:
 - func show_message(message: String) -> void — displays a short animated result message
 
 ## SaveService  (scripts/core/save_service.gd)
-- func save_game(payload: Dictionary, slot: int = 1) -> bool — writes the v3 envelope with clock, player, inventory, farm, onboarding quests, profile, weather and wallet, atomically with three backups
+- func save_game(payload: Dictionary, slot: int = 1) -> bool — writes the v4 envelope with clock, player, inventory, farm, onboarding quests, profile, weather, wallet and social, atomically with three backups
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
 - func delete_save(slot: int = 1) -> void — removes one save slot
 - func has_save(slot: int = 1) -> bool — reports whether a valid save exists
 - func load_latest() -> Dictionary — loads the newest valid save from slots 0 and 1
 - func get_latest_summary() -> Dictionary — returns farm name, day and saved timestamp for the newest save
-- Notes: v1/v2 migrate to v3; missing wallet defaults to 100 coins. The autoload owns file I/O only; Main composes the payload.
+- `migrate_3_to_4(data: Dictionary) -> Dictionary`: adds empty social defaults without replacing onboarding or any previous payload fields. v1/v2 continue through the existing migration steps; missing wallet defaults to 100 coins. Golden v1/v2/v3 are retained.
+- Social payload contains NPC quest state, merchant seed/consumed days, friendship, heard dialogue, last talk days and cell strings. Main restores it after clock/weather; routes are rebuilt.
 
 ## TutorialQuestState  (scripts/domain/tutorial_quest_state.gd)
 - func is_step_completed(step_index: int) -> bool — checks one onboarding milestone
@@ -266,9 +267,9 @@ Format:
 ## WalletHud  (scripts/view/wallet_hud.gd)
 - func configure(wallet) -> void — binds the top-left HUD coin counter to wallet state and signal updates
 
-## Phase 8 base (not yet integrated)
+## Phase 8 quest and data APIs
 - `QuestData` (`scripts/data/quest_data.gd`): quest/giver ids, localized title/description keys, item requirement, coin and item reward.
-- `QuestManager` (`scripts/domain/quests/quest_manager.gd`): register/get/accept quests, query active/completed ids, `can_deliver`, `confirm_delivery`, serialize/deserialize; local quest_accepted and quest_completed signals. Delivery atomicity still requires dedicated validation.
+- `QuestManager` (`scripts/domain/quests/quest_manager.gd`): register/get/accept quests, query active/completed ids, `can_deliver`, `confirm_delivery`, serialize/deserialize; local quest_accepted and quest_completed signals. Preview checks exact post-removal capacity; confirmation rejects shortages, missing wallet, invalid data and repeated/reentrant payouts.
 - `NpcData` (`scripts/data/npc_data.gd`): id/name key, home, schedule, rain behavior, appearance and friendship data.
 - `NpcScheduleEntry.applies_to(season: StringName, minute: int) -> bool`: data-defined seasonal time window.
 - `WorldLocations`: named positions, navigation region and solid rectangles; `has_location` and `get_location_position`.

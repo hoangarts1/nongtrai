@@ -5,7 +5,7 @@
 ##   func delete_save(slot: int = 1) -> void
 extends Node
 
-const CURRENT_VERSION: int = 3
+const CURRENT_VERSION: int = 4
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -26,7 +26,8 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"quests": payload.get("quests", {}),
 		"profile": payload.get("profile", {}),
 		"weather": payload.get("weather", {}),
-		"wallet": payload.get("wallet", {})
+		"wallet": payload.get("wallet", {}),
+		"social": payload.get("social", {})
 	}
 	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
 	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
@@ -62,7 +63,15 @@ func load_game(slot: int = 1) -> Dictionary:
 	if not parsed is Dictionary:
 		return {}
 	var data: Dictionary = parsed
-	var version: int = int((data.get("meta", {}) as Dictionary).get("save_version", 0))
+	var raw_meta: Variant = data.get("meta", {})
+	if not raw_meta is Dictionary:
+		return {}
+	var raw_version: Variant = raw_meta.get("save_version", 0)
+	if not raw_version is int and not raw_version is float:
+		return {}
+	var version: int = int(raw_version)
+	if version < 0:
+		return {}
 	if version > CURRENT_VERSION:
 		return {}
 	return _migrate(data, version)
@@ -115,6 +124,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated["weather"] = migrated.get("weather", {})
 	if version <= 2:
 		migrated["wallet"] = migrated.get("wallet", {"coins": 100})
+	if version <= 3:
+		migrated = migrate_3_to_4(migrated)
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -122,6 +133,15 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	if not metadata.has("saved_at") and metadata.has("saved_utc"):
 		metadata["saved_at"] = Time.get_datetime_string_from_unix_time(int(metadata["saved_utc"]))
 	migrated["meta"] = metadata
+	return migrated
+
+func migrate_3_to_4(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# Keep onboarding `quests` and every previous field intact.
+	if not migrated.get("social", {}) is Dictionary:
+		migrated["social"] = {}
+	else:
+		migrated["social"] = migrated.get("social", {})
 	return migrated
 
 func _save_path(slot: int) -> String:

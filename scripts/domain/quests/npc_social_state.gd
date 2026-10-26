@@ -125,8 +125,8 @@ func deserialize(data: Dictionary) -> void:
 		var point: Variant = points.get(String(npc.npc_id), 0)
 		friendship[npc.npc_id] = clampi(int(point), 0, npc.friendship_max) if point is int or point is float else 0
 		var day: Variant = talks.get(String(npc.npc_id), -1)
-		if day is int or day is float:
-			_talk_days[npc.npc_id] = maxi(-1, int(day))
+		if (day is int or day is float) and int(day) >= 0:
+			_talk_days[npc.npc_id] = int(day)
 		var cell: Vector2i = scheduler.location_cell(npc.home_location)
 		var raw: Variant = positions.get(String(npc.npc_id), "")
 		if raw is String:

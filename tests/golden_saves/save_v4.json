@@ -1,0 +1,18 @@
+{
+  "meta": {"save_version": 4, "game_version": "0.1.0", "saved_utc": 0},
+  "clock": {"day_index": 2, "minute": 1030, "season": "spring", "year": 1},
+  "player": {"position": {"x": -4.5, "y": 0, "z": 5.5}},
+  "inventory": {"capacity": 12, "slots": [{"item_id": "turnip", "quantity": 2}]},
+  "farm": {"plots": []},
+  "quests": {"completed": [true, true, false, false, false, false, false]},
+  "wallet": {"coins": 160},
+  "weather": {"world_seed": 0, "today": "sunny", "forecast": ["cloudy", "rain", "sunny"]},
+  "social": {
+    "quests": {"active": ["turnip_delivery"], "completed": []},
+    "friendship": {"minh": 4, "linh": 2},
+    "heard": ["minh_intro", "minh_active", "linh_hello"],
+    "talk_days": {"minh": 2, "linh": 1},
+    "cells": {"minh": "-5,6", "linh": "7,4"},
+    "merchant": {"world_seed": 0, "consumed_days": [2]}
+  }
+}

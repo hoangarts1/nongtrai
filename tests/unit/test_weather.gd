@@ -43,6 +43,6 @@ func test_v1_save_migrates_with_empty_weather_payload() -> void:
 	file.store_string(JSON.stringify(save))
 	file.close()
 	var loaded: Dictionary = SaveService.load_game(98)
-	assert_eq(int((loaded["meta"] as Dictionary)["save_version"]), 3)
+	assert_eq(int((loaded["meta"] as Dictionary)["save_version"]), 4)
 	assert_true((loaded["weather"] as Dictionary).is_empty())
 	SaveService.delete_save(98)
