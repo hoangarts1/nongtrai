@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-26 (click regression fixed; chibi UI/presentation)
+Last updated: 2026-10-27 (compact HUD and crop countdown)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
@@ -22,6 +22,30 @@ Last updated: 2026-10-26 (click regression fixed; chibi UI/presentation)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
+- 2026-10-27 compact HUD/crop inspection task, approved standing plan-then-proceed workflow: hide the nine item-slot grid and caption in normal gameplay, keep a small four-tool strip and smaller corner menu buttons; expose selectable items only in the inventory modal. Add a nonmodal CropInspector view (large localized name, countdown, estimated game-day/morning, water/ready/withered status) on crop click; hide repetitive world-space crop labels. Reuse GameClock time_changed/FarmGridState queries and existing tool/harvest APIs, with a conditional daily-watering estimate and no save/growth changes. Files: scripts/view/{hotbar_panel,inventory_panel,main,ui_layout,ui_coordinator,tool_action_controller,farm_view,crop_inspector}.gd (+ new .uid), localization/strings_{vi,en}.csv, tests/unit UI/crop regressions, docs/{API_INDEX,PROGRESS,UI_LAYOUT,DECISIONS}.md and screenshot evidence. Initial workspace has two generated docs/screenshots/*.png.import metadata files; preserve them. Verify default HUD footprint, inventory mouse selection, crop click/action routing, minute/day countdown, watering/ripeness/removal, modal suppression and three resolutions in vi/en before the task commit.
+
+## Compact HUD/crop countdown handoff (2026-10-27)
+- Acceptance delivered: default item grid/caption hidden; tool strip is 220×60 and menu strip 216×60 at 1152×648; readable item selection appears only inside inventory. Selecting an inventory row closes it, selects the existing stack for use and never changes quantity. 1–9 shortcuts remain.
+- Crop click opens a readable lower-left card with localized name, 24 px countdown, expected game day/morning and water state. It updates on GameClock.time_changed and FarmGridState.plot_changed, stays nonmodal and does not pause the clock. World labels remain API-compatible but hidden. Visual crop bounds, not just ground-ray cells, determine clicks on taller crops.
+- Countdown assumption: remaining watered growth-day boundaries, daily care and a suitable season, using current GameClock data. It is an estimate in game time, not real-world seconds or offline progress; skipping water delays the forecast. Ready/withered states replace the timer. Water/Harvest buttons route through existing reach/locked-input/harvest capacity checks. No growth logic, economy, scene file or save schema changed.
+- Six new regression tests cover physical crop clicks with no accidental tool use/consumption, minute countdown, daily growth and missed watering, inventory selection, mature crop top picking, withered/out-of-reach safety, removal after harvest, modal suppression, and vi/en layout at 1152×648 / 1280×720 / 1920×1080. Old world-label/hotbar geometry assertions were deliberately updated for the requested hidden UI; lifecycle text, tool bounds and gameplay invariants remain checked.
+- Real final official runner:
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              41
+Tests               126
+Passing Tests       126
+Asserts            3789
+Time              15.565s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Separate headless GUT: 41 scripts / 126 tests / 126 passing / 3716 asserts / 8.904s. Rendered-only PNG assertions explain the assertion-count difference. Player save slots 0/1 and backups were preserved/restored around both suites. No lint installation was performed.
+- Manual editor steps: none. Stop old game/F5 → Continue. The map has no expanded item slots. Open backpack/I → Select a seed → inventory closes → plant as before. Click a planted crop → inspect countdown/water state → Water, wait game minutes or sleep, inspect again → Harvest when ready. Full modal opening hides the crop card. Check close button, far-away crop feedback, missing watering and full inventory. Human playtest remains pending; automation exercised physical press/release events in isolated viewports and rendered both languages/sizes.
+- Screenshot evidence: docs/screenshots/compact_hud.png and crop_inspector.png. API_INDEX and UI_LAYOUT describe the view contract; D24 records the presentation/forecast decision. Proposed/used task commit: `fix: compact HUD and inspect crop harvest countdown`. Exact task diff is available against a741cfa; existing milestone tags are retained.
 - Active request (2026-10-26): fix completely unclickable menus, then redesign title/HUD with cozy chibi art/icons and lightweight animated models; audit the whole project and proceed through missing milestones. User authorizes this broader visual scope. Immediate plan: reproduce physical mouse click failure; repair backdrop/input dispatch and start/continue entry; add SVG icons, generated title illustration and pastel UI; add procedural chibi presentation with gentle animation; verify real mouse/key paths and vi/en layouts at three sizes. Runtime scripts/assets only, no scene edits needed. File scope expands to scripts/view/, assets/icons/, assets/ui/, tests/unit/, docs/, localization/. Gameplay completion proceeds separately in Roadmap order; human gates cannot be asserted passed automatically.
 - UI readability/overlap repair implemented after Phase 8 playtest screenshots; automated checks pass, human re-test pending.
 - Approved execution process continues: record plan then implement without another approval. UI-only file scope: scripts/view/{main,debug_menu,hotbar_panel,inventory_panel,seed_shop_panel,shipping_bin_panel,start_menu,npc_actor,npc_system,ui_coordinator,ui_layout}.gd, their new .uid files, tests/unit UI regression/layout tests, localization/strings_{vi,en}.csv, docs/{API_INDEX,PROGRESS,UI_LAYOUT,DECISIONS}.md. No scene, shared Theme file, domain, economy, weather or save-schema changes.

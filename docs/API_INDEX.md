@@ -303,7 +303,7 @@ Format:
 - `UiCoordinator.configure(main: Node) -> void`: registers the nine existing modal surfaces, applies the runtime theme/layout, and creates a view-only backdrop; no autoload or scene edits.
 - `close_active() -> void`, `get_active_panel() -> Control`: closes through each panel's existing API and coordinates visibility, clock/player locking, prompts and secondary HUD. Start menu cannot be bypassed by gameplay shortcuts.
 - `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: duplicated runtime Theme (18 px body, 24 px headings), large buttons, responsive rectangles, and deferred reflow after minimum-size changes.
-- `HotbarPanel.refresh_readability() -> void`: rebuilds nine visible slots, keeping the full inventory unchanged; caption and tooltip expose full localized item names. `InventoryPanel` shows all items in a scrollable list with a fixed close header.
+- `HotbarPanel.refresh_readability() -> void`: rebuilds backing item selectors, but hides the item grid/caption during gameplay; only the four compact tool buttons are visible. `select_slot(slot_index: int) -> void` keeps numeric selection/API compatibility. `InventoryPanel` shows all items in a scrollable list with explicit Select buttons and a fixed close header.
 - Modal shortcut contract: I/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
 - Backdrop is the first Main child for mouse hit order; render z_index alone is insufficient. Mouse events pass to GUI before key filters; mouse regression tests use press/release pairs in a separate SubViewport.
 
@@ -314,6 +314,13 @@ Format:
 - `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
 - `WorldPresentation.configure(main: Node) -> void`: decorates existing Player/House/SeedShop/ShippingBin anchors and adds ornamental trees; no extra gameplay authority.
 - `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
+
+## CropInspector / compact HUD (scripts/view/crop_inspector.gd)
+- `configure(farm: FarmGridState) -> void`, `show_cell(cell: Vector2i) -> void`: binds existing farm state and shows one click-selected crop without pausing time or mutating state. Local `action_requested(cell: Vector2i, action_id: StringName)` delegates Water/Harvest to the existing controller.
+- `get_remaining_minutes() -> int`: game-minute estimate to the remaining growth-day morning boundary, assuming daily watering and a suitable season. Derived from FarmGridState.get_growth_remaining and GameClock constants; no new timer, growth path or saved state. Ready/withered plants show explicit status instead.
+- `FarmView.pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant`: projects visible crop mesh bounds to select the actual crop (or null), including a small sprout click margin. Ground picking remains the fallback. `get_crop_label` retains its API/text, but tiny repeated world labels are hidden.
+- `ToolActionController.configure_crop_inspector(inspector)`, `perform_crop_action(cell, action_id)`: click inspection precedes mouse tool use; explicit panel actions validate player input/reach and reuse watering/harvest/inventory logic. Inspection itself never consumes items or harvests.
+- `InventoryPanel.slot_selected(slot_index: int)`: emitted on a row's localized Select button; Main forwards it to HotbarPanel and inventory closes. Selection preserves all item quantities.
 
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet

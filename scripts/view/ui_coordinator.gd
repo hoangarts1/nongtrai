@@ -117,6 +117,7 @@ func _sync() -> void:
 	_main.world.player.movement_enabled = not modal and bool(_main.get("_game_started")) and not GameClock.is_sleeping()
 	if modal:
 		_main.world.interaction_prompt.hide()
+		_main.crop_inspector.hide()
 		if _active in [_main.seed_shop_panel, _main.shipping_bin_panel, _main.npc_system.dialogue]:
 			var viewport: Vector2 = _main.get_viewport().get_visible_rect().size
 			_main.feedback.position = Vector2(20, viewport.y - 36.0)
@@ -125,6 +126,8 @@ func _sync() -> void:
 			_main.feedback.hide()
 		if _active != _main.debug_menu:
 			GameClock.paused = true
+	if GameClock.is_sleeping():
+		_main.crop_inspector.hide()
 
 func _input(event: InputEvent) -> void:
 	if _active == null or event.is_echo():

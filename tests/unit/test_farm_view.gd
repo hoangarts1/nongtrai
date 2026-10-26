@@ -31,7 +31,7 @@ func test_crop_label_shows_growth_water_and_ready_states() -> void:
 	await get_tree().process_frame
 	var label: Label3D = farm_view.get_crop_label(cell)
 	assert_not_null(label)
-	assert_true(label.visible)
+	assert_false(label.visible, "Tiny world text is replaced by click inspection")
 	assert_true(label.text.contains("Còn 2 ngày"))
 	assert_true(label.text.contains("Cần tưới"))
 	assert_true(main.farm_state.water_cell(cell))
@@ -42,7 +42,7 @@ func test_crop_label_shows_growth_water_and_ready_states() -> void:
 	assert_true(main.farm_state.water_cell(cell))
 	main.farm_state.advance_day()
 	assert_eq(label.text, "Chín! Thu hoạch được")
-	assert_true(label.visible)
+	assert_false(label.visible)
 	assert_true(main.farm_state.harvest_cell(cell).get("success", false))
 	assert_false(label.visible)
 	main.queue_free()

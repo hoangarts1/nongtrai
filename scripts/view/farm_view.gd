@@ -32,6 +32,24 @@ func get_crop_view(cell: Vector2i) -> MeshInstance3D:
 func get_crop_label(cell: Vector2i) -> Label3D:
 	return _crop_labels.get(cell) as Label3D
 
+func pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant:
+	var selected: Variant = null
+	var nearest: float = INF
+	for cell: Vector2i in _crops:
+		var crop: MeshInstance3D = _crops[cell]
+		if not crop.visible:
+			continue
+		var bounds: AABB = crop.get_aabb()
+		var rectangle: Rect2 = Rect2(camera.unproject_position(crop.to_global(bounds.position)), Vector2.ONE)
+		for endpoint: int in range(8):
+			rectangle = rectangle.expand(camera.unproject_position(crop.to_global(bounds.get_endpoint(endpoint))))
+		# The small sprout remains a reasonable click target without tiny world text.
+		var distance: float = screen_position.distance_squared_to(rectangle.get_center())
+		if rectangle.grow(8.0).has_point(screen_position) and distance < nearest:
+			selected = cell
+			nearest = distance
+	return selected
+
 func _build_grid() -> void:
 	for child: Node in get_children():
 		child.free()
@@ -132,7 +150,8 @@ func _render_cell(cell: Vector2i) -> void:
 	material.albedo_color = color
 	soil.material_override = material
 	crop.visible = not crop_id.is_empty()
-	label.visible = crop.visible
+	# Detailed status is shown in the readable click inspector, not over every crop.
+	label.visible = false
 	if crop.visible:
 		var crop_data: Resource = DataRegistry.get_crop(crop_id)
 		var growth_days: int = int(plot.get("growth_days", 0))

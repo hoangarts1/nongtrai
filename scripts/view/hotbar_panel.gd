@@ -45,10 +45,12 @@ func _build_ui() -> void:
 	_selection_caption.name = "SelectionCaption"
 	_selection_caption.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_content.add_child(_selection_caption)
+	_selection_caption.hide()
 	_slot_row = HBoxContainer.new()
 	_slot_row.name = "HBoxContainer"
 	_slot_row.add_theme_constant_override("separation", 4)
 	_content.add_child(_slot_row)
+	_slot_row.hide()
 	_tool_row = HBoxContainer.new()
 	_tool_row.name = "ToolRow"
 	_tool_row.add_theme_constant_override("separation", 4)
@@ -57,7 +59,8 @@ func _build_ui() -> void:
 func register_tool(tool_id: StringName, label: String, callback: Callable) -> Button:
 	var button: Button = Button.new()
 	button.name = "Tool_%s" % tool_id
-	button.custom_minimum_size = Vector2(92, 46)
+	button.custom_minimum_size = Vector2(46, 44)
+	button.add_theme_constant_override("icon_max_width", 28)
 	button.tooltip_text = label
 	UiIcons.decorate(button, tool_id, true)
 	button.toggle_mode = true
@@ -165,6 +168,9 @@ func _render_slots() -> void:
 func refresh_readability() -> void:
 	_render_slots()
 
+func select_slot(slot_index: int) -> void:
+	_select_slot(slot_index)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or event.is_echo():
 		return
@@ -175,7 +181,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 func _select_slot(slot_index: int) -> void:
-	if _inventory == null or slot_index >= _inventory.get_slots().size():
+	if _inventory == null or slot_index < 0 or slot_index >= _inventory.get_slots().size():
 		return
 	_selected_slot_index = slot_index
 	call_deferred("_render_slots")

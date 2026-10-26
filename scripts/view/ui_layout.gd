@@ -36,7 +36,8 @@ static func apply(main: Node) -> void:
 		var button: Button = main.hud_button_bar.get_button(id)
 		if button != null:
 			UiIcons.decorate(button, &"backpack" if id == &"inventory" else id, true)
-			button.custom_minimum_size = Vector2(56, 56)
+			button.custom_minimum_size = Vector2(42, 42)
+			button.add_theme_constant_override("icon_max_width", 24)
 	var status: Panel = Panel.new()
 	status.name = "StatusCard"
 	status.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -69,6 +70,8 @@ static func _style_children(node: Node) -> void:
 		button.custom_minimum_size.y = maxf(40.0, button.custom_minimum_size.y)
 	if node is PanelContainer:
 		(node as PanelContainer).add_theme_stylebox_override("panel", _surface())
+	if node is CropInspector:
+		return
 	for child: Node in node.get_children():
 		_style_children(child)
 
@@ -86,11 +89,12 @@ static func reflow(main: Node) -> void:
 	_rect(main.weather_hud, Vector2(20, 56), Vector2(480, 30))
 	_rect(main.wallet_hud, Vector2(20, 90), Vector2(300, 28))
 	_rect(main.quest_panel, Vector2(viewport.x - 370.0, 16), Vector2(350, 242))
-	var bar_width: float = minf(1000.0, viewport.x - 300.0)
-	_rect(main.hotbar_panel, Vector2(16, viewport.y - 218.0), Vector2(bar_width, 202))
-	_rect(main.hud_button_bar, Vector2(viewport.x - 264.0, viewport.y - 92.0), Vector2(248, 76))
+	_rect(main.hotbar_panel, Vector2(16, viewport.y - 76.0), Vector2(220, 60))
+	_rect(main.hud_button_bar, Vector2(viewport.x - 232.0, viewport.y - 76.0), Vector2(216, 60))
+	if main.crop_inspector != null:
+		_rect(main.crop_inspector, Vector2(16, viewport.y - 350.0), Vector2(360, 262))
 	var prompt: Control = main.world.interaction_prompt
-	_rect(prompt, Vector2((viewport.x - 480.0) * 0.5, viewport.y - 278.0), Vector2(480, 52))
+	_rect(prompt, Vector2((viewport.x - 440.0) * 0.5, viewport.y - 76.0), Vector2(440, 52))
 	prompt.get_node("Message").add_theme_font_size_override("font_size", 20)
 	_rect(main.toast, Vector2(20, 128), Vector2(460, 32))
 	_rect(main.feedback, Vector2((viewport.x - 660.0) * 0.5, 126), Vector2(660, 44))

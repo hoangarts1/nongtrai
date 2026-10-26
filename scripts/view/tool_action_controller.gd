@@ -19,6 +19,26 @@ var _hovered_valid: bool = false
 var _hotbar_panel: HotbarPanel = null
 var _shipping_bin_panel: Control = null
 var _seed_shop_panel: Control = null
+var _crop_inspector: CropInspector
+
+func configure_crop_inspector(inspector: CropInspector) -> void:
+	_crop_inspector = inspector
+	_crop_inspector.action_requested.connect(perform_crop_action)
+
+func perform_crop_action(cell: Vector2i, action_id: StringName) -> void:
+	if _is_input_locked() or not _player.movement_enabled or not action_id in [&"water", &"harvest"]:
+		return
+	var player_cell: Vector2i = GridMath.world_to_cell(_player.global_position)
+	if not ToolAction.is_in_reach(player_cell, cell, _reach_for_selected_tool()):
+		_show_feedback("UI_CROP_OUT_OF_REACH")
+		return
+	var previous_cell: Vector2i = _hovered_cell
+	var previous_tool: StringName = _selected_tool
+	_hovered_cell = cell
+	_selected_tool = action_id
+	_use_selected_tool()
+	_hovered_cell = previous_cell
+	_selected_tool = previous_tool
 
 func configure(
 	world: GrayBoxWorld,
@@ -90,6 +110,20 @@ func _unhandled_input(event: InputEvent) -> void:
 	var is_mouse_use: bool = event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT and (event as InputEventMouseButton).pressed
 	if not event.is_action_pressed("use_tool") and not is_mouse_use:
 		return
+	if _is_input_locked() or not _player.movement_enabled:
+		return
+	if is_mouse_use and _crop_inspector != null:
+		var point: Vector2 = (event as InputEventMouseButton).position
+		var selected: Variant = _farm_view.call("pick_crop", point, _world.camera)
+		if selected == null:
+			selected = _world.pick_cell(point)
+		if selected is Vector2i:
+			var cell: Vector2i = selected
+			if not StringName(_farm_state.get_plot(cell).get("crop_id", &"")).is_empty():
+				_crop_inspector.show_cell(cell)
+				get_viewport().set_input_as_handled()
+				return
+		_crop_inspector.hide()
 	if not _hovered_valid or _is_input_locked():
 		return
 	_use_selected_tool()

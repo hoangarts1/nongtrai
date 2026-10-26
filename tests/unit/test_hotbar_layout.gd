@@ -20,16 +20,14 @@ func test_hotbar_labels_fit_inside_each_slot_without_overlap() -> void:
 		await get_tree().process_frame
 		var hotbar: Control = main.get_node("HotbarPanel")
 		var slot_row: HBoxContainer = hotbar.get_node("MarginContainer/Content/HBoxContainer")
-		for slot: Button in slot_row.get_children():
-			var slot_rect: Rect2 = slot.get_global_rect()
-			var labels: Array[Label] = []
-			_collect_labels(slot, labels)
-			for label: Label in labels:
-				assert_true(slot_rect.encloses(label.get_global_rect()), "Label outside %s at %s: slot=%s label=%s" % [slot.name, viewport_size, slot_rect, label.get_global_rect()])
-				assert_true(label.get_line_count() <= 2, "Label wraps too many lines in %s at %s" % [slot.name, viewport_size])
-			for first_index: int in range(labels.size()):
-				for second_index: int in range(first_index + 1, labels.size()):
-					assert_false(labels[first_index].get_global_rect().intersects(labels[second_index].get_global_rect()), "Labels overlap in %s at %s" % [slot.name, viewport_size])
+		assert_false(slot_row.visible, "Item grid is not displayed over the map")
+		assert_false((hotbar.get_node("MarginContainer/Content/SelectionCaption") as Control).visible)
+		assert_lte(hotbar.size.y, 64.0, "Only a compact tool strip occupies the map")
+		assert_lte(hotbar.size.x, 260.0)
+		var tools: HBoxContainer = hotbar.get_node("MarginContainer/Content/ToolRow")
+		for tool: Button in tools.get_children():
+			assert_true(hotbar.get_global_rect().encloses(tool.get_global_rect()), "Tool remains clickable within compact strip")
+			assert_gte(tool.size.y, 40.0)
 		main.queue_free()
 
 func test_tool_labels_fit_inside_buttons_without_character_wrapping() -> void:

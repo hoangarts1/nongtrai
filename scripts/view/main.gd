@@ -35,6 +35,7 @@ var weather_state: Object
 var ui_coordinator: UiCoordinator
 var _initial_wallet: Dictionary
 var _spawn_position: Vector3
+var crop_inspector: CropInspector
 
 func _process(delta: float) -> void:
 	if not _game_started:
@@ -95,6 +96,11 @@ func _ready() -> void:
 	seed_shop_panel.configure(inventory, wallet, world.player, feedback)
 	world.seed_shop_interacted.connect(seed_shop_panel.open)
 	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service, hotbar_panel, shipping_bin_panel, seed_shop_panel)
+	crop_inspector = CropInspector.new()
+	add_child(crop_inspector)
+	crop_inspector.configure(farm_state)
+	tool_controller.configure_crop_inspector(crop_inspector)
+	inventory_panel.slot_selected.connect(hotbar_panel.select_slot)
 	hotbar_panel.register_tool(&"hoe", tr("UI_TOOL_HOE"), func() -> void: tool_controller.select_tool(&"hoe"))
 	hotbar_panel.register_tool(&"watering_can", tr("UI_TOOL_WATER"), func() -> void: tool_controller.select_tool(&"watering_can"))
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)

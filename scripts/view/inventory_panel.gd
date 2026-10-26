@@ -3,6 +3,7 @@ class_name InventoryPanel
 extends PanelContainer
 
 signal inventory_toggled(is_open: bool)
+signal slot_selected(slot_index: int)
 var _inventory: InventoryState
 var _player: Player
 var _list: VBoxContainer
@@ -78,7 +79,9 @@ func _update_list() -> void:
 		empty.text = tr("UI_INVENTORY_EMPTY")
 		_list.add_child(empty)
 		return
-	for slot: Dictionary in _inventory.get_slots():
+	var slots: Array[Dictionary] = _inventory.get_slots()
+	for index: int in range(slots.size()):
+		var slot: Dictionary = slots[index]
 		var item: Resource = DataRegistry.get_item(slot["item_id"])
 		var row: HBoxContainer = HBoxContainer.new()
 		row.custom_minimum_size.y = 44
@@ -98,4 +101,16 @@ func _update_list() -> void:
 		var quantity: Label = Label.new()
 		quantity.text = "×%d" % int(slot["quantity"])
 		row.add_child(quantity)
+		var select: Button = Button.new()
+		select.name = "SelectSlot_%d" % index
+		select.text = tr("UI_INVENTORY_SELECT")
+		select.tooltip_text = tr("UI_INVENTORY_SELECT_ITEM") % tr(String(item.get("display_name_key")))
+		select.pressed.connect(_select_slot.bind(index))
+		row.add_child(select)
 		_list.add_child(row)
+
+func _select_slot(slot_index: int) -> void:
+	if _inventory == null or slot_index < 0 or slot_index >= _inventory.get_slots().size():
+		return
+	slot_selected.emit(slot_index)
+	close_inventory()
