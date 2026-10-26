@@ -29,7 +29,8 @@ func till_cell(cell: Vector2i) -> bool:
 			"tilled": false,
 			"crop_id": &"",
 			"growth_days": 0,
-			"watered": false
+			"watered": false,
+			"withered": false
 		}
 	if bool(plot.get("tilled", false)):
 		return false
@@ -49,9 +50,13 @@ func plant_crop(cell: Vector2i, crop_id: StringName) -> bool:
 		return false
 	if not StringName(plot.get("crop_id", &"")).is_empty():
 		return false
+	var seasons: PackedStringArray = crop_data.get("seasons")
+	if not seasons.is_empty() and not seasons.has(String(GameClock.season)):
+		return false
 	plot["crop_id"] = crop_id
 	plot["growth_days"] = 0
 	plot["watered"] = false
+	plot["withered"] = false
 	_plots[cell] = plot
 	plot_changed.emit(cell)
 	Events.crop_planted.emit(cell, crop_id)
@@ -77,6 +82,27 @@ func water_all_crops() -> void:
 		var plot: Dictionary = _plots[cell]
 		if not StringName(plot.get("crop_id", &"")).is_empty() and not bool(plot.get("watered", false)):
 			water_cell(cell)
+
+func mark_out_of_season() -> void:
+	for cell: Vector2i in _plots.keys():
+		var plot: Dictionary = _plots[cell]
+		var crop_id: StringName = plot.get("crop_id", &"")
+		if crop_id.is_empty() or bool(plot.get("withered", false)):
+			continue
+		var crop_data: Resource = DataRegistry.get_crop(crop_id)
+		var seasons: PackedStringArray = crop_data.get("seasons") if crop_data != null else PackedStringArray()
+		if not seasons.is_empty() and not seasons.has(String(GameClock.season)):
+			plot["withered"] = true
+			_plots[cell] = plot
+			plot_changed.emit(cell)
+
+func clear_withered(cell: Vector2i) -> bool:
+	var plot: Dictionary = _plots.get(cell, {})
+	if not bool(plot.get("withered", false)):
+		return false
+	_plots.erase(cell)
+	plot_changed.emit(cell)
+	return true
 
 func advance_day() -> void:
 	for cell: Vector2i in _plots.keys():
@@ -151,7 +177,8 @@ func serialize() -> Dictionary:
 			"tilled": bool(plot.get("tilled", false)),
 			"crop_id": String(plot.get("crop_id", &"")),
 			"growth_days": int(plot.get("growth_days", 0)),
-			"watered": bool(plot.get("watered", false))
+			"watered": bool(plot.get("watered", false)),
+			"withered": bool(plot.get("withered", false))
 		})
 	return {"plots": entries}
 
@@ -167,7 +194,8 @@ func deserialize(data: Dictionary) -> void:
 			"tilled": bool(entry.get("tilled", false)),
 			"crop_id": crop_id,
 			"growth_days": int(entry.get("growth_days", 0)),
-			"watered": bool(entry.get("watered", false))
+			"watered": bool(entry.get("watered", false)),
+			"withered": bool(entry.get("withered", false))
 		}
 		if plot["tilled"] or not StringName(plot["crop_id"]).is_empty():
 			_plots[cell] = plot

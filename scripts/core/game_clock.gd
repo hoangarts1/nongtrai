@@ -37,6 +37,7 @@ var time_speed: float = 1.0
 var _sleeping: bool = false
 var _sleep_restore_speed: float = 1.0
 var _real_seconds_accumulator: float = 0.0
+var _season_ids: Array[StringName] = [&"spring", &"summer", &"autumn", &"winter"]
 
 func _process(delta: float) -> void:
 	if not paused:
@@ -71,6 +72,7 @@ func advance_minutes(minutes: int) -> void:
 func sleep_to_morning() -> void:
 	day_index += 1
 	minute = MORNING_MINUTE
+	_update_season()
 	_real_seconds_accumulator = 0.0
 	time_changed.emit(day_index, minute)
 	day_started.emit(day_index)
@@ -95,6 +97,7 @@ func _finish_sleep() -> void:
 	_sleeping = false
 	day_index += 1
 	minute = MORNING_MINUTE
+	_update_season()
 	time_speed = _sleep_restore_speed
 	_real_seconds_accumulator = 0.0
 	time_changed.emit(day_index, minute)
@@ -140,3 +143,20 @@ func deserialize(data: Dictionary) -> void:
 	year = maxi(1, int(data.get("year", 1)))
 	_real_seconds_accumulator = 0.0
 	time_changed.emit(day_index, minute)
+
+func get_day_in_season() -> int:
+	var season_data: Resource = DataRegistry.get_season(season)
+	var days_in_season: int = int(season_data.get("days_in_season")) if season_data != null else 28
+	return posmod(day_index, days_in_season) + 1
+
+func _update_season() -> void:
+	var season_data: Resource = DataRegistry.get_season(season)
+	var days_in_season: int = int(season_data.get("days_in_season")) if season_data != null else 28
+	var season_index: int = floori(float(day_index) / float(days_in_season))
+	var new_season: StringName = _season_ids[season_index % _season_ids.size()]
+	var new_year: int = floori(float(day_index) / float(days_in_season * _season_ids.size())) + 1
+	if new_season != season:
+		season = new_season
+		season_changed.emit(season)
+		Events.season_changed.emit(season)
+	year = new_year

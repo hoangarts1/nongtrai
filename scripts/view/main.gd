@@ -94,6 +94,8 @@ func _ready() -> void:
 	inventory.inventory_changed.connect(_mark_save_dirty)
 	if not GameClock.day_started.is_connected(_on_day_started):
 		GameClock.day_started.connect(_on_day_started)
+	if not GameClock.season_changed.is_connected(_on_season_changed):
+		GameClock.season_changed.connect(_on_season_changed)
 	var _inventory_button: Button = hud_button_bar.register_button(
 		&"inventory",
 		tr("UI_INV_BUTTON"),
@@ -115,11 +117,15 @@ func _ready() -> void:
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
+	farm_state.mark_out_of_season()
 	if bool(weather_state.call("is_rainy")):
 		farm_state.water_all_crops()
 	day_simulator.call("simulate_day", farm_state)
 	_save_game_to_slot(0)
 	_show_toast(tr("UI_SAVED"))
+
+func _on_season_changed(season: StringName) -> void:
+	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))
 
 func _save_game() -> void:
 	_save_game_to_slot(1)

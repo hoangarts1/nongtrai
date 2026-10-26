@@ -1,12 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-26 (weather)
+Last updated: 2026-10-26 (four seasons)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
-`weather` — weather state, forecast and rain placeholder
+`seasons` — four-season calendar, crop restrictions and withering
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -71,6 +71,7 @@ Last updated: 2026-10-26 (weather)
 - [x] Crop labels show localized remaining growth days, watering need and harvest readiness above each crop
 - [x] DayNightProfile interpolates data keyframes and applies sun, moon, ambient, sky and house lighting to the gray-box world
 - [x] WeatherState stores seeded current weather and forecast, rain waters crops, HUD/debug controls and placeholder rain FX are wired
+- [x] Four data-defined 28-day seasons update GameClock, HUD and save state; crops reject wrong-season planting and can wither/clear
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -89,6 +90,7 @@ Last updated: 2026-10-26 (weather)
 - Crop status is rendered as world-space billboard `Label3D` with depth testing disabled so it remains readable above placeholder crops.
 - The requested day/night, weather and season work is intentionally being delivered before Roadmap phases 7 and 11 per D19.
 - Save schema is now v2: weather is persisted and v1 saves migrate with an empty weather payload.
+- Season is persisted in the existing clock payload; no additional migration field was required.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)
 - gdtoolkit 4.3.0 is selected but not installed yet

@@ -81,6 +81,10 @@ func _use_selected_tool() -> void:
 			_show_feedback("UI_FEEDBACK_NO_SEEDS")
 			return
 		if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, crop_id):
+			var crop_data: Resource = DataRegistry.get_crop(crop_id)
+			var crop_seasons: PackedStringArray = crop_data.get("seasons") if crop_data != null else PackedStringArray()
+			if not crop_seasons.is_empty() and not crop_seasons.has(String(GameClock.season)):
+				_show_feedback("UI_FEEDBACK_OUT_OF_SEASON")
 			return
 		_inventory.remove_item(&"turnip_seed", 1)
 		_play_sound(&"seed")

@@ -6,7 +6,13 @@ func _ready() -> void:
 	_on_time_changed(GameClock.day_index, GameClock.minute)
 
 func _on_time_changed(day_index: int, minute: int) -> void:
-	text = tr("UI_CLOCK_DAY_TIME") % [day_index + 1, GameClock.format_time(minute), _period_key(minute)]
+	text = tr("UI_CLOCK_DAY_TIME") % [
+		day_index + 1,
+		GameClock.format_time(minute),
+		_period_key(minute),
+		tr(String(DataRegistry.get_season(GameClock.season).get("display_name_key"))),
+		GameClock.get_day_in_season()
+	]
 
 func _period_key(minute: int) -> String:
 	var hour: int = floori(float(posmod(minute, 1440)) / 60.0)

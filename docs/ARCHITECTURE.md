@@ -35,7 +35,7 @@ Logging is a static `Log` utility class, not an autoload. `WorldState` is a doma
 
 | Domain class | Owns | Phase |
 |---|---|---|
-| `ClockState` (inside GameClock) | day_index, minute, season, year | 2 |
+| `ClockState` (inside GameClock) | day_index, minute, season, year; season calendar comes from SeasonData resources | 2 |
 | `InventoryState` | item stacks, capacity | 3 |
 | `FarmGridState` + `PlotState` | plots by `Vector2i` | 4 |
 | `EconomyService` + `Ledger` | coins, ledger, sold_pressure | 5 |

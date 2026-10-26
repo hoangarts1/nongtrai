@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SeasonData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/season_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+season_id = &"spring"
+display_name_key = &"SEASON_SPRING"
+days_in_season = 28
+grass_color = Color(0.34, 0.62, 0.30, 1)
+weather_profile_key = &"spring"

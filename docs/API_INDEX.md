@@ -53,6 +53,7 @@ Format:
 - func set_speed(multiplier: float) -> void — sets the real-time clock multiplier; zero pauses advancement
 - func get_hour() -> int — returns the displayed in-game hour in the 0–23 range; overnight internal minutes wrap after 24:00
 - func get_minute_in_hour() -> int — returns the minute within the current hour
+- func get_day_in_season() -> int — returns the one-based day within the current season
 - func format_time(total_minutes: int) -> String — formats any internal clock minute as 24-hour `HH:MM` in the 00:00–23:59 range
 - func serialize() -> Dictionary — returns the clock save payload
 - func deserialize(data: Dictionary) -> void — restores and validates the clock save payload
@@ -90,7 +91,7 @@ Format:
 - yield_qty: int — number of product items produced on a completed harvest
 - growth_days: int — number of watered days required to mature
 - water_need: int — target watering requirement for the crop lifecycle
-- seasons: Array[StringName] — seasons in which the crop can grow
+- seasons: PackedStringArray — seasons in which the crop can grow
 - Notes: this is a data Resource; scripts must not contain crop balance numbers or rules.
 
 ## FarmGridState  (scripts/domain/farm_grid_state.gd)
@@ -98,6 +99,9 @@ Format:
 - func till_cell(cell: Vector2i) -> bool — tills an unworked plot; returns false if the plot is already tilled
 - func plant_crop(cell: Vector2i, crop_id: StringName) -> bool — plants a crop on a tilled empty plot; returns false if invalid
 - func water_cell(cell: Vector2i) -> bool — marks the plot as watered when it is planted and needs water
+- func water_all_crops() -> void — waters every planted crop, used by rainy mornings
+- func mark_out_of_season() -> void — marks crops outside their allowed season as withered
+- func clear_withered(cell: Vector2i) -> bool — removes a withered crop from a plot
 - func advance_day() -> void — advances each planted crop by one day if watered, then resets moisture
 - func can_harvest(cell: Vector2i) -> bool — returns true once the crop has matured
 - func get_growth_remaining(cell: Vector2i) -> int — returns the number of watered growth days remaining

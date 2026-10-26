@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CropData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/crop_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+crop_id = &"spring_carrot"
+display_name_key = &"CROP_SPRING_CARROT"
+seed_item = &"turnip_seed"
+product_item = &"turnip"
+yield_qty = 1
+growth_days = 3
+seasons = PackedStringArray("spring")

@@ -19,6 +19,7 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 		var hotbar: Control = main.get_node("HotbarPanel")
 		var button_bar: Control = main.get_node("HudButtonBar")
 		var clock: Control = main.get_node("ClockHud")
+		var weather: Control = main.get_node("WeatherHud")
 		var prompt: Control = main.get_node("GrayBoxWorld/InteractionLayer/InteractionPrompt")
 		debug_menu.visible = true
 		inventory.visible = false
@@ -29,6 +30,7 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 		quest.visible = false
 		var controls: Array[Control] = []
 		controls.append(clock)
+		controls.append(weather)
 		controls.append(debug_menu)
 		controls.append(inventory)
 		controls.append(hotbar)
@@ -40,7 +42,7 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 			assert_true(Rect2(Vector2.ZERO, Vector2(viewport_size)).encloses(rect), "Outside viewport at %s: %s %s" % [viewport_size, control.name, rect])
 		var pairs: Array[Array] = [
 			[clock, debug_menu], [clock, inventory], [debug_menu, inventory],
-			[clock, tutorial], [debug_menu, tutorial],
+			[clock, weather], [clock, tutorial], [debug_menu, tutorial],
 			[debug_menu, hotbar], [debug_menu, button_bar], [inventory, hotbar],
 			[inventory, button_bar], [hotbar, button_bar], [prompt, hotbar],
 			[tutorial, hotbar], [tutorial, button_bar]

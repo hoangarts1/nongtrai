@@ -121,6 +121,7 @@ func _render_cell(cell: Vector2i) -> void:
 	var plot: Dictionary = {} if _farm_state == null else _farm_state.get_plot(cell)
 	var tilled: bool = bool(plot.get("tilled", false))
 	var watered: bool = bool(plot.get("watered", false))
+	var withered: bool = bool(plot.get("withered", false))
 	var crop_id: StringName = plot.get("crop_id", &"")
 	var color: Color = Color(0.30, 0.52, 0.24, 1.0)
 	if tilled:
@@ -137,7 +138,9 @@ func _render_cell(cell: Vector2i) -> void:
 		var growth_days: int = int(plot.get("growth_days", 0))
 		var required_days: int = maxi(1, int(crop_data.get("growth_days"))) if crop_data != null else 1
 		var growth_ratio: float = clampf(float(growth_days) / float(required_days), 0.0, 1.0)
-		if growth_days >= required_days:
+		if withered:
+			label.text = tr("CROP_STATUS_WITHERED")
+		elif growth_days >= required_days:
 			label.text = tr("CROP_STATUS_READY")
 		else:
 			var remaining_days: int = maxi(1, required_days - growth_days)
@@ -149,5 +152,5 @@ func _render_cell(cell: Vector2i) -> void:
 		(crop.mesh as BoxMesh).size = Vector3(crop_size, 0.22 + crop_size, crop_size)
 		crop.position.y = 0.18 + crop_size * 0.5
 		var crop_material: StandardMaterial3D = StandardMaterial3D.new()
-		crop_material.albedo_color = Color(0.40, 0.82, 0.18, 1.0) if growth_ratio < 1.0 else Color(0.95, 0.78, 0.18, 1.0)
+		crop_material.albedo_color = Color(0.35, 0.30, 0.25, 1.0) if withered else (Color(0.40, 0.82, 0.18, 1.0) if growth_ratio < 1.0 else Color(0.95, 0.78, 0.18, 1.0))
 		crop.material_override = crop_material

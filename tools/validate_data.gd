@@ -56,7 +56,15 @@ func _init() -> void:
 		"res://data/items/turnip.tres"
 	]
 	var crop_paths: Array[String] = [
-		"res://data/crops/turnip.tres"
+		"res://data/crops/turnip.tres",
+		"res://data/crops/spring_carrot.tres",
+		"res://data/crops/spring_pea.tres",
+		"res://data/crops/summer_tomato.tres",
+		"res://data/crops/summer_corn.tres",
+		"res://data/crops/autumn_pumpkin.tres",
+		"res://data/crops/autumn_wheat.tres",
+		"res://data/crops/winter_cabbage.tres",
+		"res://data/crops/winter_radish.tres"
 	]
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
 	if errors.size() == 0:
