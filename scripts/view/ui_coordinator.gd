@@ -24,6 +24,8 @@ func configure(main: Node) -> void:
 	_backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
 	_backdrop.z_index = 80
 	main.add_child(_backdrop)
+	# GUI picking follows sibling order, independently from rendering z_index.
+	main.move_child(_backdrop, 0)
 	_backdrop.hide()
 	for panel: Control in _panels:
 		panel.z_index = 81
@@ -106,9 +108,12 @@ func _process(_delta: float) -> void:
 func _sync() -> void:
 	var modal: bool = _active != null and _active.visible
 	_backdrop.visible = modal
+	_backdrop.color.a = 0.0 if _main.start_menu.visible else 0.5
 	_main.hotbar_panel.visible = not modal
 	_main.hud_button_bar.visible = not modal
 	_main.quest_panel.visible = not modal and not _main.quest_state.is_complete()
+	for control: Control in [_main.get_node("ClockHud"), _main.weather_hud, _main.wallet_hud, _main.get_node("StatusCard")]:
+		control.visible = not _main.start_menu.visible
 	_main.world.player.movement_enabled = not modal and bool(_main.get("_game_started")) and not GameClock.is_sleeping()
 	if modal:
 		_main.world.interaction_prompt.hide()
@@ -123,6 +128,9 @@ func _sync() -> void:
 
 func _input(event: InputEvent) -> void:
 	if _active == null or event.is_echo():
+		return
+	# Let GUI buttons/scrollbars receive mouse events before gameplay filtering.
+	if event is InputEventMouse:
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
 		close_active()

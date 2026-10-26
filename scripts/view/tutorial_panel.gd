@@ -119,7 +119,7 @@ func _format_input_event(event: InputEvent) -> String:
 	if event is InputEventMouseButton:
 		var mouse_event: InputEventMouseButton = event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT:
-			return "chuột trái"
+			return tr("UI_BIND_MOUSE_LEFT")
 	return event.get_class()
 
 func _key_name(key_code: int) -> String:
@@ -131,13 +131,13 @@ func _key_name(key_code: int) -> String:
 		KEY_CTRL:
 			return "Ctrl"
 		KEY_UP:
-			return "Mũi tên lên"
+			return tr("UI_BIND_UP")
 		KEY_DOWN:
-			return "Mũi tên xuống"
+			return tr("UI_BIND_DOWN")
 		KEY_LEFT:
-			return "Mũi tên trái"
+			return tr("UI_BIND_LEFT")
 		KEY_RIGHT:
-			return "Mũi tên phải"
+			return tr("UI_BIND_RIGHT")
 		_:
 			if key_code >= KEY_A and key_code <= KEY_Z:
 				return String.chr(key_code)
@@ -146,7 +146,7 @@ func _key_name(key_code: int) -> String:
 			return ""
 
 func _tool_binding_text() -> String:
-	return "%s hoặc chuột trái" % _key_for_action(&"use_tool")
+	return tr("UI_BIND_TOOL_ALTERNATIVE") % _key_for_action(&"use_tool")
 
 func _keys_for_action(first: StringName, second: StringName, third: StringName, fourth: StringName) -> String:
 	return "%s/%s %s/%s" % [_key_for_action(first), _key_for_action(second), _key_for_action(third), _key_for_action(fourth)]

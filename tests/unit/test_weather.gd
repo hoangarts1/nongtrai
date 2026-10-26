@@ -21,6 +21,9 @@ func test_rain_waters_all_planted_crops() -> void:
 func test_weather_hud_and_rain_fx_are_inside_world_and_update() -> void:
 	var main: Node = preload("res://scenes/main/main.tscn").instantiate()
 	get_tree().root.add_child(main)
+	main.set("_game_started", true)
+	main.start_menu.hide()
+	main.tutorial_panel.close_help()
 	await get_tree().process_frame
 	var weather: Object = main.weather_state
 	weather.call("force_weather", &"rain")

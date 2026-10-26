@@ -224,10 +224,12 @@ func _render() -> void:
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		item_btn.add_child(row)
 		
-		var swatch: ColorRect = ColorRect.new()
-		swatch.custom_minimum_size = Vector2(16, 16)
+		var swatch: TextureRect = TextureRect.new()
+		swatch.custom_minimum_size = Vector2(40, 40)
+		swatch.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		swatch.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		swatch.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		swatch.color = item_data.get("color") if item_data.get("color") != null else Color.WHITE
+		swatch.texture = UiIcons.for_item(seed_id)
 		swatch.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(swatch)
 		

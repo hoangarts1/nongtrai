@@ -16,12 +16,38 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_build_ui()
 
+func apply_chibi_style() -> void:
+	var column: VBoxContainer = get_node("MarginContainer/Column")
+	var title: Label = column.get_child(0) as Label
+	title.text = tr("UI_GAME_TITLE").to_upper()
+	title.add_theme_font_size_override("font_size", 44)
+	_save_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_save_summary.add_theme_font_size_override("font_size", 15)
+	var subtitle: Label = Label.new()
+	subtitle.name = "Tagline"
+	subtitle.text = tr("UI_TITLE_TAGLINE")
+	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	column.add_child(subtitle)
+	column.move_child(subtitle, 1)
+	for child: Node in column.get_children():
+		if child is Button:
+			var button: Button = child as Button
+			var icon: StringName = &"play"
+			if button.text == tr("UI_SETTINGS"):
+				icon = &"settings"
+			elif button.text == tr("UI_MAIN_EXIT"):
+				icon = &"close"
+			UiIcons.decorate(button, icon)
+
 func configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable) -> void:
 	_new_game_callback = new_game_callback
 	_continue_callback = continue_callback
 	_exit_callback = exit_callback
+	refresh_continue()
+
+func refresh_continue() -> void:
 	var continue_button: Button = get_node("MarginContainer/Column/Continue")
-	continue_button.disabled = not SaveService.has_save()
+	continue_button.disabled = SaveService.load_latest().is_empty()
 	_save_summary.text = _continue_summary()
 
 func _build_ui() -> void:
@@ -110,10 +136,9 @@ func _continue_summary() -> String:
 	var summary: Dictionary = SaveService.get_latest_summary()
 	if summary.is_empty():
 		return ""
-	return "%s — D%d — %s" % [
+	return tr("UI_TITLE_SAVE_SUMMARY") % [
 		summary.get("farm_name", ""),
-		summary.get("day_index", 1),
-		summary.get("saved_at", "")
+		summary.get("day_index", 1)
 	]
 
 func _add_slider(parent: VBoxContainer, label: String, value: float, callback: Callable) -> void:

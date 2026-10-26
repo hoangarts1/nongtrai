@@ -10,18 +10,11 @@ func configure(social: NpcSocialState, npc: NpcData) -> void:
 	state = social
 	data = npc
 	position = GridMath.cell_to_world(state.cells[data.npc_id])
-	var mesh: MeshInstance3D = MeshInstance3D.new()
-	var capsule: CapsuleMesh = CapsuleMesh.new()
-	capsule.radius = 0.25
-	capsule.height = 1.2
-	mesh.mesh = capsule
-	mesh.position.y = 0.6
-	var material: StandardMaterial3D = StandardMaterial3D.new()
-	material.albedo_color = data.color
-	mesh.material_override = material
-	add_child(mesh)
+	var avatar: ChibiAvatar = ChibiAvatar.new()
+	add_child(avatar)
+	avatar.configure(data.color, data.is_merchant)
 	name_label = Label3D.new()
-	name_label.position.y = 1.6
+	name_label.position.y = 2.1
 	name_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	name_label.no_depth_test = true
 	name_label.font = preload("res://scenes/main/ui_theme.tres").default_font

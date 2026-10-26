@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-26 (UI readability repair after npc-quests)
+Last updated: 2026-10-26 (click regression fixed; chibi UI/presentation)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
@@ -22,10 +22,37 @@ Last updated: 2026-10-26 (UI readability repair after npc-quests)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
+- Active request (2026-10-26): fix completely unclickable menus, then redesign title/HUD with cozy chibi art/icons and lightweight animated models; audit the whole project and proceed through missing milestones. User authorizes this broader visual scope. Immediate plan: reproduce physical mouse click failure; repair backdrop/input dispatch and start/continue entry; add SVG icons, generated title illustration and pastel UI; add procedural chibi presentation with gentle animation; verify real mouse/key paths and vi/en layouts at three sizes. Runtime scripts/assets only, no scene edits needed. File scope expands to scripts/view/, assets/icons/, assets/ui/, tests/unit/, docs/, localization/. Gameplay completion proceeds separately in Roadmap order; human gates cannot be asserted passed automatically.
 - UI readability/overlap repair implemented after Phase 8 playtest screenshots; automated checks pass, human re-test pending.
 - Approved execution process continues: record plan then implement without another approval. UI-only file scope: scripts/view/{main,debug_menu,hotbar_panel,inventory_panel,seed_shop_panel,shipping_bin_panel,start_menu,npc_actor,npc_system,ui_coordinator,ui_layout}.gd, their new .uid files, tests/unit UI regression/layout tests, localization/strings_{vi,en}.csv, docs/{API_INDEX,PROGRESS,UI_LAYOUT,DECISIONS}.md. No scene, shared Theme file, domain, economy, weather or save-schema changes.
 - Plan: a view coordinator owns modal exclusivity/input/prompt suppression; a runtime layout/theme helper applies readable 18 px typography, responsive central panels and opaque surfaces using existing nodes; repair inventory/hotbar list sizing and permanent close/actions; test real key sequences, full inventory/shop lists, settings and modal switching at 1152x648, 1280x720, 1920x1080 in vi/en, then run official/headless suites and inspect rendered screenshots.
 - Risks: old layout tests assume multiple simultaneous panels and tiny dimensions; update those expectations only where the new intentional modal/layout contract changes, retain all containment/readability checks. Runtime theme is duplicated, leaving the shared .tres outside the ALLOW_LIST untouched. Keep npc-quests tag intact; use a separate UI fix commit under the user's standing one-task/one-commit workflow.
+
+## Chibi UI and mouse regression handoff
+- Acceptance delivered: actual mouse clicks work in title/settings/new-game/inventory/shop; title always opens before gameplay; Continue accepts slot 0 or 1; New Game starts a clean farm/wallet/clock/onboarding/weather/social state; existing save v4 is unchanged.
+- Root cause: ModalBackdrop was rendered behind buttons using z_index but placed after them in sibling GUI hit order. It intercepted mouse input. Now it is the first child, and modal/NPC input handlers leave mouse events to GUI. A regression test temporarily restoring the old order fails 0/2; fixed order passes. GUT overlay is excluded using an isolated SubViewport; tests inject real motion/left-button press/release events rather than emitting pressed signals.
+- Visual delivery: assets/ui/title_valley.png generated with built-in image_gen (final prompt in title_valley.prompt.txt); 22 original SVG icons under assets/icons; cream/sage rounded theme; backpack/help/journal/pause and tool icons; item artwork in hotbar/inventory/shops; localized tooltips/full-name caption; compact icon bar; title art with subtle motes. The illustration is copied into the project and does not depend on the generation cache.
+- Model delivery: ChibiAvatar procedural meshes for player/Minh/Linh, straw hat/backpack/face and idle/walk motion; WorldPresentation cottage, stall, shipping chest and ornamental trees. These are runtime mesh assemblies, not imported GLB files or completed character animation rigs. Domain state, collision anchors, season/weather/lighting profiles and scene files are unchanged. Title-art puppy is not a dog gameplay implementation.
+- Windows computer-use verification completed on a separately launched game window: mouse-click Settings → New Game → Confirm → Got it → backpack icon → Close inventory. Observed clock advance from 06:00 to 06:26 and resume after closing. Closed only that verification window through its normal exit handler; editor was left open.
+- Final full official runner:
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              40
+Tests               120
+Passing Tests       120
+Asserts            3781
+Time              16.894s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Separate headless: 40 scripts / 120 tests / 120 passing / 3720 asserts / 8.928s. Final compact icon-bar layout rechecked afterwards: 2 scripts / 5 tests / 5 passing / 1278 asserts / 9.603s, both locales and three viewports. Current parse/validator/GUT/main/mouse/headless/final-UI logs: 0 SCRIPT ERROR / Parse Error / Failed to load script / ERROR: matches. git diff --check passes. Full-suite wrapper preserved/restored player slots 0/1 and backups byte-for-byte; new save-interaction tests preserve their own slot payloads too.
+- UI tests were deliberately adapted only for new presentation semantics: hidden name labels no longer count as visible geometry (icons plus tooltips/caption replace them); weather HUD test enters gameplay because title screen now intentionally hides it. Original inventory, transaction, save, schedule and full-year invariants remain.
+- Manual editor steps: none. Stop an old game instance and F5. Verify title click/New Game/Continue, backpack/help/journal/pause icons and close buttons; hover icons for labels; select keys 1–9; buy/sell; watch character idle/walk. Screenshots: docs/screenshots/chibi_title.png and chibi_hud.png. Human follow-up: play a 10–15 minute farm loop for Gate A evidence.
+- Whole-project audit and remaining work: docs/PROJECT_AUDIT.md (phase coverage, source findings and execution order), docs/SOURCE_AUDIT.md (project-owned source/content inventory and methods). The game is still an MVP; economy ledger/orders, production/building, ecology/director, dog/story, full map/audio, export, online and release are not marked complete. Gate A/B require human/stranger playtests. Do not silently skip these gates or treat unchecked ROADMAP boxes as a reliable implementation inventory.
+- Commit message for this task: `fix: restore mouse input and add cozy chibi presentation`. Review complete diff against 5c87cd5. Existing npc-quests tag is retained.
 
 ## UI repair results and handoff
 - Fixed the reproduced inventory/pause/debug stack with UiCoordinator; one active panel through keys, HUD buttons and programmatic opens. Prompt and secondary HUD hide behind modal surfaces, Esc closes the active panel, I/H/J/Ctrl+M switch cleanly. New Game/help are separate; settings/name-entry forms are exclusive and repeated New Game clicks cannot duplicate Confirm.
@@ -296,4 +323,90 @@ tests/unit/test_hotbar_layout.gd
 tests/unit/test_npc_ui.gd
 tests/unit/test_onboarding.gd
 tests/unit/test_ui_layout.gd
+```
+
+Exact files for click/chibi task (relative to 5c87cd5):
+
+```text
+assets/icons/ui_backpack.svg
+assets/icons/ui_backpack.svg.import
+assets/icons/ui_cabbage.svg
+assets/icons/ui_cabbage.svg.import
+assets/icons/ui_carrot.svg
+assets/icons/ui_carrot.svg.import
+assets/icons/ui_close.svg
+assets/icons/ui_close.svg.import
+assets/icons/ui_coin.svg
+assets/icons/ui_coin.svg.import
+assets/icons/ui_corn.svg
+assets/icons/ui_corn.svg.import
+assets/icons/ui_harvest.svg
+assets/icons/ui_harvest.svg.import
+assets/icons/ui_help.svg
+assets/icons/ui_help.svg.import
+assets/icons/ui_hoe.svg
+assets/icons/ui_hoe.svg.import
+assets/icons/ui_journal.svg
+assets/icons/ui_journal.svg.import
+assets/icons/ui_pause.svg
+assets/icons/ui_pause.svg.import
+assets/icons/ui_pea.svg
+assets/icons/ui_pea.svg.import
+assets/icons/ui_play.svg
+assets/icons/ui_play.svg.import
+assets/icons/ui_pumpkin.svg
+assets/icons/ui_pumpkin.svg.import
+assets/icons/ui_radish.svg
+assets/icons/ui_radish.svg.import
+assets/icons/ui_seed.svg
+assets/icons/ui_seed.svg.import
+assets/icons/ui_settings.svg
+assets/icons/ui_settings.svg.import
+assets/icons/ui_sun.svg
+assets/icons/ui_sun.svg.import
+assets/icons/ui_tomato.svg
+assets/icons/ui_tomato.svg.import
+assets/icons/ui_turnip.svg
+assets/icons/ui_turnip.svg.import
+assets/icons/ui_watering_can.svg
+assets/icons/ui_watering_can.svg.import
+assets/icons/ui_wheat.svg
+assets/icons/ui_wheat.svg.import
+assets/ui/title_valley.png
+assets/ui/title_valley.png.import
+assets/ui/title_valley.prompt.txt
+docs/API_INDEX.md
+docs/CREDITS.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/PROJECT_AUDIT.md
+docs/screenshots/chibi_hud.png
+docs/screenshots/chibi_title.png
+docs/SOURCE_AUDIT.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/view/chibi_avatar.gd
+scripts/view/chibi_avatar.gd.uid
+scripts/view/hotbar_panel.gd
+scripts/view/inventory_panel.gd
+scripts/view/main.gd
+scripts/view/npc_actor.gd
+scripts/view/npc_system.gd
+scripts/view/seed_shop_panel.gd
+scripts/view/shipping_bin_panel.gd
+scripts/view/start_menu.gd
+scripts/view/title_backdrop.gd
+scripts/view/title_backdrop.gd.uid
+scripts/view/tutorial_panel.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_icons.gd
+scripts/view/ui_icons.gd.uid
+scripts/view/ui_layout.gd
+scripts/view/world_presentation.gd
+scripts/view/world_presentation.gd.uid
+tests/unit/test_hotbar_layout.gd
+tests/unit/test_ui_mouse.gd
+tests/unit/test_ui_mouse.gd.uid
+tests/unit/test_weather.gd
 ```

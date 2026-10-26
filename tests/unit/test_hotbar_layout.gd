@@ -47,6 +47,6 @@ func test_tool_labels_fit_inside_buttons_without_character_wrapping() -> void:
 
 func _collect_labels(node: Node, labels: Array[Label]) -> void:
 	for child: Node in node.get_children():
-		if child is Label:
+		if child is Label and (child as Label).visible:
 			labels.append(child as Label)
 		_collect_labels(child, labels)

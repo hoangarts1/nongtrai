@@ -1,0 +1,7 @@
+Tool: built-in image_gen (not CLI).
+Generated: 2026-10-26.
+Purpose: project title-screen illustration. Full UI text/buttons are rendered in Godot, not baked into this image.
+Output: assets/ui/title_valley.png
+
+Final prompt:
+Use case: stylized-concept. Asset type: wide 16:9 title-screen background illustration for a cozy chibi farming game called The Life. Create a polished charming picture-book / soft clay miniature valley in pastel sage green, cream, sky blue and peach. A tiny cozy cream cottage with terracotta roof, round fruit trees, raised vegetable rows with carrots/turnips, daisies, a little stream and rounded distant mountains. A cute chibi farmer with oversized straw hat and small backpack stands on a curving path near the right side, a small white floppy-eared puppy by their feet. Soft warm morning light, tactile painted textures, rounded shapes, tranquil whimsy, professional indie game key art. Wide composition with detailed farm and cottage concentrated on RIGHT TWO THIRDS, LEFT THIRD is simple pale sky and soft meadow with low visual contrast, reserved for real editable UI buttons/title that will be added in Godot. No lettering, no text, no UI, no borders, no watermark. Full bleed landscape background, high visual quality.

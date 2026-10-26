@@ -33,6 +33,8 @@ var _seconds_since_dirty_save: float = 0.0
 var _save_dirty: bool = false
 var weather_state: Object
 var ui_coordinator: UiCoordinator
+var _initial_wallet: Dictionary
+var _spawn_position: Vector3
 
 func _process(delta: float) -> void:
 	if not _game_started:
@@ -69,6 +71,8 @@ func _ready() -> void:
 	weather_state = preload("res://scripts/domain/weather_state.gd").new()
 	weather_state.call("configure", preload("res://data/weather_profile.tres"), 0)
 	wallet = preload("res://scripts/domain/economy/wallet_state.gd").new(100)
+	_initial_wallet = wallet.serialize()
+	_spawn_position = world.player.position
 	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	weather_fx.configure(weather_state)
@@ -103,7 +107,7 @@ func _ready() -> void:
 	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
 	start_menu.configure(_start_new_game, _continue_game, _quit_game)
 	npc_system.configure(self, $DialoguePanel, $NpcJournal)
-	start_menu.visible = not SaveService.has_save()
+	start_menu.visible = true
 	world.player.movement_enabled = not start_menu.visible
 	_game_started = false
 	farm_state.plot_changed.connect(_mark_save_dirty)
@@ -127,6 +131,8 @@ func _ready() -> void:
 		func() -> bool: return not GameClock.is_sleeping()
 	)
 	help_button.tooltip_text = tr("UI_HELP_BUTTON_TOOLTIP")
+	hud_button_bar.register_button(&"journal", tr("UI_NPC_JOURNAL"), npc_system.open_journal)
+	hud_button_bar.register_button(&"pause", tr("UI_PAUSE_TITLE"), pause_menu.open)
 	inventory_panel.inventory_toggled.connect(func(is_open: bool) -> void:
 		hud_button_bar.set_button_active(&"inventory", is_open)
 	)
@@ -134,6 +140,13 @@ func _ready() -> void:
 	ui_coordinator = UiCoordinator.new()
 	add_child(ui_coordinator)
 	ui_coordinator.configure(self)
+	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
+	title_backdrop.menu = start_menu
+	add_child(title_backdrop)
+	move_child(title_backdrop, 1)
+	var presentation: WorldPresentation = WorldPresentation.new()
+	add_child(presentation)
+	presentation.configure(self)
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -188,6 +201,16 @@ func _quit_game() -> void:
 	get_tree().quit()
 
 func _start_new_game(player_name: String, farm_name: String) -> void:
+	_game_started = false
+	GameClock.deserialize({})
+	inventory.clear()
+	farm_state.reset()
+	quest_state.deserialize({})
+	wallet.deserialize(_initial_wallet)
+	var fresh_weather: WeatherState = WeatherState.new()
+	fresh_weather.configure(preload("res://data/weather_profile.tres"), 0)
+	weather_state.call("deserialize", fresh_weather.serialize())
+	world.player.position = _spawn_position
 	npc_system.restore({})
 	profile = {"player_name": player_name, "farm_name": farm_name}
 	_game_started = true
@@ -212,6 +235,7 @@ func _return_to_start_menu() -> void:
 	if _game_started:
 		_save_game_to_slot(1)
 	pause_menu.close()
+	start_menu.refresh_continue()
 	start_menu.visible = true
 	world.player.movement_enabled = false
 

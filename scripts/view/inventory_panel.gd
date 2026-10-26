@@ -83,10 +83,12 @@ func _update_list() -> void:
 		var row: HBoxContainer = HBoxContainer.new()
 		row.custom_minimum_size.y = 44
 		row.add_theme_constant_override("separation", 14)
-		var swatch: ColorRect = ColorRect.new()
-		swatch.custom_minimum_size = Vector2(24, 24)
+		var swatch: TextureRect = TextureRect.new()
+		swatch.custom_minimum_size = Vector2(40, 40)
+		swatch.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		swatch.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		swatch.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		swatch.color = item.get("color")
+		swatch.texture = UiIcons.for_item(slot["item_id"])
 		row.add_child(swatch)
 		var label: Label = Label.new()
 		label.text = tr(String(item.get("display_name_key")))

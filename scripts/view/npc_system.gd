@@ -52,6 +52,8 @@ func _process(_delta: float) -> void:
 			actor.name_label.text += "\n" + tr("UI_NPC_TALK_HINT")
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		return
 	if not is_open():
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel") or event.is_action_pressed("open_journal"):

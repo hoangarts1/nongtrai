@@ -305,6 +305,15 @@ Format:
 - `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: duplicated runtime Theme (18 px body, 24 px headings), large buttons, responsive rectangles, and deferred reflow after minimum-size changes.
 - `HotbarPanel.refresh_readability() -> void`: rebuilds nine visible slots, keeping the full inventory unchanged; caption and tooltip expose full localized item names. `InventoryPanel` shows all items in a scrollable list with a fixed close header.
 - Modal shortcut contract: I/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
+- Backdrop is the first Main child for mouse hit order; render z_index alone is insufficient. Mouse events pass to GUI before key filters; mouse regression tests use press/release pairs in a separate SubViewport.
+
+## Chibi presentation and entry flow (scripts/view/)
+- `UiIcons.get_icon(icon_id: StringName) -> Texture2D`, `for_item(item_id: StringName) -> Texture2D`, `decorate(button: Button, icon_id: StringName, icon_only: bool = false) -> void`: caches 22 declared original SVG assets and maps current items to crop icons; labels/tooltips remain localized.
+- `TitleBackdrop` (TextureRect): non-interactive generated illustration plus decorative motes, visible only while StartMenu is visible. Main constructs it in code.
+- `StartMenu.apply_chibi_style() -> void`, `refresh_continue() -> void`: title styling and consistent slot-0/slot-1 Continue availability. Existing configure callback API remains compatible.
+- `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
+- `WorldPresentation.configure(main: Node) -> void`: decorates existing Player/House/SeedShop/ShippingBin anchors and adds ornamental trees; no extra gameplay authority.
+- `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
 
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
