@@ -64,6 +64,7 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"UI_DEBUG_WEATHER_SUNNY"
 	,"UI_DEBUG_WEATHER_RAIN"
 	,"UI_DEBUG_WEATHER_STORM"
+	,"UI_WALLET_COINS"
 ]
 
 func _init() -> void:

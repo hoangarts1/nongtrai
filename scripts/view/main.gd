@@ -17,10 +17,12 @@ extends Node3D
 @onready var audio_service: Node = $AudioService
 @onready var weather_hud: Label = $WeatherHud
 @onready var weather_fx: Node3D = $GrayBoxWorld/WeatherFx
+@onready var wallet_hud: Label = $WalletHud
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
 var quest_state: Variant
+var wallet: WalletState
 var profile: Dictionary = {}
 var _game_started: bool = false
 var _real_seconds_since_save: float = 0.0
@@ -61,6 +63,8 @@ func _ready() -> void:
 	quest_state = preload("res://scripts/domain/tutorial_quest_state.gd").new()
 	weather_state = preload("res://scripts/domain/weather_state.gd").new()
 	weather_state.call("configure", preload("res://data/weather_profile.tres"), 0)
+	wallet = preload("res://scripts/domain/economy/wallet_state.gd").new(100)
+	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	weather_fx.configure(weather_state)
 	inventory_panel.configure(inventory, world.player)
@@ -93,6 +97,7 @@ func _ready() -> void:
 	_game_started = false
 	farm_state.plot_changed.connect(_mark_save_dirty)
 	inventory.inventory_changed.connect(_mark_save_dirty)
+	wallet.coins_changed.connect(_mark_save_dirty)
 	if not GameClock.day_started.is_connected(_on_day_started):
 		GameClock.day_started.connect(_on_day_started)
 	if not GameClock.season_changed.is_connected(_on_season_changed):
@@ -146,7 +151,8 @@ func _save_game_to_slot(slot: int) -> void:
 		"farm": farm_state.serialize(),
 		"quests": quest_state.serialize(),
 		"profile": profile,
-		"weather": weather_state.call("serialize")
+		"weather": weather_state.call("serialize"),
+		"wallet": wallet.serialize()
 	}
 	if not SaveService.save_game(payload, slot):
 		push_warning("Main: could not save slot %d" % slot)
@@ -195,6 +201,8 @@ func _load_payload(payload: Dictionary) -> void:
 	farm_state.deserialize(payload.get("farm", {}))
 	quest_state.deserialize(payload.get("quests", {}))
 	weather_state.call("deserialize", payload.get("weather", {}))
+	wallet.deserialize(payload.get("wallet", {}))
+	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	profile = payload.get("profile", {})
 	_game_started = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/view/feedback_popup.gd" id="14_feedback"]
 [ext_resource type="Script" path="res://scripts/core/audio_service.gd" id="15_audio"]
 [ext_resource type="Script" path="res://scripts/view/weather_hud.gd" id="16_weather"]
+[ext_resource type="Script" path="res://scripts/view/wallet_hud.gd" id="17_wallet"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -77,6 +78,18 @@ offset_bottom = 82.0
 theme = ExtResource("11_theme")
 script = ExtResource("16_weather")
 
+[node name="WalletHud" type="Label" parent="."]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 84.0
+offset_right = 220.0
+offset_bottom = 112.0
+theme = ExtResource("11_theme")
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "100 Xu"
+script = ExtResource("17_wallet")
+
 [node name="DebugMenu" type="PanelContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -106,9 +119,9 @@ script = ExtResource("5_inventory")
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 16.0
-offset_top = 68.0
+offset_top = 118.0
 offset_right = 330.0
-offset_bottom = 250.0
+offset_bottom = 300.0
 theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("10_quest")
