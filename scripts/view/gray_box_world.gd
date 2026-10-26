@@ -7,14 +7,17 @@ extends Node3D
 
 const BED_INTERACTION_REACH: float = 2.5
 const SHIPPING_BIN_REACH: float = 2.5
+const SEED_SHOP_REACH: float = 2.5
 
 signal shipping_bin_interacted()
+signal seed_shop_interacted()
 
 @onready var camera: Camera3D = %Camera
 @onready var player: Player = $Player
 @onready var camera_rig: CameraRig = %CameraRig
 @onready var bed_marker: Marker3D = %BedMarker
 @onready var shipping_bin_marker: Marker3D = %ShippingBinMarker
+@onready var seed_shop_marker: Marker3D = %SeedShopMarker
 @onready var interaction_prompt: InteractionPrompt = $InteractionLayer/InteractionPrompt
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var sun: DirectionalLight3D = $Sun
@@ -45,6 +48,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if shipping_bin_marker != null and is_player_near_interactable(player.global_position, shipping_bin_marker.global_position, SHIPPING_BIN_REACH):
 		shipping_bin_interacted.emit()
 		return
+	if seed_shop_marker != null and is_player_near_interactable(player.global_position, seed_shop_marker.global_position, SEED_SHOP_REACH):
+		seed_shop_interacted.emit()
+		return
 	if not GameClock.can_sleep():
 		return
 	if not is_player_near_interactable(player.global_position, bed_marker.global_position, BED_INTERACTION_REACH):
@@ -58,6 +64,9 @@ func _update_interaction_prompt() -> void:
 		return
 	if shipping_bin_marker != null and is_player_near_interactable(player.global_position, shipping_bin_marker.global_position, SHIPPING_BIN_REACH):
 		interaction_prompt.show_prompt(tr("UI_PROMPT_SELL"))
+		return
+	if seed_shop_marker != null and is_player_near_interactable(player.global_position, seed_shop_marker.global_position, SEED_SHOP_REACH):
+		interaction_prompt.show_prompt(tr("UI_PROMPT_SHOP"))
 		return
 	if is_player_near_interactable(player.global_position, bed_marker.global_position, BED_INTERACTION_REACH) and GameClock.can_sleep():
 		interaction_prompt.show_prompt(tr("UI_SLEEP_HINT"))
