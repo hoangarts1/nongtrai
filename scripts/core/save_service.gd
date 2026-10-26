@@ -109,6 +109,10 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	var migrated: Dictionary = data.duplicate(true)
 	if version == 0:
 		migrated["meta"] = {"save_version": CURRENT_VERSION}
+	var metadata: Dictionary = migrated.get("meta", {})
+	if not metadata.has("saved_at") and metadata.has("saved_utc"):
+		metadata["saved_at"] = Time.get_datetime_string_from_unix_time(int(metadata["saved_utc"]))
+	migrated["meta"] = metadata
 	return migrated
 
 func _save_path(slot: int) -> String:
