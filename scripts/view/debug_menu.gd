@@ -15,6 +15,7 @@ var _farm_view: Node
 var _save_callback: Callable
 var _load_callback: Callable
 var _weather: Object
+var _wallet: Object
 
 func _ready() -> void:
 	if not OS.is_debug_build():
@@ -45,7 +46,12 @@ func configure(player_node: Player) -> void:
 func configure_inventory(inventory) -> void:
 	_inventory = inventory
 	register_action(tr("UI_DEBUG_ADD_SEEDS"), func() -> void: _inventory.add_item(&"turnip_seed", 10))
+	register_action(tr("UI_DEBUG_ADD_ALL_SEEDS"), _add_all_seeds)
 	register_action(tr("UI_DEBUG_CLEAR_INVENTORY"), func() -> void: _inventory.clear())
+
+func configure_wallet(wallet) -> void:
+	_wallet = wallet
+	register_action(tr("UI_DEBUG_ADD_COINS"), func() -> void: _wallet.call("add_coins", 500, &"debug_grant"))
 
 func configure_farm(farm_state: FarmGridState, farm_view: Node) -> void:
 	_farm_state = farm_state
@@ -160,6 +166,14 @@ func _grow_one_day() -> void:
 func _reset_farm() -> void:
 	if _farm_state != null:
 		_farm_state.reset()
+
+func _add_all_seeds() -> void:
+	if _inventory == null:
+		return
+	var seed_items: Array[Resource] = DataRegistry.get_seed_items()
+	for seed_data: Resource in seed_items:
+		if seed_data != null:
+			_inventory.add_item(seed_data.get("item_id"), 5)
 
 func _update_status() -> void:
 	if _player == null:

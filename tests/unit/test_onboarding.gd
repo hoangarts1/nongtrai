@@ -30,6 +30,8 @@ func test_farming_quest_steps_follow_domain_events_and_serialize() -> void:
 	Events.plot_watered.emit(Vector2i(0, 0))
 	GameClock.sleep_finished.emit(1)
 	Events.crop_harvested.emit(Vector2i(0, 0), &"turnip", 1, 1)
+	Events.item_sold.emit(&"turnip", 1, 25)
+	Events.item_purchased.emit(&"turnip_seed", 1, 20)
 	assert_true(quest.is_complete())
 	var restored = preload("res://scripts/domain/tutorial_quest_state.gd").new()
 	restored.deserialize(quest.serialize())

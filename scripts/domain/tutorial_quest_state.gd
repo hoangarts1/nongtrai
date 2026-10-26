@@ -9,8 +9,8 @@ extends RefCounted
 signal step_changed(step_index: int, completed: bool)
 signal all_completed()
 
-const STEP_COUNT: int = 5
-var _completed: Array[bool] = [false, false, false, false, false]
+const STEP_COUNT: int = 7
+var _completed: Array[bool] = [false, false, false, false, false, false, false]
 
 func _init() -> void:
 	Events.plot_tilled.connect(_on_plot_tilled)
@@ -18,6 +18,8 @@ func _init() -> void:
 	Events.plot_watered.connect(_on_plot_watered)
 	Events.crop_harvested.connect(_on_crop_harvested)
 	GameClock.sleep_finished.connect(_on_sleep_finished)
+	Events.item_sold.connect(_on_item_sold)
+	Events.item_purchased.connect(_on_item_purchased)
 
 func is_step_completed(step_index: int) -> bool:
 	return step_index >= 0 and step_index < STEP_COUNT and _completed[step_index]
@@ -61,3 +63,9 @@ func _on_sleep_finished(_day_index: int) -> void:
 
 func _on_crop_harvested(_cell: Vector2i, _crop_id: StringName, _quantity: int, _quality: int) -> void:
 	_complete_step(4)
+
+func _on_item_sold(_item_id: StringName, _quantity: int, _total_price: int) -> void:
+	_complete_step(5)
+
+func _on_item_purchased(_item_id: StringName, _quantity: int, _total_price: int) -> void:
+	_complete_step(6)

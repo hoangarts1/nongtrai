@@ -93,6 +93,7 @@ func _ready() -> void:
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)
 	hotbar_panel.register_tool(&"harvest", tr("UI_TOOL_HARVEST"), func() -> void: tool_controller.select_tool(&"harvest"))
 	debug_menu.configure_inventory(inventory)
+	debug_menu.configure_wallet(wallet)
 	debug_menu.configure_farm(farm_state, farm_view)
 	debug_menu.configure_save_load(_save_game, _load_game)
 	debug_menu.configure_weather(weather_state)

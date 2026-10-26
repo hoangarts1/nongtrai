@@ -9,7 +9,9 @@ const STEP_KEYS: Array[StringName] = [
 	&"UI_QUEST_PLANT",
 	&"UI_QUEST_WATER",
 	&"UI_QUEST_SLEEP",
-	&"UI_QUEST_HARVEST"
+	&"UI_QUEST_HARVEST",
+	&"UI_QUEST_SELL",
+	&"UI_QUEST_BUY_SEED"
 ]
 var _state: Variant
 var _list: VBoxContainer
