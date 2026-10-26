@@ -34,3 +34,4 @@ Notes
 - Debug console commands (set_time, give_item …) are opened from the debug overlay and exist only when `OS.is_debug_build()`.
 - Gamepad bindings: Phase 11; keep the same action names.
 - Built-in `ui_*` actions are left untouched.
+- Phase 8 uses existing `interact` (E), `open_journal` (J), and `pause`/`cancel` (Esc). E opens the nearest available NPC; dialogue actions use buttons; Esc closes the NPC modal before the pause menu. J closes an open NPC modal or opens the journal. No new InputMap entries are needed.

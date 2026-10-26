@@ -1,12 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-26 (mvp-economy)
+Last updated: 2026-10-26 (npc-quests)
 
 ## Current milestone
-`Phase 5 (MVP Economy)` — distinct crop/seed items, wallet, shipping bin, seed shop, tutorial quest expansion, save v3, and full year simulation.
+`Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
 
 ## Last commit / tag
-`mvp-economy` — distinct seeds & crops, wallet, shipping bin, seasonal seed shop, save v3 migration, and full year simulation
+`npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -81,9 +81,18 @@ Last updated: 2026-10-26 (mvp-economy)
 - [x] Save schema bumped to save_version 3, backward-compatible migration for v1 and v2 saves, and save_v3 golden fixture
 - [x] Integration test simulates an entire 4-season year: buying seeds, planting, watering, sleeping, harvesting and selling with non-negative wallet invariants
 - [x] Official runner verified after economy milestone: 33 scripts, 97 tests, 97 passing, 2325 asserts
+- [x] Phase 8 request: confirmed all-or-nothing delivery through existing wallet/inventory APIs; no shortage consumption, no duplicate payout, reward capacity checked after removal
+- [x] Minh's seeded daily resource offers; finite stock persists across load; original item prices and existing full-year simulation unchanged
+- [x] Minh/Linh placeholder actors follow AStarGrid2D routes, seasonal/weekly schedules, DayNightProfile night threshold and rain/home override
+- [x] E dialogue, J journal, named NPCs, explicit quest/trade buttons, localizable feedback, debug quick-test buttons and modal input/clock locking
+- [x] Save v4 social payload and v3 migration; old golden v1/v2/v3 retained; active/completed quests, friendships, heard dialogue, talk days, positions and used merchant offers round-trip
+- [x] Final official runner: 39 scripts / 113 tests / 113 passing / 2850 asserts; parse/validator/main smoke PASS; headless GUT: 113 passing / 2838 asserts (12 PNG assertions apply only to rendered runs)
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
+- NPCs and their homes are simple placeholders; interiors, dog and Chapter I quest content are outside this slice. NPCs walk home before hiding; indoors NPCs cannot be spoken to in this placeholder version.
+- Night follows the shared profile's moon-energy threshold (0.14 in NPC data), so it overrides Minh's nominal 22:00 visit end. Scheduled visits remain days 3/6 of each week, per Roadmap and D21.
+- Dialogue pauses the clock; no periodic save while it is open. Closing marks the save dirty; exiting closes it and then saves at a safe point.
 
 ## Decisions since last update
 - D08 and D13 confirmed from the submitted project form.
@@ -106,6 +115,7 @@ Last updated: 2026-10-26 (mvp-economy)
 
 ## Next up (agent proposal)
 - MVP farming loop and the requested first polish pass are complete; final models and audio assets remain developer-supplied.
+- Human: run the Phase 8 manual checklist below. Do not advance to dog/Chapter I or change the Roadmap status based on automated tests alone.
 
 ## Phase 8 execution plan (approved by product owner, 2026-10-26)
 - Task 4 save domain verified: v4 social payload, explicit migrate_3_to_4, old golden fixtures retained, golden v4 added; v1/v2/v3 preserve onboarding/profile/farm/inventory/clock/player and wallet/weather. Dedicated tests cover unknown ids/types, friendship clamping, daily talk persistence, completed quests and merchant consumed days. The final headless run passes 39 scripts / 113 tests / 2838 asserts. Existing save-version assertions now expect v4 deliberately, with all original field checks retained.
@@ -123,5 +133,112 @@ Last updated: 2026-10-26 (mvp-economy)
 
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.
-- All tests: `tools/run_tests.sh` / `tools\run_tests.bat` (fails on purpose until roadmap task 0.1 configures the test command).
-- Main scene: (not created yet)
+- All tests: `tools/run_tests.sh` / `tools\run_tests.bat`; Windows official runner uses the pinned Godot executable and bounded processes, with error-text scans.
+- Main scene: `scenes/main/main.tscn` (F5). No manual node/Inspector/InputMap changes are required for Phase 8; additions are in the allowed main scene, while existing E/J/Esc actions are reused.
+
+## Phase 8 handoff and manual checklist
+- Acceptance: delivery changes inventory only on explicit confirmation with enough items and reward room; merchant quote is data-defined, finite and isolated; every season respects rain/night home schedules; v3 load keeps previous progress and v4 social state survives save/load.
+- [ ] F5, start/continue, dismiss help; press J, close with J/Esc, check that movement/clock/HUD resume.
+- [ ] Ctrl+M → Test Minh visit; close debug menu; E near Minh → accept quest. With fewer than 3 turnips, confirm is disabled and nothing is removed.
+- [ ] Ctrl+M → add delivery turnips; close menu; E → confirm delivery. Exactly 3 turnips leave inventory; 60 coins and 2 spring carrot seeds arrive once. Check full-inventory blocking, including space freed by delivery.
+- [ ] Confirm Minh's daily discount/request; compare the normal shop/bin price before/after. Repeat today and after save/load: no second trade. Advance to a new visit day: stock is available again.
+- [ ] Use existing debug weather/time controls: rain and 20:00 send NPCs home; resume sunny daytime and observe routes around farm/buildings. Check all four seasons; Linh's warm/cool season destinations differ.
+- [ ] Save with an active quest and after completing it, exit/Continue, inspect J: friendship and quest state persist; dialogue reflects the restored quest condition. `social.heard` in save JSON keeps heard dialogue ids. Repeated talk/load on the same day adds no extra friendship.
+- [ ] Repeat dialogue/journal at 1152x648, 1280x720 and 1920x1080; scroll long English text/actions. Esc closes the NPC modal without opening Pause; I/H/Ctrl+M do not open another modal over it.
+- Assumptions: small declared static navigation grid, no dynamic building placements in this milestone; home boxes are presentation markers and NPC navigation does not share player physics. Daily offers are deterministic from saved seed/day and shipped data.
+- Rendered evidence: `user://npc_dialogue_{vi,en}_{1152x648,1280x720,1920x1080}.png` and matching `npc_journal_...png`; generated by test_npc_ui. Visual QA sampled both languages at all three sizes using GUT `-gopacity=0` to keep the runner overlay out of screenshots.
+- Full code diff for review: `git diff 57c9bde..npc-quests` (includes the pre-existing base committed at Step 0); commit log separates base, docs, delivery, merchant, schedules, save migration and UI integration. Extra metadata-only Step 0 commit: 57c9bde; item_data.gd's missing final newline was restored with no resulting content diff.
+- Proposed/used one-line integration commit: `feat: integrate NPC dialogue journal and validated trade UI`.
+
+## Exact Phase 8 file manifest (relative to 57c9bde)
+
+Created (includes the pre-existing NPC/quest base):
+
+```text
+data/npcs/phase8_world.tres
+data/quests/quest_turnip_delivery.tres
+data/shops/minh_autumn_discount.tres
+data/shops/minh_spring_discount.tres
+data/shops/minh_summer_discount.tres
+data/shops/minh_turnip_request.tres
+data/shops/minh_winter_discount.tres
+scripts/data/dialogue_data.gd
+scripts/data/dialogue_data.gd.uid
+scripts/data/merchant_offer_data.gd
+scripts/data/merchant_offer_data.gd.uid
+scripts/data/npc_data.gd
+scripts/data/npc_data.gd.uid
+scripts/data/npc_schedule_entry.gd
+scripts/data/npc_schedule_entry.gd.uid
+scripts/data/npc_world_data.gd
+scripts/data/npc_world_data.gd.uid
+scripts/data/quest_data.gd
+scripts/data/quest_data.gd.uid
+scripts/data/world_locations.gd
+scripts/data/world_locations.gd.uid
+scripts/domain/quests/det_random.gd
+scripts/domain/quests/det_random.gd.uid
+scripts/domain/quests/merchant_service.gd
+scripts/domain/quests/merchant_service.gd.uid
+scripts/domain/quests/npc_schedule.gd
+scripts/domain/quests/npc_schedule.gd.uid
+scripts/domain/quests/npc_social_state.gd
+scripts/domain/quests/npc_social_state.gd.uid
+scripts/domain/quests/quest_manager.gd
+scripts/domain/quests/quest_manager.gd.uid
+scripts/view/npc_actor.gd
+scripts/view/npc_actor.gd.uid
+scripts/view/npc_panel.gd
+scripts/view/npc_panel.gd.uid
+scripts/view/npc_system.gd
+scripts/view/npc_system.gd.uid
+tests/golden_saves/save_v4.json
+tests/unit/test_merchant_service.gd
+tests/unit/test_merchant_service.gd.uid
+tests/unit/test_npc_data_validation.gd
+tests/unit/test_npc_data_validation.gd.uid
+tests/unit/test_npc_quest_delivery.gd
+tests/unit/test_npc_quest_delivery.gd.uid
+tests/unit/test_npc_schedule.gd
+tests/unit/test_npc_schedule.gd.uid
+tests/unit/test_npc_social_save.gd
+tests/unit/test_npc_social_save.gd.uid
+tests/unit/test_npc_ui.gd
+tests/unit/test_npc_ui.gd.uid
+```
+
+Modified:
+
+```text
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scenes/main/main.tscn
+scripts/core/data_registry.gd
+scripts/core/data_validator.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+tests/unit/test_save_service.gd
+tests/unit/test_weather.gd
+tools/validate_data.gd
+```
+
+Real final runner output:
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              39
+Tests               113
+Passing Tests       113
+Asserts            2850
+Time              5.728s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+Separate headless GUT: 39 scripts, 113 tests, 113 passing, 2838 asserts, 4.094s. Final error-text scan: 0 matches across parse, validator, GUT, main, headless and NPC UI logs. Human manual playtest is still pending; gdtoolkit lint was not run (not installed).

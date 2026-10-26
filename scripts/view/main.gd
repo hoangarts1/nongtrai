@@ -20,6 +20,7 @@ extends Node3D
 @onready var wallet_hud: Label = $WalletHud
 @onready var shipping_bin_panel = $ShippingBinPanel
 @onready var seed_shop_panel = $SeedShopPanel
+@onready var npc_system: NpcSystem = $NpcSystem
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
@@ -53,6 +54,7 @@ func _notification(what: int) -> void:
 
 func _save_before_exit() -> void:
 	if _game_started:
+		npc_system.close_panels()
 		_save_game_to_slot(1)
 
 func _ready() -> void:
@@ -99,6 +101,7 @@ func _ready() -> void:
 	debug_menu.configure_weather(weather_state)
 	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
 	start_menu.configure(_start_new_game, _continue_game, _quit_game)
+	npc_system.configure(self, $DialoguePanel, $NpcJournal)
 	start_menu.visible = not SaveService.has_save()
 	world.player.movement_enabled = not start_menu.visible
 	_game_started = false
@@ -145,6 +148,8 @@ func _save_game() -> void:
 	_show_toast(tr("UI_SAVED"))
 
 func _save_game_to_slot(slot: int) -> void:
+	if npc_system.is_open():
+		return
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
 		"player": {
@@ -159,7 +164,8 @@ func _save_game_to_slot(slot: int) -> void:
 		"quests": quest_state.serialize(),
 		"profile": profile,
 		"weather": weather_state.call("serialize"),
-		"wallet": wallet.serialize()
+		"wallet": wallet.serialize(),
+		"social": npc_system.state.serialize()
 	}
 	if not SaveService.save_game(payload, slot):
 		push_warning("Main: could not save slot %d" % slot)
@@ -178,6 +184,7 @@ func _quit_game() -> void:
 	get_tree().quit()
 
 func _start_new_game(player_name: String, farm_name: String) -> void:
+	npc_system.restore({})
 	profile = {"player_name": player_name, "farm_name": farm_name}
 	_game_started = true
 	world.player.movement_enabled = true
@@ -209,6 +216,8 @@ func _load_payload(payload: Dictionary) -> void:
 	quest_state.deserialize(payload.get("quests", {}))
 	weather_state.call("deserialize", payload.get("weather", {}))
 	wallet.deserialize(payload.get("wallet", {}))
+	var social_data: Variant = payload.get("social", {})
+	npc_system.restore(social_data if social_data is Dictionary else {})
 	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	profile = payload.get("profile", {})
@@ -222,7 +231,7 @@ func _load_payload(payload: Dictionary) -> void:
 			float(position_data.get("z", world.player.global_position.z))
 		)
 
-func _mark_save_dirty(_value: Variant = null) -> void:
+func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:
 		_save_dirty = true
 		_seconds_since_dirty_save = 0.0

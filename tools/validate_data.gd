@@ -90,6 +90,11 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"UI_CONFIRM_DELIVERY"
 	,"UI_FEEDBACK_QUEST_COMPLETED"
 	,"UI_FEEDBACK_NOT_ENOUGH_ITEMS"
+	,"UI_NPC_CLOSE", "UI_NPC_TALK_HINT", "UI_NPC_HOME", "UI_NPC_JOURNAL", "UI_NPC_JOURNAL_HINT"
+	,"UI_NPC_FRIENDSHIP", "UI_NPC_QUEST_NEW", "UI_NPC_QUEST_ACTIVE", "UI_NPC_QUEST_DONE", "UI_NPC_ACCEPT_QUEST"
+	,"UI_NPC_OFFER_DISCOUNT", "UI_NPC_OFFER_REQUEST", "UI_NPC_CONFIRM_TRADE", "UI_NPC_TRADE_DONE", "UI_NPC_TRADE_BLOCKED"
+	,"UI_DEBUG_NPC_VISIT", "UI_DEBUG_NPC_ITEMS", "UI_DEBUG_NPC_JOURNAL"
+	,"UI_NPC_DELIVERY_BLOCKED"
 ]
 
 func _init() -> void:
@@ -146,6 +151,14 @@ func _init() -> void:
 		"res://localization/strings_en.csv"
 	]
 	errors = VALIDATOR_SCRIPT.validate_translation_keys(locale_paths, REQUIRED_KEYS)
+	if errors.is_empty():
+		var items: Array[Resource] = []
+		for item_path: String in item_paths:
+			items.append(load(item_path))
+		var quests: Array[Resource] = []
+		for quest_path: String in quest_paths:
+			quests.append(load(quest_path))
+		errors = VALIDATOR_SCRIPT.validate_npc_world(preload("res://data/npcs/phase8_world.tres"), items, quests, locale_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_vietnamese_values(
 			"res://localization/strings_en.csv",

@@ -34,3 +34,10 @@ suppressed.
 The pause menu uses `Esc` / the `pause` InputMap action. Its settings controls
 persist language and music/effects volume through `Settings`. New-game profile
 names are stored in the normal save slot; sleeping writes the autosave slot 0.
+
+## Phase 8 additions (scene contract for this task)
+- `Main/NpcSystem` (Node3D, `scripts/view/npc_system.gd`) creates placeholder `minh` and `linh` actors and home boxes from `data/npcs/phase8_world.tres`. It never edits the world scene or existing shop/bin nodes.
+- `Main/DialoguePanel` and `Main/NpcJournal` (PanelContainer, `scripts/view/npc_panel.gd`) use a centered 520×300 rectangle, shared Theme, scrollable VBox body/actions, and a close button. No extra input action: E talks, J opens/closes the journal, Esc closes the modal. Domain state belongs to NpcSocialState.
+- NPC name labels show the existing E binding when the player is within the data-defined reach. Indoors NPCs are hidden; small labeled home boxes identify where they went.
+- NPC modals pause the clock, lock movement, suppress the onboarding panel and hide the hotbar/HUD buttons; world/tool/inventory/help/debug input is consumed. They close before restoring input and HUD visibility; no save while an NPC modal is open. Exit closes the modal before the final save. Dialogue buttons are explicit confirmation; journal never consumes items.
+- Main composes `social` in the save payload and restores it after clock/weather; no new autoload or world ownership is introduced.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
 [ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
@@ -19,6 +19,8 @@
 [ext_resource type="Script" path="res://scripts/view/wallet_hud.gd" id="17_wallet"]
 [ext_resource type="Script" path="res://scripts/view/shipping_bin_panel.gd" id="18_shipping_bin"]
 [ext_resource type="Script" path="res://scripts/view/seed_shop_panel.gd" id="19_seed_shop"]
+[ext_resource type="Script" path="res://scripts/view/npc_system.gd" id="20_npc"]
+[ext_resource type="Script" path="res://scripts/view/npc_panel.gd" id="21_npc_panel"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -251,3 +253,12 @@ script = ExtResource("14_feedback")
 
 [node name="AudioService" type="Node" parent="."]
 script = ExtResource("15_audio")
+
+[node name="DialoguePanel" type="PanelContainer" parent="."]
+script = ExtResource("21_npc_panel")
+
+[node name="NpcJournal" type="PanelContainer" parent="."]
+script = ExtResource("21_npc_panel")
+
+[node name="NpcSystem" type="Node3D" parent="."]
+script = ExtResource("20_npc")

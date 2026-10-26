@@ -198,6 +198,8 @@ static func validate_quest_resources(quests: Array[Resource], items: Array[Resou
 		var req_qty: int = int(quest.get("required_item_quantity"))
 		if req_qty < 0:
 			errors.append("quest %s required_item_quantity cannot be negative" % q_id)
+		if req_qty > 0 and (req_item == null or String(req_item).is_empty()):
+			errors.append("quest %s positive requirement needs an item id" % q_id)
 		
 		var rew_coins: int = int(quest.get("reward_coins"))
 		if rew_coins < 0:
@@ -210,6 +212,8 @@ static func validate_quest_resources(quests: Array[Resource], items: Array[Resou
 		var rew_qty: int = int(quest.get("reward_item_quantity"))
 		if rew_qty < 0:
 			errors.append("quest %s reward_item_quantity cannot be negative" % q_id)
+		if rew_qty > 0 and (rew_item == null or String(rew_item).is_empty()):
+			errors.append("quest %s positive reward needs an item id" % q_id)
 	return errors
 
 static func validate_quest_paths(quest_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
@@ -226,6 +230,81 @@ static func validate_quest_paths(quest_paths: Array[String], item_paths: Array[S
 		else:
 			items.append(null)
 	return validate_quest_resources(quests, items)
+
+static func validate_npc_world(data: NpcWorldData, items: Array[Resource], quests: Array[Resource], locale_paths: Array[String]) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if data == null or data.locations == null or data.day_night_profile == null:
+		return PackedStringArray(["NPC world requires locations and lighting profile"])
+	if data.days_per_week <= 0 or data.interaction_reach <= 0.0 or data.night_moon_energy <= 0.0:
+		errors.append("NPC schedule parameters must be positive")
+	var keys: PackedStringArray = PackedStringArray()
+	var ids: Dictionary = {}
+	var quest_ids: Dictionary = {}
+	var item_ids: Dictionary = {}
+	for item: Resource in items:
+		item_ids[item.get("item_id")] = item
+	for quest: Resource in quests:
+		quest_ids[quest.get("quest_id")] = quest
+		keys.append(String(quest.get("title_key")))
+		keys.append(String(quest.get("description_key")))
+	for resource: Resource in data.npcs:
+		var npc: NpcData = resource as NpcData
+		if npc == null or not _is_snake_case(String(npc.npc_id)) or ids.has(npc.npc_id):
+			errors.append("Invalid or duplicate NPC id")
+			continue
+		ids[npc.npc_id] = npc
+		keys.append(String(npc.display_name_key))
+		if not data.locations.has_location(npc.home_location):
+			errors.append("Unknown NPC home: %s" % npc.npc_id)
+		if npc.friendship_max <= 0 or npc.talk_friendship < 0 or npc.move_speed <= 0.0:
+			errors.append("Invalid NPC movement/friendship: %s" % npc.npc_id)
+		for block: Resource in npc.schedule:
+			var entry: NpcScheduleEntry = block as NpcScheduleEntry
+			if entry == null:
+				errors.append("Invalid NPC schedule resource")
+				continue
+			if not data.locations.has_location(entry.location_id) or entry.start_minute >= entry.end_minute:
+				errors.append("Invalid NPC schedule location/time")
+			for weekday: int in entry.weekdays:
+				if weekday < 1 or weekday > data.days_per_week:
+					errors.append("Invalid NPC weekday")
+			for season: String in entry.seasons:
+				if not season in ["spring", "summer", "autumn", "winter"]:
+					errors.append("Invalid NPC season")
+	var line_ids: Dictionary = {}
+	for resource: Resource in data.dialogues:
+		var line: DialogueData = resource as DialogueData
+		if line == null or not _is_snake_case(String(line.dialogue_id)) or line_ids.has(line.dialogue_id):
+			errors.append("Invalid or duplicate dialogue id")
+			continue
+		line_ids[line.dialogue_id] = true
+		keys.append(String(line.text_key))
+		if not ids.has(line.npc_id) or (not line.quest_id.is_empty() and not quest_ids.has(line.quest_id)):
+			errors.append("Unresolved dialogue NPC/quest")
+	var offer_ids: Dictionary = {}
+	for resource: Resource in data.offers:
+		var offer: MerchantOfferData = resource as MerchantOfferData
+		if offer == null or not _is_snake_case(String(offer.offer_id)) or offer_ids.has(offer.offer_id):
+			errors.append("Invalid or duplicate merchant offer id")
+			continue
+		offer_ids[offer.offer_id] = true
+		if not item_ids.has(offer.item_id) or offer.quantity <= 0 or offer.unit_price <= 0 or not offer.kind in ["discount", "request"]:
+			errors.append("Invalid merchant offer: %s" % offer.offer_id)
+		elif offer.kind == "discount":
+			var item: Resource = item_ids[offer.item_id]
+			if offer.unit_price >= int(item.get("buy_price")) or offer.unit_price < int(item.get("sell_price")):
+				errors.append("Merchant discount must be below buy price and at least sell price")
+	if errors.is_empty():
+		var schedule: NpcSchedule = NpcSchedule.new()
+		schedule.configure(data)
+		for resource: Resource in data.npcs:
+			var npc: NpcData = resource as NpcData
+			for block: Resource in npc.schedule:
+				var entry: NpcScheduleEntry = block as NpcScheduleEntry
+				if schedule.route(schedule.location_cell(npc.home_location), schedule.location_cell(entry.location_id)).is_empty():
+					errors.append("Unreachable NPC destination: %s" % entry.location_id)
+	errors.append_array(validate_translation_keys(locale_paths, keys))
+	return errors
 
 static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()

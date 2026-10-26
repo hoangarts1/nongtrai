@@ -62,6 +62,8 @@ func can_deliver(quest_id: StringName, inventory: InventoryState) -> bool:
 	var quest: QuestData = get_quest(quest_id)
 	if quest == null or quest.required_item_quantity < 0 or quest.reward_item_quantity < 0 or quest.reward_coins < 0:
 		return false
+	if (quest.required_item_quantity > 0 and quest.required_item_id.is_empty()) or (quest.reward_item_quantity > 0 and quest.reward_item_id.is_empty()):
+		return false
 	if not quest.required_item_id.is_empty() and quest.required_item_quantity > 0:
 		if inventory == null or not inventory.has_item(quest.required_item_id, quest.required_item_quantity):
 			return false

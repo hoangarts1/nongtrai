@@ -291,6 +291,14 @@ Format:
 - `serialize()/deserialize()`: quests, daily merchant stock, friendship, heard lines, last talk days and cells; routes rebuilt from current conditions. `changed()` is local.
 - `NpcWorldData` (`data/npcs/phase8_world.tres`): NPC/dialogue/offer resources, locations, blocked rectangles, lighting profile, night threshold, week length and interaction distance.
 
+## Phase 8 views (scripts/view/)
+- `NpcSystem.configure(main: Node, dialogue: NpcPanel, journal: NpcPanel) -> void`: connects clock/weather, actors, shared state, and debug actions.
+- `open_journal()`, `open_dialogue(npc_id: StringName)`, `close_panels()`, `is_open() -> bool`: modal lifecycle and input gate; dialogue requires a nearby outdoor NPC. Clock pause and HUD visibility restore on close.
+- `restore(data: Dictionary) -> void`: restore domain, rebuild schedule, synchronize placeholder positions/visibility. Main writes `state.serialize()` only at safe points; exit closes the modal first.
+- `NpcPanel.show_content(title: String, body: String, actions: Array[Dictionary] = []) -> void`: scrollable localized body/buttons; `close_requested()` is local.
+- `NpcActor.configure(social: NpcSocialState, npc: NpcData)`, `reset_position()`: interpolate the domain route via GridMath, hide on arrival home, display localized name/prompt.
+- `DataValidator.validate_npc_world(data, items, quests, locale_paths) -> PackedStringArray`: unique ids, references, schedule bounds, reachable destinations, friendship limits, merchant prices and translation coverage. tools/validate_data.gd includes this gate.
+
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
 - func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls; locks player movement
