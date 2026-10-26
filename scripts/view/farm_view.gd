@@ -3,8 +3,11 @@
 ##   func configure(farm_state: FarmGridState) -> void
 ##   func get_cell_view(cell: Vector2i) -> MeshInstance3D
 ##   func get_crop_view(cell: Vector2i) -> MeshInstance3D
+##   func pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant
 class_name FarmView
 extends Node3D
+
+const CROP_PRESENTATION: Script = preload("res://scripts/view/crop_presentation.gd")
 
 @export var grid_size: Vector2i = Vector2i(6, 6)
 @export var cell_size: float = 1.0
@@ -14,6 +17,7 @@ var _cells: Dictionary = {}
 var _crops: Dictionary = {}
 var _crop_labels: Dictionary = {}
 var _highlight: MeshInstance3D
+var _sway_time: float = 0.0
 
 func _ready() -> void:
 	_build_grid()
@@ -22,6 +26,17 @@ func configure(farm_state: FarmGridState) -> void:
 	_farm_state = farm_state
 	_farm_state.plot_changed.connect(_on_plot_changed)
 	_render_all()
+
+func _process(delta: float) -> void:
+	if GameClock.paused:
+		return
+	_sway_time += delta
+	for cell: Vector2i in _crops:
+		var crop: MeshInstance3D = _crops[cell] as MeshInstance3D
+		if crop == null or not crop.visible or bool(crop.get_meta("withered", false)):
+			continue
+		var phase: float = deg_to_rad(float(posmod(cell.x * 17 + cell.y * 31, 360)))
+		crop.rotation.z = sin(_sway_time * 1.15 + phase) * 0.035
 
 func get_cell_view(cell: Vector2i) -> MeshInstance3D:
 	return _cells.get(cell) as MeshInstance3D
@@ -166,16 +181,9 @@ func _render_cell(cell: Vector2i) -> void:
 			label.text = tr("CROP_STATUS_REMAINING") % remaining_days
 			if not watered:
 				label.text += "\n" + tr("CROP_STATUS_NEEDS_WATER")
-		var crop_size: float = lerpf(0.18, 0.52, growth_ratio)
-		crop.mesh = BoxMesh.new()
-		(crop.mesh as BoxMesh).size = Vector3(crop_size, 0.22 + crop_size, crop_size)
-		crop.position.y = 0.18 + crop_size * 0.5
 		var target_color: Color = crop_data.get("color") if crop_data != null and crop_data.get("color") != null else Color(0.95, 0.78, 0.18, 1.0)
-		var crop_material: StandardMaterial3D = StandardMaterial3D.new()
-		if withered:
-			crop_material.albedo_color = Color(0.35, 0.30, 0.25, 1.0)
-		elif growth_ratio < 1.0:
-			crop_material.albedo_color = Color(0.40, 0.82, 0.18, 1.0).lerp(target_color, growth_ratio * 0.75)
-		else:
-			crop_material.albedo_color = target_color
-		crop.material_override = crop_material
+		CROP_PRESENTATION.render(crop, crop_id, growth_ratio, target_color, withered, watered, cell)
+		crop.set_meta("withered", withered)
+	else:
+		CROP_PRESENTATION.clear(crop)
+		crop.set_meta("withered", false)

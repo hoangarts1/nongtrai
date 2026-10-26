@@ -126,9 +126,9 @@ Format:
 
 ## FarmView  (scripts/view/farm_view.gd)
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder soil view
-- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder crop view
-- func get_crop_label(cell: Vector2i) -> Label3D — returns the billboard growth-status label above a crop
-- Notes: labels show remaining days, watering status, or harvest readiness and are refreshed from `FarmGridState.plot_changed`.
+- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop root view
+- func get_crop_label(cell: Vector2i) -> Label3D — retains the legacy billboard growth-status label for compatibility
+- Notes: label text still refreshes from `FarmGridState.plot_changed`, but the label stays hidden because CropInspector provides the readable status/timer surface.
 
 ## FeedbackPopup  (scripts/view/feedback_popup.gd)
 - func show_message(message: String) -> void — displays a short animated result message
@@ -174,7 +174,20 @@ Format:
 - func configure(farm_state: FarmGridState) -> void — binds the placeholder view to the farm domain state
 - func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell
 - func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop placeholder for a cell
-- Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState.
+- func pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant — selects the visible bounds of a crop mesh or returns null
+- Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState. Crop root bounds remain selectable while children render a crop-family-specific sprout, growing or mature form; labels are hidden in favor of CropInspector.
+
+## CropPresentation  (scripts/view/crop_presentation.gd)
+- static func render(crop: MeshInstance3D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, cell: Vector2i) -> void — rebuilds a view-only crop root and its family-specific child meshes from existing plot data
+- static func clear(crop: MeshInstance3D) -> void — removes only presentation meshes from an empty crop root
+- Notes: supports roots, tomato, corn, wheat, pumpkin, cabbage and pea silhouettes plus a wilted state. It owns no crop state, timers, inventory changes or save data.
+
+## WorldArtFactory  (scripts/view/world_art_factory.gd)
+- static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void — decorates an existing home anchor while retaining its world transform
+- static func build_market(anchor: MeshInstance3D) -> void — decorates the existing SeedShop anchor as a seed market stall
+- static func decorate_shipping_bin(anchor: MeshInstance3D) -> void — decorates the existing shipping-bin anchor
+- static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D — adds a non-colliding, view-only rock/moss group outside playable farm cells
+- Notes: no marker, collision, interaction or gameplay ownership changes. All meshes and materials are constructed locally at runtime.
 - Notes: the gray-box scene places the 6×6 grid inside the 6 m × 6 m `FarmPlot`; target green means reachable and red means outside tool reach.
 
 ## ToolData  (scripts/data/tool_data.gd)
@@ -312,7 +325,7 @@ Format:
 - `TitleBackdrop` (TextureRect): non-interactive generated illustration plus decorative motes, visible only while StartMenu is visible. Main constructs it in code.
 - `StartMenu.apply_chibi_style() -> void`, `refresh_continue() -> void`: title styling and consistent slot-0/slot-1 Continue availability. Existing configure callback API remains compatible.
 - `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
-- `WorldPresentation.configure(main: Node) -> void`: decorates existing Player/House/SeedShop/ShippingBin anchors and adds ornamental trees; no extra gameplay authority.
+- `WorldPresentation.configure(main: Node) -> void`: decorates existing Player/House/SeedShop/ShippingBin anchors, homes, trees and exterior rock clusters; applies Forward+ filmic/soft-glow/fog lighting while preserving all gameplay markers, collision and authority.
 - `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
 
 ## CropInspector / compact HUD (scripts/view/crop_inspector.gd)

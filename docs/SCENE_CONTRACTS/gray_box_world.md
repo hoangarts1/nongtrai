@@ -27,6 +27,13 @@ GrayBoxWorld (Node3D)
 - `FarmView` owns cells `(0,0)` through `(5,5)`; their centers are `(0.5..5.5, 0, 0.5..5.5)`.
 - `House` and `%BedMarker` are at `(11, 0, 10)`, outside the farm footprint, so the initial farm view is not blocked by the house.
 
+## Runtime presentation additions (view-only)
+
+- `WorldPresentation` is added by `Main` at runtime. It may replace the visible meshes attached to existing `House`, `SeedShop` and `ShippingBin` anchors and add non-colliding scenery children; it does not move those anchors or their marker nodes.
+- `FarmView` retains one `MeshInstance3D` crop root per logical cell. `CropPresentation` builds visual child meshes beneath that root; no new scene child path is a gameplay dependency.
+- NPC homes are constructed beneath `Main/NpcSystem` from the Phase 8 location data. They are visual only and do not alter NPC schedule/navigation cells.
+- `WorldEnvironment`, `Sun` and `HouseLight` remain scene-owned nodes. Runtime presentation may tune their materials/post-processing/shadow parameters, but `GrayBoxWorld` remains responsible for applying DayNightProfile and weather values.
+
 ## @export variables
 | Variable | Type | Notes |
 |---|---|---|

@@ -8,6 +8,8 @@
 class_name NpcSystem
 extends Node3D
 
+const WORLD_ART_FACTORY: Script = preload("res://scripts/view/world_art_factory.gd")
+
 var state: NpcSocialState = NpcSocialState.new()
 var content: NpcWorldData = preload("res://data/npcs/phase8_world.tres")
 var dialogue: NpcPanel
@@ -238,14 +240,18 @@ func debug_journal() -> void:
 
 func _add_home(npc: NpcData) -> void:
 	var home: MeshInstance3D = MeshInstance3D.new()
-	var box: BoxMesh = BoxMesh.new()
-	box.size = Vector3(1.0, 1.4, 1.0)
-	home.mesh = box
+	home.name = "Home_%s" % npc.npc_id
 	home.position = GridMath.cell_to_world(state.scheduler.location_cell(npc.home_location)) + Vector3(0, 0.7, 0)
+	WORLD_ART_FACTORY.build_cottage(
+		home,
+		Vector3(1.7, 1.4, 1.5),
+		npc.color.lightened(0.24),
+		npc.color.darkened(0.20)
+	)
 	var label: Label3D = Label3D.new()
 	label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.position.y = 1.7
+	label.position.y = 1.85
 	label.font_size = 64
 	label.pixel_size = 0.008
 	label.outline_size = 10

@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (compact HUD and crop countdown)
+Last updated: 2026-10-27 (world-art pass and master-prompt review)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
@@ -22,6 +22,31 @@ Last updated: 2026-10-27 (compact HUD and crop countdown)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
+- 2026-10-27 world-art pass, requested after the compact HUD review. Delivered: view-only native low-poly crops are distinct by family (sprout, roots, tomato, pea, corn, wheat, pumpkin, cabbage, wilted); healthy crops have a minimal sway and watered crops show dew. Existing crop root meshes and CropInspector remain the only click/detail path. Existing House, SeedShop, ShippingBin and NPC-home anchors now render as separate cottage/market/bin structures, and four exterior rock/moss clusters make the map edge less empty. Filmic color, restrained glow/fog and softened directional shadows improve daylight while retaining DayNightProfile/weather ownership and night house lights. No domain, timing, save, marker, collision, input or `.tscn` change.
+- Visual/manual evidence: launched the real 1152x648 game on 2026-10-27, used Continue, and inspected the daylight world: cottage, separate awning seed market, NPC homes, terrain rocks, compact HUD and farm grid appeared with no overlapping HUD or missing interaction surfaces. A user input event was then detected, so automation stopped without further game input. Automated proof is `test_world_presentation.gd` plus the normal interaction/layout suite.
+- The player added `Prompt tổng hoàn thiện game The Life.md` at the repository root (currently untracked/user-owned) and supplied the same Downloads copy. It was read as a long-term product reference, not treated as authority over `AGENTS.md`, `PROJECT_RULES.md`, Roadmap order, scene ownership or current user scope. Its direct art guidance matches this completed view-only pass; its suggested generator/palette/shader pipeline is a separate next milestone.
+
+## World-art pass handoff (2026-10-27)
+
+- Delivered files: `scripts/view/{crop_presentation,world_art_factory,farm_view,world_presentation,npc_system}.gd` and generated `.uid` files; `tests/unit/{test_world_presentation,test_game_feel}.gd`; `docs/{API_INDEX,DECISIONS,PROGRESS,UI_LAYOUT,SCENE_CONTRACTS/gray_box_world}.md`. The player-owned root prompt file is deliberately not part of this art commit.
+- Acceptance: crop meshes are now family-specific and stateless; their existing root bound remains the click target. The map renders a cottage at the house anchor, a visibly separate seed-market stall, a distinct bin, decorated Minh/Linh homes and four non-colliding edge rock clusters. Lighting is limited to Forward+ Environment/sun parameters and leaves data-driven clock/weather behavior intact.
+- Automated coverage: `test_world_presentation.gd` checks visual children, unchanged shop/bin marker positions, decorated NPC homes, exterior-rock exclusion from the 6×6 farm, Forward+ post-processing/shadow configuration, sprout-to-mature change and cleanup after harvest. The earlier game-feel test was changed only because it deliberately asserted the superseded BoxMesh implementation; it now asserts a taller mature crop and recognizable sprout/root nodes.
+- Real final official runner (backgrounded only to avoid the host command's 30 s transport cap):
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              42
+Tests               129
+Passing Tests       129
+Asserts            3830
+Time              18.46s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Error-text scan across parse, validator, GUT, main-scene and runner logs: `0` matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:`. Visual manual smoke: started the actual game at 1152×648, pressed Continue, and checked the daylight world. Do not automate the still-open game further: an input event from the user was detected during a later debug-menu attempt.
+- Known limits / NEXT: this is a low-poly presentation pass, not the full `world-v1` or M2 art-foundation milestone. A separate next task should add the reproducible palette/material/generator framework, then a purpose-built screenshot/performance harness before expanding terrain, water, audio or future Roadmap systems. No claim is made that later Roadmap phases are complete.
 - 2026-10-27 compact HUD/crop inspection task, approved standing plan-then-proceed workflow: hide the nine item-slot grid and caption in normal gameplay, keep a small four-tool strip and smaller corner menu buttons; expose selectable items only in the inventory modal. Add a nonmodal CropInspector view (large localized name, countdown, estimated game-day/morning, water/ready/withered status) on crop click; hide repetitive world-space crop labels. Reuse GameClock time_changed/FarmGridState queries and existing tool/harvest APIs, with a conditional daily-watering estimate and no save/growth changes. Files: scripts/view/{hotbar_panel,inventory_panel,main,ui_layout,ui_coordinator,tool_action_controller,farm_view,crop_inspector}.gd (+ new .uid), localization/strings_{vi,en}.csv, tests/unit UI/crop regressions, docs/{API_INDEX,PROGRESS,UI_LAYOUT,DECISIONS}.md and screenshot evidence. Initial workspace has two generated docs/screenshots/*.png.import metadata files; preserve them. Verify default HUD footprint, inventory mouse selection, crop click/action routing, minute/day countdown, watering/ripeness/removal, modal suppression and three resolutions in vi/en before the task commit.
 
 ## Compact HUD/crop countdown handoff (2026-10-27)

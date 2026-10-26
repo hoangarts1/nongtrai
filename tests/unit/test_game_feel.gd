@@ -16,11 +16,13 @@ func test_crop_visual_has_distinct_mature_stage() -> void:
 	farm.till_cell(Vector2i(0, 0))
 	farm.plant_crop(Vector2i(0, 0), &"turnip")
 	var crop: MeshInstance3D = view.get_crop_view(Vector2i(0, 0))
-	var young_size: Vector3 = (crop.mesh as BoxMesh).size
+	var young_height: float = crop.get_aabb().size.y
+	assert_not_null(crop.get_node_or_null("SproutLeaf_0"), "Young crop has a visible sprout")
 	farm.advance_day()
 	farm.water_cell(Vector2i(0, 0))
 	farm.advance_day()
-	var mature_size: Vector3 = (crop.mesh as BoxMesh).size
+	var mature_height: float = crop.get_aabb().size.y
 	assert_true(crop.visible)
-	assert_true(mature_size.x > young_size.x)
+	assert_true(mature_height > young_height)
+	assert_not_null(crop.get_node_or_null("Bulb"), "Mature root has a distinct harvestable body")
 	main.queue_free()

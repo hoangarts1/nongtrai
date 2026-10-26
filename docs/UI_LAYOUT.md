@@ -25,12 +25,12 @@ single window size.
 | Top-right | `QuestPanel` | Readable farming checklist, hidden behind modals |
 | Center modal | `TutorialPanel` | Readable controls help, separate from the start screen |
 | Center modal | `InventoryPanel` | Fixed header/close button and scrollable item list |
-| Bottom-left | `HotbarPanel` | Nine large slots, full-name caption and tool buttons |
+| Bottom-left | `HotbarPanel` | Compact four-tool icon strip; the full item grid and selection caption live in InventoryPanel |
 | Above bottom-center | `InteractionPrompt` | Positioned above the hotbar, never in its rectangle |
 | Bottom-right | `HudButtonBar` | Anchored to `(1, 1)` with a safe margin |
 | Center modal | `PauseMenu` / `StartMenu` | Shared Theme panels; pause locks the player and start menu blocks gameplay until New Game or Continue |
 | Lower-center overlay | `Toast` / `FeedbackPopup` | Short save/result messages; mouse input is ignored |
-| Farm world | `FarmView` crop labels | Billboard labels sit above each crop, use no-depth-test rendering, and are kept in the world-space farm region rather than a HUD panel |
+| Farm world | `FarmView` / `CropInspector` | Crop meshes are shape-specific and gently sway; tiny world labels stay hidden. Clicking a crop opens the readable nonmodal inspector card instead. |
 | Top-left clock | `ClockHud` period text | Shows day, time and localized dawn/morning/afternoon/dusk/night beside the clock |
 | Under clock | `WeatherHud` | Shows today's weather and tomorrow's forecast below the clock; it stays inside the top-left region |
 | Under weather | `WalletHud` | Displays current player coins in gold font; stays inside the top-left region |
@@ -51,6 +51,13 @@ while close and transaction controls stay outside the scrolling region.
 The pause menu uses `Esc` / the `pause` InputMap action. Its settings controls
 persist language and music/effects volume through `Settings`. New-game profile
 names are stored in the normal save slot; sleeping writes the autosave slot 0.
+
+## World-art presentation contract (2026-10-27)
+
+- Existing `House`, `SeedShop`, `ShippingBin`, NPC-home and `FarmView` roots remain the interaction/display anchors documented by the world scene contract. `WorldPresentation` and `WorldArtFactory` only add mesh children and materials; markers, collision, cell coordinates and interaction reach do not move.
+- Player house uses a cottage silhouette; the seed shop is a separate awning market; the shipping bin remains visually distinct. Rock/moss clusters are view-only and positioned outside farm cells and expected routes.
+- Crop detail is a native 3D presentation: seedlings, roots, vines, tall stalks, wheat heads, pumpkins and cabbages are visibly different. Watered crops receive small dew accents, healthy crops sway subtly, and withered crops remain static/dry. The existing crop-click bounds and inspector remain the accessibility path for timing.
+- Forward+ presentation uses restrained filmic tonemapping, color adjustment, glow, shallow fog and softened directional shadows. DayNightProfile/WeatherState still own time/weather values; the presentation layer only applies them and retains the existing night-window light behavior.
 
 ## Phase 8 additions (scene contract for this task)
 - `Main/NpcSystem` (Node3D, `scripts/view/npc_system.gd`) creates placeholder `minh` and `linh` actors and home boxes from `data/npcs/phase8_world.tres`. It never edits the world scene or existing shop/bin nodes.
