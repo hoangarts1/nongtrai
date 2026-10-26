@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="NpcWorldData" load_steps=24 format=3]
+[ext_resource type="Script" path="res://scripts/data/npc_world_data.gd" id="1_world"]
+[ext_resource type="Script" path="res://scripts/data/npc_data.gd" id="2_npc"]
+[ext_resource type="Script" path="res://scripts/data/npc_schedule_entry.gd" id="3_schedule"]
+[ext_resource type="Script" path="res://scripts/data/world_locations.gd" id="4_locations"]
+[ext_resource type="Script" path="res://scripts/data/dialogue_data.gd" id="5_dialogue"]
+[ext_resource type="Resource" path="res://data/day_night_profile.tres" id="6_light"]
+[ext_resource type="Resource" path="res://data/shops/minh_spring_discount.tres" id="7_offer"]
+[ext_resource type="Resource" path="res://data/shops/minh_summer_discount.tres" id="8_offer"]
+[ext_resource type="Resource" path="res://data/shops/minh_autumn_discount.tres" id="9_offer"]
+[ext_resource type="Resource" path="res://data/shops/minh_winter_discount.tres" id="10_offer"]
+[ext_resource type="Resource" path="res://data/shops/minh_turnip_request.tres" id="11_offer"]
+[sub_resource type="Resource" id="locations"]
+script = ExtResource("4_locations")
+locations = {&"minh_home": Vector3(-5.5, 0, 9.5), &"minh_market": Vector3(-4.5, 0, 6.5), &"linh_home": Vector3(7.5, 0, -2.5), &"linh_stream": Vector3(7.5, 0, 4.5), &"linh_garden": Vector3(-1.5, 0, -2.5)}
+nav_region = Rect2i(-10, -10, 30, 30)
+solid_rects = Array[Rect2i]([Rect2i(0, 0, 6, 6), Rect2i(9, 9, 4, 3), Rect2i(-3, 7, 2, 2), Rect2i(8, 9, 1, 1), Rect2i(-4, 2, 1, 1)])
+[sub_resource type="Resource" id="minh_visit"]
+script = ExtResource("3_schedule")
+start_minute = 1020
+end_minute = 1320
+location_id = &"minh_market"
+weekdays = PackedInt32Array(3, 6)
+[sub_resource type="Resource" id="linh_warm"]
+script = ExtResource("3_schedule")
+start_minute = 480
+end_minute = 1080
+location_id = &"linh_stream"
+seasons = PackedStringArray("spring", "summer")
+[sub_resource type="Resource" id="linh_cool"]
+script = ExtResource("3_schedule")
+start_minute = 540
+end_minute = 1020
+location_id = &"linh_garden"
+seasons = PackedStringArray("autumn", "winter")
+[sub_resource type="Resource" id="minh"]
+script = ExtResource("2_npc")
+npc_id = &"minh"
+display_name_key = &"NPC_MINH_NAME"
+home_location = &"minh_home"
+color = Color(0.7, 0.43, 0.17, 1)
+schedule = Array[Resource]([SubResource("minh_visit")])
+is_merchant = true
+[sub_resource type="Resource" id="linh"]
+script = ExtResource("2_npc")
+npc_id = &"linh"
+display_name_key = &"NPC_LINH_NAME"
+home_location = &"linh_home"
+color = Color(0.28, 0.65, 0.36, 1)
+schedule = Array[Resource]([SubResource("linh_warm"), SubResource("linh_cool")])
+[sub_resource type="Resource" id="minh_intro"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"minh_intro"
+npc_id = &"minh"
+text_key = &"DIALOGUE_MINH_INTRO"
+quest_id = &"turnip_delivery"
+quest_condition = "new"
+start_quest = true
+[sub_resource type="Resource" id="minh_active"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"minh_active"
+npc_id = &"minh"
+text_key = &"DIALOGUE_MINH_ACTIVE"
+quest_id = &"turnip_delivery"
+quest_condition = "active"
+[sub_resource type="Resource" id="minh_done"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"minh_done"
+npc_id = &"minh"
+text_key = &"DIALOGUE_MINH_DONE"
+quest_id = &"turnip_delivery"
+quest_condition = "completed"
+[sub_resource type="Resource" id="linh_hello"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"linh_hello"
+npc_id = &"linh"
+text_key = &"DIALOGUE_LINH_HELLO"
+[resource]
+script = ExtResource("1_world")
+npcs = Array[Resource]([SubResource("minh"), SubResource("linh")])
+dialogues = Array[Resource]([SubResource("minh_intro"), SubResource("minh_active"), SubResource("minh_done"), SubResource("linh_hello")])
+offers = Array[Resource]([ExtResource("7_offer"), ExtResource("8_offer"), ExtResource("9_offer"), ExtResource("10_offer"), ExtResource("11_offer")])
+locations = SubResource("locations")
+day_night_profile = ExtResource("6_light")
+night_moon_energy = 0.14
+days_per_week = 7
+interaction_reach = 2.0
+debug_delivery_quantity = 3

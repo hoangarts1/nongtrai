@@ -10,6 +10,8 @@ extends Resource
 @export_range(0, 1560) var start_minute: int = 480
 @export_range(0, 1560) var end_minute: int = 1080
 @export var location_id: StringName = &""
+## One-based days of the week; empty means every day.
+@export var weekdays: PackedInt32Array = PackedInt32Array()
 
 func applies_to(season: StringName, minute: int) -> bool:
 	if not seasons.is_empty() and not seasons.has(String(season)):

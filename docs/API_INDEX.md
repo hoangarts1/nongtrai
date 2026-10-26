@@ -282,6 +282,14 @@ Format:
 - `MerchantOfferData`: offer/item ids, discount/request kind, int unit_price/quantity and eligible seasons.
 - `DetRandom.make_rng(world_seed, day, tag) -> RandomNumberGenerator`: stable integer seed mixing; TAG_MERCHANT stream.
 
+## NpcSchedule / NpcSocialState (scripts/domain/quests/)
+- `NpcSchedule.configure(data: NpcWorldData)`, `destination(npc, day, minute, season, rainy) -> StringName`: rain and sampled moon energy override seasonal/weekday schedule; returns home when no work block applies.
+- `location_cell(location_id) -> Vector2i`, `route(from_cell, to_cell) -> Array[Vector2i]`: GridMath conversion and AStarGrid2D paths avoiding declared solids.
+- `NpcSocialState.configure(data)`, `get_npc(id)`, `get_dialogue(id, season)`, `talk(id, day, season)`: conditional data dialogue, heard ids, daily capped friendship.
+- `update_schedule(day, minute, season, rainy)`, `advance_step(npc_id)`, `is_indoors(npc_id)`: authoritative cell movement; view only animates between cells.
+- `serialize()/deserialize()`: quests, daily merchant stock, friendship, heard lines, last talk days and cells; routes rebuilt from current conditions. `changed()` is local.
+- `NpcWorldData` (`data/npcs/phase8_world.tres`): NPC/dialogue/offer resources, locations, blocked rectangles, lighting profile, night threshold, week length and interaction distance.
+
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
 - func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls; locks player movement
