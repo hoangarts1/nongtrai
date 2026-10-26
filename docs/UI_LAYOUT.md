@@ -18,6 +18,9 @@ single window size.
 | Farm world | `FarmView` crop labels | Billboard labels sit above each crop, use no-depth-test rendering, and are kept in the world-space farm region rather than a HUD panel |
 | Top-left clock | `ClockHud` period text | Shows day, time and localized dawn/morning/afternoon/dusk/night beside the clock |
 | Under clock | `WeatherHud` | Shows today's weather and tomorrow's forecast below the clock; it stays inside the top-left region |
+| Under weather | `WalletHud` | Displays current player coins in gold font; stays inside the top-left region |
+| Center modal | `ShippingBinPanel` | Centered modal for selling produce; locks player movement while open; uses shared UI Theme |
+| Center modal | `SeedShopPanel` | Centered modal for buying seeds with season filtering; locks player movement while open; uses shared UI Theme |
 
 Panels must use `Container` children for internal layout. New HUD controls
 must register in the existing bars or use a documented region; they must not

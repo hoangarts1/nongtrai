@@ -251,12 +251,31 @@ Format:
 
 ## GrayBoxWorld interaction helpers  (scripts/view/gray_box_world.gd)
 - static func is_player_near_interactable(player_position: Vector3, interactable_position: Vector3, reach: float) -> bool — checks flat XZ distance against interaction reach
+- signal shipping_bin_interacted() — emitted when the player presses E within reach of the shipping bin
+- signal seed_shop_interacted() — emitted when the player presses E within reach of the seed shop
 
-<!-- Example of a finished entry (delete when real ones exist):
+## WalletState  (scripts/domain/economy/wallet_state.gd)
+- func get_coins() -> int — returns the current non-negative coin balance
+- func add_coins(amount: int, reason: StringName = &"") -> void — increments coins, enforces non-negativity, emits coins_changed and Events.coins_changed
+- func remove_coins(amount: int, reason: StringName = &"") -> bool — atomically spends coins if sufficient balance exists
+- func can_afford(amount: int) -> bool — returns true if current balance is >= amount
+- func serialize() -> Dictionary — encodes {"coins": coins}
+- func deserialize(data: Dictionary) -> void — loads coins and emits update signal
+- signal coins_changed(new_total: int, delta: int, reason: StringName) — emitted on any balance change
 
-## EconomyService  (scripts/domain/economy/economy_service.gd)
-- func try_spend(amount: int, reason: StringName, key: StringName = &"") -> bool   — false if not enough coins
-- func earn(amount: int, reason: StringName, key: StringName = &"") -> void
-- signal coins_changed(new_total: int, delta: int, reason: StringName)             — via Events
-- Notes: coins are int; every change is written to Ledger with a reason; only this class changes coins.
--->
+## WalletHud  (scripts/view/wallet_hud.gd)
+- func configure(wallet) -> void — binds the top-left HUD coin counter to wallet state and signal updates
+
+## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
+- func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
+- func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls; locks player movement
+- func is_open() -> bool — query panel open state
+- signal item_sold(item_id: StringName, quantity: int, total_price: int) — emitted on successful sale
+
+## SeedShopPanel  (scripts/view/seed_shop_panel.gd)
+- func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory, wallet and player
+- func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls with seasonal seed filtering
+- func is_open() -> bool — query panel open state
+- func try_buy_item(item_id: StringName, quantity: int) -> bool — performs atomic purchase checking funds and inventory capacity
+- signal item_purchased(item_id: StringName, quantity: int, total_price: int) — emitted on successful purchase
+
