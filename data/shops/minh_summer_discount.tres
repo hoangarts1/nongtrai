@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MerchantOfferData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/merchant_offer_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+offer_id = &"minh_summer_discount"
+item_id = &"summer_tomato_seed"
+kind = "discount"
+unit_price = 15
+quantity = 2
+seasons = PackedStringArray("summer")

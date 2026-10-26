@@ -275,6 +275,13 @@ Format:
 - `DataRegistry.get_quest(quest_id: StringName) -> Resource`, `get_all_quests() -> Array[Resource]`: registered delivery quest resources.
 - `DataValidator.validate_quest_resources(quests, items)` / `validate_quest_paths(quest_paths, item_paths) -> PackedStringArray`: checks ids, references and nonnegative requirements/rewards.
 
+## MerchantService (scripts/domain/quests/merchant_service.gd)
+- `get_offer(day: int, season: StringName) -> MerchantOfferData`: pure seeded quote from eligible resource templates; no mutation of item prices.
+- `confirm_trade(day, season, available, inventory, wallet) -> bool`: explicit confirmed finite trade, checking wallet/inventory and current visit availability.
+- `is_consumed(day: int) -> bool`, `serialize() -> Dictionary`, `deserialize(data: Dictionary) -> void`: saved seed and consumed days; load cannot restock a completed trade.
+- `MerchantOfferData`: offer/item ids, discount/request kind, int unit_price/quantity and eligible seasons.
+- `DetRandom.make_rng(world_seed, day, tag) -> RandomNumberGenerator`: stable integer seed mixing; TAG_MERCHANT stream.
+
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
 - func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls; locks player movement
