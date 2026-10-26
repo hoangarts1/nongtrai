@@ -134,17 +134,17 @@ Format:
 - func show_message(message: String) -> void — displays a short animated result message
 
 ## SaveService  (scripts/core/save_service.gd)
-- func save_game(payload: Dictionary, slot: int = 1) -> bool — validates the v2 envelope and atomically writes a JSON save with rotating backups
+- func save_game(payload: Dictionary, slot: int = 1) -> bool — writes the v3 envelope with clock, player, inventory, farm, onboarding quests, profile, weather and wallet, atomically with three backups
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
 - func delete_save(slot: int = 1) -> void — removes one save slot
 - func has_save(slot: int = 1) -> bool — reports whether a valid save exists
 - func load_latest() -> Dictionary — loads the newest valid save from slots 0 and 1
 - func get_latest_summary() -> Dictionary — returns farm name, day and saved timestamp for the newest save
-- Notes: the autoload owns file I/O only; Main composes clock, player, inventory and farm state.
+- Notes: v1/v2 migrate to v3; missing wallet defaults to 100 coins. The autoload owns file I/O only; Main composes the payload.
 
 ## TutorialQuestState  (scripts/domain/tutorial_quest_state.gd)
 - func is_step_completed(step_index: int) -> bool — checks one onboarding milestone
-- func is_complete() -> bool — returns true when all five farming milestones are complete
+- func is_complete() -> bool — returns true when all seven farming/economy milestones are complete
 - func serialize() -> Dictionary — saves onboarding progress
 - func deserialize(data: Dictionary) -> void — restores onboarding progress
 - signal step_changed(step_index: int, completed: bool) — emitted when a domain event completes a step
@@ -265,6 +265,15 @@ Format:
 
 ## WalletHud  (scripts/view/wallet_hud.gd)
 - func configure(wallet) -> void — binds the top-left HUD coin counter to wallet state and signal updates
+
+## Phase 8 base (not yet integrated)
+- `QuestData` (`scripts/data/quest_data.gd`): quest/giver ids, localized title/description keys, item requirement, coin and item reward.
+- `QuestManager` (`scripts/domain/quests/quest_manager.gd`): register/get/accept quests, query active/completed ids, `can_deliver`, `confirm_delivery`, serialize/deserialize; local quest_accepted and quest_completed signals. Delivery atomicity still requires dedicated validation.
+- `NpcData` (`scripts/data/npc_data.gd`): id/name key, home, schedule, rain behavior, appearance and friendship data.
+- `NpcScheduleEntry.applies_to(season: StringName, minute: int) -> bool`: data-defined seasonal time window.
+- `WorldLocations`: named positions, navigation region and solid rectangles; `has_location` and `get_location_position`.
+- `DataRegistry.get_quest(quest_id: StringName) -> Resource`, `get_all_quests() -> Array[Resource]`: registered delivery quest resources.
+- `DataValidator.validate_quest_resources(quests, items)` / `validate_quest_paths(quest_paths, item_paths) -> PackedStringArray`: checks ids, references and nonnegative requirements/rewards.
 
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet

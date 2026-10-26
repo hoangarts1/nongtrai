@@ -107,6 +107,16 @@ Last updated: 2026-10-26 (mvp-economy)
 ## Next up (agent proposal)
 - MVP farming loop and the requested first polish pass are complete; final models and audio assets remain developer-supplied.
 
+## Phase 8 execution plan (approved by product owner, 2026-10-26)
+- Baseline: parse, validator, main smoke and GUT pass: 33 scripts / 97 tests / 2325 asserts; error-text scan zero matches. Existing NPC/quest base is committed separately; it is not yet integrated or covered by dedicated tests.
+- Task 1: harden `scripts/domain/quests/quest_manager.gd`, add delivery tests in `tests/unit/`: explicit confirmation, all-or-nothing requirements/rewards using existing wallet/inventory APIs, reject duplicate payout and full reward inventory.
+- Task 2: `scripts/data/merchant_offer_data.gd`, `data/npcs/`, `data/shops/`, `scripts/domain/quests/merchant_service.gd`: data-defined daily offer, deterministic selection, independent pricing; preserve the existing full-year test unchanged.
+- Task 3: NPC/dialogue data and pure schedule/relationship/dialogue state under `scripts/data/` and `scripts/domain/quests/`; AStarGrid2D routes from data-defined cell locations, home at night and in rain, four-season and load tests. Views only animate routes.
+- Task 4: `scripts/core/save_service.gd`, `scripts/view/main.gd`, new NPC UI/view scripts, `scenes/main/main.tscn` additions only, localization, validator and tests: integrate NPC dialogue/journal (J), debug actions, v4 social payload and v3 migration preserving onboarding, golden v4; layout checks at 1152x648, 1280x720 and 1920x1080.
+- Documentation: API_INDEX, PROGRESS, DECISIONS, UI_LAYOUT, INPUT_MAP; no edits to farm/tools/weather/day-night/wallet/shop/bin implementations, no additional autoloads, no registry changes beyond the already committed base.
+- Scope follows Roadmap 8.1–8.4 for this request; 8.5 dog and 8.6 Chapter I content remain separate tasks. Merchant visits obey the Roadmap schedule; a daily offer is selected every day but is available only while Minh is at the market. Night/rain override visits. See D21.
+- Risks: atomic delivery must preview inventory after removal; retain the existing `quests` onboarding save field and add a separate social payload; modal UI must prevent world input and unsafe saves. Manual editor playtest remains human verification.
+
 ## How to run
 - Parse check: `tools/check_parse.sh` (macOS/Linux) or `tools\check_parse.bat` (Windows). Set the `GODOT` env var to your Godot executable.
 - All tests: `tools/run_tests.sh` / `tools\run_tests.bat` (fails on purpose until roadmap task 0.1 configures the test command).
