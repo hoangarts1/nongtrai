@@ -21,7 +21,12 @@ Format:
 
 ## GrayBoxWorld  (scripts/view/gray_box_world.gd)
 - func pick_cell(screen_position: Vector2) -> Variant — projects a screen point onto the ground plane and returns a Vector2i cell or null
+- func get_day_night_lighting(minute: int) -> Dictionary — returns the sampled lighting values currently used by the world view
 - Notes: placeholder view only; it owns no gameplay state.
+
+## DayNightProfile  (scripts/data/day_night_profile.gd)
+- func sample(minute: int) -> Dictionary — interpolates the data keyframes for sun, moon, ambient and sky lighting
+- Notes: pure data/resource sampling; the view applies the result to world nodes.
 
 ## CameraRig  (scripts/view/camera_rig.gd)
 - func set_target(target_node: Node3D) -> void — assigns the node followed by the rig

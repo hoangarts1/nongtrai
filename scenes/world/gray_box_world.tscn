@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/view/gray_box_world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -66,6 +66,12 @@ rotation_degrees = Vector3(-50, -30, 0)
 light_energy = 1.2
 shadow_enabled = true
 
+[node name="Moon" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-25, 150, 0)
+light_color = Color(0.35, 0.45, 0.75, 1)
+light_energy = 0.2
+shadow_enabled = false
+
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 1
 collision_mask = 0
@@ -88,6 +94,12 @@ script = ExtResource("5_farm")
 [node name="House" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_house")
 position = Vector3(11.0, 1, 10.0)
+
+[node name="HouseLight" type="OmniLight3D" parent="House"]
+light_color = Color(1, 0.55, 0.22, 1)
+light_energy = 0.0
+omni_range = 5.0
+visible = false
 
 [node name="BedMarker" type="Marker3D" parent="."]
 unique_name_in_owner = true

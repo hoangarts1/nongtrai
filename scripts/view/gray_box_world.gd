@@ -12,6 +12,11 @@ const BED_INTERACTION_REACH: float = 2.5
 @onready var camera_rig: CameraRig = %CameraRig
 @onready var bed_marker: Marker3D = %BedMarker
 @onready var interaction_prompt: InteractionPrompt = $InteractionLayer/InteractionPrompt
+@onready var world_environment: WorldEnvironment = $WorldEnvironment
+@onready var sun: DirectionalLight3D = $Sun
+@onready var moon: DirectionalLight3D = $Moon
+@onready var house_light: OmniLight3D = $House/HouseLight
+var _day_night_profile: Resource = preload("res://data/day_night_profile.tres")
 
 func _ready() -> void:
 	camera.rotation_degrees = Vector3(-35.0, 45.0, 0.0)
@@ -19,7 +24,9 @@ func _ready() -> void:
 	camera_rig.set_target(player)
 	GameClock.sleep_started.connect(_on_sleep_started)
 	GameClock.sleep_finished.connect(_on_sleep_finished)
+	GameClock.time_changed.connect(_on_time_changed)
 	_update_bed_prompt()
+	_apply_day_night(GameClock.minute)
 
 func _process(_delta: float) -> void:
 	_update_bed_prompt()
@@ -54,6 +61,26 @@ func _on_sleep_started() -> void:
 func _on_sleep_finished(_day_index: int) -> void:
 	player.movement_enabled = true
 	_update_bed_prompt()
+
+func _on_time_changed(_day_index: int, minute: int) -> void:
+	_apply_day_night(minute)
+
+func _apply_day_night(minute: int) -> void:
+	var lighting: Dictionary = _day_night_profile.call("sample", minute)
+	if lighting.is_empty():
+		return
+	sun.light_color = lighting["sun_color"] as Color
+	sun.light_energy = float(lighting["sun_energy"])
+	sun.rotation_degrees = Vector3(float(lighting["sun_angle"]), -30.0, 0.0)
+	moon.light_energy = float(lighting["moon_energy"])
+	world_environment.environment.ambient_light_color = lighting["ambient_color"] as Color
+	world_environment.environment.ambient_light_energy = float(lighting["ambient_energy"])
+	world_environment.environment.background_color = lighting["sky_color"] as Color
+	house_light.visible = minute >= 1080 or minute < 360
+	house_light.light_energy = 0.65 if house_light.visible else 0.0
+
+func get_day_night_lighting(minute: int) -> Dictionary:
+	return _day_night_profile.call("sample", minute)
 
 static func is_player_near_interactable(
 	player_position: Vector3,

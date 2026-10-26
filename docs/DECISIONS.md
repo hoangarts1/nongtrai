@@ -75,3 +75,5 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 
 ### D18 — Post-story content  `[ ] confirmed`  Status: DEFAULT
 - Finishing the story is not the end: collections, free decoration, seasonal festivals, special orders, community projects, self-set goals.
+
+### D19 — Early living-world slice scope — The requested day/night, weather and four-season systems are implemented before the Roadmap's later phase gates — Why: the product owner explicitly requested all three systems as the next continuous milestone — Consequence: the implementation remains placeholder/data-driven and does not add NPCs, economy or director systems — Changeable until: before production content — Status: DEFAULT
