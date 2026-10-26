@@ -5,7 +5,7 @@
 ##   func delete_save(slot: int = 1) -> void
 extends Node
 
-const CURRENT_VERSION: int = 2
+const CURRENT_VERSION: int = 3
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -23,9 +23,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"player": payload.get("player", {}),
 		"inventory": payload.get("inventory", {}),
 		"farm": payload.get("farm", {}),
-		"quests": payload.get("quests", {})
-		,"profile": payload.get("profile", {}),
-		"weather": payload.get("weather", {})
+		"quests": payload.get("quests", {}),
+		"profile": payload.get("profile", {}),
+		"weather": payload.get("weather", {}),
+		"wallet": payload.get("wallet", {})
 	}
 	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
 	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
@@ -110,9 +111,13 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	var migrated: Dictionary = data.duplicate(true)
 	if version == 0:
 		migrated["meta"] = {"save_version": CURRENT_VERSION}
-	if version == 1:
-		migrated["meta"]["save_version"] = CURRENT_VERSION
+	if version <= 1:
 		migrated["weather"] = migrated.get("weather", {})
+	if version <= 2:
+		migrated["wallet"] = migrated.get("wallet", {"coins": 100})
+	if not migrated.has("meta"):
+		migrated["meta"] = {}
+	migrated["meta"]["save_version"] = CURRENT_VERSION
 	var metadata: Dictionary = migrated.get("meta", {})
 	if not metadata.has("saved_at") and metadata.has("saved_utc"):
 		metadata["saved_at"] = Time.get_datetime_string_from_unix_time(int(metadata["saved_utc"]))
