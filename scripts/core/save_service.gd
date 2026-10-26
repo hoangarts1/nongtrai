@@ -16,7 +16,8 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"meta": {
 			"save_version": CURRENT_VERSION,
 			"game_version": "0.1.0",
-			"saved_utc": Time.get_unix_time_from_system()
+			"saved_utc": Time.get_unix_time_from_system(),
+			"saved_at": Time.get_datetime_string_from_system()
 		},
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
@@ -66,6 +67,36 @@ func load_game(slot: int = 1) -> Dictionary:
 
 func has_save(slot: int = 1) -> bool:
 	return not load_game(slot).is_empty()
+
+func load_latest() -> Dictionary:
+	var latest: Dictionary = {}
+	var latest_time: int = -1
+	for slot: int in [0, 1]:
+		var payload: Dictionary = load_game(slot)
+		if payload.is_empty():
+			continue
+		var metadata: Dictionary = payload.get("meta", {})
+		var saved_utc: int = int(metadata.get("saved_utc", 0))
+		if not metadata.has("saved_utc"):
+			saved_utc = int(metadata.get("saved_at", "0").hash())
+		if saved_utc >= latest_time:
+			latest_time = saved_utc
+			latest = payload
+	return latest
+
+func get_latest_summary() -> Dictionary:
+	var payload: Dictionary = load_latest()
+	if payload.is_empty():
+		return {}
+	var metadata: Dictionary = payload.get("meta", {})
+	var profile: Dictionary = payload.get("profile", {})
+	var clock: Dictionary = payload.get("clock", {})
+	return {
+		"farm_name": String(profile.get("farm_name", "")),
+		"day_index": int(clock.get("day_index", 0)) + 1,
+		"saved_at": String(metadata.get("saved_at", "")),
+		"saved_utc": int(metadata.get("saved_utc", 0))
+	}
 
 func delete_save(slot: int = 1) -> void:
 	if slot < 0:

@@ -20,6 +20,33 @@ var farm_state: FarmGridState
 var day_simulator: Object
 var quest_state: Variant
 var profile: Dictionary = {}
+var _game_started: bool = false
+var _real_seconds_since_save: float = 0.0
+var _seconds_since_dirty_save: float = 0.0
+var _save_dirty: bool = false
+
+func _process(delta: float) -> void:
+	if not _game_started:
+		return
+	_real_seconds_since_save += delta
+	_seconds_since_dirty_save += delta
+	if _real_seconds_since_save >= 60.0:
+		_save_game_to_slot(1)
+		_real_seconds_since_save = 0.0
+		_save_dirty = false
+	elif _save_dirty and _seconds_since_dirty_save >= 5.0:
+		_save_game_to_slot(1)
+		_save_dirty = false
+		_seconds_since_dirty_save = 0.0
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_save_before_exit()
+		get_tree().quit()
+
+func _save_before_exit() -> void:
+	if _game_started:
+		_save_game_to_slot(1)
 
 func _ready() -> void:
 	Localization.load_translations()
@@ -51,9 +78,12 @@ func _ready() -> void:
 	debug_menu.configure_farm(farm_state, farm_view)
 	debug_menu.configure_save_load(_save_game, _load_game)
 	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
-	start_menu.configure(_start_new_game, _continue_game, func() -> void: get_tree().quit())
+	start_menu.configure(_start_new_game, _continue_game, _quit_game)
 	start_menu.visible = not SaveService.has_save()
 	world.player.movement_enabled = not start_menu.visible
+	_game_started = false
+	farm_state.plot_changed.connect(_mark_save_dirty)
+	inventory.inventory_changed.connect(_mark_save_dirty)
 	if not GameClock.day_started.is_connected(_on_day_started):
 		GameClock.day_started.connect(_on_day_started)
 	var _inventory_button: Button = hud_button_bar.register_button(
@@ -99,7 +129,8 @@ func _save_game_to_slot(slot: int) -> void:
 		"quests": quest_state.serialize(),
 		"profile": profile
 	}
-	SaveService.save_game(payload, slot)
+	if not SaveService.save_game(payload, slot):
+		push_warning("Main: could not save slot %d" % slot)
 
 func _load_game() -> void:
 	_load_game_from_slot(1)
@@ -108,11 +139,41 @@ func _load_game_from_slot(slot: int) -> void:
 	var payload: Dictionary = SaveService.load_game(slot)
 	if payload.is_empty():
 		return
+	_load_payload(payload)
+
+func _quit_game() -> void:
+	_save_before_exit()
+	get_tree().quit()
+
+func _start_new_game(player_name: String, farm_name: String) -> void:
+	profile = {"player_name": player_name, "farm_name": farm_name}
+	_game_started = true
+	world.player.movement_enabled = true
+	start_menu.visible = false
+	_save_game_to_slot(1)
+
+func _continue_game() -> void:
+	var latest: Dictionary = SaveService.load_latest()
+	if latest.is_empty():
+		return
+	_load_payload(latest)
+	start_menu.visible = false
+	world.player.movement_enabled = true
+
+func _return_to_start_menu() -> void:
+	if _game_started:
+		_save_game_to_slot(1)
+	pause_menu.close()
+	start_menu.visible = true
+	world.player.movement_enabled = false
+
+func _load_payload(payload: Dictionary) -> void:
 	GameClock.deserialize(payload.get("clock", {}))
 	inventory.deserialize(payload.get("inventory", {}))
 	farm_state.deserialize(payload.get("farm", {}))
 	quest_state.deserialize(payload.get("quests", {}))
 	profile = payload.get("profile", {})
+	_game_started = true
 	var player_data: Dictionary = payload.get("player", {})
 	var position_data: Dictionary = player_data.get("position", {})
 	if not position_data.is_empty():
@@ -122,21 +183,10 @@ func _load_game_from_slot(slot: int) -> void:
 			float(position_data.get("z", world.player.global_position.z))
 		)
 
-func _start_new_game(player_name: String, farm_name: String) -> void:
-	profile = {"player_name": player_name, "farm_name": farm_name}
-	world.player.movement_enabled = true
-	start_menu.visible = false
-	_save_game_to_slot(1)
-
-func _continue_game() -> void:
-	_load_game_from_slot(1)
-	start_menu.visible = false
-	world.player.movement_enabled = true
-
-func _return_to_start_menu() -> void:
-	pause_menu.close()
-	start_menu.visible = true
-	world.player.movement_enabled = false
+func _mark_save_dirty(_value: Variant = null) -> void:
+	if _game_started:
+		_save_dirty = true
+		_seconds_since_dirty_save = 0.0
 
 func _show_toast(message: String) -> void:
 	toast.text = message

@@ -5,10 +5,12 @@ extends PanelContainer
 
 var _new_game_callback: Callable
 var _continue_callback: Callable
+var _exit_callback: Callable
 var _name_box: VBoxContainer
 var _settings_box: VBoxContainer
 var _player_name: LineEdit
 var _farm_name: LineEdit
+var _save_summary: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -17,8 +19,10 @@ func _ready() -> void:
 func configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable) -> void:
 	_new_game_callback = new_game_callback
 	_continue_callback = continue_callback
+	_exit_callback = exit_callback
 	var continue_button: Button = get_node("MarginContainer/Column/Continue")
 	continue_button.disabled = not SaveService.has_save()
+	_save_summary.text = _continue_summary()
 
 func _build_ui() -> void:
 	var margin: MarginContainer = MarginContainer.new()
@@ -36,6 +40,10 @@ func _build_ui() -> void:
 	title.text = tr("UI_GAME_TITLE")
 	title.add_theme_font_size_override("font_size", 24)
 	column.add_child(title)
+	_save_summary = Label.new()
+	_save_summary.name = "SaveSummary"
+	_save_summary.text = _continue_summary()
+	column.add_child(_save_summary)
 	_name_box = VBoxContainer.new()
 	_name_box.visible = false
 	_player_name = LineEdit.new()
@@ -72,7 +80,7 @@ func _build_ui() -> void:
 	column.add_child(continue_button)
 	var exit_button: Button = Button.new()
 	exit_button.text = tr("UI_MAIN_EXIT")
-	exit_button.pressed.connect(func() -> void: get_tree().quit())
+	exit_button.pressed.connect(func() -> void: _exit_callback.call())
 	column.add_child(exit_button)
 
 func _show_new_game_fields() -> void:
@@ -87,6 +95,16 @@ func _show_new_game_fields() -> void:
 		visible = false
 	)
 	_name_box.add_child(confirm)
+
+func _continue_summary() -> String:
+	var summary: Dictionary = SaveService.get_latest_summary()
+	if summary.is_empty():
+		return ""
+	return "%s — D%d — %s" % [
+		summary.get("farm_name", ""),
+		summary.get("day_index", 1),
+		summary.get("saved_at", "")
+	]
 
 func _add_slider(parent: VBoxContainer, label: String, value: float, callback: Callable) -> void:
 	var row: HBoxContainer = HBoxContainer.new()

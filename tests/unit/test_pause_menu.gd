@@ -29,3 +29,19 @@ func test_save_service_round_trips_profile_and_corrupt_save_is_empty() -> void:
 	file.store_string("{broken")
 	file.close()
 	assert_true(SaveService.load_game(1).is_empty())
+
+func test_latest_save_chooses_newer_slot() -> void:
+	SaveService.save_game({"profile": {"farm_name": "Cu"}, "clock": {"day_index": 1}}, 0)
+	await get_tree().create_timer(0.01).timeout
+	SaveService.save_game({"profile": {"farm_name": "Moi"}, "clock": {"day_index": 2}}, 1)
+	assert_eq(SaveService.load_latest()["profile"]["farm_name"], "Moi")
+
+func test_main_close_request_saves_started_game_but_not_start_screen() -> void:
+	SaveService.delete_save(1)
+	var main: Node = preload("res://scenes/main/main.tscn").instantiate()
+	get_tree().root.add_child(main)
+	await get_tree().process_frame
+	main.call("_start_new_game", "An", "Ruộng")
+	main.call("_save_before_exit")
+	assert_false(SaveService.load_game(1).is_empty())
+	main.queue_free()
