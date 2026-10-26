@@ -7,3 +7,4 @@ class_name SeasonData
 @export_range(1, 999) var days_in_season: int = 28
 @export var grass_color: Color = Color.WHITE
 @export var weather_profile_key: StringName = &"spring"
+@export var starter_seed: StringName = &"turnip_seed"

@@ -73,7 +73,8 @@ func _ready() -> void:
 	quest_panel.call("configure", quest_state)
 	hotbar_panel.configure(inventory)
 	if get_tree().current_scene == self and SaveService.load_game().is_empty():
-		inventory.add_item(&"turnip_seed", 10)
+		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
+		inventory.add_item(starter_seed, 10)
 	farm_view.call("configure", farm_state)
 	feedback.configure(inventory)
 	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service, hotbar_panel)
@@ -168,6 +169,9 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	_game_started = true
 	world.player.movement_enabled = true
 	start_menu.visible = false
+	if inventory.get_slots().is_empty():
+		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
+		inventory.add_item(starter_seed, 10)
 	_save_game_to_slot(1)
 
 func _continue_game() -> void:

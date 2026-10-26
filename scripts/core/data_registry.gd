@@ -91,3 +91,21 @@ func get_tool(tool_id: StringName) -> Resource:
 
 func get_season(season_id: StringName) -> Resource:
 	return _seasons.get(season_id) as Resource
+
+func get_starter_seed_for_season(season_id: StringName) -> StringName:
+	var s_data: Resource = get_season(season_id)
+	if s_data != null:
+		var seed_id: Variant = s_data.get("starter_seed")
+		if seed_id != null and not StringName(seed_id).is_empty():
+			var crop: Resource = get_crop_for_seed(StringName(seed_id))
+			if crop != null:
+				var seasons: PackedStringArray = crop.get("seasons")
+				if seasons.is_empty() or seasons.has(String(season_id)):
+					return StringName(seed_id)
+	for crop: Resource in get_all_crops():
+		if crop == null:
+			continue
+		var seasons: PackedStringArray = crop.get("seasons")
+		if seasons.is_empty() or seasons.has(String(season_id)):
+			return StringName(crop.get("seed_item"))
+	return &"turnip_seed"
