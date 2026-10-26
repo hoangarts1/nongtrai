@@ -1,11 +1,15 @@
 [gd_resource type="Resource" script_class="CropData" load_steps=2 format=3]
+
 [ext_resource type="Script" path="res://scripts/data/crop_data.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
 crop_id = &"winter_radish"
 display_name_key = &"CROP_WINTER_RADISH"
-seed_item = &"turnip_seed"
-product_item = &"turnip"
+seed_item = &"winter_radish_seed"
+product_item = &"winter_radish"
 yield_qty = 1
 growth_days = 3
+water_need = 1
 seasons = PackedStringArray("winter")
+color = Color(0.88, 0.94, 0.98, 1)

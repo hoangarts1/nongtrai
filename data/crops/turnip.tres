@@ -12,3 +12,4 @@ yield_qty = 1
 growth_days = 2
 water_need = 1
 seasons = PackedStringArray("spring", "summer", "autumn")
+color = Color(0.92, 0.6, 0.85, 1)

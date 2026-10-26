@@ -1,6 +1,22 @@
 key,value
 ITEM_TURNIP_SEED,Turnip seeds
 ITEM_TURNIP,Turnip
+ITEM_SPRING_CARROT_SEED,Spring carrot seeds
+ITEM_SPRING_CARROT,Spring carrot
+ITEM_SPRING_PEA_SEED,Spring pea seeds
+ITEM_SPRING_PEA,Spring pea
+ITEM_SUMMER_TOMATO_SEED,Summer tomato seeds
+ITEM_SUMMER_TOMATO,Summer tomato
+ITEM_SUMMER_CORN_SEED,Summer corn seeds
+ITEM_SUMMER_CORN,Summer corn
+ITEM_AUTUMN_WHEAT_SEED,Autumn wheat seeds
+ITEM_AUTUMN_WHEAT,Autumn wheat
+ITEM_AUTUMN_PUMPKIN_SEED,Autumn pumpkin seeds
+ITEM_AUTUMN_PUMPKIN,Autumn pumpkin
+ITEM_WINTER_RADISH_SEED,Winter radish seeds
+ITEM_WINTER_RADISH,Winter radish
+ITEM_WINTER_CABBAGE_SEED,Winter cabbage seeds
+ITEM_WINTER_CABBAGE,Winter cabbage
 CROP_TURNIP,Turnip
 CROP_SPRING_CARROT,Spring carrot
 CROP_SPRING_PEA,Spring pea

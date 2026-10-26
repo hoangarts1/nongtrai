@@ -1,11 +1,15 @@
 [gd_resource type="Resource" script_class="CropData" load_steps=2 format=3]
+
 [ext_resource type="Script" path="res://scripts/data/crop_data.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
 crop_id = &"autumn_wheat"
 display_name_key = &"CROP_AUTUMN_WHEAT"
-seed_item = &"turnip_seed"
-product_item = &"turnip"
+seed_item = &"autumn_wheat_seed"
+product_item = &"autumn_wheat"
 yield_qty = 1
 growth_days = 3
+water_need = 1
 seasons = PackedStringArray("autumn")
+color = Color(0.88, 0.72, 0.3, 1)

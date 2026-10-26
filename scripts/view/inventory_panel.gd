@@ -74,6 +74,14 @@ func _update_list() -> void:
 		return
 	for slot: Dictionary in _inventory.get_slots():
 		var item_data: Resource = DataRegistry.get_item(slot["item_id"])
-		var row: Label = Label.new()
-		row.text = "%s  x%d" % [tr(String(item_data.get("display_name_key"))), slot["quantity"]]
+		var row: HBoxContainer = HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+		var swatch: ColorRect = ColorRect.new()
+		swatch.custom_minimum_size = Vector2(16, 16)
+		swatch.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		swatch.color = item_data.get("color") if item_data != null and item_data.get("color") != null else Color.WHITE
+		row.add_child(swatch)
+		var row_label: Label = Label.new()
+		row_label.text = "%s  x%d" % [tr(String(item_data.get("display_name_key"))), slot["quantity"]]
+		row.add_child(row_label)
 		_list.add_child(row)

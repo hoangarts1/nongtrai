@@ -33,6 +33,22 @@ const REQUIRED_KEYS: PackedStringArray = [
 	"UI_DEBUG_CLEAR_INVENTORY"
 	,"ITEM_TURNIP_SEED"
 	,"ITEM_TURNIP"
+	,"ITEM_SPRING_CARROT_SEED"
+	,"ITEM_SPRING_CARROT"
+	,"ITEM_SPRING_PEA_SEED"
+	,"ITEM_SPRING_PEA"
+	,"ITEM_SUMMER_TOMATO_SEED"
+	,"ITEM_SUMMER_TOMATO"
+	,"ITEM_SUMMER_CORN_SEED"
+	,"ITEM_SUMMER_CORN"
+	,"ITEM_AUTUMN_WHEAT_SEED"
+	,"ITEM_AUTUMN_WHEAT"
+	,"ITEM_AUTUMN_PUMPKIN_SEED"
+	,"ITEM_AUTUMN_PUMPKIN"
+	,"ITEM_WINTER_RADISH_SEED"
+	,"ITEM_WINTER_RADISH"
+	,"ITEM_WINTER_CABBAGE_SEED"
+	,"ITEM_WINTER_CABBAGE"
 	,"CROP_TURNIP"
 	,"UI_CLOCK_DAY_TIME"
 	,"UI_TIME_DAWN"
@@ -53,7 +69,23 @@ const REQUIRED_KEYS: PackedStringArray = [
 func _init() -> void:
 	var item_paths: Array[String] = [
 		"res://data/items/turnip_seed.tres",
-		"res://data/items/turnip.tres"
+		"res://data/items/turnip.tres",
+		"res://data/items/spring_carrot_seed.tres",
+		"res://data/items/spring_carrot.tres",
+		"res://data/items/spring_pea_seed.tres",
+		"res://data/items/spring_pea.tres",
+		"res://data/items/summer_tomato_seed.tres",
+		"res://data/items/summer_tomato.tres",
+		"res://data/items/summer_corn_seed.tres",
+		"res://data/items/summer_corn.tres",
+		"res://data/items/autumn_wheat_seed.tres",
+		"res://data/items/autumn_wheat.tres",
+		"res://data/items/autumn_pumpkin_seed.tres",
+		"res://data/items/autumn_pumpkin.tres",
+		"res://data/items/winter_radish_seed.tres",
+		"res://data/items/winter_radish.tres",
+		"res://data/items/winter_cabbage_seed.tres",
+		"res://data/items/winter_cabbage.tres"
 	]
 	var crop_paths: Array[String] = [
 		"res://data/crops/turnip.tres",
@@ -69,6 +101,8 @@ func _init() -> void:
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_crop_paths(crop_paths, item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_weather_profile("res://data/weather_profile.tres")
 	if errors.size() > 0:

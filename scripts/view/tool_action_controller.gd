@@ -16,6 +16,8 @@ var _selected_crop: StringName = &"turnip"
 var _hovered_cell: Vector2i
 var _hovered_valid: bool = false
 
+var _hotbar_panel: HotbarPanel = null
+
 func configure(
 	world: GrayBoxWorld,
 	farm_state: FarmGridState,
@@ -25,7 +27,8 @@ func configure(
 	inventory_panel: InventoryPanel,
 	debug_menu: DebugMenu,
 	feedback: Node = null,
-	audio: Node = null
+	audio: Node = null,
+	hotbar_panel: HotbarPanel = null
 ) -> void:
 	_world = world
 	_farm_state = farm_state
@@ -36,6 +39,20 @@ func configure(
 	_debug_menu = debug_menu
 	_feedback = feedback
 	_audio = audio
+	_hotbar_panel = hotbar_panel
+	if _hotbar_panel != null:
+		_hotbar_panel.slot_selected.connect(_on_slot_selected)
+
+func _on_slot_selected(slot_index: int) -> void:
+	if _inventory == null:
+		return
+	var slots: Array[Dictionary] = _inventory.get_slots()
+	if slot_index >= 0 and slot_index < slots.size():
+		var item_id: StringName = slots[slot_index]["item_id"]
+		var crop_data: Resource = DataRegistry.get_crop_for_seed(item_id)
+		if crop_data != null:
+			_selected_tool = &"seed"
+			_selected_crop = crop_data.get("crop_id")
 
 func select_tool(tool_id: StringName) -> void:
 	var tool_data: Resource = DataRegistry.get_tool(tool_id)
@@ -75,18 +92,47 @@ func _use_selected_tool() -> void:
 	if _selected_tool == &"harvest":
 		_harvest_selected_crop()
 		return
-	var crop_id: StringName = _selected_crop
 	if _selected_tool == &"seed":
-		if not _inventory.has_item(&"turnip_seed", 1):
+		var seed_item_id: StringName = &""
+		var crop_id: StringName = &""
+		if _hotbar_panel != null:
+			var slot: Dictionary = _hotbar_panel.get_selected_slot()
+			if not slot.is_empty():
+				var candidate_seed: StringName = StringName(slot.get("item_id", ""))
+				var candidate_crop: Resource = DataRegistry.get_crop_for_seed(candidate_seed)
+				if candidate_crop != null and _inventory.has_item(candidate_seed, 1):
+					seed_item_id = candidate_seed
+					crop_id = StringName(candidate_crop.get("crop_id"))
+		if seed_item_id.is_empty():
+			for s_item: Resource in DataRegistry.get_seed_items():
+				var s_id: StringName = s_item.get("item_id")
+				if _inventory.has_item(s_id, 1):
+					var c_data: Resource = DataRegistry.get_crop_for_seed(s_id)
+					var seasons: PackedStringArray = c_data.get("seasons") if c_data != null else PackedStringArray()
+					if seasons.is_empty() or seasons.has(String(GameClock.season)):
+						seed_item_id = s_id
+						crop_id = StringName(c_data.get("crop_id"))
+						break
+			if seed_item_id.is_empty():
+				for s_item: Resource in DataRegistry.get_seed_items():
+					var s_id: StringName = s_item.get("item_id")
+					if _inventory.has_item(s_id, 1):
+						var c_data: Resource = DataRegistry.get_crop_for_seed(s_id)
+						seed_item_id = s_id
+						crop_id = StringName(c_data.get("crop_id")) if c_data != null else &""
+						break
+		if seed_item_id.is_empty() or not _inventory.has_item(seed_item_id, 1):
 			_show_feedback("UI_FEEDBACK_NO_SEEDS")
 			return
-		if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, crop_id):
-			var crop_data: Resource = DataRegistry.get_crop(crop_id)
-			var crop_seasons: PackedStringArray = crop_data.get("seasons") if crop_data != null else PackedStringArray()
-			if not crop_seasons.is_empty() and not crop_seasons.has(String(GameClock.season)):
-				_show_feedback("UI_FEEDBACK_OUT_OF_SEASON")
+		var crop_data: Resource = DataRegistry.get_crop(crop_id)
+		var crop_seasons: PackedStringArray = crop_data.get("seasons") if crop_data != null else PackedStringArray()
+		if not crop_seasons.is_empty() and not crop_seasons.has(String(GameClock.season)):
+			_show_feedback("UI_FEEDBACK_OUT_OF_SEASON")
 			return
-		_inventory.remove_item(&"turnip_seed", 1)
+		if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, crop_id):
+			_show_feedback("UI_FEEDBACK_NOT_READY")
+			return
+		_inventory.remove_item(seed_item_id, 1)
 		_play_sound(&"seed")
 		return
 	if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &""):

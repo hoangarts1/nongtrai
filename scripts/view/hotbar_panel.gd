@@ -114,15 +114,24 @@ func _render_slots() -> void:
 		quantity_label.name = "Quantity"
 		quantity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		quantity_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var swatch: ColorRect = ColorRect.new()
+		swatch.name = "Swatch"
+		swatch.custom_minimum_size = Vector2(28, 4)
+		swatch.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		swatch.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if index < slots.size():
 			var item_data: Resource = DataRegistry.get_item(slots[index]["item_id"])
 			name_label.text = tr(String(item_data.get("display_name_key")))
 			quantity_label.text = "x%d" % slots[index]["quantity"]
 			button.tooltip_text = name_label.text
+			swatch.color = item_data.get("color") if item_data != null and item_data.get("color") != null else Color.WHITE
+			swatch.visible = true
 		else:
 			name_label.text = tr("UI_HOTBAR_EMPTY")
 			quantity_label.text = ""
 			button.tooltip_text = tr("UI_HOTBAR_EMPTY")
+			swatch.visible = false
+		content.add_child(swatch)
 		content.add_child(name_label)
 		content.add_child(quantity_label)
 		button.button_pressed = index == _selected_slot_index

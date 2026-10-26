@@ -10,3 +10,4 @@ extends Resource
 @export_range(1, 999) var growth_days: int = 1
 @export_range(0, 999) var water_need: int = 1
 @export var seasons: PackedStringArray = PackedStringArray()
+@export var color: Color = Color.WHITE

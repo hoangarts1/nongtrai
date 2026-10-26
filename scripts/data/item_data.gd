@@ -5,3 +5,6 @@ extends Resource
 @export var item_id: StringName
 @export var display_name_key: StringName = &""
 @export_range(1, 999) var max_stack: int = 99
+@export var buy_price: int = 0
+@export var sell_price: int = 0
+@export var color: Color = Color.WHITE

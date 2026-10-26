@@ -9,7 +9,23 @@ var _seasons: Dictionary = {}
 func _ready() -> void:
 	for item_data: Resource in [
 		preload("res://data/items/turnip_seed.tres"),
-		preload("res://data/items/turnip.tres")
+		preload("res://data/items/turnip.tres"),
+		preload("res://data/items/spring_carrot_seed.tres"),
+		preload("res://data/items/spring_carrot.tres"),
+		preload("res://data/items/spring_pea_seed.tres"),
+		preload("res://data/items/spring_pea.tres"),
+		preload("res://data/items/summer_tomato_seed.tres"),
+		preload("res://data/items/summer_tomato.tres"),
+		preload("res://data/items/summer_corn_seed.tres"),
+		preload("res://data/items/summer_corn.tres"),
+		preload("res://data/items/autumn_wheat_seed.tres"),
+		preload("res://data/items/autumn_wheat.tres"),
+		preload("res://data/items/autumn_pumpkin_seed.tres"),
+		preload("res://data/items/autumn_pumpkin.tres"),
+		preload("res://data/items/winter_radish_seed.tres"),
+		preload("res://data/items/winter_radish.tres"),
+		preload("res://data/items/winter_cabbage_seed.tres"),
+		preload("res://data/items/winter_cabbage.tres")
 	]:
 		_items[item_data.get("item_id")] = item_data
 	for crop_data: Resource in [
@@ -42,6 +58,33 @@ func get_item(item_id: StringName) -> Resource:
 
 func get_crop(crop_id: StringName) -> Resource:
 	return _crops.get(crop_id) as Resource
+
+func get_crop_for_seed(seed_item_id: StringName) -> Resource:
+	for crop_data: Resource in _crops.values():
+		if crop_data != null and crop_data.get("seed_item") == seed_item_id:
+			return crop_data
+	return null
+
+func get_all_items() -> Array[Resource]:
+	var result: Array[Resource] = []
+	result.assign(_items.values())
+	return result
+
+func get_all_crops() -> Array[Resource]:
+	var result: Array[Resource] = []
+	result.assign(_crops.values())
+	return result
+
+func get_seed_items() -> Array[Resource]:
+	var result: Array[Resource] = []
+	for crop_data: Resource in _crops.values():
+		if crop_data == null:
+			continue
+		var seed_id: StringName = crop_data.get("seed_item")
+		var item: Resource = get_item(seed_id)
+		if item != null and not result.has(item):
+			result.append(item)
+	return result
 
 func get_tool(tool_id: StringName) -> Resource:
 	return _tools.get(tool_id) as Resource

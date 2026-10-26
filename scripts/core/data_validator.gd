@@ -1,6 +1,7 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
 ##   static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray
+##   static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
 ##   static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray
 ##   static func validate_weather_profile(path: String) -> PackedStringArray
 class_name DataValidator
@@ -40,6 +41,81 @@ static func validate_item_paths(paths: Array[String]) -> PackedStringArray:
 			continue
 		resources.append(resource)
 	return validate_item_resources(resources)
+
+static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	var item_dict: Dictionary = {}
+	for item: Resource in items:
+		if item != null:
+			var i_id: Variant = item.get("item_id")
+			if i_id != null:
+				item_dict[StringName(i_id)] = item
+	for crop: Resource in crops:
+		if crop == null:
+			errors.append("crop resource is null")
+			continue
+		var crop_id: String = String(crop.get("crop_id"))
+		var seed_id: StringName = StringName(crop.get("seed_item"))
+		var prod_id: StringName = StringName(crop.get("product_item"))
+		if not item_dict.has(seed_id):
+			errors.append("crop %s references unknown seed item %s" % [crop_id, seed_id])
+		if not item_dict.has(prod_id):
+			errors.append("crop %s references unknown product item %s" % [crop_id, prod_id])
+		if item_dict.has(seed_id) and item_dict.has(prod_id):
+			var seed_item: Resource = item_dict[seed_id]
+			var prod_item: Resource = item_dict[prod_id]
+			var buy_price: int = int(seed_item.get("buy_price"))
+			var sell_price: int = int(prod_item.get("sell_price"))
+			if buy_price <= 0:
+				errors.append("seed item %s for crop %s must have positive buy_price" % [seed_id, crop_id])
+			if sell_price <= 0:
+				errors.append("product item %s for crop %s must have positive sell_price" % [prod_id, crop_id])
+			if sell_price <= buy_price:
+				errors.append("crop %s product sell_price (%d) must exceed seed buy_price (%d)" % [crop_id, sell_price, buy_price])
+	for i: int in range(crops.size()):
+		var crop_a: Resource = crops[i]
+		if crop_a == null:
+			continue
+		var growth_a: int = int(crop_a.get("growth_days"))
+		var seed_a: Resource = item_dict.get(StringName(crop_a.get("seed_item")))
+		var prod_a: Resource = item_dict.get(StringName(crop_a.get("product_item")))
+		if seed_a == null or prod_a == null:
+			continue
+		for j: int in range(i + 1, crops.size()):
+			var crop_b: Resource = crops[j]
+			if crop_b == null:
+				continue
+			var growth_b: int = int(crop_b.get("growth_days"))
+			var seed_b: Resource = item_dict.get(StringName(crop_b.get("seed_item")))
+			var prod_b: Resource = item_dict.get(StringName(crop_b.get("product_item")))
+			if seed_b == null or prod_b == null:
+				continue
+			if growth_a > growth_b:
+				if int(seed_a.get("buy_price")) < int(seed_b.get("buy_price")):
+					errors.append("crop %s seed buy_price is lower than faster crop %s" % [crop_a.get("crop_id"), crop_b.get("crop_id")])
+				if int(prod_a.get("sell_price")) < int(prod_b.get("sell_price")):
+					errors.append("crop %s product sell_price is lower than faster crop %s" % [crop_a.get("crop_id"), crop_b.get("crop_id")])
+			elif growth_b > growth_a:
+				if int(seed_b.get("buy_price")) < int(seed_a.get("buy_price")):
+					errors.append("crop %s seed buy_price is lower than faster crop %s" % [crop_b.get("crop_id"), crop_a.get("crop_id")])
+				if int(prod_b.get("sell_price")) < int(prod_a.get("sell_price")):
+					errors.append("crop %s product sell_price is lower than faster crop %s" % [crop_b.get("crop_id"), crop_a.get("crop_id")])
+	return errors
+
+static func validate_crop_paths(crop_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+	var crops: Array[Resource] = []
+	for path: String in crop_paths:
+		if ResourceLoader.exists(path):
+			crops.append(load(path))
+		else:
+			crops.append(null)
+	var items: Array[Resource] = []
+	for path: String in item_paths:
+		if ResourceLoader.exists(path):
+			items.append(load(path))
+		else:
+			items.append(null)
+	return validate_crop_references(crops, items)
 
 static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()

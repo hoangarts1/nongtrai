@@ -151,6 +151,12 @@ func _render_cell(cell: Vector2i) -> void:
 		crop.mesh = BoxMesh.new()
 		(crop.mesh as BoxMesh).size = Vector3(crop_size, 0.22 + crop_size, crop_size)
 		crop.position.y = 0.18 + crop_size * 0.5
+		var target_color: Color = crop_data.get("color") if crop_data != null and crop_data.get("color") != null else Color(0.95, 0.78, 0.18, 1.0)
 		var crop_material: StandardMaterial3D = StandardMaterial3D.new()
-		crop_material.albedo_color = Color(0.35, 0.30, 0.25, 1.0) if withered else (Color(0.40, 0.82, 0.18, 1.0) if growth_ratio < 1.0 else Color(0.95, 0.78, 0.18, 1.0))
+		if withered:
+			crop_material.albedo_color = Color(0.35, 0.30, 0.25, 1.0)
+		elif growth_ratio < 1.0:
+			crop_material.albedo_color = Color(0.40, 0.82, 0.18, 1.0).lerp(target_color, growth_ratio * 0.75)
+		else:
+			crop_material.albedo_color = target_color
 		crop.material_override = crop_material
