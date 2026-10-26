@@ -101,6 +101,16 @@ func can_harvest(cell: Vector2i) -> bool:
 		return false
 	return int(plot.get("growth_days", 0)) >= int(crop_data.get("growth_days"))
 
+func get_growth_remaining(cell: Vector2i) -> int:
+	var plot: Dictionary = _plots.get(cell, {})
+	var crop_id: StringName = plot.get("crop_id", &"")
+	if crop_id.is_empty():
+		return 0
+	var crop_data: Resource = DataRegistry.get_crop(crop_id)
+	if crop_data == null:
+		return 0
+	return maxi(0, int(crop_data.get("growth_days")) - int(plot.get("growth_days", 0)))
+
 func get_harvest_payload(cell: Vector2i) -> Dictionary:
 	if not can_harvest(cell):
 		return {"success": false, "crop_id": &"", "product_item": &"", "quantity": 0}

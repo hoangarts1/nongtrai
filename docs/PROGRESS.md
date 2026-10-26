@@ -1,12 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-25 (MVP polish 1)
+Last updated: 2026-10-25 (autosave and crop status labels)
 
 ## Current milestone
 `4.6 + UI onboarding` — Save/Load v1 is complete; HUD regions and first-run farming guidance are now implemented.
 
 ## Last commit / tag
-`2e9d625` — `fix: unify UI theme and modal layout`
+`acec1ca` — `fix: autosave progress on exit and changes`
 
 ## Done
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -67,6 +67,8 @@ Last updated: 2026-10-25 (MVP polish 1)
 - [x] Game-feel feedback includes animated item/invalid-action messages, soil response, crop growth stages and optional AudioService
 - [x] NV1 pause/start menus include settings, profile naming, slot 0 autosave and save toast
 - [x] NV2 optional audio naming is documented in `CREDITS.md`; missing audio files are silent
+- [x] Autosave writes after exit, every 60 real seconds, and after debounced farm/inventory changes; Continue selects the newest valid save
+- [x] Crop labels show localized remaining growth days, watering need and harvest readiness above each crop
 
 ## Known issues / tech debt
 - GUT 9.7.1 is installed under `addons/gut` for Godot 4.7.x.
@@ -81,6 +83,8 @@ Last updated: 2026-10-25 (MVP polish 1)
 - UI uses `scenes/main/ui_theme.tres`; the help panel is limited to 36% viewport width and hides the quest panel while open.
 - Pause and start overlays use the same Theme and are included in the documented modal layout; start menu blocks world input until a game is started or continued.
 - While sleeping, debug set-time, set-speed, pause and next-day actions are ignored. This keeps the sleep state deterministic and prevents a debug action from leaving the player locked or the clock stuck at x20.
+- Autosave uses slot 1 for active-progress recovery and selects the newest valid save between slots 0 and 1 using `saved_utc`.
+- Crop status is rendered as world-space billboard `Label3D` with depth testing disabled so it remains readable above placeholder crops.
 
 ## Open `<<FILL>>` items (must be empty before roadmap task 0.1)
 - gdtoolkit 4.3.0 is selected but not installed yet

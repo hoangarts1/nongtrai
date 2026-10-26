@@ -15,6 +15,7 @@ single window size.
 | Bottom-right | `HudButtonBar` | Anchored to `(1, 1)` with a safe margin |
 | Center modal | `PauseMenu` / `StartMenu` | Shared Theme panels; pause locks the player and start menu blocks gameplay until New Game or Continue |
 | Lower-center overlay | `Toast` / `FeedbackPopup` | Short save/result messages; mouse input is ignored |
+| Farm world | `FarmView` crop labels | Billboard labels sit above each crop, use no-depth-test rendering, and are kept in the world-space farm region rather than a HUD panel |
 
 Panels must use `Container` children for internal layout. New HUD controls
 must register in the existing bars or use a documented region; they must not

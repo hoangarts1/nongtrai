@@ -93,7 +93,11 @@ func _use_selected_tool() -> void:
 func _harvest_selected_crop() -> void:
 	var payload: Dictionary = _farm_state.get_harvest_payload(_hovered_cell)
 	if not bool(payload.get("success", false)):
-		_show_feedback("UI_FEEDBACK_NOT_READY")
+		var remaining_days: int = _farm_state.get_growth_remaining(_hovered_cell)
+		if remaining_days > 0:
+			_show_feedback("UI_FEEDBACK_NOT_READY_DAYS", remaining_days)
+		else:
+			_show_feedback("UI_FEEDBACK_NOT_READY")
 		return
 	var product_item: StringName = payload.get("product_item", &"")
 	var quantity: int = int(payload.get("quantity", 0))
@@ -107,9 +111,12 @@ func _harvest_selected_crop() -> void:
 	elif _farm_state.get_plot(_hovered_cell).is_empty():
 		_show_feedback("UI_FEEDBACK_NOT_READY")
 
-func _show_feedback(key: StringName) -> void:
+func _show_feedback(key: StringName, format_value: int = -1) -> void:
 	if _feedback != null:
-		_feedback.call("show_message", tr(String(key)))
+		var message: String = tr(String(key))
+		if format_value >= 0:
+			message = message % format_value
+		_feedback.call("show_message", message)
 
 func _play_sound(sound_id: StringName) -> void:
 	if _audio != null:

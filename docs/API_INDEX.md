@@ -85,6 +85,7 @@ Format:
 - func water_cell(cell: Vector2i) -> bool — marks the plot as watered when it is planted and needs water
 - func advance_day() -> void — advances each planted crop by one day if watered, then resets moisture
 - func can_harvest(cell: Vector2i) -> bool — returns true once the crop has matured
+- func get_growth_remaining(cell: Vector2i) -> int — returns the number of watered growth days remaining
 - func harvest_cell(cell: Vector2i) -> Dictionary — removes the crop and returns the harvest payload
 - func get_harvest_payload(cell: Vector2i) -> Dictionary — previews the complete harvest result without changing the plot
 - func serialize() -> Dictionary — saves plot state for save/load
@@ -95,6 +96,12 @@ Format:
 ## AudioService  (scripts/core/audio_service.gd)
 - func play_sound(sound_id: StringName) -> void — plays `assets/audio/<id>.ogg` when present; missing files are silent
 
+## FarmView  (scripts/view/farm_view.gd)
+- func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder soil view
+- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder crop view
+- func get_crop_label(cell: Vector2i) -> Label3D — returns the billboard growth-status label above a crop
+- Notes: labels show remaining days, watering status, or harvest readiness and are refreshed from `FarmGridState.plot_changed`.
+
 ## FeedbackPopup  (scripts/view/feedback_popup.gd)
 - func show_message(message: String) -> void — displays a short animated result message
 
@@ -103,6 +110,8 @@ Format:
 - func load_game(slot: int = 1) -> Dictionary — loads, validates and migrates a save; returns an empty dictionary for missing/corrupt/future saves
 - func delete_save(slot: int = 1) -> void — removes one save slot
 - func has_save(slot: int = 1) -> bool — reports whether a valid save exists
+- func load_latest() -> Dictionary — loads the newest valid save from slots 0 and 1
+- func get_latest_summary() -> Dictionary — returns farm name, day and saved timestamp for the newest save
 - Notes: the autoload owns file I/O only; Main composes clock, player, inventory and farm state.
 
 ## TutorialQuestState  (scripts/domain/tutorial_quest_state.gd)
