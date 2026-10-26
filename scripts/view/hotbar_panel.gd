@@ -12,6 +12,7 @@ var _slot_row: HBoxContainer
 var _tool_row: HBoxContainer
 var _selected_slot_index: int = -1
 var _content: VBoxContainer
+var _selection_caption: Label
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -40,6 +41,10 @@ func _build_ui() -> void:
 	_content.name = "Content"
 	_content.add_theme_constant_override("separation", 4)
 	margin.add_child(_content)
+	_selection_caption = Label.new()
+	_selection_caption.name = "SelectionCaption"
+	_selection_caption.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_content.add_child(_selection_caption)
 	_slot_row = HBoxContainer.new()
 	_slot_row.name = "HBoxContainer"
 	_slot_row.add_theme_constant_override("separation", 4)
@@ -52,13 +57,13 @@ func _build_ui() -> void:
 func register_tool(tool_id: StringName, label: String, callback: Callable) -> Button:
 	var button: Button = Button.new()
 	button.name = "Tool_%s" % tool_id
-	button.custom_minimum_size = Vector2(96, 36)
+	button.custom_minimum_size = Vector2(132, 40)
 	button.toggle_mode = true
 	button.mouse_filter = Control.MOUSE_FILTER_STOP
 	var tool_label: Label = Label.new()
 	tool_label.name = "ToolLabel"
 	tool_label.text = label
-	tool_label.add_theme_font_size_override("font_size", 13)
+	tool_label.add_theme_font_size_override("font_size", 18)
 	tool_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tool_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	tool_label.autowrap_mode = TextServer.AUTOWRAP_OFF
@@ -82,10 +87,11 @@ func _render_slots() -> void:
 	if _inventory == null:
 		return
 	var slots: Array[Dictionary] = _inventory.get_slots()
-	for index: int in range(_inventory.capacity):
+	for index: int in range(mini(9, _inventory.capacity)):
 		var button: Button = Button.new()
 		button.name = "Slot_%d" % (index + 1)
-		button.custom_minimum_size = Vector2(52, 64)
+		button.custom_minimum_size = Vector2(64, 114)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.toggle_mode = true
 		button.mouse_filter = Control.MOUSE_FILTER_STOP
 		var content: VBoxContainer = VBoxContainer.new()
@@ -102,6 +108,7 @@ func _render_slots() -> void:
 		key_label.text = str(index + 1) if index < 9 else "-"
 		key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		key_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		key_label.add_theme_font_size_override("font_size", 14)
 		content.add_child(key_label)
 		var name_label: Label = Label.new()
 		name_label.name = "Name"
@@ -110,10 +117,14 @@ func _render_slots() -> void:
 		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		name_label.add_theme_font_size_override("font_size", 16)
+		name_label.max_lines_visible = 2
+		name_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		var quantity_label: Label = Label.new()
 		quantity_label.name = "Quantity"
 		quantity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		quantity_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		quantity_label.add_theme_font_size_override("font_size", 16)
 		var swatch: ColorRect = ColorRect.new()
 		swatch.name = "Swatch"
 		swatch.custom_minimum_size = Vector2(28, 4)
@@ -137,6 +148,16 @@ func _render_slots() -> void:
 		button.button_pressed = index == _selected_slot_index
 		button.pressed.connect(func() -> void: _select_slot(index))
 		_slot_row.add_child(button)
+	var selected: Dictionary = get_selected_slot()
+	if selected.is_empty() and not slots.is_empty():
+		selected = slots[0]
+	_selection_caption.text = tr("UI_HOTBAR_CAPTION")
+	if not selected.is_empty():
+		var item: Resource = DataRegistry.get_item(selected["item_id"])
+		_selection_caption.text = "%s  ×%d" % [tr(String(item.get("display_name_key"))), int(selected["quantity"])]
+
+func refresh_readability() -> void:
+	_render_slots()
 
 func _select_slot(slot_index: int) -> void:
 	if _inventory == null or slot_index >= _inventory.get_slots().size():

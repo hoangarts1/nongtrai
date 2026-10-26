@@ -106,7 +106,9 @@ func _build_ui() -> void:
 	header.add_child(close_btn)
 	
 	var scroll: ScrollContainer = ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(360, 160)
+	scroll.custom_minimum_size = Vector2(0, 140)
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	main_vbox.add_child(scroll)
 	
 	_list_container = VBoxContainer.new()
@@ -180,7 +182,7 @@ func _render() -> void:
 		
 		sellable_count += 1
 		var item_btn: Button = Button.new()
-		item_btn.custom_minimum_size = Vector2(340, 36)
+		item_btn.custom_minimum_size = Vector2(0, 52)
 		item_btn.toggle_mode = true
 		item_btn.button_pressed = (item_id == _selected_item_id)
 		
@@ -203,6 +205,7 @@ func _render() -> void:
 		var name_lbl: Label = Label.new()
 		name_lbl.text = "%s (x%d)" % [tr(String(item_data.get("display_name_key"))), qty]
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(name_lbl)
 		

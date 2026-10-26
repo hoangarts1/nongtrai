@@ -91,7 +91,14 @@ func _build_base_ui() -> void:
 	var title: Label = Label.new()
 	title.text = tr("UI_DEBUG_TITLE")
 	title.add_theme_font_size_override("font_size", 18)
-	column.add_child(title)
+	var heading: HBoxContainer = HBoxContainer.new()
+	column.add_child(heading)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	heading.add_child(title)
+	var close_button: Button = Button.new()
+	close_button.text = tr("UI_CLOSE")
+	close_button.pressed.connect(func() -> void: hide())
+	heading.add_child(close_button)
 	_status_label = Label.new()
 	column.add_child(_status_label)
 	var action_scroll: ScrollContainer = ScrollContainer.new()
@@ -100,6 +107,7 @@ func _build_base_ui() -> void:
 	action_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	column.add_child(action_scroll)
 	_action_buttons = VBoxContainer.new()
+	_action_buttons.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_action_buttons.add_theme_constant_override("separation", 4)
 	action_scroll.add_child(_action_buttons)
 	for action: Dictionary in _actions:

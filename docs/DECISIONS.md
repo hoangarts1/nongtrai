@@ -86,3 +86,9 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Keep base item prices unchanged. Merchant prices are isolated transaction quotes and cannot affect the existing year simulation.
 - Use existing WalletState/InventoryState APIs as explicitly requested; do not introduce EconomyService/InventoryService refactors in this slice.
 - Preserve `quests` for onboarding; v4 adds `social` for active/completed NPC quests, relationships, heard dialogue and consumed daily offers. Migrate v3 with empty social defaults while preserving all existing fields.
+
+### D22 — UI readability and modal ownership (2026-10-26) — Status: LOCKED by playtest repair request
+- Player screenshots showed overlapping inventory/pause/debug/prompt panels and unreadable hotbar/world labels. Main now owns a view-only UiCoordinator: one modal at a time, consistent close/switch input, dim background, hidden secondary HUD/prompt, and correct movement/clock restoration.
+- Runtime Theme duplicates the existing resource: 18 px body, 24 px headings, at least 40 px main buttons; hotbar item labels use 16 px plus an 18 px full-name caption. Shared Theme/scene assets stay untouched within the authorized file scope.
+- The hotbar displays nine slots matching keys 1–9; I still exposes every inventory slot. No inventory capacity, item quantity, transaction, NPC schedule or save format changes.
+- This supersedes the earlier 14 px presentation and simultaneous-panel layout expectations only. UI tests now exercise visible panels one at a time, real shortcut transitions, full inventories, settings, both locales and three resolutions.

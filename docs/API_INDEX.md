@@ -299,6 +299,13 @@ Format:
 - `NpcActor.configure(social: NpcSocialState, npc: NpcData)`, `reset_position()`: interpolate the domain route via GridMath, hide on arrival home, display localized name/prompt.
 - `DataValidator.validate_npc_world(data, items, quests, locale_paths) -> PackedStringArray`: unique ids, references, schedule bounds, reachable destinations, friendship limits, merchant prices and translation coverage. tools/validate_data.gd includes this gate.
 
+## UiCoordinator / UiLayout (scripts/view/ui_coordinator.gd, ui_layout.gd)
+- `UiCoordinator.configure(main: Node) -> void`: registers the nine existing modal surfaces, applies the runtime theme/layout, and creates a view-only backdrop; no autoload or scene edits.
+- `close_active() -> void`, `get_active_panel() -> Control`: closes through each panel's existing API and coordinates visibility, clock/player locking, prompts and secondary HUD. Start menu cannot be bypassed by gameplay shortcuts.
+- `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: duplicated runtime Theme (18 px body, 24 px headings), large buttons, responsive rectangles, and deferred reflow after minimum-size changes.
+- `HotbarPanel.refresh_readability() -> void`: rebuilds nine visible slots, keeping the full inventory unchanged; caption and tooltip expose full localized item names. `InventoryPanel` shows all items in a scrollable list with a fixed close header.
+- Modal shortcut contract: I/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
+
 ## ShippingBinPanel  (scripts/view/shipping_bin_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory and wallet
 - func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls; locks player movement

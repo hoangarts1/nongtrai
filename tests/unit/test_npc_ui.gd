@@ -100,7 +100,7 @@ func test_journal_and_dialogue_layout_at_three_sizes_in_both_locales() -> void:
 func _check_panel(panel: NpcPanel, viewport_size: Vector2i, hotbar: Control) -> void:
 	assert_true(panel.visible, "Panel must actually open")
 	assert_true(Rect2(Vector2.ZERO, Vector2(viewport_size)).encloses(panel.get_global_rect()), "Panel inside viewport")
-	assert_false(panel.get_global_rect().intersects(hotbar.get_global_rect()), "Panel avoids hotbar")
+	assert_false(hotbar.visible, "Modal hides hotbar instead of competing for screen space")
 	assert_true(panel.get_global_rect().encloses(panel.close_button.get_global_rect()), "Close button is reachable")
 	assert_true(panel.get_global_rect().encloses(panel.title_label.get_global_rect()), "Title inside panel")
 
@@ -139,7 +139,8 @@ func test_real_input_dispatch_opens_npc_before_world_and_consumes_modal_shortcut
 	assert_false(main.seed_shop_panel.visible)
 	assert_false(main.shipping_bin_panel.visible)
 	_push_action(&"open_inventory")
-	assert_false(main.inventory_panel.visible, "Inventory shortcut consumed by dialogue")
+	assert_true(main.inventory_panel.visible, "Inventory shortcut switches to inventory")
+	assert_false(system.dialogue.visible, "Switching closes dialogue")
 	assert_false(main.hud_button_bar.visible, "HUD cannot open another modal")
 	_push_action(&"pause")
 	assert_false(system.is_open())

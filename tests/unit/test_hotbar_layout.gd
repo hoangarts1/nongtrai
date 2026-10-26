@@ -12,6 +12,11 @@ func test_hotbar_labels_fit_inside_each_slot_without_overlap() -> void:
 		get_viewport().size = viewport_size
 		var main: Node = preload("res://scenes/main/main.tscn").instantiate()
 		get_tree().root.add_child(main)
+		main.set("_game_started", true)
+		main.start_menu.hide()
+		main.tutorial_panel.close_help()
+		main.ui_coordinator.close_active()
+		await get_tree().process_frame
 		await get_tree().process_frame
 		var hotbar: Control = main.get_node("HotbarPanel")
 		var slot_row: HBoxContainer = hotbar.get_node("MarginContainer/Content/HBoxContainer")

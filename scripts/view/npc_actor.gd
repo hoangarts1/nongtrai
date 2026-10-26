@@ -25,7 +25,9 @@ func configure(social: NpcSocialState, npc: NpcData) -> void:
 	name_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	name_label.no_depth_test = true
 	name_label.font = preload("res://scenes/main/ui_theme.tres").default_font
-	name_label.font_size = 32
+	name_label.font_size = 64
+	name_label.pixel_size = 0.008
+	name_label.outline_size = 10
 	name_label.text = tr(String(data.display_name_key))
 	add_child(name_label)
 

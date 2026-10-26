@@ -32,6 +32,7 @@ var _real_seconds_since_save: float = 0.0
 var _seconds_since_dirty_save: float = 0.0
 var _save_dirty: bool = false
 var weather_state: Object
+var ui_coordinator: UiCoordinator
 
 func _process(delta: float) -> void:
 	if not _game_started:
@@ -130,6 +131,9 @@ func _ready() -> void:
 		hud_button_bar.set_button_active(&"inventory", is_open)
 	)
 	hud_button_bar.set_button_active(&"inventory", inventory_panel.visible)
+	ui_coordinator = UiCoordinator.new()
+	add_child(ui_coordinator)
+	ui_coordinator.configure(self)
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -193,6 +197,8 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
 		inventory.add_item(starter_seed, 10)
 	_save_game_to_slot(1)
+	if not Settings.is_tutorial_dismissed():
+		tutorial_panel.open_help()
 
 func _continue_game() -> void:
 	var latest: Dictionary = SaveService.load_latest()

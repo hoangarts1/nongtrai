@@ -71,7 +71,7 @@ func _build_ui() -> void:
 	column.add_child(new_button)
 	var settings_button: Button = Button.new()
 	settings_button.text = tr("UI_SETTINGS")
-	settings_button.pressed.connect(func() -> void: _settings_box.visible = not _settings_box.visible)
+	settings_button.pressed.connect(_toggle_settings)
 	column.add_child(settings_button)
 	var continue_button: Button = Button.new()
 	continue_button.name = "Continue"
@@ -84,8 +84,14 @@ func _build_ui() -> void:
 	column.add_child(exit_button)
 
 func _show_new_game_fields() -> void:
+	_settings_box.hide()
+	if _name_box.visible:
+		return
 	_name_box.visible = true
+	if _name_box.get_node_or_null("ConfirmNewGame") != null:
+		return
 	var confirm: Button = Button.new()
+	confirm.name = "ConfirmNewGame"
 	confirm.text = tr("UI_CONFIRM")
 	confirm.pressed.connect(func() -> void:
 		_new_game_callback.call(
@@ -95,6 +101,10 @@ func _show_new_game_fields() -> void:
 		visible = false
 	)
 	_name_box.add_child(confirm)
+
+func _toggle_settings() -> void:
+	_name_box.hide()
+	_settings_box.visible = not _settings_box.visible
 
 func _continue_summary() -> String:
 	var summary: Dictionary = SaveService.get_latest_summary()

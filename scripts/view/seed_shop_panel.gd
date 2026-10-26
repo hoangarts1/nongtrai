@@ -122,7 +122,9 @@ func _build_ui() -> void:
 	header.add_child(close_btn)
 	
 	var scroll: ScrollContainer = ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(380, 180)
+	scroll.custom_minimum_size = Vector2(0, 140)
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	main_vbox.add_child(scroll)
 	
 	_list_container = VBoxContainer.new()
@@ -209,7 +211,7 @@ func _render() -> void:
 		
 		var buy_price: int = int(item_data.get("buy_price"))
 		var item_btn: Button = Button.new()
-		item_btn.custom_minimum_size = Vector2(360, 36)
+		item_btn.custom_minimum_size = Vector2(0, 72)
 		item_btn.toggle_mode = true
 		item_btn.button_pressed = (seed_id == _selected_item_id)
 		
@@ -236,6 +238,7 @@ func _render() -> void:
 		else:
 			name_lbl.text = "%s %s" % [base_name, tr("UI_SEASON_NOTE") % seasons_text]
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(name_lbl)
 		
@@ -248,7 +251,7 @@ func _render() -> void:
 			item_btn.pressed.connect(func() -> void: _select_item(seed_id))
 		else:
 			item_btn.disabled = true
-			item_btn.modulate = Color(1, 1, 1, 0.45)
+			item_btn.modulate = Color(1, 1, 1, 0.72)
 		
 		_list_container.add_child(item_btn)
 	

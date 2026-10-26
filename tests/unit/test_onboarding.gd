@@ -10,6 +10,12 @@ func test_help_action_and_tutorial_use_input_map_bindings() -> void:
 	get_tree().root.add_child(main)
 	await get_tree().process_frame
 	var tutorial: Control = main.get_node("TutorialPanel")
+	if main.start_menu.visible:
+		assert_false(tutorial.visible, "Start menu must not stack with help")
+	main.set("_game_started", true)
+	main.start_menu.hide()
+	tutorial.call("open_help")
+	await get_tree().process_frame
 	assert_true(tutorial.visible)
 	var instructions: Label = tutorial.get_node("MarginContainer/VBoxContainer/Instructions")
 	assert_true(instructions.text.contains("W"))

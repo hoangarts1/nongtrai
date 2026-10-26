@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-26 (npc-quests)
+Last updated: 2026-10-26 (UI readability repair after npc-quests)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
@@ -22,7 +22,34 @@ Last updated: 2026-10-26 (npc-quests)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- HUD layout and onboarding guidance are complete; awaiting manual playtest feedback.
+- UI readability/overlap repair implemented after Phase 8 playtest screenshots; automated checks pass, human re-test pending.
+- Approved execution process continues: record plan then implement without another approval. UI-only file scope: scripts/view/{main,debug_menu,hotbar_panel,inventory_panel,seed_shop_panel,shipping_bin_panel,start_menu,npc_actor,npc_system,ui_coordinator,ui_layout}.gd, their new .uid files, tests/unit UI regression/layout tests, localization/strings_{vi,en}.csv, docs/{API_INDEX,PROGRESS,UI_LAYOUT,DECISIONS}.md. No scene, shared Theme file, domain, economy, weather or save-schema changes.
+- Plan: a view coordinator owns modal exclusivity/input/prompt suppression; a runtime layout/theme helper applies readable 18 px typography, responsive central panels and opaque surfaces using existing nodes; repair inventory/hotbar list sizing and permanent close/actions; test real key sequences, full inventory/shop lists, settings and modal switching at 1152x648, 1280x720, 1920x1080 in vi/en, then run official/headless suites and inspect rendered screenshots.
+- Risks: old layout tests assume multiple simultaneous panels and tiny dimensions; update those expectations only where the new intentional modal/layout contract changes, retain all containment/readability checks. Runtime theme is duplicated, leaving the shared .tres outside the ALLOW_LIST untouched. Keep npc-quests tag intact; use a separate UI fix commit under the user's standing one-task/one-commit workflow.
+
+## UI repair results and handoff
+- Fixed the reproduced inventory/pause/debug stack with UiCoordinator; one active panel through keys, HUD buttons and programmatic opens. Prompt and secondary HUD hide behind modal surfaces, Esc closes the active panel, I/H/J/Ctrl+M switch cleanly. New Game/help are separate; settings/name-entry forms are exclusive and repeated New Game clicks cannot duplicate Confirm.
+- Duplicated runtime Theme: 18 px body, 24 px headings, opaque surfaces, 40+ px buttons; nine large hotbar slots with 16 px names, 18 px full-name caption and readable world NPC/home labels. All inventory slots remain in the scrollable inventory. Shop/bin changes affect list sizing and display only; transaction methods are unchanged.
+- Fixed deferred minimum-size reflow so hidden/rebuilt content cannot leave oversized panels covering the HUD. Inventory close header, trade footer and debug close button stay available. Long lists and NPC text/actions scroll.
+- Real official runner output (2026-10-26):
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              39
+Tests               115
+Passing Tests       115
+Asserts            3818
+Time              12.166s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Separate headless GUT: 39 scripts / 115 tests / 115 passing / 3758 asserts / 6.147s. Rendered runs include 60 PNG-save assertions. Final scan of parse, validator, GUT, main, headless and UI capture logs: 0 matches for SCRIPT ERROR / Parse Error / Failed to load script / ERROR:. git diff --check passes. gdtoolkit remains unavailable and was not installed.
+- Updated tests intentionally replace the old simultaneous-modal geometry assumptions with actual single-modal behavior, retain HUD non-overlap/containment, and add full inventory/shop lists, expanded pause/start settings, repeated New Game clicks, real modal shortcut sequences, viewport/button bounds, both languages and all three resolutions. Onboarding still checks every original binding and opt-out; it explicitly opens help after the start screen, matching the new exclusive flow.
+- Manual editor steps: none. F5, start/continue, then I → Ctrl+M → H → J → Esc. Only one panel should appear, all text should be readable, Esc should return to play without another hidden menu. Open buy/sell panels, scroll lists, verify Close/Confirm stay visible; compare 1152x648/1280x720/1920x1080. Verify New Game/settings fields and scroll a full inventory. Human confirmation remains pending.
+- Review diff: `git diff npc-quests..HEAD` after the separate UI commit. Commit message: `fix: improve UI readability and modal exclusivity`. No new milestone tag; existing npc-quests remains unchanged.
+- Rendered evidence: user://ui_repair_{hud,InventoryPanel,PauseMenu,DebugMenu,TutorialPanel,SeedShopPanel,ShippingBinPanel,StartMenu}_{vi,en}_{1152x648,1280x720,1920x1080}.png; targeted capture uses -gopacity=0 so GUT does not obscure the game.
 
 ## Done
 - [x] Reusable interaction prompt anchored to the viewport with readable background and outline
@@ -242,3 +269,31 @@ Time              5.728s
 ```
 
 Separate headless GUT: 39 scripts, 113 tests, 113 passing, 2838 asserts, 4.094s. Final error-text scan: 0 matches across parse, validator, GUT, main, headless and NPC UI logs. Human manual playtest is still pending; gdtoolkit lint was not run (not installed).
+
+Exact UI repair files:
+
+```text
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/view/debug_menu.gd
+scripts/view/hotbar_panel.gd
+scripts/view/inventory_panel.gd
+scripts/view/main.gd
+scripts/view/npc_actor.gd
+scripts/view/npc_system.gd
+scripts/view/seed_shop_panel.gd
+scripts/view/shipping_bin_panel.gd
+scripts/view/start_menu.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_coordinator.gd.uid
+scripts/view/ui_layout.gd
+scripts/view/ui_layout.gd.uid
+tests/unit/test_hotbar_layout.gd
+tests/unit/test_npc_ui.gd
+tests/unit/test_onboarding.gd
+tests/unit/test_ui_layout.gd
+```

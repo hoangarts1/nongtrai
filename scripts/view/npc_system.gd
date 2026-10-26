@@ -243,7 +243,10 @@ func _add_home(npc: NpcData) -> void:
 	var label: Label3D = Label3D.new()
 	label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.position.y = 1.1
+	label.position.y = 1.7
+	label.font_size = 64
+	label.pixel_size = 0.008
+	label.outline_size = 10
 	label.font = preload("res://scenes/main/ui_theme.tres").default_font
 	home.add_child(label)
 	add_child(home)
