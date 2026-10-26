@@ -17,6 +17,7 @@ var _hovered_cell: Vector2i
 var _hovered_valid: bool = false
 
 var _hotbar_panel: HotbarPanel = null
+var _shipping_bin_panel: Control = null
 
 func configure(
 	world: GrayBoxWorld,
@@ -28,7 +29,8 @@ func configure(
 	debug_menu: DebugMenu,
 	feedback: Node = null,
 	audio: Node = null,
-	hotbar_panel: HotbarPanel = null
+	hotbar_panel: HotbarPanel = null,
+	shipping_bin_panel: Control = null
 ) -> void:
 	_world = world
 	_farm_state = farm_state
@@ -40,6 +42,7 @@ func configure(
 	_feedback = feedback
 	_audio = audio
 	_hotbar_panel = hotbar_panel
+	_shipping_bin_panel = shipping_bin_panel
 	if _hotbar_panel != null:
 		_hotbar_panel.slot_selected.connect(_on_slot_selected)
 
@@ -180,4 +183,4 @@ func _reach_for_selected_tool() -> int:
 	return int(tool_data.get("reach_cells"))
 
 func _is_input_locked() -> bool:
-	return GameClock.is_sleeping() or _inventory_panel.visible or _debug_menu.visible
+	return GameClock.is_sleeping() or _inventory_panel.visible or _debug_menu.visible or (_shipping_bin_panel != null and _shipping_bin_panel.visible)

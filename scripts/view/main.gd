@@ -18,6 +18,7 @@ extends Node3D
 @onready var weather_hud: Label = $WeatherHud
 @onready var weather_fx: Node3D = $GrayBoxWorld/WeatherFx
 @onready var wallet_hud: Label = $WalletHud
+@onready var shipping_bin_panel = $ShippingBinPanel
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
@@ -81,7 +82,9 @@ func _ready() -> void:
 		inventory.add_item(starter_seed, 10)
 	farm_view.call("configure", farm_state)
 	feedback.configure(inventory)
-	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service, hotbar_panel)
+	shipping_bin_panel.configure(inventory, wallet, world.player, feedback)
+	world.shipping_bin_interacted.connect(shipping_bin_panel.open)
+	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service, hotbar_panel, shipping_bin_panel)
 	hotbar_panel.register_tool(&"hoe", tr("UI_TOOL_HOE"), func() -> void: tool_controller.select_tool(&"hoe"))
 	hotbar_panel.register_tool(&"watering_can", tr("UI_TOOL_WATER"), func() -> void: tool_controller.select_tool(&"watering_can"))
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)

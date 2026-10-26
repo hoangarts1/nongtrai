@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/view/gray_box_world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -43,6 +43,14 @@ material = SubResource("Material_house")
 
 [sub_resource type="BoxMesh" id="Mesh_obstacle"]
 size = Vector3(1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_bin"]
+albedo_color = Color(0.48, 0.3, 0.15, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_bin"]
+size = Vector3(1.2, 0.8, 1.2)
+material = SubResource("Material_bin")
 
 [sub_resource type="StyleBoxFlat" id="Style_prompt"]
 bg_color = Color(0.04, 0.08, 0.06, 0.88)
@@ -108,6 +116,14 @@ visible = false
 [node name="BedMarker" type="Marker3D" parent="."]
 unique_name_in_owner = true
 position = Vector3(11.0, 0, 10.0)
+
+[node name="ShippingBin" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_bin")
+position = Vector3(8.5, 0.4, 9.5)
+
+[node name="ShippingBinMarker" type="Marker3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(8.5, 0, 9.5)
 
 [node name="Obstacle" type="MeshInstance3D" parent="."]
 mesh = SubResource("Mesh_obstacle")

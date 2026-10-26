@@ -137,3 +137,11 @@ CROP_STATUS_NEEDS_WATER,Needs water
 CROP_STATUS_READY,Ripe! Ready to harvest
 CROP_STATUS_WITHERED,Withered
 UI_WALLET_COINS,"%d coins"
+UI_PROMPT_SELL,"[E] Sell items"
+UI_SHIPPING_BIN_TITLE,"SHIPPING BIN"
+UI_CONFIRM_SELL,"Sell"
+UI_SELL_PRICE,"Price: %d coins"
+UI_TOTAL_PRICE,"Total: %d coins"
+UI_NO_SELLABLE_ITEMS,"No sellable items to sell"
+UI_FEEDBACK_SOLD,"+ %d coins"
+UI_MAX,"Max"

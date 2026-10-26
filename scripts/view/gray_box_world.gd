@@ -6,11 +6,15 @@ class_name GrayBoxWorld
 extends Node3D
 
 const BED_INTERACTION_REACH: float = 2.5
+const SHIPPING_BIN_REACH: float = 2.5
+
+signal shipping_bin_interacted()
 
 @onready var camera: Camera3D = %Camera
 @onready var player: Player = $Player
 @onready var camera_rig: CameraRig = %CameraRig
 @onready var bed_marker: Marker3D = %BedMarker
+@onready var shipping_bin_marker: Marker3D = %ShippingBinMarker
 @onready var interaction_prompt: InteractionPrompt = $InteractionLayer/InteractionPrompt
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var sun: DirectionalLight3D = $Sun
@@ -27,16 +31,19 @@ func _ready() -> void:
 	GameClock.sleep_finished.connect(_on_sleep_finished)
 	GameClock.time_changed.connect(_on_time_changed)
 	Events.weather_changed.connect(_on_weather_changed)
-	_update_bed_prompt()
+	_update_interaction_prompt()
 	_apply_day_night(GameClock.minute)
 
 func _process(_delta: float) -> void:
-	_update_bed_prompt()
+	_update_interaction_prompt()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("interact"):
 		return
 	if GameClock.is_sleeping():
+		return
+	if shipping_bin_marker != null and is_player_near_interactable(player.global_position, shipping_bin_marker.global_position, SHIPPING_BIN_REACH):
+		shipping_bin_interacted.emit()
 		return
 	if not GameClock.can_sleep():
 		return
@@ -45,24 +52,25 @@ func _unhandled_input(event: InputEvent) -> void:
 	if GameClock.try_sleep():
 		_on_sleep_started()
 
-func _update_bed_prompt() -> void:
+func _update_interaction_prompt() -> void:
 	if GameClock.is_sleeping():
-		interaction_prompt.show_prompt("Đang ngủ...")
+		interaction_prompt.show_prompt(tr("UI_SLEEP_PENDING"))
 		return
-	if not is_player_near_interactable(player.global_position, bed_marker.global_position, BED_INTERACTION_REACH):
-		interaction_prompt.hide_prompt()
-	elif GameClock.can_sleep():
-		interaction_prompt.show_prompt("[E] Ngủ")
-	else:
-		interaction_prompt.hide_prompt()
+	if shipping_bin_marker != null and is_player_near_interactable(player.global_position, shipping_bin_marker.global_position, SHIPPING_BIN_REACH):
+		interaction_prompt.show_prompt(tr("UI_PROMPT_SELL"))
+		return
+	if is_player_near_interactable(player.global_position, bed_marker.global_position, BED_INTERACTION_REACH) and GameClock.can_sleep():
+		interaction_prompt.show_prompt(tr("UI_SLEEP_HINT"))
+		return
+	interaction_prompt.hide_prompt()
 
 func _on_sleep_started() -> void:
 	player.movement_enabled = false
-	interaction_prompt.show_prompt("Đang ngủ...")
+	interaction_prompt.show_prompt(tr("UI_SLEEP_PENDING"))
 
 func _on_sleep_finished(_day_index: int) -> void:
 	player.movement_enabled = true
-	_update_bed_prompt()
+	_update_interaction_prompt()
 
 func _on_time_changed(_day_index: int, minute: int) -> void:
 	_apply_day_night(minute)

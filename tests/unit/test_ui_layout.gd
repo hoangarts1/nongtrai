@@ -52,4 +52,8 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 		]
 		for pair: Array in pairs:
 			assert_false(pair[0].get_global_rect().intersects(pair[1].get_global_rect()), "Overlap at %s: %s %s / %s %s" % [viewport_size, pair[0].name, pair[0].get_global_rect(), pair[1].name, pair[1].get_global_rect()])
+		var bin_panel: Control = main.get_node("ShippingBinPanel")
+		bin_panel.visible = true
+		assert_true(Rect2(Vector2.ZERO, Vector2(viewport_size)).encloses(bin_panel.get_global_rect()), "ShippingBinPanel outside viewport at %s" % viewport_size)
+		bin_panel.visible = false
 		main.queue_free()
