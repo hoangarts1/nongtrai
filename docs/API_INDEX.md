@@ -38,6 +38,15 @@ Format:
 - signal weather_changed(weather_id: StringName) — emitted when today's weather changes
 - signal forecast_updated(forecast: Array[StringName]) — emitted when the forecast changes
 
+## SeasonData  (scripts/data/season_data.gd)
+- season_id: StringName — stable season identifier
+- days_in_season: int — data-defined season length
+- grass_color: Color — placeholder grass tint for the season
+- Notes: four shipped resources define spring, summer, autumn and winter.
+
+## WeatherProfile  (scripts/data/weather_profile.gd)
+- func get_entry(weather_id: StringName) -> Dictionary — returns data-defined probability and visual effects
+
 ## CameraRig  (scripts/view/camera_rig.gd)
 - func set_target(target_node: Node3D) -> void — assigns the node followed by the rig
 - Notes: follows with exponential smoothing and clamps the camera center to the gray-box map bounds.
