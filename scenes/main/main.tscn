@@ -1,26 +1,26 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene format=3 uid="uid://c312x4qlx7tur"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/gray_box_world.tscn" id="1_world"]
-[ext_resource type="Script" path="res://scripts/view/clock_hud.gd" id="2_clock"]
-[ext_resource type="Script" path="res://scripts/view/main.gd" id="3_main"]
-[ext_resource type="Script" path="res://scripts/view/debug_menu.gd" id="4_debug"]
-[ext_resource type="Script" path="res://scripts/view/inventory_panel.gd" id="5_inventory"]
-[ext_resource type="Script" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
-[ext_resource type="Script" path="res://scripts/view/hotbar_panel.gd" id="7_hotbar"]
-[ext_resource type="Script" path="res://scripts/view/tool_action_controller.gd" id="8_tool"]
-[ext_resource type="Script" path="res://scripts/view/tutorial_panel.gd" id="9_tutorial"]
-[ext_resource type="Script" path="res://scripts/view/quest_panel.gd" id="10_quest"]
+[ext_resource type="Script" uid="uid://nlocvslsstr5" path="res://scripts/view/clock_hud.gd" id="2_clock"]
+[ext_resource type="Script" uid="uid://cpxxx72dr7mq6" path="res://scripts/view/main.gd" id="3_main"]
+[ext_resource type="Script" uid="uid://dyesb8udevix8" path="res://scripts/view/debug_menu.gd" id="4_debug"]
+[ext_resource type="Script" uid="uid://cijveedr5o0hj" path="res://scripts/view/inventory_panel.gd" id="5_inventory"]
+[ext_resource type="Script" uid="uid://k6hja2cwaqca" path="res://scripts/view/hud_button_bar.gd" id="6_hud_bar"]
+[ext_resource type="Script" uid="uid://c5xrsu3u0hvc3" path="res://scripts/view/hotbar_panel.gd" id="7_hotbar"]
+[ext_resource type="Script" uid="uid://55u2ypc1aq3d" path="res://scripts/view/tool_action_controller.gd" id="8_tool"]
+[ext_resource type="Script" uid="uid://bo2boyyu7i11j" path="res://scripts/view/tutorial_panel.gd" id="9_tutorial"]
+[ext_resource type="Script" uid="uid://chnxlbd5t6fao" path="res://scripts/view/quest_panel.gd" id="10_quest"]
 [ext_resource type="Theme" path="res://scenes/main/ui_theme.tres" id="11_theme"]
-[ext_resource type="Script" path="res://scripts/view/pause_menu.gd" id="12_pause"]
-[ext_resource type="Script" path="res://scripts/view/start_menu.gd" id="13_start"]
-[ext_resource type="Script" path="res://scripts/view/feedback_popup.gd" id="14_feedback"]
-[ext_resource type="Script" path="res://scripts/core/audio_service.gd" id="15_audio"]
-[ext_resource type="Script" path="res://scripts/view/weather_hud.gd" id="16_weather"]
-[ext_resource type="Script" path="res://scripts/view/wallet_hud.gd" id="17_wallet"]
-[ext_resource type="Script" path="res://scripts/view/shipping_bin_panel.gd" id="18_shipping_bin"]
-[ext_resource type="Script" path="res://scripts/view/seed_shop_panel.gd" id="19_seed_shop"]
-[ext_resource type="Script" path="res://scripts/view/npc_system.gd" id="20_npc"]
-[ext_resource type="Script" path="res://scripts/view/npc_panel.gd" id="21_npc_panel"]
+[ext_resource type="Script" uid="uid://bj4oyuatca4im" path="res://scripts/view/pause_menu.gd" id="12_pause"]
+[ext_resource type="Script" uid="uid://dhnh8dt1s7dnk" path="res://scripts/view/start_menu.gd" id="13_start"]
+[ext_resource type="Script" uid="uid://dr2uun477id3f" path="res://scripts/view/feedback_popup.gd" id="14_feedback"]
+[ext_resource type="Script" uid="uid://tjsynao432kd" path="res://scripts/core/audio_service.gd" id="15_audio"]
+[ext_resource type="Script" uid="uid://dj3wjkes5g1s6" path="res://scripts/view/weather_hud.gd" id="16_weather"]
+[ext_resource type="Script" uid="uid://7nv7sgnmup74" path="res://scripts/view/wallet_hud.gd" id="17_wallet"]
+[ext_resource type="Script" uid="uid://dnipjlddslfgy" path="res://scripts/view/shipping_bin_panel.gd" id="18_shipping_bin"]
+[ext_resource type="Script" uid="uid://cu2swjbxfw83m" path="res://scripts/view/seed_shop_panel.gd" id="19_seed_shop"]
+[ext_resource type="Script" uid="uid://bpflh4q30kkva" path="res://scripts/view/npc_system.gd" id="20_npc"]
+[ext_resource type="Script" uid="uid://b1oyw0aco07hs" path="res://scripts/view/npc_panel.gd" id="21_npc_panel"]
 
 [sub_resource type="StyleBoxFlat" id="Style_debug"]
 bg_color = Color(0.03, 0.04, 0.06, 0.94)
@@ -39,7 +39,7 @@ border_width_bottom = 2
 border_color = Color(0.75, 0.85, 0.55, 1)
 
 [sub_resource type="StyleBoxFlat" id="Style_hud_bar"]
-bg_color = Color(0.03, 0.04, 0.06, 0.90)
+bg_color = Color(0.03, 0.04, 0.06, 0.9)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -47,21 +47,19 @@ border_width_bottom = 2
 border_color = Color(0.75, 0.85, 0.55, 1)
 
 [sub_resource type="StyleBoxFlat" id="Style_hotbar"]
-bg_color = Color(0.03, 0.04, 0.06, 0.90)
+bg_color = Color(0.03, 0.04, 0.06, 0.9)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.75, 0.85, 0.55, 1)
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1741215787]
 script = ExtResource("3_main")
 
-[node name="GrayBoxWorld" parent="." instance=ExtResource("1_world")]
+[node name="GrayBoxWorld" parent="." unique_id=1980037373 instance=ExtResource("1_world")]
 
-[node name="ClockHud" type="Label" parent="."]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="ClockHud" type="Label" parent="." unique_id=557957308]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 220.0
@@ -72,9 +70,7 @@ theme_override_font_sizes/font_size = 22
 text = "D1  06:00"
 script = ExtResource("2_clock")
 
-[node name="WeatherHud" type="Label" parent="."]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="WeatherHud" type="Label" parent="." unique_id=366431242]
 offset_left = 16.0
 offset_top = 54.0
 offset_right = 330.0
@@ -82,9 +78,7 @@ offset_bottom = 82.0
 theme = ExtResource("11_theme")
 script = ExtResource("16_weather")
 
-[node name="WalletHud" type="Label" parent="."]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="WalletHud" type="Label" parent="." unique_id=1639170943]
 offset_left = 16.0
 offset_top = 84.0
 offset_right = 220.0
@@ -94,10 +88,10 @@ theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
 text = "100 Xu"
 script = ExtResource("17_wallet")
 
-[node name="DebugMenu" type="PanelContainer" parent="."]
+[node name="DebugMenu" type="PanelContainer" parent="." unique_id=1510301352]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -360.0
 offset_top = 16.0
 offset_right = -16.0
@@ -106,7 +100,8 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_debug")
 script = ExtResource("4_debug")
 
-[node name="InventoryPanel" type="PanelContainer" parent="."]
+[node name="InventoryPanel" type="PanelContainer" parent="." unique_id=983713157]
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.6
 anchor_right = 0.5
@@ -119,7 +114,8 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("5_inventory")
 
-[node name="ShippingBinPanel" type="PanelContainer" parent="."]
+[node name="ShippingBinPanel" type="PanelContainer" parent="." unique_id=530716003]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -132,7 +128,8 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("18_shipping_bin")
 
-[node name="SeedShopPanel" type="PanelContainer" parent="."]
+[node name="SeedShopPanel" type="PanelContainer" parent="." unique_id=2137117393]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -145,9 +142,7 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("19_seed_shop")
 
-[node name="QuestPanel" type="PanelContainer" parent="."]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="QuestPanel" type="PanelContainer" parent="." unique_id=2108943193]
 offset_left = 16.0
 offset_top = 118.0
 offset_right = 330.0
@@ -156,20 +151,19 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("10_quest")
 
-[node name="TutorialPanel" type="PanelContainer" parent="."]
+[node name="TutorialPanel" type="PanelContainer" parent="." unique_id=1429487311]
+anchors_preset = -1
 anchor_left = 0.32
 anchor_top = 0.05
 anchor_right = 0.68
 anchor_bottom = 0.05
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
 offset_bottom = 220.0
-theme_override_styles/panel = SubResource("Style_inventory")
 theme = ExtResource("11_theme")
+theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("9_tutorial")
 
-[node name="HudButtonBar" type="PanelContainer" parent="."]
+[node name="HudButtonBar" type="PanelContainer" parent="." unique_id=1037230999]
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -178,11 +172,12 @@ offset_left = -220.0
 offset_top = -90.0
 offset_right = -24.0
 offset_bottom = -24.0
-theme_override_styles/panel = SubResource("Style_hud_bar")
 theme = ExtResource("11_theme")
+theme_override_styles/panel = SubResource("Style_hud_bar")
 script = ExtResource("6_hud_bar")
 
-[node name="HotbarPanel" type="PanelContainer" parent="."]
+[node name="HotbarPanel" type="PanelContainer" parent="." unique_id=1819432303]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -191,14 +186,15 @@ offset_left = -340.0
 offset_top = -156.0
 offset_right = 340.0
 offset_bottom = -24.0
-theme_override_styles/panel = SubResource("Style_hotbar")
 theme = ExtResource("11_theme")
+theme_override_styles/panel = SubResource("Style_hotbar")
 script = ExtResource("7_hotbar")
 
-[node name="ToolActionController" type="Node" parent="."]
+[node name="ToolActionController" type="Node" parent="." unique_id=1183632791]
 script = ExtResource("8_tool")
 
-[node name="PauseMenu" type="PanelContainer" parent="."]
+[node name="PauseMenu" type="PanelContainer" parent="." unique_id=1515193956]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -211,7 +207,8 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("12_pause")
 
-[node name="StartMenu" type="PanelContainer" parent="."]
+[node name="StartMenu" type="PanelContainer" parent="." unique_id=1432696856]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -224,7 +221,9 @@ theme = ExtResource("11_theme")
 theme_override_styles/panel = SubResource("Style_inventory")
 script = ExtResource("13_start")
 
-[node name="Toast" type="Label" parent="."]
+[node name="Toast" type="Label" parent="." unique_id=802641520]
+visible = false
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -235,9 +234,9 @@ offset_right = 80.0
 offset_bottom = -175.0
 theme = ExtResource("11_theme")
 horizontal_alignment = 1
-visible = false
 
-[node name="FeedbackPopup" type="Label" parent="."]
+[node name="FeedbackPopup" type="Label" parent="." unique_id=296850731]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -251,14 +250,14 @@ theme_override_colors/font_color = Color(1, 0.9, 0.45, 1)
 horizontal_alignment = 1
 script = ExtResource("14_feedback")
 
-[node name="AudioService" type="Node" parent="."]
+[node name="AudioService" type="Node" parent="." unique_id=53161031]
 script = ExtResource("15_audio")
 
-[node name="DialoguePanel" type="PanelContainer" parent="."]
+[node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1226974319]
 script = ExtResource("21_npc_panel")
 
-[node name="NpcJournal" type="PanelContainer" parent="."]
+[node name="NpcJournal" type="PanelContainer" parent="." unique_id=1867500344]
 script = ExtResource("21_npc_panel")
 
-[node name="NpcSystem" type="Node3D" parent="."]
+[node name="NpcSystem" type="Node3D" parent="." unique_id=1236674152]
 script = ExtResource("20_npc")
