@@ -1,6 +1,6 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (two-product harvest and drag farming)
+Last updated: 2026-10-27 (chibi style prompt reference)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
@@ -25,6 +25,13 @@ Last updated: 2026-10-27 (two-product harvest and drag farming)
 
 ## In progress
 - 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The player's independent pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` changes remain untouched and will not be staged.
+
+## Chibi-style prompt reference handoff (2026-10-27)
+
+- Added `docs/CHIBI_STYLE_PROMPT.md` from the product-owner supplied prompt. It is a visual-production reference for the future C0–C6 sequence; this documentation-only task does not start C0/M2, regenerate any model, or change runtime logic, IDs, resources, scenes, saves, tests, or current Phase 8 scope.
+- The prompt intentionally retains its reference to `docs/MASTER_PROMPT.md`. That tracked file is not present yet: `Prompt tổng hoàn thiện game The Life.md` at repository root is untracked and user-owned, so it was neither moved nor committed here. Copying that separate source into the tracked `docs/MASTER_PROMPT.md` needs its own explicit documentation task before a future session relies on the pair.
+- Project authority remains `AGENTS.md`, `docs/PROJECT_RULES.md`, approved Roadmap/task scope, and existing decision records. This prompt is not permission to bypass milestone order, scene ownership, save compatibility, or tests.
+- Verification for this docs-only commit: `[check_parse] OK`, `[validate_data] PASS`, 44 scripts, 132/132 passing tests, 3,882 asserts, 17.974 s, and `[run_tests] PASS`. The captured runner output contained no `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:` text.
 
 ## Two-product harvest and drag farming handoff (2026-10-27)
 
