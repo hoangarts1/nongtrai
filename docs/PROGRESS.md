@@ -1,11 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (M0/M1 audit stopped on unowned scene-resource changes)
+Last updated: 2026-10-27 (M0/M1 clean boundary after approved scene-resource serialization)
 
 ## Current milestone
-`M0 cleanup / M1 (NPCs & quests)` — M1 functionality is already implemented and the existing `npc-quests` tag marks it, but this session is stopped before a new M1 boundary because two unstaged editor serializations have unclear ownership and scope. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done.
+`M1 (NPCs & quests)` — verified complete at the existing `npc-quests` tag; the previously pending Godot scene/resource serialization was explicitly approved and committed separately. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done. C0 remains deferred to the next conversation.
 
 ## Last commit / tag
+`chore: persist Phase 8 scene resource serialization` — approved Godot 4 scene/resource canonicalization, isolated from gameplay feature work
 `docs: add master production prompt` — moved the product-owner supplied master prompt into tracked documentation without changing its contents
 `feat: add two-product harvest and drag farming` — data-driven two-product harvests, direct Harvest selection and de-duplicated mouse farming strokes
 `feat: add original farm audio and grounded world polish` — reproducible farming effects, separated sale landmark, extra cottages, terrain detail and warm daylight
@@ -26,18 +27,18 @@ Last updated: 2026-10-27 (M0/M1 audit stopped on unowned scene-resource changes)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
-- 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The player's independent pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` changes remain untouched and will not be staged.
+- 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The formerly pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` reserialization was explicitly approved and committed as `3a4be46`.
 
-## M0 / M1 audit blocker (2026-10-27)
+## M0 / M1 completion handoff (2026-10-27)
 
 - `docs/MASTER_PROMPT.md` was added in its own commit `215d2d6` after SHA-256 equality with the root source (`7F9FBD9D75F3C721E1E4BFA69753B2AD48829573836EB2D894F68294AC7C0E45`). The root copy was moved, not duplicated.
-- The current unstaged `data/npcs/phase8_world.tres` diff is Godot serialization churn (UIDs, resource ordering, values equal to script defaults, and empty packed arrays as `null`), not a clear new NPC/quest feature. The unstaged `scenes/main/main.tscn` diff reserializes the whole scene (UIDs, unique ids, anchor presets and property ordering) across HUD/menu/shop controls; NPC nodes have no distinct functional change. Their provenance is unclear and the scene change exceeds NPC/quest scope.
-- The latest real official run on this unchanged dirty state passed: `[check_parse] OK`, `[validate_data] PASS`, 44 scripts, 132/132 tests passing, 3,882 asserts, 17.974 s, `[run_tests] PASS`, with no captured `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:` text. Passing tests do not make the ownership/scope clear.
+- The former `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` diffs are Godot serialization canonicalization (UIDs, resource ordering, values equal to script defaults, empty packed arrays as `null`, node unique ids, anchor presets and property ordering). The product owner explicitly approved retaining them; they are now isolated in `3a4be46`, rather than being represented as new NPC gameplay.
+- Final official verification after `3a4be46`: `[check_parse] OK`, `[validate_data] PASS`, 44 scripts, 132/132 tests passing, 3,882 asserts, 17.772 s, `[run_tests] PASS`, with no captured `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:` text.
 - Read-only M1 audit found no missing requested feature: conditional data dialogue/journal, confirmed atomic delivery/shortage safety, friendship and heard dialogue persistence, Minh's seeded data offer with isolated prices, all-four-season/rain/night schedules/routes, save v4/migration/golden coverage and validation are already implemented. `npc-quests` already exists at `8a30283`; do not move it.
 
 ## NEXT
 
-- Ask the product owner to identify whether the two editor-reserialized files should be retained. Until then, preserve them unstaged, do not revert them, do not move `npc-quests`, and do not begin C0. Once ownership is confirmed, make a deliberately scoped commit (or leave them out) and rerun the official suite before the next milestone.
+- Stop at this M0/M1 clean boundary. In the next conversation, read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, and this file; then begin C0 only with its own short plan, allowed-file list, art bible/palette/shader foundation and independent validation. Do not move the existing `npc-quests` tag.
 
 ## Chibi-style prompt reference handoff (2026-10-27)
 
