@@ -1,16 +1,18 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (chibi style prompt reference)
+Last updated: 2026-10-27 (M0/M1 audit stopped on unowned scene-resource changes)
 
 ## Current milestone
-`Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
+`M0 cleanup / M1 (NPCs & quests)` — M1 functionality is already implemented and the existing `npc-quests` tag marks it, but this session is stopped before a new M1 boundary because two unstaged editor serializations have unclear ownership and scope. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done.
 
 ## Last commit / tag
+`docs: add master production prompt` — moved the product-owner supplied master prompt into tracked documentation without changing its contents
 `feat: add two-product harvest and drag farming` — data-driven two-product harvests, direct Harvest selection and de-duplicated mouse farming strokes
 `feat: add original farm audio and grounded world polish` — reproducible farming effects, separated sale landmark, extra cottages, terrain detail and warm daylight
 `npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
 
 ## Done
+- [x] `docs/MASTER_PROMPT.md` added from the root prompt source, byte-preserving in UTF-8 (commit `215d2d6`)
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
 - [x] Repo starter docs integrated into the existing project
 - [x] MVP scope confirmed: gray-box farming loop through harvest
@@ -26,10 +28,21 @@ Last updated: 2026-10-27 (chibi style prompt reference)
 ## In progress
 - 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The player's independent pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` changes remain untouched and will not be staged.
 
+## M0 / M1 audit blocker (2026-10-27)
+
+- `docs/MASTER_PROMPT.md` was added in its own commit `215d2d6` after SHA-256 equality with the root source (`7F9FBD9D75F3C721E1E4BFA69753B2AD48829573836EB2D894F68294AC7C0E45`). The root copy was moved, not duplicated.
+- The current unstaged `data/npcs/phase8_world.tres` diff is Godot serialization churn (UIDs, resource ordering, values equal to script defaults, and empty packed arrays as `null`), not a clear new NPC/quest feature. The unstaged `scenes/main/main.tscn` diff reserializes the whole scene (UIDs, unique ids, anchor presets and property ordering) across HUD/menu/shop controls; NPC nodes have no distinct functional change. Their provenance is unclear and the scene change exceeds NPC/quest scope.
+- The latest real official run on this unchanged dirty state passed: `[check_parse] OK`, `[validate_data] PASS`, 44 scripts, 132/132 tests passing, 3,882 asserts, 17.974 s, `[run_tests] PASS`, with no captured `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:` text. Passing tests do not make the ownership/scope clear.
+- Read-only M1 audit found no missing requested feature: conditional data dialogue/journal, confirmed atomic delivery/shortage safety, friendship and heard dialogue persistence, Minh's seeded data offer with isolated prices, all-four-season/rain/night schedules/routes, save v4/migration/golden coverage and validation are already implemented. `npc-quests` already exists at `8a30283`; do not move it.
+
+## NEXT
+
+- Ask the product owner to identify whether the two editor-reserialized files should be retained. Until then, preserve them unstaged, do not revert them, do not move `npc-quests`, and do not begin C0. Once ownership is confirmed, make a deliberately scoped commit (or leave them out) and rerun the official suite before the next milestone.
+
 ## Chibi-style prompt reference handoff (2026-10-27)
 
 - Added `docs/CHIBI_STYLE_PROMPT.md` from the product-owner supplied prompt. It is a visual-production reference for the future C0–C6 sequence; this documentation-only task does not start C0/M2, regenerate any model, or change runtime logic, IDs, resources, scenes, saves, tests, or current Phase 8 scope.
-- The prompt intentionally retains its reference to `docs/MASTER_PROMPT.md`. That tracked file is not present yet: `Prompt tổng hoàn thiện game The Life.md` at repository root is untracked and user-owned, so it was neither moved nor committed here. Copying that separate source into the tracked `docs/MASTER_PROMPT.md` needs its own explicit documentation task before a future session relies on the pair.
+- The prompt intentionally retains its reference to `docs/MASTER_PROMPT.md`, which is now tracked in commit `215d2d6` after the product owner explicitly authorized moving the root source. Future sessions read both prompt files before continuing from this document.
 - Project authority remains `AGENTS.md`, `docs/PROJECT_RULES.md`, approved Roadmap/task scope, and existing decision records. This prompt is not permission to bypass milestone order, scene ownership, save compatibility, or tests.
 - Verification for this docs-only commit: `[check_parse] OK`, `[validate_data] PASS`, 44 scripts, 132/132 passing tests, 3,882 asserts, 17.974 s, and `[run_tests] PASS`. The captured runner output contained no `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:` text.
 
