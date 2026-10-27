@@ -356,6 +356,14 @@ Format:
 - func is_open() -> bool — query panel open state
 - signal item_sold(item_id: StringName, quantity: int, total_price: int) — emitted on successful sale
 
+## C0 chibi art foundation
+- `ArtPalette` (`scripts/data/art_palette.gd`): Resource owning stable palette id, chibi scale/head-ratio values, per-category triangle budgets and four-season role colors. `get_color(role, season)`, `get_triangle_budget(kind)` and `validate()` are the public data API.
+- `DataValidator.validate_art_palette_path(path: String) -> PackedStringArray`: loads an art palette Resource and returns its validation messages; `tools/validate_data.gd` validates `chibi_valley.tres` in the normal data gate.
+- `ChibiMaterialFactory` (`scripts/view/chibi_material_factory.gd`): view-only opt-in factory. `get_palette()`, `get_shader_paths()`, `get_material_paths()` and `create_material(shader_id, role, season)` expose the generated shader/material suite without mutating shared Resources or gameplay state.
+- `ChibiMeshBuilder` (`tools/art/chibi/chibi_mesh_builder.gd`): deterministic tooling-only primitive builders for calibration character, prop, crop, building and tree models. It accepts the palette Resource and returns a grounded `Node3D` tagged with `art_kind`.
+- `ChibiMeshAudit` (`tools/art/chibi/chibi_mesh_audit.gd`): tooling-only `triangle_count(root)`, `collect_meshes(root)` and `validate_model(root, triangle_budget)` checks for mesh presence, bounds, finite values, ground pivot and triangle budget.
+- `ChibiArtReview` / `ChibiArtLineup` (`tools/art/chibi/art_review.gd`, `tools/art_lineup.tscn`): deterministic four-angle/day-night calibration layout. `tools/art_review.bat` writes ignored normal-renderer contact sheets under `screenshots/chibi-core/`; it is not a gameplay scene.
+
 ## SeedShopPanel  (scripts/view/seed_shop_panel.gd)
 - func configure(inventory, wallet, player: Player, feedback: Node = null) -> void — binds inventory, wallet and player
 - func open() -> void / func close() -> void / func toggle() -> void — modal visibility controls with seasonal seed filtering

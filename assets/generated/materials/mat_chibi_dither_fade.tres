@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_dither_fade.gdshader" id="1_t08u3"]
+
+[resource]
+resource_name = "mat_chibi_dither_fade"
+render_priority = 0
+shader = ExtResource("1_t08u3")
+shader_parameter/base_color = Color(0.847059, 0.533333, 0.462745, 1)
+shader_parameter/fade_amount = 1.0

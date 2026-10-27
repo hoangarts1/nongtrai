@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_foliage.gdshader" id="1_tcgup"]
+
+[resource]
+resource_name = "mat_chibi_foliage"
+render_priority = 0
+shader = ExtResource("1_tcgup")
+shader_parameter/base_color = Color(0.568627, 0.741176, 0.470588, 1)
+shader_parameter/wind_color = Color(1, 0.952941, 0.811765, 1)
+shader_parameter/wind_direction = null
+shader_parameter/wind_strength = 0.035
+shader_parameter/wind_speed = null

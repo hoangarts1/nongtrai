@@ -9,6 +9,7 @@ Rules
 - Use `%UniqueName` for nodes referenced by scripts in the same scene; use typed `@export var x: Type` for cross-scene references.
 
 Files
+- `art_lineup.md` — isolated C0 chibi calibration/review tool scene; not part of gameplay
 - `_TEMPLATE.md` — copy for every new scene
 - `gray_box_world.md` — draft for roadmap tasks 0.4 → 1.x
 - `player.md` — draft for roadmap tasks 1.1 → 1.5

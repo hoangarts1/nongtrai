@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_outline.gdshader" id="1_fn0qd"]
+
+[resource]
+resource_name = "mat_chibi_outline"
+render_priority = 0
+shader = ExtResource("1_fn0qd")
+shader_parameter/outline_color = Color(0.294118, 0.235294, 0.278431, 1)
+shader_parameter/outline_width = 0.018

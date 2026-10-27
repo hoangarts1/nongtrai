@@ -141,6 +141,8 @@ func _init() -> void:
 		errors = VALIDATOR_SCRIPT.validate_quest_paths(quest_paths, item_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_weather_profile("res://data/weather_profile.tres")
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_art_palette_path("res://data/art/palette/chibi_valley.tres")
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)

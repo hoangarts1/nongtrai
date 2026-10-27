@@ -1,9 +1,26 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (requested M0 cleanup / M1 clean boundary)
+Last updated: 2026-10-27 (C0 chibi art foundation complete; C1 is next)
 
 ## Current milestone
-`M1 (NPCs & quests)` — verified complete at the existing `npc-quests` tag; the previously pending Godot scene/resource serialization was explicitly approved and committed separately. The requested M0 cleanup is complete, while the broader master-prompt M0 automation toolchain remains unimplemented and must not be treated as done. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done.
+`C1 (Chibi characters)` — next. C0 is complete and tagged `chibi-core`; C1 may opt the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or saves.
+
+## C0 approved plan and allow list (2026-10-27)
+
+- Create `docs/ART_BIBLE.md` and a data-owned `ArtPalette` Resource with one warm pastel, four-season palette in `data/art/palette/`. Validate the palette in the headless data gate.
+- Add original generated shader/material foundations (toon/tinted shadow/rim, outline, foliage wind, water, dither fade) beneath `assets/generated/`; add a view-only material factory but do not alter `WorldPresentation`, `ChibiAvatar`, crops, UI, or existing scenes.
+- Add deterministic primitive builders and mesh-audit helpers under `tools/art/chibi/`; use them to build five calibration scenes under `assets/generated/models/chibi_core/`, bounded by data-defined triangle budgets.
+- Add the standalone `tools/art_lineup.tscn` tool scene, `tools/art_review.bat` contact-sheet runner, scene contract, and unit coverage for palette validation, shader/material load/render binding, generated scene loading, triangle budgets, bounds, pivots and review layout.
+- Planned C0 files only: `docs/{ART_BIBLE,API_INDEX,PROGRESS,DECISIONS,CREDITS,SCENE_CONTRACTS/art_lineup}.md`; `scripts/{data/art_palette,core/data_validator,view/chibi_material_factory}.gd`; `data/art/palette/chibi_valley.tres`; `assets/generated/{shaders,materials,models/chibi_core}/**`; `tools/{art_review.bat,build_chibi_core.bat,art_lineup.tscn,art/chibi/**}`; `tools/validate_data.gd`; `tests/unit/test_chibi_art_foundation.gd`, Godot-generated `.uid` companions and the narrow `/screenshots/` ignore-rule addition. No existing game scene or runtime presentation script is in scope.
+
+## C0 completion and handoff (2026-10-27)
+
+- Delivered an original, data-driven `ArtPalette` (`chibi_valley`) with four seasonal role colors, chibi scale ratios and data-owned triangle budgets. The normal data validator loads it in the existing gate.
+- Delivered five generated Godot 4.7 shader/material pairs (toon/tinted shadow/rim, inverted-hull outline, foliage wind, water and dither fade), an opt-in material factory, deterministic primitive builders and mesh audit coverage. Existing runtime presentation remains intentionally unchanged.
+- Generated calibration scenes: character `672 / 6,000`, prop `100 / 1,500`, crop `128 / 400`, rounded building `300 / 8,000`, tree `220 / 1,000` triangles. Every scene loads, has finite grounded bounds, non-degenerate faces and is tested against its data budget.
+- `tools\art_review.bat` now uses the normal RTX/Forward+ renderer and produces a labeled 4-angle × day/night lineup plus one focused 512 px-tile contact sheet per calibration model under ignored `screenshots/chibi-core/`. It fails on empty capture or parse/script/engine error text.
+- Visual correction round 1 was reviewed from the generated sheets: models were initially too small; the grid/model/angle/light evidence was absent; shaders were not visible; building silhouette and shadow were harsh; and night was muddy. The tool now has compact two-row layout, 1 m grid, labels/captions, focused model sheets, generated toon/foliage/outline materials, a rounded building/softer shadow and brighter night. Round 2 caught inward normals on the first custom rounded meshes; winding was flipped and the final day/night sheets restore readable warm faces. A real `main.tscn` scene capture remains deliberately deferred to C1/C3 rather than being misrepresented as C0 evidence.
+- Final verification before the C0 commit/tag: `tools\build_chibi_core.bat` PASS; normal-renderer `tools\art_review.bat` wrote 6 sheets; `[check_parse] OK`; `[validate_data] PASS`; 45 scripts, 137/137 passing tests, 3,996 asserts, 18.315 s, `[run_tests] PASS`. The combined build/review/parse/validator/GUT/main log scan found 0 matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script` or `ERROR:`. M0 smoke/autoplay/full-capture/baseline automation remains deferred per D28.
 
 ## Last commit / tag
 `chore: persist Phase 8 scene resource serialization` — approved Godot 4 scene/resource canonicalization, isolated from gameplay feature work
@@ -11,6 +28,8 @@ Last updated: 2026-10-27 (requested M0 cleanup / M1 clean boundary)
 `feat: add two-product harvest and drag farming` — data-driven two-product harvests, direct Harvest selection and de-duplicated mouse farming strokes
 `feat: add original farm audio and grounded world polish` — reproducible farming effects, separated sale landmark, extra cottages, terrain detail and warm daylight
 `npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
+
+`feat: add chibi art foundation` / `chibi-core` — validated palette, generated shader/material suite, original calibration models and independent review tooling; no gameplay presentation migration
 
 ## Done
 - [x] `docs/MASTER_PROMPT.md` added from the root prompt source, byte-preserving in UTF-8 (commit `215d2d6`)
@@ -38,7 +57,8 @@ Last updated: 2026-10-27 (requested M0 cleanup / M1 clean boundary)
 
 ## NEXT
 
-- Stop at this requested M0-cleanup/M1 clean boundary. Before C0, separately plan and implement any still-desired M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, `autoplay`, `capture_screenshots`, `build_assets`, baseline measurements and the `baseline` tag. These were not part of the explicit cleanup scope and were not silently claimed complete. After that, read both prompt files and begin C0 only with its own short plan, allowed-file list, art bible/palette/shader foundation and independent validation. Do not move the existing `npc-quests` tag.
+- Start C1 only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file and `docs/ART_BIBLE.md`. Keep C0 IDs/paths/palette/save behavior stable; first inventory existing player/NPC views and create an approved C1 plan for character models, customization, animation and expression work.
+- Before a release claim, separately return to the deferred M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, autoplay, full capture matrix, baseline measurements/tag and global `build_assets`. Do not retroactively describe C0's isolated contact-sheet runner as that complete M0 suite.
 
 ## Chibi-style prompt reference handoff (2026-10-27)
 

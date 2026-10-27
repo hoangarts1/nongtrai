@@ -1,0 +1,35 @@
+{
+	"models": [
+		{
+			"budget": 6000,
+			"file": "chr_calibration.tscn",
+			"kind": "character",
+			"triangles": 672
+		},
+		{
+			"budget": 1500,
+			"file": "prop_calibration_a.tscn",
+			"kind": "prop",
+			"triangles": 100
+		},
+		{
+			"budget": 400,
+			"file": "crp_calibration_s0.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 8000,
+			"file": "bld_calibration_lv1.tscn",
+			"kind": "building",
+			"triangles": 300
+		},
+		{
+			"budget": 1000,
+			"file": "env_tree_calibration_01.tscn",
+			"kind": "tree",
+			"triangles": 220
+		}
+	],
+	"palette_id": "chibi_valley"
+}

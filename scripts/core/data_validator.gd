@@ -4,6 +4,7 @@
 ##   static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
 ##   static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray
 ##   static func validate_weather_profile(path: String) -> PackedStringArray
+##   static func validate_art_palette_path(path: String) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
 
@@ -169,6 +170,25 @@ static func validate_weather_profile(path: String) -> PackedStringArray:
 	if total <= 0:
 		errors.append("weather probabilities must have a positive total")
 	return errors
+
+static func validate_art_palette_path(path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if not ResourceLoader.exists(path):
+		errors.append("art palette is missing: %s" % path)
+		return errors
+	var resource: Resource = load(path)
+	var palette: Resource = resource as Resource
+	if palette == null:
+		errors.append("art palette cannot be loaded: %s" % path)
+		return errors
+	if not palette.has_method(&"validate"):
+		errors.append("art palette has no validate API: %s" % path)
+		return errors
+	var validation: Variant = palette.call(&"validate")
+	if not validation is PackedStringArray:
+		errors.append("art palette validate API returned an invalid result: %s" % path)
+		return errors
+	return validation as PackedStringArray
 
 static func validate_quest_resources(quests: Array[Resource], items: Array[Resource]) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()

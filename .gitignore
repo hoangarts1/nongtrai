@@ -3,6 +3,7 @@
 *.translation
 /build/
 /export/
+/screenshots/
 
 # Secrets (never commit)
 .env

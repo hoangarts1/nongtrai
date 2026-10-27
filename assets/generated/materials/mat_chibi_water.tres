@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_water.gdshader" id="1_lr2el"]
+
+[resource]
+resource_name = "mat_chibi_water"
+render_priority = 0
+shader = ExtResource("1_lr2el")
+shader_parameter/water_color = Color(0.466667, 0.72549, 0.788235, 1)
+shader_parameter/foam_color = Color(1, 0.952941, 0.811765, 1)
+shader_parameter/wave_height = 0.025
+shader_parameter/wave_speed = null
