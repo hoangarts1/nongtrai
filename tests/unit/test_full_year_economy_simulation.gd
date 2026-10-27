@@ -92,6 +92,8 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 		
 		# 4. Harvest crops
 		var product_id: StringName = s_info["product_id"]
+		var crop_data: Resource = DataRegistry.get_crop(s_info["crop_id"])
+		var expected_yield: int = qty_to_buy * int(crop_data.get("yield_qty"))
 		for cell: Vector2i in planted_cells:
 			assert_true(farm_state.can_harvest(cell), "Cell %s should be ready to harvest" % cell)
 			var payload: Dictionary = farm_state.harvest_cell(cell)
@@ -99,13 +101,13 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 			assert_eq(payload.get("product_item"), product_id)
 			inventory.add_item(payload.get("product_item"), payload.get("quantity"))
 		
-		assert_eq(inventory.get_quantity(product_id), qty_to_buy, "Harvested produce items into inventory")
+		assert_eq(inventory.get_quantity(product_id), expected_yield, "Harvested produce items into inventory")
 		
 		# 5. Sell produce via shipping bin
 		bin.open()
 		bin._select_item(product_id)
 		bin._set_max_quantity()
-		assert_eq(bin._selected_quantity, qty_to_buy)
+		assert_eq(bin._selected_quantity, expected_yield)
 		bin._confirm_sale()
 		bin.close()
 		

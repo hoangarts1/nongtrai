@@ -30,6 +30,7 @@ Gameplay reads these through `_unhandled_input` (so UI can consume events first)
 | `toggle_debug_menu` | Ctrl+M | developer debug menu (debug builds only) | 0 |
 
 Notes
+- A held left-mouse farming stroke reuses `use_tool`: it submits Seed, Water or Harvest once for every newly crossed reachable cell. A default hoe click on a crop still opens CropInspector; Water and Harvest modes act directly on crops.
 - Wheel is reserved for the hotbar, so zoom uses keys. If you prefer wheel-zoom, change here first.
 - Debug console commands (set_time, give_item …) are opened from the debug overlay and exist only when `OS.is_debug_build()`.
 - Gamepad bindings: Phase 11; keep the same action names.

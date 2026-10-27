@@ -93,6 +93,7 @@ Format:
 - Notes: item definitions come from DataRegistry; each occupied stack uses one capacity slot.
 
 ## CropData  (scripts/data/crop_data.gd)
+- Current shipped data rule: `yield_qty` is positive and every starter crop yields two product items per completed harvest.
 - crop_id: StringName — stable crop identifier used for all saved state and registry lookups
 - display_name_key: StringName — translation key for the crop name
 - seed_item: StringName — item required to plant the crop
@@ -208,10 +209,14 @@ Format:
 - Notes: pure domain dispatcher; inventory consumption and UI locks are handled by the view controller.
 
 ## ToolActionController  (scripts/view/tool_action_controller.gd)
+- Continuous use rule: holding the existing left-use input can seed, water or harvest one time for every newly crossed reachable cell. A default hoe click on a crop still opens CropInspector.
 - func configure(world: GrayBoxWorld, farm_state: FarmGridState, inventory: InventoryState, farm_view: Node, player: Player, inventory_panel: InventoryPanel, debug_menu: DebugMenu) -> void — wires world targeting and farm action state
 - func select_tool(tool_id: StringName) -> void — selects a data-defined tool action
 - func select_seed() -> void — selects seed planting
 - func get_selected_tool() -> StringName — returns the selected action
+
+## ToolDragStroke  (scripts/view/tool_drag_stroke.gd)
+- func handle(event: InputEventMouse, world: GrayBoxWorld, farm_view: Node, farm_state: FarmGridState, selected_tool: StringName, crop_inspector: CropInspector, can_apply: Callable, apply_cell: Callable) -> bool — view-only pointer adapter that deduplicates visited cells and delegates work to ToolActionController
 
 ## DaySimulator  (scripts/domain/day_simulator.gd)
 - func simulate_day(farm_state: FarmGridState) -> void — advances watered planted crops once and dries plots

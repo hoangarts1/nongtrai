@@ -57,6 +57,8 @@ static func validate_crop_references(crops: Array[Resource], items: Array[Resour
 		var crop_id: String = String(crop.get("crop_id"))
 		var seed_id: StringName = StringName(crop.get("seed_item"))
 		var prod_id: StringName = StringName(crop.get("product_item"))
+		if int(crop.get("yield_qty")) <= 0:
+			errors.append("crop %s yield_qty must be positive" % crop_id)
 		if not item_dict.has(seed_id):
 			errors.append("crop %s references unknown seed item %s" % [crop_id, seed_id])
 		if not item_dict.has(prod_id):

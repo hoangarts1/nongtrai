@@ -1,11 +1,12 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (presentation/audio follow-up)
+Last updated: 2026-10-27 (two-product harvest and drag farming)
 
 ## Current milestone
 `Phase 8 (NPCs & quests)` — requested slice of Roadmap 8.1–8.4 implemented and automatically verified: confirmed delivery, daily merchant offers, seasonal schedules, dialogue/journal and save v4. Human playtest pending. Roadmap 8.5/8.6 are separate and are not marked done.
 
 ## Last commit / tag
+`feat: add two-product harvest and drag farming` — data-driven two-product harvests, direct Harvest selection and de-duplicated mouse farming strokes
 `feat: add original farm audio and grounded world polish` — reproducible farming effects, separated sale landmark, extra cottages, terrain detail and warm daylight
 `npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
 
@@ -23,6 +24,28 @@ Last updated: 2026-10-27 (presentation/audio follow-up)
 - [x] Smooth camera follow and player/map bounds added
 
 ## In progress
+- 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The player's independent pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` changes remain untouched and will not be staged.
+
+## Two-product harvest and drag farming handoff (2026-10-27)
+
+- Assumption implemented: “one seed grows into two” means one valid planting consumes one seed and a mature crop grants two product items, rather than spawning two separate plot instances. This is data-owned in the nine crop `.tres` resources; no save migration is required because planted plots store only `crop_id` and harvest reads current crop data.
+- Input behavior: select Seed, Water or Harvest, hold left mouse and move through reachable farm cells. A stroke visits each cell at most once even if the pointer returns over it. Default Hoe click on a planted crop continues to open CropInspector; direct Water/Harvest modes act on crops. Space/key use remains a one-cell action. No new InputMap action or auto-farming timer was added.
+- Focused coverage: the new SubViewport input regression performs Seed → Water → mature → Harvest across two cells and returns over the first one; it verifies two seeds are consumed, watering occurs once per crop, harvest adds four turnips total and harvest mode does not open the inspector. Crop/data/year tests assert data-defined quantity 2, capacity protection and sale quantity. Validator now rejects `yield_qty <= 0`.
+- Real final official runner:
+
+```text
+[check_parse] OK
+[validate_data] PASS
+Scripts              44
+Tests               132
+Passing Tests       132
+Asserts            3882
+Time              17.878s
+---- All tests passed! ----
+[run_tests] PASS
+```
+
+- Error-text scan across parse, validator, GUT and main-scene logs: `0` matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script`, or `ERROR:`. The requested yield doubles current sale output without changing any price; the full-year simulation remains green, but a future data-only economy balance pass should recalibrate profit targets rather than hiding this change in code.
 - 2026-10-27 presentation/audio follow-up completed (approved player scope; mechanics unchanged). Delivered: four reproducible original WAV effects for the existing hoe/seed/water/harvest calls; AudioService resolves OGG first then WAV and honors saved effects volume. The selling bin and its marker moved together to `(5.2, 0, 10)`, over 4 m from the cottage bed marker; the seed stall stays fixed. Two non-interactive cottages, grass tufts and a stone path distinguish village places. Farm cells now present dry tilled furrows and a subtle wet sheen, and warm low-cost fog/shadow/ground tuning improves sunlight without taking clock or weather authority. No domain, economy, growth, save, time, reach or input behavior changed.
 
 ## Presentation/audio follow-up handoff (2026-10-27)

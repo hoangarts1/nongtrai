@@ -11,6 +11,7 @@ func test_all_crops_reference_valid_registered_items() -> void:
 		var prod_item: Resource = DataRegistry.get_item(prod_id)
 		assert_not_null(seed_item, "Crop %s should reference valid seed item %s" % [crop_id, seed_id])
 		assert_not_null(prod_item, "Crop %s should reference valid product item %s" % [crop_id, prod_id])
+		assert_eq(int(crop.get("yield_qty")), 2, "Each planted seed should yield two produce items: %s" % crop_id)
 		assert_gt(int(seed_item.get("buy_price")), 0, "Seed %s buy_price must be positive" % seed_id)
 		assert_gt(int(prod_item.get("sell_price")), 0, "Product %s sell_price must be positive" % prod_id)
 		assert_gt(int(prod_item.get("sell_price")), int(seed_item.get("buy_price")), "Crop %s should be profitable" % crop_id)
@@ -46,5 +47,7 @@ func test_data_validator_detects_bad_crop_references() -> void:
 	bad_crop.seed_item = &"nonexistent_seed"
 	bad_crop.product_item = &"nonexistent_product"
 	bad_crop.growth_days = 2
+	bad_crop.yield_qty = 0
 	var errors: PackedStringArray = DataValidator.validate_crop_references([bad_crop], DataRegistry.get_all_items())
 	assert_gt(errors.size(), 0, "Validator should detect missing item references")
+	assert_string_contains("\n".join(errors), "yield_qty", "Validator should reject a non-positive crop yield")

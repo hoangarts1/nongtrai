@@ -21,7 +21,7 @@ func test_turnip_grows_after_watering_and_harvests() -> void:
 	var result: Dictionary = farm.harvest_cell(cell)
 	assert_true(result.get("success", false))
 	assert_eq(result.get("crop_id"), &"turnip")
-	assert_eq(int(result.get("quantity", 0)), 1)
+	assert_eq(int(result.get("quantity", 0)), 2)
 	assert_false(farm.can_harvest(cell))
 
 func test_crop_repairs_after_missing_water() -> void:

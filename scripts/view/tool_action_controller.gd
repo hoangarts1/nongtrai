@@ -2,6 +2,8 @@
 class_name ToolActionController
 extends Node
 
+const TOOL_DRAG_STROKE: Script = preload("res://scripts/view/tool_drag_stroke.gd")
+
 var _world: GrayBoxWorld
 var _farm_state: FarmGridState
 var _inventory: InventoryState
@@ -20,6 +22,7 @@ var _hotbar_panel: HotbarPanel = null
 var _shipping_bin_panel: Control = null
 var _seed_shop_panel: Control = null
 var _crop_inspector: CropInspector
+var _drag_stroke: Variant = TOOL_DRAG_STROKE.new()
 
 func configure_crop_inspector(inspector: CropInspector) -> void:
 	_crop_inspector = inspector
@@ -81,6 +84,9 @@ func _on_slot_selected(slot_index: int) -> void:
 			_selected_crop = crop_data.get("crop_id")
 
 func select_tool(tool_id: StringName) -> void:
+	if tool_id == &"harvest":
+		_selected_tool = &"harvest"
+		return
 	var tool_data: Resource = DataRegistry.get_tool(tool_id)
 	if tool_data == null:
 		return
@@ -107,26 +113,39 @@ func _process(_delta: float) -> void:
 	_farm_view.call("set_hovered_cell", _hovered_cell, true, _hovered_valid)
 
 func _unhandled_input(event: InputEvent) -> void:
-	var is_mouse_use: bool = event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT and (event as InputEventMouseButton).pressed
-	if not event.is_action_pressed("use_tool") and not is_mouse_use:
+	if event is InputEventMouse:
+		var handled: bool = _drag_stroke.handle(
+			event as InputEventMouse,
+			_world,
+			_farm_view,
+			_farm_state,
+			_selected_tool,
+			_crop_inspector,
+			_can_apply_drag,
+			_apply_drag_cell
+		)
+		if handled:
+			get_viewport().set_input_as_handled()
 		return
-	if _is_input_locked() or not _player.movement_enabled:
+	if not event.is_action_pressed("use_tool"):
 		return
-	if is_mouse_use and _crop_inspector != null:
-		var point: Vector2 = (event as InputEventMouseButton).position
-		var selected: Variant = _farm_view.call("pick_crop", point, _world.camera)
-		if selected == null:
-			selected = _world.pick_cell(point)
-		if selected is Vector2i:
-			var cell: Vector2i = selected
-			if not StringName(_farm_state.get_plot(cell).get("crop_id", &"")).is_empty():
-				_crop_inspector.show_cell(cell)
-				get_viewport().set_input_as_handled()
-				return
-		_crop_inspector.hide()
-	if not _hovered_valid or _is_input_locked():
+	if not _can_apply_drag() or not _hovered_valid:
 		return
 	_use_selected_tool()
+
+func _can_apply_drag() -> bool:
+	return not _is_input_locked() and _player != null and _player.movement_enabled
+
+func _apply_drag_cell(cell: Vector2i) -> bool:
+	if not _can_apply_drag():
+		return false
+	var player_cell: Vector2i = GridMath.world_to_cell(_player.global_position)
+	if not ToolAction.is_in_reach(player_cell, cell, _reach_for_selected_tool()):
+		return false
+	_hovered_cell = cell
+	_hovered_valid = true
+	_use_selected_tool()
+	return true
 
 func _use_selected_tool() -> void:
 	if _selected_tool == &"harvest":

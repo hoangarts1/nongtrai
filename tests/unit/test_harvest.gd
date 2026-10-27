@@ -12,9 +12,11 @@ func test_harvest_preview_and_inventory_capacity_prevent_loss() -> void:
 	farm.advance_day()
 	var payload: Dictionary = farm.get_harvest_payload(cell)
 	assert_true(bool(payload.get("success", false)))
-	assert_true(inventory.can_add_item(&"turnip", 1))
+	var quantity: int = int(payload.get("quantity", 0))
+	assert_eq(quantity, 2, "One planted seed yields two produce items")
+	assert_true(inventory.can_add_item(&"turnip", quantity))
 	assert_true(farm.harvest_cell(cell).get("success", false))
-	assert_eq(inventory.add_item(&"turnip", 1), 1)
+	assert_eq(inventory.add_item(&"turnip", quantity), quantity)
 	assert_false(farm.can_harvest(cell))
 
 func test_full_inventory_keeps_mature_crop() -> void:
@@ -28,5 +30,5 @@ func test_full_inventory_keeps_mature_crop() -> void:
 	farm.advance_day()
 	farm.water_cell(cell)
 	farm.advance_day()
-	assert_false(inventory.can_add_item(&"turnip", 1))
+	assert_false(inventory.can_add_item(&"turnip", 2))
 	assert_true(farm.can_harvest(cell))

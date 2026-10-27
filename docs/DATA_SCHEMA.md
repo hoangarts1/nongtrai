@@ -36,7 +36,7 @@ extends Resource
 @export var id: StringName
 @export var seed_item: StringName
 @export var product_item: StringName
-@export var yield_qty: int = 1
+@export_range(1, 999) var yield_qty: int = 1  # current shipped starter crops use 2
 @export var growth_days: int = 3          # watered/rained days needed to mature
 @export var regrow_days: int = 0          # 0 = harvest once
 @export var seasons: Array[StringName]    # &"spring", &"summer", &"autumn", &"winter"
@@ -101,6 +101,8 @@ Outlines for the remaining types (agents write the full class in the matching mi
 Assumptions: 1 game day = 12 real minutes; 28 days/season; start with 200 coins, watering can 20 cells, inventory 24 slots, 8 tillable plots.
 
 ### Crops
+
+Current shipped crop resources set `yield_qty = 2`: one consumed seed yields two product items when a mature plant is harvested. This player-requested output increase intentionally changes current balance; no price was changed in this interaction task, so a later data-only balance pass must revise the example profit targets below.
 
 | id | seasons | growth_days | regrow | seed price | yield | product base_value | profit / plot-day |
 |---|---|---|---|---|---|---|---|

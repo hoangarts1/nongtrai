@@ -25,8 +25,8 @@ Status “partial” means the MVP has a useful implementation, but does not mee
 | 1.2/1.4/1.5 | Partial / absent | Ground collision exists; house/obstacle/shop meshes have no world-static body. No Idle/Move node state machine or general nearest Interactable detector. Existing world/NPC prompts use separate distance logic. |
 | 1.6 | Absent, optional | No occluder fading. |
 | 2.1–2.3 | MVP present | GameClock, sleep/rollover, season/year, HUD, debug controls and tests. |
-| 3.1–3.4 | Partial | DataRegistry, resource validation, stack inventory, icon hotbar, localization and tests. No drag/drop; data-wide icon metadata and all original profit caps are not implemented. |
-| 4.1–4.7 | MVP present, integration gaps | Crop lifecycle, tools, harvest, simulation, v1–v4 saves, feedback. Original architecture requires stricter domain independence, day ordering, corrupt-field validation and editor playtest acceptance. Real audio clips are absent. |
+| 3.1–3.4 | Partial | DataRegistry, resource validation, stack inventory, icon hotbar, localization, field drag strokes and tests. Inventory-panel item drag/drop, data-wide icon metadata and all original profit caps are not implemented. |
+| 4.1–4.7 | MVP present, integration gaps | Crop lifecycle, tools, harvest, simulation, v1–v4 saves, feedback and original farming effects. Original architecture requires stricter domain independence, day ordering, corrupt-field validation and editor playtest acceptance. |
 | Gate A | Human verification pending | Requires 10–15 minute plant–harvest playtest and a judgment about the loop. Automated test success cannot satisfy this criterion. |
 | 5.1–5.6 | MVP partial | Wallet, seasonal seed shop, immediate shipping sales and year-loop test exist. No EconomyService/Ledger, shared ShopService, saturation price pressure, daily order board, multi-strategy economy harness or land-expansion balance target. D20 explicitly delivered a smaller economy slice. |
 | 6.1–6.7 | Absent | No recipes/machines, occupancy/building placement, land parcels, upgrades, chickens/eggs or recipe profit-cap validation. |

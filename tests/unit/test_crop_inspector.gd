@@ -89,7 +89,7 @@ func test_day_growth_updates_estimate_and_missed_watering_delays_it() -> void:
 	await _settle()
 	await _click(main.crop_inspector.action_button.get_global_rect().get_center())
 	assert_false(main.crop_inspector.visible, "Harvest removes the selected plant and closes its inspector")
-	assert_eq(main.inventory.get_quantity(&"spring_carrot"), 1)
+	assert_eq(main.inventory.get_quantity(&"spring_carrot"), 2)
 
 func test_inventory_selection_replaces_hidden_grid_and_closes_inventory() -> void:
 	var main: Node = _game()
