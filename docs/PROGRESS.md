@@ -1,9 +1,9 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (M0/M1 clean boundary after approved scene-resource serialization)
+Last updated: 2026-10-27 (requested M0 cleanup / M1 clean boundary)
 
 ## Current milestone
-`M1 (NPCs & quests)` — verified complete at the existing `npc-quests` tag; the previously pending Godot scene/resource serialization was explicitly approved and committed separately. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done. C0 remains deferred to the next conversation.
+`M1 (NPCs & quests)` — verified complete at the existing `npc-quests` tag; the previously pending Godot scene/resource serialization was explicitly approved and committed separately. The requested M0 cleanup is complete, while the broader master-prompt M0 automation toolchain remains unimplemented and must not be treated as done. Human playtest pending. Roadmap 8.5/8.6 remain separate and are not marked done.
 
 ## Last commit / tag
 `chore: persist Phase 8 scene resource serialization` — approved Godot 4 scene/resource canonicalization, isolated from gameplay feature work
@@ -29,7 +29,7 @@ Last updated: 2026-10-27 (M0/M1 clean boundary after approved scene-resource ser
 ## In progress
 - 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The formerly pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` reserialization was explicitly approved and committed as `3a4be46`.
 
-## M0 / M1 completion handoff (2026-10-27)
+## Requested M0 cleanup / M1 completion handoff (2026-10-27)
 
 - `docs/MASTER_PROMPT.md` was added in its own commit `215d2d6` after SHA-256 equality with the root source (`7F9FBD9D75F3C721E1E4BFA69753B2AD48829573836EB2D894F68294AC7C0E45`). The root copy was moved, not duplicated.
 - The former `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` diffs are Godot serialization canonicalization (UIDs, resource ordering, values equal to script defaults, empty packed arrays as `null`, node unique ids, anchor presets and property ordering). The product owner explicitly approved retaining them; they are now isolated in `3a4be46`, rather than being represented as new NPC gameplay.
@@ -38,7 +38,7 @@ Last updated: 2026-10-27 (M0/M1 clean boundary after approved scene-resource ser
 
 ## NEXT
 
-- Stop at this M0/M1 clean boundary. In the next conversation, read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, and this file; then begin C0 only with its own short plan, allowed-file list, art bible/palette/shader foundation and independent validation. Do not move the existing `npc-quests` tag.
+- Stop at this requested M0-cleanup/M1 clean boundary. Before C0, separately plan and implement any still-desired M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, `autoplay`, `capture_screenshots`, `build_assets`, baseline measurements and the `baseline` tag. These were not part of the explicit cleanup scope and were not silently claimed complete. After that, read both prompt files and begin C0 only with its own short plan, allowed-file list, art bible/palette/shader foundation and independent validation. Do not move the existing `npc-quests` tag.
 
 ## Chibi-style prompt reference handoff (2026-10-27)
 
