@@ -67,3 +67,10 @@ names are stored in the normal save slot; sleeping writes the autosave slot 0.
 - NPC name labels show the existing E binding when the player is within the data-defined reach. Indoors NPCs are hidden; small labeled home boxes identify where they went.
 - NPC modals pause the clock, lock movement, suppress the onboarding panel and hide the hotbar/HUD buttons; world/tool/inventory/help/debug input is consumed. They close before restoring input and HUD visibility; no save while an NPC modal is open. Exit closes the modal before the final save. Dialogue buttons are explicit confirmation; journal never consumes items.
 - Main composes `social` in the save payload and restores it after clock/weather; no new autoload or world ownership is introduced.
+
+## C1 character selector and character readability (2026-10-28)
+
+- Selecting New Game hides the four direct title actions and opens one compact form: player name, farm name, a two-column appearance grid, Confirm and Back. The form contains four localized `OptionButton`s — hair style, skin tone, hair color and outfit color — each backed by six data options. Back restores the direct title actions; the legacy New Game callback still receives only player/farm names.
+- The form remains a child of StartMenu's existing container/card. It has no world-space controls, extra InputMap action or scene dependency. `UiLayout` applies the existing modal size/margins, and focused layout tests cover 1152×648, 1280×720 and 1920×1080 in Vietnamese and English.
+- Player, Minh and Linh now use the existing gameplay anchors with compact chibi avatars. Their name labels remain the accessibility / interaction text. Character face, idle/walk/tool/talk motion and reaction bubbles are 3D view details; they do not add a permanent HUD panel or compete with crop inspection, quest, hotbar or modal regions.
+- During the developer-only C1 screenshot argument, labels are suppressed only in the temporary in-memory capture arrangement to keep the contact image legible. Normal player gameplay still uses the existing localized NPC names and nearby-talk hint.

@@ -11,7 +11,7 @@ extends Node3D
 @onready var tutorial_panel: Node = $TutorialPanel
 @onready var quest_panel: Node = $QuestPanel
 @onready var pause_menu: PanelContainer = $PauseMenu
-@onready var start_menu: PanelContainer = $StartMenu
+@onready var start_menu: StartMenu = $StartMenu
 @onready var toast: Label = $Toast
 @onready var feedback: Label = $FeedbackPopup
 @onready var audio_service: Node = $AudioService
@@ -21,6 +21,7 @@ extends Node3D
 @onready var shipping_bin_panel = $ShippingBinPanel
 @onready var seed_shop_panel = $SeedShopPanel
 @onready var npc_system: NpcSystem = $NpcSystem
+const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
 var inventory
 var farm_state: FarmGridState
 var day_simulator: Object
@@ -36,6 +37,8 @@ var ui_coordinator: UiCoordinator
 var _initial_wallet: Dictionary
 var _spawn_position: Vector3
 var crop_inspector: CropInspector
+var presentation: WorldPresentation
+var _pending_appearance: Dictionary = {}
 
 func _process(delta: float) -> void:
 	if not _game_started:
@@ -112,6 +115,8 @@ func _ready() -> void:
 	debug_menu.configure_weather(weather_state)
 	pause_menu.configure(_save_game, _load_game, _return_to_start_menu)
 	start_menu.configure(_start_new_game, _continue_game, _quit_game)
+	if not start_menu.appearance_selected.is_connected(_on_appearance_selected):
+		start_menu.appearance_selected.connect(_on_appearance_selected)
 	npc_system.configure(self, $DialoguePanel, $NpcJournal)
 	start_menu.visible = true
 	world.player.movement_enabled = not start_menu.visible
@@ -150,9 +155,12 @@ func _ready() -> void:
 	title_backdrop.menu = start_menu
 	add_child(title_backdrop)
 	move_child(title_backdrop, 1)
-	var presentation: WorldPresentation = WorldPresentation.new()
+	presentation = WorldPresentation.new()
 	add_child(presentation)
 	presentation.configure(self)
+	_apply_player_appearance()
+	if OS.get_cmdline_user_args().has("--capture-chibi-characters"):
+		call_deferred("_capture_chibi_characters")
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -218,7 +226,9 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	weather_state.call("deserialize", fresh_weather.serialize())
 	world.player.position = _spawn_position
 	npc_system.restore({})
-	profile = {"player_name": player_name, "farm_name": farm_name}
+	_pending_appearance = _normalize_player_appearance(_pending_appearance)
+	profile = {"player_name": player_name, "farm_name": farm_name, "appearance": _pending_appearance.duplicate(true)}
+	_apply_player_appearance()
 	_game_started = true
 	world.player.movement_enabled = true
 	start_menu.visible = false
@@ -256,7 +266,12 @@ func _load_payload(payload: Dictionary) -> void:
 	npc_system.restore(social_data if social_data is Dictionary else {})
 	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
-	profile = payload.get("profile", {})
+	var loaded_profile: Variant = payload.get("profile", {})
+	profile = loaded_profile.duplicate(true) if loaded_profile is Dictionary else {}
+	var saved_appearance: Variant = profile.get("appearance", {})
+	_pending_appearance = _normalize_player_appearance(saved_appearance if saved_appearance is Dictionary else {})
+	profile["appearance"] = _pending_appearance.duplicate(true)
+	_apply_player_appearance()
 	_game_started = true
 	var player_data: Dictionary = payload.get("player", {})
 	var position_data: Dictionary = player_data.get("position", {})
@@ -272,8 +287,85 @@ func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: V
 		_save_dirty = true
 		_seconds_since_dirty_save = 0.0
 
+func _on_appearance_selected(selection: Dictionary) -> void:
+	_pending_appearance = _normalize_player_appearance(selection)
+
+func _apply_player_appearance() -> void:
+	if presentation == null:
+		return
+	var selection: Variant = profile.get("appearance", _pending_appearance)
+	var normalized: Dictionary = _normalize_player_appearance(selection if selection is Dictionary else {})
+	_pending_appearance = normalized
+	presentation.configure_player_appearance(normalized)
+
+func _normalize_player_appearance(selection: Dictionary) -> Dictionary:
+	var normalized: Variant = CHARACTER_CATALOG.call("normalize_player_customization", selection)
+	return normalized if normalized is Dictionary else {}
+
 func _show_toast(message: String) -> void:
 	toast.text = message
 	toast.visible = true
 	var timer: SceneTreeTimer = get_tree().create_timer(1.5)
 	timer.timeout.connect(func() -> void: toast.visible = false)
+
+func _capture_chibi_characters() -> void:
+	_game_started = true
+	start_menu.hide()
+	tutorial_panel.hide()
+	# This is an opt-in review-only arrangement inside the real main scene. It
+	# never opens a save and the process exits after the capture.
+	GameClock.set_time(11, 0)
+	weather_state.call("force_weather", &"sunny")
+	world.player.global_position = _spawn_position
+	world.player.movement_enabled = false
+	world.interaction_prompt.hide()
+	world.camera.size = 9.0
+	GameClock.paused = true
+	var player_avatar: ChibiAvatar = presentation.get_player_avatar()
+	if player_avatar != null:
+		player_avatar.set_facing_direction(Vector3(-1.0, 0.0, -1.0))
+	var showcase_offsets: Dictionary = {
+		&"minh": Vector3(-1.75, 0.0, 1.75),
+		&"linh": Vector3(1.75, 0.0, -1.75)
+	}
+	for npc_id: StringName in showcase_offsets:
+		var actor: NpcActor = npc_system.actors.get(npc_id) as NpcActor
+		if actor == null:
+			continue
+		# Keep both existing gameplay anchors visible for this one review frame.
+		# The normal schedule loop otherwise correctly sends Minh indoors at 11:00.
+		npc_system.state.targets[npc_id] = &"capture_showcase"
+		npc_system.state.paths[npc_id] = []
+		actor.visible = true
+		actor.global_position = world.player.global_position + (showcase_offsets[npc_id] as Vector3)
+		actor.name_label.hide()
+		actor.avatar.set_facing_direction(Vector3(1.0, 0.0, 1.0))
+		var home: Node3D = npc_system.get_node_or_null("Home_%s" % String(npc_id)) as Node3D
+		if home != null:
+			for child: Node in home.get_children():
+				if child is Label3D:
+					child.hide()
+	for frame_index: int in range(5):
+		await get_tree().process_frame
+		RenderingServer.force_draw(false)
+		await RenderingServer.frame_post_draw
+	var output_directory: String = "res://screenshots/chibi-characters"
+	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
+	if directory_result != OK:
+		printerr("[character_scene_capture] cannot create output directory: %s" % error_string(directory_result))
+		get_tree().quit(1)
+		return
+	var screenshot: Image = get_viewport().get_texture().get_image()
+	if screenshot == null or screenshot.is_empty():
+		printerr("[character_scene_capture] main-scene capture is empty")
+		get_tree().quit(1)
+		return
+	if screenshot.get_format() != Image.FORMAT_RGBA8:
+		screenshot.convert(Image.FORMAT_RGBA8)
+	var save_result: Error = screenshot.save_png("%s/chibi_characters_main_scene.png" % output_directory)
+	if save_result != OK:
+		printerr("[character_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
+		get_tree().quit(1)
+		return
+	print("[character_scene_capture] wrote %s/chibi_characters_main_scene.png" % output_directory)
+	get_tree().quit()

@@ -95,6 +95,9 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"UI_NPC_OFFER_DISCOUNT", "UI_NPC_OFFER_REQUEST", "UI_NPC_CONFIRM_TRADE", "UI_NPC_TRADE_DONE", "UI_NPC_TRADE_BLOCKED"
 	,"UI_DEBUG_NPC_VISIT", "UI_DEBUG_NPC_ITEMS", "UI_DEBUG_NPC_JOURNAL"
 	,"UI_NPC_DELIVERY_BLOCKED"
+	,"UI_BACK", "UI_APPEARANCE_HAIR_STYLE", "UI_APPEARANCE_SKIN_TONE", "UI_APPEARANCE_HAIR_COLOR", "UI_APPEARANCE_OUTFIT_COLOR", "UI_APPEARANCE_OPTION_NUMBER"
+	,"UI_APPEARANCE_HAIR_ROUND_BOB", "UI_APPEARANCE_HAIR_SOFT_BANGS", "UI_APPEARANCE_HAIR_LEAF_BRAID", "UI_APPEARANCE_HAIR_SIDE_SWOOP", "UI_APPEARANCE_HAIR_SHORT_PEAK", "UI_APPEARANCE_HAIR_TWIN_PUFFS"
+	,"NPC_AN_NAME", "NPC_LAM_NAME", "PET_DOG_NAME"
 ]
 
 func _init() -> void:
@@ -143,6 +146,8 @@ func _init() -> void:
 		errors = VALIDATOR_SCRIPT.validate_weather_profile("res://data/weather_profile.tres")
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_art_palette_path("res://data/art/palette/chibi_valley.tres")
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_character_catalog_path("res://data/art/characters/chibi_character_catalog.tres")
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)

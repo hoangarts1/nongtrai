@@ -192,11 +192,13 @@ func _use_selected_tool() -> void:
 			_show_feedback("UI_FEEDBACK_NOT_READY")
 			return
 		_inventory.remove_item(seed_item_id, 1)
+		_play_character_tool(&"seed")
 		_play_sound(&"seed")
 		return
 	if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &""):
 		_show_feedback("UI_FEEDBACK_NOT_READY")
 	else:
+		_play_character_tool(_selected_tool)
 		_play_sound(&"hoe" if _selected_tool == &"hoe" else &"water")
 
 func _harvest_selected_crop() -> void:
@@ -216,6 +218,7 @@ func _harvest_selected_crop() -> void:
 	var result: Dictionary = _farm_state.harvest_cell(_hovered_cell)
 	if bool(result.get("success", false)):
 		_inventory.add_item(product_item, quantity)
+		_play_character_tool(&"harvest")
 		_play_sound(&"harvest")
 	elif _farm_state.get_plot(_hovered_cell).is_empty():
 		_show_feedback("UI_FEEDBACK_NOT_READY")
@@ -230,6 +233,13 @@ func _show_feedback(key: StringName, format_value: int = -1) -> void:
 func _play_sound(sound_id: StringName) -> void:
 	if _audio != null:
 		_audio.call("play_sound", sound_id)
+
+func _play_character_tool(tool_id: StringName) -> void:
+	if _player == null:
+		return
+	var avatar: ChibiAvatar = _player.get_node_or_null("ChibiAvatar") as ChibiAvatar
+	if avatar != null:
+		avatar.play_tool(tool_id)
 
 func _reach_for_selected_tool() -> int:
 	var tool_id: StringName = &"hoe" if _selected_tool == &"hoe" else &"watering_can"

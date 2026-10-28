@@ -59,6 +59,31 @@ The generated `manifest.json` records the same measured values. `ChibiMeshAudit`
 
 Later character and world work should favor small toy-like motion: breathing/idle bob, a clear walk cycle, subtle foliage sway, and brief tool arcs. Animation must be view-only; domain state remains authoritative. C0 intentionally supplies no character/NPC gameplay animation.
 
+## C1 character extension
+
+C1 makes the character part of this contract concrete. `tools/art/chibi/chibi_character_builder.gd` produces original rounded-primitive chibi rigs with named `Rig`, `Body`, `Head`, `ArmLeft`, `ArmRight`, `LegLeft`, `LegRight`, `Accessory` and `Face` pivots. Generated scenes live under `assets/generated/models/characters/` and must be rebuilt with `tools\build_chibi_characters.bat` after builder/data changes.
+
+| Character asset | Role / recognition cue | Actual triangles | Budget |
+|---|---|---:|---:|
+| `chr_player_base.tscn` | compact straw hat, leaf accent and customizable hair/colors | 2,808 | 6,000 |
+| `chr_an.tscn` | round chef hat and apron | 3,120 | 6,000 |
+| `chr_lam.tscn` | tool belt and pencil silhouette | 2,820 | 6,000 |
+| `chr_linh.tscn` | flower crown / nature palette | 3,240 | 6,000 |
+| `chr_minh.tscn` | merchant pack and hat | 2,820 | 6,000 |
+| `pet_dog.tscn` | small dog calibration/reference silhouette only | 2,052 | 6,000 |
+
+The player selector offers six data-defined hair styles, skin tones, hair colors and outfit colors. Face parts sit immediately over the rounded head surface and are raised toward the fixed camera; a compact, slightly rear-shifted straw hat keeps eyes and cheeks readable. `ChibiAvatar` uses `AnimationPlayer` clips for `Idle`, `Walk`, `Run`, `Tool`, `Sleep` and `Talk`, snaps visual facing to eight directions, and creates held tools/reaction bubbles as transient view details. No C1 animation, expression or accessory changes domain state.
+
+The dog is deliberately art calibration only. It is not a pet implementation and has no runtime follow/name/collision/save behavior until Roadmap 8.5 is separately approved.
+
+## C1 visual review procedure
+
+1. Run `tools\build_chibi_characters.bat` after C1 builder/catalog changes.
+2. Run `tools\art_review_characters.bat` with the normal renderer, never `--headless`.
+3. Inspect the lineup and six focused sheets under `screenshots/chibi-characters/`. Each sheet has daytime and night rows; its first tile preserves the 45-degree yaw / 35-degree gameplay pitch and the three supporting tiles expose the face and silhouette.
+4. The same command captures the configured real `main.tscn` through a review-only project argument. This capture has no save mutation and is supplemental integration evidence, not a replacement for game playtesting.
+5. Run `tools\run_tests.bat`. The C1 tests audit generated meshes/budgets/pivots/head ratio, profile fallback/save round-trip, runtime avatar clips/face/bubble, existing anchors and all three selector resolutions.
+
 ## Visual review procedure
 
 1. Run `tools\build_chibi_core.bat` after generator changes.

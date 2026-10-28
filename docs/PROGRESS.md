@@ -1,9 +1,27 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-27 (C0 chibi art foundation complete; C1 is next)
+Last updated: 2026-10-28 (C1 chibi characters complete and tagged `chibi-characters`; C0 remains tagged `chibi-core`)
 
 ## Current milestone
-`C1 (Chibi characters)` — next. C0 is complete and tagged `chibi-core`; C1 may opt the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or saves.
+`C1 (Chibi characters)` — complete and tagged `chibi-characters`. C0 remains tagged `chibi-core`; C1 opts the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or save schema.
+
+## C1 approved plan and allow list (2026-10-27)
+
+- Add a validated, data-owned character catalogue under `data/art/characters/`: six selectable player hair/skin/color combinations with a persisted cosmetic selection, plus distinct profiles for An, Bác Lâm, Linh and Minh. The existing opaque `profile` payload will store only an optional cosmetic dictionary, so older v4 saves retain their default appearance without a schema bump.
+- Add original reproducible chibi-character tooling under `tools/art/chibi/` and generated scenes under `assets/generated/models/characters/` for player, An, Bác Lâm, Linh, Minh and one noninteractive dog calibration model. All models use C0 materials, grounded pivot rigs and data-defined character triangle budgets; the dog does not add Roadmap 8.5 follow/name/save behavior.
+- Replace only the view-local `ChibiAvatar` mesh assembly with a pivot rig, `AnimationPlayer` clips (`Idle`, `Walk`, `Run`, `Tool`, `Sleep`, `Talk`), deterministic 8-direction facing, face/emotion API and code-built transient emotion bubbles. Bind the existing Player, Minh and Linh anchors only; do not create unplanned NPC gameplay actors for An/Lâm.
+- Extend the existing new-game form with compact localized appearance selectors. Persist the selected cosmetic data through the existing profile round trip, apply it after New Game/Continue/load, and keep old two-argument test/caller compatibility. No new InputMap action, scene node, autoload, domain state, schedule, collision or save migration is planned.
+- Add a character lineup/review runner with day/night four-angle sheets and a real `main.tscn` normal-renderer capture; add narrow GUT coverage for data validation, generated scene mesh audits, pivots/head ratio, animation clips, face/bubble API, old-profile fallback, save round-trip, player/NPC anchor preservation and three-resolution selector layout. Update API/ART/UI/decision/credits/progress docs and both locales.
+- Planned C1 files only: `docs/{API_INDEX,ART_BIBLE,PROGRESS,DECISIONS,UI_LAYOUT,CREDITS,SCENE_CONTRACTS/art_lineup,SCENE_CONTRACTS/character_lineup}.md`; `scripts/{data/character_appearance_data,character_appearance_catalog,core/data_validator,view/chibi_avatar,character_face,emotion_bubble,npc_actor,npc_system,tool_action_controller,world_presentation,main,start_menu}.gd`; `data/art/characters/**`; `assets/generated/models/characters/**`; `tools/{art_review_characters.bat,build_chibi_characters.bat,capture_chibi_characters.bat,character_lineup.tscn,art/chibi/**}`; `tools/validate_data.gd`; `tests/unit/{test_chibi_characters,test_character_review_layout,test_ui_layout}.gd` (the prior exact three-child new-game-form assertion changes intentionally because the approved appearance form adds children); `localization/strings_{vi,en}.csv`; and generated `.uid` companions. Existing gameplay `.tscn` files, save service/schema, NPC data/schedules and Roadmap 8.5 behavior are out of scope.
+
+## C1 completion and handoff (2026-10-28)
+
+- Delivered a validated `CharacterAppearanceCatalog`: player appearance selection has six hair styles, six skin tones, six hair colors and six outfit colors. The optional normalized `profile.appearance` dictionary survives New Game, Continue and the existing v4 profile round-trip; old v4 profiles fall back deterministically without a schema bump.
+- Delivered reproducible generated model scenes for player, An, Bac Lam, Linh, Minh and the visual-only dog calibration asset. Their measured triangle counts are player `2,808`, An `3,120`, Lam `2,820`, Linh `3,240`, Minh `2,820`, dog `2,052`, each under the `6,000` character budget with grounded pivots and finite geometry.
+- Replaced the view-local avatar with the articulated chibi rig and view-only `Idle`, `Walk`, `Run`, `Tool`, `Sleep` and `Talk` clips, eight-way facing, distinct held hoe/watering-can/seed-bag/harvest-tool models, `CharacterFace` emotions and transient emotion bubbles. Successful existing farm actions and opening Minh dialogue trigger only these visuals; Player/Minh/Linh domain anchors and schedules remain authoritative.
+- The normal-renderer review writes one six-model lineup plus six focused four-angle/day-night sheets to ignored `screenshots/chibi-characters/`, and captures the real `main.tscn` through the opt-in `--capture-chibi-characters` project argument. The capture uses an isolated in-memory review arrangement, never loads or writes a save slot.
+- Three focused visual correction rounds were performed from those images. Actual issues found: (1) the first capture route compiled `main.tscn` without autoloads; (2) daytime/sunset prompt and name labels obscured the first real-scene review; (3) focused-sheet labels covered individual silhouettes; (4) the review camera was too high to inspect the face; and (5) generated face pieces were offset beyond the rounded head surface. The final tools launch the configured main scene, use a daylight/no-prompt in-memory showcase, suppress labels only for its capture, preserve the first 45-degree/35-degree game tile plus lower supporting views, and place a raised/compact hat and face features correctly on the head. Final review sheets show readable eyes, cheeks and individual accessories in daylight and night.
+- Final verification before the C1 commit/tag: `tools\build_chibi_characters.bat` PASS; normal-renderer `tools\art_review_characters.bat` wrote 7 contact sheets and the real-scene PNG; `[check_parse] OK`; `[validate_data] PASS`; 47 scripts, 146/146 passing tests, 4,209 asserts, 22.931 s, `[run_tests] PASS`. The combined C1 build/review/capture/parse/validator/GUT/main log scan found 0 matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script` or `ERROR:`.
 
 ## C0 approved plan and allow list (2026-10-27)
 
@@ -30,8 +48,10 @@ Last updated: 2026-10-27 (C0 chibi art foundation complete; C1 is next)
 `npc-quests` — confirmed delivery and merchant transactions, Minh/Linh schedules, localized dialogue/journal, friendship, and save v4 migration
 
 `feat: add chibi art foundation` / `chibi-core` — validated palette, generated shader/material suite, original calibration models and independent review tooling; no gameplay presentation migration
+`feat: add chibi characters and customization` / `chibi-characters` — data-owned appearance options, generated character models, view-only rig/face/emotion/held-tool presentation and normal-renderer review capture; no save-schema, schedule or Roadmap 8.5 behavior change
 
 ## Done
+- [x] C1 chibi characters: player appearance selector, generated player/An/Bac Lam/Linh/Minh/dog-reference assets, articulated presentation, face/emotion bubbles, C1 review tooling and compatibility coverage (commit/tag recorded above)
 - [x] `docs/MASTER_PROMPT.md` added from the root prompt source, byte-preserving in UTF-8 (commit `215d2d6`)
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
 - [x] Repo starter docs integrated into the existing project
@@ -57,7 +77,7 @@ Last updated: 2026-10-27 (C0 chibi art foundation complete; C1 is next)
 
 ## NEXT
 
-- Start C1 only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file and `docs/ART_BIBLE.md`. Keep C0 IDs/paths/palette/save behavior stable; first inventory existing player/NPC views and create an approved C1 plan for character models, customization, animation and expression work.
+- Start C2 (chibi farming) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md` and the farm-scene contract first. Preserve all C0/C1 palette/model paths, profile cosmetic normalization, tool controller behavior and save v4. C2 may improve crop/item/tool/soil presentation and generated icons, but must not change growth, yield, inventory, save or tool atomicity without a separately approved decision.
 - Before a release claim, separately return to the deferred M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, autoplay, full capture matrix, baseline measurements/tag and global `build_assets`. Do not retroactively describe C0's isolated contact-sheet runner as that complete M0 suite.
 
 ## Chibi-style prompt reference handoff (2026-10-27)

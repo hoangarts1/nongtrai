@@ -371,3 +371,16 @@ Format:
 - func try_buy_item(item_id: StringName, quantity: int) -> bool — performs atomic purchase checking funds and inventory capacity
 - signal item_purchased(item_id: StringName, quantity: int, total_price: int) — emitted on successful purchase
 
+## C1 chibi characters
+
+- `CharacterAppearanceData` (`scripts/data/character_appearance_data.gd`): a data-owned visual recipe. `to_builder_dictionary() -> Dictionary` supplies a detached builder profile and `validate() -> PackedStringArray` validates ids, colors and scale.
+- `CharacterAppearanceCatalog` (`scripts/data/character_appearance_catalog.gd`): owns the player base profile, An/Bac Lam/Linh/Minh recipes, dog calibration recipe and selectable player choices. `get_npc_appearance(id)`, `get_default_player_appearance()`, `get_player_customization()`, `normalize_player_customization(selection)`, `resolve_player(selection)` and `validate()` are the public API. A normalized selection contains only `hair_style`, `skin_index`, `hair_color_index` and `outfit_color_index` and is safe in `profile.appearance`.
+- `DataValidator.validate_character_catalog_path(path) -> PackedStringArray` validates the C1 catalogue in the normal data gate. `tools/validate_data.gd` invokes it for `data/art/characters/chibi_character_catalog.tres`.
+- `ChibiCharacterModelBuilder` (`tools/art/chibi/chibi_character_builder.gd`) is deterministic tooling/runtime presentation support. `build_character(profile, customization = {}) -> Node3D` and `build_dog(profile) -> Node3D` create grounded C0-material model rigs. Its stable generated outputs are under `assets/generated/models/characters/`; regenerate them with `tools\build_chibi_characters.bat`.
+- `ChibiAvatar` (`scripts/view/chibi_avatar.gd`) remains view-only. In addition to legacy `configure`, its public API is `configure_profile`, `apply_customization`, `set_emotion`, `show_emotion_bubble`, `play_tool`, `play_sleep`, `play_talk`, `stop_action`, `set_facing_direction`, `get_model`, `get_face` and `get_animation_player`. It owns the six C1 `AnimationPlayer` clips but never owns player/NPC state, collision or saves.
+- `CharacterFace` (`scripts/view/character_face.gd`) accepts `configure(profile)`, `set_emotion(id)`, `set_blinking(value)` and `set_talk_phase(phase)`. Valid emotions are `normal`, `happy`, `surprised`, `sad`, `sleep` and `talk`.
+- `EmotionBubble` (`scripts/view/emotion_bubble.gd`) is transient, view-only feedback: `show_emotion(id, duration)` and `hide_emotion()`. Valid bubble ids are heart, surprise, question, music, sweat and sleep.
+- `WorldPresentation.configure_player_appearance(selection)` reconfigures only the child `ChibiAvatar`; `get_player_avatar()` exposes that view anchor. `NpcActor.play_talk()` and `show_emotion(id)` are presentation helpers called after existing dialogue eligibility checks.
+- `StartMenu` emits `appearance_selected(appearance: Dictionary)` before its unchanged two-argument New Game callback. `get_appearance_selection()` returns the validated normalized selector state.
+- `tools\art_review_characters.bat` writes C1 day/night contact sheets and calls `tools\capture_chibi_characters.bat`. The latter starts the configured project main scene with `--capture-chibi-characters`; the flag is review-only, exits without a save write, and is not a player-facing input action.
+

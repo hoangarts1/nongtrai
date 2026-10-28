@@ -1,0 +1,41 @@
+{
+	"catalog_id": "chibi_characters",
+	"entries": [
+		{
+			"appearance_id": "player_default",
+			"budget": 6000,
+			"file": "chr_player_base.tscn",
+			"triangles": 2808
+		},
+		{
+			"appearance_id": "an_baker",
+			"budget": 6000,
+			"file": "chr_an.tscn",
+			"triangles": 3120
+		},
+		{
+			"appearance_id": "lam_carpenter",
+			"budget": 6000,
+			"file": "chr_lam.tscn",
+			"triangles": 2820
+		},
+		{
+			"appearance_id": "linh_gardener",
+			"budget": 6000,
+			"file": "chr_linh.tscn",
+			"triangles": 3240
+		},
+		{
+			"appearance_id": "minh_merchant",
+			"budget": 6000,
+			"file": "chr_minh.tscn",
+			"triangles": 2820
+		},
+		{
+			"appearance_id": "dog_calibration",
+			"budget": 6000,
+			"file": "pet_dog.tscn",
+			"triangles": 2052
+		}
+	]
+}

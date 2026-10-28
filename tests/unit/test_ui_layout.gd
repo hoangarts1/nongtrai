@@ -87,7 +87,14 @@ func test_every_modal_has_readable_content_and_visible_controls_at_three_sizes()
 					panel.call("_show_new_game_fields")
 					await get_tree().process_frame
 					_check_buttons(panel, panel)
-					assert_eq(panel.get("_name_box").get_child_count(), 3, "Repeated New Game does not duplicate its confirm button")
+					var new_game_form: VBoxContainer = panel.get("_name_box") as VBoxContainer
+					var confirm_count: int = 0
+					for child: Node in new_game_form.get_children():
+						if child.name == &"ConfirmNewGame":
+							confirm_count += 1
+					assert_eq(confirm_count, 1, "Repeated New Game does not duplicate its confirm button")
+					assert_not_null(new_game_form.get_node_or_null("AppearanceGrid/HairStyle"), "C1 appearance selector stays in the new-game form")
+					assert_not_null(new_game_form.get_node_or_null("AppearanceGrid/SkinTone"), "C1 skin selector stays in the new-game form")
 				await _capture(main, String(panel.name), locale, viewport_size)
 				if panel == main.start_menu:
 					panel.hide()

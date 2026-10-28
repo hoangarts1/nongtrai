@@ -5,6 +5,7 @@
 ##   static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray
 ##   static func validate_weather_profile(path: String) -> PackedStringArray
 ##   static func validate_art_palette_path(path: String) -> PackedStringArray
+##   static func validate_character_catalog_path(path: String) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
 
@@ -187,6 +188,24 @@ static func validate_art_palette_path(path: String) -> PackedStringArray:
 	var validation: Variant = palette.call(&"validate")
 	if not validation is PackedStringArray:
 		errors.append("art palette validate API returned an invalid result: %s" % path)
+		return errors
+	return validation as PackedStringArray
+
+static func validate_character_catalog_path(path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if not ResourceLoader.exists(path):
+		errors.append("character catalog is missing: %s" % path)
+		return errors
+	var catalog: Resource = load(path) as Resource
+	if catalog == null:
+		errors.append("character catalog cannot be loaded: %s" % path)
+		return errors
+	if not catalog.has_method(&"validate"):
+		errors.append("character catalog has no validate API: %s" % path)
+		return errors
+	var validation: Variant = catalog.call(&"validate")
+	if not validation is PackedStringArray:
+		errors.append("character catalog validate API returned an invalid result: %s" % path)
 		return errors
 	return validation as PackedStringArray
 

@@ -147,6 +147,10 @@ func open_dialogue(npc_id: StringName) -> void:
 		return
 	_current_npc = npc_id
 	state.talk(npc_id, GameClock.day_index, GameClock.season)
+	var actor: NpcActor = actors.get(npc_id) as NpcActor
+	if actor != null:
+		actor.play_talk()
+		actor.show_emotion(&"music")
 	_lock()
 	_render_dialogue()
 

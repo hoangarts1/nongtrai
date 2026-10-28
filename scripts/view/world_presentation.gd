@@ -5,6 +5,10 @@ class_name WorldPresentation
 extends Node3D
 
 const WORLD_ART_FACTORY: Script = preload("res://scripts/view/world_art_factory.gd")
+const CHARACTER_CATALOG_PATH: String = "res://data/art/characters/chibi_character_catalog.tres"
+
+var _player_avatar: ChibiAvatar
+var _player_profile: Dictionary = {}
 
 func configure(main: Node) -> void:
 	name = "WorldPresentation"
@@ -12,9 +16,14 @@ func configure(main: Node) -> void:
 	var player: Player = world.player
 	var visual: MeshInstance3D = player.get_node("Visual") as MeshInstance3D
 	visual.hide()
-	var avatar: ChibiAvatar = ChibiAvatar.new()
-	player.add_child(avatar)
-	avatar.configure(Color("a7bd88"))
+	_player_avatar = ChibiAvatar.new()
+	_player_avatar.name = "ChibiAvatar"
+	player.add_child(_player_avatar)
+	_player_profile = _default_player_profile()
+	if _player_profile.is_empty():
+		_player_avatar.configure(Color("a7bd88"))
+	else:
+		_player_avatar.configure_profile(_player_profile)
 	WORLD_ART_FACTORY.build_cottage(world.get_node("House") as MeshInstance3D, Vector3(3.0, 2.1, 2.5), Color("f4e2b8"), Color("c47f64"))
 	WORLD_ART_FACTORY.build_market(world.get_node("SeedShop") as MeshInstance3D)
 	WORLD_ART_FACTORY.decorate_shipping_bin(world.get_node("ShippingBin") as MeshInstance3D)
@@ -28,6 +37,33 @@ func configure(main: Node) -> void:
 	WORLD_ART_FACTORY.add_rock_cluster(self, "RockClusterNorth", Vector3(-6.6, 0.0, 10.2), Color("7d8381"))
 	WORLD_ART_FACTORY.add_rock_cluster(self, "RockClusterEast", Vector3(9.6, 0.0, 6.8), Color("7d8589"))
 	WORLD_ART_FACTORY.add_rock_cluster(self, "RockClusterSouth", Vector3(7.6, 0.0, -7.6), Color("847e75"))
+
+func configure_player_appearance(customization: Dictionary) -> void:
+	if _player_avatar == null:
+		return
+	if _player_profile.is_empty():
+		_player_profile = _default_player_profile()
+	if _player_profile.is_empty():
+		return
+	_player_avatar.configure_profile(_player_profile, customization)
+
+func get_player_avatar() -> ChibiAvatar:
+	return _player_avatar
+
+func _default_player_profile() -> Dictionary:
+	var catalog: Resource = load(CHARACTER_CATALOG_PATH) as Resource
+	if catalog == null or not catalog.has_method(&"get_default_player_appearance"):
+		return {}
+	return _appearance_dictionary(catalog.call(&"get_default_player_appearance"))
+
+func _appearance_dictionary(appearance: Variant) -> Dictionary:
+	if appearance is Dictionary:
+		return (appearance as Dictionary).duplicate(true)
+	if appearance is Resource and (appearance as Resource).has_method(&"to_builder_dictionary"):
+		var profile: Variant = (appearance as Resource).call(&"to_builder_dictionary")
+		if profile is Dictionary:
+			return (profile as Dictionary).duplicate(true)
+	return {}
 
 func _tune_lighting(world: GrayBoxWorld) -> void:
 	var environment: Environment = world.world_environment.environment

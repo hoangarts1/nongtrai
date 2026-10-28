@@ -1,7 +1,14 @@
 ## StartMenu — new-game and continue entry screen.
 ## API:
+##   signal appearance_selected(appearance: Dictionary)
 ##   func configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable) -> void
+##   func get_appearance_selection() -> Dictionary
+class_name StartMenu
 extends PanelContainer
+
+signal appearance_selected(appearance: Dictionary)
+
+const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
 
 var _new_game_callback: Callable
 var _continue_callback: Callable
@@ -11,6 +18,12 @@ var _settings_box: VBoxContainer
 var _player_name: LineEdit
 var _farm_name: LineEdit
 var _save_summary: Label
+var _appearance_grid: GridContainer
+var _hair_style: OptionButton
+var _skin_tone: OptionButton
+var _hair_color: OptionButton
+var _outfit_color: OptionButton
+var _main_actions: Array[Button] = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -78,6 +91,23 @@ func _build_ui() -> void:
 	_farm_name.placeholder_text = tr("UI_DEFAULT_FARM")
 	_name_box.add_child(_player_name)
 	_name_box.add_child(_farm_name)
+	_appearance_grid = GridContainer.new()
+	_appearance_grid.name = "AppearanceGrid"
+	_appearance_grid.columns = 2
+	_appearance_grid.add_theme_constant_override("h_separation", 12)
+	_appearance_grid.add_theme_constant_override("v_separation", 6)
+	_build_appearance_fields()
+	_name_box.add_child(_appearance_grid)
+	var confirm: Button = Button.new()
+	confirm.name = "ConfirmNewGame"
+	confirm.text = tr("UI_CONFIRM")
+	confirm.pressed.connect(_submit_new_game)
+	_name_box.add_child(confirm)
+	var back: Button = Button.new()
+	back.name = "BackToTitle"
+	back.text = tr("UI_BACK")
+	back.pressed.connect(_hide_new_game_fields)
+	_name_box.add_child(back)
 	column.add_child(_name_box)
 	_settings_box = VBoxContainer.new()
 	_settings_box.name = "Settings"
@@ -92,45 +122,103 @@ func _build_ui() -> void:
 	_add_slider(_settings_box, tr("UI_EFFECTS_VOLUME"), Settings.get_effects_volume(), Settings.set_effects_volume)
 	column.add_child(_settings_box)
 	var new_button: Button = Button.new()
+	new_button.name = "NewGame"
 	new_button.text = tr("UI_MAIN_NEW_GAME")
 	new_button.pressed.connect(_show_new_game_fields)
 	column.add_child(new_button)
+	_main_actions.append(new_button)
 	var settings_button: Button = Button.new()
+	settings_button.name = "SettingsButton"
 	settings_button.text = tr("UI_SETTINGS")
 	settings_button.pressed.connect(_toggle_settings)
 	column.add_child(settings_button)
+	_main_actions.append(settings_button)
 	var continue_button: Button = Button.new()
 	continue_button.name = "Continue"
 	continue_button.text = tr("UI_MAIN_CONTINUE")
 	continue_button.pressed.connect(func() -> void: _continue_callback.call())
 	column.add_child(continue_button)
+	_main_actions.append(continue_button)
 	var exit_button: Button = Button.new()
+	exit_button.name = "Exit"
 	exit_button.text = tr("UI_MAIN_EXIT")
 	exit_button.pressed.connect(func() -> void: _exit_callback.call())
 	column.add_child(exit_button)
+	_main_actions.append(exit_button)
 
 func _show_new_game_fields() -> void:
 	_settings_box.hide()
 	if _name_box.visible:
 		return
 	_name_box.visible = true
-	if _name_box.get_node_or_null("ConfirmNewGame") != null:
-		return
-	var confirm: Button = Button.new()
-	confirm.name = "ConfirmNewGame"
-	confirm.text = tr("UI_CONFIRM")
-	confirm.pressed.connect(func() -> void:
+	_set_main_actions_visible(false)
+
+func _hide_new_game_fields() -> void:
+	_name_box.hide()
+	_set_main_actions_visible(true)
+
+func _submit_new_game() -> void:
+	appearance_selected.emit(get_appearance_selection())
+	if _new_game_callback.is_valid():
 		_new_game_callback.call(
 			_player_name.text if not _player_name.text.is_empty() else tr("UI_DEFAULT_PLAYER"),
 			_farm_name.text if not _farm_name.text.is_empty() else tr("UI_DEFAULT_FARM")
 		)
-		visible = false
-	)
-	_name_box.add_child(confirm)
+	visible = false
 
 func _toggle_settings() -> void:
-	_name_box.hide()
+	_hide_new_game_fields()
 	_settings_box.visible = not _settings_box.visible
+
+func get_appearance_selection() -> Dictionary:
+	return _normalize_appearance_selection({
+		"hair_style": _hair_style.get_item_metadata(_hair_style.selected),
+		"skin_index": _skin_tone.selected,
+		"hair_color_index": _hair_color.selected,
+		"outfit_color_index": _outfit_color.selected
+	})
+
+func _build_appearance_fields() -> void:
+	var options_variant: Variant = CHARACTER_CATALOG.call("get_player_customization")
+	var options: Dictionary = options_variant if options_variant is Dictionary else {}
+	_hair_style = _add_appearance_option("HairStyle", tr("UI_APPEARANCE_HAIR_STYLE"))
+	var styles: PackedStringArray = options.get("hair_styles", PackedStringArray())
+	for style: String in styles:
+		_hair_style.add_item(tr("UI_APPEARANCE_HAIR_%s" % style.to_upper()))
+		_hair_style.set_item_metadata(_hair_style.item_count - 1, style)
+	_skin_tone = _add_appearance_option("SkinTone", tr("UI_APPEARANCE_SKIN_TONE"))
+	_hair_color = _add_appearance_option("HairColor", tr("UI_APPEARANCE_HAIR_COLOR"))
+	_outfit_color = _add_appearance_option("OutfitColor", tr("UI_APPEARANCE_OUTFIT_COLOR"))
+	var skin_tones: Array = options.get("skin_tones", []) as Array
+	var hair_colors: Array = options.get("hair_colors", []) as Array
+	var outfit_colors: Array = options.get("outfit_colors", []) as Array
+	for index: int in range(skin_tones.size()):
+		_skin_tone.add_item(tr("UI_APPEARANCE_OPTION_NUMBER") % [tr("UI_APPEARANCE_SKIN_TONE"), index + 1])
+	for index: int in range(hair_colors.size()):
+		_hair_color.add_item(tr("UI_APPEARANCE_OPTION_NUMBER") % [tr("UI_APPEARANCE_HAIR_COLOR"), index + 1])
+	for index: int in range(outfit_colors.size()):
+		_outfit_color.add_item(tr("UI_APPEARANCE_OPTION_NUMBER") % [tr("UI_APPEARANCE_OUTFIT_COLOR"), index + 1])
+
+func _add_appearance_option(option_name: String, caption: String) -> OptionButton:
+	var label: Label = Label.new()
+	label.name = "%sLabel" % option_name
+	label.text = caption
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_appearance_grid.add_child(label)
+	var option: OptionButton = OptionButton.new()
+	option.name = option_name
+	option.custom_minimum_size.y = 40.0
+	option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_appearance_grid.add_child(option)
+	return option
+
+func _set_main_actions_visible(is_visible: bool) -> void:
+	for button: Button in _main_actions:
+		button.visible = is_visible
+
+func _normalize_appearance_selection(selection: Dictionary) -> Dictionary:
+	var normalized: Variant = CHARACTER_CATALOG.call("normalize_player_customization", selection)
+	return normalized if normalized is Dictionary else {}
 
 func _continue_summary() -> String:
 	var summary: Dictionary = SaveService.get_latest_summary()

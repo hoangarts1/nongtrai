@@ -1,0 +1,111 @@
+[gd_resource type="Resource" script_class="CharacterAppearanceCatalog" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/character_appearance_data.gd" id="1_appearance"]
+[ext_resource type="Script" path="res://scripts/data/character_appearance_catalog.gd" id="2_catalog"]
+
+[sub_resource type="Resource" id="AppearancePlayer"]
+script = ExtResource("1_appearance")
+appearance_id = &"player_default"
+character_id = &"player"
+display_name_key = &"UI_DEFAULT_PLAYER"
+hair_style = &"round_bob"
+accessory = &"straw_hat"
+body_scale = 1.0
+skin_color = Color(0.956863, 0.8, 0.67451, 1)
+hair_color = Color(0.454902, 0.333333, 0.258824, 1)
+outfit_color = Color(0.654902, 0.741176, 0.533333, 1)
+accent_color = Color(0.952941, 0.647059, 0.556863, 1)
+shoe_color = Color(0.439216, 0.333333, 0.266667, 1)
+eye_color = Color(0.266667, 0.227451, 0.196078, 1)
+blush_color = Color(0.937255, 0.639216, 0.635294, 1)
+
+[sub_resource type="Resource" id="AppearanceAn"]
+script = ExtResource("1_appearance")
+appearance_id = &"an_baker"
+character_id = &"an"
+display_name_key = &"NPC_AN_NAME"
+hair_style = &"soft_bangs"
+accessory = &"chef_hat"
+body_scale = 0.96
+skin_color = Color(0.976471, 0.847059, 0.713725, 1)
+hair_color = Color(0.25098, 0.172549, 0.137255, 1)
+outfit_color = Color(0.905882, 0.541176, 0.498039, 1)
+accent_color = Color(1, 0.913725, 0.768627, 1)
+shoe_color = Color(0.360784, 0.254902, 0.207843, 1)
+eye_color = Color(0.211765, 0.160784, 0.152941, 1)
+blush_color = Color(0.956863, 0.666667, 0.643137, 1)
+
+[sub_resource type="Resource" id="AppearanceLam"]
+script = ExtResource("1_appearance")
+appearance_id = &"lam_carpenter"
+character_id = &"lam"
+display_name_key = &"NPC_LAM_NAME"
+hair_style = &"short_peak"
+accessory = &"tool_belt"
+body_scale = 1.12
+skin_color = Color(0.709804, 0.470588, 0.317647, 1)
+hair_color = Color(0.227451, 0.180392, 0.14902, 1)
+outfit_color = Color(0.388235, 0.541176, 0.654902, 1)
+accent_color = Color(0.866667, 0.611765, 0.345098, 1)
+shoe_color = Color(0.286275, 0.207843, 0.156863, 1)
+eye_color = Color(0.164706, 0.129412, 0.117647, 1)
+blush_color = Color(0.760784, 0.407843, 0.380392, 1)
+
+[sub_resource type="Resource" id="AppearanceLinh"]
+script = ExtResource("1_appearance")
+appearance_id = &"linh_gardener"
+character_id = &"linh"
+display_name_key = &"NPC_LINH_NAME"
+hair_style = &"leaf_braid"
+accessory = &"flower_crown"
+body_scale = 0.98
+skin_color = Color(0.882353, 0.615686, 0.435294, 1)
+hair_color = Color(0.176471, 0.294118, 0.203922, 1)
+outfit_color = Color(0.352941, 0.690196, 0.482353, 1)
+accent_color = Color(0.968627, 0.682353, 0.498039, 1)
+shoe_color = Color(0.254902, 0.34902, 0.239216, 1)
+eye_color = Color(0.137255, 0.258824, 0.192157, 1)
+blush_color = Color(0.905882, 0.478431, 0.435294, 1)
+
+[sub_resource type="Resource" id="AppearanceMinh"]
+script = ExtResource("1_appearance")
+appearance_id = &"minh_merchant"
+character_id = &"minh"
+display_name_key = &"NPC_MINH_NAME"
+hair_style = &"side_swoop"
+accessory = &"merchant_pack"
+body_scale = 1.05
+skin_color = Color(0.819608, 0.545098, 0.352941, 1)
+hair_color = Color(0.298039, 0.192157, 0.113725, 1)
+outfit_color = Color(0.776471, 0.470588, 0.196078, 1)
+accent_color = Color(0.952941, 0.760784, 0.411765, 1)
+shoe_color = Color(0.317647, 0.211765, 0.133333, 1)
+eye_color = Color(0.203922, 0.129412, 0.082353, 1)
+blush_color = Color(0.870588, 0.447059, 0.352941, 1)
+
+[sub_resource type="Resource" id="AppearanceDog"]
+script = ExtResource("1_appearance")
+appearance_id = &"dog_calibration"
+character_id = &"dog"
+display_name_key = &"PET_DOG_NAME"
+hair_style = &"floppy_ears"
+accessory = &"red_bandana"
+body_scale = 0.72
+skin_color = Color(0.831373, 0.67451, 0.482353, 1)
+hair_color = Color(0.517647, 0.356863, 0.227451, 1)
+outfit_color = Color(0.831373, 0.67451, 0.482353, 1)
+accent_color = Color(0.92549, 0.333333, 0.360784, 1)
+shoe_color = Color(0.517647, 0.356863, 0.227451, 1)
+eye_color = Color(0.184314, 0.145098, 0.129412, 1)
+blush_color = Color(0.831373, 0.67451, 0.482353, 1)
+
+[resource]
+script = ExtResource("2_catalog")
+catalog_id = &"chibi_characters"
+player_base = SubResource("AppearancePlayer")
+npc_appearances = Array[Resource]([SubResource("AppearanceAn"), SubResource("AppearanceLam"), SubResource("AppearanceLinh"), SubResource("AppearanceMinh")])
+pet_appearance = SubResource("AppearanceDog")
+player_hair_styles = PackedStringArray("round_bob", "soft_bangs", "leaf_braid", "side_swoop", "short_peak", "twin_puffs")
+player_skin_tones = Array[Color]([Color(0.976471, 0.858824, 0.74902, 1), Color(0.956863, 0.8, 0.67451, 1), Color(0.882353, 0.615686, 0.435294, 1), Color(0.819608, 0.545098, 0.352941, 1), Color(0.709804, 0.470588, 0.317647, 1), Color(0.556863, 0.345098, 0.239216, 1)])
+player_hair_colors = Array[Color]([Color(0.176471, 0.12549, 0.105882, 1), Color(0.454902, 0.333333, 0.258824, 1), Color(0.705882, 0.458824, 0.223529, 1), Color(0.611765, 0.207843, 0.239216, 1), Color(0.184314, 0.309804, 0.235294, 1), Color(0.270588, 0.360784, 0.556863, 1)])
+player_outfit_colors = Array[Color]([Color(0.654902, 0.741176, 0.533333, 1), Color(0.482353, 0.709804, 0.737255, 1), Color(0.933333, 0.560784, 0.580392, 1), Color(0.784314, 0.611765, 0.858824, 1), Color(0.952941, 0.670588, 0.364706, 1), Color(0.533333, 0.607843, 0.819608, 1)])
