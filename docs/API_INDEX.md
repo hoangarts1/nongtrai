@@ -384,3 +384,14 @@ Format:
 - `StartMenu` emits `appearance_selected(appearance: Dictionary)` before its unchanged two-argument New Game callback. `get_appearance_selection()` returns the validated normalized selector state.
 - `tools\art_review_characters.bat` writes C1 day/night contact sheets and calls `tools\capture_chibi_characters.bat`. The latter starts the configured project main scene with `--capture-chibi-characters`; the flag is review-only, exits without a save write, and is not a player-facing input action.
 
+## C2 chibi farming
+
+- `ItemData` (`scripts/data/item_data.gd`) has optional view-only `model_path` and `icon_path` fields. They point to generated local art only; inventory stacks, prices, crop references and save payloads continue to use the stable `item_id`.
+- `FarmingArtCatalog` (`scripts/data/farming_art_catalog.gd`) owns crop-family mapping, growth-stage scales, tool ids, soil/dew/sparkle/effect colors and generated asset path helpers: `get_crop_scene_path`, `get_crop_family`, `get_stage_scale`, `get_tool_scene_path`, `get_tool_icon_path` and `validate`.
+- `DataValidator.validate_farming_art_catalog_path(path)` validates the C2 catalogue. `DataValidator.validate_item_visual_assets(resources)` verifies every declared C2 item model and 128 px transparent PNG sticker; `tools/validate_data.gd` invokes both in the ordinary data gate.
+- `CropPresentation.render` loads a C2 generated crop child beneath the existing logical crop root. `get_stage_id` maps the existing growth ratio to stage `0` through `3` or `withered`; `clear` and the root click bounds remain compatible with `FarmView.pick_crop`.
+- `FarmEffects.play_action(cell, action_id)` creates bounded, transient hoe/seed/water/harvest presentation only. `FarmView.play_action_fx` is the existing-view bridge. Neither method changes grid, inventory, wallet, yield, time or save state.
+- `UiIcons.for_item` prefers an ItemData sticker PNG and retains its existing SVG fallback. `get_icon` prefers the four C2 tool stickers before its existing UI-chrome fallback.
+- `ChibiAvatar.play_tool` uses the C2 generated held prop when available, preserving its old procedural fallback and all C1 animation APIs.
+- `ChibiFarmingBuilder` and `tools\build_chibi_farming.bat` reproducibly build 45 crop-stage scenes, 18 item prop scenes, four tool prop scenes and 22 transparent sticker PNGs. `tools\art_review_farming.bat` writes isolated normal-renderer contact sheets and an opt-in `--capture-chibi-farming` main-scene evidence image; neither path writes a save.
+

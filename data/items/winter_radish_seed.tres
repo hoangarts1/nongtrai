@@ -10,3 +10,5 @@ max_stack = 99
 buy_price = 16
 sell_price = 8
 color = Color(0.65, 0.75, 0.75, 1)
+model_path = "res://assets/generated/models/farming/item_winter_radish_seed.tscn"
+icon_path = "res://assets/generated/icons/item_winter_radish_seed.png"

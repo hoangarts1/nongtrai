@@ -127,7 +127,8 @@ func test_icon_and_title_assets_are_present_and_translated() -> void:
 	for id: String in UiIcons.ICON_IDS:
 		var icon: Texture2D = UiIcons.get_icon(StringName(id))
 		assert_not_null(icon, "Every declared icon resolves: %s" % id)
-		assert_eq(icon.get_size(), Vector2(64, 64))
+		var expected_size: Vector2 = Vector2(128, 128) if id in ["hoe", "watering_can", "seed", "harvest"] else Vector2(64, 64)
+		assert_eq(icon.get_size(), expected_size, "C2 tool stickers are 128px; existing UI SVGs remain 64px: %s" % id)
 	assert_not_null(preload("res://assets/ui/title_valley.png"))
 	var keys: PackedStringArray = ["UI_TITLE_TAGLINE", "UI_TITLE_SAVE_SUMMARY", "UI_BIND_MOUSE_LEFT", "UI_BIND_TOOL_ALTERNATIVE", "UI_BIND_UP", "UI_BIND_DOWN", "UI_BIND_LEFT", "UI_BIND_RIGHT"]
 	var paths: Array[String] = ["res://localization/strings_vi.csv", "res://localization/strings_en.csv"]

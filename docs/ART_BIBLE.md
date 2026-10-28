@@ -92,3 +92,22 @@ The dog is deliberately art calibration only. It is not a pet implementation and
 4. Run `tools\run_tests.bat`; the C0 tests load each model, check its bounds/pivot/budget, verify shader material usage, and bind the generated materials to a viewport.
 
 The contact sheets are an isolated calibration diorama, not proof of integration in `main.tscn`; real-world scene review is deferred until the corresponding world/character milestone. The screenshots directory is intentionally ignored. Do not call art “finished” solely because it loads: inspect readability, silhouette, clipping, shadows, palette balance and scale. Keep visual corrections focused and record the actual review result in `PROGRESS.md`; use at most three correction rounds per asset group.
+
+## C2 farming asset contract
+
+- C2 uses the C0 palette and original rounded primitive construction. It supplies five visual states per registered crop: four growth stages (`0`–`3`) plus `withered`. The nine current crop ids retain their gameplay IDs and use one of `root`, `vine`, `stalk`, `grain`, `ground_vine` or `leafy` silhouette families from `chibi_farming_catalog.tres`.
+- Crop pivots remain at soil level and stay below the existing `FarmView` logical crop root. That transparent root remains the selectable surface; model silhouette must never become a gameplay hit-test dependency.
+- Stage progression is a visual mapping of the existing `FarmGridState` growth ratio. No duration, yield, watering, season, inventory or save value belongs to an art scene.
+- Tilled furrows, wet-soil sheen, dew, mature sparkle/bob and hoe/seed/water/harvest effects are view-only. C2 effects have a bounded lifetime and are emitted only after the existing action succeeds.
+- Each of the 18 seed/produce ItemData resources points at one generated grounded prop model and one transparent 128×128 PNG sticker. The sticker has a soft project-local outline/shadow and is preferred by the current icon service while SVG fallbacks remain available.
+- The four held props are hoe, watering can, seed bag and harvest basket. They are compact, readable at the fixed 45°/35° camera and retain the C1 procedural fallback if a generated scene cannot load.
+- Generated C2 source art lives in `assets/generated/models/farming/` and `assets/generated/icons/`. It is reproducible from data and code; do not hand-edit those generated scenes or PNGs.
+- C2 audits every crop scene against the C0 crop budget of 400 triangles (current maximum: 292) and each item/tool prop against the C0 prop budget of 1,500 triangles (current maxima: 120 item, 96 tool). The build also rejects ungrounded, non-finite or empty models.
+
+## C2 visual review procedure
+
+1. Run `tools\build_chibi_farming.bat` after changing the C2 catalogue or builder.
+2. Run `tools\art_review_farming.bat` with the normal renderer, never `--headless`.
+3. Inspect the 14 ignored sheets under `screenshots/chibi-farming/`: one overview, nine crop focus sheets, three item groups and one tool group. Each has daytime and night rows across four review views.
+4. Inspect `chibi_farming_main_scene.png` from the same command for the real `main.tscn` integration under its normal HUD/lighting. The private capture flag creates only an in-memory showcase and exits without loading or saving a slot.
+5. Run `tools\run_tests.bat`. C2 tests audit all generated models/icons, visual data paths, crop picking, effect success/failure boundaries and review layout.

@@ -12,6 +12,7 @@ class_name ChibiAvatar
 extends Node3D
 
 const MODEL_BUILDER_PATH: String = "res://tools/art/chibi/chibi_character_builder.gd"
+const FARMING_ART_CATALOG: FarmingArtCatalog = preload("res://data/art/farming/chibi_farming_catalog.tres")
 
 var _model: Node3D
 var _rig: Node3D
@@ -263,6 +264,16 @@ func _set_tool_kind(tool_id: StringName) -> void:
 		return
 	for child: Node in _tool_prop.get_children():
 		child.free()
+	var generated_tool_id: StringName = &"watering_can" if tool_id == &"water" else tool_id
+	var generated_path: String = FARMING_ART_CATALOG.get_tool_scene_path(generated_tool_id)
+	var generated_scene: PackedScene = load(generated_path) as PackedScene if not generated_path.is_empty() else null
+	if generated_scene != null:
+		var generated_tool: Node3D = generated_scene.instantiate() as Node3D
+		if generated_tool != null:
+			generated_tool.name = "GeneratedTool"
+			generated_tool.scale = Vector3.ONE * 0.64
+			_tool_prop.add_child(generated_tool)
+			return
 	match tool_id:
 		&"water", &"watering_can":
 			_tool_sphere("Can", Vector3(0.0, 0.0, 0.0), Vector3(0.23, 0.20, 0.20), &"water")

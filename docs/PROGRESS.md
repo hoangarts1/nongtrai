@@ -1,9 +1,28 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-28 (C1 chibi characters complete and tagged `chibi-characters`; C0 remains tagged `chibi-core`)
+Last updated: 2026-10-29 (C2 chibi farming complete and tagged `chibi-farming`; C1 remains tagged `chibi-characters`, C0 remains tagged `chibi-core`)
 
 ## Current milestone
+`C2 (Chibi farming)` — complete. C2 replaces only the farm's visual presentation while preserving current crop IDs, growth/yield, drag-tool behavior, inventory atomicity and save v4. The next approved chibi milestone is C3 (world/buildings/seasonal effects), not started here.
+
 `C1 (Chibi characters)` — complete and tagged `chibi-characters`. C0 remains tagged `chibi-core`; C1 opts the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or save schema.
+
+## C2 approved plan and allow list (2026-10-28)
+
+- Deliver original, reproducible rounded-primitive farming assets under `assets/generated/`: four readable growth stages plus a wilted stage for each of the nine registered crops, small seed/produce props for all eighteen `ItemData` resources, and held hoe/watering-can/seed/harvest props. All use the C0 palette/material factory, grounded pivots and palette-owned triangle budgets.
+- Rework only `CropPresentation` and `SoilPresentation` beneath the existing `FarmView` roots. Preserve `get_cell_view`, `get_crop_view`, `get_crop_label` and crop picking bounds while adding family-specific stage silhouettes, mature sparkle/bob, tilled furrows and wet-soil treatment. Do not change FarmGridState, crop timing/yield, weather, tool, inventory or save logic.
+- Add a data-backed visual art catalogue and optional ItemData visual metadata so all current item data resolve deterministic generated 128 px transparent sticker icons. `UiIcons` may prefer these generated item icons but retains every SVG/tool-chrome fallback; this is item artwork only, not the C4 HUD/theme redesign.
+- Add bounded view-only farm effects called only after the existing tool action succeeds. Failed, out-of-reach or capacity-blocked actions must not create an effect or mutate anything.
+- Add reproducible build/icon/review tools and normal-renderer four-angle/day-night farm contact sheets plus a real-main-scene capture. Add narrow C2 tests/audits for assets, item icon resolution, crop-root picking, soil/effect behavior and regression locks. Review no more than three visual correction rounds and record actual findings.
+- Planned C2 files only: `docs/{API_INDEX,ART_BIBLE,PROGRESS,DECISIONS,DATA_SCHEMA,UI_LAYOUT,CREDITS,SCENE_CONTRACTS/gray_box_world,SCENE_CONTRACTS/farming_art_lineup}.md`; `scripts/{data/item_data,farming_art_catalog,core/data_validator,view/crop_presentation,soil_presentation,farm_view,tool_action_controller,ui_icons,farm_effects,chibi_avatar,main}.gd`; `data/{items/**,art/farming/**}`; `assets/generated/{models/farming/**,icons/**}`; `tools/{build_chibi_farming,art_review_farming,capture_chibi_farming}.bat`, `tools/art/chibi/**`, `tools/farming_art_lineup.tscn`; `tests/unit/{test_chibi_farming,test_farming_review_layout,test_ui_mouse}.gd`; and required generated `.uid` files. No gameplay `.tscn`, domain crop/tool/inventory code, save service, economy, input map, prices or crop balance data is in scope.
+
+## C2 completion and handoff (2026-10-29)
+
+- Delivered a validated `FarmingArtCatalog` and 45 original generated crop scenes: four visible stages plus one withered state for each of the nine registered crops. The current crop-family mapping covers roots, vines, stalks, grain, ground vines and leafy crops, while `CropPresentation` preserves the existing logical root/picking contract, adds data-driven silhouette/dew/mature presentation, and never changes farm state.
+- Delivered 18 grounded item prop scenes and 22 transparent 128 px stickers (18 seed/produce items plus four tools). Optional `ItemData.model_path` / `icon_path` are strictly view metadata. `UiIcons` prefers C2 stickers, retains SVG fallbacks, and the existing C1 held-tool animation now uses C2 props with its old procedural fallback intact.
+- Delivered C2 tilled furrows, wet-soil treatment and bounded farm effects after successful hoe/seed/water/harvest paths only. Failed/missing-item/out-of-reach/capacity-blocked attempts remain visually and mechanically inert; crop growth, two-product harvests, economy, inventory atomicity, drag strokes and save v4 were not altered.
+- Reproducible normal-renderer review tooling creates 14 four-angle/day-night sheets plus a real `main.tscn` capture under ignored `screenshots/chibi-farming/`. Review correction round 1 found focused assets too distant, 3D labels obscuring silhouettes and C0 shader shading too dark under the existing world pipeline; focused views now omit model labels, use closer framing, crop presentation gets a local readable material override, and the showcase spreads the nine crops over alternate cells. Round 2 found long crop captions crowded at tile seams; the sheets now use compact two-line captions. Final sheets show distinct growth silhouettes, items/tools and readable daylight/night contrast; the scene capture shows the C2 farm in the real HUD/camera context.
+- Final verification before the C2 commit/tag: `tools\build_chibi_farming.bat` PASS; `tools\art_review_farming.bat` wrote 14 contact sheets and `chibi_farming_main_scene.png`; `[check_parse] OK`; `[validate_data] PASS`; 49 scripts, 151/151 passing tests, 4,741 asserts, 24.367 s, `[run_tests] PASS`. The C2 build/review/capture/parse/validator/GUT/main log scan found 0 matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script` or `ERROR:`.
 
 ## C1 approved plan and allow list (2026-10-27)
 
@@ -49,8 +68,10 @@ Last updated: 2026-10-28 (C1 chibi characters complete and tagged `chibi-charact
 
 `feat: add chibi art foundation` / `chibi-core` — validated palette, generated shader/material suite, original calibration models and independent review tooling; no gameplay presentation migration
 `feat: add chibi characters and customization` / `chibi-characters` — data-owned appearance options, generated character models, view-only rig/face/emotion/held-tool presentation and normal-renderer review capture; no save-schema, schedule or Roadmap 8.5 behavior change
+`feat: add chibi farming art` / `chibi-farming` — data-owned crop families/stages, generated crop/item/tool assets and stickers, view-only soil/effects/readability plus normal-renderer review; no gameplay, economy or save-schema change
 
 ## Done
+- [x] C2 chibi farming: data-owned crop families/stages, generated crop/item/tool models and 128 px stickers, view-only soil/effects/readability, normal-renderer review/capture, interaction/icon regression coverage (commit/tag recorded below)
 - [x] C1 chibi characters: player appearance selector, generated player/An/Bac Lam/Linh/Minh/dog-reference assets, articulated presentation, face/emotion bubbles, C1 review tooling and compatibility coverage (commit/tag recorded above)
 - [x] `docs/MASTER_PROMPT.md` added from the root prompt source, byte-preserving in UTF-8 (commit `215d2d6`)
 - [x] Master plan written (reference copy: `docs/reference/THE_LIFE_MASTER_PLAN.txt` — not read every session)
@@ -65,7 +86,7 @@ Last updated: 2026-10-28 (C1 chibi characters complete and tagged `chibi-charact
 - [x] Gray-box world scene with orthographic camera and placeholder farm plot created
 - [x] Smooth camera follow and player/map bounds added
 
-## In progress
+## Historical handoff notes
 - 2026-10-27 crop-yield and drag-farming follow-up completed (player-approved). Every current crop Resource has `yield_qty = 2`, validator rejects non-positive data, and the existing harvest payload/inventory path now visibly grants two products for each mature crop. Holding left use across reachable cells plants, waters or harvests each cell once; click/default hoe inspection, keyboard use, modal locks, reach checks and inventory-capacity blocking remain intact. Harvest is now a selectable direct tool mode. The formerly pending `data/npcs/phase8_world.tres` and `scenes/main/main.tscn` reserialization was explicitly approved and committed as `3a4be46`.
 
 ## Requested M0 cleanup / M1 completion handoff (2026-10-27)
@@ -77,7 +98,7 @@ Last updated: 2026-10-28 (C1 chibi characters complete and tagged `chibi-charact
 
 ## NEXT
 
-- Start C2 (chibi farming) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md` and the farm-scene contract first. Preserve all C0/C1 palette/model paths, profile cosmetic normalization, tool controller behavior and save v4. C2 may improve crop/item/tool/soil presentation and generated icons, but must not change growth, yield, inventory, save or tool atomicity without a separately approved decision.
+- Start C3 (chibi world, buildings and seasonal effects) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md` and every touched scene contract first. Preserve C0–C2 generated paths, FarmView/crop picking, fixed camera, DayNightProfile/weather authority and save v4. C3 must not quietly add new gameplay systems or revise the C2 crop/item/tool contract.
 - Before a release claim, separately return to the deferred M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, autoplay, full capture matrix, baseline measurements/tag and global `build_assets`. Do not retroactively describe C0's isolated contact-sheet runner as that complete M0 suite.
 
 ## Chibi-style prompt reference handoff (2026-10-27)

@@ -74,3 +74,9 @@ names are stored in the normal save slot; sleeping writes the autosave slot 0.
 - The form remains a child of StartMenu's existing container/card. It has no world-space controls, extra InputMap action or scene dependency. `UiLayout` applies the existing modal size/margins, and focused layout tests cover 1152×648, 1280×720 and 1920×1080 in Vietnamese and English.
 - Player, Minh and Linh now use the existing gameplay anchors with compact chibi avatars. Their name labels remain the accessibility / interaction text. Character face, idle/walk/tool/talk motion and reaction bubbles are 3D view details; they do not add a permanent HUD panel or compete with crop inspection, quest, hotbar or modal regions.
 - During the developer-only C1 screenshot argument, labels are suppressed only in the temporary in-memory capture arrangement to keep the contact image legible. Normal player gameplay still uses the existing localized NPC names and nearby-talk hint.
+
+## C2 farming presentation (2026-10-29)
+
+- C2 does not add a permanent panel or change the established modal map. The existing hotbar/inventory/icon APIs may show generated 128 px seed/produce stickers and the four farming tool stickers; localized labels, quantities, keyboard shortcuts and SVG fallbacks remain intact.
+- Crop state remains in the existing compact click-selected CropInspector. In-world crop labels stay hidden, while a crop itself gains readable stage silhouettes, small dew/sparkle feedback and a gentle mature bob within the existing cell bounds.
+- Tilled/wet soil and short action effects are world details only. They may not cover the inspector, hotbar, inventory, prompts, NPC panels or map interaction targets.

@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_outline.gdshader" id="1_168ag"]
+[ext_resource type="Shader" path="res://assets/generated/shaders/chibi_toon.gdshader" id="2_amlup"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vv28e"]
+render_priority = 0
+shader = ExtResource("1_168ag")
+shader_parameter/outline_color = Color(0.294118, 0.235294, 0.278431, 1)
+shader_parameter/outline_width = 0.018
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvry8"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_vv28e")
+shader = ExtResource("2_amlup")
+shader_parameter/base_color = Color(0.92941177, 0.76862746, 0.44705883, 1)
+shader_parameter/shadow_color = Color(0.7621176, 0.63027453, 0.36658823, 1)
+shader_parameter/rim_color = Color(0.94635296, 0.8241569, 0.5797647, 1)
+shader_parameter/rim_strength = 0.18
+shader_parameter/roughness_value = 0.88
+
+[sub_resource type="BoxMesh" id="BoxMesh_53xmx"]
+size = Vector3(0.35, 0.38, 0.16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vua6e"]
+render_priority = 0
+shader = ExtResource("1_168ag")
+shader_parameter/outline_color = Color(0.294118, 0.235294, 0.278431, 1)
+shader_parameter/outline_width = 0.018
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ew0a2"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_vua6e")
+shader = ExtResource("2_amlup")
+shader_parameter/base_color = Color(1, 0.9647059, 0.8352941, 1)
+shader_parameter/shadow_color = Color(0.82, 0.79105884, 0.6849412, 1)
+shader_parameter/rim_color = Color(1, 0.9731765, 0.8748235, 1)
+shader_parameter/rim_strength = 0.18
+shader_parameter/roughness_value = 0.88
+
+[sub_resource type="BoxMesh" id="BoxMesh_dbrhf"]
+size = Vector3(0.14, 0.14, 0.018)
+
+[node name="Tool_seed" type="Node3D" unique_id=746009982]
+metadata/art_kind = &"prop"
+metadata/tool_id = &"seed"
+
+[node name="SeedBag" type="MeshInstance3D" parent="." unique_id=784027307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+material_override = SubResource("ShaderMaterial_jvry8")
+mesh = SubResource("BoxMesh_53xmx")
+
+[node name="SeedLabel" type="MeshInstance3D" parent="." unique_id=314861572]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.091)
+material_override = SubResource("ShaderMaterial_ew0a2")
+mesh = SubResource("BoxMesh_dbrhf")

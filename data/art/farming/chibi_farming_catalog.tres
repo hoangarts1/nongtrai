@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FarmingArtCatalog" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/farming_art_catalog.gd" id="1_catalog"]
+
+[resource]
+script = ExtResource("1_catalog")
+catalog_id = &"chibi_farming"
+crop_ids = PackedStringArray("turnip", "spring_carrot", "spring_pea", "summer_tomato", "summer_corn", "autumn_wheat", "autumn_pumpkin", "winter_radish", "winter_cabbage")
+crop_families = {
+"autumn_pumpkin": "ground_vine",
+"autumn_wheat": "grain",
+"spring_carrot": "root",
+"spring_pea": "vine",
+"summer_corn": "stalk",
+"summer_tomato": "vine",
+"turnip": "root",
+"winter_cabbage": "leafy",
+"winter_radish": "root"
+}
+stage_scales = PackedFloat32Array(0.42, 0.62, 0.82, 1)
+tool_ids = PackedStringArray("hoe", "watering_can", "seed", "harvest")
+grass_color = Color(0.623529, 0.741176, 0.498039, 1)
+tilled_color = Color(0.552941, 0.364706, 0.239216, 1)
+wet_soil_color = Color(0.376471, 0.262745, 0.211765, 1)
+furrow_color = Color(0.701961, 0.482353, 0.313725, 1)
+dew_color = Color(0.741176, 0.917647, 0.945098, 1)
+sparkle_color = Color(1, 0.941176, 0.65098, 1)
+hoe_effect_color = Color(0.847059, 0.65098, 0.45098, 1)
+seed_effect_color = Color(0.937255, 0.780392, 0.478431, 1)
+water_effect_color = Color(0.513725, 0.776471, 0.878431, 1)
+harvest_effect_color = Color(1, 0.882353, 0.627451, 1)

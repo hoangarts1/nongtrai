@@ -6,6 +6,8 @@
 ##   static func validate_weather_profile(path: String) -> PackedStringArray
 ##   static func validate_art_palette_path(path: String) -> PackedStringArray
 ##   static func validate_character_catalog_path(path: String) -> PackedStringArray
+##   static func validate_farming_art_catalog_path(path: String) -> PackedStringArray
+##   static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
 
@@ -208,6 +210,65 @@ static func validate_character_catalog_path(path: String) -> PackedStringArray:
 		errors.append("character catalog validate API returned an invalid result: %s" % path)
 		return errors
 	return validation as PackedStringArray
+
+static func validate_farming_art_catalog_path(path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if not ResourceLoader.exists(path):
+		errors.append("farming art catalog is missing: %s" % path)
+		return errors
+	var catalog: Resource = load(path) as Resource
+	if catalog == null:
+		errors.append("farming art catalog cannot be loaded: %s" % path)
+		return errors
+	if not catalog.has_method(&"validate"):
+		errors.append("farming art catalog has no validate API: %s" % path)
+		return errors
+	var validation: Variant = catalog.call(&"validate")
+	if not validation is PackedStringArray:
+		errors.append("farming art catalog validate API returned an invalid result: %s" % path)
+		return errors
+	return validation as PackedStringArray
+
+static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	for item: Resource in resources:
+		if item == null:
+			errors.append("item visual resource is missing")
+			continue
+		var item_id: String = String(item.get("item_id"))
+		var model_path: String = String(item.get("model_path"))
+		var icon_path: String = String(item.get("icon_path"))
+		if model_path.is_empty() or not ResourceLoader.exists(model_path):
+			errors.append("item visual model is missing: %s" % item_id)
+		else:
+			var scene: PackedScene = load(model_path) as PackedScene
+			if scene == null:
+				errors.append("item visual model cannot load: %s" % item_id)
+			else:
+				var root: Node3D = scene.instantiate() as Node3D
+				if root == null:
+					errors.append("item visual model root is not Node3D: %s" % item_id)
+				else:
+					root.free()
+		if icon_path.is_empty() or not FileAccess.file_exists(icon_path):
+			errors.append("item visual icon is missing: %s" % item_id)
+			continue
+		var image: Image = Image.load_from_file(ProjectSettings.globalize_path(icon_path))
+		if image == null or image.is_empty():
+			errors.append("item visual icon cannot load: %s" % item_id)
+			continue
+		if image.get_size() != Vector2i(128, 128):
+			errors.append("item visual icon must be 128px: %s" % item_id)
+		if image.get_pixel(0, 0).a > 0.04:
+			errors.append("item visual icon needs transparent corners: %s" % item_id)
+		var opaque_pixels: int = 0
+		for y: int in range(image.get_height()):
+			for x: int in range(image.get_width()):
+				if image.get_pixel(x, y).a > 0.04:
+					opaque_pixels += 1
+		if opaque_pixels == 0:
+			errors.append("item visual icon is empty: %s" % item_id)
+	return errors
 
 static func validate_quest_resources(quests: Array[Resource], items: Array[Resource]) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()

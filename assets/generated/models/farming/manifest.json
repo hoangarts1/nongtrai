@@ -1,0 +1,407 @@
+{
+	"catalog_id": "chibi_farming",
+	"entries": [
+		{
+			"budget": 400,
+			"file": "crop_turnip_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 64
+		},
+		{
+			"budget": 400,
+			"file": "crop_turnip_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_turnip_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_turnip_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 164
+		},
+		{
+			"budget": 400,
+			"file": "crop_turnip_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_carrot_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 64
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_carrot_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_carrot_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_carrot_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 164
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_carrot_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_pea_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_pea_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_pea_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 192
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_pea_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 260
+		},
+		{
+			"budget": 400,
+			"file": "crop_spring_pea_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_tomato_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_tomato_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_tomato_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 224
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_tomato_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 292
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_tomato_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_corn_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_corn_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_corn_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 192
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_corn_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 228
+		},
+		{
+			"budget": 400,
+			"file": "crop_summer_corn_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_wheat_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 64
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_wheat_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_wheat_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 256
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_wheat_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 292
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_wheat_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_pumpkin_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_pumpkin_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_pumpkin_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 192
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_pumpkin_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 228
+		},
+		{
+			"budget": 400,
+			"file": "crop_autumn_pumpkin_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_radish_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 64
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_radish_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_radish_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_radish_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 164
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_radish_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_cabbage_stage_0.tscn",
+			"kind": "crop",
+			"triangles": 96
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_cabbage_stage_1.tscn",
+			"kind": "crop",
+			"triangles": 160
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_cabbage_stage_2.tscn",
+			"kind": "crop",
+			"triangles": 192
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_cabbage_stage_3.tscn",
+			"kind": "crop",
+			"triangles": 260
+		},
+		{
+			"budget": 400,
+			"file": "crop_winter_cabbage_withered.tscn",
+			"kind": "crop",
+			"triangles": 128
+		},
+		{
+			"budget": 1500,
+			"file": "item_turnip_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_turnip.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_spring_carrot_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_spring_carrot.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_spring_pea_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_spring_pea.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_summer_tomato_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_summer_tomato.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_summer_corn_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_summer_corn.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_autumn_wheat_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_autumn_wheat.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_autumn_pumpkin_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_autumn_pumpkin.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_winter_radish_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_winter_radish.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "item_winter_cabbage_seed.tscn",
+			"kind": "item",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "item_winter_cabbage.tscn",
+			"kind": "item",
+			"triangles": 64
+		},
+		{
+			"budget": 1500,
+			"file": "tool_hoe.tscn",
+			"kind": "tool",
+			"triangles": 44
+		},
+		{
+			"budget": 1500,
+			"file": "tool_watering_can.tscn",
+			"kind": "tool",
+			"triangles": 96
+		},
+		{
+			"budget": 1500,
+			"file": "tool_seed.tscn",
+			"kind": "tool",
+			"triangles": 24
+		},
+		{
+			"budget": 1500,
+			"file": "tool_harvest.tscn",
+			"kind": "tool",
+			"triangles": 44
+		}
+	]
+}

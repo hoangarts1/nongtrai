@@ -161,6 +161,8 @@ func _ready() -> void:
 	_apply_player_appearance()
 	if OS.get_cmdline_user_args().has("--capture-chibi-characters"):
 		call_deferred("_capture_chibi_characters")
+	elif OS.get_cmdline_user_args().has("--capture-chibi-farming"):
+		call_deferred("_capture_chibi_farming")
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -368,4 +370,54 @@ func _capture_chibi_characters() -> void:
 		get_tree().quit(1)
 		return
 	print("[character_scene_capture] wrote %s/chibi_characters_main_scene.png" % output_directory)
+	get_tree().quit()
+
+func _capture_chibi_farming() -> void:
+	# This opt-in capture constructs an in-memory farm-art showcase only. It
+	# neither reads nor writes a save slot and exits immediately after rendering.
+	_game_started = false
+	start_menu.hide()
+	tutorial_panel.hide()
+	npc_system.close_panels()
+	GameClock.set_time(11, 0)
+	weather_state.call("force_weather", &"sunny")
+	GameClock.paused = true
+	world.player.global_position = GridMath.cell_to_world(Vector2i(2, 2))
+	world.player.movement_enabled = false
+	world.player.hide()
+	world.interaction_prompt.hide()
+	world.camera.size = 7.4
+	farm_state.reset()
+	var crop_ids: PackedStringArray = PackedStringArray(["turnip", "spring_carrot", "spring_pea", "summer_tomato", "summer_corn", "autumn_wheat", "autumn_pumpkin", "winter_radish", "winter_cabbage"])
+	var crop_cells: Array[Vector2i] = [Vector2i(0, 0), Vector2i(2, 0), Vector2i(4, 0), Vector2i(0, 2), Vector2i(2, 2), Vector2i(4, 2), Vector2i(0, 4), Vector2i(2, 4), Vector2i(4, 4)]
+	for index: int in range(crop_ids.size()):
+		farm_state.till_cell(crop_cells[index])
+		farm_state.plant_crop(crop_cells[index], StringName(crop_ids[index]))
+	for _day: int in range(4):
+		for cell: Vector2i in crop_cells:
+			farm_state.water_cell(cell)
+		farm_state.advance_day()
+	for frame_index: int in range(5):
+		await get_tree().process_frame
+		RenderingServer.force_draw(false)
+		await RenderingServer.frame_post_draw
+	var output_directory: String = "res://screenshots/chibi-farming"
+	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
+	if directory_result != OK:
+		printerr("[farming_scene_capture] cannot create output directory: %s" % error_string(directory_result))
+		get_tree().quit(1)
+		return
+	var screenshot: Image = get_viewport().get_texture().get_image()
+	if screenshot == null or screenshot.is_empty():
+		printerr("[farming_scene_capture] main-scene capture is empty")
+		get_tree().quit(1)
+		return
+	if screenshot.get_format() != Image.FORMAT_RGBA8:
+		screenshot.convert(Image.FORMAT_RGBA8)
+	var save_result: Error = screenshot.save_png("%s/chibi_farming_main_scene.png" % output_directory)
+	if save_result != OK:
+		printerr("[farming_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
+		get_tree().quit(1)
+		return
+	print("[farming_scene_capture] wrote %s/chibi_farming_main_scene.png" % output_directory)
 	get_tree().quit()

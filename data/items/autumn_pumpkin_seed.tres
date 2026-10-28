@@ -10,3 +10,5 @@ max_stack = 99
 buy_price = 35
 sell_price = 17
 color = Color(0.92, 0.88, 0.75, 1)
+model_path = "res://assets/generated/models/farming/item_autumn_pumpkin_seed.tscn"
+icon_path = "res://assets/generated/icons/item_autumn_pumpkin_seed.png"

@@ -10,3 +10,5 @@ max_stack = 99
 buy_price = 28
 sell_price = 14
 color = Color(0.95, 0.88, 0.4, 1)
+model_path = "res://assets/generated/models/farming/item_summer_corn_seed.tscn"
+icon_path = "res://assets/generated/icons/item_summer_corn_seed.png"

@@ -9,6 +9,7 @@ extends Node3D
 
 const CROP_PRESENTATION: Script = preload("res://scripts/view/crop_presentation.gd")
 const SOIL_PRESENTATION: Script = preload("res://scripts/view/soil_presentation.gd")
+const FARM_EFFECTS: Script = preload("res://scripts/view/farm_effects.gd")
 
 @export var grid_size: Vector2i = Vector2i(6, 6)
 @export var cell_size: float = 1.0
@@ -18,6 +19,7 @@ var _cells: Dictionary = {}
 var _crops: Dictionary = {}
 var _crop_labels: Dictionary = {}
 var _highlight: MeshInstance3D
+var _effects: FarmEffects
 var _sway_time: float = 0.0
 
 func _ready() -> void:
@@ -38,6 +40,8 @@ func _process(delta: float) -> void:
 			continue
 		var phase: float = deg_to_rad(float(posmod(cell.x * 17 + cell.y * 31, 360)))
 		crop.rotation.z = sin(_sway_time * 1.15 + phase) * 0.035
+		var bob: float = sin(_sway_time * 2.10 + phase) * 0.018 if bool(crop.get_meta("mature", false)) else 0.0
+		crop.position = GridMath.cell_to_world(cell) + Vector3(0.0, 0.25 + bob, 0.0)
 
 func get_cell_view(cell: Vector2i) -> MeshInstance3D:
 	return _cells.get(cell) as MeshInstance3D
@@ -47,6 +51,10 @@ func get_crop_view(cell: Vector2i) -> MeshInstance3D:
 
 func get_crop_label(cell: Vector2i) -> Label3D:
 	return _crop_labels.get(cell) as Label3D
+
+func play_action_fx(cell: Vector2i, action_id: StringName) -> void:
+	if _effects != null:
+		_effects.play_action(cell, action_id)
 
 func pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant:
 	var selected: Variant = null
@@ -109,6 +117,9 @@ func _build_grid() -> void:
 	_highlight.mesh = highlight_mesh
 	_highlight.visible = false
 	add_child(_highlight)
+	_effects = FARM_EFFECTS.new() as FarmEffects
+	_effects.name = "FarmEffects"
+	add_child(_effects)
 	_render_all()
 
 func set_hovered_cell(cell: Vector2i, visible: bool, in_reach: bool) -> void:
@@ -159,6 +170,7 @@ func _render_cell(cell: Vector2i) -> void:
 	var crop_id: StringName = plot.get("crop_id", &"")
 	SOIL_PRESENTATION.render(soil, tilled, watered, cell)
 	crop.visible = not crop_id.is_empty()
+	crop.position = GridMath.cell_to_world(cell) + Vector3(0.0, 0.25, 0.0)
 	# Detailed status is shown in the readable click inspector, not over every crop.
 	label.visible = false
 	if crop.visible:

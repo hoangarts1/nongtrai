@@ -8,3 +8,6 @@ extends Resource
 @export var buy_price: int = 0
 @export var sell_price: int = 0
 @export var color: Color = Color.WHITE
+## Visual-only generated C2 asset references. These never enter inventory/save state.
+@export_file("*.tscn") var model_path: String = ""
+@export_file("*.png") var icon_path: String = ""

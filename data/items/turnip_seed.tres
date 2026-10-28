@@ -10,3 +10,5 @@ max_stack = 99
 buy_price = 10
 sell_price = 5
 color = Color(0.85, 0.8, 0.75, 1)
+model_path = "res://assets/generated/models/farming/item_turnip_seed.tscn"
+icon_path = "res://assets/generated/icons/item_turnip_seed.png"

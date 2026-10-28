@@ -48,3 +48,10 @@ GrayBoxWorld (Node3D)
 - The `Player` scene is instanced as a child in this gray-box scene and assigned to the camera rig at runtime.
 - The player is clamped to the playable map bounds; the camera rig follows smoothly and clamps its center so the view stays within the map.
 - Lighting/shadows are placeholders. Do not tune shadow cascades until the camera angle (D13) is locked.
+
+## C2 farming presentation additions (view-only)
+
+- `FarmView` still owns the 6×6 logical cell roots. Each occupied cell retains one transparent `MeshInstance3D` crop root for the existing picking path; C2 instantiates a `CropVisual` child below it. The child has no collision, state or gameplay ownership.
+- `CropPresentation` maps existing growth/wither values to generated C2 scenes under `assets/generated/models/farming/`. It may use a readable runtime material override under current world lighting, but the art catalogue remains the source of crop family/color intent.
+- `FarmEffects` is a runtime child of `FarmView`. It owns only bounded transient meshes after a successful existing tool action and has no marker, collision, cell, save or input contract.
+- Soil furrows/moisture, dew and mature bob are display details below the current crop inspector and must not move farm cells, plot bounds, camera targets or scene anchors.

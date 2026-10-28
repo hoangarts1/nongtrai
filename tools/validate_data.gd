@@ -148,6 +148,13 @@ func _init() -> void:
 		errors = VALIDATOR_SCRIPT.validate_art_palette_path("res://data/art/palette/chibi_valley.tres")
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_character_catalog_path("res://data/art/characters/chibi_character_catalog.tres")
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_farming_art_catalog_path("res://data/art/farming/chibi_farming_catalog.tres")
+	if errors.size() == 0:
+		var visual_items: Array[Resource] = []
+		for item_path: String in item_paths:
+			visual_items.append(load(item_path) as Resource)
+		errors = VALIDATOR_SCRIPT.validate_item_visual_assets(visual_items)
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)

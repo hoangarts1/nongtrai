@@ -192,3 +192,9 @@ Formula, not "AI": reward = `round(total base_value × seeded factor in [1.15, 1
 | Music | `mus_<name>.ogg` | `mus_farm_morning.ogg` |
 
 Import hints (node/animation name suffixes in Blender; verify the list in the docs of the pinned version): `-col`, `-convcol`, `-colonly`, `-noimp`, `-loop`.
+
+## C2 visual metadata (implemented)
+
+`ItemData` now optionally carries `model_path: String` and `icon_path: String` for generated presentation. They are not inventory data: saves continue to serialize only item IDs/quantities and all economy/crop data continues to resolve through the existing stable IDs. C2 uses `assets/generated/models/farming/item_<item_id>.tscn` and `assets/generated/icons/item_<item_id>.png` rather than the aspirational GLB/icon naming examples above.
+
+`FarmingArtCatalog` is a visual-only Resource at `data/art/farming/chibi_farming_catalog.tres`. It maps existing crop IDs to silhouette families and data-owned stage scales/colors; it contains no crop balance, timing, yield, save or world-state fields.
