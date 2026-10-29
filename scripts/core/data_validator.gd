@@ -229,6 +229,24 @@ static func validate_farming_art_catalog_path(path: String) -> PackedStringArray
 		return errors
 	return validation as PackedStringArray
 
+static func validate_world_art_catalog_path(path: String) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if not ResourceLoader.exists(path):
+		errors.append("world art catalog is missing: %s" % path)
+		return errors
+	var catalog: Resource = load(path) as Resource
+	if catalog == null:
+		errors.append("world art catalog cannot be loaded: %s" % path)
+		return errors
+	if not catalog.has_method(&"validate"):
+		errors.append("world art catalog has no validate API: %s" % path)
+		return errors
+	var validation: Variant = catalog.call(&"validate")
+	if not validation is PackedStringArray:
+		errors.append("world art catalog validate API returned an invalid result: %s" % path)
+		return errors
+	return validation as PackedStringArray
+
 static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
 	for item: Resource in resources:

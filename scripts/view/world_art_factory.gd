@@ -1,159 +1,194 @@
-## WorldArtFactory — shared view-only meshes for homes, market props and scenery.
-## API:
-##   static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void
-##   static func build_market(anchor: MeshInstance3D) -> void
-##   static func add_decorative_cottage(parent: Node3D, cottage_name: String, origin: Vector3, size: Vector3, wall_color: Color, roof_color: Color) -> MeshInstance3D
-##   static func add_ground_dressing(parent: Node3D) -> Node3D
-##   static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D
 class_name WorldArtFactory
 extends RefCounted
 
-static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void:
-	_clear_mesh_children(anchor)
-	var walls: BoxMesh = BoxMesh.new()
-	walls.size = size
-	anchor.mesh = walls
-	anchor.material_override = _material(wall_color, 0.92)
-	var roof: PrismMesh = PrismMesh.new()
-	roof.size = Vector3(size.x + 0.42, size.y * 0.56, size.z + 0.42)
-	_mesh(anchor, "CottageRoof", roof, Vector3(0.0, size.y * 0.76, 0.0), roof_color)
-	_box(anchor, "Door", Vector3(size.x * 0.23, size.y * 0.46, 0.07), Vector3(0.0, -size.y * 0.27, size.z * 0.51), Color("7d593f"))
-	for side: float in [-1.0, 1.0]:
-		_box(anchor, "Window_%s" % ("Left" if side < 0.0 else "Right"), Vector3(size.x * 0.20, size.y * 0.24, 0.06), Vector3(side * size.x * 0.28, size.y * 0.10, size.z * 0.51), Color("f5d994"))
-		_box(anchor, "WindowFrame_%s" % ("Left" if side < 0.0 else "Right"), Vector3(0.035, size.y * 0.30, 0.075), Vector3(side * size.x * 0.28, size.y * 0.10, size.z * 0.53), Color("9c704d"))
-	_box(anchor, "Chimney", Vector3(size.x * 0.14, size.y * 0.34, size.z * 0.14), Vector3(-size.x * 0.26, size.y * 0.84, -size.z * 0.16), Color("9a725d"))
-	_box(anchor, "Porch", Vector3(size.x * 0.50, 0.10, size.z * 0.20), Vector3(0.0, -size.y * 0.52, size.z * 0.56), Color("c79b6d"))
-	for side: float in [-1.0, 1.0]:
-		_flower_box(anchor, "FlowerBox_%s" % ("Left" if side < 0.0 else "Right"), Vector3(side * size.x * 0.39, -size.y * 0.30, size.z * 0.57))
+const CATALOG_PATH: String = "res://data/art/world/chibi_world_catalog.tres"
+const PALETTE_PATH: String = "res://data/art/palette/chibi_valley.tres"
+
+static var _scene_cache: Dictionary = {}
+
+static func replace_anchor_visual(anchor: MeshInstance3D, asset_id: StringName, season: StringName = &"spring") -> bool:
+	if anchor == null:
+		return false
+	var visual: Node3D = create_asset(asset_id, season)
+	if visual == null:
+		return false
+	_clear_anchor_art(anchor)
+	anchor.mesh = null
+	anchor.material_override = null
+	for child: Node in visual.get_children():
+		visual.remove_child(child)
+		if child is Node3D:
+			var part: Node3D = child as Node3D
+			part.owner = null
+			part.position.y -= anchor.position.y
+			part.set_meta("c3_world_part", true)
+			anchor.add_child(part)
+	visual.free()
+	anchor.set_meta("c3_world_asset_id", asset_id)
+	return true
+
+static func create_asset(asset_id: StringName, season: StringName = &"spring") -> Node3D:
+	var scene: PackedScene = _load_asset_scene(asset_id)
+	if scene == null:
+		return _fallback_asset(asset_id, season)
+	var asset: Node3D = scene.instantiate() as Node3D
+	if asset == null:
+		return _fallback_asset(asset_id, season)
+	asset.name = String(asset_id).to_pascal_case()
+	asset.set_meta("c3_world_asset_id", asset_id)
+	apply_season(asset, season)
+	return asset
+
+static func apply_season(root: Node, season: StringName) -> void:
+	if root == null:
+		return
+	_apply_season_recursive(root, season)
+
+static func build_cottage(anchor: MeshInstance3D, _size: Vector3, _wall_color: Color, _roof_color: Color) -> void:
+	if not replace_anchor_visual(anchor, &"bld_npc_cottage"):
+		_add_legacy_box(anchor, "CottageWalls", Color("e3d4ad"), Vector3(2.2, 1.8, 2.0))
 
 static func build_market(anchor: MeshInstance3D) -> void:
-	_clear_mesh_children(anchor)
-	var counter: BoxMesh = BoxMesh.new()
-	counter.size = Vector3(2.0, 0.78, 1.25)
-	anchor.mesh = counter
-	anchor.material_override = _material(Color("b68d5c"), 0.9)
-	for side: float in [-1.0, 1.0]:
-		_box(anchor, "MarketPost_%s" % ("Left" if side < 0.0 else "Right"), Vector3(0.12, 2.05, 0.12), Vector3(side * 0.84, 0.65, -0.42), Color("805d40"))
-	var roof: PrismMesh = PrismMesh.new()
-	roof.size = Vector3(2.35, 0.78, 1.70)
-	_mesh(anchor, "MarketRoof", roof, Vector3(0.0, 1.64, -0.08), Color("d97865"))
-	for stripe: int in range(6):
-		var color: Color = Color("fff1c8") if stripe % 2 == 0 else Color("8db77b")
-		_box(anchor, "AwningStripe_%d" % stripe, Vector3(0.32, 0.10, 1.36), Vector3(-0.80 + float(stripe) * 0.32, 1.18, 0.16), color)
-	for index: int in range(3):
-		_box(anchor, "SeedCrate_%d" % index, Vector3(0.38, 0.24, 0.34), Vector3(-0.48 + float(index) * 0.48, 0.50, 0.42), Color("d1a46c"))
-		_sphere(anchor, "SeedBag_%d" % index, Vector3(-0.48 + float(index) * 0.48, 0.68, 0.42), Vector3(0.20, 0.16, 0.16), [Color("e6a24a"), Color("83b971"), Color("d88062")][index])
-	_box(anchor, "MarketSign", Vector3(0.82, 0.30, 0.05), Vector3(0.0, 1.22, 0.82), Color("f6d47b"))
+	if not replace_anchor_visual(anchor, &"bld_seed_market"):
+		_add_legacy_box(anchor, "MarketFallback", Color("bd8e5d"), Vector3(2.0, 1.0, 1.2))
 
 static func decorate_shipping_bin(anchor: MeshInstance3D) -> void:
-	_clear_mesh_children(anchor)
-	var bin: BoxMesh = BoxMesh.new()
-	bin.size = Vector3(1.25, 0.76, 0.95)
-	anchor.mesh = bin
-	anchor.material_override = _material(Color("ae8055"), 0.94)
-	_box(anchor, "BinLid", Vector3(1.34, 0.13, 1.02), Vector3(0.0, 0.43, 0.0), Color("d8b788"))
-	_box(anchor, "BinHandle", Vector3(0.28, 0.20, 0.05), Vector3(0.0, 0.30, 0.52), Color("efd37b"))
+	if not replace_anchor_visual(anchor, &"bld_shipping_bin"):
+		_add_legacy_box(anchor, "BinFallback", Color("a97750"), Vector3(1.2, 0.8, 0.9))
 
-static func add_decorative_cottage(
-	parent: Node3D,
-	cottage_name: String,
-	origin: Vector3,
-	size: Vector3,
-	wall_color: Color,
-	roof_color: Color
-) -> MeshInstance3D:
-	var cottage: MeshInstance3D = MeshInstance3D.new()
-	cottage.name = cottage_name
-	cottage.position = origin
-	parent.add_child(cottage)
-	build_cottage(cottage, size, wall_color, roof_color)
-	return cottage
+static func add_decorative_cottage(parent: Node3D, cottage_name: String, origin: Vector3, _size: Vector3, _wall_color: Color, _roof_color: Color) -> MeshInstance3D:
+	var anchor: MeshInstance3D = MeshInstance3D.new()
+	anchor.name = cottage_name
+	anchor.position = origin
+	parent.add_child(anchor)
+	build_cottage(anchor, Vector3.ZERO, Color.WHITE, Color.WHITE)
+	return anchor
 
 static func add_ground_dressing(parent: Node3D) -> Node3D:
 	var dressing: Node3D = Node3D.new()
 	dressing.name = "GroundDressing"
 	parent.add_child(dressing)
-	var path_points: Array[Vector3] = [
-		Vector3(5.35, 0.025, 9.92), Vector3(6.28, 0.025, 10.03), Vector3(7.18, 0.025, 10.12),
-		Vector3(8.12, 0.025, 10.12), Vector3(9.04, 0.025, 10.06)
-	]
-	for index: int in range(path_points.size()):
-		var stone: MeshInstance3D = _box(dressing, "PathStone_%d" % index, Vector3(0.62, 0.035, 0.38), path_points[index], Color("c9ae80"))
-		stone.rotation.y = 0.20 if index % 2 == 0 else -0.18
-	var grass_points: Array[Vector3] = [
-		Vector3(-9.1, 0.02, -4.0), Vector3(-7.9, 0.02, 3.2), Vector3(-5.7, 0.02, 5.0),
-		Vector3(-3.6, 0.02, 8.7), Vector3(7.8, 0.02, 7.5), Vector3(9.9, 0.02, 3.8),
-		Vector3(8.0, 0.02, -4.6), Vector3(3.8, 0.02, -7.0), Vector3(-2.5, 0.02, -7.8)
-	]
-	for index: int in range(grass_points.size()):
-		_add_grass_tuft(dressing, "GrassTuft_%d" % index, grass_points[index], 0.75 + float(index % 3) * 0.12)
+	for index: int in range(3):
+		var stone: Node3D = create_asset(&"prop_path_stone")
+		stone.name = "PathStone_%d" % index
+		stone.position = Vector3(6.15 + float(index) * 0.92, 0.0, 9.92)
+		dressing.add_child(stone)
 	return dressing
 
-static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D:
-	var cluster: Node3D = Node3D.new()
+static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, _stone_color: Color) -> Node3D:
+	var cluster: Node3D = create_asset(&"prop_rock_cluster")
 	cluster.name = cluster_name
 	cluster.position = origin
 	parent.add_child(cluster)
-	for index: int in range(4):
-		var angle: float = TAU * float(index) / 4.0 + 0.25
-		var radius: float = 0.36 + float(index) * 0.07
-		var rock: SphereMesh = SphereMesh.new()
-		rock.radius = 0.5
-		rock.height = 1.0
-		rock.radial_segments = 7
-		rock.rings = 4
-		var part: MeshInstance3D = _mesh(cluster, "Stone_%d" % index, rock, Vector3(cos(angle) * 0.32, radius * 0.45, sin(angle) * 0.28), stone_color.darkened(float(index) * 0.06))
-		part.scale = Vector3(radius * 1.55, radius, radius * 1.20)
-		part.rotation = Vector3(0.15 * float(index), angle, -0.13 * float(index))
-	if cluster_name.ends_with("Moss"):
-		_sphere(cluster, "Moss", Vector3(-0.06, 0.26, 0.04), Vector3(0.30, 0.09, 0.26), Color("709a54"))
 	return cluster
 
-static func _flower_box(parent: Node3D, name: String, origin: Vector3) -> void:
-	_box(parent, name, Vector3(0.30, 0.12, 0.14), origin, Color("b87f57"))
-	for index: int in range(2):
-		_sphere(parent, "%s_Bloom_%d" % [name, index], origin + Vector3(-0.08 + 0.16 * float(index), 0.12, 0.0), Vector3(0.08, 0.10, 0.08), Color("ef9e9e") if index == 0 else Color("f4d788"))
+static func _load_asset_scene(asset_id: StringName) -> PackedScene:
+	var catalog: Resource = load(CATALOG_PATH) as Resource
+	if catalog == null or not catalog.has_method(&"get_model_path"):
+		return null
+	var path: String = String(catalog.call(&"get_model_path", asset_id))
+	if path.is_empty():
+		return null
+	if not _scene_cache.has(path):
+		_scene_cache[path] = load(path) as PackedScene
+	return _scene_cache[path] as PackedScene
 
-static func _add_grass_tuft(parent: Node3D, name: String, origin: Vector3, scale_factor: float) -> void:
-	var tuft: Node3D = Node3D.new()
-	tuft.name = name
-	tuft.position = origin
-	parent.add_child(tuft)
-	for index: int in range(3):
-		var blade: MeshInstance3D = _box(tuft, "Blade_%d" % index, Vector3(0.045, 0.36 * scale_factor, 0.10), Vector3(0.11 * float(index - 1), 0.18 * scale_factor, 0.0), Color("5d8f43").lightened(float(index) * 0.04))
-		blade.rotation.z = -0.18 + float(index) * 0.18
+static func _palette_color(role: StringName, season: StringName) -> Color:
+	var palette: Resource = load(PALETTE_PATH) as Resource
+	if palette != null and palette.has_method(&"get_color"):
+		var result: Variant = palette.call(&"get_color", role, season)
+		if result is Color:
+			return result as Color
+	return Color.WHITE
 
-static func _clear_mesh_children(anchor: MeshInstance3D) -> void:
+static func _clear_anchor_art(anchor: MeshInstance3D) -> void:
 	for child: Node in anchor.get_children():
-		if child is MeshInstance3D:
+		if child is MeshInstance3D or bool(child.get_meta("c3_world_part", false)):
 			child.free()
 
-static func _box(parent: Node3D, name: String, size: Vector3, origin: Vector3, color: Color) -> MeshInstance3D:
-	var box: BoxMesh = BoxMesh.new()
-	box.size = size
-	return _mesh(parent, name, box, origin, color)
-
-static func _sphere(parent: Node3D, name: String, origin: Vector3, size: Vector3, color: Color) -> MeshInstance3D:
-	var sphere: SphereMesh = SphereMesh.new()
-	sphere.radius = 0.5
-	sphere.height = 1.0
-	sphere.radial_segments = 10
-	sphere.rings = 6
-	var part: MeshInstance3D = _mesh(parent, name, sphere, origin, color)
-	part.scale = size
-	return part
-
-static func _mesh(parent: Node3D, name: String, mesh: Mesh, origin: Vector3, color: Color) -> MeshInstance3D:
+static func _fallback_asset(asset_id: StringName, season: StringName) -> Node3D:
+	var fallback: Node3D = Node3D.new()
+	fallback.name = "%sFallback" % String(asset_id).to_pascal_case()
 	var part: MeshInstance3D = MeshInstance3D.new()
-	part.name = name
+	part.name = "FallbackMesh"
+	var mesh: SphereMesh = SphereMesh.new()
+	mesh.radius = 0.5
+	mesh.height = 1.0
+	mesh.radial_segments = 8
+	mesh.rings = 4
 	part.mesh = mesh
-	part.position = origin
-	part.material_override = _material(color, 0.86)
-	parent.add_child(part)
-	return part
+	part.position = Vector3(0.0, 0.5, 0.0)
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_color = _palette_color(&"ui_accent", season)
+	material.roughness = 0.88
+	part.material_override = material
+	fallback.add_child(part)
+	return fallback
 
-static func _material(color: Color, roughness: float) -> StandardMaterial3D:
+static func _add_legacy_box(anchor: MeshInstance3D, node_name: String, color: Color, size: Vector3) -> void:
+	_clear_anchor_art(anchor)
+	anchor.mesh = null
+	var part: MeshInstance3D = MeshInstance3D.new()
+	part.name = node_name
+	var mesh: BoxMesh = BoxMesh.new()
+	mesh.size = size
+	part.mesh = mesh
+	part.position = Vector3(0.0, size.y * 0.5 - anchor.position.y, 0.0)
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = color
-	material.roughness = roughness
-	return material
+	material.roughness = 0.86
+	part.material_override = material
+	anchor.add_child(part)
+
+static func _apply_season_recursive(node: Node, season: StringName) -> void:
+	if node is MeshInstance3D:
+		var mesh: MeshInstance3D = node as MeshInstance3D
+		var role: StringName = StringName(mesh.get_meta("art_role", ""))
+		if not role.is_empty():
+			_apply_season_material(mesh, role, season)
+	for child: Node in node.get_children():
+		_apply_season_recursive(child, season)
+
+static func _apply_season_material(mesh: MeshInstance3D, role: StringName, season: StringName) -> void:
+	var current: Material = mesh.material_override
+	if current is ShaderMaterial:
+		var source: ShaderMaterial = current as ShaderMaterial
+		var shader_path: String = source.shader.resource_path if source.shader != null else ""
+		var base_color: Color = _palette_color(role, season)
+		if shader_path.ends_with("chibi_toon.gdshader"):
+			_apply_readable_toon_material(mesh, base_color)
+			return
+		var runtime_material: ShaderMaterial = source.duplicate(false) as ShaderMaterial
+		runtime_material.next_pass = null
+		if shader_path.ends_with("chibi_water.gdshader"):
+			runtime_material.set_shader_parameter(&"water_color", base_color)
+			runtime_material.set_shader_parameter(&"foam_color", _palette_color(&"sunlight", season))
+		else:
+			runtime_material.set_shader_parameter(&"base_color", base_color)
+			if shader_path.ends_with("chibi_foliage.gdshader"):
+				runtime_material.set_shader_parameter(&"wind_color", _palette_color(&"sunlight", season))
+		mesh.material_override = runtime_material
+		return
+	if bool(mesh.get_meta("c3_runtime_toon_material", false)):
+		_apply_readable_toon_material(mesh, _palette_color(role, season))
+		return
+	var fallback: StandardMaterial3D = StandardMaterial3D.new()
+	fallback.albedo_color = _palette_color(role, season)
+	fallback.roughness = 0.86
+	fallback.metallic = 0.05 if role == &"water" else 0.0
+	mesh.material_override = fallback
+
+static func _apply_readable_toon_material(mesh: MeshInstance3D, base_color: Color) -> void:
+	# C0 keeps its toon/outline source material for isolated art review. The
+	# existing DayNightProfile world lighting makes that custom light pass render
+	# almost black, so C3 uses a local readable material only in runtime world
+	# instances. The metadata retains that choice across later season changes.
+	var readable: StandardMaterial3D = StandardMaterial3D.new()
+	readable.albedo_color = base_color
+	readable.roughness = 0.84
+	readable.metallic = 0.0
+	readable.emission_enabled = true
+	readable.emission = base_color.darkened(0.64)
+	readable.emission_energy_multiplier = 0.08
+	mesh.material_override = readable
+	mesh.set_meta("c3_runtime_toon_material", true)

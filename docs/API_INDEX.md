@@ -189,13 +189,23 @@ Format:
 - Notes: supports roots, tomato, corn, wheat, pumpkin, cabbage and pea silhouettes plus a wilted state. It owns no crop state, timers, inventory changes or save data.
 
 ## WorldArtFactory  (scripts/view/world_art_factory.gd)
-- static func add_decorative_cottage(parent: Node3D, cottage_name: String, origin: Vector3, size: Vector3, wall_color: Color, roof_color: Color) -> MeshInstance3D — adds a non-interactive cottage visual
-- static func add_ground_dressing(parent: Node3D) -> Node3D — adds non-colliding grass tufts and home-to-bin path stones
-- static func build_cottage(anchor: MeshInstance3D, size: Vector3, wall_color: Color, roof_color: Color) -> void — decorates an existing home anchor while retaining its world transform
-- static func build_market(anchor: MeshInstance3D) -> void — decorates the existing SeedShop anchor as a seed market stall
-- static func decorate_shipping_bin(anchor: MeshInstance3D) -> void — decorates the existing shipping-bin anchor
-- static func add_rock_cluster(parent: Node3D, cluster_name: String, origin: Vector3, stone_color: Color) -> Node3D — adds a non-colliding, view-only rock/moss group outside playable farm cells
-- Notes: no marker, collision, interaction or gameplay ownership changes. All meshes and materials are constructed locally at runtime.
+- static func replace_anchor_visual(anchor: MeshInstance3D, asset_id: StringName, season: StringName = &"spring") -> bool — replaces only an existing visual anchor's mesh children without moving the anchor, marker or collision
+- static func create_asset(asset_id: StringName, season: StringName = &"spring") -> Node3D — instantiates a stable generated C3 asset with its view-only seasonal material treatment
+- static func apply_season(root: Node, season: StringName) -> void — recolors a C3 visual tree only; it never changes gameplay or saved state
+- Legacy `build_cottage`, `build_market`, `decorate_shipping_bin`, `add_decorative_cottage`, `add_ground_dressing` and `add_rock_cluster` remain compatible wrappers for existing callers.
+- Notes: no marker, collision, interaction or gameplay ownership changes. Generated source scenes retain C0 shader data; C3 applies local readable materials to toon pieces under the existing world lighting and preserves foliage/water shader behavior.
+
+## WorldArtCatalog  (scripts/data/world_art_catalog.gd)
+- func get_model_path(asset_id: StringName) -> String — resolves a stable generated C3 scene path
+- func get_asset_kind(asset_id: StringName) -> StringName / func get_asset_role(asset_id: StringName) -> StringName — resolves presentation-only category and palette role
+- func get_placements(asset_id: StringName) -> Array[Vector3] / func get_season_effect_color(season: StringName) -> Color — returns passive exterior layout/effect data
+- func validate() -> PackedStringArray — validates IDs, category coverage, palette roles, finite placements and the bounded ambient cap
+- Notes: catalog data contains no collision, navigation, farm, economy, schedule, time/weather authority or save fields.
+
+## WorldSeasonFx  (scripts/view/world_season_fx.gd)
+- func configure(weather_state: Object, catalog: Resource) -> void — observes existing GameClock/WeatherState presentation signals only
+- func get_active_effect_count() -> int / func get_current_mode() -> StringName — review/test visibility into the bounded visual state
+- Notes: spring petals, summer day birds/butterflies or night fireflies, autumn leaves, winter snow and rain ripples are deterministic view details capped by `WorldArtCatalog`; they never alter clock, weather, save or gameplay randomness.
 - Notes: the gray-box scene places the 6×6 grid inside the 6 m × 6 m `FarmPlot`; target green means reachable and red means outside tool reach.
 
 ## SoilPresentation  (scripts/view/soil_presentation.gd)
@@ -340,7 +350,7 @@ Format:
 - `TitleBackdrop` (TextureRect): non-interactive generated illustration plus decorative motes, visible only while StartMenu is visible. Main constructs it in code.
 - `StartMenu.apply_chibi_style() -> void`, `refresh_continue() -> void`: title styling and consistent slot-0/slot-1 Continue availability. Existing configure callback API remains compatible.
 - `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
-- `WorldPresentation.configure(main: Node) -> void`: decorates Player/House/SeedShop/ShippingBin anchors, decorative cottages, paths, homes, trees and exterior rock clusters; applies warm Forward+ filmic/soft-glow/fog lighting while preserving collision and gameplay authority.
+- `WorldPresentation.configure(main: Node) -> void`: creates runtime-only `C3WorldArt` and `WorldSeasonFx`, replaces only House/SeedShop/ShippingBin/NPC-home visual children, and preserves anchors, markers, collisions, routes, farm picking and gameplay authority. `get_world_art_root()` and `get_season_fx()` expose the two C3 view roots for tests/review.
 - `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
 
 ## CropInspector / compact HUD (scripts/view/crop_inspector.gd)
@@ -394,4 +404,10 @@ Format:
 - `UiIcons.for_item` prefers an ItemData sticker PNG and retains its existing SVG fallback. `get_icon` prefers the four C2 tool stickers before its existing UI-chrome fallback.
 - `ChibiAvatar.play_tool` uses the C2 generated held prop when available, preserving its old procedural fallback and all C1 animation APIs.
 - `ChibiFarmingBuilder` and `tools\build_chibi_farming.bat` reproducibly build 45 crop-stage scenes, 18 item prop scenes, four tool prop scenes and 22 transparent sticker PNGs. `tools\art_review_farming.bat` writes isolated normal-renderer contact sheets and an opt-in `--capture-chibi-farming` main-scene evidence image; neither path writes a save.
+
+## C3 chibi world
+
+- `ChibiWorldBuilder` and `tools\build_chibi_world.bat` reproducibly generate 21 grounded world/building/prop/critter scenes plus `assets/generated/models/world/manifest.json`; `ChibiMeshAudit` enforces the existing C0 budgets.
+- `tools\art_review_world.bat` writes five normal-renderer seasonal/day-night/four-angle contact sheets and invokes `tools\capture_chibi_world.bat` for a real-main-scene image. The private `--capture-chibi-world` argument is review-only, reads/writes no slot and exits after its image.
+- `DataValidator.validate_world_art_catalog_path(path)` validates the C3 catalog in the normal data gate. C3 tests additionally lock safe passive placements, anchor/marker transforms, seasonal effect cap, material readability and review layout.
 

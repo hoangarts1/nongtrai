@@ -29,6 +29,9 @@ func test_world_art_separates_readable_places_without_changing_their_interaction
 	var house: MeshInstance3D = world.get_node("House") as MeshInstance3D
 	var shop: MeshInstance3D = world.get_node("SeedShop") as MeshInstance3D
 	var shipping_bin: MeshInstance3D = world.get_node("ShippingBin") as MeshInstance3D
+	var house_position: Vector3 = house.global_position
+	var shop_position: Vector3 = shop.global_position
+	var shipping_bin_position: Vector3 = shipping_bin.global_position
 	assert_not_null(house.get_node_or_null("CottageRoof"))
 	assert_not_null(house.get_node_or_null("Door"))
 	assert_not_null(shop.get_node_or_null("MarketRoof"))
@@ -40,23 +43,40 @@ func test_world_art_separates_readable_places_without_changing_their_interaction
 	assert_gt(world.shipping_bin_marker.global_position.distance_to(world.bed_marker.global_position), 4.0, "The sale point is visibly separate from the player cottage")
 	var minh_home: MeshInstance3D = main.npc_system.get_node("Home_minh") as MeshInstance3D
 	var linh_home: MeshInstance3D = main.npc_system.get_node("Home_linh") as MeshInstance3D
+	var minh_home_position: Vector3 = minh_home.global_position
+	var linh_home_position: Vector3 = linh_home.global_position
 	assert_not_null(minh_home.get_node_or_null("CottageRoof"))
 	assert_not_null(linh_home.get_node_or_null("CottageRoof"))
 	var presentation: WorldPresentation = main.get_node("WorldPresentation") as WorldPresentation
-	assert_not_null(presentation.get_node_or_null("VillageCottageMeadow/CottageRoof"))
-	assert_not_null(presentation.get_node_or_null("VillageCottageHill/CottageRoof"))
-	var ground_dressing: Node3D = presentation.get_node("GroundDressing") as Node3D
-	assert_not_null(ground_dressing)
-	assert_not_null(ground_dressing.get_node_or_null("PathStone_0"))
-	assert_not_null(ground_dressing.get_node_or_null("GrassTuft_0/Blade_0"))
-	var moss_rocks: Node3D = presentation.get_node("RockClusterMoss") as Node3D
-	assert_not_null(moss_rocks)
-	assert_not_null(moss_rocks.get_node_or_null("Stone_3"), "Each exterior cluster includes a visible large boulder")
-	assert_not_null(presentation.get_node_or_null("RockClusterEast"))
+	assert_not_null(presentation)
+	assert_eq(house.get_meta("c3_world_asset_id"), &"bld_player_cottage")
+	assert_eq(shop.get_meta("c3_world_asset_id"), &"bld_seed_market")
+	assert_eq(shipping_bin.get_meta("c3_world_asset_id"), &"bld_shipping_bin")
+	assert_eq(minh_home.get_meta("c3_world_asset_id"), &"bld_npc_cottage")
+	var world_art: Node3D = presentation.get_world_art_root()
+	assert_not_null(world_art)
+	assert_not_null(world_art.get_node_or_null("C3Trees/EnvRoundTree_0"))
+	assert_not_null(world_art.get_node_or_null("C3Terrain/EnvCliffBorder_0"))
+	assert_not_null(world_art.get_node_or_null("C3Landmarks/BldObservatory_0"))
+	assert_not_null(world_art.get_node_or_null("C3VillageProps/PropFenceWood_0"))
+	assert_not_null(world_art.get_node_or_null("C3VillageProps/PropWell_0"))
+	GameClock.season = &"autumn"
+	GameClock.season_changed.emit(&"autumn")
+	await _settle()
+	assert_eq(house.global_position, house_position, "Seasonal art must not move the player-home interaction anchor")
+	assert_eq(shop.global_position, shop_position, "Seasonal art must not move the seed-shop interaction anchor")
+	assert_eq(shipping_bin.global_position, shipping_bin_position, "Seasonal art must not move the shipping-bin interaction anchor")
+	assert_eq(minh_home.global_position, minh_home_position, "Seasonal art must not move Minh's home marker")
+	assert_eq(linh_home.global_position, linh_home_position, "Seasonal art must not move Linh's home marker")
+	var season_fx: Node = presentation.get_season_fx()
+	assert_not_null(season_fx)
+	assert_true(season_fx.has_method(&"get_active_effect_count"))
+	assert_gt(int(season_fx.call(&"get_active_effect_count")), 0)
 	var farm_cells := Rect2i(Vector2i.ZERO, Vector2i(6, 6))
-	for cluster_name: StringName in [&"RockClusterMoss", &"RockClusterNorth", &"RockClusterEast", &"RockClusterSouth"]:
-		var cluster: Node3D = presentation.get_node(String(cluster_name)) as Node3D
-		assert_false(farm_cells.has_point(GridMath.world_to_cell(cluster.global_position)), "Decorative rock is outside tillable cells: %s" % cluster_name)
+	for group: Node in world_art.get_children():
+		for asset: Node in group.get_children():
+			if asset is Node3D:
+				assert_false(farm_cells.has_point(GridMath.world_to_cell((asset as Node3D).global_position)), "C3 decoration is outside tillable cells: %s" % asset.name)
 
 func test_lighting_is_gentle_forward_plus_post_processing_with_soft_sun_shadows() -> void:
 	var main: Node = _game()
@@ -114,3 +134,12 @@ func test_tilled_soil_has_furrows_and_water_uses_a_subtle_moisture_sheen() -> vo
 func _settle() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
+
+func _find_c3_asset(root: Node, asset_id: StringName) -> Node3D:
+	if root is Node3D and StringName(root.get_meta("c3_world_asset_id", "")) == asset_id:
+		return root as Node3D
+	for child: Node in root.get_children():
+		var found: Node3D = _find_c3_asset(child, asset_id)
+		if found != null:
+			return found
+	return null

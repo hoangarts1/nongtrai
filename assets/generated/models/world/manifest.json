@@ -1,0 +1,152 @@
+{
+	"catalog_id": "chibi_world",
+	"entries": [
+		{
+			"budget": 8000,
+			"file": "bld_player_cottage.tscn",
+			"kind": "building",
+			"role": "roof",
+			"triangles": 600
+		},
+		{
+			"budget": 8000,
+			"file": "bld_seed_market.tscn",
+			"kind": "building",
+			"role": "ui_accent",
+			"triangles": 440
+		},
+		{
+			"budget": 8000,
+			"file": "bld_shipping_bin.tscn",
+			"kind": "building",
+			"role": "wood",
+			"triangles": 108
+		},
+		{
+			"budget": 8000,
+			"file": "bld_npc_cottage.tscn",
+			"kind": "building",
+			"role": "roof",
+			"triangles": 276
+		},
+		{
+			"budget": 8000,
+			"file": "bld_observatory.tscn",
+			"kind": "building",
+			"role": "stone",
+			"triangles": 212
+		},
+		{
+			"budget": 1000,
+			"file": "env_round_tree.tscn",
+			"kind": "tree",
+			"role": "foliage",
+			"triangles": 520
+		},
+		{
+			"budget": 1500,
+			"file": "env_cliff_border.tscn",
+			"kind": "prop",
+			"role": "stone",
+			"triangles": 360
+		},
+		{
+			"budget": 1500,
+			"file": "env_pond_bridge.tscn",
+			"kind": "prop",
+			"role": "water",
+			"triangles": 224
+		},
+		{
+			"budget": 1500,
+			"file": "prop_fence_wood.tscn",
+			"kind": "prop",
+			"role": "wood",
+			"triangles": 104
+		},
+		{
+			"budget": 1500,
+			"file": "prop_path_stone.tscn",
+			"kind": "prop",
+			"role": "stone",
+			"triangles": 120
+		},
+		{
+			"budget": 1500,
+			"file": "prop_well.tscn",
+			"kind": "prop",
+			"role": "stone",
+			"triangles": 220
+		},
+		{
+			"budget": 1500,
+			"file": "prop_lamp.tscn",
+			"kind": "prop",
+			"role": "sunlight",
+			"triangles": 160
+		},
+		{
+			"budget": 1500,
+			"file": "prop_mailbox.tscn",
+			"kind": "prop",
+			"role": "ui_accent",
+			"triangles": 112
+		},
+		{
+			"budget": 1500,
+			"file": "prop_signpost.tscn",
+			"kind": "prop",
+			"role": "wood",
+			"triangles": 124
+		},
+		{
+			"budget": 1500,
+			"file": "prop_bench.tscn",
+			"kind": "prop",
+			"role": "wood",
+			"triangles": 60
+		},
+		{
+			"budget": 1500,
+			"file": "prop_woodpile.tscn",
+			"kind": "prop",
+			"role": "wood",
+			"triangles": 300
+		},
+		{
+			"budget": 1500,
+			"file": "prop_flower_patch.tscn",
+			"kind": "prop",
+			"role": "ui_accent",
+			"triangles": 600
+		},
+		{
+			"budget": 1500,
+			"file": "prop_rock_cluster.tscn",
+			"kind": "prop",
+			"role": "stone",
+			"triangles": 300
+		},
+		{
+			"budget": 1500,
+			"file": "env_bird.tscn",
+			"kind": "critter",
+			"role": "sunlight",
+			"triangles": 240
+		},
+		{
+			"budget": 1500,
+			"file": "env_butterfly.tscn",
+			"kind": "critter",
+			"role": "ui_accent",
+			"triangles": 180
+		},
+		{
+			"budget": 1500,
+			"file": "env_firefly.tscn",
+			"kind": "critter",
+			"role": "sunlight",
+			"triangles": 240
+		}
+	]
+}

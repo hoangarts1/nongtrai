@@ -9,6 +9,7 @@ Rules
 - Use `%UniqueName` for nodes referenced by scripts in the same scene; use typed `@export var x: Type` for cross-scene references.
 
 Files
+- `world_art_lineup.md` — isolated C3 building/world/seasonal review tool scene; not part of gameplay
 - `art_lineup.md` — isolated C0 chibi calibration/review tool scene; not part of gameplay
 - `farming_art_lineup.md` — isolated C2 crop/item/tool review tool scene; not part of gameplay
 - `_TEMPLATE.md` — copy for every new scene

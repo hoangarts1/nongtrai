@@ -111,3 +111,22 @@ The contact sheets are an isolated calibration diorama, not proof of integration
 3. Inspect the 14 ignored sheets under `screenshots/chibi-farming/`: one overview, nine crop focus sheets, three item groups and one tool group. Each has daytime and night rows across four review views.
 4. Inspect `chibi_farming_main_scene.png` from the same command for the real `main.tscn` integration under its normal HUD/lighting. The private capture flag creates only an in-memory showcase and exits without loading or saving a slot.
 5. Run `tools\run_tests.bat`. C2 tests audit all generated models/icons, visual data paths, crop picking, effect success/failure boundaries and review layout.
+
+## C3 world asset contract
+
+- C3 supplies original rounded-primitive scenes under `assets/generated/models/world/` for the player cottage, seed market, shipping bin, NPC cottage, inactive observatory, rounded tree, forest/cliff boundary, pond/bridge, path/fence and village props (well, lamp, mailbox, signpost, bench, woodpile, flowers and rock cluster), plus bird/butterfly/firefly silhouettes.
+- All C3 model pivots meet the terrain at local `y = 0`; models are finite and audited against the existing C0 budgets: buildings <= 8,000 triangles, tree <= 1,000 triangles and small props <= 1,500 triangles. The C3 generated manifest records measured totals.
+- `WorldArtCatalog` is presentation data only. Stable scene IDs and passive map placements belong there; crop/quest/economy/NPC schedule/navigation/farm-grid/time/weather/save values do not.
+- Major model silhouettes are deliberately distinct at the fixed camera: player cottage has a warm rounded roof/chimney/porch, market has an awning and crates, bin has a lid/handle, homes have roof/window cues, observatory has a dome, pond/bridge separates blue water from path, and tree/rock/flower silhouettes retain readable floor contact.
+- Four-season presentation is controlled by the existing clock and weather authorities. Spring uses light petals/flowers, summer uses richer green + daytime critters, autumn uses leaves/orange warmth, winter uses snow/cool water, and rainy weather adds only small visual water ripples.
+- Ambient movement is toy-like and secondary: leaf/petal drift, bird/butterfly glide and night-only firefly twinkle. It is deterministic view motion with a catalog cap, never a gameplay random source.
+
+## C3 visual review procedure
+
+1. Run `tools\build_chibi_world.bat` after a C3 builder/catalog change.
+2. Run `tools\art_review_world.bat` with a normal graphics renderer, never `--headless`.
+3. Inspect the ignored sheets under `screenshots/chibi-world/`: building, terrain, village-prop, boundary/water and critter groups. Each sheet shows four views in day and night across the four seasons.
+4. Inspect `chibi_world_main_scene.png` from the same command. Its private capture starts no save/slot flow and exits after an in-memory screenshot.
+5. Run `tools\run_tests.bat`. C3 tests audit all generated world models/catalogue placements, anchor/marker preservation, seasonal view bounds and review layout; existing farm/NPC/merchant tests remain required.
+
+The generated C3 source scenes retain the C0 toon, foliage, water and optional outline material vocabulary. Under the established main-world `DayNightProfile` lighting, the C0 toon/outline pass renders unreadably dark on C3 geometry, so `WorldArtFactory` creates a local readable `StandardMaterial3D` only for instantiated toon pieces. Foliage/water keep their matching lightweight shader treatment. This is a runtime presentation compatibility layer, not a palette fork, source-asset rewrite or gameplay-lighting change.

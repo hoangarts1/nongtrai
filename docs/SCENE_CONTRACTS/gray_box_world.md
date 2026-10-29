@@ -55,3 +55,12 @@ GrayBoxWorld (Node3D)
 - `CropPresentation` maps existing growth/wither values to generated C2 scenes under `assets/generated/models/farming/`. It may use a readable runtime material override under current world lighting, but the art catalogue remains the source of crop family/color intent.
 - `FarmEffects` is a runtime child of `FarmView`. It owns only bounded transient meshes after a successful existing tool action and has no marker, collision, cell, save or input contract.
 - Soil furrows/moisture, dew and mature bob are display details below the current crop inspector and must not move farm cells, plot bounds, camera targets or scene anchors.
+
+## C3 chibi world presentation additions (view-only)
+
+- `WorldPresentation` owns one runtime `C3WorldArt` child and one bounded `WorldSeasonFx` child. They load only generated C3 scenes listed by `data/art/world/chibi_world_catalog.tres`; neither node owns a collision object, marker, farm cell, input action, saved value, weather value or time value.
+- `House`, `SeedShop`, `ShippingBin`, `%BedMarker`, `%SeedShopMarker` and `%ShippingBinMarker` keep their scene-authored transforms exactly. C3 may replace the visible mesh/mesh children under the three existing anchors but may not move, rename or reparent the anchors or their markers.
+- `Main/NpcSystem/Home_minh` and `Home_linh` remain Phase 8 home anchors. C3 may replace their visible mesh children after the NPC system has configured them; their global positions, labels, navigation destinations and indoor visibility contract remain unchanged.
+- C3 paths, water, bridge, forest/cliff border and village props are non-colliding decoration. They must remain outside the FarmView cells `(0..5, 0..5)`, the player spawn/route cells and the documented interaction-reach areas around the house, seed shop and shipping bin.
+- `GrayBoxWorld` continues to apply `DayNightProfile` and `WeatherState`. `WorldSeasonFx` only observes their existing signals to select presentation: spring petals, summer day butterflies/birds and night fireflies, autumn leaves, winter snow, and rain-water ripples. Its effect count is catalogue-bounded and it never calls gameplay random, changes weather/time, or serializes state.
+- C3 may use a local readable material override for instantiated C0 toon pieces because the established world-light pipeline otherwise renders those parts nearly black. Source scenes, DayNightProfile values, weather values and shared palette assets remain untouched; foliage/water shaders keep their view-only motion treatment.

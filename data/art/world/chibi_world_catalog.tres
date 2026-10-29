@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="WorldArtCatalog" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/world_art_catalog.gd" id="1_catalog"]
+
+[resource]
+script = ExtResource("1_catalog")
+catalog_id = &"chibi_world"
+asset_ids = PackedStringArray("bld_player_cottage", "bld_seed_market", "bld_shipping_bin", "bld_npc_cottage", "bld_observatory", "env_round_tree", "env_cliff_border", "env_pond_bridge", "prop_fence_wood", "prop_path_stone", "prop_well", "prop_lamp", "prop_mailbox", "prop_signpost", "prop_bench", "prop_woodpile", "prop_flower_patch", "prop_rock_cluster", "env_bird", "env_butterfly", "env_firefly")
+building_ids = PackedStringArray("bld_player_cottage", "bld_seed_market", "bld_shipping_bin", "bld_npc_cottage", "bld_observatory")
+tree_ids = PackedStringArray("env_round_tree")
+prop_ids = PackedStringArray("env_cliff_border", "env_pond_bridge", "prop_fence_wood", "prop_path_stone", "prop_well", "prop_lamp", "prop_mailbox", "prop_signpost", "prop_bench", "prop_woodpile", "prop_flower_patch", "prop_rock_cluster")
+critter_ids = PackedStringArray("env_bird", "env_butterfly", "env_firefly")
+asset_roles = {
+"bld_npc_cottage": "roof",
+"bld_observatory": "stone",
+"bld_player_cottage": "roof",
+"bld_seed_market": "ui_accent",
+"bld_shipping_bin": "wood",
+"env_bird": "sunlight",
+"env_butterfly": "ui_accent",
+"env_cliff_border": "stone",
+"env_firefly": "sunlight",
+"env_pond_bridge": "water",
+"env_round_tree": "foliage",
+"prop_bench": "wood",
+"prop_fence_wood": "wood",
+"prop_flower_patch": "ui_accent",
+"prop_lamp": "sunlight",
+"prop_mailbox": "ui_accent",
+"prop_path_stone": "stone",
+"prop_rock_cluster": "stone",
+"prop_signpost": "wood",
+"prop_well": "stone",
+"prop_woodpile": "wood"
+}
+placements = {
+"bld_observatory": [Vector3(9, 0, -8.7)],
+"env_cliff_border": [Vector3(-10.8, 0, -8.8), Vector3(-10.8, 0, -3.5), Vector3(-10.8, 0, 2.2), Vector3(-10.6, 0, 8), Vector3(-5.2, 0, -10.8), Vector3(1.1, 0, -10.8), Vector3(7, 0, -10.8), Vector3(11, 0, -5.8), Vector3(11, 0, 0.2), Vector3(11, 0, 5.8)],
+"env_pond_bridge": [Vector3(-8.1, 0, 3.3)],
+"env_round_tree": [Vector3(-8.4, 0, -5.5), Vector3(-6.3, 0, -7.2), Vector3(-8.7, 0, 0.1), Vector3(7.8, 0, -6.3), Vector3(5.7, 0, -8.8), Vector3(-6.8, 0, 10.5), Vector3(9.3, 0, 5.1)],
+"prop_bench": [Vector3(-6.6, 0, 5.7)],
+"prop_fence_wood": [Vector3(7.7, 0, 12), Vector3(8.1, 0, 12), Vector3(8.5, 0, 12), Vector3(8.9, 0, 12)],
+"prop_flower_patch": [Vector3(-4.3, 0, 8.8), Vector3(-7.1, 0, 6.8), Vector3(8.3, 0, -3.5)],
+"prop_lamp": [Vector3(7.9, 0, 9.8), Vector3(-5.1, 0, 7.8)],
+"prop_mailbox": [Vector3(8, 0, 9)],
+"prop_path_stone": [Vector3(6.8, 0, 12), Vector3(7.8, 0, 12), Vector3(8.8, 0, 12), Vector3(8.8, 0, 11.4), Vector3(-5.1, 0, 7.5), Vector3(-6, 0, 7), Vector3(-6.9, 0, 6.2)],
+"prop_rock_cluster": [Vector3(-9.1, 0, 5.4), Vector3(-6.6, 0, 10.2), Vector3(9.6, 0, 6.8), Vector3(7.6, 0, -7.6)],
+"prop_signpost": [Vector3(-5.5, 0, 5.7)],
+"prop_well": [Vector3(7.4, 0, -4.1)],
+"prop_woodpile": [Vector3(8, 0, 7.5)]
+}
+ambient_effect_cap = 28
+spring_effect_color = Color(1, 0.819608, 0.862745, 1)
+summer_effect_color = Color(1, 0.886275, 0.541176, 1)
+autumn_effect_color = Color(0.901961, 0.654902, 0.415686, 1)
+winter_effect_color = Color(0.901961, 0.956863, 1, 1)
+rain_ripple_color = Color(0.776471, 0.901961, 0.937255, 1)

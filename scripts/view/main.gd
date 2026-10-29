@@ -163,6 +163,8 @@ func _ready() -> void:
 		call_deferred("_capture_chibi_characters")
 	elif OS.get_cmdline_user_args().has("--capture-chibi-farming"):
 		call_deferred("_capture_chibi_farming")
+	elif OS.get_cmdline_user_args().has("--capture-chibi-world"):
+		call_deferred("_capture_chibi_world")
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -420,4 +422,57 @@ func _capture_chibi_farming() -> void:
 		get_tree().quit(1)
 		return
 	print("[farming_scene_capture] wrote %s/chibi_farming_main_scene.png" % output_directory)
+	get_tree().quit()
+
+func _capture_chibi_world() -> void:
+	# This opt-in capture observes the normal main-scene wiring only. It does
+	# not load or write a slot and quits after an in-memory screenshot.
+	_game_started = false
+	start_menu.hide()
+	tutorial_panel.hide()
+	npc_system.close_panels()
+	GameClock.set_time(10, 30)
+	weather_state.call("force_weather", &"sunny")
+	GameClock.paused = true
+	world.player.show()
+	world.player.global_position = _spawn_position
+	world.player.movement_enabled = false
+	world.interaction_prompt.hide()
+	world.camera.size = 18.0
+	var fps_total: float = 0.0
+	var fps_samples: int = 0
+	var sample_start_usec: int = Time.get_ticks_usec()
+	for frame_index: int in range(120):
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var fps: float = Performance.get_monitor(Performance.TIME_FPS)
+		if fps > 0.0:
+			fps_total += fps
+			fps_samples += 1
+	var output_directory: String = "res://screenshots/chibi-world"
+	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
+	if directory_result != OK:
+		printerr("[world_scene_capture] cannot create output directory: %s" % error_string(directory_result))
+		get_tree().quit(1)
+		return
+	var screenshot: Image = get_viewport().get_texture().get_image()
+	if screenshot == null or screenshot.is_empty():
+		printerr("[world_scene_capture] main-scene capture is empty")
+		get_tree().quit(1)
+		return
+	if screenshot.get_format() != Image.FORMAT_RGBA8:
+		screenshot.convert(Image.FORMAT_RGBA8)
+	var save_result: Error = screenshot.save_png("%s/chibi_world_main_scene.png" % output_directory)
+	if save_result != OK:
+		printerr("[world_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
+		get_tree().quit(1)
+		return
+	var sample_seconds: float = float(Time.get_ticks_usec() - sample_start_usec) / 1000000.0
+	var measured_fps: float = 120.0 / sample_seconds if sample_seconds > 0.0 else 0.0
+	var fps_average: float = fps_total / float(fps_samples) if fps_samples > 0 else 0.0
+	var draw_calls: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+	var objects: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME))
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	print("[world_scene_capture] metrics viewport=%dx%d frame_fps=%.1f monitor_fps=%.1f draw_calls=%d objects=%d" % [int(viewport_size.x), int(viewport_size.y), measured_fps, fps_average, draw_calls, objects])
+	print("[world_scene_capture] wrote %s/chibi_world_main_scene.png" % output_directory)
 	get_tree().quit()

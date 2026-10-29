@@ -198,3 +198,9 @@ Import hints (node/animation name suffixes in Blender; verify the list in the do
 `ItemData` now optionally carries `model_path: String` and `icon_path: String` for generated presentation. They are not inventory data: saves continue to serialize only item IDs/quantities and all economy/crop data continues to resolve through the existing stable IDs. C2 uses `assets/generated/models/farming/item_<item_id>.tscn` and `assets/generated/icons/item_<item_id>.png` rather than the aspirational GLB/icon naming examples above.
 
 `FarmingArtCatalog` is a visual-only Resource at `data/art/farming/chibi_farming_catalog.tres`. It maps existing crop IDs to silhouette families and data-owned stage scales/colors; it contains no crop balance, timing, yield, save or world-state fields.
+
+## C3 visual metadata (implemented)
+
+`WorldArtCatalog` is a visual-only Resource at `data/art/world/chibi_world_catalog.tres`. It owns stable generated world asset IDs, asset categories, palette roles, non-interactive exterior placement vectors and a maximum count for ambient visual effects. It has no farm grid, crop/economy/quest/NPC schedule/navigation data, collision layer, input action, time/weather authority or saved-state field. Existing `GameClock` season/time and `WeatherState` rain are observed by `WorldSeasonFx` only for display selection.
+
+Generated source scenes retain C0 palette/shader intent. In the current `DayNightProfile` world renderer, C3 may create a local readable material override for a toon piece; this is not catalog data, does not modify a shared source asset, and never adds a save field or a gameplay color rule.

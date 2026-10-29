@@ -80,3 +80,9 @@ names are stored in the normal save slot; sleeping writes the autosave slot 0.
 - C2 does not add a permanent panel or change the established modal map. The existing hotbar/inventory/icon APIs may show generated 128 px seed/produce stickers and the four farming tool stickers; localized labels, quantities, keyboard shortcuts and SVG fallbacks remain intact.
 - Crop state remains in the existing compact click-selected CropInspector. In-world crop labels stay hidden, while a crop itself gains readable stage silhouettes, small dew/sparkle feedback and a gentle mature bob within the existing cell bounds.
 - Tilled/wet soil and short action effects are world details only. They may not cover the inspector, hotbar, inventory, prompts, NPC panels or map interaction targets.
+
+## C3 world presentation (2026-10-29)
+
+- C3 introduces no permanent HUD control, modal, localized player string or input action. `C3WorldArt` and `WorldSeasonFx` render behind the established anchored HUD, CropInspector, interaction prompt and all modal surfaces.
+- Paths, buildings, water, boundary, village props and seasonal particles stay in world space outside farm cells, protected interaction reach, NPC routes and camera-critical play space. They must not become an overlay or a substitute for UI feedback.
+- `--capture-chibi-world` is an internal art-review argument only; it has no player-facing button and does not alter layout, save state or modal ownership.

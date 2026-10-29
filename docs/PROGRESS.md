@@ -1,11 +1,32 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-29 (C2 chibi farming complete and tagged `chibi-farming`; C1 remains tagged `chibi-characters`, C0 remains tagged `chibi-core`)
+Last updated: 2026-10-29 (C3 chibi world complete and tagged `chibi-world`; C2 remains tagged `chibi-farming`, C1 remains tagged `chibi-characters`, C0 remains tagged `chibi-core`)
 
 ## Current milestone
-`C2 (Chibi farming)` — complete. C2 replaces only the farm's visual presentation while preserving current crop IDs, growth/yield, drag-tool behavior, inventory atomicity and save v4. The next approved chibi milestone is C3 (world/buildings/seasonal effects), not started here.
+`C3 (Chibi world)` — complete and tagged `chibi-world`. It adds only generated view-layer world/building/seasonal presentation while preserving all interaction anchors, collision, navigation, crop picking, weather/day-night authority and save v4.
+
+`C4 (Chibi UI / M7)` — next, not started. It must be a separate fresh task after reading both production prompts and this file; C3 does not claim the deferred M0 automation or UI-v2 work.
 
 `C1 (Chibi characters)` — complete and tagged `chibi-characters`. C0 remains tagged `chibi-core`; C1 opts the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or save schema.
+
+## C3 approved plan and allow list (2026-10-29)
+
+- Create original, reproducible rounded-primitive C3 world assets under `assets/generated/models/world/`: player cottage, seed market, shipping bin, generic NPC cottage, inactive observatory landmark, rounded tree, forest/cliff boundary, pond/bridge, fence/path and small village props (well, lamp, mailbox, signpost, bench, woodpile, flowers/rocks), plus tiny bird/butterfly/firefly silhouettes. Every model stays grounded, finite and within the C0 building/tree/prop budgets.
+- Add a validated visual-only `WorldArtCatalog` under `data/art/world/`. It owns stable C3 asset IDs, palette roles, non-interactive placement/layout data and seasonal presentation colors. It must not encode gameplay price, collision, navigation, NPC schedule, farm grid, time or save data.
+- Rebuild only the `WorldPresentation` art children through generated C3 scenes while retaining the exact House, SeedShop, ShippingBin, NPC-home, FarmView and marker transforms. Add soft terrain dressing, paths, water/bridge, rounded forest/cliff boundary and village props as non-colliding view children outside farm cells, route cells and interaction reach zones.
+- Add a bounded `WorldSeasonFx` view that listens to existing `GameClock` season/time and `WeatherState` changes: spring petals, summer butterflies/day birds and night fireflies, autumn leaves, winter snow plus rain-water ripples. It owns no random gameplay, save field, input action, time/weather value or particle system outside the documented cap.
+- Add reproducible C3 build, normal-renderer 4-angle/day-night/seasonal review and real-main-scene capture tools. Update the world scene contract before runtime changes, add narrow asset/data/view/review regression tests and preserve all current crop picking, NPC navigation/home, merchant/shop/bin and UI-layout coverage. Existing visual tests may change only where their primitive-art assertion is intentionally superseded; record why in a new decision.
+- Planned C3 files only: `docs/{API_INDEX,ART_BIBLE,PROGRESS,DECISIONS,DATA_SCHEMA,UI_LAYOUT,CREDITS,SCENE_CONTRACTS/README,SCENE_CONTRACTS/gray_box_world,SCENE_CONTRACTS/world_art_lineup}.md`; `scripts/{data/world_art_catalog,core/data_validator,view/world_presentation,view/world_art_factory,view/world_season_fx,view/main}.gd`; `data/art/world/**`; `assets/generated/models/world/**`; `tools/{build_chibi_world,art_review_world,capture_chibi_world}.bat`, `tools/art/chibi/{build_chibi_world,chibi_world_builder,chibi_world_lineup,world_art_review_runner}.gd`, `tools/chibi_world_lineup.tscn`; `tests/unit/{test_chibi_world,test_world_review_layout,test_world_presentation}.gd`; and required generated `.uid` files. No existing gameplay `.tscn`, domain farm/economy/inventory/NPC schedule code, save service/schema, input map, collision layers, weather/day-night data or localization is in scope.
+
+## C3 completion and handoff (2026-10-29)
+
+- Delivered a validated, visual-only `WorldArtCatalog` and 21 reproducible rounded-primitive scenes: five buildings, a tree, cliff/forest boundary, pond/bridge, ten village-prop categories and three ambient critters. Measured triangles remain below their C0 budget: player cottage `600 / 8,000`, market `440 / 8,000`, NPC cottage `276 / 8,000`, tree `520 / 1,000`, and the largest prop/flower patch `600 / 1,500`.
+- `WorldPresentation` now installs one runtime `C3WorldArt` root and safely replaces only visual children beneath the existing House, SeedShop, ShippingBin and Phase 8 home anchors. Exact anchors/markers, collision, NPC routes, FarmView/crop picking, merchant handling, time/weather authority and save v4 are unchanged. Passive catalog placements are tested outside farm cells and every protected interaction reach.
+- `WorldSeasonFx` observes existing clock/weather state: spring petals, summer day butterflies/birds and night fireflies, autumn leaves, winter snow and rain ripples. The catalogue cap is `28`; the most populated current seasonal/rain combination is below that cap and it creates neither save data nor gameplay randomness.
+- Normal-renderer C3 review writes five 4-season × day/night × four-angle contact sheets plus `screenshots/chibi-world/chibi_world_main_scene.png`. Three focused correction rounds found/fixed: generated scene ownership/anchor handoff; unsafe initial fence/path proximity to interaction areas; duplicate named presentation groups; and the C0 toon/outline pass rendering dark/black in the real world pipeline. Runtime toon instances now use a local readable material while generated sources and foliage/water shader treatment stay intact.
+- Capture sample on the normal Forward+ renderer at `1152×648` recorded `58.3` frame FPS, `1,294` draw calls and `1,437` rendered objects (`Performance.TIME_FPS` reported `29.9` in this capture window). This is C3 review evidence, not the deferred M0 smoke/autoplay/full `1920×1080` benchmark; do not interpret it as a release-performance claim.
+- Generated assets currently total `162` files / `4,229,000` bytes; the C3 world directory is `22` files / `696,982` bytes, well below the product prompt's overall generated-asset budget.
+- Final verification before the C3 commit/tag: `tools\build_chibi_world.bat` PASS; `tools\art_review_world.bat` wrote five contact sheets and the main-scene image; `[check_parse] OK`; `[validate_data] PASS`; 51 scripts, 154/154 passing tests, 5,110 asserts, 24.665 s, `[run_tests] PASS`. The C3 build/review/capture/parse/validator/GUT/main log scan found 0 matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script` or `ERROR:`; `git diff --check` passes.
 
 ## C2 approved plan and allow list (2026-10-28)
 
@@ -69,8 +90,10 @@ Last updated: 2026-10-29 (C2 chibi farming complete and tagged `chibi-farming`; 
 `feat: add chibi art foundation` / `chibi-core` — validated palette, generated shader/material suite, original calibration models and independent review tooling; no gameplay presentation migration
 `feat: add chibi characters and customization` / `chibi-characters` — data-owned appearance options, generated character models, view-only rig/face/emotion/held-tool presentation and normal-renderer review capture; no save-schema, schedule or Roadmap 8.5 behavior change
 `feat: add chibi farming art` / `chibi-farming` — data-owned crop families/stages, generated crop/item/tool assets and stickers, view-only soil/effects/readability plus normal-renderer review; no gameplay, economy or save-schema change
+`feat: add chibi world presentation` / `chibi-world` — data-owned generated buildings/world props, bounded seasonal ambience, real-main-scene review and C3 interaction/anchor regression locks; no gameplay, economy or save-schema change
 
 ## Done
+- [x] C3 chibi world: generated building/terrain/prop/critter art, bounded seasonal ambience, safe anchor/placement handling, normal-renderer review/capture and regression coverage (commit/tag recorded above)
 - [x] C2 chibi farming: data-owned crop families/stages, generated crop/item/tool models and 128 px stickers, view-only soil/effects/readability, normal-renderer review/capture, interaction/icon regression coverage (commit/tag recorded below)
 - [x] C1 chibi characters: player appearance selector, generated player/An/Bac Lam/Linh/Minh/dog-reference assets, articulated presentation, face/emotion bubbles, C1 review tooling and compatibility coverage (commit/tag recorded above)
 - [x] `docs/MASTER_PROMPT.md` added from the root prompt source, byte-preserving in UTF-8 (commit `215d2d6`)
@@ -98,7 +121,7 @@ Last updated: 2026-10-29 (C2 chibi farming complete and tagged `chibi-farming`; 
 
 ## NEXT
 
-- Start C3 (chibi world, buildings and seasonal effects) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md` and every touched scene contract first. Preserve C0–C2 generated paths, FarmView/crop picking, fixed camera, DayNightProfile/weather authority and save v4. C3 must not quietly add new gameplay systems or revise the C2 crop/item/tool contract.
+- Start C4 (chibi UI / M7) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md` and every touched scene contract first. Preserve C0–C3 generated paths, the fixed camera, existing UI modal/input authority, FarmView/crop picking, DayNightProfile/weather authority and save v4. Do not quietly add gameplay systems or revise C3 world interaction contracts.
 - Before a release claim, separately return to the deferred M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, autoplay, full capture matrix, baseline measurements/tag and global `build_assets`. Do not retroactively describe C0's isolated contact-sheet runner as that complete M0 suite.
 
 ## Chibi-style prompt reference handoff (2026-10-27)

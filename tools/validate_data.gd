@@ -151,6 +151,8 @@ func _init() -> void:
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_farming_art_catalog_path("res://data/art/farming/chibi_farming_catalog.tres")
 	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_world_art_catalog_path("res://data/art/world/chibi_world_catalog.tres")
+	if errors.size() == 0:
 		var visual_items: Array[Resource] = []
 		for item_path: String in item_paths:
 			visual_items.append(load(item_path) as Resource)
