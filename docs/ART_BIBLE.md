@@ -130,3 +130,11 @@ The contact sheets are an isolated calibration diorama, not proof of integration
 5. Run `tools\run_tests.bat`. C3 tests audit all generated world models/catalogue placements, anchor/marker preservation, seasonal view bounds and review layout; existing farm/NPC/merchant tests remain required.
 
 The generated C3 source scenes retain the C0 toon, foliage, water and optional outline material vocabulary. Under the established main-world `DayNightProfile` lighting, the C0 toon/outline pass renders unreadably dark on C3 geometry, so `WorldArtFactory` creates a local readable `StandardMaterial3D` only for instantiated toon pieces. Foliage/water keep their matching lightweight shader treatment. This is a runtime presentation compatibility layer, not a palette fork, source-asset rewrite or gameplay-lighting change.
+
+## C4 UI presentation contract
+
+- C4 UI is original code/vector presentation, not a borrowed icon pack or a raster replacement for gameplay controls. Its cream surface, outline, purple-tinted shadow, sunlight highlight and peach accent resolve from the existing C0 palette roles; the shared Theme supplies the rounded pill silhouette and focus/disabled states.
+- The cursor is a small code-drawn paw: four toe pads, a central pad and a compact selected-tool badge. It stays within a 38×42 px visual bound, uses no image asset, is non-interactive, and is deliberately less prominent than the player/crop/world art. The icon cue changes only after an existing tool button’s real `pressed` signal.
+- UI motion is toy-like but restrained: button hover is at most 3.5% scale, press is at most 6% inward scale, and panel-open bounce starts at 97% before returning to 100%. These are Canvas presentation transforms only; Container geometry, click rects, modal ownership and keyboard input remain Godot-owned.
+- Title styling favors readable Open Sans with an outline and a ±1.2% breathing scale instead of a separate logo bitmap. The title illustration remains the already-credited project-generated asset, while pointer-relative motes are code-drawn overlays.
+- C4 review uses `tools\capture_chibi_ui.bat` on the normal Forward+ renderer plus layout/mouse regressions. Inspect title and HUD captures for clipped card corners, tooltip/focus contrast, oversized chrome, modal click-through and any cursor obstruction before accepting the milestone.

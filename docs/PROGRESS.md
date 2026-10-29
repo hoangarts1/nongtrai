@@ -1,13 +1,29 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-29 (C3 chibi world complete and tagged `chibi-world`; C2 remains tagged `chibi-farming`, C1 remains tagged `chibi-characters`, C0 remains tagged `chibi-core`)
+Last updated: 2026-10-30 (C4 chibi UI / M7 complete and tagged `chibi-ui`)
 
 ## Current milestone
 `C3 (Chibi world)` — complete and tagged `chibi-world`. It adds only generated view-layer world/building/seasonal presentation while preserving all interaction anchors, collision, navigation, crop picking, weather/day-night authority and save v4.
 
-`C4 (Chibi UI / M7)` — next, not started. It must be a separate fresh task after reading both production prompts and this file; C3 does not claim the deferred M0 automation or UI-v2 work.
+`C4 (Chibi UI / M7)` — complete and tagged `chibi-ui`. It adds a C0-palette pastel pill Theme, compact icon-first HUD preservation, themed native tooltips, code-drawn tool-aware cursor, keyboard focus and restrained hover/press/open bounce. It preserves the readable map-first HUD, real GUI input routing, all current localization, and has no save/schema/input-domain change.
 
 `C1 (Chibi characters)` — complete and tagged `chibi-characters`. C0 remains tagged `chibi-core`; C1 opts the existing player/NPC presentation into the C0 core without changing gameplay IDs, schedules or save schema.
+
+## C4 approved plan and allow list (2026-10-30)
+
+- Add runtime-only `ChibiUiMotion` and `ChibiCursor` view helpers. They will animate existing focusable controls with small hover/press/open tweens and draw a project-original rounded paw/tool cursor above all UI. They do not submit gameplay input, add an InputMap action, own UI state, save anything or change a node path required by a scene.
+- Extend the existing runtime `UiLayout` theme from the C0 palette with warm rounded panel/button/field/tooltip styles, standardized readable font sizes and keyboard-focus treatment. Existing localized `tooltip_text` remains the tooltip source; the compact hotbar and corner icon bar retain their current map-safe footprints.
+- Polish only the existing title card/backdrop with a restrained logo outline/bob and slow decorative parallax/motes. Keep actual StartMenu Buttons/OptionButtons and their callbacks, so physical mouse and keyboard paths remain Godot Controls rather than illustration hitboxes.
+- Add an opt-in normal-renderer UI capture argument/tool that writes title and in-game HUD review PNGs without loading or writing a save. Add focused C4 regression coverage for cursor/tool modes, motion/theme wiring, native tooltip style, keyboard focus and compact three-resolution HUD constraints. Re-run the existing physical mouse/modal layout tests rather than weakening them.
+- Planned C4 files only: `scripts/view/{chibi_cursor,chibi_ui_motion,ui_layout,start_menu,title_backdrop,main}.gd` and generated `.uid` companions; `tools/capture_chibi_ui.bat`; `tests/unit/test_chibi_ui.gd`; `docs/{API_INDEX,ART_BIBLE,PROGRESS,DECISIONS,UI_LAYOUT,CREDITS}.md`; and only existing C4-relevant UI tests if a deliberate assertion must change (with the reason recorded in `DECISIONS.md`). No `.tscn`, domain, save service/schema, economy, farming, NPC schedule, weather/day-night, localization text, input action, collision or C0–C3 generated model data is in scope.
+
+## C4 completion and handoff (2026-10-30)
+
+- Delivered the runtime-only `ChibiUiMotion` and `ChibiCursor`. Existing Buttons/fields receive small focus/hover/press/panel-open presentation tweens, while the code-drawn topmost cursor changes from paw-over-UI to a tiny selected hoe/watering-can/seed/harvest cue. It uses `MOUSE_FILTER_IGNORE`, restores the OS cursor on exit, creates no saved field or new input action, and does not call gameplay methods.
+- `UiLayout` now derives its shared runtime Theme from the C0 palette: cream rounded panels, pastel pill Button/OptionButton/field states, visible keyboard focus, and a native styled Godot tooltip panel. The four tool icons and four corner buttons retain the compact D24 footprint; no item grid was restored over the map.
+- Title keeps real Godot Controls and callbacks, now with an outlined/breathing logo, primary keyboard focus, form/settings focus routing and slow pointer-relative backdrop motes. The normal title/HUD capture was visually reviewed: no clipped cards, missing button, overlapping HUD or map-covering chrome was found. Tool icons intentionally stay compact after the earlier player feedback; their localized tooltips expose names/keys.
+- New normal-renderer evidence is `screenshots/chibi-ui/chibi_ui_title.png` and `screenshots/chibi-ui/chibi_ui_hud.png`. The capture recorded `1152×648`, `60.0` FPS, `1,294` draw calls and `1,437` objects. The existing/current C4 UI regressions cover the same map-safe layout at `1152×648`, `1280×720` and `1920×1080` (vi/en); this one normal capture is not the still-deferred M0 full capture matrix.
+- Final C4 verification: `tools\capture_chibi_ui.bat` PASS; `[check_parse] OK`; `[validate_data] PASS`; 52 scripts, 157/157 passing tests, 5,146 asserts, 27.415 s, `[run_tests] PASS`. The parse/validator/GUT/main/capture log scan found `0` matches for `SCRIPT ERROR`, `Parse Error`, `Failed to load script` or `ERROR:`; `git diff --check` passes. Generated assets remain unchanged at 162 files / 4,229,000 bytes.
 
 ## C3 approved plan and allow list (2026-10-29)
 
@@ -91,6 +107,7 @@ Last updated: 2026-10-29 (C3 chibi world complete and tagged `chibi-world`; C2 r
 `feat: add chibi characters and customization` / `chibi-characters` — data-owned appearance options, generated character models, view-only rig/face/emotion/held-tool presentation and normal-renderer review capture; no save-schema, schedule or Roadmap 8.5 behavior change
 `feat: add chibi farming art` / `chibi-farming` — data-owned crop families/stages, generated crop/item/tool assets and stickers, view-only soil/effects/readability plus normal-renderer review; no gameplay, economy or save-schema change
 `feat: add chibi world presentation` / `chibi-world` — data-owned generated buildings/world props, bounded seasonal ambience, real-main-scene review and C3 interaction/anchor regression locks; no gameplay, economy or save-schema change
+`feat: add chibi UI presentation` / `chibi-ui` — C0-palette runtime Theme, native tooltip styling, code-drawn cursor, focus/motion wiring and normal-renderer title/HUD review; no scene, gameplay, input or save-schema change
 
 ## Done
 - [x] C3 chibi world: generated building/terrain/prop/critter art, bounded seasonal ambience, safe anchor/placement handling, normal-renderer review/capture and regression coverage (commit/tag recorded above)
@@ -121,7 +138,7 @@ Last updated: 2026-10-29 (C3 chibi world complete and tagged `chibi-world`; C2 r
 
 ## NEXT
 
-- Start C4 (chibi UI / M7) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md` and every touched scene contract first. Preserve C0–C3 generated paths, the fixed camera, existing UI modal/input authority, FarmView/crop picking, DayNightProfile/weather authority and save v4. Do not quietly add gameplay systems or revise C3 world interaction contracts.
+- Start C5 (chibi audio / M8) only in a fresh task/conversation: read `docs/MASTER_PROMPT.md`, `docs/CHIBI_STYLE_PROMPT.md`, this file, `docs/ART_BIBLE.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md` and every touched scene contract first. Audit the existing four farming WAV effects/AudioService before extending audio; preserve all C0–C4 generated paths, UI modal/input authority, FarmView/crop picking, DayNightProfile/weather authority and save v4. Do not quietly add gameplay systems, scene ownership changes or a new audio authority.
 - Before a release claim, separately return to the deferred M0 automation named by `docs/MASTER_PROMPT.md`: `smoke_run`, autoplay, full capture matrix, baseline measurements/tag and global `build_assets`. Do not retroactively describe C0's isolated contact-sheet runner as that complete M0 suite.
 
 ## Chibi-style prompt reference handoff (2026-10-27)

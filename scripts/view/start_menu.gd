@@ -24,24 +24,35 @@ var _skin_tone: OptionButton
 var _hair_color: OptionButton
 var _outfit_color: OptionButton
 var _main_actions: Array[Button] = []
+var _title_logo: Label
+var _logo_phase: float = 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_build_ui()
+	if not visibility_changed.is_connected(_on_visibility_changed):
+		visibility_changed.connect(_on_visibility_changed)
 
 func apply_chibi_style() -> void:
 	var column: VBoxContainer = get_node("MarginContainer/Column")
 	var title: Label = column.get_child(0) as Label
+	_title_logo = title
 	title.text = tr("UI_GAME_TITLE").to_upper()
 	title.add_theme_font_size_override("font_size", 44)
+	title.add_theme_color_override("font_color", _palette_color(&"outline", Color("4b3c47")))
+	title.add_theme_color_override("font_outline_color", _palette_color(&"sunlight", Color("fff3cf")))
+	title.add_theme_constant_override("outline_size", 2)
 	_save_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_save_summary.add_theme_font_size_override("font_size", 15)
-	var subtitle: Label = Label.new()
-	subtitle.name = "Tagline"
+	var subtitle: Label = column.get_node_or_null("Tagline") as Label
+	if subtitle == null:
+		subtitle = Label.new()
+		subtitle.name = "Tagline"
+		subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		column.add_child(subtitle)
+		column.move_child(subtitle, 1)
 	subtitle.text = tr("UI_TITLE_TAGLINE")
-	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	column.add_child(subtitle)
-	column.move_child(subtitle, 1)
+	subtitle.add_theme_color_override("font_color", Color(_palette_color(&"outline", Color("4b3c47")), 0.82))
 	for child: Node in column.get_children():
 		if child is Button:
 			var button: Button = child as Button
@@ -51,6 +62,19 @@ func apply_chibi_style() -> void:
 			elif button.text == tr("UI_MAIN_EXIT"):
 				icon = &"close"
 			UiIcons.decorate(button, icon)
+	call_deferred("_focus_primary_control")
+
+func _process(delta: float) -> void:
+	_logo_phase += delta
+	if _title_logo == null or not _title_logo.is_visible_in_tree():
+		return
+	_title_logo.pivot_offset = _title_logo.size * 0.5
+	var scale_amount: float = 1.0 + sin(_logo_phase * 1.45) * 0.012
+	_title_logo.scale = Vector2(scale_amount, scale_amount)
+
+func _on_visibility_changed() -> void:
+	if visible:
+		call_deferred("_focus_primary_control")
 
 func configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable) -> void:
 	_new_game_callback = new_game_callback
@@ -152,10 +176,12 @@ func _show_new_game_fields() -> void:
 		return
 	_name_box.visible = true
 	_set_main_actions_visible(false)
+	call_deferred("_focus_player_name")
 
 func _hide_new_game_fields() -> void:
 	_name_box.hide()
 	_set_main_actions_visible(true)
+	call_deferred("_focus_primary_control")
 
 func _submit_new_game() -> void:
 	appearance_selected.emit(get_appearance_selection())
@@ -169,6 +195,8 @@ func _submit_new_game() -> void:
 func _toggle_settings() -> void:
 	_hide_new_game_fields()
 	_settings_box.visible = not _settings_box.visible
+	if _settings_box.visible:
+		call_deferred("_focus_settings")
 
 func get_appearance_selection() -> Dictionary:
 	return _normalize_appearance_selection({
@@ -243,3 +271,34 @@ func _add_slider(parent: VBoxContainer, label: String, value: float, callback: C
 	slider.value_changed.connect(callback)
 	row.add_child(slider)
 	parent.add_child(row)
+
+func _focus_primary_control() -> void:
+	if not visible or _name_box == null or _settings_box == null:
+		return
+	if _name_box.visible:
+		_focus_player_name()
+		return
+	if _settings_box.visible:
+		_focus_settings()
+		return
+	var new_game: Button = get_node_or_null("MarginContainer/Column/NewGame") as Button
+	if new_game != null:
+		new_game.grab_focus()
+
+func _focus_player_name() -> void:
+	if visible and _name_box != null and _name_box.visible and _player_name != null:
+		_player_name.grab_focus()
+
+func _focus_settings() -> void:
+	if not visible or _settings_box == null or not _settings_box.visible:
+		return
+	var language: Control = _settings_box.get_child(0) as Control if _settings_box.get_child_count() > 0 else null
+	if language != null:
+		language.grab_focus()
+
+func _palette_color(role: StringName, fallback: Color) -> Color:
+	var palette: Resource = ChibiMaterialFactory.get_palette()
+	if palette == null:
+		return fallback
+	var value: Variant = palette.call("get_color", role)
+	return value if value is Color else fallback

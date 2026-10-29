@@ -34,6 +34,7 @@ var _seconds_since_dirty_save: float = 0.0
 var _save_dirty: bool = false
 var weather_state: Object
 var ui_coordinator: UiCoordinator
+var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector3
 var crop_inspector: CropInspector
@@ -155,6 +156,9 @@ func _ready() -> void:
 	title_backdrop.menu = start_menu
 	add_child(title_backdrop)
 	move_child(title_backdrop, 1)
+	chibi_ui_motion = ChibiUiMotion.new()
+	add_child(chibi_ui_motion)
+	chibi_ui_motion.configure(self)
 	presentation = WorldPresentation.new()
 	add_child(presentation)
 	presentation.configure(self)
@@ -165,6 +169,8 @@ func _ready() -> void:
 		call_deferred("_capture_chibi_farming")
 	elif OS.get_cmdline_user_args().has("--capture-chibi-world"):
 		call_deferred("_capture_chibi_world")
+	elif OS.get_cmdline_user_args().has("--capture-chibi-ui"):
+		call_deferred("_capture_chibi_ui")
 
 func _on_day_started(_day_index: int) -> void:
 	weather_state.call("advance_day", GameClock.day_index)
@@ -476,3 +482,55 @@ func _capture_chibi_world() -> void:
 	print("[world_scene_capture] metrics viewport=%dx%d frame_fps=%.1f monitor_fps=%.1f draw_calls=%d objects=%d" % [int(viewport_size.x), int(viewport_size.y), measured_fps, fps_average, draw_calls, objects])
 	print("[world_scene_capture] wrote %s/chibi_world_main_scene.png" % output_directory)
 	get_tree().quit()
+
+func _capture_chibi_ui() -> void:
+	# Review-only UI capture: it neither loads nor writes a player save slot.
+	_game_started = false
+	GameClock.paused = true
+	GameClock.set_time(10, 30)
+	weather_state.call("force_weather", &"sunny")
+	tutorial_panel.hide()
+	npc_system.close_panels()
+	world.player.global_position = _spawn_position
+	world.player.movement_enabled = false
+	world.interaction_prompt.hide()
+	start_menu.show()
+	for frame_index: int in range(16):
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+	if not _save_chibi_ui_capture("chibi_ui_title.png"):
+		get_tree().quit(1)
+		return
+	start_menu.hide()
+	_game_started = true
+	world.player.show()
+	for frame_index: int in range(120):
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+	if not _save_chibi_ui_capture("chibi_ui_hud.png"):
+		get_tree().quit(1)
+		return
+	var draw_calls: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+	var objects: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME))
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	print("[ui_scene_capture] metrics viewport=%dx%d fps=%.1f draw_calls=%d objects=%d" % [int(viewport_size.x), int(viewport_size.y), Performance.get_monitor(Performance.TIME_FPS), draw_calls, objects])
+	print("[ui_scene_capture] wrote screenshots/chibi-ui/chibi_ui_title.png and chibi_ui_hud.png")
+	get_tree().quit()
+
+func _save_chibi_ui_capture(file_name: String) -> bool:
+	var output_directory: String = "res://screenshots/chibi-ui"
+	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
+	if directory_result != OK:
+		printerr("[ui_scene_capture] cannot create output directory: %s" % error_string(directory_result))
+		return false
+	var screenshot: Image = get_viewport().get_texture().get_image()
+	if screenshot == null or screenshot.is_empty():
+		printerr("[ui_scene_capture] main-scene capture is empty")
+		return false
+	if screenshot.get_format() != Image.FORMAT_RGBA8:
+		screenshot.convert(Image.FORMAT_RGBA8)
+	var save_result: Error = screenshot.save_png("%s/%s" % [output_directory, file_name])
+	if save_result != OK:
+		printerr("[ui_scene_capture] cannot save %s: %s" % [file_name, error_string(save_result)])
+		return false
+	return true
