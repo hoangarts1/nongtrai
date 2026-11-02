@@ -21,4 +21,4 @@ func test_required_input_actions_exist() -> void:
 
 func test_required_physics_layer_names_exist() -> void:
 	for index: int in range(REQUIRED_LAYERS.size()):
-		assert_eq(ProjectSettings.get_setting("layer_names/3d_physics/layer_%d" % (index + 1)), REQUIRED_LAYERS[index])
+		assert_eq(ProjectSettings.get_setting("layer_names/2d_physics/layer_%d" % (index + 1)), REQUIRED_LAYERS[index])

@@ -136,6 +136,8 @@ func _init() -> void:
 		"res://data/quests/quest_turnip_delivery.tres"
 	]
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_isometric_world_config(preload("res://data/isometric_world_config.tres"))
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
 	if errors.size() == 0:

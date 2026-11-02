@@ -1,29 +1,45 @@
-## CameraRig — smooth orthographic follow with a fixed map-safe center.
+## CameraRig — follows the player with its child Camera2D; handles documented zoom actions.
 ## API:
-##   func set_target(target_node: Node3D) -> void
+##   func set_target(target_node: Player) -> void
 class_name CameraRig
-extends Node3D
+extends Node
 
-@export var follow_speed: float = 6.0
-@export var map_min: Vector2 = Vector2(-12.0, -12.0)
-@export var map_max: Vector2 = Vector2(12.0, 12.0)
-@export var camera_center_min: Vector2 = Vector2(-3.0, -3.0)
-@export var camera_center_max: Vector2 = Vector2(3.0, 3.0)
+const CONFIG: IsometricWorldConfig = preload("res://data/isometric_world_config.tres")
+var _target: Player
+var _zoom_index: int = CONFIG.zoom_index
+var _center: Vector2
 
-var _target: Node3D
-
-func set_target(target_node: Node3D) -> void:
+func set_target(target_node: Player) -> void:
 	_target = target_node
-	global_position = _safe_center(_target.global_position)
+	_center = _safe_center(target_node.global_position)
+	_apply_camera()
+	_target.camera.reset_smoothing()
+	_target.camera.force_update_scroll()
 
 func _process(delta: float) -> void:
 	if _target == null:
 		return
-	var target_position: Vector3 = _safe_center(_target.global_position)
-	var blend: float = 1.0 - exp(-follow_speed * delta)
-	global_position = global_position.lerp(target_position, blend)
+	_center = _center.lerp(_safe_center(_target.global_position), 1.0 - exp(-CONFIG.camera_follow_speed * delta))
+	_apply_camera()
 
-func _safe_center(target_position: Vector3) -> Vector3:
-	var center_x: float = clampf(target_position.x, camera_center_min.x, camera_center_max.x)
-	var center_z: float = clampf(target_position.z, camera_center_min.y, camera_center_max.y)
-	return Vector3(center_x, 0.0, center_z)
+func _unhandled_input(event: InputEvent) -> void:
+	if _target == null or not _target.movement_enabled:
+		return
+	var step: int = 0
+	if event.is_action_pressed("camera_zoom_in"):
+		step = 1
+	elif event.is_action_pressed("camera_zoom_out"):
+		step = -1
+	if step == 0:
+		return
+	_zoom_index = clampi(_zoom_index + step, 0, CONFIG.zoom_levels.size() - 1)
+	_apply_camera()
+	get_viewport().set_input_as_handled()
+
+func _safe_center(point: Vector2) -> Vector2:
+	return point.clamp(CONFIG.camera_center_min, CONFIG.camera_center_max) + CONFIG.camera_offset
+
+func _apply_camera() -> void:
+	_target.camera.global_position = _center
+	_target.camera.zoom = Vector2.ONE * CONFIG.zoom_levels[_zoom_index]
+	_target.camera.force_update_scroll()

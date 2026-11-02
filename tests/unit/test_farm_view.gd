@@ -5,12 +5,12 @@ func test_farm_view_builds_visible_cells_and_updates_crop_visual() -> void:
 	var main: Node = scene.instantiate()
 	get_tree().root.add_child(main)
 	await get_tree().process_frame
-	var farm_view: Node3D = main.get_node("GrayBoxWorld/FarmView")
-	var cell_view: MeshInstance3D = farm_view.call("get_cell_view", Vector2i(0, 0)) as MeshInstance3D
-	var crop_view: MeshInstance3D = farm_view.call("get_crop_view", Vector2i(0, 0)) as MeshInstance3D
+	var farm_view: Node2D = main.get_node("GrayBoxWorld/WorldCanvas/FarmView")
+	var cell_view: Polygon2D = farm_view.call("get_cell_view", Vector2i(0, 0)) as Polygon2D
+	var crop_view: Sprite2D = farm_view.call("get_crop_view", Vector2i(0, 0)) as Sprite2D
 	assert_not_null(cell_view)
 	assert_true(cell_view.visible)
-	assert_not_null(cell_view.mesh)
+	assert_eq(cell_view.polygon.size(), 4)
 	assert_not_null(crop_view)
 	assert_false(crop_view.visible)
 	assert_true(main.farm_state.till_cell(Vector2i(0, 0)))
@@ -24,12 +24,12 @@ func test_crop_label_shows_growth_water_and_ready_states() -> void:
 	var main: Node = scene.instantiate()
 	get_tree().root.add_child(main)
 	await get_tree().process_frame
-	var farm_view: FarmView = main.get_node("GrayBoxWorld/FarmView") as FarmView
+	var farm_view: FarmView = main.get_node("GrayBoxWorld/WorldCanvas/FarmView") as FarmView
 	var cell: Vector2i = Vector2i(0, 0)
 	assert_true(main.farm_state.till_cell(cell))
 	assert_true(main.farm_state.plant_crop(cell, &"turnip"))
 	await get_tree().process_frame
-	var label: Label3D = farm_view.get_crop_label(cell)
+	var label: Label = farm_view.get_crop_label(cell)
 	assert_not_null(label)
 	assert_false(label.visible, "Tiny world text is replaced by click inspection")
 	assert_true(label.text.contains("Còn 2 ngày"))

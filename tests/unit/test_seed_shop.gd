@@ -8,17 +8,17 @@ func test_seed_shop_prompt_and_reach() -> void:
 	add_child_autofree(world)
 	await get_tree().process_frame
 	
-	var marker: Marker3D = world.get_node("SeedShopMarker")
+	var marker: Marker2D = world.get_node("WorldCanvas/SeedShopMarker")
 	assert_not_null(marker, "SeedShopMarker should exist in GrayBoxWorld")
 	
 	# Place player near seed shop
-	world.player.global_position = marker.global_position + Vector3(0.5, 0, 0)
+	world.player.global_position = marker.global_position + Vector2(4, 0)
 	world._update_interaction_prompt()
 	assert_true(world.interaction_prompt.visible)
 	assert_string_contains(world.interaction_prompt.get_node("Message").text, tr("UI_PROMPT_SHOP"))
 	
 	# Place player far away
-	world.player.global_position = Vector3(20, 0, 20)
+	world.player.move_to_cell(Vector2i(-9, -9))
 	world._update_interaction_prompt()
 	assert_false(world.interaction_prompt.visible)
 

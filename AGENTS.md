@@ -1,6 +1,7 @@
 # AGENTS.md — THE LIFE (Godot 4 cozy farming sim)
 
-Project: a cozy 2.5D farming and life sim. Godot 4.x, GDScript 2.0 with static typing, 3D scenes viewed through a fixed orthographic `Camera3D`.
+Project: a cozy 2D isometric farming and life sim. Godot 4.x, GDScript 2.0 with static typing, 64×32 px tiles and `CharacterBody2D` / `Camera2D` (D33).
+Migration status: ISO-1 has converted the active runtime to 2D; automated acceptance is recorded in PROGRESS and human editor playtest remains pending. Existing 3D source/art is retained as historical material, not silently deleted. See `docs/PROGRESS.md` for the current authorized scope.
 People: one human developer (product owner, tester, scene builder) and you (the programmer).
 Memory: you forget everything between sessions. `docs/PROGRESS.md` is your memory — keep it current.
 

@@ -1,50 +1,56 @@
-## NpcActor — placeholder and route interpolation; logical cells live in NpcSocialState.
+## NpcActor — 2D route interpolation; logical cells remain in NpcSocialState.
 class_name NpcActor
-extends Node3D
-
-const CHARACTER_CATALOG_PATH: String = "res://data/art/characters/chibi_character_catalog.tres"
+extends Node2D
 
 var state: NpcSocialState
 var data: NpcData
-var name_label: Label3D
-var avatar: ChibiAvatar
+var name_label: Label
+var avatar: PlaceholderAvatar2D
+var grid: IsometricGrid
 
 func configure(social: NpcSocialState, npc: NpcData) -> void:
 	state = social
 	data = npc
-	position = GridMath.cell_to_world(state.cells[data.npc_id])
-	avatar = ChibiAvatar.new()
+	reset_position()
+	avatar = PlaceholderAvatar2D.new()
 	avatar.name = "Avatar"
 	add_child(avatar)
-	var profile: Dictionary = _catalog_profile(data.npc_id)
-	if profile.is_empty():
-		avatar.configure(data.color, data.is_merchant)
+	var catalog: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
+	var appearance: Resource = catalog.call("get_npc_appearance", data.npc_id)
+	if appearance != null:
+		avatar.configure_profile(appearance.call("to_builder_dictionary"))
 	else:
-		avatar.configure_profile(profile)
-	name_label = Label3D.new()
-	name_label.position.y = 2.1
-	name_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	name_label.no_depth_test = true
-	name_label.font = preload("res://scenes/main/ui_theme.tres").default_font
-	name_label.font_size = 64
-	name_label.pixel_size = 0.008
-	name_label.outline_size = 10
+		avatar.configure(data.color, data.is_merchant)
+	name_label = Label.new()
+	name_label.position = Vector2(-70,-70)
+	name_label.size = Vector2(140,32)
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.theme = preload("res://scenes/main/ui_theme.tres")
+	name_label.add_theme_font_size_override("font_size", 13)
+	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	name_label.text = tr(String(data.display_name_key))
 	add_child(name_label)
 
 func _process(delta: float) -> void:
-	if state == null:
+	if state == null or grid == null:
 		return
 	var path: Array = state.paths.get(data.npc_id, [])
+	var motion: Vector2 = Vector2.ZERO
 	if not path.is_empty() and not GameClock.paused:
-		var target: Vector3 = GridMath.cell_to_world(path[0])
-		position = position.move_toward(target, data.move_speed * delta)
-		if position.is_equal_approx(target):
+		var target: Vector2 = grid.cell_to_global(path[0])
+		var edge_length: float = grid.cell_to_global(Vector2i.RIGHT).distance_to(grid.cell_to_global(Vector2i.ZERO))
+		var previous: Vector2 = global_position
+		global_position = global_position.move_toward(target, data.move_speed * edge_length * delta)
+		motion = global_position - previous
+		if global_position.is_equal_approx(target):
 			state.advance_step(data.npc_id)
+	if avatar != null:
+		avatar.set_motion(motion)
 	visible = not state.is_indoors(data.npc_id)
 
 func reset_position() -> void:
-	position = GridMath.cell_to_world(state.cells[data.npc_id])
+	if grid != null:
+		global_position = grid.cell_to_global(state.cells[data.npc_id])
 	visible = not state.is_indoors(data.npc_id)
 
 func play_talk() -> void:
@@ -53,19 +59,3 @@ func play_talk() -> void:
 
 func show_emotion(emotion_id: StringName) -> bool:
 	return avatar != null and avatar.show_emotion_bubble(emotion_id)
-
-func _catalog_profile(npc_id: StringName) -> Dictionary:
-	var catalog: Resource = load(CHARACTER_CATALOG_PATH) as Resource
-	if catalog == null or not catalog.has_method(&"get_npc_appearance"):
-		return {}
-	var appearance: Variant = catalog.call(&"get_npc_appearance", npc_id)
-	return _appearance_dictionary(appearance)
-
-func _appearance_dictionary(appearance: Variant) -> Dictionary:
-	if appearance is Dictionary:
-		return (appearance as Dictionary).duplicate(true)
-	if appearance is Resource and (appearance as Resource).has_method(&"to_builder_dictionary"):
-		var data_profile: Variant = (appearance as Resource).call(&"to_builder_dictionary")
-		if data_profile is Dictionary:
-			return (data_profile as Dictionary).duplicate(true)
-	return {}

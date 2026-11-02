@@ -11,7 +11,7 @@ func before_each() -> void:
 	GameClock.paused = true
 	_viewport = SubViewport.new()
 	_viewport.size = Vector2i(1152, 648)
-	_viewport.own_world_3d = true
+	_viewport.world_2d = World2D.new()
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child_autofree(_viewport)
 
@@ -56,7 +56,7 @@ func _game() -> Node:
 	main.start_menu.hide()
 	main.tutorial_panel.close_help()
 	main.ui_coordinator.close_active()
-	main.world.player.position = GridMath.cell_to_world(Vector2i(2, 2))
+	main.world.player.move_to_cell(Vector2i(2, 2))
 	return main
 
 func _drag(main: Node, cells: Array[Vector2i]) -> void:
@@ -81,7 +81,7 @@ func _drag(main: Node, cells: Array[Vector2i]) -> void:
 	await _settle()
 
 func _point(main: Node, cell: Vector2i) -> Vector2:
-	return main.world.camera.unproject_position(GridMath.cell_to_world(cell) + Vector3(0.0, 0.06, 0.0))
+	return main.world.grid.cell_to_screen(cell)
 
 func _settle() -> void:
 	await get_tree().process_frame

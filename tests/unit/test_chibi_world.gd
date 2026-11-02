@@ -78,18 +78,16 @@ func test_c3_season_fx_observes_existing_clock_and_weather_within_cap() -> void:
 	await _settle()
 	assert_not_null(fx.get_node_or_null("SeasonalEffects/RainRipples"))
 	assert_lte(int(fx.call(&"get_active_effect_count")), cap)
-	var tree_crown: MeshInstance3D = presentation.get_world_art_root().get_node("C3Trees/EnvRoundTree_0/TreeCrown0") as MeshInstance3D
-	var material: ShaderMaterial = tree_crown.material_override as ShaderMaterial
 	var palette: Resource = load(PALETTE_PATH) as Resource
-	assert_not_null(material)
-	assert_not_null(material.shader)
-	assert_true(material.shader.resource_path.ends_with("chibi_foliage.gdshader"))
-	assert_eq(material.get_shader_parameter(&"base_color"), palette.call(&"get_color", &"foliage", &"summer"))
-	var cottage_wall: MeshInstance3D = main.world.get_node("House/CottageWalls") as MeshInstance3D
-	var cottage_material: StandardMaterial3D = cottage_wall.material_override as StandardMaterial3D
-	assert_not_null(cottage_material)
-	assert_eq(cottage_material.albedo_color, palette.call(&"get_color", &"wood", &"summer"))
-	assert_true(cottage_material.emission_enabled, "C3 uses a local readable override for the existing DayNightProfile world lighting")
+	var trees: int = 0
+	for child: Node in presentation.get_world_art_root().get_children():
+		if child is PlaceholderWorld2D and (child as PlaceholderWorld2D).kind == &"tree":
+			assert_eq((child as PlaceholderWorld2D).color,palette.call(&"get_color",&"foliage",&"summer"))
+			trees += 1
+	assert_gt(trees,0,"C3 catalogue placements retain safe 2D tree placeholders")
+	var cottage: PlaceholderWorld2D = main.world.objects.get_node("House/Placeholder") as PlaceholderWorld2D
+	assert_eq(cottage.color,palette.call(&"get_color",&"wood",&"summer"))
+	assert_true(cottage is Node2D,"Active scenery uses 2D placeholders; generated 3D catalogue audits above remain intact")
 
 func _settle() -> void:
 	await get_tree().process_frame

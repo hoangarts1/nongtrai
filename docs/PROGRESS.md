@@ -1,8 +1,248 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-10-30 (C4 chibi UI / M7 complete and tagged `chibi-ui`)
+Last updated: 2026-11-02 (ISO-1 active 2D runtime delivered; automated checks pass, human editor playtest pending)
 
 ## Current milestone
+
+`ISO-1 (2D isometric runtime)` — implementation delivered; final official runner passes 62/62 headless tests and 164/164 complete renderer tests, plus parse/data/main checks. Human editor playtest is pending. See the ISO-1 handoff below for the exact files, save compatibility, real output and manual tests. ISO-2 UI theme/gallery remains next, outside this code scope.
+
+## Previous milestone
+
+`ISO-0 (2D isometric migration specification)` — documentation delivered under the twelve-file scope approved by the owner's instruction “tôi đã bổ sung tài liệu ... bắt đầu đi”. D33–D35 supersede the old 3D target and stage later UI/data changes. No runtime script, scene, project setting, font, translation, domain object or save schema has changed. ISO-1 source work was subsequently approved by “oke tiếp tục”, with the explicit pause_menu.gd scope extension recorded below. The ISO-0 ROADMAP row stays in review for the human to tick.
+
+
+## ISO-1 handoff — active 2D runtime (2026-11-02)
+
+Acceptance delivered by automation:
+- Active Main gameplay tree has zero Node3D descendants. Player is CharacterBody2D with its child Camera2D; eight collision names moved to 2D, Jolt project override removed, 1152×648/canvas_items/keep configured.
+- Ground/Farmland share a generated 64×32 isometric Diamond Down TileSet. Cell picking, mouse position and screen/global round trips pass with negative cells, zoom/pan and a transformed layer. Grounded actor/crop/tree y-sort and swept house-footprint collision are checked.
+- FarmGridState, inventory/wallet, GameClock/day simulation, weather, NPC/social/merchant logic, crop values/yield, save v4, existing InputMap/autoloads/font remain in use. No domain file was changed. Physical GUI click, modal, farming drag/inspection, transaction, old-save and vi/en three-size layout regressions run in the complete suite.
+- ISO-1 is implemented and verified; human editor playtest is still pending, so ROADMAP ISO-1 remains in review. ISO-2 wooden Theme/fonts/gallery and later HUD/inventory/balance steps have not been started.
+
+Implementation diff summary:
+- Main/three scenes: CanvasLayer 1 keeps existing UI child paths; WorldCanvas 0 follows Camera2D. World children move under WorldCanvas; actors/crops/homes and passive art use Objects with nested y-sort. Typed main/world references replace active 3D APIs.
+- New data/view files: IsometricWorldConfig and two Resources own map/reach/zoom/speeds; IsometricGrid delegates projection to Godot; PlaceholderAvatar2D/PlaceholderWorld2D are replaceable art only.
+- Farm presentation: TileMapLayer terrain, Polygon2D soil decorations, cached Sprite2D growth textures, localized hidden Label status, transformed-sprite picking, transient bounded 2D effects. No growth or inventory authority moved into a view.
+- NPC views: state stays under NpcSystem; actors/homes render under Objects, exposed through its actors/homes dictionaries. Existing Vector3 location Resources and GridMath remain pure legacy logical adapters; no TileMapLayer enters DOMAIN.
+- Save compatibility: actual old v4 player.position.x/y/z is retained. The current 2D position resolves to a cell, saves its legacy center, and restores into the corresponding 2D cell. Old fractional offsets snap to a cell center; invalid numeric fields fall back to data-owned spawn and out-of-bounds cells clamp. SaveService/schema and golden saves were not edited.
+- PauseMenu's approved extra change replaces its old GrayBoxWorld/Player lookup with the typed GrayBoxWorld.player reference. WeatherFx listens to time_changed as well as weather/season, so direct set_time changes day/night effects immediately.
+- Test migration keeps archive-generated model/shader/animation audits. Only obsolete live 3D mesh/light/camera assertions are replaced by meaningful 2D state/picking/tint/canvas equivalents. Seven new tests cover migration-specific invariants. No test was skipped or weakened.
+- Runner: parse → validator → headless domain/2D suite → COMPLETE renderer GUT → main headless. The bounded process helper hides windows, isolates APPDATA/user data under TEMP, retains the native process handle and propagates engine failures reliably.
+
+Exact authored files created/modified (includes the earlier ISO-0 documentation carried in this working tree; twelve entries are new files including five generated .uid companions):
+```text
+AGENTS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CODE_PATTERNS.md
+docs/COLLISION_LAYERS.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/player.md
+project.godot
+scenes/main/main.tscn
+scenes/player/player.tscn
+scenes/world/gray_box_world.tscn
+scripts/core/data_validator.gd
+scripts/player/player.gd
+scripts/player/player_config.gd
+scripts/view/camera_rig.gd
+scripts/view/crop_presentation.gd
+scripts/view/debug_menu.gd
+scripts/view/farm_effects.gd
+scripts/view/farm_view.gd
+scripts/view/gray_box_world.gd
+scripts/view/main.gd
+scripts/view/npc_actor.gd
+scripts/view/npc_system.gd
+scripts/view/pause_menu.gd
+scripts/view/soil_presentation.gd
+scripts/view/tool_action_controller.gd
+scripts/view/weather_fx.gd
+scripts/view/world_presentation.gd
+tests/unit/test_chibi_characters.gd
+tests/unit/test_chibi_farming.gd
+tests/unit/test_chibi_world.gd
+tests/unit/test_crop_inspector.gd
+tests/unit/test_day_night.gd
+tests/unit/test_drag_farming.gd
+tests/unit/test_farm_layout.gd
+tests/unit/test_farm_view.gd
+tests/unit/test_game_feel.gd
+tests/unit/test_interaction_range.gd
+tests/unit/test_move_dir.gd
+tests/unit/test_project_config.gd
+tests/unit/test_seed_shop.gd
+tests/unit/test_shipping_bin.gd
+tests/unit/test_tool_action.gd
+tests/unit/test_weather.gd
+tests/unit/test_world_presentation.gd
+tools/run_godot_bounded.ps1
+tools/run_tests.bat
+tools/validate_data.gd
+data/isometric_world_config.tres
+data/player_2d_config.tres
+scripts/data/isometric_world_config.gd
+scripts/data/isometric_world_config.gd.uid
+scripts/view/isometric_grid.gd
+scripts/view/isometric_grid.gd.uid
+scripts/view/placeholder_avatar_2d.gd
+scripts/view/placeholder_avatar_2d.gd.uid
+scripts/view/placeholder_world_2d.gd
+scripts/view/placeholder_world_2d.gd.uid
+tests/unit/test_isometric_migration.gd
+tests/unit/test_isometric_migration.gd.uid
+```
+
+The owner's untracked the_life_prompt.md and docs/ui_reference PNGs remain inputs, not authored game assets. Godot's editor scan generated ordinary .png.import metadata beside the supplied references; no reference PNG was edited, renamed or used at runtime. Generated 3D assets/shaders/builders remain unchanged. Captures are ignored review outputs, not source edits. Full tracked patch: git diff -- AGENTS.md docs project.godot scenes scripts tests tools; inspect the twelve listed new files alongside it. No commit/push was run.
+
+Real final official runner output:
+```text
+[check_parse] OK
+[validate_data] PASS
+
+Headless domain/2D:
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             849
+Time              2.973s
+---- All tests passed! ----
+
+Complete renderer suite:
+Scripts              53
+Tests               164
+Passing Tests       164
+Asserts            5366
+Time              23.447s
+---- All tests passed! ----
+
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+```
+
+Run from project root: tools\run_tests.bat (GODOT can point to D:\godot\Godot_v4.7.2-stable_win64_console.exe). Logs: TEMP/the_life_parse.log.*, the_life_validate.log.*, the_life_headless.log.*, the_life_gut.log.*, the_life_main.log.*. The intentional missing-script runner probe returned exit 1, confirming failure propagation; its expected error log is separate (the_life_iso1_expected_failure.log.*), not a successful validation log.
+
+Final parse/validator/headless/full-suite/main/capture error-text scan: 0 matches for SCRIPT ERROR, Parse Error, Failed to load script or ERROR:. GUT still reports the same pre-existing two orphan Labels in test_inventory_ui and one in test_pause_menu as the ISO-0 baseline; the new migration test has no orphan warning. These are not claimed fixed or hidden. gdtoolkit lint was not run or installed.
+
+Visual review:
+- Normal Forward+/D3D12 capture flags produced screenshots/chibi-ui/chibi_ui_title.png and chibi_ui_hud.png, plus screenshots/chibi-farming/chibi_farming_main_scene.png. HUD and populated-farm captures were visually inspected at 1152×648: world is 2D with clear farm cells, grounded characters/buildings/trees and unchanged readable C4 UI. This is placeholder verification, not final mockup-art acceptance or a performance benchmark.
+- Existing capture flag/tool names remain for compatibility; they now capture the 2D main scene. Historical 3D lineup tools/assets remain available separately.
+- Capture logs: TEMP/the_life_iso1_capture.log.* and the_life_iso1_farming_capture.log.*.
+
+Manual editor steps / test cases:
+1. Stop an old running game, reload externally changed scenes if Godot prompts, open scenes/main/main.tscn and F5. No manual node construction, InputMap or Inspector change is required.
+2. Continue an existing v4 save and confirm inventory/coins/crops/social progress. The player's position restores to the center of its saved logical cell.
+3. WASD/arrows and Shift: movement follows screen axes; diagonals have no speed bonus in uncompressed movement space. Walk into a house blocker; it must stop/slide. Use = / - to zoom and check hover/click targeting at each level.
+4. Select a seed in inventory (I/Tab), hoe/plant/water reachable plots, inspect the top of a plant, drag water/harvest, and verify quantities. Full inventory must leave a harvestable crop in place.
+5. Near shop/bin use E; buy/sell and verify coins/items. Use existing debug visit for Minh, talk/deliver and verify journal/save progress. Change clock/weather: night tint/windows/rain follow real state; rain waters crops.
+6. I/H/J/Esc and actual mouse buttons: one modal at a time, no world action beneath a modal, Pause closes/unlocks correctly, HUD stays fixed while the camera moves. Sleep when allowed and reload; day/crop/season state must remain consistent.
+7. Compare vi/en and 1152×648, 1280×720, 1920×1080 as in automated layout coverage. Human gameplay acceptance and Gate A/B evidence remain outstanding.
+
+Assumptions/known limits:
+- Art is intentionally simple placeholder drawing/textures; detailed crops, seasonal critters, house lighting and final sprites remain replaceable. Current UI is still C4/Open Sans, not the new mockup Theme. Stamina remains absent/hidden.
+- Legacy NPC Resources and save wire coordinates still use Vector3 data, while the active gameplay tree has no 3D nodes. This is intentional compatibility, not an alternate rendering path.
+- New players use data-owned 2D movement/zoom/map values. Gameplay crop prices/timing/yield/capacity are untouched. Later tomato regrow/fertilizer/house-unlock requirements still need their own specification.
+- Automated captures do not substitute for the owner's editor playtest. No unapproved future milestone, package install, git commit or git push is included.
+
+Next: owner editor playtest of ISO-1; then define/approve ISO-2's UI resource/source allow list before building the shared Theme, font imports/components and gallery. Proposed commit: feat: migrate active gameplay to 2D isometric placeholders
+
+## ISO-0 acceptance, changes and verification (2026-11-02)
+
+- Acceptance delivered: reconcile old locked 3D rules with the requested 2D target; document scene/movement/grid/collision/UI boundaries; account for sixteen mockups; preserve current runtime API truth; define the staged migration and a reviewable source-scope proposal. No new test file is needed for specification-only changes; existing checks were run as a baseline, not evidence of a completed 2D game.
+- Decisions: D33 selects 64×32 isometric tiles, CharacterBody2D/child Camera2D, TileMapLayer conversions, eight 2D collision layers and 1152×648 design size. D34 selects the wooden/paper shared Theme, placeholder strategy, later font/shortcut migration and hidden unsupported stamina UI. D35 stages the prompt's calendar/crop/price/inventory changes for their own tested tasks. Historical decisions are retained with superseded statuses where appropriate.
+- Exact modified files (all inside the approved scope): `AGENTS.md`; `docs/PROJECT_RULES.md`; `docs/DECISIONS.md`; `docs/ARCHITECTURE.md`; `docs/ROADMAP.md`; `docs/INPUT_MAP.md`; `docs/COLLISION_LAYERS.md`; `docs/CODE_PATTERNS.md`; `docs/SCENE_CONTRACTS/player.md`; `docs/SCENE_CONTRACTS/gray_box_world.md`; `docs/API_INDEX.md`; `docs/PROGRESS.md`.
+- Clear change summary: replace the normative 3D/XZ/camera-yaw target with a 2D target; retain legacy implementations as explicitly labelled migration references. Add ISO-0–ISO-7 sequencing and future acceptance. Separate current InputMap/API tables from planned bindings/types; preserve DOMAIN and save ownership. Correct the player contract's stale config path: the actual class is `scripts/player/player_config.gd`; `data/player_config.tres` does not exist. Full patch is reviewable with `git diff -- AGENTS.md docs` (reference PNGs and the owner's untracked prompt are untouched).
+- Manual editor steps for ISO-0: none. Do not change project settings/scenes piecemeal to the target before ISO-1 code lands. After ISO-1, editor/manual acceptance must cover foot-level sorting/collision, picking at negative cells/zoom, WASD/Shift, modal input locks, farm planting/watering/harvest, full inventory, shop/bin/NPC interaction, sleep and v4 save/load.
+- Known limits: selected new font files/licenses are not imported/verified yet; final frame/icon/sprite PNG assets are not supplied (use placeholders). Tomato regrow interval, fertilizer behavior and house-level unlock integration still need specification in ISO-6. Existing autoload count/schema documentation has historical differences from runtime; preserve actual registered autoloads during ISO-1 rather than performing an unrelated cleanup. Existing art tests include renderer-dependent assertions, so a full dummy-renderer headless run is currently not viable.
+
+### Supplied reference inventory (read-only)
+
+The owner supplied all files below. Header inspection found each numbered screen 01–15 is **2304×1296** (exactly 2× the 1152×648 design frame). Overview is **2536×3246**. No resize/rename is needed; layout measurements use the design frame. Overview and UI kit were visually inspected during ISO-0; other individual screens still require visual review in their corresponding implementation task. Mockups are references only, not runtime textures.
+
+```text
+docs/ui_reference/00-tong-quan-giao-dien.png
+docs/ui_reference/01-menu-chinh.png
+docs/ui_reference/02-tao-nhan-vat.png
+docs/ui_reference/03-trong-game-ban-ngay.png
+docs/ui_reference/04-trong-game-dem-mua.png
+docs/ui_reference/05-ban-tin-sang.png
+docs/ui_reference/06-tui-do.png
+docs/ui_reference/07-nhan-vat.png
+docs/ui_reference/08-so-nhiem-vu.png
+docs/ui_reference/09-lich-su-kien.png
+docs/ui_reference/10-cua-hang.png
+docs/ui_reference/11-nang-cap-nha.png
+docs/ui_reference/12-hoi-thoai.png
+docs/ui_reference/13-ket-thuc-ngay.png
+docs/ui_reference/14-tam-dung-cai-dat.png
+docs/ui_reference/15-bo-ui-kit.png
+```
+
+### Real ISO-0 baseline results
+
+Engine: `D:\godot\Godot_v4.7.2-stable_win64_console.exe` (version `4.7.2.stable.official.ed1daf0bf`). Parse and validator used an isolated APPDATA under `%TEMP%/the_life_iso0_appdata`; GUT used the same isolated user data to avoid touching player saves/settings. Main headless smoke subsequently ran against the unchanged main scene. No commit/push was run.
+
+Initial sandbox parse/validator emitted `ERROR: Failed to read the root certificate store.`; the same commands rerun with approved escalation exited 0 without this error. Real validator output:
+
+```text
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[validate_data] PASS
+```
+
+Headless GUT was attempted with `--headless --path . --script addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gprefix=test_ -gexit`. It did NOT complete: existing `test_generated_shaders_and_materials_load_and_bind_to_a_viewport` in `test_chibi_art_foundation.gd` waits for `RenderingServer.frame_post_draw`, which the dummy renderer does not deliver. Only the matching test process was stopped after verifying its command line; the pre-existing editor was left alone. No test was skipped, weakened or changed. This is a harness limitation, not a headless pass.
+
+Full GUT was rerun with the configured normal Forward+ renderer, hidden window and 120-second bound. Real final output (exit 0):
+
+```text
+Scripts              52
+Tests               157
+Passing Tests       157
+Asserts            5146
+Time              30.372s
+---- All tests passed! ----
+```
+
+Logs: `%TEMP%/the_life_iso0_rendered.stdout`, `.stderr`; interrupted headless log: `%TEMP%/the_life_iso0_gut.log`. `--headless --path . --quit` and `--headless --path . --quit-after 120` both exited 0 outside the sandbox with no script/parse/error text. No manual gameplay or visual 2D test is claimed. Final review: `git diff --check` exit 0; rendered GUT logs have 0 matches for `SCRIPT ERROR|Parse Error|Failed to load script|ERROR:` and 1 all-tests-passed summary. Exactly the twelve approved documentation files are modified; the owner's sixteen reference images and `the_life_prompt.md` remain untracked and untouched. Suggested ISO-0 commit: `docs: specify 2D isometric migration and mockup UI stages`.
+
+### ISO-1 source plan / approved ALLOW_LIST (2026-11-02)
+
+Source scope was authorized by the owner's “oke tiếp tục”; the owner additionally approved scripts/view/pause_menu.gd through the scope-extension question. This records the plan that was executed. Convert active gameplay scenes in place, preserve their resource paths and UI/modal entry points, replace active 3D art with code placeholders, and leave generated art/review archives intact. Keep logical farm cells and existing services. Adapt NPC location conversion explicitly without giving TileMapLayer to domain routing; preserve save v4 unless the actual payload requires migration. Do not change crop balance, inventory capacity, fonts, shortcuts or final mockup layout in ISO-1.
+
+Approved source scope (brace groups enumerate files; `tests/unit/**` permits only relevant regression updates/additions, never skipping or weakening assertions):
+
+```text
+project.godot
+scenes/main/main.tscn
+scenes/world/gray_box_world.tscn
+scenes/player/player.tscn
+scripts/player/{player,player_config}.gd
+scripts/util/grid_math.gd
+scripts/data/{world_locations,isometric_world_config}.gd
+scripts/domain/quests/npc_schedule.gd
+scripts/core/data_validator.gd
+scripts/view/{main,gray_box_world,camera_rig,farm_view,crop_presentation,soil_presentation,farm_effects,tool_action_controller,tool_drag_stroke,debug_menu,npc_actor,npc_system,world_presentation,weather_fx,isometric_grid,placeholder_avatar_2d,placeholder_world_2d}.gd
+scripts/view/pause_menu.gd (explicit owner-approved scope extension)
+data/{isometric_world_config,player_2d_config}.tres
+data/npcs/phase8_world.tres
+tools/{run_tests.bat,check_parse.bat,run_godot_bounded.ps1,validate_data.gd}
+tests/unit/**
+Godot-generated .uid companions for new source/test files above
+the same twelve documentation files listed in ISO-0
+```
+
+The isometric config/grid/placeholder paths above were approved as new files and now exist. Implemented exports/methods/node contracts are recorded in API_INDEX and the scene contracts. Existing `world_art_factory`, chibi mesh/face/bubble/seasonal-3D helpers and generated scenes can remain historical tools; active world/player/NPC code must stop instantiating them. If source inspection proves another file is required, request a scope extension before modifying it.
+
+Acceptance: no Node3D in the active gameplay tree; correct 64×32 map/local round trips including negative cells and camera/layer transforms; normalized screen-relative movement with vertical ×0.5 and 2D collisions; matching eight layer names; deterministic farming/weather/NPC behavior; real physical GUI click/modal safety; old save round trip; data gate + parse + main smoke; domain tests headless and the complete renderer-dependent GUT suite on Forward+. Fix the test-runner separation explicitly rather than pretending full headless GUT can currently finish or silently skipping visual tests.
+
+Risk: this touches 3D-typed view signatures and interaction/picking tests across several systems. Update expectations only where 2D intentionally replaces a 3D presentation detail; keep state, transaction, deterministic/golden and input assertions. Manual 2D gameplay review remains a human acceptance step. No git commit/push, archive deletion, package installation or unrelated refactor is authorized by this scope.
+
+## Historical C4 status
 `C3 (Chibi world)` — complete and tagged `chibi-world`. It adds only generated view-layer world/building/seasonal presentation while preserving all interaction anchors, collision, navigation, crop picking, weather/day-night authority and save v4.
 
 `C4 (Chibi UI / M7)` — complete and tagged `chibi-ui`. It adds a C0-palette pastel pill Theme, compact icon-first HUD preservation, themed native tooltips, code-drawn tool-aware cursor, keyboard focus and restrained hover/press/open bounce. It preserves the readable map-first HUD, real GUI input routing, all current localization, and has no save/schema/input-domain change.

@@ -29,7 +29,7 @@ func test_weather_hud_and_rain_fx_are_inside_world_and_update() -> void:
 	weather.call("force_weather", &"rain")
 	await get_tree().process_frame
 	var hud: Label = main.get_node("WeatherHud") as Label
-	var rain: GPUParticles3D = main.get_node("GrayBoxWorld/WeatherFx/RainParticles") as GPUParticles3D
+	var rain: Node2D = main.get_node("GrayBoxWorld/WorldCanvas/WeatherFx/RainParticles") as Node2D
 	assert_true(hud.visible)
 	assert_true(hud.text.contains("Mưa"))
 	assert_true(rain.visible)

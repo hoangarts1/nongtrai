@@ -1,12 +1,12 @@
 ## Main — wires shared debug tooling to the active gray-box world.
-extends Node3D
+extends CanvasLayer
 
 @onready var world: GrayBoxWorld = $GrayBoxWorld
 @onready var debug_menu: DebugMenu = $DebugMenu
 @onready var inventory_panel: InventoryPanel = $InventoryPanel
-@onready var hud_button_bar = $HudButtonBar
-@onready var hotbar_panel = $HotbarPanel
-@onready var farm_view: Node3D = $GrayBoxWorld/FarmView
+@onready var hud_button_bar: HudButtonBar = $HudButtonBar
+@onready var hotbar_panel: HotbarPanel = $HotbarPanel
+@onready var farm_view: FarmView = $GrayBoxWorld/WorldCanvas/FarmView
 @onready var tool_controller: Node = $ToolActionController
 @onready var tutorial_panel: Node = $TutorialPanel
 @onready var quest_panel: Node = $QuestPanel
@@ -16,13 +16,13 @@ extends Node3D
 @onready var feedback: Label = $FeedbackPopup
 @onready var audio_service: Node = $AudioService
 @onready var weather_hud: Label = $WeatherHud
-@onready var weather_fx: Node3D = $GrayBoxWorld/WeatherFx
+@onready var weather_fx: Node2D = $GrayBoxWorld/WorldCanvas/WeatherFx
 @onready var wallet_hud: Label = $WalletHud
-@onready var shipping_bin_panel = $ShippingBinPanel
-@onready var seed_shop_panel = $SeedShopPanel
+@onready var shipping_bin_panel: ShippingBinPanel = $ShippingBinPanel
+@onready var seed_shop_panel: SeedShopPanel = $SeedShopPanel
 @onready var npc_system: NpcSystem = $NpcSystem
 const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
-var inventory
+var inventory: InventoryState
 var farm_state: FarmGridState
 var day_simulator: Object
 var quest_state: Variant
@@ -36,7 +36,7 @@ var weather_state: Object
 var ui_coordinator: UiCoordinator
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
-var _spawn_position: Vector3
+var _spawn_position: Vector2
 var crop_inspector: CropInspector
 var presentation: WorldPresentation
 var _pending_appearance: Dictionary = {}
@@ -93,7 +93,8 @@ func _ready() -> void:
 	if get_tree().current_scene == self and SaveService.load_game().is_empty():
 		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
 		inventory.add_item(starter_seed, 10)
-	farm_view.call("configure", farm_state)
+	farm_view.setup(world)
+	farm_view.configure(farm_state)
 	feedback.configure(inventory)
 	shipping_bin_panel.configure(inventory, wallet, world.player, feedback)
 	world.shipping_bin_interacted.connect(shipping_bin_panel.open)
@@ -193,13 +194,7 @@ func _save_game_to_slot(slot: int) -> void:
 		return
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
-		"player": {
-			"position": {
-				"x": world.player.global_position.x,
-				"y": world.player.global_position.y,
-				"z": world.player.global_position.z
-			}
-		},
+		"player": {"position": _legacy_player_position()},
 		"inventory": inventory.serialize(),
 		"farm": farm_state.serialize(),
 		"quests": quest_state.serialize(),
@@ -283,14 +278,22 @@ func _load_payload(payload: Dictionary) -> void:
 	profile["appearance"] = _pending_appearance.duplicate(true)
 	_apply_player_appearance()
 	_game_started = true
-	var player_data: Dictionary = payload.get("player", {})
-	var position_data: Dictionary = player_data.get("position", {})
+	var raw_player: Variant = payload.get("player", {})
+	var player_data: Dictionary = raw_player if raw_player is Dictionary else {}
+	var raw_position: Variant = player_data.get("position", {})
+	var position_data: Dictionary = raw_position if raw_position is Dictionary else {}
 	if not position_data.is_empty():
-		world.player.global_position = Vector3(
-			float(position_data.get("x", world.player.global_position.x)),
-			float(position_data.get("y", world.player.global_position.y)),
-			float(position_data.get("z", world.player.global_position.z))
-		)
+		# v4 stores legacy XZ coordinates. Resolve a logical cell, never load pixels.
+		var legacy: Vector3 = GridMath.cell_to_world(world.CONFIG.spawn_cell)
+		var saved_x: Variant = position_data.get("x", legacy.x)
+		var saved_z: Variant = position_data.get("z", legacy.z)
+		if (saved_x is int or saved_x is float) and is_finite(float(saved_x)):
+			legacy.x = float(saved_x)
+		if (saved_z is int or saved_z is float) and is_finite(float(saved_z)):
+			legacy.z = float(saved_z)
+		var cell: Vector2i = GridMath.world_to_cell(legacy)
+		cell = cell.clamp(world.CONFIG.player_region.position, world.CONFIG.player_region.end - Vector2i.ONE)
+		world.player.move_to_cell(cell)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:
@@ -318,219 +321,76 @@ func _show_toast(message: String) -> void:
 	var timer: SceneTreeTimer = get_tree().create_timer(1.5)
 	timer.timeout.connect(func() -> void: toast.visible = false)
 
-func _capture_chibi_characters() -> void:
-	_game_started = true
+func _legacy_player_position() -> Dictionary:
+	# Keep the existing v4 wire schema; view pixels never enter a save.
+	var legacy: Vector3 = GridMath.cell_to_world(world.get_player_cell())
+	return {"x": legacy.x, "y": legacy.y, "z": legacy.z}
+
+func _prepare_capture() -> void:
+	_game_started = false
 	start_menu.hide()
 	tutorial_panel.hide()
-	# This is an opt-in review-only arrangement inside the real main scene. It
-	# never opens a save and the process exits after the capture.
+	npc_system.close_panels()
 	GameClock.set_time(11, 0)
 	weather_state.call("force_weather", &"sunny")
-	world.player.global_position = _spawn_position
+	GameClock.paused = true
 	world.player.movement_enabled = false
 	world.interaction_prompt.hide()
-	world.camera.size = 9.0
-	GameClock.paused = true
-	var player_avatar: ChibiAvatar = presentation.get_player_avatar()
-	if player_avatar != null:
-		player_avatar.set_facing_direction(Vector3(-1.0, 0.0, -1.0))
-	var showcase_offsets: Dictionary = {
-		&"minh": Vector3(-1.75, 0.0, 1.75),
-		&"linh": Vector3(1.75, 0.0, -1.75)
-	}
-	for npc_id: StringName in showcase_offsets:
-		var actor: NpcActor = npc_system.actors.get(npc_id) as NpcActor
-		if actor == null:
-			continue
-		# Keep both existing gameplay anchors visible for this one review frame.
-		# The normal schedule loop otherwise correctly sends Minh indoors at 11:00.
-		npc_system.state.targets[npc_id] = &"capture_showcase"
-		npc_system.state.paths[npc_id] = []
-		actor.visible = true
-		actor.global_position = world.player.global_position + (showcase_offsets[npc_id] as Vector3)
-		actor.name_label.hide()
-		actor.avatar.set_facing_direction(Vector3(1.0, 0.0, 1.0))
-		var home: Node3D = npc_system.get_node_or_null("Home_%s" % String(npc_id)) as Node3D
-		if home != null:
-			for child: Node in home.get_children():
-				if child is Label3D:
-					child.hide()
-	for frame_index: int in range(5):
-		await get_tree().process_frame
-		RenderingServer.force_draw(false)
-		await RenderingServer.frame_post_draw
-	var output_directory: String = "res://screenshots/chibi-characters"
-	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
-	if directory_result != OK:
-		printerr("[character_scene_capture] cannot create output directory: %s" % error_string(directory_result))
-		get_tree().quit(1)
-		return
-	var screenshot: Image = get_viewport().get_texture().get_image()
-	if screenshot == null or screenshot.is_empty():
-		printerr("[character_scene_capture] main-scene capture is empty")
-		get_tree().quit(1)
-		return
-	if screenshot.get_format() != Image.FORMAT_RGBA8:
-		screenshot.convert(Image.FORMAT_RGBA8)
-	var save_result: Error = screenshot.save_png("%s/chibi_characters_main_scene.png" % output_directory)
-	if save_result != OK:
-		printerr("[character_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
-		get_tree().quit(1)
-		return
-	print("[character_scene_capture] wrote %s/chibi_characters_main_scene.png" % output_directory)
+
+func _capture_chibi_characters() -> void:
+	_prepare_capture()
+	await _capture_frame("res://screenshots/chibi-characters", "chibi_characters_main_scene.png")
 	get_tree().quit()
 
 func _capture_chibi_farming() -> void:
-	# This opt-in capture constructs an in-memory farm-art showcase only. It
-	# neither reads nor writes a save slot and exits immediately after rendering.
-	_game_started = false
-	start_menu.hide()
-	tutorial_panel.hide()
-	npc_system.close_panels()
-	GameClock.set_time(11, 0)
-	weather_state.call("force_weather", &"sunny")
-	GameClock.paused = true
-	world.player.global_position = GridMath.cell_to_world(Vector2i(2, 2))
-	world.player.movement_enabled = false
-	world.player.hide()
-	world.interaction_prompt.hide()
-	world.camera.size = 7.4
+	_prepare_capture()
 	farm_state.reset()
 	var crop_ids: PackedStringArray = PackedStringArray(["turnip", "spring_carrot", "spring_pea", "summer_tomato", "summer_corn", "autumn_wheat", "autumn_pumpkin", "winter_radish", "winter_cabbage"])
-	var crop_cells: Array[Vector2i] = [Vector2i(0, 0), Vector2i(2, 0), Vector2i(4, 0), Vector2i(0, 2), Vector2i(2, 2), Vector2i(4, 2), Vector2i(0, 4), Vector2i(2, 4), Vector2i(4, 4)]
 	for index: int in range(crop_ids.size()):
-		farm_state.till_cell(crop_cells[index])
-		farm_state.plant_crop(crop_cells[index], StringName(crop_ids[index]))
+		var cell: Vector2i = Vector2i((index % 3) * 2, (index / 3) * 2)
+		farm_state.till_cell(cell)
+		farm_state.plant_crop(cell, StringName(crop_ids[index]))
 	for _day: int in range(4):
-		for cell: Vector2i in crop_cells:
-			farm_state.water_cell(cell)
+		farm_state.water_all_crops()
 		farm_state.advance_day()
-	for frame_index: int in range(5):
-		await get_tree().process_frame
-		RenderingServer.force_draw(false)
-		await RenderingServer.frame_post_draw
-	var output_directory: String = "res://screenshots/chibi-farming"
-	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
-	if directory_result != OK:
-		printerr("[farming_scene_capture] cannot create output directory: %s" % error_string(directory_result))
-		get_tree().quit(1)
-		return
-	var screenshot: Image = get_viewport().get_texture().get_image()
-	if screenshot == null or screenshot.is_empty():
-		printerr("[farming_scene_capture] main-scene capture is empty")
-		get_tree().quit(1)
-		return
-	if screenshot.get_format() != Image.FORMAT_RGBA8:
-		screenshot.convert(Image.FORMAT_RGBA8)
-	var save_result: Error = screenshot.save_png("%s/chibi_farming_main_scene.png" % output_directory)
-	if save_result != OK:
-		printerr("[farming_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
-		get_tree().quit(1)
-		return
-	print("[farming_scene_capture] wrote %s/chibi_farming_main_scene.png" % output_directory)
+	await _capture_frame("res://screenshots/chibi-farming", "chibi_farming_main_scene.png")
 	get_tree().quit()
 
 func _capture_chibi_world() -> void:
-	# This opt-in capture observes the normal main-scene wiring only. It does
-	# not load or write a slot and quits after an in-memory screenshot.
-	_game_started = false
-	start_menu.hide()
-	tutorial_panel.hide()
-	npc_system.close_panels()
-	GameClock.set_time(10, 30)
-	weather_state.call("force_weather", &"sunny")
-	GameClock.paused = true
-	world.player.show()
-	world.player.global_position = _spawn_position
-	world.player.movement_enabled = false
-	world.interaction_prompt.hide()
-	world.camera.size = 18.0
-	var fps_total: float = 0.0
-	var fps_samples: int = 0
-	var sample_start_usec: int = Time.get_ticks_usec()
-	for frame_index: int in range(120):
-		await get_tree().process_frame
-		await RenderingServer.frame_post_draw
-		var fps: float = Performance.get_monitor(Performance.TIME_FPS)
-		if fps > 0.0:
-			fps_total += fps
-			fps_samples += 1
-	var output_directory: String = "res://screenshots/chibi-world"
-	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
-	if directory_result != OK:
-		printerr("[world_scene_capture] cannot create output directory: %s" % error_string(directory_result))
-		get_tree().quit(1)
-		return
-	var screenshot: Image = get_viewport().get_texture().get_image()
-	if screenshot == null or screenshot.is_empty():
-		printerr("[world_scene_capture] main-scene capture is empty")
-		get_tree().quit(1)
-		return
-	if screenshot.get_format() != Image.FORMAT_RGBA8:
-		screenshot.convert(Image.FORMAT_RGBA8)
-	var save_result: Error = screenshot.save_png("%s/chibi_world_main_scene.png" % output_directory)
-	if save_result != OK:
-		printerr("[world_scene_capture] cannot save main-scene capture: %s" % error_string(save_result))
-		get_tree().quit(1)
-		return
-	var sample_seconds: float = float(Time.get_ticks_usec() - sample_start_usec) / 1000000.0
-	var measured_fps: float = 120.0 / sample_seconds if sample_seconds > 0.0 else 0.0
-	var fps_average: float = fps_total / float(fps_samples) if fps_samples > 0 else 0.0
-	var draw_calls: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
-	var objects: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME))
-	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
-	print("[world_scene_capture] metrics viewport=%dx%d frame_fps=%.1f monitor_fps=%.1f draw_calls=%d objects=%d" % [int(viewport_size.x), int(viewport_size.y), measured_fps, fps_average, draw_calls, objects])
-	print("[world_scene_capture] wrote %s/chibi_world_main_scene.png" % output_directory)
+	_prepare_capture()
+	await _capture_frame("res://screenshots/chibi-world", "chibi_world_main_scene.png")
 	get_tree().quit()
 
 func _capture_chibi_ui() -> void:
-	# Review-only UI capture: it neither loads nor writes a player save slot.
-	_game_started = false
-	GameClock.paused = true
-	GameClock.set_time(10, 30)
-	weather_state.call("force_weather", &"sunny")
-	tutorial_panel.hide()
-	npc_system.close_panels()
-	world.player.global_position = _spawn_position
-	world.player.movement_enabled = false
-	world.interaction_prompt.hide()
+	_prepare_capture()
 	start_menu.show()
-	for frame_index: int in range(16):
-		await get_tree().process_frame
-		await RenderingServer.frame_post_draw
-	if not _save_chibi_ui_capture("chibi_ui_title.png"):
-		get_tree().quit(1)
-		return
+	await _capture_frame("res://screenshots/chibi-ui", "chibi_ui_title.png")
 	start_menu.hide()
-	_game_started = true
-	world.player.show()
-	for frame_index: int in range(120):
-		await get_tree().process_frame
-		await RenderingServer.frame_post_draw
-	if not _save_chibi_ui_capture("chibi_ui_hud.png"):
-		get_tree().quit(1)
-		return
-	var draw_calls: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
-	var objects: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME))
-	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
-	print("[ui_scene_capture] metrics viewport=%dx%d fps=%.1f draw_calls=%d objects=%d" % [int(viewport_size.x), int(viewport_size.y), Performance.get_monitor(Performance.TIME_FPS), draw_calls, objects])
-	print("[ui_scene_capture] wrote screenshots/chibi-ui/chibi_ui_title.png and chibi_ui_hud.png")
+	await _capture_frame("res://screenshots/chibi-ui", "chibi_ui_hud.png")
 	get_tree().quit()
 
+func _capture_frame(directory: String, file_name: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		printerr("[2d_capture] a graphics renderer is required")
+		get_tree().quit(1)
+		return
+	for _frame: int in range(20):
+		await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+	if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory)) != OK:
+		printerr("[2d_capture] cannot create capture directory")
+		get_tree().quit(1)
+		return
+	var screenshot: Image = get_viewport().get_texture().get_image()
+	if screenshot == null or screenshot.is_empty() or screenshot.save_png("%s/%s" % [directory, file_name]) != OK:
+		printerr("[2d_capture] could not save capture")
+		get_tree().quit(1)
+		return
+	print("[2d_capture] wrote %s/%s" % [directory, file_name])
+
 func _save_chibi_ui_capture(file_name: String) -> bool:
-	var output_directory: String = "res://screenshots/chibi-ui"
-	var directory_result: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
-	if directory_result != OK:
-		printerr("[ui_scene_capture] cannot create output directory: %s" % error_string(directory_result))
+	var directory: String = "res://screenshots/chibi-ui"
+	if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory)) != OK:
 		return false
 	var screenshot: Image = get_viewport().get_texture().get_image()
-	if screenshot == null or screenshot.is_empty():
-		printerr("[ui_scene_capture] main-scene capture is empty")
-		return false
-	if screenshot.get_format() != Image.FORMAT_RGBA8:
-		screenshot.convert(Image.FORMAT_RGBA8)
-	var save_result: Error = screenshot.save_png("%s/%s" % [output_directory, file_name])
-	if save_result != OK:
-		printerr("[ui_scene_capture] cannot save %s: %s" % [file_name, error_string(save_result)])
-		return false
-	return true
+	return screenshot != null and not screenshot.is_empty() and screenshot.save_png("%s/%s" % [directory,file_name]) == OK

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/view/gray_box_world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -6,164 +6,81 @@
 [ext_resource type="Script" path="res://scripts/components/interaction_prompt.gd" id="4_prompt"]
 [ext_resource type="Script" path="res://scripts/view/farm_view.gd" id="5_farm"]
 [ext_resource type="Script" path="res://scripts/view/weather_fx.gd" id="6_weather"]
-
-[sub_resource type="Environment" id="Environment_world"]
-background_mode = 1
-background_color = Color(0.28, 0.42, 0.56, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.7, 0.78, 0.9, 1)
-ambient_light_energy = 0.8
-
-[sub_resource type="StandardMaterial3D" id="Material_ground"]
-albedo_color = Color(0.278, 0.455, 0.235, 1)
-roughness = 0.93
-
-[sub_resource type="BoxMesh" id="Mesh_ground"]
-size = Vector3(24, 0.2, 24)
-material = SubResource("Material_ground")
-
-[sub_resource type="BoxShape3D" id="Shape_ground"]
-size = Vector3(24, 0.2, 24)
-
-[sub_resource type="StandardMaterial3D" id="Material_soil"]
-albedo_color = Color(0.38, 0.245, 0.135, 1)
-roughness = 0.91
-
-[sub_resource type="BoxMesh" id="Mesh_soil"]
-size = Vector3(6, 0.08, 6)
-material = SubResource("Material_soil")
-
-[sub_resource type="StandardMaterial3D" id="Material_house"]
-albedo_color = Color(0.52, 0.34, 0.2, 1)
-roughness = 1.0
-
-[sub_resource type="BoxMesh" id="Mesh_house"]
-size = Vector3(3, 2, 3)
-material = SubResource("Material_house")
-
-[sub_resource type="BoxMesh" id="Mesh_obstacle"]
-size = Vector3(1, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="Material_bin"]
-albedo_color = Color(0.48, 0.3, 0.15, 1)
-roughness = 1.0
-
-[sub_resource type="BoxMesh" id="Mesh_bin"]
-size = Vector3(1.2, 0.8, 1.2)
-material = SubResource("Material_bin")
-
-[sub_resource type="StandardMaterial3D" id="Material_shop"]
-albedo_color = Color(0.2, 0.45, 0.65, 1)
-roughness = 1.0
-
-[sub_resource type="BoxMesh" id="Mesh_shop"]
-size = Vector3(1.5, 1.5, 1.5)
-material = SubResource("Material_shop")
-
 [sub_resource type="StyleBoxFlat" id="Style_prompt"]
-bg_color = Color(0.04, 0.08, 0.06, 0.88)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.82, 0.95, 0.65, 1)
+bg_color = Color(0.1, 0.13, 0.08, 0.9)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
-[node name="GrayBoxWorld" type="Node3D"]
+[node name="GrayBoxWorld" type="Node2D"]
 script = ExtResource("1_world")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_world")
+[node name="WorldCanvas" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enabled = true
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-50, -30, 0)
-light_energy = 1.2
-shadow_enabled = true
+[node name="Ground" type="TileMapLayer" parent="WorldCanvas"]
+unique_name_in_owner = true
+z_index = -20
+y_sort_enabled = true
 
-[node name="Moon" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-25, 150, 0)
-light_color = Color(0.35, 0.45, 0.75, 1)
-light_energy = 0.2
-shadow_enabled = false
+[node name="Farmland" type="TileMapLayer" parent="WorldCanvas"]
+unique_name_in_owner = true
+z_index = -10
+y_sort_enabled = true
 
-[node name="Ground" type="StaticBody3D" parent="."]
-collision_layer = 1
-collision_mask = 0
+[node name="Objects" type="Node2D" parent="WorldCanvas"]
+unique_name_in_owner = true
+y_sort_enabled = true
 
-[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("Mesh_ground")
-position = Vector3(0, -0.1, 0)
+[node name="Player" parent="WorldCanvas/Objects" instance=ExtResource("2_player")]
+unique_name_in_owner = true
 
-[node name="GroundShape" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("Shape_ground")
-position = Vector3(0, -0.1, 0)
+[node name="House" type="Node2D" parent="WorldCanvas/Objects"]
 
-[node name="FarmPlot" type="MeshInstance3D" parent="."]
-mesh = SubResource("Mesh_soil")
-position = Vector3(3.0, 0.04, 3.0)
+[node name="HouseLight" type="PointLight2D" parent="WorldCanvas/Objects/House"]
+unique_name_in_owner = true
+visible = false
+color = Color(1, 0.7, 0.3, 1)
 
-[node name="FarmView" type="Node3D" parent="."]
-script = ExtResource("5_farm")
+[node name="ShippingBin" type="Node2D" parent="WorldCanvas/Objects"]
 
-[node name="WeatherFx" type="Node3D" parent="."]
-script = ExtResource("6_weather")
+[node name="SeedShop" type="Node2D" parent="WorldCanvas/Objects"]
 
-[node name="House" type="MeshInstance3D" parent="."]
-mesh = SubResource("Mesh_house")
-position = Vector3(11.0, 1, 10.0)
-
-[node name="HouseLight" type="OmniLight3D" parent="House"]
-light_color = Color(1, 0.55, 0.22, 1)
-light_energy = 0.0
-omni_range = 5.0
+[node name="Highlight" type="Polygon2D" parent="WorldCanvas"]
+unique_name_in_owner = true
+z_index = -5
 visible = false
 
-[node name="BedMarker" type="Marker3D" parent="."]
+[node name="FarmView" type="Node2D" parent="WorldCanvas"]
+script = ExtResource("5_farm")
+
+[node name="WeatherFx" type="Node2D" parent="WorldCanvas"]
+z_index = 10
+script = ExtResource("6_weather")
+
+[node name="WorldTint" type="CanvasModulate" parent="WorldCanvas"]
 unique_name_in_owner = true
-position = Vector3(11.0, 0, 10.0)
 
-[node name="ShippingBin" type="MeshInstance3D" parent="."]
-mesh = SubResource("Mesh_bin")
-position = Vector3(5.2, 0.4, 10)
-
-[node name="ShippingBinMarker" type="Marker3D" parent="."]
+[node name="PlayerSpawn" type="Marker2D" parent="WorldCanvas"]
 unique_name_in_owner = true
-position = Vector3(5.2, 0, 10)
 
-[node name="SeedShop" type="MeshInstance3D" parent="."]
-mesh = SubResource("Mesh_shop")
-position = Vector3(-2.0, 0.75, 7.5)
-
-[node name="SeedShopMarker" type="Marker3D" parent="."]
+[node name="BedMarker" type="Marker2D" parent="WorldCanvas"]
 unique_name_in_owner = true
-position = Vector3(-2.0, 0, 7.5)
 
-[node name="Obstacle" type="MeshInstance3D" parent="."]
-mesh = SubResource("Mesh_obstacle")
-position = Vector3(-3.5, 0.5, 2.5)
+[node name="ShippingBinMarker" type="Marker2D" parent="WorldCanvas"]
+unique_name_in_owner = true
 
-[node name="CameraRig" type="Node3D" parent="."]
+[node name="SeedShopMarker" type="Marker2D" parent="WorldCanvas"]
+unique_name_in_owner = true
+
+[node name="CameraRig" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_camera_rig")
 
-[node name="Camera" type="Camera3D" parent="CameraRig"]
-unique_name_in_owner = true
-position = Vector3(8, 10, 8)
-rotation_degrees = Vector3(-35, 45, 0)
-projection = 1
-size = 18.0
-current = true
-
-[node name="PlayerSpawn" type="Marker3D" parent="."]
-position = Vector3(3.5, 0, 3.5)
-
-[node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector3(3.5, 0, 3.5)
-
 [node name="InteractionLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="InteractionPrompt" type="PanelContainer" parent="InteractionLayer"]
 anchor_left = 0.5
@@ -180,9 +97,6 @@ script = ExtResource("4_prompt")
 [node name="Message" type="Label" parent="InteractionLayer/InteractionPrompt"]
 custom_minimum_size = Vector2(356, 51)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -28,8 +28,12 @@ Localization="*res://scripts/core/localization.gd"
 
 [display]
 
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/size/window_width_override=1152
+window/size/window_height_override=648
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
@@ -192,18 +196,17 @@ toggle_debug_menu={
 
 [layer_names]
 
-3d_physics/layer_1="world_static"
-3d_physics/layer_2="player"
-3d_physics/layer_3="interactable"
-3d_physics/layer_4="npc"
-3d_physics/layer_5="trigger"
-3d_physics/layer_6="water"
-3d_physics/layer_7="occluder_fade"
-3d_physics/layer_8="placement"
+2d_physics/layer_1="world_static"
+2d_physics/layer_2="player"
+2d_physics/layer_3="interactable"
+2d_physics/layer_4="npc"
+2d_physics/layer_5="trigger"
+2d_physics/layer_6="water"
+2d_physics/layer_7="occluder_fade"
+2d_physics/layer_8="placement"
 
 [physics]
 
-3d/physics_engine="Jolt Physics"
 
 [rendering]
 

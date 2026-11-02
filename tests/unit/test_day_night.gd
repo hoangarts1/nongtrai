@@ -21,9 +21,10 @@ func test_world_applies_lighting_and_house_light_from_clock() -> void:
 	await get_tree().process_frame
 	var world: GrayBoxWorld = main.get_node("GrayBoxWorld") as GrayBoxWorld
 	GameClock.set_time(12, 0)
-	assert_true(world.sun.light_energy > 1.0)
+	var noon_tint: Color = world.world_tint.color
+	assert_gt(noon_tint.get_luminance(), 0.8)
 	assert_false(world.house_light.visible)
 	GameClock.set_time(22, 0)
-	assert_true(world.moon.light_energy > 0.0)
+	assert_lt(world.world_tint.color.get_luminance(), noon_tint.get_luminance())
 	assert_true(world.house_light.visible)
 	main.queue_free()

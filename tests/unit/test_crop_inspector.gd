@@ -13,7 +13,7 @@ func before_each() -> void:
 	GameClock.paused = true
 	_viewport = SubViewport.new()
 	_viewport.size = Vector2i(1152, 648)
-	_viewport.own_world_3d = true
+	_viewport.world_2d = World2D.new()
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child_autofree(_viewport)
 
@@ -29,7 +29,7 @@ func _game() -> Node:
 	main.start_menu.hide()
 	main.tutorial_panel.close_help()
 	main.ui_coordinator.close_active()
-	main.world.player.position = GridMath.cell_to_world(Vector2i(2, 2))
+	main.world.player.move_to_cell(Vector2i(2, 2))
 	return main
 
 func _plant(main: Node, id: StringName = &"spring_carrot") -> Vector2i:
@@ -44,7 +44,7 @@ func test_crop_click_opens_countdown_without_consuming_or_using_tool() -> void:
 	await _settle()
 	var before: Dictionary = main.farm_state.serialize()
 	var inventory: Dictionary = main.inventory.serialize()
-	var point: Vector2 = main.world.camera.unproject_position(main.farm_view.get_crop_view(cell).global_position)
+	var point: Vector2 = main.world.grid.cell_to_screen(cell)
 	await _click(point)
 	assert_true(main.crop_inspector.visible, "Actual crop click opens readable panel")
 	assert_eq(main.farm_state.serialize(), before, "Inspection does not water/harvest by accident")
@@ -113,9 +113,8 @@ func test_clicking_top_of_mature_crop_inspects_it_instead_of_adjacent_ground() -
 		main.farm_state.water_cell(cell)
 		main.day_simulator.simulate_day(main.farm_state)
 	await _settle()
-	var crop: MeshInstance3D = main.farm_view.get_crop_view(cell)
-	var top: Vector3 = crop.global_position + Vector3(0, crop.get_aabb().size.y * 0.45, 0)
-	var point: Vector2 = main.world.camera.unproject_position(top)
+	var crop: Sprite2D = main.farm_view.get_crop_view(cell)
+	var point: Vector2 = crop.get_global_transform_with_canvas() * Vector2(0, -40)
 	assert_eq(main.farm_view.pick_crop(point, main.world.camera), cell)
 	await _click(point)
 	assert_true(main.crop_inspector.visible)
@@ -126,7 +125,7 @@ func test_withered_state_and_out_of_reach_actions_are_safe() -> void:
 	var main: Node = _game()
 	var cell: Vector2i = _plant(main)
 	main.crop_inspector.show_cell(cell)
-	main.world.player.position = GridMath.cell_to_world(Vector2i(-8, -8))
+	main.world.player.move_to_cell(Vector2i(-8, -8))
 	main.tool_controller.perform_crop_action(cell, &"water")
 	assert_false(bool(main.farm_state.get_plot(cell).get("watered", false)))
 	GameClock.deserialize({"day_index": 30, "minute": 720, "season": "summer"})

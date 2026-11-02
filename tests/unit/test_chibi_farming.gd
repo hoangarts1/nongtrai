@@ -82,17 +82,18 @@ func test_tool_models_and_generated_crop_stage_runtime_keep_click_contract() -> 
 	assert_true(main.farm_state.till_cell(cell))
 	assert_true(main.farm_state.plant_crop(cell, &"turnip"))
 	await get_tree().process_frame
-	var crop: MeshInstance3D = main.farm_view.get_crop_view(cell)
-	assert_true(crop.mesh is BoxMesh)
+	var crop: Sprite2D = main.farm_view.get_crop_view(cell)
+	assert_not_null(crop.texture)
 	assert_eq(crop.get_meta("stage_id"), &"0")
-	assert_not_null(crop.get_node_or_null("CropVisual"))
+	var sprout_image: Image = crop.texture.get_image()
+	assert_gt(_opaque_pixels(sprout_image), 0)
 	for _day: int in range(2):
 		assert_true(main.farm_state.water_cell(cell))
 		main.farm_state.advance_day()
 	await get_tree().process_frame
 	assert_eq(crop.get_meta("stage_id"), &"3")
-	assert_not_null(crop.get_node_or_null("CropVisual/MatureSparkles"))
-	var point: Vector2 = main.world.camera.unproject_position(crop.global_position + Vector3(0.0, crop.get_aabb().size.y * 0.45, 0.0))
+	assert_gt(_opaque_pixels(crop.texture.get_image()), _opaque_pixels(sprout_image), "Mature 2D stage has a larger visible silhouette")
+	var point: Vector2 = crop.get_global_transform_with_canvas() * Vector2(0,-40)
 	assert_eq(main.farm_view.pick_crop(point, main.world.camera), cell, "C2 art keeps the mature crop selectable")
 
 func test_farm_effects_follow_only_successful_tool_results() -> void:
@@ -100,7 +101,7 @@ func test_farm_effects_follow_only_successful_tool_results() -> void:
 	add_child_autofree(main)
 	await get_tree().process_frame
 	var cell: Vector2i = Vector2i(1, 1)
-	var effects: FarmEffects = main.farm_view.get_node("FarmEffects") as FarmEffects
+	var effects: FarmEffects = main.world.get_node("WorldCanvas/FarmEffects") as FarmEffects
 	assert_not_null(effects)
 	main.inventory.clear()
 	main.tool_controller.select_seed()

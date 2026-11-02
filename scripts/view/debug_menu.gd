@@ -9,7 +9,7 @@ var _player: Player
 var _actions: Array[Dictionary] = []
 var _action_buttons: VBoxContainer
 var _status_label: Label
-var _inventory
+var _inventory: InventoryState
 var _farm_state: FarmGridState
 var _farm_view: Node
 var _save_callback: Callable
@@ -43,13 +43,13 @@ func configure(player_node: Player) -> void:
 	if visible:
 		_player.movement_enabled = false
 
-func configure_inventory(inventory) -> void:
+func configure_inventory(inventory: InventoryState) -> void:
 	_inventory = inventory
 	register_action(tr("UI_DEBUG_ADD_SEEDS"), func() -> void: _inventory.add_item(&"turnip_seed", 10))
 	register_action(tr("UI_DEBUG_ADD_ALL_SEEDS"), _add_all_seeds)
 	register_action(tr("UI_DEBUG_CLEAR_INVENTORY"), func() -> void: _inventory.clear())
 
-func configure_wallet(wallet) -> void:
+func configure_wallet(wallet: WalletState) -> void:
 	_wallet = wallet
 	register_action(tr("UI_DEBUG_ADD_COINS"), func() -> void: _wallet.call("add_coins", 500, &"debug_grant"))
 
@@ -149,7 +149,7 @@ func _start_next_day() -> void:
 
 func _move_near_house() -> void:
 	if _player != null:
-		_player.global_position = Vector3(11.0, 0.0, 8.0)
+		_player.move_to_cell(preload("res://data/isometric_world_config.tres").debug_home_cell)
 
 func _hoe_all() -> void:
 	if _farm_state == null:
@@ -188,14 +188,13 @@ func _update_status() -> void:
 		return
 	if GameClock.is_sleeping():
 		_player.movement_enabled = false
-	_status_label.text = "%s %d  %s\n%s: (%.1f, %.1f, %.1f)\n%s: %d  %s: x%.0f  %s" % [
+	_status_label.text = "%s %d  %s\n%s: (%.1f, %.1f)\n%s: %d  %s: x%.0f  %s" % [
 		tr("UI_DEBUG_TIME_DAY"),
 		GameClock.day_index + 1,
 		GameClock.format_time(GameClock.minute),
 		tr("UI_DEBUG_TIME_PLAYER"),
 		_player.global_position.x,
 		_player.global_position.y,
-		_player.global_position.z,
 		tr("UI_DEBUG_TIME_FPS"),
 		Engine.get_frames_per_second(),
 		tr("UI_DEBUG_TIME_SPEED"),

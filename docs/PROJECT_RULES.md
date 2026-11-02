@@ -2,6 +2,8 @@
 
 The law of the project. Agents read this every session. Changing anything here requires a new entry in `docs/DECISIONS.md` (never silently edit a locked rule).
 
+Migration notice (2026-11-02, D33–D36): ISO-1 converted the active runtime and project configuration to 2D isometric. Generated 3D art/review tools remain historical assets. ISO-2–ISO-7 UI/data changes are still planned; do not report their assets/APIs as implemented.
+
 Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1 starts. An agent that finds an unfilled marker must STOP and ask.
 
 ---
@@ -12,14 +14,14 @@ Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1
 |---|---|
 | Godot version | `4.7.2-stable` |
 | Renderer | `Forward+` |
-| 3D physics engine | `Jolt Physics` |
+| Physics | Godot 2D physics; remove the Jolt configuration in ISO-1 |
 | Language | GDScript 2.0, static typing everywhere |
 | Test framework | `GUT` |
 | Run all tests | `godot -d -s --path . addons/gut/gut_cmdln.gd -gdir=res://tests -gexit` |
 | Parse check | `godot --headless --path . --quit` (wrapped by `tools/check_parse.*`; must exit 0) |
 | Lint / format | `gdlint`, `gdformat` from gdtoolkit 4.3.0 (to be installed before linting) |
 | Target hardware | `Windows PC tầm trung, RAM 8 GB, GPU tích hợp hoặc entry-level` |
-| Window / UI | 1920x1080 base, stretch mode `canvas_items` |
+| Window / UI | 1152×648 design size, stretch mode `canvas_items`, preserve aspect ratio (see D33) |
 | Platform | PC first (Windows); input = keyboard + mouse (see D02, D09) |
 
 API names change between Godot 4.x versions (e.g. `TileMapLayer` since 4.3, typed Dictionary since 4.4). Before using any API you are not 100% sure exists in the PINNED version, check the official docs for that version or ask the human. Do not guess.
@@ -37,7 +39,7 @@ DATA (Resource .tres / CSV)  ->  DOMAIN (RefCounted, no Node)  ->  VIEW (Node / 
 - `WorldState` (farm grid, inventory, economy, occupancy, ecology, weather, director, quests…) is a domain object owned by the main game flow, not an autoload.
 - Single owners: only `EconomyService` changes coins. Only `InventoryService` changes items. Both log every change (reason required).
 - One simulation path: `DaySimulator.simulate_day(world)` in the fixed order in `docs/ARCHITECTURE.md`. Sleeping, the 02:00 cutoff and (later) offline catch-up all call it.
-- Grid: logical grid is `Vector2i` on the XZ plane (`cell.y` ↔ `world.z`). `GridMath` is the ONLY converter between world and cell. Use `floori()`, never `int()`, for negative-safe division. Only the camera is rotated 45°; never use a diamond coordinate system for logic. Never store a world position as truth — store cell + facing.
+- Grid: logical cells are `Vector2i`, independent of rendering. `FarmGridState` stores a Dictionary from cells to plot data and must never depend on `TileMapLayer`. The VIEW converts between isometric canvas coordinates and cells using `TileMapLayer.map_to_local()` / `local_to_map()`; never duplicate their projection formula. `GridMath` retains pure footprint/cell operations. DOMAIN must not receive a Node to perform conversion. Never store a screen/world pixel position as truth — store cell + facing. Legacy XZ data/API compatibility must be addressed explicitly in ISO-1 before a public API changes.
 - Network: gameplay never calls HTTP directly; everything goes through `Net` → `NetworkGateway` (with a `MockBackend`). World state is local-authoritative (D04).
 - The player's world pauses when the game is closed (D03). No offline progress in the MVP.
 
@@ -135,7 +137,8 @@ Bad patterns:
 ## 12. Physics, input, layers
 
 - Collision layer names/numbers come only from `docs/COLLISION_LAYERS.md`. Input actions come only from `docs/INPUT_MAP.md`. Both must match `project.godot`.
-- Movement is camera-relative (input rotated by camera yaw).
+- Movement is screen-relative with `CharacterBody2D`; normalize the input vector, then multiply its vertical component by 0.5 for the isometric view. Do not normalize again after vertical compression. The diagonal speed must match cardinal speed in the uncompressed movement space. Use `move_and_slide()` without arguments. `Camera2D` has no yaw/pitch or free rotation.
+- World presentation uses Ground and Farmland `TileMapLayer` nodes, an Objects `Node2D` with y-sorting, and a Highlight overlay. The TileSet uses 64×32 px isometric tiles. Tall sprites have ground-level sort origins.
 - Gameplay input goes through `_unhandled_input` so UI can consume events first. Never read raw keys (`KEY_W`) in gameplay.
 
 ## 13. Localization

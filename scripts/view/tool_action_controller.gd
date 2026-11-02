@@ -31,7 +31,7 @@ func configure_crop_inspector(inspector: CropInspector) -> void:
 func perform_crop_action(cell: Vector2i, action_id: StringName) -> void:
 	if _is_input_locked() or not _player.movement_enabled or not action_id in [&"water", &"harvest"]:
 		return
-	var player_cell: Vector2i = GridMath.world_to_cell(_player.global_position)
+	var player_cell: Vector2i = _player.get_cell()
 	if not ToolAction.is_in_reach(player_cell, cell, _reach_for_selected_tool()):
 		_show_feedback("UI_CROP_OUT_OF_REACH")
 		return
@@ -108,7 +108,7 @@ func _process(_delta: float) -> void:
 		return
 	_hovered_cell = cell_variant as Vector2i
 	var reach: int = _reach_for_selected_tool()
-	var player_cell: Vector2i = GridMath.world_to_cell(_player.global_position)
+	var player_cell: Vector2i = _player.get_cell()
 	_hovered_valid = ToolAction.is_in_reach(player_cell, _hovered_cell, reach)
 	_farm_view.call("set_hovered_cell", _hovered_cell, true, _hovered_valid)
 
@@ -139,7 +139,7 @@ func _can_apply_drag() -> bool:
 func _apply_drag_cell(cell: Vector2i) -> bool:
 	if not _can_apply_drag():
 		return false
-	var player_cell: Vector2i = GridMath.world_to_cell(_player.global_position)
+	var player_cell: Vector2i = _player.get_cell()
 	if not ToolAction.is_in_reach(player_cell, cell, _reach_for_selected_tool()):
 		return false
 	_hovered_cell = cell
@@ -240,7 +240,7 @@ func _play_sound(sound_id: StringName) -> void:
 func _play_character_tool(tool_id: StringName) -> void:
 	if _player == null:
 		return
-	var avatar: ChibiAvatar = _player.get_node_or_null("ChibiAvatar") as ChibiAvatar
+	var avatar: PlaceholderAvatar2D = _player.get_node_or_null("Visual") as PlaceholderAvatar2D
 	if avatar != null:
 		avatar.play_tool(tool_id)
 

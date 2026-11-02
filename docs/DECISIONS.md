@@ -6,7 +6,7 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 
 ---
 
-### D01 — Technical direction: real 3D, orthographic `Camera3D`  `[ ] confirmed`  Status: DEFAULT
+### D01 — Technical direction: real 3D, orthographic `Camera3D`  `[ ] confirmed`  Status: Superseded by D33
 - Logical grid is a 2D `Vector2i` mapped onto the XZ plane. Aseprite is for UI icons / pixel textures only, not world sprites.
 - Why: day/night/rain lighting, shadows; the depth buffer solves draw order (avoids isometric 2D Z-sort pain); multi-cell buildings do not break y-sort; many CC0 3D assets exist.
 - Consequence: heavier asset pipeline for a solo developer.
@@ -39,12 +39,12 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - `tr()` everywhere, `KEY_SNAKE` keys, `localization/` files. Font must render all Vietnamese diacritics (Phase 0 test).
 - Changeable until: before Phase 3 (UI). Adding more languages later is always possible.
 
-### D08 — Godot version & renderer  `[x] confirmed`  Status: LOCKED
+### D08 — Godot version & renderer  `[x] confirmed`  Status: Partially superseded by D33 (Jolt only; engine version and renderer retained)
 - Pin Godot `4.7.2-stable`, renderer `Forward+`, and Jolt Physics.
 - Only patch releases may be adopted mid-project, deliberately, after running all tests + golden tests.
 - Changeable until: before Phase 0.4. Treat as frozen afterwards.
 
-### D09 — Controls  `[ ] confirmed`  Status: DEFAULT
+### D09 — Controls  `[ ] confirmed`  Status: Superseded for movement and UI shortcuts by D33/D34; existing bindings retained until their migration step
 - WASD camera-relative movement; mouse targets a cell within reach (2 cells around the player); `use_tool`; hotbar keys 1–9. Gamepad later (Phase 11) but action names are standard from the start.
 - Changeable until: before Phase 4 (ToolAction).
 
@@ -58,10 +58,10 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 ### D12 — Naming  `[ ] confirmed`  Status: DEFAULT
 - Player-facing: "Cỗ máy Mùa" / Season Machine. Code/docs: `EventDirector`, `WeatherService`, `EcologyState`. The rule-based system is never called "AI"; no LLM calls at runtime.
 
-### D13 — Camera  `[x] confirmed`  Status: LOCKED
+### D13 — Camera  `[x] confirmed`  Status: Superseded by D33
 - `Camera3D` projection = orthogonal; yaw `45°`; pitch `35°`. Locked BEFORE assets are made (shadows, model heights, tile highlight depend on it). Zoom: 2–3 small levels. No free rotation in the MVP.
 
-### D14 — Grid cell size  `[ ] confirmed`  Status: DEFAULT
+### D14 — Grid cell size  `[ ] confirmed`  Status: Superseded for presentation by D33; saved logical cell IDs retained
 - 1 logical cell = 1 × 1 m (1 Blender unit = 1 Godot metre). Character height ≈ 1.2–1.5 cells. Buildings declare `footprint: Vector2i` in data.
 
 ### D15 — Player-to-player text  `[ ] confirmed`  Status: DEFAULT
@@ -150,3 +150,36 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - `ChibiCursor` is project-original code art above the GUI. It hides the OS cursor only for its live non-headless lifetime, restores it on exit, ignores mouse filtering and never calls tool/farm/world methods. `ChibiUiMotion` merely observes real Control signals; tool badges follow the existing tool button `pressed` signal and do not become another selection authority.
 - Compact tool/menu bars are intentionally retained at their D24 footprints so the map remains readable. Full inventory and all transaction/detail UI stay modal/scrollable. Keyboard focus improves access to the title/form/settings/modal controls without adding an InputMap action or bypassing `UiCoordinator`.
 - The private `--capture-chibi-ui` path starts no save load/write flow and exits after title/HUD capture. It is C4 visual evidence only; the deferred M0 full screenshot/autoplay matrix remains deferred.
+
+### D33 — 2D isometric migration (2026-11-02) — Status: LOCKED by the migration prompt and the owner's instruction to begin
+- Supersedes D01, D13, the presentation scale of D14, camera-relative movement in D09, and the Jolt part of D08. Keep Godot `4.7.2-stable` and Forward+; no engine/renderer upgrade is implied.
+- Target active gameplay is entirely 2D: CharacterBody2D, child Camera2D, 64×32 px isometric TileMapLayer/TileSet, Ground/Farmland/Objects/Highlight layers and ground-origin y-sorting. Remove active Camera3D, yaw/pitch, 3D world nodes and Jolt configuration during ISO-1. Historical generated 3D assets/review tools stay intact.
+- Logical cells and saved IDs stay Vector2i. FarmGridState remains a pure Dictionary-backed domain object. Only the view converts isometric coordinates, using the TileMapLayer APIs; GridMath retains logical footprint operations. Legacy NPC location data/converters must be adapted without importing Nodes into domain logic.
+- Screen-relative input is normalized before its y component is multiplied by 0.5. Comparing speed after undoing this visual compression must show no diagonal advantage. Movement speed/zoom/reach configuration belongs in data, not new gameplay literals in scripts.
+- Design size: 1152×648, `canvas_items`, preserved aspect ratio and responsive anchors/containers. Retain existing eight collision names/numbers under 2D physics.
+- Consequence: ISO-0 documents the target; ISO-1 must convert the active scenes and affected view APIs/tests before any runtime completion claim. Preserve current farming, merchants, weather, saves and modal behavior. The previously proposed/approved allow list covers documentation only; source changes need their explicit ISO-1 allow list.
+
+### D34 — Mockup UI target, fonts and contextual shortcuts (2026-11-02) — Status: LOCKED as migration specification; implementation staged
+- The owner supplied all sixteen reference PNGs in `docs/ui_reference/`, with numbered Vietnamese hyphenated filenames. Keep these exact names; use the images for visual comparison only, never as runtime game textures. Actual dimensions and completeness are recorded in PROGRESS.
+- Adopt the prompt's ink `#3A2412`, wood `#BC8340`, paper `#F5E3B0`, green `#5FB230`, yellow `#F7BC32`, red `#D6453A`, sky `#6FB7F0` and coin `#FFD25A`. ISO-2 will introduce the single `ui/theme/the_life_theme.tres`, component scenes/scripts and `ui/ui_gallery.tscn`. This approves the new top-level `ui/` directory; it does not authorize source files in this documentation task.
+- Font selection: Baloo 2 ExtraBold headings, Nunito SemiBold body, Noto Serif Italic secondary quotations/tips, Open Sans fallback. These are selected font families, not imported/verified assets yet. ISO-2 must verify licenses, include notices in CREDITS and visually check Vietnamese before shipping them. Use StyleBoxFlat/code placeholders while final frames/icons/sprites are absent; logic must not depend on artwork.
+- ISO-1 preserves the current InputMap. The later UI migration moves B to inventory while retaining I/Tab and hotbar key 9 for compatibility; the mockup displays eight tool slots. B must be removed from the old build binding before it is assigned to inventory. Keep the `open_build` action ID; its replacement binding remains unassigned until a building task defines it.
+- J keeps the existing journal entry; K/M are calendar/map targets; Q/E are modal tab navigation only, leaving E interaction and Q rotation in their gameplay contexts. F/Z/T are reserved quick-store/sort/pin targets, registered only when the respective behavior is implemented. Do not add dead shortcuts/buttons or invent unavailable system data.
+- This supersedes D22/D24/D32 only where the upcoming mockup UI intentionally replaces their presentation. Retain real GUI event routing, one-modal ownership, keyboard focus, localized labels and regression coverage. D10 remains in force: no stamina domain exists, so hide the stamina HUD until a separate stamina milestone is approved.
+
+### D35 — Calendar and later gameplay data changes (2026-11-02) — Status: LOCKED as target; not applied during ISO-0/ISO-1
+- The approved proposal follows prompt §4: seven-day weeks beginning Monday (day 1), 28 days per season, spring/year 1, waking at 06:00. Keep the existing overnight cutoff and time rate unless their own task changes them.
+- Later ISO-6 targets two consecutive unwatered days before withering, rain watering, carrot 3 days, tomato 5 days with repeat harvest, turnip 4 days and corn 7 days with house-level-2 unlock. These require state/data/schema tests, not a visual migration shortcut. The precise tomato regrow interval, house-upgrade dependency and fertilizer behavior remain to be specified in that task; do not invent values.
+- Later sample prices: carrot seed 20, tomato seed 35, turnip seed 25, fertilizer 15; carrot sale 35, turnip sale 45. Store prices in the project's item/economy Resources, growth rules in crop data; keep coins/quantities int. Values not specified remain existing values unless deliberately changed later.
+- Existing crop yield 2 (D27), stable IDs, atomic transactions and full-inventory safety remain unchanged. The 8×5 inventory is a later ISO-5 capacity/compatibility change; ISO-1 must not silently resize the current inventory or rewrite saves.
+- Existing menu/profile, NPC/dialogue, shop and weather systems remain playable. Prompt §6 defers their new mockup screens/content; it does not remove already working logic. ISO-0 adds no state, public runtime API, signal or save field.
+
+### D36 — ISO-1 implementation and v4 coordinate compatibility (2026-11-02) — Status: LOCKED by approved ISO-1 scope; human playtest pending
+- The owner approved the source allow list with “oke tiếp tục”, then explicitly added `scripts/view/pause_menu.gd` when its old Player path caused a regression. Other source additions/changes stay inside that list. No commit/push or archive deletion was authorized or performed.
+- Active player/world/farm/NPC/scenery/weather nodes are 2D. Main is CanvasLayer 1 to retain existing direct UI paths; GrayBoxWorld wraps WorldCanvas 0 with follow_viewport_enabled. This intentionally adds the documented WorldCanvas path prefix. Objects and nested WorldArt2D use grounded y-sort; the player's child Camera2D is the only active camera. Existing UI modal/mouse routing remains in use.
+- The actual pre-migration v4 format stores player.position.x/y/z, contrary to the older architecture sketch. Keep that wire schema and save version: convert the current view position to a logical cell, serialize its legacy XZ cell center, and restore through TileMapLayer. Old subcell offsets snap to the cell center; invalid numeric fields use data-owned defaults and out-of-bounds cells clamp. No pixel position or view node is saved.
+- Retain GridMath's pure legacy converters and the existing WorldLocations Vector3 Resources/NpcSchedule. They are logical-data/wire adapters, not active 3D nodes or a second isometric projection. All canvas/grid conversion uses IsometricGrid/TileMapLayer. No domain file, schema, crop/price/yield rule, inventory capacity or state-owning service was refactored.
+- Map/reach/zoom/colors/rain parameters live in IsometricWorldConfig; player movement speeds are in player_2d_config.tres. New code-generated TileSet/sprite/drawing placeholders replace active 3D generated art. Existing 3D assets, shaders, material/build/review helpers and their archive audits remain intact. This supersedes active 3D presentation requirements of D25/D26/D29–D31, preserving their gameplay/data constraints.
+- Deliberately migrate old mesh/light/camera assertions to equivalent 2D sprite/tint/canvas/collision assertions. Preserve all domain, economy, save/golden, NPC and physical mouse/modal tests. A new seven-test regression script covers 2D tree/types, negative picking under transforms/zoom/pan, fixed UI, swept collision, legacy/corrupt position handling, movement normalization and config validation.
+- The test runner now runs 16 domain/2D scripts headless and all 53 GUT scripts on the configured renderer, then main headless. Existing frame_post_draw tests still run with a renderer; no test was bypassed or weakened. The bounded helper hides windows, isolates user data and reliably propagates nonzero engine exits (confirmed with an intentionally missing test-script path).
+- UI remains the C4 layout/Open Sans in ISO-1. The new wooden Theme, imported fonts, 8-slot visible toolbar, inventory 8×5, end-of-day UI and balance changes remain ISO-2–ISO-7. No human Gate A/B or editor playtest is claimed complete by automation.

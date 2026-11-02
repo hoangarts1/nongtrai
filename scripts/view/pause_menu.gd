@@ -41,9 +41,9 @@ func close() -> void:
 	_set_player_locked(false)
 
 func _set_player_locked(locked: bool) -> void:
-	var player: Node = get_parent().get_node_or_null("GrayBoxWorld/Player")
-	if player != null:
-		player.set("movement_enabled", not locked)
+	var world: GrayBoxWorld = get_parent().get_node_or_null("GrayBoxWorld") as GrayBoxWorld
+	if world != null:
+		world.player.movement_enabled = not locked
 
 func _build_ui() -> void:
 	var margin: MarginContainer = MarginContainer.new()

@@ -2,6 +2,24 @@
 
 Public methods and signals of every system. Agents read THIS instead of scanning code, and update it at the end of every task. Source of truth for each entry is the `## API:` header at the top of the script.
 
+## 2D migration status — ISO-1 (2026-11-02)
+
+- Active gameplay is now 2D. Existing domain, clock, inventory, wallet, weather/social services, autoloads, InputMap, fonts and save v4 remain in use. See D36 and scene contracts for reparented view nodes.
+- GridMath's Vector3 methods remain pure legacy logical-coordinate/wire adapters for NPC Resources and old saves. IsometricGrid owns every screen/canvas/isometric conversion in VIEW; DOMAIN never receives it.
+- C0–C3 generated 3D art/builders/shaders and ChibiAvatar/WorldArtFactory/WorldSeasonFx APIs remain available for historical tooling/tests. They are not instantiated in active gameplay.
+- The sixteen mockups are reference-only. ISO-2's new Theme/gallery/fonts are still planned, not existing assets.
+
+## ISO-1 new view/data APIs
+
+- IsometricWorldConfig (scripts/data/isometric_world_config.gd; data/isometric_world_config.tres) owns tile size, logical map/player regions, spawn/house/shop/bin/debug cells, reach, zoom/follow bounds and placeholder colors/rain limits. Movement speeds are in data/player_2d_config.tres using the existing PlayerConfig Resource type.
+- IsometricGrid (scripts/view/isometric_grid.gd) is a VIEW-only RefCounted adapter initialized with a TileMapLayer: cell_to_global(cell: Vector2i) -> Vector2, global_to_cell(point: Vector2) -> Vector2i, screen_to_cell(point: Vector2) -> Vector2i, cell_to_screen(cell: Vector2i) -> Vector2, mouse_cell() -> Vector2i. It delegates to Godot map/local/canvas APIs. Static diamond(size: Vector2) -> PackedVector2Array draws placeholder geometry only, not coordinate projection.
+- Player (scripts/player/player.gd) now extends CharacterBody2D. screen_direction(input_vector: Vector2) -> Vector2 replaces camera-yaw direction math (limit/normalize input before y ×0.5); get_cell() -> Vector2i and move_to_cell(cell: Vector2i) -> void use the injected view grid. movement_enabled remains the modal/sleep gate; camera is the child Camera2D, config remains PlayerConfig, map_min/map_max now bound logical cell indices.
+- PlaceholderAvatar2D (scripts/view/placeholder_avatar_2d.gd): configure(color, with_hat), configure_profile(profile, customization), set_motion(value), play_tool(tool_id), play_talk(), play_sleep(), show_emotion_bubble(emotion_id, duration) -> bool, get_emotion() -> StringName. action_id exposes transient Idle/Walk/Tool/Talk/Sleep presentation for review. It owns no collision/save state. Cosmetics resolve through the existing catalogue.
+- PlaceholderWorld2D (scripts/view/placeholder_world_2d.gd): configure(visual_kind: StringName, title: String, tint: Color) -> void draws non-colliding cottage/market/bin/tree placeholders at ground-level pivots; label/color are view-only. Obstacle polygons own collision separately.
+- DataValidator adds validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray, called by tools/validate_data.gd. Invalid tile size/regions/reach/zoom/locations fail the data gate.
+- Main is a CanvasLayer at layer 1; WorldCanvas at layer 0 follows the viewport. Existing UI Controls retain their direct Main paths. Legacy capture flags now capture the 2D main scene at their conventional screenshot paths. The v4 position adapter stores legacy cell-center x/y/z, validates old numeric fields and clamps cell bounds. No schema field/version is added.
+- WeatherFx is a Node2D observer: configure(weather), get_current_mode() -> StringName, get_active_effect_count() -> int (placeholder effect-group count). WorldTint, windows, rain and seasonal marks do not advance weather/time or mutate crops.
+
 ## Documentation-only reference
 
 - `docs/CHIBI_STYLE_PROMPT.md` is a product-owner supplied visual-production reference. It adds no runtime API, save field, resource id, or scene contract; an authorized Chibi milestone must still define and document any resulting public APIs separately.
@@ -21,10 +39,10 @@ Format:
 - static func world_to_cell(position: Vector3) -> Vector2i — converts a world XZ position to a logical cell using floor-safe division
 - static func cell_to_world(cell: Vector2i) -> Vector3 — returns the center of a logical cell
 - static func footprint_cells(origin: Vector2i, size: Vector2i, rotation_steps: int) -> Array[Vector2i] — returns occupied cells for a 90-degree footprint rotation
-- Notes: the logical grid is Vector2i on the XZ plane; one cell is 1 metre.
+- Notes: legacy XZ conversions remain pure adapters for saved/NPC coordinates; active canvas conversion uses IsometricGrid. Footprints remain logical Vector2i cells.
 
 ## GrayBoxWorld  (scripts/view/gray_box_world.gd)
-- func pick_cell(screen_position: Vector2) -> Variant — projects a screen point onto the ground plane and returns a Vector2i cell or null
+- func pick_cell(screen_position: Vector2) -> Variant — converts a viewport point through Ground's canvas transform/local_to_map and returns a Vector2i cell
 - func get_day_night_lighting(minute: int) -> Dictionary — returns the sampled lighting values currently used by the world view
 - Notes: placeholder view only; it owns no gameplay state.
 
@@ -52,8 +70,8 @@ Format:
 - func get_entry(weather_id: StringName) -> Dictionary — returns data-defined probability and visual effects
 
 ## CameraRig  (scripts/view/camera_rig.gd)
-- func set_target(target_node: Node3D) -> void — assigns the node followed by the rig
-- Notes: follows with exponential smoothing and clamps the camera center to the gray-box map bounds.
+- func set_target(target_node: Player) -> void — assigns the node followed by the rig
+- Notes: drives the player's child Camera2D with data-owned smoothing, center bounds and documented zoom actions.
 
 ## GameClock  (scripts/core/game_clock.gd)
 - func advance_real_seconds(seconds: float) -> void — converts real seconds into in-game minutes
@@ -131,9 +149,9 @@ Format:
 - func get_sound_path(sound_id: StringName) -> String — returns the resolved OGG/WAV asset path or an empty string
 
 ## FarmView  (scripts/view/farm_view.gd)
-- func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the placeholder soil view
-- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop root view
-- func get_crop_label(cell: Vector2i) -> Label3D — retains the legacy billboard growth-status label for compatibility
+- func get_cell_view(cell: Vector2i) -> Polygon2D — returns the placeholder soil view
+- func get_crop_view(cell: Vector2i) -> Sprite2D — returns the crop root view
+- func get_crop_label(cell: Vector2i) -> Label — retains the legacy billboard growth-status label for compatibility
 - Notes: label text still refreshes from `FarmGridState.plot_changed`, but the label stays hidden because CropInspector provides the readable status/timer surface.
 
 ## FeedbackPopup  (scripts/view/feedback_popup.gd)
@@ -178,17 +196,17 @@ Format:
 
 ## FarmView  (scripts/view/farm_view.gd)
 - func configure(farm_state: FarmGridState) -> void — binds the placeholder view to the farm domain state
-- func get_cell_view(cell: Vector2i) -> MeshInstance3D — returns the visible soil placeholder for a cell
-- func get_crop_view(cell: Vector2i) -> MeshInstance3D — returns the crop placeholder for a cell
-- func pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant — selects the visible bounds of a crop mesh or returns null
-- Notes: view-only; cell positions come from GridMath and plot rules remain in FarmGridState. Crop root bounds remain selectable while children render a crop-family-specific sprout, growing or mature form; labels are hidden in favor of CropInspector.
+- func get_cell_view(cell: Vector2i) -> Polygon2D — returns the visible soil placeholder for a cell
+- func get_crop_view(cell: Vector2i) -> Sprite2D — returns the crop placeholder for a cell
+- func pick_crop(screen_position: Vector2, camera: Camera2D) -> Variant — selects transformed visible crop sprite rectangles, resolving overlap by ground y, or returns null
+- setup(world: GrayBoxWorld) binds the view grid before configure. Terrain lives in WorldCanvas/Farmland; crop sprites under Objects share actor y-sort origins; effects live under WorldCanvas. Plot rules remain in FarmGridState; hidden localized Labels preserve the status API.
 
 ## CropPresentation  (scripts/view/crop_presentation.gd)
-- static func render(crop: MeshInstance3D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, cell: Vector2i) -> void — rebuilds a view-only crop root and its family-specific child meshes from existing plot data
-- static func clear(crop: MeshInstance3D) -> void — removes only presentation meshes from an empty crop root
-- Notes: supports roots, tomato, corn, wheat, pumpkin, cabbage and pea silhouettes plus a wilted state. It owns no crop state, timers, inventory changes or save data.
+- static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, cell: Vector2i) -> void — assigns a cached replaceable 2D stage texture from existing plot data
+- static func clear(crop: Sprite2D) -> void — clears only the view texture/metadata of an empty crop
+- Notes: active ISO-1 art uses stage/color/moisture placeholder textures for sprout/growing/mature/wilted states. Generated crop-family scenes remain archived. No crop state, growth timer, inventory or save rule is owned here.
 
-## WorldArtFactory  (scripts/view/world_art_factory.gd)
+## WorldArtFactory — historical 3D art tooling (scripts/view/world_art_factory.gd)
 - static func replace_anchor_visual(anchor: MeshInstance3D, asset_id: StringName, season: StringName = &"spring") -> bool — replaces only an existing visual anchor's mesh children without moving the anchor, marker or collision
 - static func create_asset(asset_id: StringName, season: StringName = &"spring") -> Node3D — instantiates a stable generated C3 asset with its view-only seasonal material treatment
 - static func apply_season(root: Node, season: StringName) -> void — recolors a C3 visual tree only; it never changes gameplay or saved state
@@ -202,14 +220,14 @@ Format:
 - func validate() -> PackedStringArray — validates IDs, category coverage, palette roles, finite placements and the bounded ambient cap
 - Notes: catalog data contains no collision, navigation, farm, economy, schedule, time/weather authority or save fields.
 
-## WorldSeasonFx  (scripts/view/world_season_fx.gd)
+## WorldSeasonFx — historical 3D view (scripts/view/world_season_fx.gd)
 - func configure(weather_state: Object, catalog: Resource) -> void — observes existing GameClock/WeatherState presentation signals only
 - func get_active_effect_count() -> int / func get_current_mode() -> StringName — review/test visibility into the bounded visual state
 - Notes: spring petals, summer day birds/butterflies or night fireflies, autumn leaves, winter snow and rain ripples are deterministic view details capped by `WorldArtCatalog`; they never alter clock, weather, save or gameplay randomness.
 - Notes: the gray-box scene places the 6×6 grid inside the 6 m × 6 m `FarmPlot`; target green means reachable and red means outside tool reach.
 
 ## SoilPresentation  (scripts/view/soil_presentation.gd)
-- static func render(soil: MeshInstance3D, tilled: bool, watered: bool, cell: Vector2i) -> void — adds only view-level furrows and a transparent moisture sheen; FarmGridState remains the source of truth
+- static func render(soil: Polygon2D, tilled: bool, watered: bool, cell: Vector2i) -> void — adds only view-level furrows and a transparent moisture sheen; FarmGridState remains the source of truth
 
 ## ToolData  (scripts/data/tool_data.gd)
 - tool_id: StringName — stable tool identifier
@@ -289,7 +307,7 @@ Format:
 - Notes: redraws after selection and removes old controls safely; UI selection never changes inventory quantities.
 
 ## GrayBoxWorld interaction helpers  (scripts/view/gray_box_world.gd)
-- static func is_player_near_interactable(player_position: Vector3, interactable_position: Vector3, reach: float) -> bool — checks flat XZ distance against interaction reach
+- static func is_player_near_interactable(player_cell: Vector2, target_cell: Vector2, reach: float) -> bool — checks logical-cell Euclidean distance against data-owned reach
 - signal shipping_bin_interacted() — emitted when the player presses E within reach of the shipping bin
 - signal seed_shop_interacted() — emitted when the player presses E within reach of the seed shop
 
@@ -334,7 +352,7 @@ Format:
 - `open_journal()`, `open_dialogue(npc_id: StringName)`, `close_panels()`, `is_open() -> bool`: modal lifecycle and input gate; dialogue requires a nearby outdoor NPC. Clock pause and HUD visibility restore on close.
 - `restore(data: Dictionary) -> void`: restore domain, rebuild schedule, synchronize placeholder positions/visibility. Main writes `state.serialize()` only at safe points; exit closes the modal first.
 - `NpcPanel.show_content(title: String, body: String, actions: Array[Dictionary] = []) -> void`: scrollable localized body/buttons; `close_requested()` is local.
-- `NpcActor.configure(social: NpcSocialState, npc: NpcData)`, `reset_position()`: interpolate the domain route via GridMath, hide on arrival home, display localized name/prompt.
+- `NpcActor.configure(social: NpcSocialState, npc: NpcData)`, `reset_position()`: interpolate the domain route through an injected VIEW IsometricGrid, hide on arrival home, display a localized Label/prompt. Actors/homes render under world Objects; NpcSystem.actors/homes dictionaries replace their old Main/NpcSystem visual paths.
 - `DataValidator.validate_npc_world(data, items, quests, locale_paths) -> PackedStringArray`: unique ids, references, schedule bounds, reachable destinations, friendship limits, merchant prices and translation coverage. tools/validate_data.gd includes this gate.
 
 ## UiCoordinator / UiLayout (scripts/view/ui_coordinator.gd, ui_layout.gd)
@@ -351,15 +369,15 @@ Format:
 - `StartMenu.apply_chibi_style() -> void`, `refresh_continue() -> void`: outlined/breathing title treatment, keyboard-first primary-form focus, and consistent slot-0/slot-1 Continue availability. Existing configure callback API remains compatible.
 - `ChibiCursor` (`scripts/view/chibi_cursor.gd`): view-only original code-drawn paw/tool cursor. `set_ui_hovered`, `set_pressed`, `set_tool_mode`, `get_visual_mode` and `get_tool_mode` only select presentation; it writes no input, state or save data.
 - `ChibiUiMotion` (`scripts/view/chibi_ui_motion.gd`): `configure(main)`, `refresh()` and `get_cursor()` bind existing focusable Controls to small hover/press/open tweens, keyboard focus and the cursor. It observes actual Godot Control signals and owns no modal/gameplay state.
-- `Main --capture-chibi-ui` is a private normal-renderer review argument. It creates title/HUD PNGs in `screenshots/chibi-ui/`, does not load or write a player save, and exits after capture.
-- `ChibiAvatar.configure(outfit: Color, with_hat: bool = true) -> void`: local procedural mesh and view-only idle/walk motion; does not change player/NPC state or collisions.
-- `WorldPresentation.configure(main: Node) -> void`: creates runtime-only `C3WorldArt` and `WorldSeasonFx`, replaces only House/SeedShop/ShippingBin/NPC-home visual children, and preserves anchors, markers, collisions, routes, farm picking and gameplay authority. `get_world_art_root()` and `get_season_fx()` expose the two C3 view roots for tests/review.
+- `Main --capture-chibi-ui` is a private normal-renderer review argument. It creates title/HUD PNGs in `screenshots/chibi-ui/`, does not restore gameplay state from or write a player save, and exits after capture.
+- Historical ChibiAvatar.configure remains available to generated-art tooling/tests; active player/NPC rendering uses PlaceholderAvatar2D.
+- WorldPresentation.configure(main: Node) -> void creates/recolors 2D placeholders at data-owned interaction cells and safe C3 tree catalogue placements. configure_player_appearance(selection) applies existing cosmetic data; get_player_avatar() -> PlaceholderAvatar2D, get_world_art_root() -> Node2D (WorldArt2D, nested y-sort), get_season_fx() -> Node (active WeatherFx). No collision or gameplay state is created here.
 - `HotbarPanel._unhandled_input` handles existing hotbar_1 through hotbar_9 only while visible. Full item selection/caption and 12-slot inventory state are preserved.
 
 ## CropInspector / compact HUD (scripts/view/crop_inspector.gd)
 - `configure(farm: FarmGridState) -> void`, `show_cell(cell: Vector2i) -> void`: binds existing farm state and shows one click-selected crop without pausing time or mutating state. Local `action_requested(cell: Vector2i, action_id: StringName)` delegates Water/Harvest to the existing controller.
 - `get_remaining_minutes() -> int`: game-minute estimate to the remaining growth-day morning boundary, assuming daily watering and a suitable season. Derived from FarmGridState.get_growth_remaining and GameClock constants; no new timer, growth path or saved state. Ready/withered plants show explicit status instead.
-- `FarmView.pick_crop(screen_position: Vector2, camera: Camera3D) -> Variant`: projects visible crop mesh bounds to select the actual crop (or null), including a small sprout click margin. Ground picking remains the fallback. `get_crop_label` retains its API/text, but tiny repeated world labels are hidden.
+- `FarmView.pick_crop(screen_position: Vector2, camera: Camera2D) -> Variant`: uses transformed sprite rectangles and a small click margin to select the frontmost crop (or null). Ground picking remains the fallback. `get_crop_label` retains its API/text, but tiny repeated world labels are hidden.
 - `ToolActionController.configure_crop_inspector(inspector)`, `perform_crop_action(cell, action_id)`: click inspection precedes mouse tool use; explicit panel actions validate player input/reach and reuse watering/harvest/inventory logic. Inspection itself never consumes items or harvests.
 - `InventoryPanel.slot_selected(slot_index: int)`: emitted on a row's localized Select button; Main forwards it to HotbarPanel and inventory closes. Selection preserves all item quantities.
 
@@ -390,10 +408,10 @@ Format:
 - `CharacterAppearanceCatalog` (`scripts/data/character_appearance_catalog.gd`): owns the player base profile, An/Bac Lam/Linh/Minh recipes, dog calibration recipe and selectable player choices. `get_npc_appearance(id)`, `get_default_player_appearance()`, `get_player_customization()`, `normalize_player_customization(selection)`, `resolve_player(selection)` and `validate()` are the public API. A normalized selection contains only `hair_style`, `skin_index`, `hair_color_index` and `outfit_color_index` and is safe in `profile.appearance`.
 - `DataValidator.validate_character_catalog_path(path) -> PackedStringArray` validates the C1 catalogue in the normal data gate. `tools/validate_data.gd` invokes it for `data/art/characters/chibi_character_catalog.tres`.
 - `ChibiCharacterModelBuilder` (`tools/art/chibi/chibi_character_builder.gd`) is deterministic tooling/runtime presentation support. `build_character(profile, customization = {}) -> Node3D` and `build_dog(profile) -> Node3D` create grounded C0-material model rigs. Its stable generated outputs are under `assets/generated/models/characters/`; regenerate them with `tools\build_chibi_characters.bat`.
-- `ChibiAvatar` (`scripts/view/chibi_avatar.gd`) remains view-only. In addition to legacy `configure`, its public API is `configure_profile`, `apply_customization`, `set_emotion`, `show_emotion_bubble`, `play_tool`, `play_sleep`, `play_talk`, `stop_action`, `set_facing_direction`, `get_model`, `get_face` and `get_animation_player`. It owns the six C1 `AnimationPlayer` clips but never owns player/NPC state, collision or saves.
+- Historical ChibiAvatar (scripts/view/chibi_avatar.gd) remains view-only for archive tooling; active avatars are PlaceholderAvatar2D. In addition to legacy `configure`, its public API is `configure_profile`, `apply_customization`, `set_emotion`, `show_emotion_bubble`, `play_tool`, `play_sleep`, `play_talk`, `stop_action`, `set_facing_direction`, `get_model`, `get_face` and `get_animation_player`. It owns the six C1 `AnimationPlayer` clips but never owns player/NPC state, collision or saves.
 - `CharacterFace` (`scripts/view/character_face.gd`) accepts `configure(profile)`, `set_emotion(id)`, `set_blinking(value)` and `set_talk_phase(phase)`. Valid emotions are `normal`, `happy`, `surprised`, `sad`, `sleep` and `talk`.
 - `EmotionBubble` (`scripts/view/emotion_bubble.gd`) is transient, view-only feedback: `show_emotion(id, duration)` and `hide_emotion()`. Valid bubble ids are heart, surprise, question, music, sweat and sleep.
-- `WorldPresentation.configure_player_appearance(selection)` reconfigures only the child `ChibiAvatar`; `get_player_avatar()` exposes that view anchor. `NpcActor.play_talk()` and `show_emotion(id)` are presentation helpers called after existing dialogue eligibility checks.
+- `WorldPresentation.configure_player_appearance(selection)` reconfigures only the child PlaceholderAvatar2D; `get_player_avatar()` exposes that view anchor. `NpcActor.play_talk()` and `show_emotion(id)` are presentation helpers called after existing dialogue eligibility checks.
 - `StartMenu` emits `appearance_selected(appearance: Dictionary)` before its unchanged two-argument New Game callback. `get_appearance_selection()` returns the validated normalized selector state.
 - `tools\art_review_characters.bat` writes C1 day/night contact sheets and calls `tools\capture_chibi_characters.bat`. The latter starts the configured project main scene with `--capture-chibi-characters`; the flag is review-only, exits without a save write, and is not a player-facing input action.
 
@@ -402,7 +420,7 @@ Format:
 - `ItemData` (`scripts/data/item_data.gd`) has optional view-only `model_path` and `icon_path` fields. They point to generated local art only; inventory stacks, prices, crop references and save payloads continue to use the stable `item_id`.
 - `FarmingArtCatalog` (`scripts/data/farming_art_catalog.gd`) owns crop-family mapping, growth-stage scales, tool ids, soil/dew/sparkle/effect colors and generated asset path helpers: `get_crop_scene_path`, `get_crop_family`, `get_stage_scale`, `get_tool_scene_path`, `get_tool_icon_path` and `validate`.
 - `DataValidator.validate_farming_art_catalog_path(path)` validates the C2 catalogue. `DataValidator.validate_item_visual_assets(resources)` verifies every declared C2 item model and 128 px transparent PNG sticker; `tools/validate_data.gd` invokes both in the ordinary data gate.
-- `CropPresentation.render` loads a C2 generated crop child beneath the existing logical crop root. `get_stage_id` maps the existing growth ratio to stage `0` through `3` or `withered`; `clear` and the root click bounds remain compatible with `FarmView.pick_crop`.
+- ISO-1 CropPresentation.render uses 2D stage textures; C2 generated 3D crop scenes remain archived. `get_stage_id` maps the existing growth ratio to stage `0` through `3` or `withered`; `clear` and the root click bounds remain compatible with `FarmView.pick_crop`.
 - `FarmEffects.play_action(cell, action_id)` creates bounded, transient hoe/seed/water/harvest presentation only. `FarmView.play_action_fx` is the existing-view bridge. Neither method changes grid, inventory, wallet, yield, time or save state.
 - `UiIcons.for_item` prefers an ItemData sticker PNG and retains its existing SVG fallback. `get_icon` prefers the four C2 tool stickers before its existing UI-chrome fallback.
 - `ChibiAvatar.play_tool` uses the C2 generated held prop when available, preserving its old procedural fallback and all C1 animation APIs.

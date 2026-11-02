@@ -5,6 +5,23 @@ Hour estimates are the HUMAN's working hours incl. review, testing and fixes —
 
 **Gates**: GATE A after Phase 4 (is the plant→harvest loop fun? play 10–15 min). GATE B after Phase 9 (3–5 strangers play 30 min; ≥ ~60% want to continue). Do not pass a gate on hope.
 
+## Active override — 2D isometric migration (D33–D35, 2026-11-02)
+
+This sequence takes precedence over the historical 3D presentation tasks below. Existing implemented domain systems are reused; the unchecked historical boxes are not a reliable inventory of missing code. ISO-0 documented the specification; ISO-1 runtime automation is complete, with human editor acceptance pending. Each code milestone needs an explicit allow list and its own acceptance.
+
+| ID | Task | Acceptance | Status |
+|---|---|---|---|
+| ISO-0 | Reconcile specification, reference inventory and migration contracts | D33–D35 recorded; all sixteen references accounted for; target/current API distinction and source-scope proposal documented | [~] |
+| ISO-1 | Convert active gameplay to 2D isometric placeholders (automated checks delivered; human playtest pending) | 64×32 TileMapLayer picking works at negative cells and zoom; CharacterBody2D/Camera2D movement and collisions work; eight 2D layers; no active gameplay 3D nodes; existing farm/NPC/weather/transaction/save/modal behavior preserved; autoloads/InputMap/GUT/fonts retained; full tests, data gate, parse and main headless pass | [~] |
+| ISO-2 | Shared Theme, fonts and reusable UI gallery | Native Control components cover prompt §2.3 states; one theme; licenses/Vietnamese checked; placeholders replaceable; gallery visually compared with reference 15 | [ ] |
+| ISO-3 | Basic mockup HUD | Clock/date/coins/tool slots and max-two toasts show real state; unavailable stamina/event data hidden; anchors/containers work at three sizes, vi/en; physical input/modal regression tests pass | [ ] |
+| ISO-4 | End-of-day summary and sleep UI | Existing simulation path retained; real income/expense/profit and unwatered-crop warning; one next-day action; save/load and repeated sleep equivalence verified | [ ] |
+| ISO-5 | Inventory and common five-tab shell | 8×5 capacity change explicitly tested with old saves; filters/details and supported eat/store/discard requests are validated; Q/E contextual tabs; no fake future screens | [ ] |
+| ISO-6 | Farming/data changes from prompt §4 | Resource-owned growth/prices; clarify regrow/unlock/fertilizer gaps first; watering/wither/rain/harvest/full-inventory tests and migration if schema changes | [ ] |
+| ISO-7 | Pause/settings/save UI | Mockup 14 connected to existing settings/save APIs; old golden saves and atomic writes retained; modal input, vi/en and layout tests pass | [ ] |
+
+Mockup redesigns 01 main menu, 02 character creation, 05 morning bulletin, 07 character/relationships, 08 quest book, 09 calendar/events, 10 shop, 11 house upgrade and 12 dialogue remain later work after their corresponding domain requirements are ready. Existing implementations are preserved during migration. Night/rain attachment points belong in ISO-1; full 2D visual polish must use existing weather state rather than invent a replacement simulation. No human gate is passed by this plan.
+
 ## Phase P — Preparation (no gameplay code)  ~20–40 h
 
 | ID | Task | Acceptance | Status |

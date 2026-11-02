@@ -6,9 +6,9 @@
 ##   func close_panels() -> void
 ##   func restore(data: Dictionary) -> void
 class_name NpcSystem
-extends Node3D
+extends Node
 
-const WORLD_ART_FACTORY: Script = preload("res://scripts/view/world_art_factory.gd")
+var homes: Dictionary = {}
 
 var state: NpcSocialState = NpcSocialState.new()
 var content: NpcWorldData = preload("res://data/npcs/phase8_world.tres")
@@ -32,7 +32,8 @@ func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) ->
 		var npc: NpcData = resource as NpcData
 		var actor: NpcActor = NpcActor.new()
 		actor.name = String(npc.npc_id)
-		add_child(actor)
+		_main.world.objects.add_child(actor)
+		actor.grid = _main.world.grid
 		actor.configure(state, npc)
 		actors[npc.npc_id] = actor
 		_add_home(npc)
@@ -92,7 +93,7 @@ func _nearest_npc() -> StringName:
 		var actor: NpcActor = actors[id]
 		if not actor.visible or state.is_indoors(id):
 			continue
-		var current: float = _main.world.player.global_position.distance_to(actor.global_position)
+		var current: float = Vector2(_main.world.get_player_cell()).distance_to(Vector2(_main.world.grid.global_to_cell(actor.global_position)))
 		if current < distance:
 			distance = current
 			nearest = id
@@ -231,7 +232,7 @@ func debug_visit() -> void:
 	while not state.paths.get(&"minh", []).is_empty():
 		state.advance_step(&"minh")
 	(actors[&"minh"] as NpcActor).reset_position()
-	_main.world.player.global_position = GridMath.cell_to_world(state.cells[&"minh"] + Vector2i(0, -1))
+	_main.world.player.move_to_cell(state.cells[&"minh"] + Vector2i(0, -1))
 	_state_changed()
 
 func debug_delivery_items() -> void:
@@ -243,22 +244,9 @@ func debug_journal() -> void:
 	open_journal()
 
 func _add_home(npc: NpcData) -> void:
-	var home: MeshInstance3D = MeshInstance3D.new()
+	var home: PlaceholderWorld2D = PlaceholderWorld2D.new()
 	home.name = "Home_%s" % npc.npc_id
-	home.position = GridMath.cell_to_world(state.scheduler.location_cell(npc.home_location)) + Vector3(0, 0.7, 0)
-	WORLD_ART_FACTORY.build_cottage(
-		home,
-		Vector3(1.7, 1.4, 1.5),
-		npc.color.lightened(0.24),
-		npc.color.darkened(0.20)
-	)
-	var label: Label3D = Label3D.new()
-	label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
-	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.position.y = 1.85
-	label.font_size = 64
-	label.pixel_size = 0.008
-	label.outline_size = 10
-	label.font = preload("res://scenes/main/ui_theme.tres").default_font
-	home.add_child(label)
-	add_child(home)
+	_main.world.objects.add_child(home)
+	home.global_position = _main.world.cell_to_global(state.scheduler.location_cell(npc.home_location))
+	home.configure(&"cottage", tr("UI_NPC_HOME") % tr(String(npc.display_name_key)), npc.color.lightened(0.24))
+	homes[npc.npc_id] = home

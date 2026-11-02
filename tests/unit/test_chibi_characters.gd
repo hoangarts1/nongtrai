@@ -161,24 +161,24 @@ func test_runtime_player_and_existing_npc_anchors_stay_intact_and_dialogue_anima
 	main.start_menu.hide()
 	main.tutorial_panel.hide()
 	main.world.player.movement_enabled = true
-	var avatar: ChibiAvatar = main.presentation.get_player_avatar()
+	var avatar: PlaceholderAvatar2D = main.presentation.get_player_avatar()
 	assert_not_null(avatar)
 	assert_eq(avatar.get_parent(), main.world.player, "Player avatar remains beneath the existing player anchor")
 	main.tool_controller.set("_hovered_cell", Vector2i(0, 0))
 	main.tool_controller.set("_selected_tool", &"hoe")
 	main.tool_controller.call("_use_selected_tool")
-	assert_eq(avatar.get_animation_player().current_animation, &"Tool", "Existing successful tool path triggers only the avatar presentation")
+	assert_eq(avatar.action_id, &"Tool", "Existing successful tool path triggers only the avatar presentation")
 	for npc_id: StringName in [&"minh", &"linh"]:
 		var actor: NpcActor = main.npc_system.actors.get(npc_id) as NpcActor
 		assert_not_null(actor)
-		assert_eq(actor.position, GridMath.cell_to_world(main.npc_system.state.cells[npc_id]), "NPC keeps its logical schedule anchor")
-		assert_not_null(actor.get_node_or_null("Avatar/Model/Rig"))
+		assert_eq(actor.position, main.world.cell_to_global(main.npc_system.state.cells[npc_id]), "NPC keeps its logical schedule anchor")
+		assert_not_null(actor.get_node_or_null("Avatar"))
 	main.npc_system.debug_visit()
 	await get_tree().process_frame
 	main.npc_system.open_dialogue(&"minh")
 	var minh: NpcActor = main.npc_system.actors[&"minh"] as NpcActor
-	assert_eq(minh.avatar.get_animation_player().current_animation, &"Talk", "Opening existing dialogue triggers only a view animation")
-	assert_true((minh.avatar.get_model().get_node("EmotionBubble") as Node3D).visible)
+	assert_eq(minh.avatar.action_id, &"Talk", "Opening existing dialogue triggers only a view animation")
+	assert_eq(minh.avatar.get_emotion(), &"music")
 	main.npc_system.close_panels()
 	main.free()
 	await get_tree().process_frame

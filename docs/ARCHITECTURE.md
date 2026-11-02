@@ -2,6 +2,20 @@
 
 Source of truth for how the pieces fit. Agents update the relevant table whenever they add a signal, autoload, domain class or save field.
 
+## 0. 2D migration target (D33–D35, 2026-11-02)
+
+Status: ISO-1 active scenes are now 2D (D36). The legacy architecture tables/save sketch below are retained as historical target context; API_INDEX and this section describe the implemented migration. Human editor playtest remains pending.
+
+- DATA → DOMAIN → VIEW remains unchanged. Farm/inventory/wallet/clock/weather/quest state and deterministic simulation remain authoritative. No UI owns gameplay state.
+- The logical farm is `Vector2i -> plot data`; no TileSet, camera, Node or pixel position belongs in domain state.
+- Target world: `Node2D`, Ground and Farmland `TileMapLayer`, Objects `Node2D` with y-sorting, Highlight overlay. Isometric TileSet tiles are 64×32 px. Conversion belongs to VIEW and uses `map_to_local()` / `local_to_map()` including the layer's local/global transforms. `GridMath` remains responsible for pure logical footprint operations, not a second isometric projection.
+- Player: `CharacterBody2D`, grounded placeholder visual and a child `Camera2D`. Screen-relative normalized input is vertically compressed by 0.5; camera follow/zoom must not change cell picking. Layer numbers/names remain the eight entries in COLLISION_LAYERS, migrated to 2D physics.
+- Target design size is 1152×648 with `canvas_items` and preserved aspect. UI uses anchors/containers. ISO-1 retains current UI, fonts, InputMap and autoload configuration; ISO-2 introduces the single `ui/theme/the_life_theme.tres` and reusable UI components. `ui/` is the approved new top-level UI resource directory (D34).
+- Existing NPC routes are logical cells. Their legacy `WorldLocations` Vector3 data and `GridMath` calls require an explicit adapter/migration; domain routing must not start consulting TileMapLayer. Existing save v4/golden saves are preserved; change save version only if a payload/schema actually changes.
+- Existing weather/time services are kept. Their 3D renderers must be replaced with 2D views; CanvasModulate, house-light and rain attachment points must not invent weather values. Detailed visual polish follows the relevant UI/world step.
+- Keep old generated 3D art/review assets intact as historical tools. ISO-1 acceptance requires no 3D node in the active gameplay tree; it does not authorize deleting archive assets or bypassing their tests.
+- No new bus signal, autoload or save field is defined by ISO-0. Planned APIs must remain separate from the implemented API index.
+
 ## 1. Layers and dependency direction
 
 ```
@@ -165,3 +179,15 @@ TheLife/
 ## 10. Build order
 
 Follow the milestone table in `docs/ROADMAP.md` (Phase 0 → 12). Gates: after Phase 4 (is the plant-harvest loop fun?) and after Phase 9 (do strangers want to keep playing?).
+
+The approved ISO migration sequence now takes precedence for presentation work. The historical Phase table and old schematic save example above are retained for context; actual implemented saves are v4 (see API_INDEX/SaveService), not the v1 example. This migration does not mark any human playtest gate passed.
+
+## ISO-1 implemented wiring (D36)
+
+- Main is a CanvasLayer at layer 1. Existing Control children retain their direct Main paths and remain stationary under camera movement. GrayBoxWorld is a Node2D wrapper containing WorldCanvas (CanvasLayer 0, follow_viewport_enabled); world-only modulation, tiles, actors and camera render there. InteractionLayer remains a separate CanvasLayer at 2 and UiCoordinator suppresses it behind modals.
+- WorldCanvas contains Ground, Farmland, Objects, Highlight, FarmView, WeatherFx, WorldTint and the existing interaction/spawn marker names. Objects is y-sorted; player, crop Sprite2D roots, houses and NPC actors/homes share foot-level origins. WorldArt2D also enables y-sort so nested passive tree placeholders sort with the actors.
+- IsometricGrid is a VIEW RefCounted adapter around Ground TileMapLayer. Its transforms delegate entirely to Godot's map/local/canvas APIs. It is never passed into domain objects. FarmView.setup(world) runs before configure(farm_state).
+- NpcSystem is now a nonvisual Node under Main. It owns the existing social state and lookup dictionaries; actors/homes render beneath world Objects. Existing WorldLocations Vector3 Resources and pure GridMath XZ conversion are retained as a legacy logical-coordinate adapter for scheduling. No domain class gained a Node or a pixel dependency.
+- Actual save v4 already stores player.position.{x,y,z}, unlike the older cell/facing target sketch. Main saves the legacy center coordinate of the current logical cell and loads legacy positions through GridMath then IsometricGrid. Subcell movement is intentionally snapped to the cell center on restore. Invalid numeric fields fall back to the data-owned spawn; out-of-bounds cells are clamped. This changes no JSON field or save version; existing golden migration tests remain.
+- The real clock/weather/day simulator, inventory/wallet/merchant/quests and settings APIs are reused. WorldTint consumes the existing DayNightProfile; WeatherFx consumes weather/time signals. Runtime art is code-generated TileSet/crop textures, drawn avatars/scenery and 2D action marks. Generated C0–C3 3D scenes/shaders/builders remain intact for archive review only.
+- tools/run_tests.bat runs parse, data validation, a headless domain/2D regression suite, the COMPLETE GUT suite on the configured renderer, then main headless. No renderer-dependent test is skipped. The bounded helper hides windows, preserves exit codes and isolates APPDATA/user data under TEMP.

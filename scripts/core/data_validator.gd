@@ -8,8 +8,32 @@
 ##   static func validate_character_catalog_path(path: String) -> PackedStringArray
 ##   static func validate_farming_art_catalog_path(path: String) -> PackedStringArray
 ##   static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray
+##   static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if config == null:
+		errors.append("isometric world config is missing")
+		return errors
+	if config.tile_size != Vector2i(64, 32):
+		errors.append("isometric tile size must be 64x32")
+	if config.map_region.size.x <= 0 or config.map_region.size.y <= 0 or config.player_region.size.x <= 0 or config.player_region.size.y <= 0:
+		errors.append("isometric map/player regions must be positive")
+	if config.interaction_reach <= 0 or config.camera_follow_speed <= 0:
+		errors.append("isometric reach/follow speed must be positive")
+	if config.zoom_levels.is_empty() or config.zoom_index < 0 or config.zoom_index >= config.zoom_levels.size():
+		errors.append("isometric initial zoom is invalid")
+	for zoom: float in config.zoom_levels:
+		if not is_finite(zoom) or zoom <= 0:
+			errors.append("isometric zoom levels must be finite and positive")
+	for cell: Vector2i in [config.spawn_cell, config.house_cell, config.shipping_bin_cell, config.shop_cell, config.debug_home_cell]:
+		if not config.map_region.has_point(cell):
+			errors.append("isometric location outside map: %s" % cell)
+	if not config.player_region.has_point(config.spawn_cell):
+		errors.append("isometric spawn outside player region")
+	return errors
 
 static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()

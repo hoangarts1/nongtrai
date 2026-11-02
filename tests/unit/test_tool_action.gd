@@ -14,7 +14,7 @@ func test_target_highlight_is_visible_and_uses_reach_state() -> void:
 	var main: Node = scene.instantiate()
 	get_tree().root.add_child(main)
 	await get_tree().process_frame
-	var farm_view: Node = main.get_node("GrayBoxWorld/FarmView")
+	var farm_view: Node = main.get_node("GrayBoxWorld/WorldCanvas/FarmView")
 	farm_view.call("set_hovered_cell", Vector2i(1, 0), true, true)
 	assert_true(bool(farm_view.call("is_target_highlight_visible")))
 	assert_true(bool(farm_view.call("is_target_in_reach")))

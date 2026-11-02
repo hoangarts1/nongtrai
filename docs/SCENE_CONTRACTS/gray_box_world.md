@@ -1,4 +1,52 @@
-# gray_box_world.tscn  (DRAFT — used from roadmap task 0.4)
+# gray_box_world.tscn — ISO-1 implemented and historical C4 contract
+
+## ISO-1 implemented tree (D33/D36)
+
+Path remains `scenes/world/gray_box_world.tscn`, script `scripts/view/gray_box_world.gd`, class `GrayBoxWorld`; root is `Node2D`. Main (`scenes/main/main.tscn`, `scripts/view/main.gd`) is a `CanvasLayer` at layer 1, retaining the direct paths of existing UI Controls. WorldCanvas at layer 0 follows the viewport so Camera2D affects the world while UI remains fixed. Automated checks pass; human editor acceptance is pending.
+
+```text
+GrayBoxWorld (Node2D)
+├─ WorldCanvas (CanvasLayer)                  layer 0; follow_viewport_enabled = true
+│  ├─ Ground (TileMapLayer)                   %Ground; z -20; y-sort; 64×32 isometric Diamond Down
+│  ├─ Farmland (TileMapLayer)                 %Farmland; z -10; y-sort; shared TileSet/origin
+│  │  └─ Cell_<x>_<y> (Polygon2D, runtime)    furrows/moisture only
+│  ├─ Objects (Node2D)                       %Objects; y-sort; grounded roots
+│  │  ├─ Player (instance of player.tscn)     %Player; CharacterBody2D, child Camera2D
+│  │  ├─ House (Node2D)                      runtime Placeholder child
+│  │  │  └─ HouseLight (PointLight2D)        %HouseLight; night attachment hook
+│  │  ├─ ShippingBin (Node2D)                runtime Placeholder child
+│  │  ├─ SeedShop (Node2D)                   runtime Placeholder child
+│  │  ├─ Obstacle_<index> (StaticBody2D)      runtime; world_static layer; obstacle group
+│  │  │  └─ CollisionPolygon2D               convex footprint from existing navigation solids
+│  │  ├─ Crop_<x>_<y> (Sprite2D, runtime)    stable foot-level crop picking root
+│  │  ├─ minh / linh (NpcActor, runtime)     2D avatar + localized Label; domain route stays cells
+│  │  ├─ Home_<npc_id> (runtime)             grounded non-colliding PlaceholderWorld2D
+│  │  └─ WorldArt2D (Node2D, runtime)         nested y-sort; safe passive tree placeholders
+│  ├─ Highlight (Polygon2D)                  %Highlight; z -5; view-only hovered cell
+│  ├─ FarmView (Node2D)                      state-signal adapter, hidden localized crop Labels
+│  ├─ FarmEffects (Node2D, runtime)           bounded transient effects after successful actions
+│  ├─ WeatherFx (Node2D)                     z 10; rain and seasonal placeholder marks
+│  ├─ WorldTint (CanvasModulate)              %WorldTint; world-only clock/weather tint
+│  ├─ PlayerSpawn (Marker2D)                 %PlayerSpawn; data-owned logical spawn
+│  ├─ BedMarker (Marker2D)                   %BedMarker; logical house interaction cell
+│  ├─ ShippingBinMarker (Marker2D)           %ShippingBinMarker; logical sale cell
+│  └─ SeedShopMarker (Marker2D)              %SeedShopMarker; logical shop cell
+├─ CameraRig (Node)                          %CameraRig; nonvisual follow/zoom helper
+└─ InteractionLayer (CanvasLayer)            layer 2; existing InteractionPrompt/Message UI
+```
+
+- Ground/Farmland share one generated four-tile atlas: grass, dry soil, wet soil and a shaded unworked-farm patch. Objects and WorldArt2D enable nested y-sort; tall visual offsets never move the foot-level sort root. The Player foot shape is defined in player.md. Obstacle_<index> bodies use the existing world_static layer and convex CollisionPolygon2D footprints; the farm navigation rectangle is deliberately excluded from player blockers.
+- Use the same TileSet shape/layout for every grid layer. `map_to_local` gives cell centers in layer space; use local/global transforms when converting. Mouse targeting uses `get_global_mouse_position` followed by the layer's `to_local` and `local_to_map`; do not duplicate projection math.
+- FarmGridState owns plots `(0..5, 0..5)` as logical Vector2i keys. FarmView owns only presentation; it may not infer growth, moisture, coins or quantity from tiles. CropInspector and drag tools must continue to select the correct crop/cell at camera zoom and near UI.
+- IsometricWorldConfig defines spawn `(3,3)`, house/bed `(11,10)`, shipping bin `(5,10)` (flooring the legacy 5.2/10 position), shop `(-2,7)` (legacy -2/7.5), and reach 2.5 logical cells. Marker/visual anchors use the same view adapter; legacy metre coordinates are never used as pixels. NPC location Resources retain Vector3 as pure legacy logical data; scheduler/domain interfaces remain unchanged. Main's v4 wire adapter saves legacy centers of logical cells, never canvas pixels.
+- Existing `shipping_bin_interacted()` / `seed_shop_interacted()` signals stay compatible. World exports typed player/camera/ground/farmland/objects/marker references and grid: IsometricGrid. `cell_to_global(cell)`, `get_player_cell()` and `pick_cell(screen_position)` bridge views. FarmView.setup(world) precedes configure(farm_state); its typed view/picking returns are in API_INDEX. NpcSystem is a nonvisual Main child; actors/homes are accessed through its lookup dictionaries after reparenting under Objects.
+- All art is replaceable placeholder code or standalone sprites. Reference mockup PNGs must never be loaded as world/UI assets. Existing archived C0–C3 generated 3D scenes stay intact and outside the active gameplay tree.
+- WorldTint/WeatherFx observe current GameClock/WeatherState. Preserve functional rainy-day watering and NPC schedules. Detailed night/rain art is later work, not an excuse to invent domain data or remove existing functionality.
+- Verify negative-cell picking, y-sort, zoom/pan, eight 2D layers, collision, modal suppression, farm loop, shop/bin/NPC interactions, sleep and v4 load round trip. No active gameplay descendant may be Node3D after ISO-1.
+
+## Historical C4 implementation below (read-only migration reference)
+
+The following describes the old C4 runtime before ISO-1. Its 3D types/transforms are historical migration references, not active node paths. D33/D36 and the implemented tree above supersede those presentation constraints.
 
 Path: `scenes/world/gray_box_world.tscn`
 Root: `GrayBoxWorld` (`Node3D`)   Script: (none at first; `scripts/view/gray_box_world.gd` may be added by a task)

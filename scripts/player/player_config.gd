@@ -1,4 +1,4 @@
-## PlayerConfig — tunable movement values for the placeholder player.
+## PlayerConfig — data-owned movement speeds; the 2D runtime uses player_2d_config.tres.
 class_name PlayerConfig
 extends Resource
 

@@ -1,13 +1,13 @@
 extends GutTest
 
 func test_player_position_near_house_can_interact() -> void:
-	var player_position: Vector3 = Vector3(11.0, 0.0, 8.0)
-	var house_position: Vector3 = Vector3(11.0, 0.0, 10.0)
+	var player_position: Vector2 = Vector2(11, 8)
+	var house_position: Vector2 = Vector2(11, 10)
 	assert_true(GrayBoxWorld.is_player_near_interactable(player_position, house_position, 2.5))
 
 func test_player_position_far_from_house_cannot_interact() -> void:
-	var player_position: Vector3 = Vector3(0.5, 0.0, 0.5)
-	var house_position: Vector3 = Vector3(11.0, 0.0, 10.0)
+	var player_position: Vector2 = Vector2(0, 0)
+	var house_position: Vector2 = Vector2(11, 10)
 	assert_false(GrayBoxWorld.is_player_near_interactable(player_position, house_position, 2.5))
 
 func test_prompt_is_visible_with_text_near_house_and_hidden_when_far() -> void:
@@ -17,11 +17,11 @@ func test_prompt_is_visible_with_text_near_house_and_hidden_when_far() -> void:
 	get_tree().root.add_child(world)
 	await get_tree().process_frame
 	var prompt: InteractionPrompt = world.get_node("InteractionLayer/InteractionPrompt")
-	world.player.global_position = Vector3(11.0, 0.0, 8.0)
+	world.player.move_to_cell(Vector2i(11, 8))
 	await get_tree().process_frame
 	assert_true(prompt.visible)
 	assert_eq(prompt.message_label.text, "[E] Ngủ")
-	world.player.global_position = Vector3(0.5, 0.0, 0.5)
+	world.player.move_to_cell(Vector2i(0, 0))
 	await get_tree().process_frame
 	assert_false(prompt.visible)
 	world.queue_free()
@@ -31,7 +31,7 @@ func test_daytime_interaction_has_no_prompt_and_does_not_start_sleep() -> void:
 	var world: GrayBoxWorld = preload("res://scenes/world/gray_box_world.tscn").instantiate()
 	get_tree().root.add_child(world)
 	await get_tree().process_frame
-	world.player.global_position = Vector3(11.0, 0.0, 8.0)
+	world.player.move_to_cell(Vector2i(11, 8))
 	await get_tree().process_frame
 	var prompt: InteractionPrompt = world.get_node("InteractionLayer/InteractionPrompt")
 	assert_false(prompt.visible)
@@ -43,7 +43,7 @@ func test_sleep_locks_player_until_next_morning() -> void:
 	var world: GrayBoxWorld = preload("res://scenes/world/gray_box_world.tscn").instantiate()
 	get_tree().root.add_child(world)
 	await get_tree().process_frame
-	world.player.global_position = Vector3(11.0, 0.0, 8.0)
+	world.player.move_to_cell(Vector2i(11, 8))
 	assert_true(GameClock.try_sleep())
 	await get_tree().process_frame
 	assert_false(world.player.movement_enabled)

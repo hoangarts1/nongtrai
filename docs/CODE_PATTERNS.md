@@ -21,52 +21,32 @@ signal coins_changed(new_total: int, delta: int, reason: StringName)
 
 Rules: local signals for parent-child relations; the bus only for cross-system events. Every new bus signal is added to the event catalog in `docs/ARCHITECTURE.md`. (If your pinned version has no `unused_signal` warning, the annotation is unnecessary — check.)
 
-## 2. GridMath — the only world↔cell converter
+## 2. GridMath — pure logical-cell operations (D33)
+
+`GridMath.footprint_cells(origin, size, rotation_steps)` stays the pure owner of even/odd footprints and logical 90° rotation. Existing XZ `world_to_cell` / `cell_to_world` APIs are legacy implemented APIs; ISO-1 must handle their callers and compatibility explicitly. Do not replace them with hand-written isometric projection or pass TileMapLayer into DOMAIN. Rendering conversion belongs in VIEW.
+
+## 3. Mouse → cell with TileMapLayer (2D target)
 
 ```gdscript
-class_name GridMath
-extends RefCounted
+func mouse_cell(layer: TileMapLayer) -> Vector2i:
+	return layer.local_to_map(layer.to_local(layer.get_global_mouse_position()))
 
-const CELL_SIZE := 1.0
-
-static func world_to_cell(p: Vector3) -> Vector2i:
-	return Vector2i(floori(p.x / CELL_SIZE), floori(p.z / CELL_SIZE))   # floori, never int()
-
-static func cell_to_world(c: Vector2i) -> Vector3:
-	return Vector3((c.x + 0.5) * CELL_SIZE, 0.0, (c.y + 0.5) * CELL_SIZE)   # cell CENTER, y = 0
+func cell_global_position(layer: TileMapLayer, cell: Vector2i) -> Vector2:
+	return layer.to_global(layer.map_to_local(cell))
 ```
 
-Even/odd footprint offsets are handled here and nowhere else (`footprint_cells(origin, size, rotation_steps)`).
+These are reference snippet shapes; ISO-1 implements the bound-layer adapter as IsometricGrid (see API_INDEX). One view adapter is shared by picking, highlight and visuals; test layer transforms, camera zoom/pan, negative cells and cell-center round trips. If an API accepts a viewport screen point instead, convert it through the canvas transform before `local_to_map`; never treat pixels as cells. Domain code receives only the resulting logical cell.
 
-## 3. Mouse → cell with an orthographic Camera3D
+## 4. Screen-relative movement (CharacterBody2D target)
 
 ```gdscript
-func pick_cell(camera: Camera3D, mouse_pos: Vector2) -> Variant:   # Vector2i or null
-	var from := camera.project_ray_origin(mouse_pos)
-	var dir := camera.project_ray_normal(mouse_pos)
-	var hit: Variant = Plane(Vector3.UP, 0.0).intersects_ray(from, dir)
-	if hit == null:
-		return null
-	return GridMath.world_to_cell(hit as Vector3)
+static func screen_direction(input_vector: Vector2) -> Vector2:
+	var direction: Vector2 = input_vector.limit_length(1.0)
+	direction.y *= 0.5
+	return direction
 ```
 
-One function, unit-tested, used by everything that targets a cell.
-
-## 4. Camera-relative movement (CharacterBody3D)
-
-```gdscript
-func _physics_process(delta: float) -> void:
-	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var b := camera.global_transform.basis
-	var fwd := Vector3(-b.z.x, 0.0, -b.z.z).normalized()
-	var right := Vector3(b.x.x, 0.0, b.x.z).normalized()
-	var dir := right * input.x + fwd * -input.y
-	velocity.x = dir.x * speed
-	velocity.z = dir.z * speed
-	move_and_slide()   # NO arguments in Godot 4
-```
-
-Extract the direction math into a pure static function so it can be unit-tested for yaw = 0 / 45 / 90.
+Use the result times data-defined movement speed for `velocity`, then `move_and_slide()` without arguments. Input comes from `Input.get_vector` with documented actions and honors the existing modal/sleep movement lock. Do not renormalize after y compression. Test zero/cardinal/diagonal/analog input in uncompressed movement space; raw screen-space vertical speed is deliberately half horizontal speed. No yaw/pitch math remains in the target player.
 
 ## 5. Deterministic randomness
 
@@ -128,7 +108,7 @@ func execute(_world: WorldState, _cell: Vector2i, _actor: Node) -> bool:
 
 ```gdscript
 class_name Interactable
-extends Area3D
+extends Area2D
 
 signal interacted(actor: Node)
 

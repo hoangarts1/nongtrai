@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="IsometricWorldConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/isometric_world_config.gd" id="1"]
+[resource]
+script = ExtResource("1")
+tile_size = Vector2i(64, 32)
+map_region = Rect2i(-12, -12, 27, 27)
+player_region = Rect2i(-10, -10, 22, 22)
+spawn_cell = Vector2i(3, 3)
+house_cell = Vector2i(11, 10)
+shipping_bin_cell = Vector2i(5, 10)
+shop_cell = Vector2i(-2, 7)
+debug_home_cell = Vector2i(11, 8)
+interaction_reach = 2.5
+zoom_levels = PackedFloat32Array(0.85, 1.0, 1.25)
+zoom_index = 1
+camera_follow_speed = 6.0
+camera_center_min = Vector2(-128, -48)
+camera_center_max = Vector2(128, 192)
+camera_offset = Vector2(0, -48)
+ground_color = Color(0.572549, 0.72549, 0.403922, 1)
+ground_line_color = Color(0.466667, 0.611765, 0.333333, 1)
+dry_soil_color = Color(0.662745, 0.470588, 0.286275, 1)
+wet_soil_color = Color(0.407843, 0.317647, 0.235294, 1)
+rain_amount = 120
+rain_area = Vector2(1152, 648)

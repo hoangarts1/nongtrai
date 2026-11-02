@@ -1,38 +1,50 @@
-## Player — camera-relative CharacterBody3D controller for the gray-box MVP.
+## Player — screen-relative 2D movement; logical cells are resolved through the world's grid adapter.
 ## API:
-##   static func camera_relative_direction(input: Vector2, camera_basis: Basis) -> Vector3
+##   static func screen_direction(input_vector: Vector2) -> Vector2
+##   func get_cell() -> Vector2i
+##   func move_to_cell(cell: Vector2i) -> void
 class_name Player
-extends CharacterBody3D
+extends CharacterBody2D
 
-@export var camera: Camera3D
+@export var camera: Camera2D
 @export var config: PlayerConfig
-@export var map_min: Vector2 = Vector2(-10.5, -10.5)
-@export var map_max: Vector2 = Vector2(10.5, 10.5)
+@export var map_min: Vector2 = Vector2.ZERO
+@export var map_max: Vector2 = Vector2.ZERO
 var movement_enabled: bool = true
+var grid: IsometricGrid
 
 func _ready() -> void:
 	if config == null:
-		config = PlayerConfig.new()
+		config = preload("res://data/player_2d_config.tres")
+	if camera == null:
+		camera = get_node_or_null("Camera") as Camera2D
 
 func _physics_process(_delta: float) -> void:
 	if not movement_enabled:
-		velocity = Vector3.ZERO
+		velocity = Vector2.ZERO
 		return
 	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var movement_basis: Basis = Basis.IDENTITY
-	if camera != null:
-		movement_basis = camera.global_transform.basis
-	var direction: Vector3 = camera_relative_direction(input_vector, movement_basis)
 	var speed: float = config.sprint_speed if Input.is_action_pressed("sprint") else config.walk_speed
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
+	velocity = screen_direction(input_vector) * speed
+	var previous: Vector2 = global_position
 	move_and_slide()
-	global_position.x = clampf(global_position.x, map_min.x, map_max.x)
-	global_position.z = clampf(global_position.z, map_min.y, map_max.y)
+	if grid != null:
+		var cell: Vector2i = get_cell()
+		if cell.x < map_min.x or cell.y < map_min.y or cell.x > map_max.x or cell.y > map_max.y:
+			global_position = previous
+	var visual: PlaceholderAvatar2D = get_node_or_null("Visual") as PlaceholderAvatar2D
+	if visual != null:
+		visual.set_motion(velocity)
 
-static func camera_relative_direction(input_vector: Vector2, camera_basis: Basis) -> Vector3:
-	if input_vector.length_squared() == 0.0:
-		return Vector3.ZERO
-	var forward: Vector3 = Vector3(-camera_basis.z.x, 0.0, -camera_basis.z.z).normalized()
-	var right: Vector3 = Vector3(camera_basis.x.x, 0.0, camera_basis.x.z).normalized()
-	return (right * input_vector.x + forward * -input_vector.y).normalized()
+static func screen_direction(input_vector: Vector2) -> Vector2:
+	var direction: Vector2 = input_vector.limit_length(1.0)
+	direction.y *= 0.5
+	return direction
+
+func get_cell() -> Vector2i:
+	return grid.global_to_cell(global_position) if grid != null else Vector2i.ZERO
+
+func move_to_cell(cell: Vector2i) -> void:
+	if grid != null:
+		global_position = grid.cell_to_global(cell)
+		velocity = Vector2.ZERO

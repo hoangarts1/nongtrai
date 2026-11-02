@@ -4,9 +4,26 @@ The ONLY list of input actions. `project.godot` InputMap must match this file ex
 
 Gameplay reads these through `_unhandled_input` (so UI can consume events first) or `Input.get_vector` / `Input.is_action_*`. Never read raw keys.
 
+## Migration status (D33/D34)
+
+The table below is the CURRENT implemented InputMap. ISO-1 preserves it; movement is now screen-relative in 2D. The later mockup UI target is:
+
+| Target | Context / migration requirement |
+|---|---|
+| B inventory, plus existing I/Tab | Remove B from `open_build` before adding it to `open_inventory`; preserve the build action ID, with no replacement key invented |
+| J journal; K calendar; M map | Retain J; register K/M only with working views; Ctrl+M remains the debug shortcut |
+| 1–8 visible tool slots | Keep existing `hotbar_9` action/key as compatibility; do not drop inventory state |
+| Q/E previous/next tab | Modal-only; world E interaction and Q placement rotation must not run underneath |
+| F quick-store, Z sort, T pin quest | Reserved targets; add documented actions/defaults only with the implemented operation |
+| Esc | Existing pause/close-top-modal routing |
+
+This is an approved binding migration plan, not a claim that new actions exist in `project.godot`. New action IDs must be specified in the relevant implementation task before use. Do not register or display unsupported shortcuts.
+
+## Current runtime bindings
+
 | Action | Default binding | Used for | Phase |
 |---|---|---|---|
-| `move_up` | W, Up | move toward the top of the screen (camera-relative) | 1 |
+| `move_up` | W, Up | move toward screen top (screen-relative in 2D) | 1 |
 | `move_down` | S, Down | move toward the bottom of the screen | 1 |
 | `move_left` | A, Left | move left on screen | 1 |
 | `move_right` | D, Right | move right on screen | 1 |
