@@ -1,8 +1,187 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-02 (ISO-1 active 2D runtime delivered; automated checks pass, human editor playtest pending)
+Last updated: 2026-11-03 (ISO-1 committed as 818a7de; ISO-2 automation/render review delivered)
 
 ## Current milestone
+
+`ISO-2 (shared Theme, fonts, reusable components and gallery)` — plan/ALLOW_LIST approved through the owner's explicit “Duyệt ISO-2, bắt đầu triển khai”. Implementation and automated/render review are delivered: focused UI 9/9, headless 62/62, full renderer 173/173, parse/data/main PASS. Human editor acceptance and commit remain pending; ISO-3 is the next proposal, not authorized code work yet. Existing edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) belongs to the owner and is preserved.
+
+Approved ISO-2 scope: `ui/theme/**`, `ui/components/**`, `ui/ui_gallery.{tscn,gd,gd.uid}`, `assets/fonts/{Baloo_2,Nunito,Noto_Serif}/**`, `scripts/view/{ui_layout,start_menu,crop_inspector,npc_panel,npc_actor,placeholder_world_2d}.gd`, `scenes/main/main.tscn`, `project.godot` (GUI theme only), `tools/build_ui_theme.{gd,gd.uid}`, relevant `tests/unit/**`, `localization/strings_{vi,en}.*`, `docs/{API_INDEX,ARCHITECTURE,PROGRESS,DECISIONS,ROADMAP,CREDITS,UI_LAYOUT}.md`, and `docs/SCENE_CONTRACTS/{ui_components,ui_gallery}.md`. No domain/save/InputMap/world-map changes, package installs or push are included. Keep the existing game HUD geometry; ISO-3 owns its redesign.
+
+Implementation notes: Google Fonts source files and OFL notices are imported; LifeThemeFactory generates the shared Theme with type variations and embedded placeholder toggle/slider textures. LifeTheme is a resource accessor, not an autoload. Seventeen requested component scenes/scripts plus an icon helper and button base use native Control input and localized captions. The gallery is a standalone comparison scene, with sample values explicitly labelled as examples. Existing C4 runtime theme duplication/panel overrides are replaced with shared-theme references; fonts/skin change without gameplay ownership changes.
+
+## ISO-2 handoff — shared UI foundation (2026-11-03)
+
+Acceptance delivered:
+- One active shared Theme with all eight exact tokens, dark 3 px borders/downward shadows, four button states and 28 px reusable frame margins. Existing game roots/world labels share it without panel StyleBox overrides; current HUD geometry/modal behavior stays intact.
+- Licensed Baloo 2 800, Nunito 600, Noto Serif Italic 400 and Open Sans fallback; primary font glyph coverage for Vietnamese verified, OFL notices and CREDITS included.
+- All seventeen requested component scenes/scripts plus the icon helper and base button; empty/filled/selected/locked item views, int quantities/coins, five-heart rows, progress/toggle/slider/key hints/pills/tags/five tabs. Native press/release and signals work; locked slots reject requests and components do not change domain inventory.
+- Gallery has nine sections and all component states, responsive containers, vi/en at 1152×648, 1280×720 and 1920×1080, with 18 renderer captures across top/middle/bottom. Compared actual captures with reference 15: palette, font roles, borders/shadows and state differentiation are present. Textured wood/illustrated icons remain placeholders by design. Last visual fixes add 5 px slot quantity inset and circular HUD buttons.
+
+Clear implementation diff:
+- Added LifeTheme accessor, tooling-only Theme factory and builder; committed generated Theme contains reusable native Control variations. Added fonts/OFL/import metadata, components/gallery and nine focused tests.
+- Main/project GUI configuration points at the shared Theme. UiLayout stops creating/duplicating Theme styles, keeps existing reflow, and binds shared compact styles. StartMenu/CropInspector/NpcPanel/NpcActor/PlaceholderWorld2D use shared typography/surfaces.
+- Appended 71 UI-kit localization rows per language. API_INDEX, ARCHITECTURE, D37, ROADMAP, UI_LAYOUT, CREDITS and the two new scene contracts describe the implemented foundation. Domain/save/InputMap/autoloads remain unchanged. Owner's master-plan blank line remains untouched.
+
+Manual editor steps and acceptance (not yet performed by the owner):
+1. Open project in Godot 4.7.2 and allow font/resource import. No node/Inspector wiring is required: the approved scenes/scripts and Project Settings GUI theme path are supplied. Do not replace the main scene with the gallery.
+2. Open `ui/ui_gallery.tscn`, press F6, scroll to all nine sections and compare with `docs/ui_reference/15-bo-ui-kit.png`. Check hover/pressed/disabled buttons, selected/locked slots and legible Vietnamese title/body/italic accents. Click the normal buttons/toggle/tabs and drag sliders. Gallery interactions affect only their displayed samples.
+3. Repeat at 1152×648, 1280×720 and 1920×1080, vi/en. Use the existing Settings language control, or renderer tests below to cover both locales; gallery labels already present are constructed in the selected locale (rerun F6 after changing it). Confirm no horizontal clipping, overlapping buttons or unreadable quantities.
+4. F5 Main: new/continue game, inventory/shop/dialogue/help/pause, close with Escape, walk and farm after closing. Check title font, world labels and compact panels. Verify saves, coins and inventory behave as before. No human playtest or Gate A/B is claimed complete.
+
+Run from project root (PowerShell, installed Godot):
+```powershell
+$env:GODOT = 'D:\godot\Godot_v4.7.2-stable_win64_console.exe'
+& .\tools\run_tests.bat
+# Regenerate the Theme after editing its factory:
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_godot_bounded.ps1 -Godot $env:GODOT -Arguments '--headless --path . --script tools/build_ui_theme.gd' -OutputPath "$env:TEMP\the_life_iso2_theme_build.log"
+```
+
+Real final output, 2026-11-03 (summary excerpts, ANSI colors removed):
+```text
+[ui_theme] wrote ui/theme/the_life_theme.tres
+Focused UI suite:
+Scripts               3
+Tests                 9
+Passing Tests         9
+Asserts             581
+Time              1.328s
+---- All tests passed! ----
+[check_parse] OK
+[validate_data] PASS
+[run_tests] running domain and 2D headless tests
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             849
+Time              3.359s
+---- All tests passed! ----
+[run_tests] running COMPLETE GUT suite with graphics renderer
+Scripts              56
+Tests               173
+Passing Tests       173
+Asserts            5965
+Time              30.0s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+```
+
+Full logs: `%TEMP%\the_life_{headless,gut,main,validate}.log.{stdout,stderr}` and `%TEMP%\the_life_iso2_ui_focus.log.{stdout,stderr}`. Renderer captures: `%TEMP%\the_life_test_appdata\Godot\app_userdata\game godot\ui_gallery_{vi,en}_{1152,1280,1920}_{top,middle,bottom}.png`. Visually inspected vi/1152 top+middle and en/1920 bottom after final fixes, with earlier vi top/middle/bottom review. No new engine errors/warnings. The same three pre-existing GUT orphan Labels remain: two in `test_inventory_ui`, one in `test_pause_menu`; they are not hidden or fixed outside this task's focus.
+
+Assumptions/known limits and missing assets:
+- Final `assets/ui/icons/ic_{coin,heart,energy,sun,rain,moon,hoe,water,sickle,basket,carrot,tomato,turnip,corn,pumpkin,wood,stone,straw,bag,quest,calendar,map,market,gift}.png` (32×32) and wooden/item nine-slice textures have not been supplied. Circle/initial icons and StyleBoxFlat frames are replaceable placeholders. These paths name future missing art, not loaded runtime resources. Gallery sky/gold progress variants exist; final art polish remains later work.
+- Native HSlider/ProgressBar use float ranges internally; displayed inventory/coin quantities remain int. No stamina, friendship, calendar, event or future screen service is implemented by display components.
+- Existing key hints show actual bindings (I/J/Escape etc.); no B/K/M/Q/E shortcut migration in ISO-2. Compact HUD stays at C4 geometry until ISO-3. No gameplay/data/capacity/save migration is included.
+- No gdtoolkit package was installed; no separate lint claim. Godot parser, data validator, all GUT tests, main smoke and renderer review ran. Human manual acceptance and commit are still needed. Suggested commit: `feat: add shared isometric UI theme and component gallery`.
+
+Exact ISO-2 files created/modified (includes generated import/UID metadata):
+
+```text
+assets/fonts/Baloo_2/Baloo2-Variable.ttf
+assets/fonts/Baloo_2/Baloo2-Variable.ttf.import
+assets/fonts/Baloo_2/OFL.txt
+assets/fonts/Noto_Serif/NotoSerif-Italic-Variable.ttf
+assets/fonts/Noto_Serif/NotoSerif-Italic-Variable.ttf.import
+assets/fonts/Noto_Serif/OFL.txt
+assets/fonts/Nunito/Nunito-Variable.ttf
+assets/fonts/Nunito/Nunito-Variable.ttf.import
+assets/fonts/Nunito/OFL.txt
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/ui_components.md
+docs/SCENE_CONTRACTS/ui_gallery.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+project.godot
+scenes/main/main.tscn
+scripts/view/crop_inspector.gd
+scripts/view/npc_actor.gd
+scripts/view/npc_panel.gd
+scripts/view/placeholder_world_2d.gd
+scripts/view/start_menu.gd
+scripts/view/ui_layout.gd
+tests/unit/test_ui_components.gd
+tests/unit/test_ui_components.gd.uid
+tests/unit/test_ui_gallery.gd
+tests/unit/test_ui_gallery.gd.uid
+tests/unit/test_ui_theme.gd
+tests/unit/test_ui_theme.gd.uid
+tools/build_ui_theme.gd
+tools/build_ui_theme.gd.uid
+ui/components/banner.gd
+ui/components/banner.gd.uid
+ui/components/banner.tscn
+ui/components/btn_accent.gd
+ui/components/btn_accent.gd.uid
+ui/components/btn_accent.tscn
+ui/components/btn_danger.gd
+ui/components/btn_danger.gd.uid
+ui/components/btn_danger.tscn
+ui/components/btn_primary.gd
+ui/components/btn_primary.gd.uid
+ui/components/btn_primary.tscn
+ui/components/btn_round_hud.gd
+ui/components/btn_round_hud.gd.uid
+ui/components/btn_round_hud.tscn
+ui/components/btn_secondary.gd
+ui/components/btn_secondary.gd.uid
+ui/components/btn_secondary.tscn
+ui/components/coin_label.gd
+ui/components/coin_label.gd.uid
+ui/components/coin_label.tscn
+ui/components/component_button.gd
+ui/components/component_button.gd.uid
+ui/components/heart_row.gd
+ui/components/heart_row.gd.uid
+ui/components/heart_row.tscn
+ui/components/icon_placeholder.gd
+ui/components/icon_placeholder.gd.uid
+ui/components/icon_placeholder.tscn
+ui/components/item_slot.gd
+ui/components/item_slot.gd.uid
+ui/components/item_slot.tscn
+ui/components/key_hint.gd
+ui/components/key_hint.gd.uid
+ui/components/key_hint.tscn
+ui/components/panel_wood.gd
+ui/components/panel_wood.gd.uid
+ui/components/panel_wood.tscn
+ui/components/pill.gd
+ui/components/pill.gd.uid
+ui/components/pill.tscn
+ui/components/progress_bar_styled.gd
+ui/components/progress_bar_styled.gd.uid
+ui/components/progress_bar_styled.tscn
+ui/components/slider_styled.gd
+ui/components/slider_styled.gd.uid
+ui/components/slider_styled.tscn
+ui/components/tab_bar.gd
+ui/components/tab_bar.gd.uid
+ui/components/tab_bar.tscn
+ui/components/tag.gd
+ui/components/tag.gd.uid
+ui/components/tag.tscn
+ui/components/toggle_on_off.gd
+ui/components/toggle_on_off.gd.uid
+ui/components/toggle_on_off.tscn
+ui/theme/life_theme.gd
+ui/theme/life_theme.gd.uid
+ui/theme/the_life_theme.tres
+ui/theme/theme_factory.gd
+ui/theme/theme_factory.gd.uid
+ui/ui_gallery.gd
+ui/ui_gallery.gd.uid
+ui/ui_gallery.tscn
+```
+
+## ISO-1 committed baseline
 
 `ISO-1 (2D isometric runtime)` — implementation delivered; final official runner passes 62/62 headless tests and 164/164 complete renderer tests, plus parse/data/main checks. Human editor playtest is pending. See the ISO-1 handoff below for the exact files, save compatibility, real output and manual tests. ISO-2 UI theme/gallery remains next, outside this code scope.
 

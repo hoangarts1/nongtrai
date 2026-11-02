@@ -99,7 +99,7 @@ func _build_ui() -> void:
 	var heading: HBoxContainer = HBoxContainer.new()
 	column.add_child(heading)
 	title_label = Label.new()
-	title_label.add_theme_font_size_override("font_size", 20)
+	title_label.theme_type_variation = &"LifeText20"
 	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	heading.add_child(title_label)
@@ -128,6 +128,6 @@ func _request_action() -> void:
 func _label(parent: Node, text: String, font_size: int) -> Label:
 	var label: Label = Label.new()
 	label.text = text
-	label.add_theme_font_size_override("font_size", font_size)
+	label.theme_type_variation = LifeTheme.text_variation(font_size)
 	parent.add_child(label)
 	return label

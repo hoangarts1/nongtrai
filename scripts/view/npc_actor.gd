@@ -25,8 +25,7 @@ func configure(social: NpcSocialState, npc: NpcData) -> void:
 	name_label.position = Vector2(-70,-70)
 	name_label.size = Vector2(140,32)
 	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_label.theme = preload("res://scenes/main/ui_theme.tres")
-	name_label.add_theme_font_size_override("font_size", 13)
+	LifeTheme.bind(name_label,&"LifeWorldLabel")
 	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	name_label.text = tr(String(data.display_name_key))
 	add_child(name_label)

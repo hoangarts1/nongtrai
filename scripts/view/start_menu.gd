@@ -38,12 +38,10 @@ func apply_chibi_style() -> void:
 	var title: Label = column.get_child(0) as Label
 	_title_logo = title
 	title.text = tr("UI_GAME_TITLE").to_upper()
-	title.add_theme_font_size_override("font_size", 44)
-	title.add_theme_color_override("font_color", _palette_color(&"outline", Color("4b3c47")))
-	title.add_theme_color_override("font_outline_color", _palette_color(&"sunlight", Color("fff3cf")))
-	title.add_theme_constant_override("outline_size", 2)
+	title.remove_theme_font_size_override("font_size")
+	title.theme_type_variation = &"LifeTitle"
 	_save_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_save_summary.add_theme_font_size_override("font_size", 15)
+	_save_summary.theme_type_variation = &"LifeSmall"
 	var subtitle: Label = column.get_node_or_null("Tagline") as Label
 	if subtitle == null:
 		subtitle = Label.new()
@@ -52,7 +50,7 @@ func apply_chibi_style() -> void:
 		column.add_child(subtitle)
 		column.move_child(subtitle, 1)
 	subtitle.text = tr("UI_TITLE_TAGLINE")
-	subtitle.add_theme_color_override("font_color", Color(_palette_color(&"outline", Color("4b3c47")), 0.82))
+	subtitle.theme_type_variation = &"LifeSecondaryText"
 	for child: Node in column.get_children():
 		if child is Button:
 			var button: Button = child as Button

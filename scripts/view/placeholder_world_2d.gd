@@ -15,8 +15,7 @@ func configure(visual_kind: StringName, title: String, tint: Color) -> void:
 		label.position = Vector2(-70,-88)
 		label.size = Vector2(140,24)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.theme = preload("res://scenes/main/ui_theme.tres")
-		label.add_theme_font_size_override("font_size", 13)
+		LifeTheme.bind(label,&"LifeWorldLabel")
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(label)
 	label.text = title

@@ -39,6 +39,10 @@ window/stretch/aspect="keep"
 
 enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg", "res://addons/gut/plugin.cfg")
 
+[gui]
+
+theme/custom="res://ui/theme/the_life_theme.tres"
+
 [input]
 
 move_up={

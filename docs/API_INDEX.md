@@ -7,7 +7,17 @@ Public methods and signals of every system. Agents read THIS instead of scanning
 - Active gameplay is now 2D. Existing domain, clock, inventory, wallet, weather/social services, autoloads, InputMap, fonts and save v4 remain in use. See D36 and scene contracts for reparented view nodes.
 - GridMath's Vector3 methods remain pure legacy logical-coordinate/wire adapters for NPC Resources and old saves. IsometricGrid owns every screen/canvas/isometric conversion in VIEW; DOMAIN never receives it.
 - C0–C3 generated 3D art/builders/shaders and ChibiAvatar/WorldArtFactory/WorldSeasonFx APIs remain available for historical tooling/tests. They are not instantiated in active gameplay.
-- The sixteen mockups are reference-only. ISO-2's new Theme/gallery/fonts are still planned, not existing assets.
+- The sixteen mockups are reference-only. ISO-2 now supplies the shared Theme, imported licensed fonts and standalone component gallery; final icon/frame artwork and later HUD layouts remain pending.
+
+## ISO-2 shared UI APIs (2026-11-03)
+
+- `LifeTheme` (`ui/theme/life_theme.gd`): `get_theme() -> Theme` returns the cached `ui/theme/the_life_theme.tres`; `bind(control: Control, variation: StringName = &"") -> void` assigns it; `text_variation(size: int) -> StringName` selects a shared text size. It is not an autoload and callers must not mutate the shared resource.
+- `LifeThemeFactory.build() -> Theme` (`ui/theme/theme_factory.gd`) is tooling-only. `tools/build_ui_theme.gd` regenerates the committed resource. Palette tokens, fonts, native Control states, frame margins and generated toggle/slider textures live here rather than per-node StyleBox overrides.
+- `LifeButtonBase`: `set_caption(key: StringName) -> void`, `set_preview_state(state: StringName) -> void`; primary/secondary/danger/accent scenes retain native `pressed`. `LifeBtnRoundHud.set_hint(action: StringName)` displays an existing InputMap binding.
+- `LifeItemSlot`: `set_item(id: StringName, count: int, name_key: StringName, texture: Texture2D = null) -> void`, `set_state(value: SlotState) -> void`; `slot_requested(item_id: StringName)`. Empty/filled/selected/locked are presentation states; a locked slot emits no request.
+- `LifeBanner.set_caption(key)`, `set_tone(tone)`; `LifeProgressBar.set_displayed_value(current: int, maximum: int)`, `set_tone(tone)`; `LifeHeartRow.set_hearts(count: int)`; `LifeKeyHint.set_action(action: StringName)`; `LifeCoinLabel.set_coins(value: int)`; `LifeTabBar.set_active(index: int)` and `tab_requested(index: int)`. Setters return void. Toggle/slider retain native `toggled(bool)` / `value_changed(float)` signals; no service is called by a component.
+- `LifePill.set_value(value: int) -> void` updates its localized display; `LifeKeyHint.action_text(action: StringName) -> String` is a static binding formatter. `LifePanelWood`, `LifeTag`, `LifeIconPlaceholder` are reusable localized view surfaces. Exact Inspector fields, scene roots and runtime children are in `docs/SCENE_CONTRACTS/ui_components.md`.
+- `LifeUiGallery` (`ui/ui_gallery.gd`): `get_sections() -> Dictionary`, `rebuild() -> void`. Standalone gallery has nine sections, translated sample values and responsive scrolling; `--capture-ui-gallery` requires a graphics renderer. No game/save controller is instantiated.
 
 ## ISO-1 new view/data APIs
 
@@ -358,7 +368,7 @@ Format:
 ## UiCoordinator / UiLayout (scripts/view/ui_coordinator.gd, ui_layout.gd)
 - `UiCoordinator.configure(main: Node) -> void`: registers the nine existing modal surfaces, applies the runtime theme/layout, and creates a view-only backdrop; no autoload or scene edits.
 - `close_active() -> void`, `get_active_panel() -> Control`: closes through each panel's existing API and coordinates visibility, clock/player locking, prompts and secondary HUD. Start menu cannot be bypassed by gameplay shortcuts.
-- `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: duplicates the shared Theme into a C0-palette pastel pill surface (18 px body, 24 px headings), including Button/field/focus/tooltip states, responsive rectangles, and deferred reflow after minimum-size changes.
+- `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: assigns the shared ISO-2 Theme and type variations (18 px body, 24 px headings), including Button/field/focus/tooltip states, existing responsive rectangles, and deferred reflow after minimum-size changes. Geometry stays at the C4 contract until the later HUD milestone.
 - `HotbarPanel.refresh_readability() -> void`: rebuilds backing item selectors, but hides the item grid/caption during gameplay; only the four compact tool buttons are visible. `select_slot(slot_index: int) -> void` keeps numeric selection/API compatibility. `InventoryPanel` shows all items in a scrollable list with explicit Select buttons and a fixed close header.
 - Modal shortcut contract: I/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
 - Backdrop is the first Main child for mouse hit order; render z_index alone is insufficient. Mouse events pass to GUI before key filters; mouse regression tests use press/release pairs in a separate SubViewport.

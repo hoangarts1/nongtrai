@@ -18,6 +18,8 @@ Status: ISO-1 active scenes are now 2D (D36). The legacy architecture tables/sav
 
 ## 1. Layers and dependency direction
 
+ISO-2 implemented UI foundation (D37): `ui/theme/the_life_theme.tres` is the project GUI theme and the same resource is assigned to active Main panels, world labels and the standalone gallery. `LifeTheme` is a VIEW resource accessor; `LifeThemeFactory` and `tools/build_ui_theme.gd` are offline tooling, never a new autoload. `ui/components/` contains native Controls with read-only display setters and request signals. Consumers remain responsible for validating requests through existing services. Gallery examples own no domain state and never save. Body/headings/secondary fonts are Nunito 600, Baloo 2 800 and Noto Serif Italic 400 with Open Sans fallback. Existing C4 geometry, modal ownership, InputMap, autoload order and save v4 are unchanged; final artwork and ISO-3 onward remain separate tasks.
+
 ```
 DATA (Resource .tres / CSV)  --->  DOMAIN (RefCounted, no Node)  --->  VIEW (Scene / UI)
    CropData, ItemData,             WorldState: ClockState,             FarmView, HUD,

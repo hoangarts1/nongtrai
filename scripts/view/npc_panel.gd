@@ -9,13 +9,7 @@ var close_button: Button
 
 func _ready() -> void:
 	visible = false
-	theme = preload("res://scenes/main/ui_theme.tres")
-	var background: StyleBoxFlat = StyleBoxFlat.new()
-	background.bg_color = Color(0.055, 0.075, 0.065, 0.98)
-	background.border_color = Color(0.6, 0.72, 0.49, 1.0)
-	background.set_border_width_all(2)
-	background.set_corner_radius_all(8)
-	add_theme_stylebox_override("panel", background)
+	LifeTheme.bind(self,&"LifeCompactPanel")
 	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	offset_left = -260.0
 	offset_right = 260.0
@@ -29,7 +23,7 @@ func _ready() -> void:
 	var outer: VBoxContainer = VBoxContainer.new()
 	margin.add_child(outer)
 	title_label = Label.new()
-	title_label.add_theme_font_size_override("font_size", 18)
+	title_label.theme_type_variation = &"LifeHeading"
 	outer.add_child(title_label)
 	var scroll: ScrollContainer = ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL

@@ -1,5 +1,13 @@
 # HUD layout
 
+## ISO-2 Theme foundation (2026-11-03, D37)
+
+The active UI now shares `ui/theme/the_life_theme.tres`: paper/wood surfaces, ink borders and downward shadows, Nunito 600 body, Baloo 2 800 headings and Noto Serif Italic secondary text. UiLayout assigns this resource and type variations instead of duplicating/building a Theme. Reusable `LifeWood` frames have 28 px content margins; existing game panels use `LifeCompactPanel` to preserve their measured footprint. The old `scenes/main/ui_theme.tres` is retained for compatibility but has no active runtime consumer.
+
+Open `ui/ui_gallery.tscn` with F6 for the isolated component/state comparison. It uses native Controls and localized sample values, supports vertical scrolling at 1152×648/1280×720/1920×1080 in vi/en, and exposes 24 replaceable circle/initial icon placeholders. Compare with `docs/ui_reference/15-bo-ui-kit.png`: palette/font roles, dark borders, selected/locked slots, progress, hearts, toggle/slider, badges and five tabs are represented; textured wood, illustrated icons and nine-slice art are still pending. The gallery is a component review, not a replica of the reference sheet layout.
+
+ISO-2 preserves the existing HUD rectangles/modal behavior below. Eight visible tool slots, redesigned clock/coins/date, contextual Q/E tabs and later mockup screens are not wired by this milestone. Keyboard hints read the existing I/J/Escape/etc. InputMap; no new bindings are registered.
+
 ## Compact HUD/crop inspection contract (2026-10-27)
 - Default HotbarPanel shows only its four tool buttons (44 px target height). Its nine-slot grid/caption are hidden; InventoryPanel is the only expanded item surface. Each inventory row has a localized Select button, emits slot_selected(index), and closes the inventory after selection. Numeric 1–9 selection remains available while playing.
 - Main constructs CropInspector (PanelContainer) from code and supplies the farm state. It is a nonmodal 360×252 maximum card at the lower-left, above the compact tool row. A crop click shows/replaces the selected cell's card without consuming items or pausing the clock. Opening a full modal hides the inspector; selecting empty terrain or its close button dismisses it.
@@ -11,7 +19,7 @@
 - Backdrop child is placed FIRST in sibling order for GUI picking; z_index alone does not establish click order. Modal `_input` ignores mouse events so buttons/scrollbars process them; the backdrop blocks clicks outside panels. Mouse regressions run through isolated SubViewport.push_input with press/release pairs rather than emitting button signals.
 - Main creates UiCoordinator (Node) in code. It owns one active modal among inventory/help/debug/pause/start/shop/bin/dialogue/journal, closes the previous panel through its existing API, and restores player/clock state only after the active modal closes.
 - UiCoordinator creates a full-viewport dimming ColorRect behind active panels; world interaction prompts, hotbar, HUD buttons and onboarding checklist are hidden during modal interaction. Escape closes the active panel; I/H/J/Ctrl+M switch to the requested panel without stacking.
-- UiLayout is a view helper: duplicates the existing Theme to 18 px body/24 px titles, applies opaque panels and 40 px minimum buttons, places central modals within viewport margins with scrollable content and fixed close/footer controls. Existing scene nodes are bound through Main references; no scene or .tres edits.
+- UiLayout is a view helper: assigns the shared ISO-2 Theme with 18 px body/24 px titles, opaque panels and 40 px minimum buttons, places central modals within viewport margins with scrollable content and fixed close/footer controls. Existing scene nodes are bound through Main references.
 - Hotbar uses nine readable slots (keys 1–9), full item names in a selected-item caption and tooltips; inventory keeps every slot in a scrollable list. NPC/home labels use a larger world-space font.
 - At 1152×648 normal HUD uses top-left status, top-right compact onboarding, bottom-left tool/item bar and bottom-right menu buttons; modal layout replaces these secondary HUD regions while preserving the scene behind a dim background.
 
@@ -41,8 +49,8 @@ Panels must use `Container` children for internal layout. New HUD controls
 must register in the existing bars or use a documented region; they must not
 introduce screen-space coordinates that overlap another region.
 
-The shared Theme is `scenes/main/ui_theme.tres`; UiLayout duplicates it at runtime
-to 18 px body and 24 px headings. Hotbar item labels use 16 px; key badges use
+The shared Theme is `ui/theme/the_life_theme.tres`; UiLayout assigns it with
+18 px body and 24 px heading variations. Hotbar item labels use 16 px; key badges use
 14 px and a full-name caption uses 18 px. Layout tests cover visible panels at
 1152x648, 1280x720 and 1920x1080 in Vietnamese and English. Main modals use a
 680×560 maximum rectangle constrained by viewport margins; long lists scroll,
