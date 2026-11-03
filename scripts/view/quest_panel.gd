@@ -1,25 +1,20 @@
-## QuestPanel — displays the current farming onboarding checklist.
-## API:
-##   func configure(state: TutorialQuestState) -> void
+## QuestPanel — existing tutorial completion adapter to a pinned paper card.
 class_name QuestPanel
 extends PanelContainer
 
 const STEP_KEYS: Array[StringName] = [
-	&"UI_QUEST_TILL",
-	&"UI_QUEST_PLANT",
-	&"UI_QUEST_WATER",
-	&"UI_QUEST_SLEEP",
-	&"UI_QUEST_HARVEST",
-	&"UI_QUEST_SELL",
-	&"UI_QUEST_BUY_SEED"
+	&"UI_QUEST_TILL",&"UI_QUEST_PLANT",&"UI_QUEST_WATER",&"UI_QUEST_SLEEP",
+	&"UI_QUEST_HARVEST",&"UI_QUEST_SELL",&"UI_QUEST_BUY_SEED"
 ]
 var _state: Variant
-var _list: VBoxContainer
 var _help_suppressed: bool = false
+var card: LifeHudQuestCard
 
 func _ready() -> void:
-	visible = true
-	_build_ui()
+	LifeTheme.bind(self,&"LifeHudClearPanel")
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card = preload("res://ui/hud/quest_card.tscn").instantiate() as LifeHudQuestCard
+	add_child(card)
 
 func configure(state: Variant) -> void:
 	_state = state
@@ -31,26 +26,18 @@ func set_help_suppressed(suppressed: bool) -> void:
 	_help_suppressed = suppressed
 	_render()
 
-func _build_ui() -> void:
-	var margin: MarginContainer = MarginContainer.new()
-	for side: StringName in [&"margin_left", &"margin_top", &"margin_right", &"margin_bottom"]:
-		margin.add_theme_constant_override(side, 10)
-	add_child(margin)
-	_list = VBoxContainer.new()
-	_list.add_theme_constant_override("separation", 3)
-	margin.add_child(_list)
-
 func _render() -> void:
-	if _list == null or _state == null:
+	if card == null or _state == null:
 		return
-	for child: Node in _list.get_children():
-		child.queue_free()
+	var completed: Array[bool] = []
 	for index: int in range(STEP_KEYS.size()):
-		var label: Label = Label.new()
-		var marker: String = "[x]" if _state.is_step_completed(index) else "[ ]"
-		label.text = "%s %s" % [marker, tr(STEP_KEYS[index])]
-		_list.add_child(label)
+		completed.append(_state.is_step_completed(index))
+	card.display(STEP_KEYS,completed)
 	visible = not _state.is_complete() and not _help_suppressed
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		_render()
 
 func _on_step_changed(_step_index: int, _completed: bool) -> void:
 	_render()

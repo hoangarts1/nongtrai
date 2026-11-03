@@ -18,6 +18,8 @@ Status: ISO-1 active scenes are now 2D (D36). The legacy architecture tables/sav
 
 ## 1. Layers and dependency direction
 
+ISO-3 active HUD (D38): Main wires a `LifeHudPresenter` to a `LifeHudRoot` and the existing HUD adapters. `LifeHudRegions` handles anchors independently of bindings. Dedicated clock/arc, pinned checklist, eight-slot toolbar/slot, shortcut bar and toast stack/card scripts supply small reusable views under `ui/hud/`. World remains CanvasLayer 0; Main HUD layer 1; existing interaction layer 2; modal backdrop/panels use z80/81 and supported transaction-result toasts z82. Existing Main direct paths and Label text adapters remain compatible while their obsolete visual surfaces are hidden. No UI owns coins, inventory, weather, tutorial completion or simulation. B now opens inventory; `open_build` remains as an unbound action ID. No new domain system/autoload/save field is introduced.
+
 ISO-2 implemented UI foundation (D37): `ui/theme/the_life_theme.tres` is the project GUI theme and the same resource is assigned to active Main panels, world labels and the standalone gallery. `LifeTheme` is a VIEW resource accessor; `LifeThemeFactory` and `tools/build_ui_theme.gd` are offline tooling, never a new autoload. `ui/components/` contains native Controls with read-only display setters and request signals. Consumers remain responsible for validating requests through existing services. Gallery examples own no domain state and never save. Body/headings/secondary fonts are Nunito 600, Baloo 2 800 and Noto Serif Italic 400 with Open Sans fallback. Existing C4 geometry, modal ownership, InputMap, autoload order and save v4 are unchanged; final artwork and ISO-3 onward remain separate tasks.
 
 ```

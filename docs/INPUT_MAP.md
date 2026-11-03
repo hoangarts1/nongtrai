@@ -6,13 +6,13 @@ Gameplay reads these through `_unhandled_input` (so UI can consume events first)
 
 ## Migration status (D33/D34)
 
-The table below is the CURRENT implemented InputMap. ISO-1 preserves it; movement is now screen-relative in 2D. The later mockup UI target is:
+The table below is the CURRENT implemented InputMap. Movement is screen-relative in 2D. ISO-3 implements B/I/Tab inventory and eight visible tool/item keys; the remaining later mockup targets are:
 
 | Target | Context / migration requirement |
 |---|---|
-| B inventory, plus existing I/Tab | Remove B from `open_build` before adding it to `open_inventory`; preserve the build action ID, with no replacement key invented |
+| B inventory, plus I/Tab | Implemented in ISO-3; B removed from `open_build`, whose action ID remains unbound. Tab was documented historically but absent from the actual project defaults; ISO-3 adds the documented alias explicitly. |
 | J journal; K calendar; M map | Retain J; register K/M only with working views; Ctrl+M remains the debug shortcut |
-| 1–8 visible tool slots | Keep existing `hotbar_9` action/key as compatibility; do not drop inventory state |
+| 1–8 visible tool slots | Implemented: 1 hoe, 2 watering can, 3 harvest; 4–8 the displayed five-stack inventory window. `hotbar_9` retains legacy inventory index 8 selection; no inventory state/capacity is dropped. |
 | Q/E previous/next tab | Modal-only; world E interaction and Q placement rotation must not run underneath |
 | F quick-store, Z sort, T pin quest | Reserved targets; add documented actions/defaults only with the implemented operation |
 | Esc | Existing pause/close-top-modal routing |
@@ -33,10 +33,11 @@ This is an approved binding migration plan, not a claim that new actions exist i
 | `cancel` | Mouse Right | cancel placement / close sub-menu / deselect | 4 |
 | `tool_next` | Mouse Wheel Down | next hotbar slot | 3 |
 | `tool_prev` | Mouse Wheel Up | previous hotbar slot | 3 |
-| `hotbar_1` … `hotbar_9` | 1 … 9 | pick hotbar slot | 3 |
-| `open_inventory` | I, Tab | inventory | 3 |
+| `hotbar_1` … `hotbar_8` | 1 … 8 | visible mixed toolbar: three existing tools and five inventory stacks | ISO-3 |
+| `hotbar_9` | 9 | legacy ninth inventory stack; display window follows selection | ISO-3 compatibility |
+| `open_inventory` | B, I, Tab | inventory | 3 / ISO-3 |
 | `open_help` | H | how to play | 4 |
-| `open_build` | B | build mode | 6 |
+| `open_build` | unbound | retained future build action ID; B now opens inventory | 6 |
 | `open_journal` | J | notebook: quests, ecology, collection | 7 |
 | `rotate_cw` | R | rotate ghost clockwise (build mode) | 6 |
 | `rotate_ccw` | Q | rotate ghost counter-clockwise | 6 |

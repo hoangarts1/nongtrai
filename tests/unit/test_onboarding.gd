@@ -19,7 +19,7 @@ func test_help_action_and_tutorial_use_input_map_bindings() -> void:
 	assert_true(tutorial.visible)
 	var instructions: Label = tutorial.get_node("MarginContainer/VBoxContainer/Instructions")
 	assert_true(instructions.text.contains("W"))
-	assert_true(instructions.text.contains("I"))
+	assert_true(instructions.text.contains("B"),"Help displays the new primary inventory binding from InputMap")
 	assert_true(instructions.text.contains("Space hoặc chuột trái"))
 	assert_false(instructions.text.contains("Physical"))
 	var check: CheckButton = tutorial.get_node("MarginContainer/VBoxContainer/DoNotShowAgain")

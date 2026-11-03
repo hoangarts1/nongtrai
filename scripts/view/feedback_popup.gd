@@ -1,35 +1,28 @@
-## FeedbackPopup — short player-facing feedback for domain results.
+## FeedbackPopup — compatible text adapter into the shared two-message toast stack.
 ## API:
+##   func configure(inventory: InventoryState) -> void
 ##   func show_message(message: String) -> void
 extends Label
 
-var _tween: Tween
+signal message_shown(message: String, icon_id: StringName)
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	visible = false
+	hide()
 
-func configure(inventory: InventoryState) -> void:
+func configure(_inventory: InventoryState) -> void:
 	if not Events.item_added.is_connected(_on_item_added):
 		Events.item_added.connect(_on_item_added)
 
 func show_message(message: String) -> void:
 	text = message
-	visible = true
-	modulate.a = 1.0
-	if _tween != null:
-		_tween.kill()
-	_tween = create_tween()
-	_tween.set_parallel(true)
-	_tween.tween_property(self, "position:y", position.y - 24.0, 0.55)
-	_tween.tween_property(self, "modulate:a", 0.0, 0.55)
-	_tween.finished.connect(func() -> void:
-		visible = false
-		position.y += 24.0
-	)
+	message_shown.emit(message,&"journal")
+	hide()
 
 func _on_item_added(item_id: StringName, quantity: int) -> void:
 	var item_data: Resource = DataRegistry.get_item(item_id)
 	if item_data == null:
 		return
-	show_message("+%d %s" % [quantity, tr(String(item_data.get("display_name_key")))])
+	text = tr("HUD_ITEM_GAINED") % [quantity,tr(String(item_data.get("display_name_key")))]
+	message_shown.emit(text,&"seed")
+	hide()

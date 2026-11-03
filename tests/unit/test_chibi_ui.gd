@@ -47,7 +47,7 @@ func test_motion_wires_real_tool_click_focus_and_native_tooltip_theme() -> void:
 	assert_not_null(motion)
 	assert_not_null(motion.get_cursor())
 	assert_not_null(main.hotbar_panel.theme.get_stylebox("panel", "TooltipPanel"))
-	var tool: Button = main.hotbar_panel.get_node("MarginContainer/Content/ToolRow/Tool_hoe") as Button
+	var tool: Button = main.hotbar_panel.toolbar.buttons[0]
 	assert_not_null(tool)
 	assert_eq(tool.focus_mode, Control.FOCUS_ALL)
 	assert_false(tool.tooltip_text.is_empty())
@@ -68,10 +68,10 @@ func test_title_focus_and_compact_hud_remain_safe_at_three_sizes() -> void:
 		main.set("_game_started", true)
 		main.tutorial_panel.close_help()
 		await _settle()
-		assert_lte(main.hotbar_panel.size.x, 260.0)
-		assert_lte(main.hotbar_panel.size.y, 64.0)
+		assert_lte(main.hotbar_panel.size.x, 540.0)
+		assert_lte(main.hotbar_panel.size.y, 136.0)
 		assert_lte(main.hud_button_bar.size.x, 232.0)
-		assert_lte(main.hud_button_bar.size.y, 64.0)
+		assert_lte(main.hud_button_bar.size.y, 70.0)
 		assert_true(Rect2(Vector2.ZERO, viewport.get_visible_rect().size).encloses(main.hotbar_panel.get_global_rect()))
 		assert_true(Rect2(Vector2.ZERO, viewport.get_visible_rect().size).encloses(main.hud_button_bar.get_global_rect()))
 		main.queue_free()

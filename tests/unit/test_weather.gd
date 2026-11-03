@@ -30,8 +30,12 @@ func test_weather_hud_and_rain_fx_are_inside_world_and_update() -> void:
 	await get_tree().process_frame
 	var hud: Label = main.get_node("WeatherHud") as Label
 	var rain: Node2D = main.get_node("GrayBoxWorld/WorldCanvas/WeatherFx/RainParticles") as Node2D
-	assert_true(hud.visible)
+	assert_false(hud.visible,"Legacy text adapter is retained but the modular card renders weather")
 	assert_true(hud.text.contains("Mưa"))
+	var card: LifeHudClockCard = main.hud_presenter.root.clock_card
+	assert_true(card.is_visible_in_tree())
+	assert_true(card.forecast_label.text.contains("Mưa"))
+	assert_eq(card.arc.weather_id,&"rain")
 	assert_true(rain.visible)
 	main.queue_free()
 

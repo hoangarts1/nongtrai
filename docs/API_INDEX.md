@@ -11,6 +11,8 @@ Public methods and signals of every system. Agents read THIS instead of scanning
 
 ## ISO-2 shared UI APIs (2026-11-03)
 
+ISO-3 adds modular active HUD views under `ui/hud/`; these reuse ISO-2's single Theme. See the HUD APIs below and `SCENE_CONTRACTS/hud.md` for exact trees and input semantics.
+
 - `LifeTheme` (`ui/theme/life_theme.gd`): `get_theme() -> Theme` returns the cached `ui/theme/the_life_theme.tres`; `bind(control: Control, variation: StringName = &"") -> void` assigns it; `text_variation(size: int) -> StringName` selects a shared text size. It is not an autoload and callers must not mutate the shared resource.
 - `LifeThemeFactory.build() -> Theme` (`ui/theme/theme_factory.gd`) is tooling-only. `tools/build_ui_theme.gd` regenerates the committed resource. Palette tokens, fonts, native Control states, frame margins and generated toggle/slider textures live here rather than per-node StyleBox overrides.
 - `LifeButtonBase`: `set_caption(key: StringName) -> void`, `set_preview_state(state: StringName) -> void`; primary/secondary/danger/accent scenes retain native `pressed`. `LifeBtnRoundHud.set_hint(action: StringName)` displays an existing InputMap binding.
@@ -18,6 +20,19 @@ Public methods and signals of every system. Agents read THIS instead of scanning
 - `LifeBanner.set_caption(key)`, `set_tone(tone)`; `LifeProgressBar.set_displayed_value(current: int, maximum: int)`, `set_tone(tone)`; `LifeHeartRow.set_hearts(count: int)`; `LifeKeyHint.set_action(action: StringName)`; `LifeCoinLabel.set_coins(value: int)`; `LifeTabBar.set_active(index: int)` and `tab_requested(index: int)`. Setters return void. Toggle/slider retain native `toggled(bool)` / `value_changed(float)` signals; no service is called by a component.
 - `LifePill.set_value(value: int) -> void` updates its localized display; `LifeKeyHint.action_text(action: StringName) -> String` is a static binding formatter. `LifePanelWood`, `LifeTag`, `LifeIconPlaceholder` are reusable localized view surfaces. Exact Inspector fields, scene roots and runtime children are in `docs/SCENE_CONTRACTS/ui_components.md`.
 - `LifeUiGallery` (`ui/ui_gallery.gd`): `get_sections() -> Dictionary`, `rebuild() -> void`. Standalone gallery has nine sections, translated sample values and responsive scrolling; `--capture-ui-gallery` requires a graphics renderer. No game/save controller is instantiated.
+
+## ISO-3 HUD APIs (2026-11-03)
+
+- `LifeHudRoot` (`ui/hud/hud_root.gd`): typed `right_column`, `clock_card: LifeHudClockCard`, `wallet_frame`, `coins: LifeCoinLabel`, `toasts: LifeHudToastStack`. Non-interactive shell, no domain data ownership.
+- `LifeHudPresenter.configure(main: Node) -> void`, `sync(modal: bool, title: bool) -> void`, `show_message(message: String, icon_id: StringName = &"journal") -> void`: binds real clock/weather/wallet/quest/result signals to views and coordinates visibility. No new autoload/bus signal/save field.
+- `LifeHudRegions.apply(main: Node) -> void`: anchors the root's right column/toasts and existing quest/hotbar/shortcut/inspector/prompt adapter roots. Modal rectangles remain in UiLayout.
+- `LifeHudClockCard.display(day: int, day_in_season: int, year: int, season_text: String, minute: int, weather_id: StringName, forecast: String) -> void`; `LifeHudClockArc.display(value: int, weather: StringName) -> void`. Displays existing calendar values and uses sunny/cloudy/rain/storm IDs from WeatherState; never advances time.
+- `LifeHudQuestCard.display(keys: Array[StringName], completed: Array[bool]) -> void`: actual completed/total with up to three relevant existing checklist steps, no fabricated amounts/rewards. QuestPanel's existing configure/help suppression APIs delegate here.
+- `LifeHudToolbar.display(slots: Array[Dictionary], selected_inventory: int, active_tool: StringName, window_start: int) -> void`, `request(index: int) -> void`; signals `tool_requested(tool_id: StringName)`, `item_requested(slot_index: int)`. `LifeHudToolbarSlot.display(key, texture, quantity, selected, title) -> void` is a native Button display. Selection/validation remains in HotbarPanel/ToolActionController.
+- HotbarPanel retains `configure`, `register_tool`, `get_selected_slot`, `refresh_readability`, `select_slot` and `slot_selected`. Its `toolbar: LifeHudToolbar` exposes visible buttons. Hidden legacy child paths stay queryable. 1–3 selects tools, 4–8 selects the current five-stack window, 9 selects legacy inventory index 8; selecting any real inventory index from InventoryPanel moves the display window without resizing inventory.
+- `LifeHudShortcutBar.create_button(id: StringName, title: String, action: StringName) -> Button` supplies actual inventory/journal/help/pause buttons through HudButtonBar's existing registration API. No calendar/map placeholders or dead shortcuts.
+- `LifeHudToastStack.show_message(message: String, icon_id: StringName = &"journal") -> void`, `clear() -> void`: at most two messages, 3 s view-only Timer lifetime; `LifeHudToastCard.display(message, icon_id) -> void`. FeedbackPopup retains configure/show_message/text compatibility and emits local `message_shown(message: String, icon_id: StringName)` into the presenter. Main's existing `_show_toast` delegates to the same stack.
+- `LifeHudFrame`, `LifeHudParts` are decoration/construction helpers. Each new HUD script is under 250 lines. Existing Main node paths, Label text adapters, scene IDs, modal APIs, tool/domain services and save v4 remain intact. InputMap changes are documented in INPUT_MAP.
 
 ## ISO-1 new view/data APIs
 
@@ -368,9 +383,9 @@ Format:
 ## UiCoordinator / UiLayout (scripts/view/ui_coordinator.gd, ui_layout.gd)
 - `UiCoordinator.configure(main: Node) -> void`: registers the nine existing modal surfaces, applies the runtime theme/layout, and creates a view-only backdrop; no autoload or scene edits.
 - `close_active() -> void`, `get_active_panel() -> Control`: closes through each panel's existing API and coordinates visibility, clock/player locking, prompts and secondary HUD. Start menu cannot be bypassed by gameplay shortcuts.
-- `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: assigns the shared ISO-2 Theme and type variations (18 px body, 24 px headings), including Button/field/focus/tooltip states, existing responsive rectangles, and deferred reflow after minimum-size changes. Geometry stays at the C4 contract until the later HUD milestone.
-- `HotbarPanel.refresh_readability() -> void`: rebuilds backing item selectors, but hides the item grid/caption during gameplay; only the four compact tool buttons are visible. `select_slot(slot_index: int) -> void` keeps numeric selection/API compatibility. `InventoryPanel` shows all items in a scrollable list with explicit Select buttons and a fixed close header.
-- Modal shortcut contract: I/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
+- `UiLayout.apply(main: Node) -> void`, `reflow(main: Node) -> void`: assigns the shared Theme, retains existing modal rectangles and delegates active HUD anchors to LifeHudRegions. Deferred reflow follows minimum-size changes; no per-node StyleBox skin is built here.
+- `HotbarPanel.refresh_readability() -> void`: refreshes the modular eight-slot toolbar/caption. Hidden backing selectors retain legacy child-path compatibility. `select_slot(slot_index: int) -> void` selects any inventory stack and follows its five-stack window. InventoryPanel still shows all items in a scrollable list with explicit Select buttons and a fixed close header. Current key mapping is in INPUT_MAP and the ISO-3 API section above.
+- Modal shortcut contract: B/I/Tab/H/J/Ctrl+M replace the active modal; Esc closes it; E still closes seed shop/shipping bin. Help appears after New Game, separately from the start menu. Regular modals pause the game clock; debug menu preserves its clock controls.
 - Backdrop is the first Main child for mouse hit order; render z_index alone is insufficient. Mouse events pass to GUI before key filters; mouse regression tests use press/release pairs in a separate SubViewport.
 
 ## Chibi presentation and entry flow (scripts/view/)

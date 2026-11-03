@@ -10,12 +10,6 @@ static func apply(main: Node) -> void:
 			_style_children(child)
 	main.hotbar_panel.refresh_readability()
 	main.start_menu.apply_chibi_style()
-	for id: StringName in [&"inventory", &"help", &"journal", &"pause"]:
-		var button: Button = main.hud_button_bar.get_button(id)
-		if button != null:
-			UiIcons.decorate(button, &"backpack" if id == &"inventory" else id, true)
-			button.custom_minimum_size = Vector2(42, 42)
-			button.add_theme_constant_override("icon_max_width", 24)
 	var status: Panel = main.get_node_or_null("StatusCard") as Panel
 	if status == null:
 		status = Panel.new()
@@ -31,6 +25,8 @@ static func apply(main: Node) -> void:
 	reflow(main)
 
 static func _style_children(node: Node) -> void:
+	if node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot:
+		return
 	if node is Label:
 		var label: Label = node as Label
 		if label.has_theme_font_size_override("font_size"):
@@ -58,25 +54,10 @@ static func reflow(main: Node) -> void:
 		_rect(panel, (viewport - modal_size) * 0.5, modal_size)
 	var start_size: Vector2 = Vector2(minf(452.0, viewport.x - 64.0), modal_size.y)
 	_rect(main.start_menu, Vector2(maxf(32.0, viewport.x * 0.055), (viewport.y - start_size.y) * 0.5), start_size)
-	var status: Control = main.get_node_or_null("StatusCard") as Control
-	if status != null:
-		_rect(status, Vector2(12, 8), Vector2(484, 116))
-	_rect(main.get_node("ClockHud"), Vector2(20, 16), Vector2(480, 36))
-	_rect(main.weather_hud, Vector2(20, 56), Vector2(480, 30))
-	_rect(main.wallet_hud, Vector2(20, 90), Vector2(300, 28))
-	_rect(main.quest_panel, Vector2(viewport.x - 370.0, 16), Vector2(350, 242))
-	_rect(main.hotbar_panel, Vector2(16, viewport.y - 76.0), Vector2(220, 60))
-	_rect(main.hud_button_bar, Vector2(viewport.x - 232.0, viewport.y - 76.0), Vector2(216, 60))
-	if main.crop_inspector != null:
-		_rect(main.crop_inspector, Vector2(16, viewport.y - 350.0), Vector2(360, 262))
-	var prompt: Control = main.world.interaction_prompt
-	_rect(prompt, Vector2((viewport.x - 440.0) * 0.5, viewport.y - 76.0), Vector2(440, 52))
-	var message: Label = prompt.get_node("Message") as Label
+	LifeHudRegions.apply(main)
+	var message: Label = main.world.interaction_prompt.get_node("Message") as Label
 	message.remove_theme_font_size_override("font_size")
 	message.theme_type_variation = &"LifeText20"
-	_rect(main.toast, Vector2(20, 128), Vector2(460, 32))
-	_rect(main.feedback, Vector2((viewport.x - 660.0) * 0.5, 126), Vector2(660, 44))
-	main.feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 static func _rect(control: Control, origin: Vector2, dimensions: Vector2) -> void:
 	control.set_anchors_preset(Control.PRESET_TOP_LEFT)

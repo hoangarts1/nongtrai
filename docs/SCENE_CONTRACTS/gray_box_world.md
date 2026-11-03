@@ -46,6 +46,8 @@ GrayBoxWorld (Node2D)
 
 ## Historical C4 implementation below (read-only migration reference)
 
+ISO-3 Main HUD addition: direct Main paths (ClockHud, WeatherHud, WalletHud, QuestPanel, HotbarPanel, HudButtonBar, Toast, FeedbackPopup) remain queryable. A runtime HudRoot (Control) supplies RightColumn/ClockCard, WalletFrame/CoinLabel and ToastStack; typed LifeHudPresenter binds it to existing state. The old three Label readouts remain hidden text adapters. QuestPanel/HotbarPanel/HudButtonBar embed the modular views described in `hud.md`; their public configure/request APIs remain compatible. No world child, marker, camera, interaction layer or domain coordinate is changed.
+
 The following describes the old C4 runtime before ISO-1. Its 3D types/transforms are historical migration references, not active node paths. D33/D36 and the implemented tree above supersede those presentation constraints.
 
 Path: `scenes/world/gray_box_world.tscn`

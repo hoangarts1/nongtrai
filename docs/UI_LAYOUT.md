@@ -1,5 +1,17 @@
 # HUD layout
 
+## ISO-3 active layout (2026-11-03, D38)
+
+This section supersedes the historical C4 HUD region geometry below. Reference targets are `03-trong-game-ban-ngay.png` and `04-trong-game-dem-mua.png`. New UI is split into small scene/script pairs under `ui/hud/`: clock/weather card + time arc, pinned checklist, toolbar + slot, round shortcut bar, toast stack + card, with separate root/presenter/region/decoration helpers. Main supplies wiring; UiCoordinator retains sole modal ownership; UiLayout retains existing modal rectangles and delegates HUD anchors to LifeHudRegions.
+
+- Upper left: pinned paper, actual tutorial completed/7 and up to three relevant steps. Existing tutorial stores booleans, so no 4/4 counts or reward figures from the mockup are fabricated.
+- Upper right: shared wooden clock/weather card and wallet frame. Day/season/year/time/weather/forecast/coins come from existing state. The sun/moon arc observes time; world rain/tint remain on their existing layer. Stamina, calendar events and unavailable map/calendar buttons are hidden.
+- Bottom center: eight visible slots with selected-item/tool caption. 1–3 are existing hoe/water/harvest; 4–8 are real stacks in a five-stack inventory window. InventoryPanel selection can address the whole inventory; the window follows it, including legacy key 9 (inventory index 8). Capacity and save payload do not change.
+- Bottom left: supported B/J/H/Esc round buttons, with up to two timed result messages above. B/I/Tab open inventory; B is removed from the still-existing open_build action. H keeps help reachable. No dead K/M controls or modal Q/E bindings are introduced.
+- Existing crop inspector and interaction prompt remain separate views. All visible UI uses the shared Theme; frame grain/studs, clock symbols and existing SVG icons are replaceable artwork. Mockup PNGs are never loaded as assets. Full-screen decorative shell ignores mouse input; buttons consume clicks and modal ownership hides interactive HUD/locks world input.
+
+Anchor/container placement is verified at 1152×648, 1280×720 and 1920×1080 in vi/en; final measured dimensions and test results are recorded in PROGRESS. Actual day/night/rain renderer captures are compared to reference layout rather than treating code generation as visual proof. Existing world art remains ISO-1 placeholder art; ISO-3 does not replace the entire farm illustration.
+
 ## ISO-2 Theme foundation (2026-11-03, D37)
 
 The active UI now shares `ui/theme/the_life_theme.tres`: paper/wood surfaces, ink borders and downward shadows, Nunito 600 body, Baloo 2 800 headings and Noto Serif Italic secondary text. UiLayout assigns this resource and type variations instead of duplicating/building a Theme. Reusable `LifeWood` frames have 28 px content margins; existing game panels use `LifeCompactPanel` to preserve their measured footprint. The old `scenes/main/ui_theme.tres` is retained for compatibility but has no active runtime consumer.

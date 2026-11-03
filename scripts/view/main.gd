@@ -34,6 +34,7 @@ var _seconds_since_dirty_save: float = 0.0
 var _save_dirty: bool = false
 var weather_state: Object
 var ui_coordinator: UiCoordinator
+var hud_presenter: LifeHudPresenter
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector2
@@ -152,6 +153,9 @@ func _ready() -> void:
 	hud_button_bar.set_button_active(&"inventory", inventory_panel.visible)
 	ui_coordinator = UiCoordinator.new()
 	add_child(ui_coordinator)
+	hud_presenter = LifeHudPresenter.new()
+	add_child(hud_presenter)
+	hud_presenter.configure(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
 	title_backdrop.menu = start_menu
@@ -317,9 +321,8 @@ func _normalize_player_appearance(selection: Dictionary) -> Dictionary:
 
 func _show_toast(message: String) -> void:
 	toast.text = message
-	toast.visible = true
-	var timer: SceneTreeTimer = get_tree().create_timer(1.5)
-	timer.timeout.connect(func() -> void: toast.visible = false)
+	toast.hide()
+	hud_presenter.show_message(message)
 
 func _legacy_player_position() -> Dictionary:
 	# Keep the existing v4 wire schema; view pixels never enter a save.

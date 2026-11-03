@@ -1,10 +1,204 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-1 committed as 818a7de; ISO-2 automation/render review delivered)
+Last updated: 2026-11-03 (ISO-2 committed as bf8ed55; ISO-3 automation/render review delivered)
 
 ## Current milestone
 
-`ISO-2 (shared Theme, fonts, reusable components and gallery)` — plan/ALLOW_LIST approved through the owner's explicit “Duyệt ISO-2, bắt đầu triển khai”. Implementation and automated/render review are delivered: focused UI 9/9, headless 62/62, full renderer 173/173, parse/data/main PASS. Human editor acceptance and commit remain pending; ISO-3 is the next proposal, not authorized code work yet. Existing edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) belongs to the owner and is preserved.
+`ISO-3 (modular mockup HUD)` — plan/ALLOW_LIST explicitly approved by “Duyệt ISO-3, bắt đầu triển khai”, including B inventory with I/Tab. Delivered with 13 small UI classes (18–69 lines), nine scene wrappers, live mockup HUD regions and real state. Final official runner: 62/62 headless, 178/178 renderer, parse/data/main PASS. Human editor acceptance and ISO-3 commit remain pending. ISO-2 is committed as `bf8ed55`. Existing edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) belongs to the owner and is preserved outside our changes. Next milestone ISO-4 needs its own plan/approval; do not silently redesign other mockup screens.
+
+## ISO-4 proposal — day-end summary and sleep flow (pending approval, 2026-11-03)
+
+Owner said “oke tiếp tục” after ISO-3 delivery. Read-only discovery confirms ROADMAP ISO-4 is next; ISO-3 remains uncommitted (HEAD bf8ed55). No ISO-4 source has been written. AGENTS §3 requires approval of this new multi-file/domain plan before coding; ROADMAP requires a commit boundary. Proposal includes committing exactly the delivered ISO-3 files after a fresh data-validator check, excluding the owner's master-plan edit, then implementing the scope below.
+
+Findings: WalletState currently serializes only coins and emits signed deltas/reasons; it has no daily ledger. Shop/NPC paths contain refund/rollback wallet changes, so counting every positive delta as income would be wrong. SaveService currently writes v4 and explicitly whitelists top-level payload fields. GameClock currently rolls over immediately at its cutoff, while manual bed interaction calls try_sleep; the summary needs a coordinated decision before rollover. Existing DaySimulator remains the sole farm simulation path.
+
+Plan:
+1. Add pure small day-ledger/day-end state classes with serialize/deserialize from their first implementation. Track real integer money changes by day/reason and available successful trade metadata, reverse refunds/rollbacks correctly, exclude load/starting balance from income, and compute income minus expense. Keep wallet/trade services authoritative; the report never changes coins. Old saves without history are marked incomplete rather than inventing past zero revenue.
+2. Add separate small summary scene/script components under ui/day_end: main sheet, ledger row/list, totals, tomorrow/weather preview and unwatered warning, plus a presenter and flow coordinator. Reuse the shared Theme/HUD parts. Follow reference 13's two-column paper/wood layout with blue heading, real financial rows, green next-day button and manual return option. Hide XP/stamina/calendar-event cards without supporting state; do not load mockup PNGs as assets.
+3. Route manual bed requests and automatic clock cutoff through one guarded review/confirm/rollover flow. Preserve existing low-level clock APIs and the existing day_started -> DaySimulator/autosave path; no second growth/weather path. One confirmed next-day action, no double simulation, world/menu locking while reviewing/rolling, manual stay option only before forced cutoff.
+4. Save the ledger and resumable day-end review state with an explicit v5 schema/migrate_4_to_5 and a new golden v5 sample; preserve v1–v4 fixtures and all previous payloads. Handle old/malformed history safely. Saving/loading a review or repeating the confirm action must not advance a day twice. Only save at safe boundaries, not halfway through rollover.
+5. Add meaningful ledger/refund/serialization/migration/corruption tests; manual versus cutoff/repeated sleep equivalence; double-click/modal/input tests; vi/en three-size renderer captures compared with reference 13. Run parse/data/headless/full renderer/main checks; update APIs/contracts/schema/progress and give manual editor steps.
+
+Proposed ALLOW_LIST (effective only after approval):
+```text
+scripts/domain/economy/day_ledger_state.{gd,gd.uid}
+scripts/domain/day_end_state.{gd,gd.uid}
+ui/day_end/**
+ui/theme/**
+scripts/core/{game_clock,save_service}.gd
+scripts/view/{main,gray_box_world,ui_coordinator,ui_layout,chibi_ui_motion}.gd
+scenes/main/main.tscn
+localization/strings_{vi,en}.*
+tests/unit/** (only day-end/accounting/save/clock/modal regressions affected by ISO-4)
+tests/golden_saves/save_v5.json (new only; older fixtures read-only)
+docs/{API_INDEX,ARCHITECTURE,DECISIONS,DATA_SCHEMA,PROGRESS,ROADMAP,UI_LAYOUT}.md
+docs/PROJECT_RULES.md (migration-status notice only; no locked rule changes)
+docs/SCENE_CONTRACTS/{day_end,gray_box_world,hud}.md
+```
+
+Read-only context: reference 13 and shared UI kit, existing wallet/merchant/shop/bin APIs, current GameClock/DaySimulator/farm moisture/save/golden APIs, existing world/player/HUD contracts and style/input rules. All other files, crop prices/growth, inventory capacity, world scene resources, InputMap/autoloads and old save fixtures remain outside scope. PROJECT_RULES' migration notice still says ISO-2 onward are planned; update only that stale status to agree with D37/D38 as part of D39, not the project laws.
+
+Acceptance: small focused classes; reference 13 layout at three sizes in vi/en; correct real income/expense/net including rollback handling; truthful unwatered warning/current forecast; one simulation per accepted day-end action; cancel only where allowed; modal lock; save v5 resume and v1–v4 migration with preserved data; repeated/direct rollover equivalence; all official checks pass; honest render review and manual handoff. New economy features, balance changes, XP/stamina/calendar events and other mockup screens are not included.
+
+## ISO-3 handoff — small HUD classes and mockup layout (2026-11-03)
+
+Acceptance delivered:
+- Thirteen focused classes under `ui/hud/`, each 18–69 lines, separate root/binding/layout/decoration and clock/quest/toolbar/shortcut/toast responsibilities. Nine reusable scene wrappers. Existing Theme remains shared; Main adds wiring and toast delegation rather than HUD construction logic.
+- Reference 03/04 regions are now active: upper-left pinned quest paper, upper-right wooden clock/weather/wallet, bottom-center eight-slot toolbar/caption, bottom-left supported round buttons and up to two timed result messages. Day/night/rain tint stays world-only. Actual render images were compared with the supplied references.
+- Clock/day/season/year/weather/forecast/coins/inventory/tutorial completion come from existing state. Three tools plus five real inventory stacks are visible; selecting any inventory index moves the display window. 1–3 are hoe/water/harvest, 4–8 current inventory window, 9 legacy ninth stack. B/I/Tab/J/H/Escape operate supported screens; no unsupported K/M/Q/E bindings are added.
+- Physical native mouse and keyboard tests cover tool/item selection, legacy 9, modal input lock, round buttons, actual-state updates and max-two/expiry toast behavior. Three sizes and vi/en are checked, with 18 day/night/rain captures. Existing farming/drag/crop-inspection/merchant/social/save/old-golden regressions remain in the full suite.
+
+Clear diff summary:
+- Added modular HUD views/helpers and scene contract. Main wires LifeHudPresenter; UiLayout delegates anchors to LifeHudRegions. QuestPanel/HotbarPanel/HudButtonBar adapt existing APIs into the new views. Main's direct node paths, legacy hotbar child paths and old Label text APIs remain queryable; obsolete visual surfaces are hidden.
+- Added shared HUD Theme variations and regenerated the Theme. Code-drawn wood grain/studs/sun/moon/rain and existing SVG tool/round/coin artwork are replaceable view assets. No reference image is loaded at runtime.
+- Main save, feedback/item-gain and actual quest completion messages feed a single max-two, 3-second view-only stack. Timer callbacks defer safe card removal; there are no new orphan warnings in the final run. Existing three GUT orphan Labels remain as before (two inventory UI, one pause menu).
+- Updated 15 localization keys per language, B inventory binding and the documented-but-previously-absent Tab alias; open_build remains unbound with its ID preserved. Existing I remains. No domain/data/save/world scene/autoload changes.
+- Existing tests asserting C4 geometry, first-inventory key 1 or legacy weather Label visibility now assert the approved eight-slot geometry/key 4 and live weather card. Onboarding verifies InputMap's new primary B hint. No gameplay expectation was removed; weather also checks actual rain/card visibility. Fixed container minimum-height overflow, overlapping sun arc and quest/crop card positioning found by tests/render review. Crop detail uses a centered map card and hides the interaction prompt while open.
+
+Manual editor steps and acceptance (owner still needs to run):
+1. Open in Godot 4.7.2 and allow import. No manual node/Inspector wiring is needed: source constructs small container-based views from the new scene wrappers. Keep `scenes/main/main.tscn` as main; F5, New/Continue, close first-run help.
+2. Compare HUD with references `03-trong-game-ban-ngay.png` / `04-trong-game-dem-mua.png`: pinned paper upper left, wood clock/coins upper right, eight bottom-center slots and bottom-left round shortcuts/toasts. The farm/characters remain ISO-1 placeholders. Change window to 1152×648, 1280×720 and 1920×1080; try vi/en through existing Settings. Check accented text and no clipped/overlapping controls.
+3. Press 1/2/3 and click the tool icons, select real seed stacks with 4–8, select later inventory stacks in InventoryPanel, and try legacy 9 when a ninth stack exists. Farm with the selected seed/water/harvest action; quantities must change only through successful existing actions.
+4. Open inventory with B, I and Tab; J opens journal, H help, Esc pause/close. Click their round buttons. Verify only one modal opens, toolbar disappears, movement/world clicks stay locked, and movement resumes after closing. Existing shop/dialogue/transactions/help remain reachable.
+5. Inspect a crop and confirm the centered readable detail card avoids quest/toolbar, with the underlying prompt suppressed. Generate item/quest/save messages, verify maximum two toasts and expiry. Use existing debug time/weather controls for day/night/rain; HUD stays readable, world changes correctly. Save/load, sleep and Continue retain actual inventory/coins/day/profile.
+
+Run from project root:
+```powershell
+$env:GODOT = 'D:\godot\Godot_v4.7.2-stable_win64_console.exe'
+& .\tools\run_tests.bat
+# Focused headless HUD behavior and layout checks:
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_godot_bounded.ps1 -Godot $env:GODOT -Arguments '--headless --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_isometric_hud.gd -gexit' -OutputPath "$env:TEMP\the_life_iso3_focus.log"
+```
+
+Real final official output, 2026-11-03 (summary excerpts, ANSI colors removed):
+```text
+[check_parse] OK
+[validate_data] PASS
+[run_tests] running domain and 2D headless tests
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             849
+Time              3.12s
+---- All tests passed! ----
+[run_tests] running COMPLETE GUT suite with graphics renderer
+Scripts              57
+Tests               178
+Passing Tests       178
+Asserts            6495
+Time              35.895s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+```
+
+Logs: `%TEMP%\the_life_{headless,gut,main,validate}.log.{stdout,stderr}`. Final editor import exits 0 (`the_life_iso3_final_import.log.{stdout,stderr}`). No new engine errors/warnings; same pre-existing three orphan Labels as ISO-1/2. New five-test HUD script passes within the final 178-test run. No tests were skipped or weakened and no packages were installed.
+
+Render artifacts: `%TEMP%\the_life_test_appdata\Godot\app_userdata\game godot\iso3_{vi,en}_{day,night,rain}_{1152,1280,1920}.png` (18 PNGs). Visually inspected vi/1152 day and rain while iterating, then final vi/1152 day and en/1920 rain, plus the existing crop/modal capture regressions generated by the full suite. Region bounds/overlap are asserted for every locale/size/mode. Automated captures may show the existing cursor at the upper-left; it is separate from HUD decoration.
+
+Assumptions and known limits:
+- Placeholder frames/icons and existing ISO-1 world art do not reproduce finished illustration textures. Source/reference PNGs stay unchanged and are not runtime assets. Future supplied art can replace these views/styles without changing gameplay.
+- No stamina, calendar event, map/calendar screen, water-capacity/tool-level, numerical quest target or reward data was invented. Current tutorial supports completion booleans, so it displays actual completed/7 and three relevant steps. Those explicit differences from the mockups remain until corresponding domain tasks are approved.
+- A missing documented Tab default was found and supplied as part of approved B/I/Tab behavior; no new action ID was introduced. Existing slot 9 remains compatible and inventory capacity/save v4 remain unchanged. Store/sort/pin operations and Q/E tabs are later milestones.
+- Human editor playtest/Gates remain pending. No ISO-3 commit/push was made. Suggested commit: `feat: compose modular isometric HUD from mockup references`.
+
+Exact ISO-3 files created/modified (including Godot UID metadata):
+
+```text
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+project.godot
+scripts/view/feedback_popup.gd
+scripts/view/hotbar_panel.gd
+scripts/view/hud_button_bar.gd
+scripts/view/main.gd
+scripts/view/quest_panel.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+tests/unit/test_chibi_ui.gd
+tests/unit/test_hotbar_layout.gd
+tests/unit/test_isometric_hud.gd
+tests/unit/test_isometric_hud.gd.uid
+tests/unit/test_onboarding.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+tests/unit/test_weather.gd
+ui/hud/clock_arc.gd
+ui/hud/clock_arc.gd.uid
+ui/hud/clock_arc.tscn
+ui/hud/clock_card.gd
+ui/hud/clock_card.gd.uid
+ui/hud/clock_card.tscn
+ui/hud/hud_frame.gd
+ui/hud/hud_frame.gd.uid
+ui/hud/hud_parts.gd
+ui/hud/hud_parts.gd.uid
+ui/hud/hud_presenter.gd
+ui/hud/hud_presenter.gd.uid
+ui/hud/hud_regions.gd
+ui/hud/hud_regions.gd.uid
+ui/hud/hud_root.gd
+ui/hud/hud_root.gd.uid
+ui/hud/hud_root.tscn
+ui/hud/quest_card.gd
+ui/hud/quest_card.gd.uid
+ui/hud/quest_card.tscn
+ui/hud/shortcut_bar.gd
+ui/hud/shortcut_bar.gd.uid
+ui/hud/shortcut_bar.tscn
+ui/hud/toast_card.gd
+ui/hud/toast_card.gd.uid
+ui/hud/toast_card.tscn
+ui/hud/toast_stack.gd
+ui/hud/toast_stack.gd.uid
+ui/hud/toast_stack.tscn
+ui/hud/toolbar.gd
+ui/hud/toolbar.gd.uid
+ui/hud/toolbar.tscn
+ui/hud/toolbar_slot.gd
+ui/hud/toolbar_slot.gd.uid
+ui/hud/toolbar_slot.tscn
+ui/theme/the_life_theme.tres
+ui/theme/theme_factory.gd
+```
+
+## ISO-3 approved plan — modular HUD matching references 03/04
+
+Owner request: commit ISO-2 and continue, splitting UI into small classes and matching the supplied reference images. Read-only review completed: reference PNGs 03/04, ROADMAP, D33–D37, INPUT_MAP, active view APIs and gray_box_world scene contract. Explicit approval authorizes the following implementation scope; the HUD scene contract records the resulting composition.
+
+Implementation plan:
+1. Compose `ui/hud/` from small scene/script pairs for HUD root, clock/weather card, pinned quest card, eight-slot toolbar, round shortcut bar, toast stack and toast card. Keep presenter/binding and responsive region layout in separate small classes. Reuse ISO-2 components/Theme; each script has one responsibility and targets <=250 lines. Keep existing Main public references/methods compatible through view adapters; Main only wires the new HUD.
+2. Separate background decoration, read-only HUD, interactive controls and existing modal overlay. At design size 1152×648 follow reference 03/04 proportions: upper-left paper quest, upper-right clock/date/season/weather and wallet, bottom-center toolbar with selected caption, lower-left round shortcuts/toasts. Use anchors/containers and shared Theme styles. Preserve world camera/night/rain and modal input locking.
+3. Bind actual GameClock, WalletState, inventory and existing tutorial completion to views. Do not invent quest counts/rewards, stamina, calendar events, water capacity, tool levels or future operations. Hide unsupported stamina/event/calendar/map controls; use actual season/year/day values without calendar data migration. Final icon/frame art stays replaceable placeholder code; mockup PNGs remain reference-only.
+4. Define eight visible tool/item slots using existing supported tools and real inventory entries, with existing selection APIs and no item/capacity loss. Document the new visible-key mapping and retain hotbar_9 compatibility. Apply D34's B-to-inventory migration while keeping I/Tab: remove B from open_build but retain its action ID. J/Escape remain; no unsupported K/M or Q/E actions are added.
+5. Keep existing HUD node paths/public APIs through thin adapters where necessary. Convert relevant old layout assertions to meaningful new-region/selection assertions; retain physical mouse/modal/farming/inventory/save regressions. Run focused tests, full official runner and vi/en three-size day/night/rain captures; compare actual render images to references 03/04 and document limits.
+
+Approved ALLOW_LIST:
+```text
+ui/hud/**
+ui/components/**
+ui/theme/**
+scripts/view/{main,ui_layout,ui_coordinator,clock_hud,weather_hud,wallet_hud,quest_panel,hotbar_panel,hud_button_bar,feedback_popup,tool_action_controller,chibi_ui_motion}.gd
+scenes/main/main.tscn
+project.godot (B inventory migration plus documented I/Tab aliases described above)
+localization/strings_{vi,en}.*
+tests/unit/** (only HUD/component/input/layout regressions affected by ISO-3)
+docs/{API_INDEX,ARCHITECTURE,PROGRESS,DECISIONS,ROADMAP,UI_LAYOUT,INPUT_MAP}.md
+docs/SCENE_CONTRACTS/{hud,gray_box_world,ui_components}.md
+```
+
+Approved acceptance: small modular UI classes; correct reference region placement/layering; real state and maximum two toasts; eight functional slots with preserved inventory/save data; B/I/Tab/J/Escape match documented operations; no fake unsupported state; no horizontal overflow/overlap at 1152×648, 1280×720 and 1920×1080 in vi/en; main/headless/data/full renderer tests pass with honest visual comparison. Domain/data/save/world scenes, reference images and all files outside the list remain read-only. Risks: current tutorial stores completion booleans rather than mockup quantities/rewards; unsupported calendar/map/stamina; keyboard selection compatibility; long localized captions at design size; placeholder art will not reproduce the finished illustration textures.
 
 Approved ISO-2 scope: `ui/theme/**`, `ui/components/**`, `ui/ui_gallery.{tscn,gd,gd.uid}`, `assets/fonts/{Baloo_2,Nunito,Noto_Serif}/**`, `scripts/view/{ui_layout,start_menu,crop_inspector,npc_panel,npc_actor,placeholder_world_2d}.gd`, `scenes/main/main.tscn`, `project.godot` (GUI theme only), `tools/build_ui_theme.{gd,gd.uid}`, relevant `tests/unit/**`, `localization/strings_{vi,en}.*`, `docs/{API_INDEX,ARCHITECTURE,PROGRESS,DECISIONS,ROADMAP,CREDITS,UI_LAYOUT}.md`, and `docs/SCENE_CONTRACTS/{ui_components,ui_gallery}.md`. No domain/save/InputMap/world-map changes, package installs or push are included. Keep the existing game HUD geometry; ISO-3 owns its redesign.
 

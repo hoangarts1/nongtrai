@@ -112,8 +112,8 @@ func _sync() -> void:
 	_main.hotbar_panel.visible = not modal
 	_main.hud_button_bar.visible = not modal
 	_main.quest_panel.visible = not modal and not _main.quest_state.is_complete()
-	for control: Control in [_main.get_node("ClockHud"), _main.weather_hud, _main.wallet_hud, _main.get_node("StatusCard")]:
-		control.visible = not _main.start_menu.visible
+	_main.get_node("StatusCard").hide()
+	_main.hud_presenter.sync(modal,_main.start_menu.visible)
 	_main.world.player.movement_enabled = not modal and bool(_main.get("_game_started")) and not GameClock.is_sleeping()
 	if modal:
 		_main.world.interaction_prompt.hide()
@@ -128,6 +128,8 @@ func _sync() -> void:
 			GameClock.paused = true
 	if GameClock.is_sleeping():
 		_main.crop_inspector.hide()
+	if _main.crop_inspector.visible:
+		_main.world.interaction_prompt.hide()
 
 func _input(event: InputEvent) -> void:
 	if _active == null or event.is_echo():

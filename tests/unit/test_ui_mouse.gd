@@ -118,7 +118,7 @@ func test_new_game_resets_old_world_and_hotbar_keys_choose_items() -> void:
 	main.tutorial_panel.close_help()
 	await _settle()
 	var action: InputEventAction = InputEventAction.new()
-	action.action = &"hotbar_1"
+	action.action = &"hotbar_4"
 	action.pressed = true
 	_test_viewport.push_input(action)
 	assert_eq(main.hotbar_panel.get_selected_slot().get("item_id"), &"turnip_seed")

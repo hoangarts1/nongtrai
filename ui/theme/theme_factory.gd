@@ -128,7 +128,42 @@ static func build() -> Theme:
 	result.set_type_variation(&"LifeSlotQuantityInset",&"MarginContainer")
 	for edge: StringName in [&"margin_left",&"margin_right",&"margin_top",&"margin_bottom"]:
 		result.set_constant(edge,&"LifeSlotQuantityInset",5)
+	_hud(result,heading)
 	return result
+
+static func _hud(theme: Theme, heading: Font) -> void:
+	_panel_variation(theme,&"LifeHudWood",&"PanelContainer",_box(COLORS[&"wood"],18,12))
+	_panel_variation(theme,&"LifeHudPaper",&"PanelContainer",_box(COLORS[&"paper"],12,10))
+	var quest: StyleBoxFlat = _box(COLORS[&"paper"],4,16)
+	quest.border_color = COLORS[&"wood"].darkened(0.3)
+	quest.set_border_width_all(4)
+	_panel_variation(theme,&"LifeHudQuest",&"PanelContainer",quest)
+	_panel_variation(theme,&"LifeHudCaption",&"PanelContainer",_box(COLORS[&"wood"],8,6))
+	_panel_variation(theme,&"LifeHudToast",&"PanelContainer",_box(COLORS[&"wood"],24,10))
+	theme.set_type_variation(&"LifeHudClearPanel",&"PanelContainer")
+	theme.set_stylebox(&"panel",&"LifeHudClearPanel",StyleBoxEmpty.new())
+	for type: StringName in [&"LifeHudSlot",&"LifeHudSlotSelected",&"LifeHudRound"]:
+		theme.set_type_variation(type,&"Button")
+		_button(theme,type,COLORS[&"paper"] if type!=&"LifeHudRound" else COLORS[&"wood"],24 if type==&"LifeHudRound" else 10)
+		theme.set_constant(&"icon_max_width",type,30 if type==&"LifeHudRound" else 44)
+		for state: StringName in [&"normal",&"hover",&"pressed",&"focus"]:
+			var style: StyleBoxFlat = theme.get_stylebox(state,type) as StyleBoxFlat
+			style.set_content_margin_all(5)
+			if type==&"LifeHudSlotSelected":
+				style.border_color = COLORS[&"yellow"]
+				style.set_border_width_all(4)
+	for type: StringName in [&"LifeHudHeading",&"LifeHudTime",&"LifeHudCoins",&"LifeHudCaptionText",&"LifeHudToastText",&"LifeHudBody",&"LifeHudNote",&"LifeHudKey",&"LifeHudCheck"]:
+		theme.set_type_variation(type,&"Label")
+		theme.set_font(&"font",type,heading if type not in [&"LifeHudBody",&"LifeHudNote",&"LifeHudKey"] else theme.default_font)
+		theme.set_font_size(&"font_size",type,32 if type in [&"LifeHudTime",&"LifeHudCoins"] else (13 if type in [&"LifeHudNote",&"LifeHudKey"] else 18))
+		if type in [&"LifeHudCaptionText",&"LifeHudToastText",&"LifeHudCoins"]:
+			theme.set_color(&"font_color",type,COLORS[&"coin"] if type==&"LifeHudCoins" else COLORS[&"paper"])
+		theme.set_color(&"font_color",&"LifeHudCheck",COLORS[&"green"])
+	for type: StringName in [&"LifeHudColumn",&"LifeHudRow"]:
+		theme.set_type_variation(type,&"VBoxContainer" if type==&"LifeHudColumn" else &"HBoxContainer")
+		theme.set_constant(&"separation",type,6)
+	theme.set_type_variation(&"LifeHudShortcutColumn",&"VBoxContainer")
+	theme.set_constant(&"separation",&"LifeHudShortcutColumn",3)
 
 static func _font(path: String, weight: int) -> FontVariation:
 	var font: FontVariation = FontVariation.new()

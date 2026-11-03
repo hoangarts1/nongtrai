@@ -29,7 +29,7 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 		var main: Node = _game()
 		await get_tree().process_frame
 		await get_tree().process_frame
-		var controls: Array[Control] = [main.get_node("ClockHud"), main.weather_hud, main.wallet_hud, main.quest_panel, main.hotbar_panel, main.hud_button_bar, main.world.interaction_prompt]
+		var controls: Array[Control] = [main.hud_presenter.root.right_column, main.quest_panel, main.hotbar_panel, main.hud_button_bar, main.world.interaction_prompt]
 		for control: Control in controls:
 			assert_true(Rect2(Vector2.ZERO, main.get_viewport().get_visible_rect().size).encloses(control.get_global_rect()), "%s fits %s" % [control.name, viewport_size])
 		for first: int in range(controls.size()):
