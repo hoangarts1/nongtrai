@@ -1,5 +1,12 @@
 # DATA SCHEMA — THE LIFE
 
+## ISO-5 implemented inventory/save v6 additions (D40)
+
+- data/inventory_config.tres (InventoryConfig): default_capacity=40, columns=8, visible_rows=5; positive integers, capacity must equal columns × rows. Explicit small-capacity constructors retain their meaning.
+- ItemData adds category: StringName in seed/produce/tool/material/other (default other), description_key: StringName (optional, localized when present). Current resources only add metadata; prices/max_stack/ids/icons remain unchanged. Tool/material filters are empty because no such item stacks exist.
+- v5 -> v6 floors inventory.capacity to configured default while retaining larger legitimate capacities and every slot in the same order. All prior clock/player/farm/profile/wallet/quest/social/day_ledger/day_end fields remain. v1–v5 fixtures are read-only; save_v6.json is new. Revision is transient, never saved.
+- Inventory restore accepts registered IDs and positive finite JSON-safe integer quantities, retains oversized legacy stacks, and expands a too-small declared capacity to fit valid contents. Invalid entries are warned/dropped; invalid array shape, more than 4096 rows or aggregate beyond 9007199254740991 retains previous inventory. These are integrity bounds, not gameplay upgrades. Sort is stable category/id order without merging; discard validates exact row identity/count/revision and removes only confirmed integer quantity.
+
 Every gameplay value lives here (as a schema) and in `data/` or `data_src/` (as content). Scripts contain no gameplay numbers.
 
 ## ISO-4 implemented save v5 additions (D39)

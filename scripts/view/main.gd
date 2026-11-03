@@ -160,6 +160,7 @@ func _ready() -> void:
 	day_end_flow = LifeDayEndFlow.new()
 	add_child(day_end_flow)
 	day_end_flow.configure(self)
+	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
 	title_backdrop.menu = start_menu

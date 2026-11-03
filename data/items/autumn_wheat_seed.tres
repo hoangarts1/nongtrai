@@ -12,3 +12,6 @@ sell_price = 7
 color = Color(0.82, 0.75, 0.52, 1)
 model_path = "res://assets/generated/models/farming/item_autumn_wheat_seed.tscn"
 icon_path = "res://assets/generated/icons/item_autumn_wheat_seed.png"
+
+category = &"seed"
+description_key = &"INV_DESC_SEED"

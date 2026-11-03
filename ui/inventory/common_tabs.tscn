@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/inventory/common_tabs.gd" id="1"]
+[node name="CommonTabs" type="HBoxContainer"]
+script = ExtResource("1")

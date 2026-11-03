@@ -125,7 +125,7 @@ Invariant (tested): `simulate_day` called N times in a row == N nights of sleepi
 
 ## 6. Save format (JSON, `user://saves/slot_N.json`)
 
-Actual format is v5; the older sketch below is historical target context. v5 adds day_ledger/day_end (DATA_SCHEMA), keeping wallet/inventory/farm/quests/profile/weather/social and legacy player.position.x/y/z. Migration creates incomplete history rather than fictitious prior transactions. Review can be saved/restored with its clock hold; advancing is never written halfway through live rollover. Restore reconciles old/new-day snapshots. Atomic writes/backups remain; latest-save selection uses fractional time and later-day tie breaking. See D39 and v1–v5 goldens.
+Actual format is v6; v6 floors player inventory capacity to configured 40, preserves larger capacities/all stacks/previous fields, and adds metadata-driven modular inventory views (D40; v1–v6 goldens). InventoryActions is stateless; InventoryState owns item mutations, views own transient selection/filter/confirmation. Existing journal shares the supported tab header. No new autoload. the older sketch below is historical target context. v5 adds day_ledger/day_end (DATA_SCHEMA), keeping wallet/inventory/farm/quests/profile/weather/social and legacy player.position.x/y/z. Migration creates incomplete history rather than fictitious prior transactions. Review can be saved/restored with its clock hold; advancing is never written halfway through live rollover. Restore reconciles old/new-day snapshots. Atomic writes/backups remain; latest-save selection uses fractional time and later-day tie breaking. See D39 and v1–v5 goldens.
 
 ```json
 {

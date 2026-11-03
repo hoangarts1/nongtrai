@@ -1,5 +1,6 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
+##   static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray
 ##   static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray
 ##   static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
 ##   static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray
@@ -11,6 +12,14 @@
 ##   static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray:
+	var errors: PackedStringArray = PackedStringArray()
+	if config == null or config.default_capacity <= 0 or config.columns <= 0 or config.visible_rows <= 0:
+		errors.append("inventory config requires positive dimensions/capacity")
+	elif config.default_capacity != config.columns*config.visible_rows:
+		errors.append("inventory default capacity must match its configured grid")
+	return errors
 
 static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
@@ -52,6 +61,8 @@ static func validate_item_resources(resources: Array[Resource]) -> PackedStringA
 		else:
 			ids[resource_id] = true
 		var max_stack: Variant = item_data.get("max_stack")
+		if item_data is ItemData and not ItemData.CATEGORIES.has((item_data as ItemData).category):
+			errors.append("invalid item category: %s" % resource_id)
 		if max_stack != null:
 			if int(max_stack) <= 0:
 				errors.append("item max_stack must be positive: %s" % resource_id)

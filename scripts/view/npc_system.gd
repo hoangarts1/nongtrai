@@ -59,6 +59,9 @@ func _input(event: InputEvent) -> void:
 		return
 	if not is_open():
 		return
+	if journal.visible and _main.inventory_panel.controller.handle_input(event):
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel") or event.is_action_pressed("open_journal"):
 		close_panels()
 		get_viewport().set_input_as_handled()

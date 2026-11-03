@@ -18,6 +18,8 @@ func configure(main: Node) -> void:
 	_main = main
 	_panels.assign([main.inventory_panel, main.tutorial_panel, main.debug_menu, main.pause_menu, main.start_menu, main.seed_shop_panel, main.shipping_bin_panel, main.npc_system.dialogue, main.npc_system.journal])
 	_panels.append(main.day_end_flow.panel)
+	# Read-only HUD decoration must not intercept the wide modal header beneath it.
+	_ignore_pointer(main.hud_presenter.root.right_column)
 	_backdrop = ColorRect.new()
 	_backdrop.name = "ModalBackdrop"
 	_backdrop.color = Color(0.015, 0.025, 0.025, 0.66)
@@ -46,6 +48,12 @@ func configure(main: Node) -> void:
 
 func get_active_panel() -> Control:
 	return _active
+
+func _ignore_pointer(node: Node) -> void:
+	if node is Control:
+		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child: Node in node.get_children():
+		_ignore_pointer(child)
 
 func _resize() -> void:
 	_layout_queued = false
@@ -153,6 +161,9 @@ func _input(event: InputEvent) -> void:
 		for action: StringName in [&"open_inventory",&"open_help",&"open_journal",&"toggle_debug_menu",&"interact",&"use_tool"]:
 			if event.is_action_pressed(action):
 				get_viewport().set_input_as_handled()
+		return
+	if _main.inventory_panel.controller.handle_input(event):
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
 		close_active()

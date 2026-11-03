@@ -137,6 +137,8 @@ func _init() -> void:
 	]
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
 	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_inventory_config(preload("res://data/inventory_config.tres"))
+	if errors.is_empty():
 		errors = VALIDATOR_SCRIPT.validate_isometric_world_config(preload("res://data/isometric_world_config.tres"))
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
@@ -168,7 +170,12 @@ func _init() -> void:
 		"res://localization/strings_vi.csv",
 		"res://localization/strings_en.csv"
 	]
-	errors = VALIDATOR_SCRIPT.validate_translation_keys(locale_paths, REQUIRED_KEYS)
+	var inventory_keys: PackedStringArray = REQUIRED_KEYS.duplicate()
+	for item_path: String in item_paths:
+		var item: ItemData = load(item_path) as ItemData
+		if not item.description_key.is_empty():
+			inventory_keys.append(String(item.description_key))
+	errors = VALIDATOR_SCRIPT.validate_translation_keys(locale_paths, inventory_keys)
 	if errors.is_empty():
 		var items: Array[Resource] = []
 		for item_path: String in item_paths:

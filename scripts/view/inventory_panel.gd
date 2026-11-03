@@ -1,34 +1,46 @@
-## InventoryPanel — fixed header/close button with a scrollable inventory list.
+## InventoryPanel — compatible modal adapter for the modular inventory screen.
 class_name InventoryPanel
 extends PanelContainer
 
 signal inventory_toggled(is_open: bool)
 signal slot_selected(slot_index: int)
+var screen: LifeInventoryScreen
+var controller: LifeInventoryController
 var _inventory: InventoryState
 var _player: Player
-var _list: VBoxContainer
 
 func _ready() -> void:
-	visible = false
-	_build_ui()
+	hide()
+	LifeTheme.bind(self,&"LifeHudClearPanel")
+	var inset: MarginContainer = MarginContainer.new()
+	inset.theme_type_variation = &"LifeInvOuterMargin"
+	add_child(inset)
+	screen = preload("res://ui/inventory/inventory_screen.tscn").instantiate() as LifeInventoryScreen
+	inset.add_child(screen)
+	screen.tabs.close_requested.connect(close_inventory)
+	controller = LifeInventoryController.new()
+	add_child(controller)
 
 func configure(inventory: InventoryState, player: Player) -> void:
 	_inventory = inventory
 	_player = player
-	_inventory.inventory_changed.connect(_on_inventory_changed)
-	_update_list()
+	controller.configure(self,inventory)
+
+func attach_main(main: Node) -> void:
+	controller.attach_main(main)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("open_inventory") and _inventory != null:
+	if event.is_action_pressed("open_inventory") and not event.is_echo() and _inventory!=null:
 		toggle_inventory()
 		get_viewport().set_input_as_handled()
 
 func toggle_inventory() -> bool:
-	if _inventory == null or GameClock.is_sleeping():
+	if _inventory==null or GameClock.is_sleeping():
 		return false
 	visible = not visible
 	_player.movement_enabled = not visible
-	_update_list()
+	controller.cancel_discard()
+	controller.queue_render()
 	inventory_toggled.emit(visible)
 	return true
 
@@ -36,81 +48,13 @@ func close_inventory() -> void:
 	if visible:
 		toggle_inventory()
 
-func _build_ui() -> void:
-	var margin: MarginContainer = MarginContainer.new()
-	for side: String in ["left", "right", "top", "bottom"]:
-		margin.add_theme_constant_override("margin_" + side, 20)
-	add_child(margin)
-	var column: VBoxContainer = VBoxContainer.new()
-	column.add_theme_constant_override("separation", 16)
-	margin.add_child(column)
-	var header: HBoxContainer = HBoxContainer.new()
-	column.add_child(header)
-	var title: Label = Label.new()
-	title.text = tr("UI_INVENTORY_TITLE")
-	title.add_theme_font_size_override("font_size", 24)
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	header.add_child(title)
-	var close_button: Button = Button.new()
-	close_button.name = "CloseInventory"
-	close_button.text = tr("UI_CLOSE") + " (Esc)"
-	close_button.pressed.connect(close_inventory)
-	header.add_child(close_button)
-	var scroll: ScrollContainer = ScrollContainer.new()
-	scroll.name = "InventoryScroll"
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	column.add_child(scroll)
-	_list = VBoxContainer.new()
-	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_list.add_theme_constant_override("separation", 10)
-	scroll.add_child(_list)
-
-func _on_inventory_changed(_slots: Array[Dictionary]) -> void:
-	if is_node_ready():
-		_update_list()
-
-func _update_list() -> void:
-	for child: Node in _list.get_children():
-		_list.remove_child(child)
-		child.queue_free()
-	if _inventory == null or _inventory.get_slots().is_empty():
-		var empty: Label = Label.new()
-		empty.text = tr("UI_INVENTORY_EMPTY")
-		_list.add_child(empty)
+func _select_slot(index: int) -> void:
+	if _inventory==null or index<0 or index>=_inventory.get_slots().size():
 		return
-	var slots: Array[Dictionary] = _inventory.get_slots()
-	for index: int in range(slots.size()):
-		var slot: Dictionary = slots[index]
-		var item: Resource = DataRegistry.get_item(slot["item_id"])
-		var row: HBoxContainer = HBoxContainer.new()
-		row.custom_minimum_size.y = 44
-		row.add_theme_constant_override("separation", 14)
-		var swatch: TextureRect = TextureRect.new()
-		swatch.custom_minimum_size = Vector2(40, 40)
-		swatch.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		swatch.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		swatch.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		swatch.texture = UiIcons.for_item(slot["item_id"])
-		row.add_child(swatch)
-		var label: Label = Label.new()
-		label.text = tr(String(item.get("display_name_key")))
-		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		row.add_child(label)
-		var quantity: Label = Label.new()
-		quantity.text = "×%d" % int(slot["quantity"])
-		row.add_child(quantity)
-		var select: Button = Button.new()
-		select.name = "SelectSlot_%d" % index
-		select.text = tr("UI_INVENTORY_SELECT")
-		select.tooltip_text = tr("UI_INVENTORY_SELECT_ITEM") % tr(String(item.get("display_name_key")))
-		select.pressed.connect(_select_slot.bind(index))
-		row.add_child(select)
-		_list.add_child(row)
-
-func _select_slot(slot_index: int) -> void:
-	if _inventory == null or slot_index < 0 or slot_index >= _inventory.get_slots().size():
-		return
-	slot_selected.emit(slot_index)
+	slot_selected.emit(index)
 	close_inventory()
+
+func _notification(what: int) -> void:
+	if what==NOTIFICATION_TRANSLATION_CHANGED and controller!=null:
+		controller.cancel_discard()
+		controller.queue_render()

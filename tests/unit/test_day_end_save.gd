@@ -17,10 +17,12 @@ func test_all_old_goldens_preserve_payloads_and_mark_unknown_history() -> void:
 	for version: int in range(1,5):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),5)
-		for key: String in ["clock","player","inventory","farm","quests","profile","weather","wallet","social"]:
+		assert_eq(int(loaded["meta"]["save_version"]),6)
+		for key: String in ["clock","player","farm","quests","profile","weather","wallet","social"]:
 			if original.has(key):
 				assert_eq(loaded[key],original[key],"v%d keeps %s" % [version,key])
+		assert_eq(loaded["inventory"]["slots"],original["inventory"]["slots"])
+		assert_gte(int(loaded["inventory"]["capacity"]),40)
 		assert_false(loaded["day_ledger"]["complete"])
 		assert_eq(loaded["day_ledger"]["entries"],[])
 		assert_eq(int(loaded["day_end"]["phase"]),int(DayEndState.Phase.IDLE))

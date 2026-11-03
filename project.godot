@@ -199,6 +199,23 @@ toggle_debug_menu={
 ]
 }
 
+inventory_tab_prev={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":81)]
+}
+inventory_tab_next={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":69)]
+}
+inventory_quick_select={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":70)]
+}
+inventory_sort={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":90)]
+}
+
 [layer_names]
 
 2d_physics/layer_1="world_static"

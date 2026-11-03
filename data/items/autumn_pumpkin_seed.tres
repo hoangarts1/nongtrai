@@ -12,3 +12,6 @@ sell_price = 17
 color = Color(0.92, 0.88, 0.75, 1)
 model_path = "res://assets/generated/models/farming/item_autumn_pumpkin_seed.tscn"
 icon_path = "res://assets/generated/icons/item_autumn_pumpkin_seed.png"
+
+category = &"seed"
+description_key = &"INV_DESC_SEED"

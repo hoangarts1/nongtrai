@@ -169,6 +169,10 @@ func _play_open_bounce(panel: Control) -> void:
 	var old_tween: Tween = _panel_tweens.get(key) as Tween
 	if old_tween != null and old_tween.is_valid():
 		old_tween.kill()
+	# Wide tab shells keep fixed hit regions during opening and rapid navigation.
+	if panel is InventoryPanel or (panel is NpcPanel and panel.tabs!=null):
+		panel.scale = Vector2.ONE
+		return
 	_center_pivot(panel)
 	panel.scale = Vector2(0.97, 0.97)
 	var tween: Tween = create_tween()

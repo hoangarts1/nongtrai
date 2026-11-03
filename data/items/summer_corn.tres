@@ -12,3 +12,6 @@ sell_price = 75
 color = Color(0.98, 0.82, 0.1, 1)
 model_path = "res://assets/generated/models/farming/item_summer_corn.tscn"
 icon_path = "res://assets/generated/icons/item_summer_corn.png"
+
+category = &"produce"
+description_key = &"INV_DESC_PRODUCE"

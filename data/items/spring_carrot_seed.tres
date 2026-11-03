@@ -12,3 +12,6 @@ sell_price = 9
 color = Color(0.8, 0.65, 0.45, 1)
 model_path = "res://assets/generated/models/farming/item_spring_carrot_seed.tscn"
 icon_path = "res://assets/generated/icons/item_spring_carrot_seed.png"
+
+category = &"seed"
+description_key = &"INV_DESC_SEED"

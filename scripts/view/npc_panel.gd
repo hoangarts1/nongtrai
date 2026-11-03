@@ -6,6 +6,8 @@ signal close_requested()
 var column: VBoxContainer
 var title_label: Label
 var close_button: Button
+var tabs: LifeInventoryTabs
+var _outer: VBoxContainer
 
 func _ready() -> void:
 	visible = false
@@ -21,6 +23,7 @@ func _ready() -> void:
 		margin.add_theme_constant_override("margin_" + side, 12)
 	add_child(margin)
 	var outer: VBoxContainer = VBoxContainer.new()
+	_outer = outer
 	margin.add_child(outer)
 	title_label = Label.new()
 	title_label.theme_type_variation = &"LifeHeading"
@@ -37,6 +40,16 @@ func _ready() -> void:
 	close_button.text = tr("UI_NPC_CLOSE")
 	close_button.pressed.connect(func() -> void: close_requested.emit())
 	outer.add_child(close_button)
+
+func enable_tabs() -> void:
+	if tabs!=null:
+		return
+	tabs = preload("res://ui/inventory/common_tabs.tscn").instantiate() as LifeInventoryTabs
+	_outer.add_child(tabs)
+	_outer.move_child(tabs,0)
+	tabs.set_active(2)
+	tabs.close_requested.connect(func() -> void: close_requested.emit())
+	close_button.hide()
 
 func show_content(title: String, body: String, actions: Array[Dictionary] = []) -> void:
 	title_label.text = title

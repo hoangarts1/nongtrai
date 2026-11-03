@@ -1,5 +1,17 @@
 # API INDEX — THE LIFE
 
+## ISO-5 inventory APIs (2026-11-03, D40)
+
+Current save version is **6**. Historical milestone entries below describe their original deliveries.
+
+- InventoryConfig (scripts/data/inventory_config.gd, data/inventory_config.tres): default_capacity=40, columns=8, visible_rows=5. Explicit InventoryState(max_slots) still supports small-capacity tests. ItemData adds category (seed/produce/tool/material/other) and optional description_key; current IDs/prices/stack limits remain unchanged.
+- InventoryState adds transient revision: int, sort_slots() -> Array[int] (new-index -> old-index, stable category/id order), discard_from_slot(index: int, expected_id: StringName, expected_quantity: int, expected_revision: int, quantity: int) -> bool. Exact-row discard validates identity/count/revision, emits normal removal once, and never changes coins. Deserialize preserves valid legacy stacks beyond declared capacity/stack limits; malformed shapes/unsafe totals retain previous state with warnings.
+- InventoryActions (scripts/domain/inventory_actions.gd) exposes static sort(inventory) -> Array[int] and discard(inventory,index,expected_id,expected_quantity,expected_revision,quantity) -> bool; stateless delegates to the owner.
+- InventoryPanel keeps configure/toggle_inventory/close_inventory/slot_selected/inventory_toggled; adds attach_main(main) and typed screen/controller. LifeInventoryController handles transient selection/filter/confirmation/contextual keys and owner requests. LifeInventoryScreen composes eight small scene/script pairs under ui/inventory. Their typed requests are in SCENE_CONTRACTS/inventory.md. Q/E switches Bag/Quest; F explicitly selects a real stack; Z sorts in Bag. Unsupported tabs stay disabled.
+- HotbarPanel adds selected_index() -> int, active_tool() -> StringName, remap_selection(order: Array[int], previous_index: int, previous_tool: StringName) -> void. Reordering/removal preserves the selected surviving stack and active tool without another action. NpcPanel.enable_tabs() attaches the shared header only for journal; content/actions remain.
+- SaveService CURRENT_VERSION=6; migrate_5_to_6(data: Dictionary) -> Dictionary deep-copies payload, floors player capacity to config while preserving larger capacities/all slots/previous fields. v1–v5 goldens stay unchanged; v6 golden added. DataValidator.validate_inventory_config(config: InventoryConfig) -> PackedStringArray checks positive dimensions/capacity and product; item categories/descriptions join the data/translation gate.
+- LifeInventoryTheme.apply(theme) extends the existing shared Theme builder; LifeInventoryIcon.for_item(id) -> Texture2D caches trimmed AtlasTexture views of existing art. No new autoload or source-art changes.
+
 Public methods and signals of every system. Agents read THIS instead of scanning code, and update it at the end of every task. Source of truth for each entry is the `## API:` header at the top of the script.
 
 ## ISO-4 day-end APIs (2026-11-03, D39)

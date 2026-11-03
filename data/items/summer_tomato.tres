@@ -12,3 +12,6 @@ sell_price = 70
 color = Color(0.92, 0.22, 0.18, 1)
 model_path = "res://assets/generated/models/farming/item_summer_tomato.tscn"
 icon_path = "res://assets/generated/icons/item_summer_tomato.png"
+
+category = &"produce"
+description_key = &"INV_DESC_PRODUCE"

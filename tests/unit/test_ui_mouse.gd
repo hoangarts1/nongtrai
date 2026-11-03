@@ -73,7 +73,7 @@ func test_mouse_clicks_work_after_switching_inventory_and_shop() -> void:
 	assert_true(main.inventory_panel.visible, "HUD backpack receives mouse")
 	var buttons: Array[Button] = []
 	_collect_buttons(main.inventory_panel, buttons)
-	await _click(buttons[0])
+	await _click(main.inventory_panel.screen.tabs.close_button)
 	assert_false(main.inventory_panel.visible, "Inventory close receives mouse")
 	main.seed_shop_panel.open()
 	await _settle()

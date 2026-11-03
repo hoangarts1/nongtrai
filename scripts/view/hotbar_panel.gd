@@ -3,6 +3,9 @@
 ##   func configure(inventory: InventoryState) -> void
 ##   func get_selected_slot() -> Dictionary
 ##   func select_slot(slot_index: int) -> void
+##   func selected_index() -> int
+##   func active_tool() -> StringName
+##   func remap_selection(order: Array[int], previous_index: int, previous_tool: StringName) -> void
 class_name HotbarPanel
 extends PanelContainer
 
@@ -72,6 +75,18 @@ func refresh_readability() -> void:
 
 func select_slot(slot_index: int) -> void:
 	_select_slot(slot_index)
+
+func selected_index() -> int:
+	return _selected_slot_index
+
+func active_tool() -> StringName:
+	return _active_tool
+
+func remap_selection(order: Array[int], previous_index: int, previous_tool: StringName) -> void:
+	_selected_slot_index = order.find(previous_index) if previous_index>=0 else -1
+	_active_tool = previous_tool if not previous_tool.is_empty() or _selected_slot_index>=0 else &"hoe"
+	_window_start = (_selected_slot_index / 5)*5 if _selected_slot_index>=0 else 0
+	_render_slots()
 
 func _select_slot(slot_index: int) -> void:
 	if _inventory == null or slot_index < 0 or slot_index >= _inventory.get_slots().size():

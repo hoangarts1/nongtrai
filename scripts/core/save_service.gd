@@ -3,9 +3,10 @@
 ##   func save_game(payload: Dictionary, slot: int = 1) -> bool
 ##   func load_game(slot: int = 1) -> Dictionary
 ##   func delete_save(slot: int = 1) -> void
+##   func migrate_5_to_6(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 5
+const CURRENT_VERSION: int = 6
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -137,6 +138,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_3_to_4(migrated)
 	if version <= 4:
 		migrated = migrate_4_to_5(migrated)
+	if version <= 5:
+		migrated = migrate_5_to_6(migrated)
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -166,6 +169,15 @@ func migrate_4_to_5(data: Dictionary) -> Dictionary:
 
 func _save_path(slot: int) -> String:
 	return "%s/slot_%d.json" % [SAVE_DIRECTORY, slot]
+
+func migrate_5_to_6(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var raw: Variant = migrated.get("inventory",{})
+	var inventory: Dictionary = raw.duplicate(true) if raw is Dictionary else {}
+	var old_capacity: int = DayLedgerState.number(inventory.get("capacity",0))
+	inventory["capacity"] = maxi(InventoryState.CONFIG.default_capacity,old_capacity)
+	migrated["inventory"] = inventory
+	return migrated
 
 func _rotate_backups(save_path: String) -> void:
 	for index: int in range(MAX_BACKUPS, 0, -1):

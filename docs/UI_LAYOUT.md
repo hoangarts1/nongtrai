@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-5 inventory (D40)
+
+InventoryPanel uses small ui/inventory scene/script components, shared Theme and reference-06 wood/paper frame. At 1152×648 it occupies viewport minus 64×48 margins, growing to at most 1200×760. Five tabs plus close remain fixed; only Bag/Quest work. Left region has metadata filters, eight-column/five-row 40-cell default grid, actual occupied/capacity bar and sort/key hints. Right region has existing item art/name/category/count/description/actual unit sale price and explicit toolbar-selection/discard requests. Legacy capacities above 40 add scrolling rows. Icons use trimmed AtlasTexture views without editing art. Eating/quality/market effects stay unavailable.
+
+Journal shares the header and original content. Q/E cycles Bag/Quest while consuming world E/Q; F selects a stack and closes Bag, Z sorts/remaps surviving selection. Discard replaces details with quantity/confirm/cancel; Escape cancels that subview first. InventoryState/InventoryActions own mutations; selection/filtering never changes money/items/ledger. Day-end modal has precedence. Three-size vi/en empty/partial/full/filter/discard/journal captures and physical key/mouse tests cover layout/routing. Human editor acceptance remains pending.
+
 ## ISO-4 active day-end sheet (2026-11-03, D39)
 
 Reference 13 is composed by small ui/day_end views: centered wood/paper sheet, blue title, scrolling ledger/totals on the left, actual next-day date/forecast/tutorial completion on the right, green next-day and manual-stay buttons, and an unwatered-crop warning. Separate presenter/flow classes bind real state. No example income, XP/stamina/event data is shown; SVG/code placeholder artwork remains replaceable.

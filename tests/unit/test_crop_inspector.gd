@@ -98,8 +98,10 @@ func test_inventory_selection_replaces_hidden_grid_and_closes_inventory() -> voi
 	main.inventory.add_item(&"spring_pea_seed", 2)
 	main.inventory_panel.toggle_inventory()
 	await _settle()
-	var select: Button = main.inventory_panel.get("_list").get_child(1).get_node("SelectSlot_1")
+	var select: Button = main.inventory_panel.screen.items.buttons[1]
 	await _click(select.get_global_rect().get_center())
+	assert_true(main.inventory_panel.visible,"Grid selects detail before explicit quick selection")
+	await _click(main.inventory_panel.screen.detail.quick_button.get_global_rect().get_center())
 	assert_false(main.inventory_panel.visible)
 	assert_eq(main.hotbar_panel.get_selected_slot()["item_id"], &"spring_pea_seed")
 	assert_eq(main.tool_controller.get_selected_tool(), &"seed")

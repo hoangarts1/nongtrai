@@ -2,8 +2,12 @@
 class_name ItemData
 extends Resource
 
+const CATEGORIES: Array[StringName] = [&"seed",&"produce",&"tool",&"material",&"other"]
+
 @export var item_id: StringName
 @export var display_name_key: StringName = &""
+@export var category: StringName = &"other"
+@export var description_key: StringName = &""
 @export_range(1, 999) var max_stack: int = 99
 @export var buy_price: int = 0
 @export var sell_price: int = 0

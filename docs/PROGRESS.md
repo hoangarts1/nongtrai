@@ -1,16 +1,112 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-3 committed as 8706dfb; ISO-4 automation/render review delivered)
+Last updated: 2026-11-03 (ISO-4 committed c8b94f9; ISO-5 automated acceptance/render review delivered)
 
 ## Current milestone
 
-`ISO-4 (day-end summary, ledger and guarded sleep)` — explicitly approved by “Duyệt, commit ISO-3 và triển khai ISO-4”. ISO-3 was committed as `8706dfb` after DataValidator PASS. ISO-4 implementation/automated render review delivered: focused headless 17/17, official headless 62/62, full renderer 195/195, parse/data/main PASS. Save format is now v5; v1–v4 goldens remain unchanged. Human editor acceptance and ISO-4 commit remain pending. Existing owner edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) is preserved. Next ISO-5 requires its own approved scope; no inventory capacity or future screen is implemented here.
+`ISO-5 (modular 40-slot inventory and supported tab shell)` — owner approved “Duyệt, commit ISO-4 và triển khai ISO-5”. ISO-4 committed as **c8b94f9** after DataValidator PASS; no push. ISO-5 implementation and automated render review are delivered: focused headless 22/22 (548 asserts), official headless 62/62 (853 asserts), full renderer 206/206 (7515 asserts), parse/data/main PASS; save format is v6. New small components follow reference 06; Bag/Quest only, Q/E/F/Z contextual; invalid/stale discard rejected, existing selection remapped. Historical v1–v5 golden files remain unchanged. Owner's master-plan leading blank line remains untouched. Human editor acceptance remains pending. ISO-5 is not committed; propose a commit after delivery, do not advance ISO-6 without its scope/approval.
 
-## ISO-5 proposal — modular inventory and supported tab shell (pending approval, 2026-11-03)
+## ISO-5 final automated acceptance (2026-11-03)
 
-Owner said “oke đấy tiếp tục làm đi” after ISO-4 delivery. Read-only review of reference 06, roadmap, current inventory/item/tab APIs, source and D34/D35 confirms ISO-5 is next. ISO-4 remains uncommitted at HEAD 8706dfb. No ISO-5 source has been written. Proposal includes committing the delivered ISO-4 set after a fresh data-validator check, excluding the owner's master-plan edit, then implementing this plan after approval under AGENTS §3.
+All approved acceptance checks are automated and passing; human editor playtest remains pending. 41 created + 54 modified files, all inside the approved ALLOW_LIST; owner's master-plan change excluded. Every new inventory/domain/config/theme/test script is below 250 lines. No new autoload, source-art/old-golden changes, package installation, ISO-5 commit or push.
 
-Current gaps: InventoryState defaults to 12 and persists compact item stacks; ItemData has IDs/prices/stack/visual metadata but no category/description/edible effect. No stamina/eating or storage/chest domain exists. The mockup's “Cất vào ô” can be represented truthfully by selecting a real stack on the existing toolbar, not by pretending a chest exists. Existing journal provides working quest content; character/calendar/map screens are not yet implemented. The supplied image has 8 columns and visually fewer occupied/display rows, while the explicit prompt requires 8×5 / 40: follow the explicit 40-slot requirement and the image's layout/style.
+Real final output, Godot 4.7.2 / GUT 9.7.1, isolated APPDATA:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+
+Official headless subset:
+Totals
+------
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             853
+Time              3.748s
+
+
+---- All tests passed! ----
+
+Focused inventory/migration headless:
+Totals
+------
+Scripts               5
+Tests                22
+Passing Tests        22
+Asserts             548
+Time              21.28s
+
+
+---- All tests passed! ----
+
+COMPLETE graphics-renderer suite:
+Totals
+------
+Scripts              64
+Tests               206
+Passing Tests       206
+Asserts            7515
+Time              71.804s
+
+
+---- All tests passed! ----
+
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Final error-text scan: zero SCRIPT ERROR/Parse Error/ERROR/resource-leak/orphan matches in official headless/full-renderer/main logs; intentional four InventoryState warnings come from malformed-data tests (invalid whole array retained, invalid row/unknown item/fractional quantity dropped). No warning suppression or test weakening. git diff --check PASS. Prior 3 orphan Label warnings are absent in this final run.
+
+A separate clean renderer run of test_inventory_screen passed 6/6, 402 asserts (before the final one-assert current-tab click regression was added; that addition passed in the final headless/full runs above). It produced 36 vi/en captures for 1152×648, 1280×720, 1920×1080, covering empty/partial/full/filter/discard/journal. Clean copies are C:/Users/daova/AppData/Local/Temp/the_life_iso5_review/iso5_{vi,en}_{empty,partial,full,filter,discard,journal}_{1152,1280,1920}.png. Visually reviewed vi partial 1152, en full 1152, vi filter 1280, en discard 1280, vi partial 1920 and en journal 1920 against reference 06. All 40 default cells and fixed controls fit; original icons remain placeholders. Repeated current-tab clicks keep the active toggle selected.
+
+Exact manifest, review commands and manual editor checklist are in the ISO-5 sections at the end of this document. API_INDEX/DATA_SCHEMA/ARCHITECTURE/INPUT_MAP/UI_LAYOUT/contracts/D40/ROADMAP are updated. Proposed commit: `feat: add modular forty-slot inventory and save v6 migration`. Do not mark human acceptance or advance ISO-6 on automation alone.
+## ISO-6a proposed task — daily crop care and save v7 (pending approval, 2026-11-03)
+
+Owner said “oke tiếp tục đi” after ISO-5 delivery. This authorizes continuing preparation; it is not treated as explicit permission to commit ISO-5 or invent missing crop balance rules. Read-only review and DataValidator baseline are complete: [validate_data] PASS, git diff --check PASS. HEAD remains c8b94f9. No ISO-6 source has been edited and no commit/push performed. The ISO-5 exact manifest below remains the commit boundary; owner's master-plan leading blank line is excluded.
+
+Concrete gaps: FarmGridState only pauses growth when unwatered; it has no consecutive-dry-day counter. can_harvest does not reject a withered mature plot and water_cell can mark a withered crop watered. Main currently advances weather and waters with the NEW day's rain before simulating the finished day, contrary to ARCHITECTURE §5's finished-day weather order. CropInspector has real moisture/countdown but no impending-dryness warning. Existing saves cannot reconstruct past missed watering, so migration must initialize unknown dry history to zero.
+
+Full ISO-6 still needs specification: D35 does not define tomato regrow interval, fertilizer effect or house-upgrade/unlock state. Applying its new growth/price samples also conflicts with the current DataValidator/test invariant that every slower crop must cost/sell at least as much as every faster crop (e.g. target 7-day corn keeps its unspecified existing seed price 28, below the existing 5-day pumpkin seed price 35). Do not silently change additional prices or remove the invariant to make tests pass. Proposed ISO-6a isolates the fully specified daily-care rule; growth/price migration, repeat harvest, fertilizer and house unlock stay ISO-6b pending a concrete balance/behavior decision. ISO-6 remains incomplete after 6a.
+
+MILESTONE: ISO-6, slice 6a — daily crop care / withering / v7 persistence.
+READ-ONLY CONTEXT: AGENTS.md; PROJECT_RULES; API_INDEX; ARCHITECTURE §5; D35/D40; DATA_SCHEMA/CODE_PATTERNS; gray_box_world/hud/day_end/inventory scene contracts; original migration prompt §4–6; existing weather/tool/harvest/transaction APIs and all v1–v6 goldens; existing ISO-5 manifest.
+
+Plan after approval:
+1. Fresh DataValidator PASS, then commit exactly the delivered ISO-5 manifest (41 created + 54 modified files including current PROGRESS), excluding the owner edit. Message: feat: add modular forty-slot inventory and save v6 migration. No push. Human editor acceptance remains pending; do not mark it passed.
+2. Add a typed max_consecutive_dry_days field to CropData, configured to 2 in the nine existing crop Resources. Add per-plot consecutive_dry_days owned by FarmGridState. One missed eligible watering day pauses growth and warns; watering/rain resets the counter; reaching the configured threshold withers the plant. Apply care to existing planted crops, including ripe plants left in soil; already-withered plants never revive or yield. Preserve existing yield/IDs/seasons/growth/prices and full-inventory atomicity. CropData's water_need=0, if used, must not accumulate dry days.
+3. Keep one existing GameClock.day_started -> Main -> DaySimulator path. Account for the finished day's stored water/rain before advancing to tomorrow's weather; then apply season transition and tomorrow's rain to its morning plots. Test dry→rain and rain→dry boundaries explicitly, so tomorrow's rain cannot undo the just-finished second dry day. Keep bed/manual/cutoff/direct-rollover equivalence, locks and guarded summary behavior.
+4. CropInspector displays the actual remaining dry-day warning through vi/en translation keys. Existing farm view/summary read the real withered flag; no new scene, InputMap action, HUD system, autoload, signal bus entry or view-owned care state. UI remains small modules.
+5. Save version 7 adds consecutive_dry_days. Deep-copy v6→v7 migration initializes absent counters to zero (no invented dry history), preserving watered/withered/growth/crop/cell and all inventory/wallet/clock/ledger/guard/profile/social state. Older fixtures remain read-only; add v7 golden. Validate/clamp malformed new fields and unknown crops safely without a broad unrelated save rewrite.
+6. Test dry/water/rain resets, threshold exactly once, no growth/harvest/revival after withering, ripe crop handling, water-free data, out-of-season behavior, full inventory, real input/clock/sleep/modal interactions, v1–v6 preservation and v7 round-trip/corruption, three-size vi/en inspector warnings. Run focused headless, parse/data, full official renderer suite and main smoke; paste actual output, exact manifest/diff and manual checklist into PROGRESS/API/docs.
+
+Proposed ALLOW_LIST (effective only after approval; ISO-5 commit uses its already delivered manifest):
+~~~text
+scripts/data/crop_data.gd
+scripts/domain/farm_grid_state.gd
+scripts/domain/day_simulator.gd
+scripts/core/data_validator.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+scripts/view/crop_inspector.gd
+data/crops/*.tres (new care-threshold field only; growth/yield/seasons/ids/colors untouched)
+localization/strings_{vi,en}.* (crop-care warnings only)
+tests/unit/** (affected crop/day/weather/harvest/save/UI regressions only)
+tests/golden_saves/save_v7.json (new; v1–v6 read-only)
+docs/{API_INDEX,ARCHITECTURE,DECISIONS,DATA_SCHEMA,PROGRESS,ROADMAP,UI_LAYOUT}.md
+docs/PROJECT_RULES.md (migration-status notice only)
+docs/SCENE_CONTRACTS/{gray_box_world,hud,day_end}.md (crop-care/readout contracts only)
+~~~
+
+DO NOT TOUCH: everything else, including all .tscn, InputMap, prices/item Resources, original art, old golden files and owner edits. Any extra helper/file requires scope approval before editing.
+ACCEPTANCE: threshold from Resource, two consecutive missed care days wither exactly once, real warning after first, rain/water reset only in the correct day, no withered harvest/revival, one daily simulation path, old save preservation/new counter round-trip, existing 40-slot inventory/tool/economy/day-end behavior retained, all required automation pass. No claim that ISO-6b or human editor playtest is complete.
+RISKS: correcting finished-day weather order changes existing rain-boundary behavior and needs regression tests; old unknown care history must not retroactively punish players; no arbitrary balance/regrow/upgrade/fertilizer behavior is inferred. Baseline tests are ISO-5's recorded 206/206 renderer plus current fresh validator PASS; no new runtime test is claimed for this proposal.
+
+## ISO-5 approved plan — modular inventory and supported tab shell (2026-11-03)
+
+Owner approved this plan and ALLOW_LIST via “Duyệt, commit ISO-4 và triển khai ISO-5”. The following gap analysis is the pre-implementation baseline; current delivery and real test output are recorded above/below.
+
+Pre-implementation gaps: InventoryState defaulted to 12 and persists compact item stacks; ItemData has IDs/prices/stack/visual metadata but no category/description/edible effect. No stamina/eating or storage/chest domain exists. The mockup's “Cất vào ô” can be represented truthfully by selecting a real stack on the existing toolbar, not by pretending a chest exists. Existing journal provides working quest content; character/calendar/map screens are not yet implemented. The supplied image has 8 columns and visually fewer occupied/display rows, while the explicit prompt requires 8×5 / 40: follow the explicit 40-slot requirement and the image's layout/style.
 
 Plan:
 1. Commit only delivered ISO-4 files after validator PASS. Preserve the owner edit. Keep ISO-5 as a separate milestone/commit; no push.
@@ -21,9 +117,9 @@ Plan:
 6. Explicit save v6 migration v5 -> v6 raises old player inventory capacity to at least the configured 40 while preserving larger capacities, slot order, IDs, quantities and all ledger/day-end/clock/farm/profile/social data. Preserve old fixtures v1–v5; add a v6 golden. Constructor tests with an explicitly small capacity stay meaningful. Invalid external item/capacity/quantity payloads must be handled without silent loss of valid contents or crashes.
 7. Test old saves/full inventory/stack limits, sorting multiset/selection, stale discard and quantity validation, exact action count, no wallet/journal changes from selection, physical grid/filter/detail/buttons, Q/E/F/Z context and modal/day-end suppression. Run parse/data/headless/full renderer/main checks, and compare actual three-size vi/en captures with reference 06. Keep documentation/API/schema/scene contracts current and provide manual editor steps.
 
-Proposed explicit new InputMap actions (only after approval): inventory_tab_prev=Q, inventory_tab_next=E, inventory_quick_select=F, inventory_sort=Z. Existing world interact=E and rotate_ccw=Q remain; new actions are modal-only. “Quick select” is deliberately the supported toolbar operation, not an unimplemented chest/storage action.
+Approved new contextual InputMap actions: inventory_tab_prev=Q, inventory_tab_next=E, inventory_quick_select=F, inventory_sort=Z. Existing world interact=E and rotate_ccw=Q remain; new actions are modal-only. “Quick select” is deliberately the supported toolbar operation, not an unimplemented chest/storage action.
 
-Proposed ALLOW_LIST (effective only after approval):
+Approved ISO-5 ALLOW_LIST:
 ```text
 ui/inventory/**
 ui/components/**
@@ -1428,3 +1524,136 @@ tests/unit/test_ui_mouse.gd
 tests/unit/test_ui_mouse.gd.uid
 tests/unit/test_weather.gd
 ```
+
+## ISO-5 delivery manifest (relative to c8b94f9)
+
+Created (41 files):
+
+~~~text
+data/inventory_config.tres
+docs/SCENE_CONTRACTS/inventory.md
+scripts/data/inventory_config.gd
+scripts/data/inventory_config.gd.uid
+scripts/domain/inventory_actions.gd
+scripts/domain/inventory_actions.gd.uid
+tests/golden_saves/save_v6.json
+tests/unit/test_inventory_actions.gd
+tests/unit/test_inventory_actions.gd.uid
+tests/unit/test_inventory_screen.gd
+tests/unit/test_inventory_screen.gd.uid
+ui/inventory/capacity_footer.gd
+ui/inventory/capacity_footer.gd.uid
+ui/inventory/capacity_footer.tscn
+ui/inventory/common_tabs.gd
+ui/inventory/common_tabs.gd.uid
+ui/inventory/common_tabs.tscn
+ui/inventory/detail_card.gd
+ui/inventory/detail_card.gd.uid
+ui/inventory/detail_card.tscn
+ui/inventory/discard_prompt.gd
+ui/inventory/discard_prompt.gd.uid
+ui/inventory/discard_prompt.tscn
+ui/inventory/filter_bar.gd
+ui/inventory/filter_bar.gd.uid
+ui/inventory/filter_bar.tscn
+ui/inventory/inventory_controller.gd
+ui/inventory/inventory_controller.gd.uid
+ui/inventory/inventory_screen.gd
+ui/inventory/inventory_screen.gd.uid
+ui/inventory/inventory_screen.tscn
+ui/inventory/inventory_slot.gd
+ui/inventory/inventory_slot.gd.uid
+ui/inventory/inventory_slot.tscn
+ui/inventory/item_grid.gd
+ui/inventory/item_grid.gd.uid
+ui/inventory/item_grid.tscn
+ui/inventory/item_icon.gd
+ui/inventory/item_icon.gd.uid
+ui/theme/inventory_theme.gd
+ui/theme/inventory_theme.gd.uid
+~~~
+
+Modified (54 files):
+
+~~~text
+data/items/autumn_pumpkin.tres
+data/items/autumn_pumpkin_seed.tres
+data/items/autumn_wheat.tres
+data/items/autumn_wheat_seed.tres
+data/items/spring_carrot.tres
+data/items/spring_carrot_seed.tres
+data/items/spring_pea.tres
+data/items/spring_pea_seed.tres
+data/items/summer_corn.tres
+data/items/summer_corn_seed.tres
+data/items/summer_tomato.tres
+data/items/summer_tomato_seed.tres
+data/items/turnip.tres
+data/items/turnip_seed.tres
+data/items/winter_cabbage.tres
+data/items/winter_cabbage_seed.tres
+data/items/winter_radish.tres
+data/items/winter_radish_seed.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+project.godot
+scripts/core/data_validator.gd
+scripts/core/save_service.gd
+scripts/data/item_data.gd
+scripts/domain/inventory_state.gd
+scripts/view/chibi_ui_motion.gd
+scripts/view/hotbar_panel.gd
+scripts/view/inventory_panel.gd
+scripts/view/main.gd
+scripts/view/npc_panel.gd
+scripts/view/npc_system.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+tests/unit/test_crop_inspector.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_save_service.gd
+tests/unit/test_ui_mouse.gd
+tests/unit/test_weather.gd
+tools/validate_data.gd
+ui/theme/the_life_theme.tres
+ui/theme/theme_factory.gd
+~~~
+
+Owner edit excluded: docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line). No old golden fixture or source-art file changed. Main scene required no edits.
+
+Review tracked changes: git diff c8b94f9 -- . ':(exclude)docs/reference/THE_LIFE_MASTER_PLAN.txt'. Newly created files above are the complete reviewable source; use git diff --no-index -- NUL <path> for their addition diffs. No ISO-5 staging/commit/push was performed.
+
+
+## ISO-5 editor handoff / manual acceptance
+
+Acceptance: default 40 slots in 8×5, metadata filters and actual detail/unit price, exact confirmed stack discard, stable sort/selection, Q/E/F/Z only in supported modal context, v1–v5 migrated without content loss and v6 round-trip, prior farming/economy/day-end flows intact. Each is automated; human visual/gameplay acceptance remains pending.
+
+No editor node/Inspector changes required: approved script-backed wrapper scenes construct their documented children. Existing Main InventoryPanel/NpcJournal paths remain. InputMap's four approved contextual actions are already in project.godot. Existing source item artwork is reused as a replaceable placeholder; layout/skin follows reference 06, it is not a claim of identical final illustrations. No eating/Character/Calendar/Map/storage domain was introduced.
+
+Run: set GODOT to D:\godot\Godot_v4.7.2-stable_win64_console.exe, then tools\run_tests.bat. Rebuild shared theme with --headless --path . --script tools/build_ui_theme.gd after any theme-builder edit. All Godot test commands use tools/run_godot_bounded.ps1 and isolated APPDATA; they do not write player saves.
+
+- [ ] F5 → start/continue → dismiss help. B/I/Tab opens Bag; close button and Escape close it, restoring movement/clock. Check vi/en at 1152×648, 1280×720, 1920×1080; five default rows, details/actions/header/footer fit.
+- [ ] Choose seed/produce filters and a real stack; verify name/count/unit sell price. Tool/material filters are honestly empty. F/detail selection closes Bag, selects the original real stack on toolbar and leaves quantities/money unchanged; plant using the normal workflow.
+- [ ] Z with an inventory item selected retains that stack and its quantity; with a tool active it does not change tool. Fill to 40 occupied stacks; blocked grants/transactions keep original behavior. A legitimate legacy capacity 60 retains all stacks and extra scrollable rows.
+- [ ] Discard opens integer quantity confirmation. Escape/Keep cancels without loss. Confirm partial/exact stack once; only that stack changes, selected later stacks remap correctly, no coins or journal entry is added. Change inventory while confirmation is open: stale confirmation cannot act.
+- [ ] Q/E or supported header tabs switch Bag ↔ existing Quest journal. Disabled tabs show unavailable; J/Escape/close still work. E/Q never performs world interaction/rotation underneath; F/Z outside Bag has no inventory effect. Check close over the visible clock region; HUD decoration must not intercept it.
+- [ ] At bed/forced 02:00 review, Q/E/F/Z/B cannot bypass the day-end sheet. Existing confirmation advances exactly once and save/reload retains ledger/guard. Continue v1–v5 saves: same item IDs/quantities/order, capacity at least 40, other progress intact; v6 save reloads the same state.
+
+Assumptions/limits: compact existing stack model remains (sort does not merge); toolbar selection is the supported interpretation of quick-store, without chest/fixed-slot reassignment. Legacy invalid entries are warned/dropped; malformed whole arrays/unsafe totals retain previous inventory. Intentional warning output in corrupted-data tests is expected. gdtoolkit lint was not run because it is not installed; no package installation was performed.
+
+During verification, a 72-pixel slot height clipped the fifth row on the small viewport; final 64-pixel cells plus shared outer inset preserve all rows and animated focus bounds. A physical-close regression revealed the read-only clock decoration intercepting GUI events above the wide header; UiCoordinator now marks its static readout subtree mouse-ignore. Wide shells keep stable geometry during open. Original regression tests were kept; the old list-row selector test now clicks the grid and explicitly quick-selects, matching the approved two-step interaction. Existing migration assertions compare slots unchanged plus the new capacity floor, with all other field checks retained.
+
+Proposed ISO-5 commit: feat: add modular forty-slot inventory and save v6 migration
