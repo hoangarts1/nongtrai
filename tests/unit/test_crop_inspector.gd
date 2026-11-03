@@ -111,7 +111,7 @@ func test_inventory_selection_replaces_hidden_grid_and_closes_inventory() -> voi
 func test_clicking_top_of_mature_crop_inspects_it_instead_of_adjacent_ground() -> void:
 	var main: Node = _game()
 	var cell: Vector2i = _plant(main, &"turnip")
-	for day: int in range(2):
+	for day: int in range(main.farm_state.get_growth_target(cell)):
 		main.farm_state.water_cell(cell)
 		main.day_simulator.simulate_day(main.farm_state)
 	await _settle()

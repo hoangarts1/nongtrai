@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-6b1 keeps the same HUD/toolbar/InputMap. The existing inspector note shows real repeat growth; dryness warnings win when applicable. Seed choice/quantity remains the actual inventory; repeat harvest does not consume a seed. Bag unit sale captions read the approved updated ItemData. No house-upgrade or fertilizer shortcut is added.
+
 ISO-6a adds the actual dry-day warning to CropInspector's existing note_label only; no HUD scene, toolbar, shortcut, modal or InputMap change. note_label refreshes on locale/plot changes and clears after successful watering. The withered state disables actions even for previously ripe crops. See gray_box_world.md/D41 for the data/domain owner and day-boundary order.
 
 ISO-5 keeps toolbar/shortcut APIs and adds InventoryPanel's modular 40-cell screen plus shared journal header (inventory.md). F explicitly selects an existing stack; sort/discard remap surviving toolbar selection without another tool action. Q/E are modal-only. DayEndSheet retains precedence.

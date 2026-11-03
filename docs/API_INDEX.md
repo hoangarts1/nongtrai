@@ -1,8 +1,20 @@
 # API INDEX — THE LIFE
 
+## ISO-6b1 crop cycle/economy APIs (2026-11-03, D42)
+
+Current save version is **8**. Historical milestone entries below describe their original deliveries.
+
+- CropData adds regrow_days: int (0 default, tomato 2). Current new-sowing targets are carrot 3, tomato 5, turnip 4, corn 7; approved price table is in DATA_SCHEMA/D42. Existing yield/care/seasons/IDs stay unchanged.
+- CropEconomyConfig (scripts/data/crop_economy_config.gd; data/crop_economy_config.tres) owns max_profit_per_plot_day=80 for the current dataset. CropEconomyRules.validate(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray is pure/stateless. It checks positive bounded values, net first-cycle return and gross repeat return using exact integer cross multiplication, with safe int64 products. DataValidator.validate_crop_economy delegates here; old unit-price and monotonic-price gates remain.
+- CropMigrationConfig (scripts/data/crop_migration_config.gd; data/crop_migration_v7.tres) owns previous_growth_days: Dictionary for all nine pre-v8 crop IDs. DataValidator.validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray rejects missing/unknown IDs or invalid historical durations. Both gates run in tools/validate_data.gd.
+- FarmGridState owns growth_target: int and regrowing: bool per plot. get_growth_target(cell: Vector2i) -> int returns the current frozen target (0 for absent crop); get_growth_remaining/can_harvest use it. New planting snapshots Resource first-growth days. Harvest returns the usual yield; single-harvest crops are removed, repeating crops retain their cell/ID/care and reset growth=0, target=regrow_days, regrowing=true before signals. No free water/drought reset or extra seed consumption. Existing ToolActionController capacity/reach/lock checks remain the transaction path.
+- CropCycleRules.target_days(crop: CropData, plot: Dictionary) -> int and begin_repeat(crop: CropData, plot: Dictionary) -> Dictionary are stateless snapshot helpers. FarmSaveCodec.encode(plots: Dictionary) -> Dictionary and decode(data: Dictionary, crops: Dictionary, legacy: CropMigrationConfig) -> Dictionary extract wire conversion/validation; decode returns {success: bool, plots: Dictionary}. It takes Resource snapshots, never Nodes or state ownership. Invalid whole arrays retain the previous farm through the owner; row/care guards remain. New cycle targets are restricted to current or legitimate historical first targets, or exactly the repeat target; malformed flags default false.
+- SaveService CURRENT_VERSION=8; migrate_7_to_8(data: Dictionary) -> Dictionary deep-copies and assigns pre-v8 historical targets plus regrowing=false without rewriting original fields/growth. v1–v7 goldens stay unchanged; v8 golden includes a living repeat cycle. Current first-cycle targets survive save/load; repeat targets stay 2. Ledger/guard, slots, wallet and other fields remain.
+- FarmView now queries get_growth_target for stage/readout; CropInspector shows UI_CROP_REGROW_NOTE for an actual unready repeat cycle, with dry warning precedence. Main refreshes all existing farm views after restoring a snapshot using the existing configure API. Existing native controls, paths, scenes, input/autoload/bus APIs remain; no house/fertilizer domain is implied.
+
 ## ISO-6a crop care APIs (2026-11-03, D41)
 
-Current save version is **7**. Older milestone entries below describe their original deliveries.
+At ISO-6a delivery the save version was **7**; ISO-6b1 above supersedes it with v8.
 
 - CropData adds max_consecutive_dry_days: int, with 2 in all nine existing crop Resources. Only care metadata changes; growth/yield/seasons/prices/IDs are unchanged. A crop with water_need=0 does not accumulate dry days. DataValidator requires a positive threshold for water-requiring CropData while retaining the existing economy invariants.
 - FarmGridState owns consecutive_dry_days: int per plot. advance_day() grows watered/water-free crops, resets their dry streak, or increments dry days and withers at the Resource threshold. It skips terminal withered crops. water_cell()/water_all_crops() reset surviving plants' streak; withered crops cannot be watered/revived/harvested. Ripe crops left planted still require care.

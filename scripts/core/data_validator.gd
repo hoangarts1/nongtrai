@@ -1,5 +1,7 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
+##   static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
+##   static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray
 ##   static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray
 ##   static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray
 ##   static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
@@ -12,6 +14,28 @@
 ##   static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+	return CropEconomyRules.validate(config, crops, items)
+
+static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray:
+	var errors: PackedStringArray = []
+	if config == null:
+		errors.append("crop migration config is missing")
+		return errors
+	var ids: Dictionary = {}
+	for resource: Resource in crops:
+		if not resource is CropData:
+			errors.append("crop migration requires CropData")
+			continue
+		ids[resource.crop_id] = true
+		var days: Variant = config.previous_growth_days.get(resource.crop_id)
+		if not days is int or int(days) <= 0 or int(days) > CropEconomyRules.MAX_RULE_INTEGER:
+			errors.append("crop migration %s requires a positive historical duration" % resource.crop_id)
+	for id: Variant in config.previous_growth_days:
+		if not (id is String or id is StringName) or not ids.has(StringName(id)):
+			errors.append("crop migration has unknown crop")
+	return errors
 
 static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
@@ -98,6 +122,8 @@ static func validate_crop_references(crops: Array[Resource], items: Array[Resour
 		var prod_id: StringName = StringName(crop.get("product_item"))
 		if int(crop.get("yield_qty")) <= 0:
 			errors.append("crop %s yield_qty must be positive" % crop_id)
+		if crop is CropData and (crop.growth_days <= 0 or crop.regrow_days < 0):
+			errors.append("crop %s requires positive growth_days and nonnegative regrow_days" % crop_id)
 		if crop is CropData and crop.water_need > 0 and crop.max_consecutive_dry_days <= 0:
 			errors.append("crop %s max_consecutive_dry_days must be positive when water is required" % crop_id)
 		if not item_dict.has(seed_id):

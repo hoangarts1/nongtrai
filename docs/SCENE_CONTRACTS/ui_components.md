@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-6b1 introduces no reusable Control/scene/theme variations. Existing item details/inspector read new Resource prices and owner cycle targets through current fields/APIs. Gameplay caps, migration mappings and repeat rules stay outside component classes.
+
 ISO-5 extends the shared Theme with LifeInv* variations via ui/theme/inventory_theme.gd. Focused inventory components/header live under ui/inventory rather than changing this generic catalogue; see inventory.md for typed fields/signals. Reference mockups are never runtime assets.
 
 Approved ISO-2 scope: ui/components/**, ui/theme/** and ui/ui_gallery.*. These are VIEW-only Controls. They never mutate inventory, coins, crops, clock, save data or InputMap. Every component scene has its own script; decorative children ignore mouse input. Components use the shared the_life_theme.tres and theme_type_variation, never per-node StyleBox overrides.

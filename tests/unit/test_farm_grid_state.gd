@@ -16,6 +16,9 @@ func test_turnip_grows_after_watering_and_harvests() -> void:
 	assert_true(farm.water_cell(cell))
 
 	farm.advance_day()
+	for day: int in range(2, (DataRegistry.get_crop(&"turnip") as CropData).growth_days):
+		assert_true(farm.water_cell(cell))
+		farm.advance_day()
 	assert_true(farm.can_harvest(cell))
 
 	var result: Dictionary = farm.harvest_cell(cell)
@@ -37,4 +40,7 @@ func test_crop_repairs_after_missing_water() -> void:
 	assert_false(farm.can_harvest(cell))
 	assert_true(farm.water_cell(cell))
 	farm.advance_day()
+	for day: int in range(2, (DataRegistry.get_crop(&"turnip") as CropData).growth_days):
+		assert_true(farm.water_cell(cell))
+		farm.advance_day()
 	assert_true(farm.can_harvest(cell))

@@ -1,5 +1,9 @@
 # HUD layout
 
+## ISO-6b1 repeat-growth readout (D42)
+
+Existing CropInspector reads each plot's frozen growth_target, showing the real repeat countdown and localized new-fruit care note. Dry warning has precedence; withered/ready states retain their truthful behavior. FarmView stages use the same owner query so legacy first crops and repeat crops cannot disagree with the inspector. Restore refreshes every crop through the existing FarmView.configure API, including cells other than zero. No new scene/input/theme/HUD state; vi/en captures at three sizes cover legacy-ready, repeat, repeat-ready and dry-repeat views. Bag/shop/bin continue to show actual updated Resource prices; no unavailable fertilizer/house action is displayed.
+
 ## ISO-6a crop-care warning (D41)
 
 Existing CropInspector remains a small nonmodal HUD region (360×262 default; native minimum size may expand for longer text, within the tested viewport bounds). Its existing note Label shows actual remaining dry days after a missed watering day, including ripe plants left in soil; wet/watered/water-free plants use the ordinary care estimate, and terminal withered status disables actions. It reads FarmGridState and sends the existing Water/Harvest request through ToolActionController; no view owns the counter. Visible text refreshes on locale change. The terminal description applies to both drought/season withering and no longer asks a dead plant to be watered. The day-end sheet retains its real generic unwatered count; no new per-plot countdown or modal is added there. Check warning/ripe-warning/withered states at all three design sizes in vi/en.

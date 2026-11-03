@@ -7,6 +7,7 @@
 ##   func can_harvest(cell: Vector2i) -> bool
 ##   func harvest_cell(cell: Vector2i) -> Dictionary
 ##   func get_dry_days_remaining(cell: Vector2i) -> int
+##   func get_growth_target(cell: Vector2i) -> int
 ##   func serialize() -> Dictionary
 ##   func deserialize(data: Dictionary) -> void
 class_name FarmGridState
@@ -15,6 +16,7 @@ extends RefCounted
 signal plot_changed(cell: Vector2i)
 
 var _plots: Dictionary = {}
+const LEGACY: CropMigrationConfig = preload("res://data/crop_migration_v7.tres")
 
 func get_plot(cell: Vector2i) -> Dictionary:
 	return (_plots.get(cell, {}) as Dictionary).duplicate(true)
@@ -30,6 +32,8 @@ func till_cell(cell: Vector2i) -> bool:
 			"tilled": false,
 			"crop_id": &"",
 			"growth_days": 0,
+			"growth_target": 0,
+			"regrowing": false,
 			"watered": false,
 			"consecutive_dry_days": 0,
 			"withered": false
@@ -57,6 +61,8 @@ func plant_crop(cell: Vector2i, crop_id: StringName) -> bool:
 		return false
 	plot["crop_id"] = crop_id
 	plot["growth_days"] = 0
+	plot["growth_target"] = int(crop_data.get("growth_days"))
+	plot["regrowing"] = false
 	plot["watered"] = false
 	plot["consecutive_dry_days"] = 0
 	plot["withered"] = false
@@ -141,7 +147,7 @@ func can_harvest(cell: Vector2i) -> bool:
 	var crop_data: Resource = DataRegistry.get_crop(crop_id)
 	if crop_data == null:
 		return false
-	return int(plot.get("growth_days", 0)) >= int(crop_data.get("growth_days"))
+	return int(plot.get("growth_days", 0)) >= get_growth_target(cell)
 
 func get_growth_remaining(cell: Vector2i) -> int:
 	var plot: Dictionary = _plots.get(cell, {})
@@ -151,7 +157,12 @@ func get_growth_remaining(cell: Vector2i) -> int:
 	var crop_data: Resource = DataRegistry.get_crop(crop_id)
 	if crop_data == null:
 		return 0
-	return maxi(0, int(crop_data.get("growth_days")) - int(plot.get("growth_days", 0)))
+	return maxi(0, get_growth_target(cell) - int(plot.get("growth_days", 0)))
+
+func get_growth_target(cell: Vector2i) -> int:
+	var plot: Dictionary = _plots.get(cell, {})
+	var crop: CropData = DataRegistry.get_crop(plot.get("crop_id", &"")) as CropData
+	return CropCycleRules.target_days(crop, plot)
 
 func get_dry_days_remaining(cell: Vector2i) -> int:
 	var plot: Dictionary = _plots.get(cell, {})
@@ -179,67 +190,24 @@ func harvest_cell(cell: Vector2i) -> Dictionary:
 		return payload
 	var crop_id: StringName = payload.get("crop_id", &"")
 	var quantity: int = int(payload.get("quantity", 0))
-	_plots.erase(cell)
+	var crop: CropData = DataRegistry.get_crop(crop_id) as CropData
+	var repeat_plot: Dictionary = CropCycleRules.begin_repeat(crop, _plots[cell])
+	if repeat_plot.is_empty():
+		_plots.erase(cell)
+	else:
+		_plots[cell] = repeat_plot
 	plot_changed.emit(cell)
 	Events.crop_harvested.emit(cell, crop_id, quantity, 1)
 	return payload
 
 func serialize() -> Dictionary:
-	var entries: Array[Dictionary] = []
-	for cell: Vector2i in _plots.keys():
-		var plot: Dictionary = _plots[cell]
-		entries.append({
-			"cell_x": cell.x,
-			"cell_y": cell.y,
-			"tilled": bool(plot.get("tilled", false)),
-			"crop_id": String(plot.get("crop_id", &"")),
-			"growth_days": int(plot.get("growth_days", 0)),
-			"watered": bool(plot.get("watered", false)),
-			"consecutive_dry_days": int(plot.get("consecutive_dry_days", 0)),
-			"withered": bool(plot.get("withered", false))
-		})
-	return {"plots": entries}
+	return FarmSaveCodec.encode(_plots)
 
 func deserialize(data: Dictionary) -> void:
-	var entries: Variant = data.get("plots", [])
-	if not entries is Array:
-		push_warning("FarmGridState: malformed plots retained previous farm")
-		return
-	var restored: Dictionary = {}
-	for entry: Variant in entries:
-		if not entry is Dictionary:
-			push_warning("FarmGridState: invalid plot ignored")
-			continue
-		var id: Variant = entry.get("crop_id", "")
-		if not (id is String or id is StringName) or not _valid_integer(entry.get("cell_x", 0)) or not _valid_integer(entry.get("cell_y", 0)) or not _valid_integer(entry.get("growth_days", 0)):
-			push_warning("FarmGridState: invalid plot fields ignored")
-			continue
-		var crop_id: StringName = StringName(id)
-		var crop: CropData = DataRegistry.get_crop(crop_id) as CropData
-		if not crop_id.is_empty() and crop == null:
-			push_warning("FarmGridState: unknown crop ignored")
-			continue
-		var cell: Vector2i = Vector2i(int(entry.get("cell_x", 0)), int(entry.get("cell_y", 0)))
-		var limit: int = crop.max_consecutive_dry_days if crop != null and crop.water_need > 0 else 0
-		var dry: int = _dry_count(entry.get("consecutive_dry_days", 0), limit)
-		var plot: Dictionary = {
-			"tilled": entry.get("tilled", false) == true,
-			"crop_id": crop_id,
-			"growth_days": maxi(0, int(entry.get("growth_days", 0))),
-			"watered": entry.get("watered", false) == true,
-			"consecutive_dry_days": dry,
-			"withered": entry.get("withered", false) == true or (limit > 0 and dry >= limit)
-		}
-		if plot["tilled"] or not StringName(plot["crop_id"]).is_empty():
-			restored[cell] = plot
-	_plots = restored
-	plot_changed.emit(Vector2i())
-
-static func _valid_integer(value: Variant) -> bool:
-	return (value is int or value is float) and is_finite(float(value)) and float(value) == floorf(float(value)) and float(value) >= -2147483648.0 and float(value) <= 2147483647.0
-
-static func _dry_count(value: Variant, limit: int) -> int:
-	if not (value is int or value is float) or not is_finite(float(value)) or float(value) != floorf(float(value)):
-		push_warning("FarmGridState: invalid dry counter defaults to zero")
-		return 0
-	return int(clampf(float(value), 0.0, float(limit)))
+	var crops: Dictionary = {}
+	for resource: Resource in DataRegistry.get_all_crops():
+		crops[resource.get("crop_id")] = resource
+	var decoded: Dictionary = FarmSaveCodec.decode(data, crops, LEGACY)
+	if bool(decoded["success"]):
+		_plots = decoded["plots"]
+		plot_changed.emit(Vector2i())

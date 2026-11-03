@@ -37,7 +37,7 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 			"seed_id": &"summer_tomato_seed",
 			"crop_id": &"summer_tomato",
 			"product_id": &"summer_tomato",
-			"growth_days": 4
+			"growth_days": 5
 		},
 		{
 			"season": &"autumn",
@@ -77,6 +77,8 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 			Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)
 		]
 		for cell: Vector2i in planted_cells:
+			if bool(farm_state.get_plot(cell).get("withered",false)):
+				assert_true(farm_state.clear_withered(cell),"Clear the retained seasonal repeat crop before sowing")
 			assert_true(farm_state.till_cell(cell), "Till cell %s" % cell)
 			assert_true(farm_state.plant_crop(cell, s_info["crop_id"]), "Plant in %s" % cell)
 			inventory.remove_item(seed_id, 1)
@@ -117,6 +119,25 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 		
 		# 6. Advance remaining days of this 28-day season until next season starts
 		var days_passed: int = growth_days
+		if int(crop_data.get("regrow_days")) > 0:
+			assert_eq(inventory.get_quantity(seed_id),0,"Repeat cycle consumes no more seeds")
+			for day: int in range(int(crop_data.get("regrow_days"))):
+				farm_state.water_all_crops()
+				simulator.simulate_day(farm_state)
+				GameClock.sleep_to_morning()
+				days_passed += 1
+			for cell: Vector2i in planted_cells:
+				assert_true(farm_state.can_harvest(cell))
+				var repeated: Dictionary = farm_state.harvest_cell(cell)
+				assert_true(repeated["success"])
+				inventory.add_item(product_id,int(repeated["quantity"]))
+			assert_eq(inventory.get_quantity(product_id),expected_yield)
+			var before_repeat_sale: int = wallet.get_coins()
+			bin._select_item(product_id)
+			bin._set_max_quantity()
+			bin._confirm_sale()
+			assert_eq(wallet.get_coins(),before_repeat_sale+expected_yield*int(DataRegistry.get_item(product_id).get("sell_price")))
+			assert_eq(inventory.get_quantity(product_id),0)
 		var days_to_advance: int = 28 - days_passed
 		for d: int in range(days_to_advance):
 			simulator.simulate_day(farm_state)

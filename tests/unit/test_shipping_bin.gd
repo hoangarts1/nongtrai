@@ -38,14 +38,14 @@ func test_shipping_bin_panel_selling_flow() -> void:
 	assert_true(panel.is_open())
 	assert_false(player.movement_enabled, "Player movement should be locked when panel is open")
 	
-	# Test selling 3 turnips at 25 coins each = 75 coins
+	# Unit prices come from the approved Resource table.
 	panel._select_item(&"turnip")
 	panel._change_quantity(2) # 1 + 2 = 3
 	assert_eq(panel._selected_quantity, 3)
 	
 	panel._confirm_sale()
 	assert_eq(inventory.get_quantity(&"turnip"), 2, "Should have 2 turnips left in inventory")
-	assert_eq(wallet.get_coins(), 125, "Wallet should have 50 + 75 = 125 coins")
+	assert_eq(wallet.get_coins(), 50 + 3*(DataRegistry.get_item(&"turnip") as ItemData).sell_price, "Sale grants exactly the current quote")
 	assert_signal_emitted(panel, "item_sold")
 	
 	panel.close()

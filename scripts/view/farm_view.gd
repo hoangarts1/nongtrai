@@ -128,7 +128,7 @@ func _render_cell(cell: Vector2i) -> void:
 		CropPresentation.clear(crop)
 		return
 	var crop_data: Resource = DataRegistry.get_crop(crop_id)
-	var required_days: int = maxi(1, int(crop_data.get("growth_days")))
+	var required_days: int = maxi(1, _farm_state.get_growth_target(cell))
 	var growth_days: int = int(plot.get("growth_days", 0))
 	label.text = tr("CROP_STATUS_WITHERED") if withered else (tr("CROP_STATUS_READY") if growth_days >= required_days else tr("CROP_STATUS_REMAINING") % maxi(1,required_days-growth_days))
 	if not withered and growth_days < required_days and not watered:

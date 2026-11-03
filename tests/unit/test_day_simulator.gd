@@ -12,6 +12,9 @@ func test_simulator_grows_only_watered_crops_and_drains_water() -> void:
 	assert_false(bool(farm.get_plot(cell).get("watered", false)))
 	farm.water_cell(cell)
 	simulator.call("simulate_day", farm)
+	for day: int in range(2, (DataRegistry.get_crop(&"turnip") as CropData).growth_days):
+		assert_true(farm.water_cell(cell))
+		simulator.call("simulate_day", farm)
 	assert_true(farm.can_harvest(cell))
 
 func test_main_connects_day_started_to_day_simulator() -> void:

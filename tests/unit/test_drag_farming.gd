@@ -43,6 +43,10 @@ func test_dragging_seeds_waters_and_harvests_each_crossed_cell_once() -> void:
 	main.day_simulator.simulate_day(main.farm_state)
 
 	main.tool_controller.select_tool(&"harvest")
+	for day: int in range(2,(DataRegistry.get_crop(&"turnip") as CropData).growth_days):
+		for cell: Vector2i in cells:
+			assert_true(main.farm_state.water_cell(cell))
+		main.day_simulator.simulate_day(main.farm_state)
 	await _drag(main, [cells[0], cells[1], cells[0]])
 	assert_eq(main.inventory.get_quantity(&"turnip"), 4, "Two mature plants each add their data-defined two-item yield")
 	for cell: Vector2i in cells:

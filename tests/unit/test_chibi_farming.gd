@@ -87,7 +87,7 @@ func test_tool_models_and_generated_crop_stage_runtime_keep_click_contract() -> 
 	assert_eq(crop.get_meta("stage_id"), &"0")
 	var sprout_image: Image = crop.texture.get_image()
 	assert_gt(_opaque_pixels(sprout_image), 0)
-	for _day: int in range(2):
+	for _day: int in range((DataRegistry.get_crop(&"turnip") as CropData).growth_days):
 		assert_true(main.farm_state.water_cell(cell))
 		main.farm_state.advance_day()
 	await get_tree().process_frame

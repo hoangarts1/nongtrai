@@ -1,5 +1,26 @@
 # DATA SCHEMA — THE LIFE
 
+## ISO-6b1 implemented crop balance / save v8 (D42)
+
+Current gameplay values for new sowing and market quotes:
+
+| Crop | First cared-for days | Repeat days | Seed buy | Produce unit sale | Yield |
+|---|---:|---:|---:|---:|---:|
+| spring_carrot | 3 | 0 | 20 | 35 | 2 |
+| summer_tomato | 5 | 2 | 35 | 72 | 2 |
+| turnip | 4 | 0 | 25 | 45 | 2 |
+| summer_corn | 7 | 0 | 35 | 100 | 2 |
+
+Other five crops and all IDs/stack limits/seasons/care/art are unchanged. Seed resale values are unchanged. Current-MVP crop return ceiling is 80 coins/plot-day in data/crop_economy_config.tres, explicitly approved instead of the historical starter example 18 below. Validate (yield*unit_sale - seed_buy) <= ceiling*growth_days and, for repeating crops, yield*unit_sale <= ceiling*regrow_days, with positive/bounded inputs and integer arithmetic. Existing unit-sale > seed-buy and slower-crop price invariants remain. No other economic/recipe ceiling is changed. Ideal 28-watered-day tomato picks are days 5,7,...,27: 24 produce, net 1693; this is provisional approved balance, not a final-playtest claim.
+
+farm.plots add growth_target: int and regrowing: bool. New planting freezes first-growth Resource duration; tomato harvest resets growth_days=0, growth_target=2, regrowing=true, preserving crop/cell/moisture/dry streak. Other crops retain removal behavior. Missing care/season/wither rules apply in every cycle; full inventory blocks the action before changing phase. There is no seed cost or automatic watering at repeat harvest.
+
+v7 -> v8 assigns prior first-growth targets from data/crop_migration_v7.tres and regrowing=false while retaining all previous fields. Historical targets: turnip2, carrot3, pea3, tomato4, corn4, wheat3, pumpkin5, radish3, cabbage4. Old mature plants stay mature and immature plants keep their remaining growth days; new sowing uses the new table, repeat cycles use the current repeat duration. v1–v7 fixtures stay read-only; v8 fixture contains an active repeat crop and an old-target withered mature crop. Direct domain restore without a target defaults to current data; version-aware SaveService migration supplies historical targets for old saves.
+
+FarmSaveCodec retains care/coordinate/ID validation and validates new targets against the current/historical first duration or exact repeat duration. Invalid/unsafe targets fall back to current data; repeat flags are strict booleans and only allowed on repeating crops. Copies preserve source snapshots, and decode returns explicit success/failure. A native-int32 bound protects wire coordinates/growth; economy rule bounds protect int64 products, not gameplay progression limits. Growth/coin/quantity state stays int.
+
+Fertilizer effect/item and house-level corn gating remain unfinished, awaiting their own usable systems/specification; corn availability is unchanged in this slice. No fake shop entry or upgrade is created.
+
 ## ISO-6a implemented daily care / save v7 (D41)
 
 - CropData.max_consecutive_dry_days: int = 0 by default; every shipped crop Resource explicitly supplies 2. Water-requiring crops must have a positive threshold; water_need=0 ignores dry care. Existing growth_days/yield_qty/seasons/IDs and all prices remain unchanged pending ISO-6b.

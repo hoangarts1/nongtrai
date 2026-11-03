@@ -1,5 +1,7 @@
 # ISO-5 inventory and supported tab shell
 
+ISO-6b1 changes approved item purchase/sale Resource values, not inventory IDs/capacity/stack/selection/sort/discard APIs. Bag details use actual new unit sale prices. A full bag blocks the whole harvest before the owner's repeat phase changes; successful repeat harvest adds exactly the existing yield, with no additional seed consumption or ledger/wallet change until a real sale.
+
 Owner approved commit ISO-4 and implement the ISO-5 plan. InventoryPanel retains its root path/public configure/toggle_inventory/close_inventory/slot_selected/inventory_toggled APIs. Main wires a small LifeInventoryController; no UI owns item quantities.
 
 Scene pairs under ui/inventory: inventory_screen (VBox, tabs/header then wood/paper body), common_tabs (five native Buttons; only Bag 0 and Quest 2 enabled), filter_bar (all/seed/produce/tool/material), item_grid (ScrollContainer -> eight-column Grid, real indices and empty cells), inventory_slot (native Button with icon/quantity/selection), detail_card (actual item/name/category/description/count/sell_price; no invented stamina/quality/market modifier), capacity_footer (actual occupied/capacity, sort and contextual key hints), discard_prompt (inline confirmation with integer SpinBox, confirm/cancel). Root body has filter/grid/footer left and details/actions right; close/tabs remain outside scrolling content. Icon helper/controller and Theme builder remain separate small scripts.

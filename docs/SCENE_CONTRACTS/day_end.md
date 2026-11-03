@@ -1,5 +1,7 @@
 # ISO-4 day-end sheet and flow
 
+ISO-6b1 retains the summary tree, signed ledger/refund model and one guarded day transition. Existing crops' frozen first/repeat targets are domain fields saved with v8; manual/forced review must not duplicate growth or harvest. Market transactions annotate current Resource prices while historical saved ledger entries stay their original signed amounts. No fabricated repricing of old history or new modal.
+
 ISO-6a keeps the sheet/flow tree and generic unwatered warning unchanged. Confirm runs one Main -> DaySimulator transition: finished-day care/current rain first, then new-season withering, new weather and morning rain. Tomorrow's rain cannot undo a completed drought wither. v7 persists crop-care counters alongside the unchanged day_ledger/day_end guard. Forced/manual/direct paths remain equivalent; no care runs while review is merely open or cancelled.
 
 Owner approved the ISO-4 plan/ALLOW_LIST, including domain ledger, save v5 and small UI classes. `ui/day_end/day_end_sheet.tscn` is a PanelContainer with LifeDayEndSheet script. Runtime composition uses the shared Theme; native Buttons and ScrollContainers remain real input controls. No mockup PNG is a runtime texture.

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CropMigrationConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/crop_migration_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+previous_growth_days = {
+&"turnip": 2,
+&"spring_carrot": 3,
+&"spring_pea": 3,
+&"summer_tomato": 4,
+&"summer_corn": 4,
+&"autumn_wheat": 3,
+&"autumn_pumpkin": 5,
+&"winter_radish": 3,
+&"winter_cabbage": 4
+}

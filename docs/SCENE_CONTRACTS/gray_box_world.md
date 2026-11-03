@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## ISO-6b1 first/repeat cycle readout (D42)
+
+No scene/node/export/input changes. FarmGridState owns growth_target/regrowing and get_growth_target(cell). FarmView asks the owner for the stage denominator, including historical first targets; CropInspector uses owner remaining days and a localized actual-repeat note. Main refreshes existing FarmView.configure after snapshot restore so all cells reflect their saved phase. Harvest retains repeating crop roots/cells and updates stages via existing plot_changed; withered and single-harvest semantics remain. Existing tool capacity/reach/lock/seed APIs apply; no second simulation path or UI-owned crop state.
+
 ## ISO-6a crop-care readout (D41)
 
 No scene/tree/export/input changes. FarmGridState owns per-plot consecutive_dry_days and exposes get_dry_days_remaining(cell). Existing FarmView observes the withered flag; CropInspector's existing note_label reads the owner's counter and shows a localized warning after missed care. Its current Water/Harvest action_requested signal and Main's ToolActionController binding remain. Watering/harvesting a withered plant cannot mutate it. Ripe plants still need care. Main simulates the finished day's stored water/current rain once before preparing the new weather/rain. Data thresholds, domain persistence and view readouts remain separate.

@@ -80,6 +80,8 @@ func _refresh() -> void:
 		var hours: int = (minutes % GameClock.MINUTES_PER_DAY) / 60
 		countdown_label.text = tr("UI_CROP_COUNTDOWN") % [days, hours, minutes % 60]
 		estimate_label.text = tr("UI_CROP_ESTIMATE_AT") % [GameClock.day_index + remaining_days + 1, GameClock.format_time(GameClock.MORNING_MINUTE)]
+		if bool(plot.get("regrowing", false)):
+			note_label.text = tr("UI_CROP_REGROW_NOTE")
 	if not withered and not watered and int(plot.get("consecutive_dry_days", 0)) > 0:
 		note_label.text = tr("UI_CROP_DRY_WARNING") % _farm.get_dry_days_remaining(_cell)
 

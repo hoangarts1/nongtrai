@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CropEconomyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/crop_economy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+max_profit_per_plot_day = 80

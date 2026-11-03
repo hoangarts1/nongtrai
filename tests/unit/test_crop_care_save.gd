@@ -17,7 +17,7 @@ func test_every_old_fixture_preserves_all_original_fields_and_defaults_unknown_c
 	for version: int in range(1,7):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),7)
+		assert_eq(int(loaded["meta"]["save_version"]),8)
 		for key: String in original:
 			if key in ["meta","inventory","farm"]:
 				continue
@@ -26,6 +26,8 @@ func test_every_old_fixture_preserves_all_original_fields_and_defaults_unknown_c
 		for plot: Dictionary in farm.get("plots",[]):
 			assert_eq(int(plot["consecutive_dry_days"]),0,"No historic missed care is invented")
 			plot.erase("consecutive_dry_days")
+			plot.erase("growth_target")
+			plot.erase("regrowing")
 		assert_eq(farm,original["farm"],"Every original plot field is preserved")
 		assert_eq(loaded["inventory"]["slots"],original["inventory"]["slots"])
 		assert_eq(int(loaded["inventory"]["capacity"]),maxi(40,int(original["inventory"]["capacity"])))
@@ -36,16 +38,20 @@ func test_every_old_fixture_preserves_all_original_fields_and_defaults_unknown_c
 func test_v7_golden_round_trip_and_reloaded_drought_continue_without_replay() -> void:
 	var golden: Dictionary = _fixture(7)
 	var loaded: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(loaded["farm"],golden["farm"])
+	var expected_farm: Dictionary = golden["farm"].duplicate(true)
+	for plot: Dictionary in expected_farm["plots"]:
+		plot["growth_target"] = 2
+		plot["regrowing"] = false
+	assert_eq(loaded["farm"],expected_farm)
 	assert_eq(loaded["day_ledger"],golden["day_ledger"])
 	assert_eq(loaded["day_end"],golden["day_end"])
 	var farm: FarmGridState = FarmGridState.new()
 	farm.deserialize(loaded["farm"])
-	assert_eq(JSON.parse_string(JSON.stringify(farm.serialize())),golden["farm"])
+	assert_eq(JSON.parse_string(JSON.stringify(farm.serialize())),JSON.parse_string(JSON.stringify(expected_farm)))
 	assert_eq(farm.get_dry_days_remaining(Vector2i.ZERO),1)
 	assert_false(farm.can_harvest(Vector2i(1,0)),"Saved withered ripe crop cannot be harvested")
 	assert_true(SaveService.save_game(loaded,SLOT))
-	assert_eq(SaveService.load_game(SLOT)["farm"],loaded["farm"])
+	assert_eq(SaveService.load_game(SLOT)["farm"],JSON.parse_string(JSON.stringify(loaded["farm"])))
 	farm.advance_day()
 	assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
 	var snapshot: Dictionary = farm.serialize()
@@ -61,7 +67,7 @@ func test_new_counter_values_are_validated_clamped_and_json_safe() -> void:
 	]
 	for entry: Dictionary in cases:
 		var farm: FarmGridState = FarmGridState.new()
-		farm.deserialize({"plots":[{"cell_x":0,"cell_y":0,"tilled":true,"crop_id":"turnip","growth_days":2,"watered":false,"withered":false,"consecutive_dry_days":entry["value"]}]})
+		farm.deserialize({"plots":[{"cell_x":0,"cell_y":0,"tilled":true,"crop_id":"turnip","growth_days":4,"watered":false,"withered":false,"consecutive_dry_days":entry["value"]}]})
 		var plot: Dictionary = farm.get_plot(Vector2i.ZERO)
 		assert_eq(plot["consecutive_dry_days"],int(entry["expected"]))
 		assert_eq(plot["withered"],int(entry["expected"])>=2)

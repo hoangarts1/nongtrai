@@ -170,7 +170,7 @@ func test_warning_and_withered_inspector_fit_both_languages_three_sizes() -> voi
 		for extent: Vector2i in [Vector2i(1152,648),Vector2i(1280,720),Vector2i(1920,1080)]:
 			_viewport.size = extent
 			for mode: String in ["warning","ripe_warning","withered"]:
-				_plant(1,2 if mode=="ripe_warning" else 0)
+				_plant(1,4 if mode=="ripe_warning" else 0)
 				if mode=="withered":
 					_main.day_simulator.simulate_day(_main.farm_state)
 				_main.crop_inspector.show_cell(Vector2i.ZERO)

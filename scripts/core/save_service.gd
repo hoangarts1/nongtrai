@@ -5,9 +5,10 @@
 ##   func delete_save(slot: int = 1) -> void
 ##   func migrate_5_to_6(data: Dictionary) -> Dictionary
 ##   func migrate_6_to_7(data: Dictionary) -> Dictionary
+##   func migrate_7_to_8(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 7
+const CURRENT_VERSION: int = 8
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -143,6 +144,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_5_to_6(migrated)
 	if version <= 6:
 		migrated = migrate_6_to_7(migrated)
+	if version <= 7:
+		migrated = migrate_7_to_8(migrated)
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -191,6 +194,20 @@ func migrate_6_to_7(data: Dictionary) -> Dictionary:
 			if entry is Dictionary and not entry.has("consecutive_dry_days"):
 				# Old saves contain no evidence of missed care; never invent it.
 				entry["consecutive_dry_days"] = 0
+	return migrated
+
+func migrate_7_to_8(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var config: CropMigrationConfig = preload("res://data/crop_migration_v7.tres")
+	var farm: Variant = migrated.get("farm", {})
+	var plots: Variant = farm.get("plots", []) if farm is Dictionary else []
+	if plots is Array:
+		for entry: Variant in plots:
+			if not entry is Dictionary:
+				continue
+			var id: Variant = entry.get("crop_id", "")
+			entry["growth_target"] = int(config.previous_growth_days.get(StringName(id), 0)) if id is String or id is StringName else 0
+			entry["regrowing"] = false
 	return migrated
 
 func _rotate_backups(save_path: String) -> void:

@@ -144,6 +144,16 @@ func _init() -> void:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_crop_paths(crop_paths, item_paths)
+	if errors.is_empty():
+		var economy_crops: Array[Resource] = []
+		var economy_items: Array[Resource] = []
+		for path: String in crop_paths:
+			economy_crops.append(load(path) as Resource)
+		for path: String in item_paths:
+			economy_items.append(load(path) as Resource)
+		errors = VALIDATOR_SCRIPT.validate_crop_economy(preload("res://data/crop_economy_config.tres"), economy_crops, economy_items)
+		if errors.is_empty():
+			errors = VALIDATOR_SCRIPT.validate_crop_migration(preload("res://data/crop_migration_v7.tres"), economy_crops)
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_quest_paths(quest_paths, item_paths)
 	if errors.size() == 0:
@@ -171,6 +181,7 @@ func _init() -> void:
 		"res://localization/strings_en.csv"
 	]
 	var inventory_keys: PackedStringArray = REQUIRED_KEYS.duplicate()
+	inventory_keys.append("UI_CROP_REGROW_NOTE")
 	for item_path: String in item_paths:
 		var item: ItemData = load(item_path) as ItemData
 		if not item.description_key.is_empty():

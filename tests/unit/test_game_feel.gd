@@ -18,7 +18,7 @@ func test_crop_visual_has_distinct_mature_stage() -> void:
 	assert_not_null(crop.texture)
 	var sprout: PackedByteArray = crop.texture.get_image().get_data()
 	assert_eq(crop.get_meta("stage_id"), &"0")
-	for _day: int in range(2):
+	for _day: int in range((DataRegistry.get_crop(&"turnip") as CropData).growth_days):
 		assert_true(farm.water_cell(Vector2i.ZERO))
 		farm.advance_day()
 	assert_true(crop.visible)

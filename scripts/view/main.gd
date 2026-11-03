@@ -281,6 +281,7 @@ func _load_payload(payload: Dictionary) -> void:
 	GameClock.deserialize(payload.get("clock", {}))
 	inventory.deserialize(payload.get("inventory", {}))
 	farm_state.deserialize(payload.get("farm", {}))
+	farm_view.configure(farm_state)
 	quest_state.deserialize(payload.get("quests", {}))
 	weather_state.call("deserialize", payload.get("weather", {}))
 	wallet.deserialize(payload.get("wallet", {}))

@@ -40,13 +40,15 @@ func test_v3_migration_preserves_all_old_progress_and_older_fixtures() -> void:
 		file.store_string(JSON.stringify(original))
 		file.close()
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]), 7)
+		assert_eq(int(loaded["meta"]["save_version"]), 8)
 		for field: String in ["quests", "profile", "clock", "farm", "player"]:
 			var expected: Variant = original[field]
 			if field == "farm":
 				expected = original[field].duplicate(true)
 				for plot: Dictionary in expected.get("plots", []):
 					plot["consecutive_dry_days"] = 0
+					plot["growth_target"] = int(preload("res://data/crop_migration_v7.tres").previous_growth_days.get(StringName(plot.get("crop_id", "")), 0))
+					plot["regrowing"] = false
 			assert_eq(loaded[field], expected, "v%d preserves %s plus unknown-care default" % [version, field])
 		assert_eq(loaded["inventory"]["slots"],original["inventory"]["slots"])
 		assert_gte(int(loaded["inventory"]["capacity"]),40)
