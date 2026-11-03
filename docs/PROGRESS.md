@@ -272,7 +272,7 @@ Everything else remains DO NOT TOUCH, especially existing placeholder art until 
 
 ## Approved task — ISO-11 quest book (automated acceptance delivered)
 
-Owner approved “Duyệt, commit ISO-10 và triển khai ISO-11”. Fresh DataValidator PASS preceded commit **b44c5d5**, exactly the51-file ISO-10 handoff including this plan, excluding/preserving owner's master-plan leading blank line. ISO-11 implementation, automated acceptance and render review are delivered under this scope; exact handoff below. Human F5 acceptance pending. No ISO-11 commit/push.
+Owner approved “Duyệt, commit ISO-10 và triển khai ISO-11”. Fresh DataValidator PASS preceded commit **b44c5d5**, exactly the51-file ISO-10 handoff including this plan, excluding/preserving owner's master-plan leading blank line. ISO-11 implementation and automated/render acceptance are delivered under this scope; the implementation is committed in **962bba9**. Human F5 acceptance remains pending.
 
 ### MILESTONE / TASK / ACCEPTANCE
 
@@ -3463,7 +3463,7 @@ NpcJournal remains the same NpcPanel root. Journal-only enable_quest_book/show_q
 
 UI owns only transient filter/selection/scroll. Owner signals coalesce a deferred refresh after transactions/emitting controls finish; valid selection/scroll persist, changing tasks starts detail at top, Main resets on new-game/load/title. Opening/filtering/selecting/locale/scroll/dismiss cannot accept/complete/talk/payout/grant/remove/simulate/reroll. Completed delivery can show0 current bag items; rewards remain task terms, not another payout/history. Onboarding has no listed reward. Nearby original NPC dialogue still pays exactly once; full bag/duplicate failure snapshots stay identical.
 
-ISO-10 committed **b44c5d5** after fresh DataValidator PASS, exactly51 files including approved plan, excluding owner's master-plan edit. ISO-11 remains uncommitted/no push. Human F5 acceptance remains pending.
+ISO-10 committed **b44c5d5** after fresh DataValidator PASS, exactly51 files including approved plan, excluding owner's master-plan edit. ISO-11 implementation is committed in **962bba9**. Human F5 acceptance remains pending.
 
 Exact49-file delivery manifest (17 modified,32 created; matching .gd.uid included):
 
