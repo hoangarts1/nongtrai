@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-8a composes five ui/title scenes plus presenter/helpers from existing Theme and ISO-7 settings components. Typed fields replace the approved old internal menu paths; see start_menu.md. No generic component/Theme/art resource changes, no invented save statistics.
+
 ISO-7 composes the existing wood/paper/banner/button/slider Theme in six ui/pause components (pause_menu.md). Each native HSlider has a mouse-ignoring read-only LifeProgressGreen track underlay because the shared slider StyleBox has zero content height; shared Theme resources are never mutated. Unsupported preferences are disabled with localized explanation. No new generic Theme type, bus signal or gameplay ownership.
 
 ISO-6b1 introduces no reusable Control/scene/theme variations. Existing item details/inspector read new Resource prices and owner cycle targets through current fields/APIs. Gameplay caps, migration mappings and repeat rules stay outside component classes.

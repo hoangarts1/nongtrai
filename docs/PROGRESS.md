@@ -1,10 +1,94 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-6b1 committed 4b3ca62; ISO-7 automated acceptance/render review delivered)
+Last updated: 2026-11-03 (ISO-7 committed 4ccc8de; ISO-8a automated acceptance/render review delivered)
 
-## Proposed next task — ISO-8a main-menu presentation (awaiting owner approval)
+## Proposed next task — ISO-8b character creation (awaiting owner approval)
 
-Read-only review after owner “oke tiep tuc di”: ISO-7 delivery is unchanged and uncommitted; human playtest still pending. The active override currently ends at ISO-7; this proposes a new, separately approved presentation row rather than treating historical unchecked roadmap entries as missing systems. No ISO-8a source, scene, asset or commit has been made. Approval request combines: commit ISO-7's exact43-file handoff manifest below after a fresh DataValidator PASS, then implement this scope. No push/automatic ISO-8a commit. Preserve/exclude owner's master-plan blank-line edit.
+After owner “tieeps tuc”, read-only review proposes the next reference02 slice. ISO-8a remains delivered/uncommitted,256/256 tests recorded from its handoff; human F5 acceptance remains pending. No new source/scene/art or commit has been made. Approval request combines: fresh DataValidator, commit exactly ISO-8a's42-file handoff manifest below (including this proposal), then implement this scope. Exclude/preserve owner's master-plan leading blank line; no push/automatic ISO-8b commit.
+
+### MILESTONE / TASK / ACCEPTANCE
+
+Proposed MILESTONE: ISO-8b — modular reference02 creation UI and matching 2D preview. Only this deferred screen is opened; Main's existing profile/new-world/save owners remain unchanged.
+
+- Rebuild profile mode into reference02's two-panel composition: left wood/paper form with red title ribbon, paired name/farm fields, hairstyle buttons and skin/hair/outfit swatches; right framed 2D avatar preview plus actual draft name/farm captions. Back and green Start stay fixed while form choices scroll if necessary. Keep shared Theme and existing title illustration, no reference PNG/runtime crop/new bitmap.
+- Use small scene/script components for name fields, choice rows, swatch buttons, preview and presenter/helpers. Keep all six current data-backed choices in each category rather than truncating them to the reference's pictured3/5. Colors/styles come from the unchanged CharacterAppearanceCatalog. No new selection IDs/colors/gender/pet/house/bonus/name-validation rules or gameplay data.
+- Preview uses the real PlaceholderAvatar2D renderer in a UI-local2D stage, not a 3D model or a separate invented portrait. Read-only inspection found configure_profile already resolves colors but _draw ignores the selected hairstyle. Add a small shared VIEW-only hair drawing helper and apply normalized player hairstyle selections in that existing renderer. Preview and actual player must show the same six distinct hair silhouettes and colors. NPCs without a player customization keep their existing hair rendering; no movement/collision/timing/action geometry or domain changes.
+- Preview arrows cycle the existing hairstyle choices, with localized tooltips/caption explaining that action. Do not claim rotation or invent facing frames/input actions. Draw only replaceable decorative UI scenery; no pet/game entity is introduced. Body rendering remains the existing replaceable2D avatar art.
+- Explicitly authorize replacing profile form's script-created AppearanceGrid/OptionButton internals with typed choice components, and updating related tests' selection/lookups while retaining all six-choice/normalization/form-dispatch assertions. Preserve Main/StartMenu, configure callbacks, appearance_selected, get_appearance_selection, form get_selection/submitted/cancelled and actual _name_box VBox reference. No data ID/public flow/signal rename; document the new tree/APIs before coding.
+- Name text/selected choices remain transient until the original Submit request. Back/reopen preserves drafts as in ISO-8a; locale changes update captions without clearing typed values. Start emits normalized appearance before the unchanged two-string New Game callback exactly once per confirmation. Existing clean-world/wallet/starter-seed behavior, saved profile shape and v1-v8 goldens remain. No SaveService/Main/domain migration changes.
+- Keep UiCoordinator as single modal owner. Profile gets a wide viewport-bounded rectangle while title/settings stay compatible. Native clicks/swatches/arrows, Tab/Enter/Space/LineEdit typing and Escape/Back work without world actions. No new InputMap, autoload, bus signal or old scene edits.
+- Extend only the full graphics GUT invocation's bounded timeout from default120s to180s: the current full suite already takes111.822s. Preserve every parse/data/headless/full test, error-text check and exit-code gate; no skipped tests or altered helper defaults.
+- Run focused native/form/save/preview tests and official full suite; compare vi/en captures at1152x648,1280x720,1920x1080 and all six hairstyles/colors, verify preview/player parity and no gameplay mutation before Start. Record real logs, exact diff/manifest and manual F5 cases. Human editor acceptance remains pending.
+
+### READ-ONLY CONTEXT / DO NOT TOUCH
+
+AGENTS; PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/INPUT_MAP/STYLE_GUIDE/UI_LAYOUT; contracts start_menu/player/gray_box_world/hud/ui_components; reference02; CharacterAppearanceCatalog/Data APIs and resources; Main/WorldPresentation profile wiring; current title/profile/appearance/input/save tests. Everything outside the proposed ALLOW_LIST is read-only, including Main, core/domain/data, all existing .tscn, source art/Theme/ui-pause resources, project.godot, goldens and owner's master plan.
+
+### Proposed ISO-8b ALLOW_LIST
+
+Existing files:
+~~~text
+ui/title/profile_form.gd
+ui/title/title_screen.gd
+ui/title/title_presenter.gd
+scripts/view/start_menu.gd
+scripts/view/ui_layout.gd
+scripts/view/ui_coordinator.gd
+scripts/view/placeholder_avatar_2d.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_title_flow.gd
+tests/unit/test_title_layout.gd
+tests/unit/test_chibi_characters.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+tools/run_tests.bat
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/PROJECT_RULES.md
+docs/UI_LAYOUT.md
+docs/SCENE_CONTRACTS/start_menu.md
+docs/SCENE_CONTRACTS/player.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+~~~
+
+New files (each named .gd also permits its matching .gd.uid):
+~~~text
+ui/profile/name_fields.gd
+ui/profile/name_fields.tscn
+ui/profile/profile_choices.gd
+ui/profile/profile_choices.tscn
+ui/profile/choice_row.gd
+ui/profile/choice_row.tscn
+ui/profile/choice_swatch.gd
+ui/profile/choice_swatch.tscn
+ui/profile/avatar_preview.gd
+ui/profile/avatar_preview.tscn
+ui/profile/profile_presenter.gd
+ui/profile/profile_parts.gd
+scripts/view/avatar_hair_2d.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_profile_preview.gd
+docs/SCENE_CONTRACTS/character_creation.md
+~~~
+
+### Order / assumptions / risks
+
+1. After approval, verify ISO-8a exact42-file manifest plus excluded owner edit, fresh validator, commit that manifest only. Suggested commit: feat: add modular main menu with live save summary.
+2. Record D45/roadmap/scene contract and explicit internal-control migration. Build small components and shared hair renderer, then wire the existing StartMenu profile adapter without changing Main/data.
+3. Add native six-choice/normalization/name/draft/one-submit/preview-player-parity coverage and update old lookups. Raise only graphics-suite timeout as specified; keep all error gates.
+4. Run focused/official full checks, inspect clean screenshots, update API/memory with manifest/diff/logs/manual steps; leave ISO-8b uncommitted pending later instruction.
+
+Risks: current avatar is placeholder art; hairstyle silhouettes must remain readable at normal in-game scale and match enlarged preview. Existing NPC visuals must remain stable. Six choices/long vi-en labels and paired name fields need responsive wrapping/scroll at1152. Avoid emitting selection while rebuilding controls or losing keyboard focus. Existing profile API migration needs all normalization/data-choice assertions retained. No claimed camera rotation or new name restrictions. If another file is needed, request that exact scope extension before editing.
+
+## Approved task — ISO-8a main-menu presentation (automated acceptance delivered)
+
+Owner approved “Duyệt, commit ISO-7 và triển khai ISO-8a”. ISO-7 committed **4ccc8de** after fresh DataValidator PASS, exactly its43-file handoff manifest below, excluding the preserved owner master-plan blank-line edit. ISO-8a implementation/automated acceptance/render review are delivered under the following approved scope. No ISO-8a commit/push; human playtest still pending. Historical unchecked roadmap entries are not treated as missing systems.
 
 ### MILESTONE / TASK / ACCEPTANCE
 
@@ -148,7 +232,7 @@ Risks: English text and the two-panel composition need scrolling at the smallest
 
 ## Current milestone
 
-`ISO-7 (pause/settings/save UI)` — owner approved “Duyệt, commit ISO-6b1 và triển khai ISO-7”. ISO-6b1 committed **4b3ca62** after fresh DataValidator PASS, exactly its 73 delivered files, excluding the owner's master-plan edit. ISO-7 source and automated acceptance are delivered: six component scenes, eight small UI scripts, supported-setting drafts, actual save/load outcomes and preserved modal/day-end ownership. Official full renderer247/247 (9806 asserts), official headless62/62 (879), final focused headless21/21 (2647), clean renderer8/8 (1236); parse/data/main PASS.54 clean captures, both locales/three sizes, reviewed. Save version stays8; v1-v8 goldens unchanged. No ISO-7 commit/push; human editor acceptance pending. Fertilizer/house-unlock and unsupported pictured settings remain outside scope. Exact manifest/diff/manual handoff is appended below.
+`ISO-8a (modular main menu)` — owner approved “Duyệt, commit ISO-7 và triển khai ISO-8a”. ISO-7 committed **4ccc8de** after fresh validator PASS, exact43-file manifest, owner master-plan edit excluded. ISO-8a source/automated acceptance/render review delivered: five scene/script pairs plus presenter/helpers, actual latest-save fields/Continue revalidation, preserved profile flow and reused supported-setting drafts; old internal paths explicitly migrated. Official renderer256/256 (10468 asserts), official headless62/62 (879), focused headless27/27 (2277), clean renderer9/9 (684); parse/data/main PASS.36 clean vi/en/three-size captures reviewed. Core/domain/data/Main/backdrop/old scenes/Theme/art/InputMap/save-v8/goldens unchanged. No ISO-8a commit/push; human editor acceptance pending. Other deferred screens and fertilizer/house work remain outside scope. Exact handoff/diff/logs/manual cases below.
 ## ISO-6b1 final automated acceptance (2026-11-03, D42)
 
 Delivered within the approved scope: exact crop/price table, data-owned 80-coin initial/repeat return ceiling with retained price guards; first/repeat crop targets owned by FarmGridState; small stateless cycle/codec/economy helpers; one-time seed consumption, no free water/dry-streak reset, full-bag/no-repeat-harvest guards; real cycle-aware stage/countdown; v8 old-plant compatibility and multi-cell view refresh. Existing old fields/goldens, crop IDs/yields/seasons/care, input/scenes/art/autoloads/bus, atomic saves and owner edit remain. ISO-6a committed **7f7a429**; ISO-6b1 is uncommitted, no push. Fertilizer/house unlock and human editor acceptance remain pending; this does not mark all ISO-6 complete.
@@ -2308,3 +2392,137 @@ Final scans: zero SCRIPT ERROR / Parse Error / Failed to load script / ERROR / o
 Assumptions/limits: ConfigFile setters have no success return; normal persistence is verified by reload, not claimed atomic preference transactions. New music/weather players, pictured unsupported preferences/key remapping, fertilizer/house unlock and other screens remain future tasks. Existing shared StyleBoxFlat artwork is replaceable; composition/colors reuse Theme rather than newly commissioned textures. Human F5 test remains required. gdtoolkit lint not run (not installed).
 
 Proposed ISO-7 commit: feat: add modular pause settings and reliable save feedback
+
+## ISO-8a handoff and exact manifest (relative to 4ccc8de, D44)
+
+Acceptance delivered in source: reference01 left wood/paper/green-banner menu, real latest save, large Continue, paired New Game/Settings, red Exit/footer; five components/seven small UI scripts; explicit old internal-path migration with preserved public adapter APIs; profile normalization/initial seed/reset flow unchanged; reused settings pages with draft Apply/Default/cancel; native mouse/keyboard/typing/Back routing with one modal owner. Background illustration/Theme remain existing assets. ISO-7 committed4ccc8de; ISO-8a uncommitted/no push. Human editor test remains pending.
+
+Created (24 files):
+~~~text
+docs/SCENE_CONTRACTS/start_menu.md
+tests/unit/test_title_flow.gd
+tests/unit/test_title_flow.gd.uid
+tests/unit/test_title_layout.gd
+tests/unit/test_title_layout.gd.uid
+ui/title/latest_save_card.gd
+ui/title/latest_save_card.gd.uid
+ui/title/latest_save_card.tscn
+ui/title/profile_form.gd
+ui/title/profile_form.gd.uid
+ui/title/profile_form.tscn
+ui/title/title_actions.gd
+ui/title/title_actions.gd.uid
+ui/title/title_actions.tscn
+ui/title/title_parts.gd
+ui/title/title_parts.gd.uid
+ui/title/title_presenter.gd
+ui/title/title_presenter.gd.uid
+ui/title/title_screen.gd
+ui/title/title_screen.gd.uid
+ui/title/title_screen.tscn
+ui/title/title_settings.gd
+ui/title/title_settings.gd.uid
+ui/title/title_settings.tscn
+~~~
+
+Modified (18 files):
+~~~text
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/view/start_menu.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+tests/unit/test_chibi_characters.gd
+tests/unit/test_chibi_ui.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+~~~
+
+Scope audit:42 delivered files inside approved ALLOW_LIST, zero outside; owner's docs/reference/THE_LIFE_MASTER_PLAN.txt leading blank line stays excluded. Existing .tscn, Main, TitleBackdrop, core/domain/data, source art, ui/pause/components/Theme, project.godot and v1-v8 goldens have zero diff. New UI scripts22-99 lines; no packages installed.
+
+Clear diff: `git diff 4ccc8de -- . ':(exclude)docs/reference/THE_LIFE_MASTER_PLAN.txt'` plus exact new files above; a combined patch including new files is supplied at C:/Users/daova/AppData/Local/Temp/the_life_iso8a_review/iso8a_review.patch after final validation. Clean screenshots: same folder,36 PNGs, vi/en x three sizes x empty/latest-long-name/corrupt/profile/settings-audio/settings-game. Compared with reference01; existing background matches the supported composition but is retained source artwork, not a newly generated reference copy.
+
+Manual editor steps: none. Open project.godot in Godot4.7.2, allow import and F5. Existing Main/StartMenu mounts ui/title/title_screen.tscn at runtime; new profile/settings components remain inside the same modal. See SCENE_CONTRACTS/start_menu.md for tree/API and approved path migration. The old script-created MarginContainer/Column paths are intentionally replaced; Main/StartMenu and public configure/appearance APIs remain.
+
+Manual cases (human pending):
+- [ ] F5 with no save: disabled Continue and localized empty card; New Game focused. With a valid slot0/1: actual latest farm/player/day/coins and metadata version; newest slot controls Continue. Missing optional fields are omitted, no fake playtime/house/portrait.
+- [ ] Check both locales at1152x648,1280x720,1920x1080. Long names scroll inside the card while day/coins remain fixed. Menu buttons/footer remain in bounds. Profile fields scroll independently of Confirm/Back; settings uses the wide rectangle.
+- [ ] Use mouse New Game/Back/Settings/Back; Tab focus, Enter/Space activation, slider arrows. Type B/I/E into name fields: letters stay in text, no Bag/shop/tool. Escape returns from a subpage; Escape on title never unlocks an unstarted world.
+- [ ] Choose all six data-backed appearance choices, enter names, Back/reopen: transient values remain. Repeated New Game does not add duplicate controls. Confirm initializes the original clean farm/wallet/starter seeds once, persists normalized appearance and leaves title. Reference02 redesign is not included.
+- [ ] Edit language/music/effects, Back without Apply/reopen: stored preferences return. Default only edits drafts. Apply persists supported preferences after restart and refreshes title/form captions without clearing typed names/selection. Other pictured options remain explicitly unavailable.
+- [ ] Continue loads the displayed newest save. If a file is removed/corrupted before the click, no invalid Continue callback enters the game; title stays open. Automated tests exercise v1-v8 goldens and malformed/missing display fields in isolated user://; do not corrupt a real player save.
+- [ ] Pause/return to title after gameplay still works; Continue, sleep/day-end/save backup behavior stays unchanged. Exit invokes the existing Main quit callback.
+
+Validation / evidence:
+- Initial old mouse test expected New Game to stay visible inside Settings; now it physically clicks Back before New Game, retaining original dispatch/confirm assertions. Original form/path tests use typed fields and keep appearance/duplicate-control assertions. No test was skipped or weakened.
+- One new locale test initially guessed an absent BOB key; corrected its expected key to derive from the actual catalogue's first style (round_bob), preserving localization assertions.
+- Initial render exposed date/coins below the long-name scroll; moved them to a fixed row and added containment regression assertions. Card padding keeps labels inside its border.
+- Final focused headless:6 scripts/27 tests/27 passing/2277 asserts/8.909s.
+- Final clean renderer:2 scripts/9 tests/9 passing/684 asserts/11.28s.
+- Reviewed vi/en latest at1152, vi/en profile1280, en empty/Game settings1920; header/actions/footer, fixed saved stats, fields and reused settings controls fit.36 clean captures retained before the official suite's GUT overlay could overwrite user:// images.
+- ISO-8a final official validation (Godot4.7.2/GUT9.7.1, isolated APPDATA):
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+
+Official headless subset:
+Totals
+------
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             879
+Time              4.084s
+---- All tests passed! ----
+
+Final focused title/profile/settings/input headless:
+Totals
+------
+Scripts               6
+Tests                27
+Passing Tests        27
+Asserts            2277
+Time              8.909s
+---- All tests passed! ----
+
+Separate clean-render title suite:
+Totals
+------
+Scripts               2
+Tests                 9
+Passing Tests         9
+Asserts             684
+Time              11.28s
+---- All tests passed! ----
+
+COMPLETE graphics-renderer suite:
+Totals
+------
+Scripts              75
+Tests               256
+Passing Tests       256
+Asserts           10468
+Time             111.822s
+---- All tests passed! ----
+
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Final scans: zero SCRIPT ERROR/Parse Error/Failed to load script/ERROR/orphan/resource-leak matches in official headless/full-renderer/main, focused and clean-render logs. Existing intentional malformed-data warnings and ISO-7 negative-slot warning remain. git diff --check PASS;42 delivered files in approved scope, zero outside, no staged files/ISO-8a commit. Protected source/goldens unchanged; owner master-plan edit remains1 insertion/0 deletions. No weakened/skipped tests, log suppression or package installation.
+
+Run automation: `$env:GODOT='D:\godot\Godot_v4.7.2-stable_win64_console.exe'; & tools/run_tests.bat`. Helpers use isolated APPDATA, hidden windows and bounded runs; player saves/settings stay separate. Logs: %TEMP%/the_life_{gut,headless,main,validate}.log.{stdout,stderr}, focused %TEMP%/the_life_iso8a_focused.log.{stdout,stderr}, clean render %TEMP%/the_life_iso8a_render.log.{stdout,stderr}.
+
+Known limits: existing illustration and shared flat Theme surfaces are retained; no new bitmap/final-art commission. Very long saved names require scrolling; fixed day/coins remain visible. No playtime/house/portrait/backend or new save schema. ConfigFile setter failures have no result API; normal supported-preference persistence is verified by reload, not claimed atomic. Human F5 acceptance remains pending. gdtoolkit lint not run (not installed).
+
+Proposed ISO-8a commit: feat: add modular main menu with live save summary

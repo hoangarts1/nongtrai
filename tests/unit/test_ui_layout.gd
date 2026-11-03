@@ -93,8 +93,8 @@ func test_every_modal_has_readable_content_and_visible_controls_at_three_sizes()
 						if child.name == &"ConfirmNewGame":
 							confirm_count += 1
 					assert_eq(confirm_count, 1, "Repeated New Game does not duplicate its confirm button")
-					assert_not_null(new_game_form.get_node_or_null("AppearanceGrid/HairStyle"), "C1 appearance selector stays in the new-game form")
-					assert_not_null(new_game_form.get_node_or_null("AppearanceGrid/SkinTone"), "C1 skin selector stays in the new-game form")
+					assert_not_null(main.start_menu.screen.profile.appearance_grid.get_node_or_null("HairStyle"), "C1 appearance selector stays in the new-game form")
+					assert_not_null(main.start_menu.screen.profile.appearance_grid.get_node_or_null("SkinTone"), "C1 skin selector stays in the new-game form")
 				await _capture(main, String(panel.name), locale, viewport_size)
 				if panel == main.start_menu:
 					panel.hide()

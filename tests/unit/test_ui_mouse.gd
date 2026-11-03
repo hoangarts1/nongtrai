@@ -45,6 +45,8 @@ func test_actual_mouse_clicks_reach_start_settings_and_new_game_buttons() -> voi
 	assert_not_null(settings)
 	await _click(settings)
 	assert_true((menu.get("_settings_box") as Control).visible, "Physical mouse event reaches Settings")
+	await _click(main.start_menu.screen.settings.back_button)
+	assert_false((menu.get("_settings_box") as Control).visible, "Back leaves the settings page before New Game")
 	await _click(_by_text(buttons, tr("UI_MAIN_NEW_GAME")))
 	assert_true((menu.get("_name_box") as Control).visible, "Physical mouse event reaches New Game")
 	assert_false((menu.get("_settings_box") as Control).visible)

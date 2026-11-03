@@ -166,10 +166,16 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
-		close_active()
+		if _active == _main.start_menu:
+			_main.start_menu.handle_back()
+		else:
+			close_active()
 		get_viewport().set_input_as_handled()
 		return
 	if _active == _main.start_menu:
+		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
+			if event.is_action_pressed(action):
+				return
 		if not get_viewport().gui_get_focus_owner() is LineEdit:
 			for action: StringName in [&"open_inventory", &"open_help", &"open_journal", &"toggle_debug_menu", &"interact", &"use_tool"]:
 				if event.is_action_pressed(action):

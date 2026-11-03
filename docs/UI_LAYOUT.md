@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-8a main menu (D44)
+
+Reference01 supplies the left wood/paper card, green title banner/tagline, real latest-save card, large green Continue, paired New Game/Settings, red Exit and footer. Existing TitleBackdrop/art remains unchanged; no reference image is used at runtime. Main/StartMenu mounts five ui/title components via typed fields, replacing old script-created MarginContainer/Column paths explicitly. Title/profile width is min680/40% viewport, height min920/viewport-48 with left margin; settings uses the existing wide modal rectangle.
+
+Saved names/day/coins come from the actual newest valid slot0/1; unavailable/malformed optional values and absent version are omitted. No playtime/house/portrait data is fabricated. The summary card scrolls for long names; the preserved profile form's fields scroll separately from fixed Confirm/Back. Settings reuses ISO-7's pages/drafts and returns to the same title without opening a second modal. Native Tab/Enter/Space/typing stays in GUI, Escape returns from subpages and cannot dismiss the title into an unstarted world. Existing New Game primary keyboard focus is retained; Continue is visually primary but requires a valid save. Both locales/three sizes are checked separately from human editor acceptance.
+
 ## ISO-7 pause/settings composition (D43)
 
 Reference14 is implemented as six small ui/pause scene/script pairs, with separate presenter/construction helpers. Existing Main/PauseMenu mounts a transparent VBox shell: top-right close control with motion padding, side-by-side wood/paper action and settings cards, fixed footer. UiLayout supplies the wide summary-style rectangle (up to1200x760, viewport margins32x24). The red pause ribbon, green Resume/Apply/active tab and yellow Settings reuse the shared Theme; no mockup bitmap or new Theme override is used.

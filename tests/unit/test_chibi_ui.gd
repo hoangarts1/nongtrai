@@ -62,7 +62,7 @@ func test_title_focus_and_compact_hud_remain_safe_at_three_sizes() -> void:
 		var viewport: SubViewport = _new_viewport(viewport_size)
 		var main: Node = _new_game(viewport)
 		await _settle()
-		var new_game: Button = main.start_menu.get_node("MarginContainer/Column/NewGame") as Button
+		var new_game: Button = main.start_menu.screen.actions.new_game_button
 		assert_true(new_game.has_focus(), "Title primary action has keyboard focus at %s" % viewport_size)
 		main.start_menu.hide()
 		main.set("_game_started", true)

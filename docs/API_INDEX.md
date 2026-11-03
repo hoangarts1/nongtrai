@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## ISO-8a modular title APIs (2026-11-03, D44)
+
+- StartMenu preserves configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable), appearance_selected(appearance: Dictionary), get_appearance_selection() -> Dictionary, refresh_continue()/apply_chibi_style() -> void. New screen: LifeTitleScreen, presenter: LifeTitlePresenter; handle_back() -> bool returns from profile/settings to title, false on title. Compatibility _name_box/_settings_box point to actual VBox components. Old script-created MarginContainer/Column paths are explicitly replaced by typed screen fields; Main/StartMenu is unchanged.
+- LifeTitleScreen.Mode {TITLE,PROFILE,SETTINGS}; set_mode(value: Mode), display_version(value: String) -> void. Typed latest/actions/profile/settings components and logo/tagline/version/hint Labels are defined in SCENE_CONTRACTS/start_menu.md. Five scenes and seven small scripts live in ui/title; no existing .tscn edits.
+- LifeTitlePresenter.configure(menu: StartMenu, screen: LifeTitleScreen, start: Callable, resume: Callable, exit: Callable), refresh(), request(id: StringName), submit() -> void. Reads latest saved payload, enables/revalidates Continue, forwards original normalized profile callback. No gameplay ownership/new save fields.
+- LifeLatestSaveCard.display(payload: Dictionary) -> void renders actual saved names/day/coins, omits invalid/missing optional fields. LifeTitleProfileForm.get_selection() -> Dictionary delegates existing catalogue normalization, submitted()/cancelled() signals; form scrolls independently of fixed confirm/back controls. LifeTitleSettings.begin()/apply()/defaults() -> void reuse existing LifeSettingsPanel and Settings setters, cancelled() returns to title.
+- UiLayout uses a left title/profile card and a centered wide settings rectangle; UiCoordinator preserves the title's world lock, handles Back/Escape and permits native GUI keys before overlapping world actions. TitleBackdrop/art/Theme/Main/core/domain/data/InputMap/save-v8/goldens remain unchanged.
+
 ## ISO-7 modular pause/settings APIs (2026-11-03, D43)
 
 - Existing Main/PauseMenu keeps configure(save_callback: Callable, load_callback: Callable, main_menu_callback: Callable), open(), close(), toggle() -> void and _toggle_settings() compatibility. New typed fields shell: LifePauseShell, presenter: LifePausePresenter. Six scene/script pairs under ui/pause separate shell/actions/settings/audio/game/bindings; see SCENE_CONTRACTS/pause_menu.md.

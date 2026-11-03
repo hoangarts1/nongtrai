@@ -25,7 +25,7 @@ static func apply(main: Node) -> void:
 	reflow(main)
 
 static func _style_children(node: Node) -> void:
-	if node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and node.tabs!=null):
+	if node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and node.tabs!=null):
 		return
 	if node is Label:
 		var label: Label = node as Label
@@ -52,9 +52,11 @@ static func reflow(main: Node) -> void:
 	var modal_size: Vector2 = Vector2(minf(680.0, viewport.x - 64.0), minf(560.0, viewport.y - 48.0))
 	for panel: Control in [main.inventory_panel, main.tutorial_panel, main.debug_menu, main.pause_menu, main.start_menu, main.seed_shop_panel, main.shipping_bin_panel, main.npc_system.dialogue, main.npc_system.journal]:
 		_rect(panel, (viewport - modal_size) * 0.5, modal_size)
-	var start_size: Vector2 = Vector2(minf(452.0, viewport.x - 64.0), modal_size.y)
+	var start_size: Vector2 = Vector2(minf(680.0,viewport.x*0.4),minf(920.0,viewport.y-48.0))
 	_rect(main.start_menu, Vector2(maxf(32.0, viewport.x * 0.055), (viewport.y - start_size.y) * 0.5), start_size)
 	var summary_size: Vector2 = Vector2(minf(1200,viewport.x-64),minf(760,viewport.y-48))
+	if main.start_menu.screen.mode == LifeTitleScreen.Mode.SETTINGS:
+		_rect(main.start_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.day_end_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.inventory_panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.pause_menu,(viewport-summary_size)*0.5,summary_size)
