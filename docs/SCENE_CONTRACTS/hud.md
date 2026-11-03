@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-8b changes only creation mode within the existing start modal: wide two-panel form/preview, native six-choice rows, no new HUD binding. World/HUD lock remains UiCoordinator-owned; see character_creation.md. No game state before Start.
+
 ISO-8a updates StartMenu's script-built internals only (start_menu.md). Main/StartMenu and gameplay HUD paths stay unchanged; title/profile/settings share the existing start modal and world lock. No new HUD shortcut, gameplay state or InputMap action.
 
 ISO-7 keeps all HUD/toolbar APIs and adds a modular wide pause/settings consumer (pause_menu.md). UiCoordinator still hides interactive HUD during pause; settings own only drafts. Native GUI navigation wins over overlapping Tab/Space world shortcuts inside this modal. DayEndSheet retains precedence. No scene, InputMap, signal-bus or game-state changes.

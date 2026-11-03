@@ -1,10 +1,90 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-7 committed 4ccc8de; ISO-8a automated acceptance/render review delivered)
+Last updated: 2026-11-03 (ISO-8a committed a683feb; ISO-8b automated acceptance/render review delivered)
 
-## Proposed next task — ISO-8b character creation (awaiting owner approval)
+## Proposed next task — ISO-9 morning bulletin (awaiting owner approval)
 
-After owner “tieeps tuc”, read-only review proposes the next reference02 slice. ISO-8a remains delivered/uncommitted,256/256 tests recorded from its handoff; human F5 acceptance remains pending. No new source/scene/art or commit has been made. Approval request combines: fresh DataValidator, commit exactly ISO-8a's42-file handoff manifest below (including this proposal), then implement this scope. Exclude/preserve owner's master-plan leading blank line; no push/automatic ISO-8b commit.
+After owner “oke tiep tuc”, read-only review proposes reference05. ISO-8b remains delivered/uncommitted,264/264 renderer tests recorded in its handoff; human F5 acceptance still pending. No ISO-9 source/scene/domain/save or commit has been made. Approval request combines: fresh DataValidator, commit ISO-8b's exact50-file handoff manifest below (including this proposal), then implement this scope. Exclude/preserve owner master-plan leading blank line. No push/automatic ISO-9 commit.
+
+### MILESTONE / TASK / ACCEPTANCE
+
+Proposed MILESTONE: ISO-9 — modular morning bulletin from reference05, using existing weather/farm/quest/item APIs. Only this deferred screen is opened.
+
+- Recreate the newspaper/paper composition with shared Theme/native Controls: actual date/season/year masthead, three columns, forecast row, real to-do strip and green Begin Day button. Split sheet/weather/garden/market/price-row/task-strip scene pairs plus small flow/presenter/snapshot helpers (aim <=250 lines each). Never load the reference PNG as a runtime texture; no new artwork/Theme resource.
+- Left: actual WeatherState.today, localized weather/care explanation and the existing three saved forecast days, not fabricated extra predictions to fill reference's five pictured icons. Read saved forecast only; rendering/open/close/load never rolls weather, advances time or waters crops.
+- Middle: existing tutorial/quest progress and actual garden status. Reference birthdays/festivals/calendar are not implemented: show a localized unavailable note rather than fictitious events, gifts or dates. Header can say Today rather than imply an event service. Empty/completed garden/quest states remain truthful.
+- Right: current produce unit sale prices from unchanged ItemData, the same prices ShippingBinPanel actually reads. List actual registered sellable produce with existing item names/icons, scroll if needed. No fake crossed-out prices, up/down trends, discounts, saturation or merchant quote presented as general shipping-bin price. Prices are informational; no trade or wallet/inventory mutation.
+- Footer: actual harvestable/living-needs-water/tilled-empty plot information via current farm APIs, plus supported quest hints. No automatic actions, invented rewards/stamina/XP or unavailable gifting/sowing claims. Rain/wither/repeat-crop handling follows the completed real morning snapshot.
+- Open once per real completed day rollover, through a view-only pending-day flow owned by Main. Main's existing day_started callback queues it after the one DaySimulator/weather/ledger path; actual presentation waits until day-end advancement/panel/other modal and sleep guards clear, after completed-morning save. Direct/manual/forced day transitions use the same existing path; no second simulation callback.
+- Begin Day/Escape dismisses the bulletin only and restores the modal owner's prior clock/input hold. Normal modal switching remains exclusive and day-end keeps precedence. While bulletin is visible, world input is locked and clock held. A view-only last-shown/pending-day guard deduplicates same-day/reentrant notifications without becoming gameplay state.
+- Deliberate lifecycle: do not auto-open on new-game/tutorial or merely loading a save/Continue. Reset pending bulletin on New Game/load/return-to-title to avoid stale popups. No saved bulletin-dismissed flag, SaveService/schema migration or fabricated old notifications; loading a completed morning simply resumes that saved game. Existing day-end review restoration remains primary.
+- Existing Main/DayEndFlow/Clock/public save/domain behavior and v8/goldens remain. DayEndFlow and all domain/core/data are read-only; integrate only Main wiring plus UiCoordinator/UiLayout. Update older day-end/UI tests only for the new post-rollover modal, keeping all exactly-once/time/crop/wallet/save/guard assertions and checking resume after dismiss.
+- Parse/DataValidator, focused morning/weather/save/day-end/input tests and full official suite pass with existing180s graphics bound/error gates unchanged. Capture/review vi/en at1152x648,1280x720,1920x1080 for dry/rain/empty/ready/withered/repeat crops, quest states, price rows, long text/scroll. Before/after bulletin display/dismiss, domain snapshots remain identical; no reroll, coin/item mutation or extra day. Human editor acceptance remains pending.
+
+### READ-ONLY CONTEXT / DO NOT TOUCH
+
+AGENTS; PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/INPUT_MAP/STYLE_GUIDE/UI_LAYOUT; contracts day_end/hud/ui_components; reference05; existing WeatherState/FarmGridState/TutorialQuestState/DataRegistry/ItemData/ShippingBinPanel APIs; day-end/clock/save tests and flow. Everything outside the following ALLOW_LIST is read-only, including all core/domain/data, DayEndFlow source, existing .tscn, artwork/Theme, title/profile/pause source, project.godot, v1-v8 goldens, tools/error gates and owner's master plan.
+
+### Proposed ISO-9 ALLOW_LIST
+
+Existing files:
+~~~text
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+tests/unit/test_weather.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/PROJECT_RULES.md
+docs/UI_LAYOUT.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+~~~
+
+New files (each named .gd also permits its matching .gd.uid):
+~~~text
+ui/morning/morning_sheet.gd
+ui/morning/morning_sheet.tscn
+ui/morning/weather_column.gd
+ui/morning/weather_column.tscn
+ui/morning/garden_column.gd
+ui/morning/garden_column.tscn
+ui/morning/market_column.gd
+ui/morning/market_column.tscn
+ui/morning/price_row.gd
+ui/morning/price_row.tscn
+ui/morning/task_strip.gd
+ui/morning/task_strip.tscn
+ui/morning/morning_flow.gd
+ui/morning/morning_presenter.gd
+ui/morning/morning_snapshot.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_morning_layout.gd
+docs/SCENE_CONTRACTS/morning_bulletin.md
+~~~
+
+### Order / assumptions / risks
+
+1. After approval, verify ISO-8b exact50-file manifest plus excluded owner edit; fresh validator; commit that manifest only. Suggested commit: feat: add modular farmer creation and shared 2d hair preview.
+2. Record D46/roadmap/scene contract and the presentation-only queue/dismiss lifecycle, then implement small views/snapshots and Main wiring. Keep the existing day simulator/weather/save path unchanged.
+3. Integrate one modal/viewport layout and add native click/keyboard, pending/dedup/reset/day-end precedence, no-mutation/no-reroll/save compatibility tests. Update existing post-sleep modal expectations without weakening domain assertions.
+4. Run focused and official full checks, inspect clean screenshots, record exact files/diff/logs/manual F5 checklist/API/memory. Leave ISO-9 uncommitted until later explicit instruction.
+
+Risks: day_started occurs synchronously while day-end guard is advancing, so opening immediately would be rejected or race the final save; defer presentation until the existing flow completes. New modal must restore prior pause/input and not leak stale pending state across load/title. Forecast has three future entries, not five; price trends/event calendar do not exist. Small-screen three-column/long vi-en text needs scrolling around fixed action/footer. No new playtime/day simulation/save state is implied. Request an exact scope extension before touching any other file.
+
+## Approved task — ISO-8b character creation (automated acceptance delivered)
+
+Owner approved “Duyệt, commit ISO-8a và triển khai ISO-8b”. ISO-8a committed **a683feb** after fresh DataValidator PASS, exactly its42-file handoff manifest below, excluding/preserving owner's master-plan leading blank line. ISO-8b implementation/automated acceptance/render review are delivered under this scope. No ISO-8b commit/push. Human F5 acceptance remains pending.
 
 ### MILESTONE / TASK / ACCEPTANCE
 
@@ -232,7 +312,7 @@ Risks: English text and the two-panel composition need scrolling at the smallest
 
 ## Current milestone
 
-`ISO-8a (modular main menu)` — owner approved “Duyệt, commit ISO-7 và triển khai ISO-8a”. ISO-7 committed **4ccc8de** after fresh validator PASS, exact43-file manifest, owner master-plan edit excluded. ISO-8a source/automated acceptance/render review delivered: five scene/script pairs plus presenter/helpers, actual latest-save fields/Continue revalidation, preserved profile flow and reused supported-setting drafts; old internal paths explicitly migrated. Official renderer256/256 (10468 asserts), official headless62/62 (879), focused headless27/27 (2277), clean renderer9/9 (684); parse/data/main PASS.36 clean vi/en/three-size captures reviewed. Core/domain/data/Main/backdrop/old scenes/Theme/art/InputMap/save-v8/goldens unchanged. No ISO-8a commit/push; human editor acceptance pending. Other deferred screens and fertilizer/house work remain outside scope. Exact handoff/diff/logs/manual cases below.
+`ISO-8b (creation UI/shared2D hair)` — owner approved “Duyệt, commit ISO-8a và triển khai ISO-8b”. ISO-8a committed **a683feb** after fresh DataValidator PASS, exact42-file manifest, owner edit excluded. Source/automated acceptance/render review delivered: five profile scenes/seven UI scripts, six data-backed choices, actual2D preview/shared player hair, fixed Back/Start, one-request latch and unchanged Main/profile/save owners. Official renderer264/264 (11480 asserts), official headless62/62 (879), focused headless32/32 (2521), clean renderer8/8 (964); parse/data/main PASS.42 clean vi/en/three-size captures reviewed. Native pixel tests prove six distinct silhouettes, preview/game parity and exact legacy NPC restoration. Core/domain/data/Main/old scenes/art/Theme/InputMap/save-v8/goldens unchanged. No ISO-8b commit/push; human F5 acceptance pending. Other deferred screens/fertilizer/house remain outside scope. Exact handoff/diff/logs/manual cases below.
 ## ISO-6b1 final automated acceptance (2026-11-03, D42)
 
 Delivered within the approved scope: exact crop/price table, data-owned 80-coin initial/repeat return ceiling with retained price guards; first/repeat crop targets owned by FarmGridState; small stateless cycle/codec/economy helpers; one-time seed consumption, no free water/dry-streak reset, full-bag/no-repeat-harvest guards; real cycle-aware stage/countdown; v8 old-plant compatibility and multi-cell view refresh. Existing old fields/goldens, crop IDs/yields/seasons/care, input/scenes/art/autoloads/bus, atomic saves and owner edit remain. ISO-6a committed **7f7a429**; ISO-6b1 is uncommitted, no push. Fertilizer/house unlock and human editor acceptance remain pending; this does not mark all ISO-6 complete.
@@ -2526,3 +2606,145 @@ Run automation: `$env:GODOT='D:\godot\Godot_v4.7.2-stable_win64_console.exe'; & 
 Known limits: existing illustration and shared flat Theme surfaces are retained; no new bitmap/final-art commission. Very long saved names require scrolling; fixed day/coins remain visible. No playtime/house/portrait/backend or new save schema. ConfigFile setter failures have no result API; normal supported-preference persistence is verified by reload, not claimed atomic. Human F5 acceptance remains pending. gdtoolkit lint not run (not installed).
 
 Proposed ISO-8a commit: feat: add modular main menu with live save summary
+
+## ISO-8b handoff and exact manifest (relative to a683feb, D45)
+
+Acceptance implemented: reference02 two-panel creation with red ribbon/paired names/six hairstyle and palette choices, shared actual2D preview, arrows cycling hair, fixed Back/Start and readable caption plates. Five new scene/script pairs plus presenter/parts and shared AvatarHair2D; new UI scripts19-88 lines. Explicit OptionButton/AppearanceGrid migration to typed rows retains normalization/selection coverage and public StartMenu/form flow. UI drafts never change game state; one-submit latch handles native/reentrant/double requests. Actual player/saved appearance matches preview; empty-customization NPC arc remains byte-identical after restoration. ISO-8a committed a683feb; ISO-8b uncommitted/no push. Human editor acceptance pending.
+
+Created (26 files):
+~~~text
+docs/SCENE_CONTRACTS/character_creation.md
+scripts/view/avatar_hair_2d.gd
+scripts/view/avatar_hair_2d.gd.uid
+tests/unit/test_profile_creation.gd
+tests/unit/test_profile_creation.gd.uid
+tests/unit/test_profile_preview.gd
+tests/unit/test_profile_preview.gd.uid
+ui/profile/avatar_preview.gd
+ui/profile/avatar_preview.gd.uid
+ui/profile/avatar_preview.tscn
+ui/profile/choice_row.gd
+ui/profile/choice_row.gd.uid
+ui/profile/choice_row.tscn
+ui/profile/choice_swatch.gd
+ui/profile/choice_swatch.gd.uid
+ui/profile/choice_swatch.tscn
+ui/profile/name_fields.gd
+ui/profile/name_fields.gd.uid
+ui/profile/name_fields.tscn
+ui/profile/profile_choices.gd
+ui/profile/profile_choices.gd.uid
+ui/profile/profile_choices.tscn
+ui/profile/profile_parts.gd
+ui/profile/profile_parts.gd.uid
+ui/profile/profile_presenter.gd
+ui/profile/profile_presenter.gd.uid
+~~~
+
+Modified (24 files):
+~~~text
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/player.md
+docs/SCENE_CONTRACTS/start_menu.md
+docs/SCENE_CONTRACTS/ui_components.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/view/placeholder_avatar_2d.gd
+scripts/view/start_menu.gd
+scripts/view/ui_layout.gd
+tests/unit/test_chibi_characters.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+tools/run_tests.bat
+ui/title/profile_form.gd
+ui/title/title_presenter.gd
+ui/title/title_screen.gd
+~~~
+
+Scope audit:50 delivered files, all in approved ALLOW_LIST; zero outside. Owner docs/reference/THE_LIFE_MASTER_PLAN.txt leading blank line excluded/preserved. Allowed UiCoordinator/test_title_flow/test_title_layout needed no edits and were rerun. Godot generated new .gd.uid files. Core/domain/data/Main/WorldPresentation/TitleBackdrop/old scenes/art/Theme/ui-pause/components/project.godot/goldens and bounded-helper defaults unchanged. Only graphics-suite invocation adds TimeoutMs180000; tests/error-text/exit gates retained.
+
+Clear diff: `git diff a683feb -- . ':(exclude)docs/reference/THE_LIFE_MASTER_PLAN.txt'` plus exact new files above. Combined review patch including new files: C:/Users/daova/AppData/Local/Temp/the_life_iso8b_review/iso8b_review.patch (generated after final validation). Same folder has42 clean vi/en screenshots: all six hair+palette indices at three sizes, plus long-name states. Reference02 PNG is never loaded as a runtime asset; existing title art and body renderer are retained.
+
+Manual editor steps: none. Open project.godot in Godot4.7.2, allow import, F5 → New Game. Existing profile_form VBox mounts new ui/profile components; no old .tscn/Inspector/InputMap edits. See character_creation.md for current tree/API; start_menu.md labels old profile paths historical.
+
+Manual cases (human pending):
+- [ ] vi/en at1152x648,1280x720,1920x1080: left form/red ribbon and right preview/name plates fit; Back/Start stay fixed; scroll/focus exposes every palette row. Long names stay editable, captions wrap/ellipsis without changing draft text; tooltips retain full text.
+- [ ] Click every one of six hair/skin/hair-color/outfit choices. Selected check/focus and actual preview update. Previous from0 wraps5; Next from5 wraps0. Arrows change hairstyle, not camera facing. No new3D/pet state or gameplay bonuses.
+- [ ] Use Tab/Enter/Space and type B/I/E in name fields: GUI receives input without Bag/tool/world actions. Scroll follows focused choices. Escape/Back returns to title; reopen retains drafts. Locale refresh retains text/selection and updates captions/tooltips.
+- [ ] Before Start, wallet/inventory/farm/pending game appearance/save remain unchanged. Start emits normalized appearance before the existing two-string callback once; double/reentrant input cannot create a second game. Back/reopen arms a fresh confirmation.
+- [ ] Create with each cosmetic category, compare actual player to preview, save/load: same hair/colors/name/farm; original100-coin/new-world/starter-seed behavior and save-v8 schema remain. Old saves/IDs stay usable; NPC legacy hair remains unchanged.
+- [ ] Pause/return/Continue/settings/day-end/weather/farming keep existing behavior. Preview body is current replaceable2D art; final reference-quality body/hat/scenery work is not implied.
+
+Validation notes:
+- Old form tests retain six-choice, duplicate-confirm, normalized values and real mouse dispatch assertions; only internal type/lookup access changed. No skipped/weakened tests.
+- New saved-profile assertion canonicalizes both JSON sides because JSON represents integers as floats; all fields/values remain compared. Separate assertions check native integer selection and real Main load's normalized profile/player. No schema/fixture changed.
+- Native render initially caught fractional edge overflow during panel bounce. Added4px real outer padding; kept strict containment assertions. Caption plates improve contrast over the retained illustration; filled player hair cap avoids an unintended skin gap. NPC arc branch stays unchanged.
+- Final focused headless:7 scripts/32 tests/32 passing/2521 asserts/10.977s.
+- Final clean renderer:2 scripts/8 tests/8 passing/964 asserts/11.787s. Includes native pixel differences for all six hair IDs, exact pixel parity between preview/game configuration for six palette/style combinations, and NPC legacy pixel restoration.
+- Profile-preview script requires graphics/frame_post_draw and is covered by native focused/full suites; it is not passed to the headless-only subset. No tests are skipped inside it.
+-42 clean captures retained before GUT's full-suite overlay overwrite. Reviewed vi default1152, en long1152, both-locale/profile color states1280 and en twin-puffs1920; form/actions/arrows/captions fit, all choices are reachable via scroll.
+- ISO-8b final official validation (Godot4.7.2/GUT9.7.1, isolated APPDATA):
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+
+Official headless subset:
+Totals
+------
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             879
+Time              4.158s
+---- All tests passed! ----
+
+Final focused creation/title/profile/input headless:
+Totals
+------
+Scripts               7
+Tests                32
+Passing Tests        32
+Asserts            2521
+Time             10.977s
+---- All tests passed! ----
+
+Separate clean graphics creation/preview suite:
+Totals
+------
+Scripts               2
+Tests                 8
+Passing Tests         8
+Asserts             964
+Time             11.787s
+---- All tests passed! ----
+
+COMPLETE graphics-renderer suite:
+Totals
+------
+Scripts              77
+Tests               264
+Passing Tests       264
+Asserts           11480
+Time              124.39s
+---- All tests passed! ----
+
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Final official/headless/main/focused/clean-render scan: zero SCRIPT ERROR/Parse Error/Failed to load script/ERROR/orphan/resource-leak matches. Existing deliberate malformed-data/negative-slot warnings remain. git diff --check PASS;50 delivered files inside approved scope, zero outside; protected source/goldens unchanged and owner's leading blank line remains1 insertion/0 deletions. No skipped/weakened tests, runtime error suppression or package installation. The full renderer really took124.39s, within the explicitly approved180s bound; other helper defaults and all gates unchanged.
+
+Run automation: `$env:GODOT='D:\godot\Godot_v4.7.2-stable_win64_console.exe'; & tools/run_tests.bat`. Hidden bounded helper isolates APPDATA; player saves/settings are separate. Full graphics bound180s, other defaults120s unchanged. Logs: %TEMP%/the_life_{gut,headless,main,validate}.log.{stdout,stderr}; focused %TEMP%/the_life_iso8b_focused.log.{stdout,stderr}; clean render %TEMP%/the_life_iso8b_render.log.{stdout,stderr}.
+
+Assumptions/limits: current body/scenery/flat Theme artwork is replaceable, not a new final-art commission. All six existing options are kept even though reference02 pictures fewer. Small viewport scrolls choices; names retain original empty-name fallback/no new validation. UI arrows cycle hair only. No domain/save/data/input/bus/autoload migration, package installation or log suppression. Human F5 playtest remains pending. gdtoolkit lint not run (not installed).
+
+Proposed ISO-8b commit: feat: add modular farmer creation and shared 2d hair preview

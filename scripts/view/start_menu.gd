@@ -60,6 +60,7 @@ func _show_title() -> void:
 func _show_new_game_fields() -> void:
 	if screen.mode == LifeTitleScreen.Mode.PROFILE:
 		return
+	screen.profile.reset_submission()
 	screen.set_mode(LifeTitleScreen.Mode.PROFILE)
 	call_deferred("_focus_player_name")
 

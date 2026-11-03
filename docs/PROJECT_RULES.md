@@ -4,6 +4,8 @@ The law of the project. Agents read this every session. Changing anything here r
 
 Migration notice (2026-11-03, D33–D44): ISO-1 converted the active runtime to 2D; ISO-2 shared UI, ISO-3 modular HUD and ISO-4 day-end/save-v5 work are implemented with automated acceptance recorded in PROGRESS. Human editor acceptance remains pending. Generated 3D art/review tools remain historical assets. ISO-5 modular inventory/save-v6 implementation and automated acceptance are delivered; human editor acceptance remains pending. ISO-6a daily care/save-v7 and ISO-6b1 crop balance/repeat-harvest/save-v8 automated acceptance/render review are delivered (human playtest pending). ISO-7 modular pause/settings/save UI automated acceptance is delivered and committed4ccc8de; human acceptance remains pending. ISO-8a main-menu presentation automated acceptance/render review is delivered under D44; human acceptance remains pending. Remaining fertilizer/house-unlock and other deferred screens remain planned. Do not report planned assets/APIs as implemented. This status correction under D44 does not change the locked rules below.
 
+D45 status notice (2026-11-03): ISO-8a committed a683feb; ISO-8b creation UI/shared player2D hair automated acceptance/render review is delivered. Human acceptance remains pending; all locked rules below are unchanged.
+
 Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1 starts. An agent that finds an unfilled marker must STOP and ask.
 
 ---

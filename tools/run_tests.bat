@@ -22,7 +22,7 @@ powershell -NoProfile -Command "$text = (Get-Content -Raw '%TEMP%\the_life_headl
 if errorlevel 1 exit /b 1
 
 echo [run_tests] running COMPLETE GUT suite with graphics renderer
-powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "-s --path . addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gprefix=test_ -gexit" -OutputPath "%TEMP%\the_life_gut.log"
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "-s --path . addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gprefix=test_ -gexit" -OutputPath "%TEMP%\the_life_gut.log" -TimeoutMs 180000
 set GUT_EXIT=%ERRORLEVEL%
 if not "%GUT_EXIT%"=="0" (
   echo [run_tests] FAILED

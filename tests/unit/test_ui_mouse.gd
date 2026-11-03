@@ -50,7 +50,7 @@ func test_actual_mouse_clicks_reach_start_settings_and_new_game_buttons() -> voi
 	await _click(_by_text(buttons, tr("UI_MAIN_NEW_GAME")))
 	assert_true((menu.get("_name_box") as Control).visible, "Physical mouse event reaches New Game")
 	assert_false((menu.get("_settings_box") as Control).visible)
-	var confirm: Button = (menu.get("_name_box") as Node).get_node_or_null("ConfirmNewGame")
+	var confirm: Button = main.start_menu.screen.profile.confirm_button
 	assert_not_null(confirm)
 	if confirm != null:
 		# Keep test saves isolated; verify dispatch to the configured request callback.

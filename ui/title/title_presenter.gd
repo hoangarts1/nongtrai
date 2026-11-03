@@ -41,6 +41,8 @@ func request(id: StringName) -> void:
 				_exit.call()
 
 func submit() -> void:
+	if not _menu.visible or _screen.mode != LifeTitleScreen.Mode.PROFILE or not _screen.profile.begin_submission():
+		return
 	_menu.appearance_selected.emit(_screen.profile.get_selection())
 	if _start.is_valid():
 		_start.call(

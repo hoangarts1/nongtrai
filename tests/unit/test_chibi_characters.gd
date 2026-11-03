@@ -190,10 +190,10 @@ func test_new_game_appearance_form_normalizes_all_six_data_backed_choices() -> v
 	var menu: StartMenu = main.start_menu
 	menu.call("_show_new_game_fields")
 	var form: VBoxContainer = menu.get("_name_box") as VBoxContainer
-	var hair: OptionButton = menu.screen.profile.hair_style
-	var skin: OptionButton = menu.screen.profile.skin_tone
-	var hair_color: OptionButton = menu.screen.profile.hair_color
-	var outfit: OptionButton = menu.screen.profile.outfit_color
+	var hair: LifeProfileChoiceRow = menu.screen.profile.hair_style
+	var skin: LifeProfileChoiceRow = menu.screen.profile.skin_tone
+	var hair_color: LifeProfileChoiceRow = menu.screen.profile.hair_color
+	var outfit: LifeProfileChoiceRow = menu.screen.profile.outfit_color
 	assert_eq(form,menu.screen.profile,"Compatibility reference is the actual modular form")
 	hair.select(5)
 	skin.select(5)

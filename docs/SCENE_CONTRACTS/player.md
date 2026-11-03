@@ -1,5 +1,7 @@
 # player.tscn — ISO-1 implemented contract (D33/D36)
 
+ISO-8b/D45 changes only Visual's cosmetic hair drawing when configure_profile receives normalized player customization. Shared AvatarHair2D supplies six silhouettes matching the UI preview; get_hair_style() -> StringName exposes display ID. Existing body/actions, nodes, geometry/collision/movement/save owners remain. NPC/no-customization legacy hair is unchanged. No .tscn edit.
+
 Status: ISO-1 implementation and automated checks delivered; human editor playtest pending. The Player resource path, class name and movement gate remain stable.
 
 Path: `scenes/player/player.tscn`

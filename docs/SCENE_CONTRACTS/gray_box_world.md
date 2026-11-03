@@ -1,5 +1,7 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+ISO-8b/D45 preserves this scene, all world nodes/state/interaction APIs. WorldPresentation's existing configure_player_appearance applies the same normalized catalogue values to PlaceholderAvatar2D, now with shared six-style hair rendering matching the creation preview. NPC empty customization retains legacy arc; no game/collision/time/save changes. See character_creation.md.
+
 ## ISO-6b1 first/repeat cycle readout (D42)
 
 No scene/node/export/input changes. FarmGridState owns growth_target/regrowing and get_growth_target(cell). FarmView asks the owner for the stage denominator, including historical first targets; CropInspector uses owner remaining days and a localized actual-repeat note. Main refreshes existing FarmView.configure after snapshot restore so all cells reflect their saved phase. Harvest retains repeating crop roots/cells and updates stages via existing plot_changed; withered and single-harvest semantics remain. Existing tool capacity/reach/lock/seed APIs apply; no second simulation path or UI-owned crop state.

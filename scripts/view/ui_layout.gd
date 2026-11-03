@@ -55,7 +55,7 @@ static func reflow(main: Node) -> void:
 	var start_size: Vector2 = Vector2(minf(680.0,viewport.x*0.4),minf(920.0,viewport.y-48.0))
 	_rect(main.start_menu, Vector2(maxf(32.0, viewport.x * 0.055), (viewport.y - start_size.y) * 0.5), start_size)
 	var summary_size: Vector2 = Vector2(minf(1200,viewport.x-64),minf(760,viewport.y-48))
-	if main.start_menu.screen.mode == LifeTitleScreen.Mode.SETTINGS:
+	if main.start_menu.screen.mode != LifeTitleScreen.Mode.TITLE:
 		_rect(main.start_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.day_end_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.inventory_panel,(viewport-summary_size)*0.5,summary_size)

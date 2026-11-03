@@ -14,12 +14,17 @@ var settings: LifeTitleSettings
 var mode: Mode = Mode.TITLE
 var _space: Control
 var _version_value: String = ""
+var _paper: PanelContainer
+var _banner: PanelContainer
+var _footer: HBoxContainer
 
 func _ready() -> void:
 	super._ready()
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var column: VBoxContainer = LifePauseParts.paper(self)
+	_paper = column.get_parent() as PanelContainer
 	var banner: PanelContainer = PanelContainer.new()
+	_banner = banner
 	banner.theme_type_variation = &"LifeBannerGreen"
 	column.add_child(banner)
 	logo = LifeTitleParts.label(banner,&"UI_GAME_TITLE",&"LifeTitle")
@@ -41,6 +46,7 @@ func _ready() -> void:
 	_space.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	column.add_child(_space)
 	var footer: HBoxContainer = HBoxContainer.new()
+	_footer = footer
 	column.add_child(footer)
 	version = LifeTitleParts.label(footer,&"",&"LifeText16")
 	hint = LifeTitleParts.label(footer,&"TITLE_NAV_HINT",&"LifeText16")
@@ -49,12 +55,22 @@ func _ready() -> void:
 
 func set_mode(value: Mode) -> void:
 	mode = value
+	var creation: bool = mode == Mode.PROFILE
+	theme_type_variation = &"LifeHudClearPanel" if creation else &"LifeHudWood"
+	_paper.theme_type_variation = &"LifeHudClearPanel" if creation else &"LifeHudPaper"
+	_banner.visible = not creation
+	_footer.visible = not creation
+	queue_redraw()
 	tagline.visible = mode == Mode.TITLE
 	latest.visible = mode == Mode.TITLE
 	actions.visible = mode == Mode.TITLE
 	_space.visible = mode == Mode.TITLE
 	profile.visible = mode == Mode.PROFILE
 	settings.visible = mode == Mode.SETTINGS
+
+func _draw() -> void:
+	if mode != Mode.PROFILE:
+		super._draw()
 
 func display_version(value: String) -> void:
 	_version_value = value

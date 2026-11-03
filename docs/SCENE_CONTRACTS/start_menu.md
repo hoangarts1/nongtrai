@@ -1,5 +1,7 @@
 # ISO-8a StartMenu contract (D44)
 
+ISO-8b/D45 supersedes the profile internals below: five ui/profile components replace the old AppearanceGrid/OptionButtons with typed LifeProfileChoiceRow fields (six choices each), shared actual2D preview and fixed Back/Start. Profile uses wide transparent outer bounds; names/choices stay transient. Existing get_selection/submitted/cancelled, StartMenu public APIs and _name_box VBox remain. See character_creation.md for the current tree; historical fields-scroll paths below describe ISO-8a only.
+
 Owner approved “Duyệt, commit ISO-7 và triển khai ISO-8a”. Main/StartMenu remains the existing PanelContainer in the existing scene. No old .tscn edits. Public configure(new_game_callback: Callable, continue_callback: Callable, exit_callback: Callable), appearance_selected(appearance: Dictionary), get_appearance_selection() -> Dictionary, refresh_continue()/apply_chibi_style() -> void remain. New screen: LifeTitleScreen and presenter: LifeTitlePresenter are typed adapter fields.
 
 The approved internal path migration removes script-created MarginContainer/Column paths in favor of typed references below; existing NewGame/Continue/Settings/Exit behavior assertions move to screen.actions. Main/StartMenu path, input actions/data IDs/public callbacks stay unchanged. Legacy _name_box/_settings_box remain VBoxContainer references to the actual profile/settings components. Profile ConfirmNewGame and AppearanceGrid/{HairStyle,SkinTone,HairColor,OutfitColor} names remain.

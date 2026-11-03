@@ -17,6 +17,7 @@ var _phase: float = 0.0
 var _emotion: StringName = &""
 var _emotion_remaining: float = 0.0
 var _customization: Dictionary = {}
+var _hair_style: StringName = &""
 
 func configure(color: Color, _with_hat: bool = true) -> void:
 	outfit = color
@@ -24,6 +25,7 @@ func configure(color: Color, _with_hat: bool = true) -> void:
 
 func configure_profile(profile: Dictionary, customization: Dictionary = {}) -> void:
 	_customization = customization.duplicate(true)
+	_hair_style = &""
 	var catalog: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
 	var resolved: Dictionary = profile
 	if not customization.is_empty():
@@ -32,10 +34,14 @@ func configure_profile(profile: Dictionary, customization: Dictionary = {}) -> v
 			resolved = selection.call("to_builder_dictionary")
 		elif selection is Dictionary:
 			resolved = selection
+		_hair_style = StringName(resolved.get("hair_style",&""))
 	outfit = resolved.get("outfit_color", resolved.get("body_color", outfit))
 	skin = resolved.get("skin_color", skin)
 	hair = resolved.get("hair_color", hair)
 	queue_redraw()
+
+func get_hair_style() -> StringName:
+	return _hair_style
 
 func set_motion(value: Vector2) -> void:
 	_motion = value
@@ -81,9 +87,14 @@ func _draw() -> void:
 	draw_line(Vector2(5,-9), Vector2(6,-1), ink, 6)
 	draw_rect(Rect2(-10,-26,20,18), ink)
 	draw_rect(Rect2(-8,-25,16,15), outfit)
+	if not _hair_style.is_empty():
+		AvatarHair2D.draw_back(self,_hair_style,hair,ink)
 	draw_circle(Vector2(0,-36), 13, ink)
 	draw_circle(Vector2(0,-36), 11, skin)
-	draw_arc(Vector2(0,-38), 11, PI, TAU, 16, hair, 5)
+	if _hair_style.is_empty():
+		draw_arc(Vector2(0,-38), 11, PI, TAU, 16, hair, 5)
+	else:
+		AvatarHair2D.draw_front(self,_hair_style,hair,ink)
 	draw_circle(Vector2(-4,-36), 1.4, ink)
 	draw_circle(Vector2(4,-36), 1.4, ink)
 	draw_line(Vector2(-2,-31), Vector2(2,-31), ink, 1)

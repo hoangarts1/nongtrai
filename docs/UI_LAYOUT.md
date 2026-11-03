@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-8b creation (D45)
+
+Profile mode uses the wide summary-style viewport bounds with4px motion padding. The old outer title frame/banner/footer become transparent/hidden only in profile mode; title/settings retain their composition. Inside: left wood/paper/red banner, paired names, six hairstyle buttons and six swatches per palette in a focus-following vertical scroll; fixed Back/Start. Right: actual2D preview on decorative sky/grass, arrows cycling hairstyles, paper-backed localized hint/name/farm captions (long captions limit display lines without editing drafts).
+
+Five ui/profile scene pairs plus presenter/parts share existing Theme and catalogue; no reference bitmap is loaded. The native choice rows replace old internal OptionButtons/AppearanceGrid explicitly, while StartMenu public APIs/_name_box and original New Game callback remain. Preview/actual player share six hair silhouettes and Resource colors, body artwork remains replaceable; NPC legacy hair is unchanged. One submit latch prevents double/reentrant creation; drafts preserve across Back/locale changes and only Start emits game appearance. See character_creation.md for APIs/manual cases.
+
 ## ISO-8a main menu (D44)
 
 Reference01 supplies the left wood/paper card, green title banner/tagline, real latest-save card, large green Continue, paired New Game/Settings, red Exit and footer. Existing TitleBackdrop/art remains unchanged; no reference image is used at runtime. Main/StartMenu mounts five ui/title components via typed fields, replacing old script-created MarginContainer/Column paths explicitly. Title/profile width is min680/40% viewport, height min920/viewport-48 with left margin; settings uses the existing wide modal rectangle.
