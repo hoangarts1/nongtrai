@@ -4,7 +4,7 @@ Last updated: 2026-11-03 (ISO-12 automated acceptance delivered; human editor ac
 
 ## Approved task — ISO-12 imported 2D ground/assets (automated acceptance delivered)
 
-Owner approved ISO-12 after commit `11d488e` of the planning documents. D50 authorizes restoring the accidentally deleted `ui/ui_gallery.gd`, importing only `tiles`, `decor` and `objects` into the root `assets/` directories, using the 128×64 atlas at Camera2D zoom0.5, replacing the generated placeholder ground at runtime, and selecting grass variants from a stable coordinate hash. ISO-11 is complete in commit `962bba9`. Implementation is ready to commit; human editor/render acceptance remains pending.
+Owner approved ISO-12 after commit `11d488e` of the planning documents. D50 authorizes restoring the accidentally deleted `ui/ui_gallery.gd`, importing only `tiles`, `decor` and `objects` into the root `assets/` directories, using the 128×64 atlas at Camera2D zoom0.5, replacing the generated placeholder ground at runtime, and selecting grass variants from a stable coordinate hash. ISO-11 is complete in commit `962bba9`; ISO-12 is committed in `d1bc16a`. Human editor/render acceptance remains pending.
 
 ### ISO-12 ALLOW_LIST
 
