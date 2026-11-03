@@ -1,6 +1,43 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-16 automated acceptance delivered; human editor acceptance pending)
+Last updated: 2026-11-03 (ISO-17 automated acceptance delivered; human editor acceptance pending)
+
+## Approved task — ISO-17 data-driven planting-item shop (automated acceptance delivered)
+
+Owner approved ISO-17 to verify the existing seed-shop flow as the supported remaining presentation. The shop must enumerate registered planting items through `DataRegistry`/`CropData`, filter by actual season, and preserve atomic `EconomyService`/`InventoryService` ownership. Unsupported mockup screens remain unavailable until their domain systems exist.
+
+### ISO-17 ALLOW_LIST
+
+~~~text
+scripts/view/seed_shop_panel.gd
+tests/unit/test_seed_shop.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+~~~
+
+### ISO-17 acceptance
+
+- Shop lists registered planting items from existing data, not a crop-specific hardcoded list.
+- Season filtering, actual prices, inventory quantities and wallet totals remain truthful.
+- Failed affordability/full-inventory purchases do not mutate wallet or inventory.
+- Existing seed-shop interaction, modal ownership and save/domain owners remain unchanged.
+- Unsupported shop/house/dialogue/calendar screens remain explicit.
+- Run focused shop tests, parse, data validation and full GUT before marking complete.
+
+### ISO-17 acceptance record
+
+- Existing `SeedShopPanel` enumerates registered seed/planting items through `DataRegistry.get_seed_items()` and reads actual `ItemData` prices/icons.
+- Season filtering, reach/prompt state, wallet affordability, inventory capacity and atomic purchase behavior are covered by the existing shop tests.
+- No new crop IDs, item IDs, prices, seasons, save fields or InputMap actions were invented; unsupported planting-item categories remain unavailable until registered data exists.
+- Unsupported house/NPC/dialogue/calendar/event screens remain explicit and are not fabricated from mockup values.
+- `godot --headless --path . --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Focused ISO-17 shop/economy suite: 8/8 tests, 62 asserts, PASS.
+- Full GUT suite: 293/293 tests, 14,982 asserts, PASS.
+- No runtime changes were required; human editor/render acceptance remains pending.
 
 ## Approved task — ISO-16 supported presentation screens (automated acceptance delivered)
 

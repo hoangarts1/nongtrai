@@ -312,3 +312,9 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Why: these screens already satisfy the supported mockup subset; changing domain ownership or inventing unavailable calendar/events/house/dialogue state would violate the milestone boundary.
 - Consequence: ISO-16 is accepted through focused and full automated verification without runtime rewrites. Human editor/render acceptance remains separate.
 - Changeable until: before ISO-17 shop/remaining presentation is approved.
+
+### D55 — ISO-17 existing data-driven planting-item shop (2026-11-03) — Status: LOCKED by owner approval
+- Accept the existing `SeedShopPanel` as the ISO-17 shop surface: it reads registered planting items through `DataRegistry`, uses actual `ItemData` pricing/icons and preserves `EconomyService`/`InventoryService` atomic ownership.
+- Why: the current runtime already provides truthful season filtering, reach/prompt, affordability, capacity and purchase behavior; adding unregistered crop/item data would invent gameplay values prohibited by the milestone scope.
+- Consequence: ISO-17 is accepted through focused and full automated verification without runtime rewrites. Additional house/NPC/dialogue/calendar/event screens remain deferred until their domain systems and data exist; human editor/render acceptance remains separate.
+- Changeable until: before a future approved data task adds new planting-item categories or remaining screen domains.

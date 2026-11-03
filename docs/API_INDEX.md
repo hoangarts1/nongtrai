@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## ISO-17 planting-item shop APIs (2026-11-03, D55)
+
+- `SeedShopPanel` reads `DataRegistry.get_seed_items()` and current season state, then displays actual `ItemData` names/prices/icons without a crop-specific hardcoded catalogue.
+- `SeedShopPanel` delegates purchases to existing `WalletState`/`InventoryState` owners and keeps affordability, inventory capacity and atomic rollback behavior unchanged.
+- Unsupported planting-item categories and remaining shop/house/NPC/dialogue/calendar/event screens have no registered runtime API and remain deferred; no new gameplay data is implied by the supplied crop art.
+
 ## ISO-12 ground/assets APIs (2026-11-03, D50)
 
 - `GrayBoxWorld._build_tiles()` assigns the imported `res://assets/tiles/tileset/ground_tileset_128x64.tres` to Ground and Farmland. `_ground_variant(cell: Vector2i) -> Vector2i` deterministically selects the atlas grass/flower row-0 variant from the logical cell; no gameplay state or save field is added.
