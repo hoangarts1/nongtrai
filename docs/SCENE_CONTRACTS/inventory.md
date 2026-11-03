@@ -1,5 +1,7 @@
 # ISO-5 inventory and supported tab shell
 
+ISO-11 (D48): InventoryController.attach_main now enables NpcJournal's journal-only Quest book before connecting its common header. journal.tabs still references the actual header, index2 and Bag/Character/Quest Q/E routing remain unchanged. Original journal root/close lifecycle and dialogue actions stay compatible. See quest_book.md; no inventory/sort/discard/selection/transaction change.
+
 ISO-10 (D47) explicitly extends the historical Bag/Quest-only subset below: Character index1 is enabled with Bag0/Quest2. InventoryController.attach_main connects all three common headers, show_tab navigates through their existing owners, and Q/E cycles forward/backward with wrap. No binding change/new hotkey; Calendar3/Map4 stay disabled, J/B/I retain original targets. Existing sort/discard/selection/quest actions remain unchanged; Character only reads profile/social state. See character.md.
 
 ISO-6b1 changes approved item purchase/sale Resource values, not inventory IDs/capacity/stack/selection/sort/discard APIs. Bag details use actual new unit sale prices. A full bag blocks the whole harvest before the owner's repeat phase changes; successful repeat harvest adds exactly the existing yield, with no additional seed consumption or ledger/wallet change until a real sale.

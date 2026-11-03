@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-11 composes seven ui/quests scene pairs with the existing paper/wood/filter/button/label Theme, item icon helper and read-only LifeCharacterPortrait. Native rows select details only; objective glyphs/current quantities and reward terms are informational. Daily/Pin/Map remain disabled, no fake XP/progress components. Generic components/Theme/art unchanged; see quest_book.md.
+
 ISO-10 composes seven ui/character scene pairs with shared paper/wood/labels, actual PlaceholderAvatar2D portraits and LifeHeartRow. Five hearts floor existing friendship/cap for display only; raw points stay visible. Skills rows are localized unavailable labels, no fake progress component. Existing common_tabs now enables Bag/Character/Quest; no generic component/Theme/art resource changes. See character.md.
 
 ISO-9 composes six native ui/morning scene pairs with flow/presenter/snapshot helpers: sheet, weather/garden/market columns, price row and fixed task strip. Reuses existing paper, Theme variations, LifeDayWeatherSymbol and LifeInventoryIcon.for_item; no generic component/Theme/art mutations. Display values are read-only; Begin emits a dismissal only. See morning_bulletin.md.

@@ -26,7 +26,7 @@ func configure(owner_panel: InventoryPanel, state: InventoryState) -> void:
 
 func attach_main(main: Node) -> void:
 	_main = main
-	main.npc_system.journal.enable_tabs()
+	main.npc_system.journal.enable_quest_book(main)
 	main.npc_system.journal.tabs.tab_requested.connect(show_tab)
 	main.character_flow.panel.tabs.tab_requested.connect(show_tab)
 

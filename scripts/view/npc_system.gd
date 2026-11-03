@@ -62,6 +62,10 @@ func _input(event: InputEvent) -> void:
 	if journal.visible and _main.inventory_panel.controller.handle_input(event):
 		get_viewport().set_input_as_handled()
 		return
+	if journal.visible and journal.book!=null:
+		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
+			if event.is_action_pressed(action):
+				return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel") or event.is_action_pressed("open_journal"):
 		close_panels()
 		get_viewport().set_input_as_handled()
@@ -132,6 +136,9 @@ func open_journal() -> void:
 	if not _can_open():
 		return
 	_lock()
+	if journal.book!=null:
+		journal.show_quest_book()
+		return
 	var body: String = tr("UI_NPC_JOURNAL_HINT") + "\n\n"
 	for resource: Resource in content.npcs:
 		var npc: NpcData = resource as NpcData

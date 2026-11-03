@@ -250,6 +250,7 @@ func _quit_game() -> void:
 
 func _start_new_game(player_name: String, farm_name: String) -> void:
 	_game_started = false
+	npc_system.journal.book_controller.reset()
 	character_flow.close()
 	GameClock.deserialize({})
 	morning_flow.reset()
@@ -291,12 +292,14 @@ func _return_to_start_menu() -> bool:
 	morning_flow.reset()
 	pause_menu.close()
 	character_flow.close()
+	npc_system.journal.book_controller.reset()
 	start_menu.refresh_continue()
 	start_menu.visible = true
 	world.player.movement_enabled = false
 	return true
 
 func _load_payload(payload: Dictionary) -> void:
+	npc_system.journal.book_controller.reset()
 	character_flow.close()
 	GameClock.deserialize(payload.get("clock", {}))
 	morning_flow.reset()

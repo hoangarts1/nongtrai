@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-11 Quest book (D48)
+
+Reference08 is seven scene pairs under ui/quests plus controller/presenter/snapshot. Existing NpcJournal hosts common tabs over wood/paper two-page content: All/Active/Completed filters (Daily unavailable), scrollable selectable list and compact real friendship summary on the left; title/status/actual giver portrait/description, read-only goals and Resource reward terms on the right. Detail scrolls independently of fixed disabled Pin/Map buttons; fixed key plate shows Q/E/Escape only. Selecting another task starts its detail at the top. No reference PNG/new artwork/Theme changes.
+
+Onboarding displays all seven real flags, with no invented reward. Registered delivery quests show actual status/current bag quantities and Resource terms; confirmed delivery can show0 current items. Original nearby NPC dialogue remains the only accept/deliver/payout path. No daily/XP/pin/map/deadline/tier systems. Existing journal root/public APIs and three enabled tabs remain; native Tab/Enter/Space reach GUI without world input. Main resets transient view state on new-game/load/title; single modal owner retains prior hold/day-end precedence. See SCENE_CONTRACTS/quest_book.md for APIs/manual checks; human F5 acceptance stays separate from render tests.
+
 ## ISO-10 Character screen (D47)
 
 Reference07 becomes seven small scene pairs under ui/character: common tabs over a wood/paper shell, left actual farmer portrait/name/farm card, right five unavailable skill rows plus real relationship cards. Fixed key-hint plate remains readable against the world. Native scroll contains two-column cards when they overflow; the current two NPCs fit one row. Six saved player cosmetics/all registered NPC recipes reuse the actual PlaceholderAvatar2D renderer. No mockup texture/new art/Theme mutation or fictional progression.

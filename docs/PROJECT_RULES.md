@@ -12,6 +12,8 @@ Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1
 
 D47 status notice (2026-11-03): ISO-9 committed ec3c6d3; ISO-10 Character/relationships is approved with actual profile/NPC friendship and shared2D portraits. Existing Q/E extends to Bag/Character/Quest, skills/XP remain unavailable. Verification is recorded in PROGRESS; human acceptance remains pending. All locked rules/domain/save-v8 remain unchanged.
 
+D48 status notice (2026-11-03): ISO-10 committed b44c5d5; ISO-11 Quest book is approved using existing onboarding/registered delivery state and Resource terms. Journal-only UI branch/native GUI routing changes are documented; original nearby NPC transactions/domain/core/data/save-v8 remain unchanged. Verification is recorded in PROGRESS; human acceptance remains pending. No locked rule change.
+
 ---
 
 ## 1. Engine & tooling (LOCKED)

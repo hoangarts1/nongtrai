@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-11 replaces only NpcJournal's script-created content branch with the modular Quest book; root/header/tab2/HUD lock remain. Seven real onboarding flags and actual delivery state are read-only; current pinned HUD onboarding is unchanged and T remains unbound. Original NPC dialogue alone accepts/delivers/rewards. Existing modal owner/prior hold/day-end precedence remain; see quest_book.md.
+
 ISO-10 registers CharacterScreen through Main.character_flow before inventory attach/UiCoordinator configure. Existing common tabs/Q/E reach Character; no new HUD shortcut or InputMap action. World/interactive HUD remain locked under the same modal owner; title/tutorial/sleep/day-end guards and prior-hold restoration remain. Seven read-only scene pairs reuse actual profile/NPC portraits; see character.md.
 
 ISO-9 registers MorningBulletin with the existing exclusive modal owner. Main wires morning_flow after day_end_flow and before UiCoordinator.configure; only the existing completed rollover queues presentation. Interactive HUD/world input is suppressed while visible, prior pause restores on dismissal, native GUI keys win over world shortcuts and day-end remains primary. No HUD binding/InputMap/bus changes. See morning_bulletin.md.

@@ -7,7 +7,10 @@ var column: VBoxContainer
 var title_label: Label
 var close_button: Button
 var tabs: LifeInventoryTabs
+var book: LifeQuestBook
+var book_controller: LifeQuestBookController
 var _outer: VBoxContainer
+var _legacy_margin: MarginContainer
 
 func _ready() -> void:
 	visible = false
@@ -19,6 +22,7 @@ func _ready() -> void:
 	offset_bottom = 150.0
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var margin: MarginContainer = MarginContainer.new()
+	_legacy_margin = margin
 	for side: String in ["left", "right", "top", "bottom"]:
 		margin.add_theme_constant_override("margin_" + side, 12)
 	add_child(margin)
@@ -50,6 +54,28 @@ func enable_tabs() -> void:
 	tabs.set_active(2)
 	tabs.close_requested.connect(func() -> void: close_requested.emit())
 	close_button.hide()
+
+func enable_quest_book(main: Node) -> void:
+	if book!=null:
+		return
+	_legacy_margin.hide()
+	LifeTheme.bind(self,&"LifeHudClearPanel")
+	var inset: MarginContainer = MarginContainer.new()
+	inset.theme_type_variation = &"LifeInvOuterMargin"
+	add_child(inset)
+	book = preload("res://ui/quests/quest_book.tscn").instantiate() as LifeQuestBook
+	inset.add_child(book)
+	tabs = book.tabs
+	tabs.close_requested.connect(func() -> void: close_requested.emit())
+	book_controller = LifeQuestBookController.new()
+	add_child(book_controller)
+	book_controller.configure(self,main)
+
+func show_quest_book() -> void:
+	title_label.text = tr("UI_NPC_JOURNAL")
+	show()
+	book_controller.queue_render()
+	tabs.buttons[2].call_deferred("grab_focus")
 
 func show_content(title: String, body: String, actions: Array[Dictionary] = []) -> void:
 	title_label.text = title
