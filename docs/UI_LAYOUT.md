@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-10 Character screen (D47)
+
+Reference07 becomes seven small scene pairs under ui/character: common tabs over a wood/paper shell, left actual farmer portrait/name/farm card, right five unavailable skill rows plus real relationship cards. Fixed key-hint plate remains readable against the world. Native scroll contains two-column cards when they overflow; the current two NPCs fit one row. Six saved player cosmetics/all registered NPC recipes reuse the actual PlaceholderAvatar2D renderer. No mockup texture/new art/Theme mutation or fictional progression.
+
+Existing Q/E now cycles Bag0/Character1/Quest2; common headers and close/native focus work across all three. Calendar/Map remain disabled and J/B/I retain their original targets. UiCoordinator owns exclusivity/hold/input and day-end precedence; title/tutorial/sleep guards prevent Character bypass. Main closes stale presentation on new-game/load/title. Opening/refresh/locale/scroll/dismiss cannot talk, grant points/items/coins or simulate. See SCENE_CONTRACTS/character.md; vi/en/three-size captures and human F5 acceptance are tracked separately.
+
 ## ISO-9 morning bulletin (D46)
 
 Reference05 is rebuilt as six scene/script pairs under ui/morning plus flow/presenter/snapshot helpers. Wide summary bounds contain pinned paper/masthead, three equal columns, fixed garden-note strip and green Begin button. Weather/garden/market content scrolls independently; current produce rows reuse cropped existing icons. Shared Theme/weather symbols are unchanged; no reference image is loaded at runtime.

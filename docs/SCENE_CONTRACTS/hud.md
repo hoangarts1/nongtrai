@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-10 registers CharacterScreen through Main.character_flow before inventory attach/UiCoordinator configure. Existing common tabs/Q/E reach Character; no new HUD shortcut or InputMap action. World/interactive HUD remain locked under the same modal owner; title/tutorial/sleep/day-end guards and prior-hold restoration remain. Seven read-only scene pairs reuse actual profile/NPC portraits; see character.md.
+
 ISO-9 registers MorningBulletin with the existing exclusive modal owner. Main wires morning_flow after day_end_flow and before UiCoordinator.configure; only the existing completed rollover queues presentation. Interactive HUD/world input is suppressed while visible, prior pause restores on dismissal, native GUI keys win over world shortcuts and day-end remains primary. No HUD binding/InputMap/bus changes. See morning_bulletin.md.
 
 ISO-8b changes only creation mode within the existing start modal: wide two-panel form/preview, native six-choice rows, no new HUD binding. World/HUD lock remains UiCoordinator-owned; see character_creation.md. No game state before Start.

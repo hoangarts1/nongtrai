@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/character/relationship_card.gd" id="1"]
+
+[node name="relationship_card" type="PanelContainer"]
+script = ExtResource("1")

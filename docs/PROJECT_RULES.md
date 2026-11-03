@@ -10,6 +10,8 @@ D46 status notice (2026-11-03): ISO-8b committed57008ab; ISO-9 morning bulletin 
 
 Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1 starts. An agent that finds an unfilled marker must STOP and ask.
 
+D47 status notice (2026-11-03): ISO-9 committed ec3c6d3; ISO-10 Character/relationships is approved with actual profile/NPC friendship and shared2D portraits. Existing Q/E extends to Bag/Character/Quest, skills/XP remain unavailable. Verification is recorded in PROGRESS; human acceptance remains pending. All locked rules/domain/save-v8 remain unchanged.
+
 ---
 
 ## 1. Engine & tooling (LOCKED)

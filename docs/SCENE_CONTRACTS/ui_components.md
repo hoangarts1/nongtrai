@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-10 composes seven ui/character scene pairs with shared paper/wood/labels, actual PlaceholderAvatar2D portraits and LifeHeartRow. Five hearts floor existing friendship/cap for display only; raw points stay visible. Skills rows are localized unavailable labels, no fake progress component. Existing common_tabs now enables Bag/Character/Quest; no generic component/Theme/art resource changes. See character.md.
+
 ISO-9 composes six native ui/morning scene pairs with flow/presenter/snapshot helpers: sheet, weather/garden/market columns, price row and fixed task strip. Reuses existing paper, Theme variations, LifeDayWeatherSymbol and LifeInventoryIcon.for_item; no generic component/Theme/art mutations. Display values are read-only; Begin emits a dismissal only. See morning_bulletin.md.
 
 ISO-8b adds native creation consumers under ui/profile: name fields, choice rows/swatches, actual2D preview and presenter/helpers. Swatch colors use unchanged Resource palettes; selected/focus states use existing Theme, no StyleBox overrides. Shared AvatarHair2D is view-only drawing used by preview/player, not a domain component. See character_creation.md.

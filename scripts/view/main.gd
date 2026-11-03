@@ -37,6 +37,7 @@ var ui_coordinator: UiCoordinator
 var hud_presenter: LifeHudPresenter
 var day_end_flow: LifeDayEndFlow
 var morning_flow: LifeMorningFlow
+var character_flow: LifeCharacterFlow
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector2
@@ -164,6 +165,9 @@ func _ready() -> void:
 	morning_flow = LifeMorningFlow.new()
 	add_child(morning_flow)
 	morning_flow.configure(self)
+	character_flow = LifeCharacterFlow.new()
+	add_child(character_flow)
+	character_flow.configure(self)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -246,6 +250,7 @@ func _quit_game() -> void:
 
 func _start_new_game(player_name: String, farm_name: String) -> void:
 	_game_started = false
+	character_flow.close()
 	GameClock.deserialize({})
 	morning_flow.reset()
 	inventory.clear()
@@ -285,12 +290,14 @@ func _return_to_start_menu() -> bool:
 		return false
 	morning_flow.reset()
 	pause_menu.close()
+	character_flow.close()
 	start_menu.refresh_continue()
 	start_menu.visible = true
 	world.player.movement_enabled = false
 	return true
 
 func _load_payload(payload: Dictionary) -> void:
+	character_flow.close()
 	GameClock.deserialize(payload.get("clock", {}))
 	morning_flow.reset()
 	inventory.deserialize(payload.get("inventory", {}))

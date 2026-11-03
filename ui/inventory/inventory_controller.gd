@@ -28,6 +28,7 @@ func attach_main(main: Node) -> void:
 	_main = main
 	main.npc_system.journal.enable_tabs()
 	main.npc_system.journal.tabs.tab_requested.connect(show_tab)
+	main.character_flow.panel.tabs.tab_requested.connect(show_tab)
 
 func queue_render() -> void:
 	if not _queued:
@@ -123,24 +124,31 @@ func cancel_discard() -> void:
 	panel.screen.detail.show()
 
 func show_tab(index: int) -> void:
-	if _main==null or index not in [0,2]:
+	if _main==null:
 		return
+	var panels: Array[Control] = [panel,_main.character_flow.panel,_main.npc_system.journal]
 	var active: Control = _main.ui_coordinator.get_active_panel()
-	if active not in [panel,_main.npc_system.journal]:
+	if index<0 or index>=panels.size() or active not in panels:
 		return
-	if (index==0 and active==panel) or (index==2 and active==_main.npc_system.journal):
+	if active==panels[index]:
 		return
 	_main.ui_coordinator.close_active()
 	if index==0:
 		panel.toggle_inventory()
+	elif index==1:
+		_main.character_flow.open()
 	else:
 		_main.npc_system.open_journal()
 
 func handle_input(event: InputEvent) -> bool:
-	if _main==null or event.is_echo() or _main.ui_coordinator.get_active_panel() not in [panel,_main.npc_system.journal]:
+	if _main==null or event.is_echo():
+		return false
+	var panels: Array[Control] = [panel,_main.character_flow.panel,_main.npc_system.journal]
+	var active: int = panels.find(_main.ui_coordinator.get_active_panel())
+	if active<0:
 		return false
 	if event.is_action_pressed("inventory_tab_prev") or event.is_action_pressed("inventory_tab_next"):
-		show_tab(2 if panel.visible else 0)
+		show_tab(posmod(active+(-1 if event.is_action_pressed("inventory_tab_prev") else 1),panels.size()))
 		return true
 	if panel.visible:
 		if event.is_action_pressed("cancel") or event.is_action_pressed("pause"):

@@ -15,7 +15,7 @@ func _ready() -> void:
 		button.theme_type_variation = &"LifeInvTab"
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.toggle_mode = true
-		button.disabled = index not in [0,2]
+		button.disabled = index not in [0,1,2]
 		button.pressed.connect(_request.bind(index))
 		add_child(button)
 		buttons.append(button)

@@ -25,7 +25,7 @@ static func apply(main: Node) -> void:
 	reflow(main)
 
 static func _style_children(node: Node) -> void:
-	if node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and node.tabs!=null):
+	if node is LifeCharacterSheet or node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and node.tabs!=null):
 		return
 	if node is Label:
 		var label: Label = node as Label
@@ -59,6 +59,7 @@ static func reflow(main: Node) -> void:
 		_rect(main.start_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.day_end_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.morning_flow.panel,(viewport-summary_size)*0.5,summary_size)
+	_rect(main.character_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.inventory_panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.pause_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.npc_system.journal,(viewport-summary_size)*0.5,summary_size)

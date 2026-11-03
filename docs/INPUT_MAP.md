@@ -13,7 +13,7 @@ The table below is the CURRENT implemented InputMap. Movement is screen-relative
 | B inventory, plus I/Tab | Implemented in ISO-3; B removed from `open_build`, whose action ID remains unbound. Tab was documented historically but absent from the actual project defaults; ISO-3 adds the documented alias explicitly. |
 | J journal; K calendar; M map | Retain J; register K/M only with working views; Ctrl+M remains the debug shortcut |
 | 1–8 visible tool slots | Implemented: 1 hoe, 2 watering can, 3 harvest; 4–8 the displayed five-stack inventory window. `hotbar_9` retains legacy inventory index 8 selection; no inventory state/capacity is dropped. |
-| Q/E previous/next tab | ISO-5 implements Bag/Quest only; consumes world E/Q |
+| Q/E previous/next tab | ISO-10 extends ISO-5 to Bag/Character/Quest; consumes world E/Q |
 | F quick-select, Z sort, T pin quest | ISO-5 implements toolbar selection and Bag sorting; T remains unavailable |
 | Esc | Existing pause/close-top-modal routing |
 
@@ -36,8 +36,8 @@ This is an approved binding migration plan, not a claim that new actions exist i
 | `hotbar_1` … `hotbar_8` | 1 … 8 | visible mixed toolbar: three existing tools and five inventory stacks | ISO-3 |
 | `hotbar_9` | 9 | legacy ninth inventory stack; display window follows selection | ISO-3 compatibility |
 | `open_inventory` | B, I, Tab | inventory | 3 / ISO-3 |
-| `inventory_tab_prev` | Q | previous enabled Bag/Quest tab while shell is active | ISO-5 |
-| `inventory_tab_next` | E | next enabled Bag/Quest tab; consumes world interaction | ISO-5 |
+| `inventory_tab_prev` | Q | previous enabled Bag/Character/Quest tab while shell is active | ISO-5 / ISO-10 |
+| `inventory_tab_next` | E | next enabled Bag/Character/Quest tab; consumes world interaction | ISO-5 / ISO-10 |
 | `inventory_quick_select` | F | select highlighted real stack on toolbar; Bag only | ISO-5 |
 | `inventory_sort` | Z | stable inventory sort; Bag only | ISO-5 |
 | `open_help` | H | how to play | 4 |

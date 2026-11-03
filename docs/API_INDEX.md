@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## ISO-10 Character/relationship APIs (2026-11-03, D47)
+
+- Main owns character_flow: LifeCharacterFlow, configured before inventory.attach_main/UiCoordinator. configure(main: Node), open(), close(), refresh() -> void; panel: LifeCharacterSheet (Main child CharacterScreen). Open respects started/title/tutorial/sleep/day-end guards; Main closes stale presentation on New Game/load/title. Visibility/social.changed/locale refresh read-only values. UiCoordinator alone owns pause/input/modal state; no saved UI flags.
+- CharacterSnapshot.capture(main: Node) -> Dictionary reads actual profile names/normalized appearance and registered NPC rows{id,name_key,color,points,maximum}. Current social world registers Minh/Linh; catalogue-only recipes are not additional NPCs. CharacterPresenter.render(panel: LifeCharacterSheet, snapshot: Dictionary) -> void localizes display without talking, granting friendship, trading, advancing or saving.
+- Seven ui/character scene pairs: LifeCharacterSheet (tabs/identity/skills/relationships/hint); LifeCharacterIdentity.display(snapshot: Dictionary); LifeCharacterPortrait.display_player(selection: Dictionary)/display_npc(id: StringName, fallback: Color); LifeCharacterSkills.refresh(); LifeCharacterSkill.display(key: StringName); LifeCharacterRelationships.display(rows: Array[Dictionary]); LifeCharacterRelationship.display(row: Dictionary). All return void. Actual PlaceholderAvatar2D/catalogue/hair renderer is shared; no portrait artwork or cosmetic edits. See SCENE_CONTRACTS/character.md for fields/tree.
+- Existing LifeInventoryTabs now enables0/1/2; InventoryController.attach_main connects three headers, show_tab(index) and existing Q/E cycle Bag/Character/Quest. Calendar/Map remain disabled, no new input action. J/B/I shortcuts retain original targets; native Tab/Enter/Space stay GUI actions inside Character. UiLayout supplies wide bounds; day-end keeps precedence and prior pause restores.
+- Raw friendship points/per-NPC cap accompany five floor-ratio hearts, display only. Cards reuse existing controls on refresh and scroll only when needed. Skills/XP/levels/bonuses/birthdays/gifting remain unavailable; no core/domain/data/save-v8/golden/old-scene/Theme/renderer/tool changes.
+
 ## ISO-9 morning bulletin APIs (2026-11-03, D46)
 
 - Main owns morning_flow: LifeMorningFlow. Its existing day_started callback queues the day after the one care/simulation/weather/journal path and direct save attempt. Existing day-end confirmation finishes its final save synchronously before presentation on a later process frame. No new simulation/save callback or gameplay state.

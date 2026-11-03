@@ -1,5 +1,7 @@
 # ISO-5 inventory and supported tab shell
 
+ISO-10 (D47) explicitly extends the historical Bag/Quest-only subset below: Character index1 is enabled with Bag0/Quest2. InventoryController.attach_main connects all three common headers, show_tab navigates through their existing owners, and Q/E cycles forward/backward with wrap. No binding change/new hotkey; Calendar3/Map4 stay disabled, J/B/I retain original targets. Existing sort/discard/selection/quest actions remain unchanged; Character only reads profile/social state. See character.md.
+
 ISO-6b1 changes approved item purchase/sale Resource values, not inventory IDs/capacity/stack/selection/sort/discard APIs. Bag details use actual new unit sale prices. A full bag blocks the whole harvest before the owner's repeat phase changes; successful repeat harvest adds exactly the existing yield, with no additional seed consumption or ledger/wallet change until a real sale.
 
 Owner approved commit ISO-4 and implement the ISO-5 plan. InventoryPanel retains its root path/public configure/toggle_inventory/close_inventory/slot_selected/inventory_toggled APIs. Main wires a small LifeInventoryController; no UI owns item quantities.
