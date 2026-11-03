@@ -1,5 +1,25 @@
 extends GutTest
 
+func test_supplied_crop_visuals_use_manifest_pivots_and_wilted_stage_assets() -> void:
+	var crop: Sprite2D = Sprite2D.new()
+	add_child_autofree(crop)
+	CropPresentation.render(crop,&"spring_carrot",0.0,Color.WHITE,false,false,Vector2i.ZERO)
+	assert_true(crop.get_meta("visual_asset","").ends_with("carrot_stage1.png"))
+	assert_eq(crop.get_meta("visual_stage"),1)
+	assert_eq(crop.offset,Vector2(0,-36))
+	CropPresentation.render(crop,&"spring_carrot",1.0,Color.WHITE,true,false,Vector2i.ZERO)
+	assert_true(crop.get_meta("visual_asset","").ends_with("carrot_stage4_wilted.png"))
+	assert_eq(crop.get_meta("visual_stage"),4)
+
+func test_manifest_covers_all_supplied_crop_visual_sets_without_registering_new_gameplay_data() -> void:
+	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/crops/crops_manifest.json"))
+	assert_eq((manifest.get("crops", {}) as Dictionary).size(),16)
+	for crop_name: String in (manifest.get("crops", {}) as Dictionary).keys():
+		for stage: int in range(1,5):
+			assert_true(FileAccess.file_exists("res://assets/crops/%s/%s_stage%d.png" % [crop_name,crop_name,stage]))
+			assert_true(FileAccess.file_exists("res://assets/crops/%s/%s_stage%d_wilted.png" % [crop_name,crop_name,stage]))
+		assert_true(FileAccess.file_exists("res://assets/crops/%s/%s_seed.png" % [crop_name,crop_name]))
+
 func test_farm_view_builds_visible_cells_and_updates_crop_visual() -> void:
 	var scene: PackedScene = preload("res://scenes/main/main.tscn")
 	var main: Node = scene.instantiate()

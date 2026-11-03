@@ -1,6 +1,43 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-13 automated acceptance delivered; human editor acceptance pending)
+Last updated: 2026-11-03 (ISO-15 visual crop asset integration in progress; human editor acceptance pending)
+
+## Approved task — ISO-15 crop visual assets and existing-domain presentation (automated acceptance delivered)
+
+Owner selected the visual-only existing-domain scope: import all 16 supplied crop visual sets, read stage/wilted textures and pivots from `crops_manifest.json`, and connect only matching existing CropData/domain IDs. No new gameplay crop, item, balance, season or shop data is invented. Existing unmatched runtime crops keep their current placeholder visuals with explicit warnings; the seven supplied crops without runtime domain data remain visual assets only.
+
+### ISO-15 ALLOW_LIST
+
+~~~text
+assets/crops/**
+scripts/data/crop_data.gd
+scripts/view/crop_presentation.gd
+tests/unit/test_farm_view.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### ISO-15 acceptance
+
+- Import all 16 crop directories, four normal stages, four wilted stages and seed image per manifest.
+- Use manifest canvas/pivot data for sprite offsets; do not hardcode crop-specific pivots.
+- Matching existing IDs use real normal/wilted art; missing mappings retain placeholders and emit a warning once.
+- FarmGridState/DaySimulator/save/economy/shop ownership remains unchanged; no new gameplay data is registered.
+- Test all manifest entries and existing-domain visual fallback behavior.
+
+### ISO-15 acceptance record
+
+- Imported all 16 manifest crop directories: 16 seeds, 64 normal stages and 64 wilted stages, plus 1 manifest.
+- Existing matching domain IDs use real stage/wilted textures and manifest pivots. `turnip`, `spring_pea` and `autumn_wheat` retain generated placeholders with one explicit warning because no matching supplied basename exists.
+- Added optional `CropData` visual metadata fields without changing existing gameplay resources, save payloads or item registry.
+- `godot --headless --path . --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Focused crop/world tests: 4/4 tests, 174 asserts, PASS.
+- Full GUT suite: 293/293 tests, 14,982 asserts, PASS.
+- Human editor/render acceptance remains pending.
 
 ## Approved task — ISO-14 deterministic rocks, grass clumps and decor presentation (automated acceptance delivered)
 

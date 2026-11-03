@@ -13,3 +13,8 @@ extends Resource
 @export_range(0, 999) var max_consecutive_dry_days: int = 0
 @export var seasons: PackedStringArray = PackedStringArray()
 @export var color: Color = Color.WHITE
+@export var stage_textures: Array[Texture2D] = []
+@export var wilted_textures: Array[Texture2D] = []
+@export var pivot: Vector2 = Vector2.ZERO
+@export var perennial: bool = false
+@export var planting_item: StringName = &"seed"

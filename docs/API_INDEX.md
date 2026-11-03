@@ -6,6 +6,7 @@
 - `IsometricWorldConfig.tile_size` is `Vector2i(128, 64)` and its default camera zoom is `0.5`; `IsometricGrid` remains the only projection adapter using `TileMapLayer.map_to_local()` / `local_to_map()`. Highlight remains the only hover-cell visualization.
 - Imported ISO-12 asset roots are `assets/tiles/`, `assets/decor/` and `assets/objects/`; the nested source bundle remains retained. See `SCENE_CONTRACTS/gray_box_world.md`.
 - `WorldPresentation._build_natural_scenery()` creates stable passive rock/grass-clump sprites from logical-cell hashing. Large rock roots contain a `WorldStaticCollision` body; no scenery state is saved and cleanup interactions remain deferred.
+- `CropPresentation.render()` loads matching crop stage/wilted textures and manifest canvas/pivot data from `res://assets/crops/crops_manifest.json`; missing crop basenames retain the generated placeholder and emit one warning. `CropData` exposes optional `stage_textures`, `wilted_textures`, `pivot`, `perennial` and `planting_item` fields without changing existing domain/save ownership.
 
 ## ISO-11 Quest book APIs (2026-11-03, D48)
 

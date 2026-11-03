@@ -300,3 +300,9 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Why: scenery must be stable across runs without becoming domain/save state, while large rocks need the approved passive boundary for future cleanup gameplay.
 - Consequence: small/medium rocks and grass clumps remain non-colliding visuals; rock cleanup, harvesting and interaction are deferred.
 - Changeable until: before ISO-14 gameplay interaction is separately approved.
+
+### D53 — ISO-15 existing-domain crop visuals (2026-11-03) — Status: LOCKED by owner approval
+- Import all 16 supplied crop visual sets and read their stages, wilted variants, canvas and pivots from `crops_manifest.json`. Connect only crop IDs already registered by the runtime when a matching asset basename exists.
+- Why: the supplied art is complete, but the current domain has only nine crops and no approved balance/item table for the seven new crops. Visual integration can proceed without fabricating gameplay values.
+- Consequence: unmatched existing crops retain explicit placeholders; new crop art is not plantable, purchasable or saved until a later approved data task.
+- Changeable until: before full 16-crop gameplay data is approved.
