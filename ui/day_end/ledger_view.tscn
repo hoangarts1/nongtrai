@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/day_end/ledger_view.gd" id="1"]
+[node name="LedgerView" type="VBoxContainer"]
+script = ExtResource("1")

@@ -10,6 +10,7 @@ extends Node2D
 const CONFIG: IsometricWorldConfig = preload("res://data/isometric_world_config.tres")
 signal shipping_bin_interacted()
 signal seed_shop_interacted()
+signal bed_requested()
 
 @onready var ground: TileMapLayer = %Ground
 @onready var farmland: TileMapLayer = %Farmland
@@ -128,7 +129,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		seed_shop_interacted.emit()
 		get_viewport().set_input_as_handled()
 	elif GameClock.can_sleep() and _near(bed_marker):
-		if GameClock.try_sleep():
+		if bed_requested.get_connections().size() > 0:
+			bed_requested.emit()
+		elif GameClock.try_sleep():
 			_on_sleep_started()
 			get_viewport().set_input_as_handled()
 

@@ -17,6 +17,7 @@ var _layout_queued: bool = false
 func configure(main: Node) -> void:
 	_main = main
 	_panels.assign([main.inventory_panel, main.tutorial_panel, main.debug_menu, main.pause_menu, main.start_menu, main.seed_shop_panel, main.shipping_bin_panel, main.npc_system.dialogue, main.npc_system.journal])
+	_panels.append(main.day_end_flow.panel)
 	_backdrop = ColorRect.new()
 	_backdrop.name = "ModalBackdrop"
 	_backdrop.color = Color(0.015, 0.025, 0.025, 0.66)
@@ -59,6 +60,11 @@ func _visibility_changed(panel: Control) -> void:
 	if _switching:
 		return
 	_switching = true
+	if _active == _main.day_end_flow.panel and panel != _active and panel.visible:
+		_close(panel)
+		_switching = false
+		_sync()
+		return
 	if panel.visible:
 		if _active == null:
 			_base_pause = GameClock.paused
@@ -83,7 +89,9 @@ func _visibility_changed(panel: Control) -> void:
 	call_deferred("_resize")
 
 func _close(panel: Control) -> void:
-	if panel == _main.inventory_panel:
+	if panel == _main.day_end_flow.panel:
+		_main.day_end_flow.cancel()
+	elif panel == _main.inventory_panel:
 		_main.inventory_panel.close_inventory()
 	elif panel == _main.tutorial_panel:
 		_main.tutorial_panel.close_help()
@@ -136,6 +144,15 @@ func _input(event: InputEvent) -> void:
 		return
 	# Let GUI buttons/scrollbars receive mouse events before gameplay filtering.
 	if event is InputEventMouse:
+		return
+	if _active == _main.day_end_flow.panel:
+		if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
+			_main.day_end_flow.cancel()
+			get_viewport().set_input_as_handled()
+			return
+		for action: StringName in [&"open_inventory",&"open_help",&"open_journal",&"toggle_debug_menu",&"interact",&"use_tool"]:
+			if event.is_action_pressed(action):
+				get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
 		close_active()

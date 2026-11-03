@@ -1,6 +1,14 @@
 # DATA SCHEMA — THE LIFE
 
 Every gameplay value lives here (as a schema) and in `data/` or `data_src/` (as content). Scripts contain no gameplay numbers.
+
+## ISO-4 implemented save v5 additions (D39)
+
+- day_ledger: {day_index: int, complete: bool, entries: Array[Dictionary]}. Each entry is {amount: int, reason: String, item_id: String, quantity: int}. Amount is an actual signed wallet delta, not a price recalculation. Starting balance and zero/load notifications are excluded. Negative changes are expense; positive refund/minh_rollback reverse expense; other positive changes are income. Profit = income - net expense = sum of deltas. An incomplete old-day refund can make net expense negative; it remains a refund, not income. Trade metadata annotates existing cash only; partial/refunded purchases stay generic when quantities cannot be proved.
+- Journal outputs are copies. It resets at morning, marks unknown/corrupt/truncated history complete=false, and bounds external data to 4096 entries and JSON-safe magnitude/absolute aggregate 9007199254740991. These are integrity bounds, not price/earning rules. Invalid numbers/array shapes/reasons are dropped safely. Item Resource lookup remains in VIEW; pure domain classes do not consult Nodes.
+- day_end: {phase: int, day_index: int, forced: bool, last_completed_day: int}. Phase 0 idle, 1 review, 2 advancing. Live writes are idle/review only. Restore reconciles with the clock: same-day advancing requires review, completed new-day payload becomes idle, future/corrupt completion metadata cannot block the current day. Invalid manual daytime review is dismissed safely; forced Stay/Escape cannot release review.
+- v4 -> v5 preserves all prior fields and creates empty/incomplete history for the saved day plus idle review; wallet balance cannot reconstruct transaction history. Old fixtures remain read-only, new save_v5.json is a review example. Loading an older snapshot intentionally restores that timeline; the guard prevents duplicate confirmation within it, not deliberate rollback to an earlier save.
+- Newest-save selection preserves fractional saved_utc. Exact ties prefer the later saved clock day so slot 0's completed morning wins over slot 1's old review. Existing atomic save/backup mechanics remain. No crop price/growth, inventory capacity or prior wire field changes.
 Class sketches below are shapes; the agent checks syntax against the pinned Godot version (e.g. exporting typed `Array`/`Dictionary` varies by version). Where an `Array[Dictionary]` is awkward in the Inspector, use a small child Resource (e.g. `RecipeIO {item, qty}`).
 
 ## 1. Rules

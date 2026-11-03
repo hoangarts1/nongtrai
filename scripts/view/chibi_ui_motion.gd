@@ -49,7 +49,8 @@ func _bind_panels() -> void:
 		_main.seed_shop_panel,
 		_main.shipping_bin_panel,
 		_main.npc_system.dialogue,
-		_main.npc_system.journal
+		_main.npc_system.journal,
+		_main.day_end_flow.panel
 	]:
 		if candidate is Control:
 			var panel: Control = candidate as Control

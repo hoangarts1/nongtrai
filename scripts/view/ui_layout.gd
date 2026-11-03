@@ -25,7 +25,7 @@ static func apply(main: Node) -> void:
 	reflow(main)
 
 static func _style_children(node: Node) -> void:
-	if node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot:
+	if node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet:
 		return
 	if node is Label:
 		var label: Label = node as Label
@@ -54,6 +54,8 @@ static func reflow(main: Node) -> void:
 		_rect(panel, (viewport - modal_size) * 0.5, modal_size)
 	var start_size: Vector2 = Vector2(minf(452.0, viewport.x - 64.0), modal_size.y)
 	_rect(main.start_menu, Vector2(maxf(32.0, viewport.x * 0.055), (viewport.y - start_size.y) * 0.5), start_size)
+	var summary_size: Vector2 = Vector2(minf(1200,viewport.x-64),minf(760,viewport.y-48))
+	_rect(main.day_end_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	LifeHudRegions.apply(main)
 	var message: Label = main.world.interaction_prompt.get_node("Message") as Label
 	message.remove_theme_font_size_override("font_size")

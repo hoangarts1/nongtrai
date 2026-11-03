@@ -129,6 +129,7 @@ static func build() -> Theme:
 	for edge: StringName in [&"margin_left",&"margin_right",&"margin_top",&"margin_bottom"]:
 		result.set_constant(edge,&"LifeSlotQuantityInset",5)
 	_hud(result,heading)
+	LifeDayEndTheme.apply(result)
 	return result
 
 static func _hud(theme: Theme, heading: Font) -> void:

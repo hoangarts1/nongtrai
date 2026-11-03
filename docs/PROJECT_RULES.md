@@ -2,7 +2,7 @@
 
 The law of the project. Agents read this every session. Changing anything here requires a new entry in `docs/DECISIONS.md` (never silently edit a locked rule).
 
-Migration notice (2026-11-02, D33–D36): ISO-1 converted the active runtime and project configuration to 2D isometric. Generated 3D art/review tools remain historical assets. ISO-2–ISO-7 UI/data changes are still planned; do not report their assets/APIs as implemented.
+Migration notice (2026-11-03, D33–D39): ISO-1 converted the active runtime to 2D; ISO-2 shared UI, ISO-3 modular HUD and ISO-4 day-end/save-v5 work are implemented with automated acceptance recorded in PROGRESS. Human editor acceptance remains pending. Generated 3D art/review tools remain historical assets. ISO-5–ISO-7 remain planned; do not report their assets/APIs as implemented. This status update does not change the locked rules below.
 
 Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1 starts. An agent that finds an unfilled marker must STOP and ask.
 

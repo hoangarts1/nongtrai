@@ -2,6 +2,8 @@
 
 ## ISO-1 implemented tree (D33/D36)
 
+ISO-4 adds local bed_requested() on the existing reachable/night bed interaction. Main's LifeDayEndFlow consumes it to open the reference-13 summary before rollover; standalone world keeps its previous try_sleep fallback. Existing player/camera/bed marker paths, reach data and sleep-started/finished handlers remain intact. No world scene node is added/moved/renamed. See day_end.md for the Main-owned summary and clock-hold contract.
+
 Path remains `scenes/world/gray_box_world.tscn`, script `scripts/view/gray_box_world.gd`, class `GrayBoxWorld`; root is `Node2D`. Main (`scenes/main/main.tscn`, `scripts/view/main.gd`) is a `CanvasLayer` at layer 1, retaining the direct paths of existing UI Controls. WorldCanvas at layer 0 follows the viewport so Camera2D affects the world while UI remains fixed. Automated checks pass; human editor acceptance is pending.
 
 ```text

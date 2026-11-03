@@ -2,6 +2,18 @@
 
 Public methods and signals of every system. Agents read THIS instead of scanning code, and update it at the end of every task. Source of truth for each entry is the `## API:` header at the top of the script.
 
+## ISO-4 day-end APIs (2026-11-03, D39)
+
+Current save format is v5, extending the historical v4 entries below with day_ledger / day_end. Clock/tool/farm/wallet ownership and Main node paths remain compatible.
+
+- DayLedgerState (scripts/domain/economy/day_ledger_state.gd), pure RefCounted: reset(day: int, history_complete: bool = true), record(amount: int, reason: StringName), annotate_trade(reason: StringName, item_id: StringName, quantity: int, total: int), totals() -> Dictionary (income/expense/profit ints), rows() -> Array[Dictionary], serialize() -> Dictionary, deserialize(data: Dictionary). Unspecified setters return void. Refund/minh_rollback reduce expense; metadata never adds cash. Unknown/corrupt/bounded history is marked incomplete. Static number(value: Variant, fallback: int = 0) -> int safely decodes finite JSON integers.
+- DayEndState (scripts/domain/day_end_state.gd), pure RefCounted: review(day: int, automatic: bool) -> bool, confirm(day: int) -> bool, cancel() -> bool, reconcile(day: int) -> void, serialize() -> Dictionary, deserialize(data: Dictionary) -> void. IDLE/REVIEW/ADVANCING and last_completed_day guard repeated/re-entrant confirmation; forced review cannot cancel.
+- GameClock adds typed day_end_requested(day_index: int), hold_day_end(day: int), release_day_end(day: int), is_day_end_held() -> bool. Held review blocks raw minute advancement, try_sleep and set_time. A cutoff with no claiming consumer keeps immediate rollover fallback. Existing low-level APIs/signals remain compatible; deserialize clears transient sleep/hold state.
+- GrayBoxWorld adds local bed_requested() on the reachable/night bed action; standalone world retains try_sleep fallback. Main owns day_end_flow: LifeDayEndFlow.
+- LifeDayEndFlow (ui/day_end/day_end_flow.gd): configure(main), request(automatic: bool = false) -> bool, cancel() -> bool, confirm(), is_advancing() -> bool, on_morning(day: int), reset(), restore(payload). Owns ledger/state/panel; observes local wallet deltas plus optional trade metadata. One existing clock rollover/Main DaySimulator path; safe review or completed-morning saves only.
+- LifeDayEndSheet emits confirmed()/cancelled(). Small ledger_view/ledger_row/farm_warning/tomorrow_card scene pairs and presenter/parts/weather_symbol helpers are under ui/day_end. Typed setters accept read-only snapshots; no UI owns financial/simulation state. See SCENE_CONTRACTS/day_end.md for exact composition/modal behavior.
+- SaveService CURRENT_VERSION = 5; migrate_4_to_5(data: Dictionary) -> Dictionary preserves old fields and initializes incomplete history plus idle review. v1–v4 fixtures remain; v5 adds a review example. load_latest preserves subsecond timestamps and prefers later saved clock days on exact ties so a completed morning wins over its preceding review.
+
 ## 2D migration status — ISO-1 (2026-11-02)
 
 - Active gameplay is now 2D. Existing domain, clock, inventory, wallet, weather/social services, autoloads, InputMap, fonts and save v4 remain in use. See D36 and scene contracts for reparented view nodes.

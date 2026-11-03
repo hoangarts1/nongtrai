@@ -23,6 +23,7 @@ signal day_started(day_index: int)
 signal hour_changed(hour: int)
 signal sleep_started()
 signal sleep_finished(day_index: int)
+signal day_end_requested(day_index: int)
 @warning_ignore("unused_signal")
 signal season_changed(season: StringName)
 
@@ -35,6 +36,7 @@ var year: int = 1
 var paused: bool = false
 var time_speed: float = 1.0
 var _sleeping: bool = false
+var _day_end_held: bool = false
 var _sleep_restore_speed: float = 1.0
 var _real_seconds_accumulator: float = 0.0
 var _season_ids: Array[StringName] = [&"spring", &"summer", &"autumn", &"winter"]
@@ -54,7 +56,7 @@ func advance_real_seconds(seconds: float) -> void:
 	advance_minutes(game_minutes)
 
 func advance_minutes(minutes: int) -> void:
-	if minutes <= 0:
+	if minutes <= 0 or _day_end_held:
 		return
 	var previous_hour: int = get_hour()
 	minute += minutes
@@ -62,6 +64,11 @@ func advance_minutes(minutes: int) -> void:
 		_finish_sleep()
 		return
 	if not _sleeping and minute >= DAY_END_MINUTE:
+		minute = DAY_END_MINUTE
+		day_end_requested.emit(day_index)
+		if _day_end_held:
+			time_changed.emit(day_index,minute)
+			return
 		sleep_to_morning()
 		return
 	if get_hour() != previous_hour:
@@ -70,6 +77,7 @@ func advance_minutes(minutes: int) -> void:
 	time_changed.emit(day_index, minute)
 
 func sleep_to_morning() -> void:
+	_day_end_held = false
 	day_index += 1
 	minute = MORNING_MINUTE
 	_update_season()
@@ -82,7 +90,7 @@ func can_sleep() -> bool:
 	return minute >= 1200 and minute < DAY_END_MINUTE
 
 func try_sleep() -> bool:
-	if not can_sleep() or _sleeping:
+	if not can_sleep() or _sleeping or _day_end_held:
 		return false
 	_sleeping = true
 	_sleep_restore_speed = time_speed
@@ -92,6 +100,17 @@ func try_sleep() -> bool:
 
 func is_sleeping() -> bool:
 	return _sleeping
+
+func hold_day_end(day: int) -> void:
+	if day == day_index and (can_sleep() or minute >= DAY_END_MINUTE) and not _sleeping:
+		_day_end_held = true
+
+func release_day_end(day: int) -> void:
+	if day == day_index:
+		_day_end_held = false
+
+func is_day_end_held() -> bool:
+	return _day_end_held
 
 func _finish_sleep() -> void:
 	_sleeping = false
@@ -106,7 +125,7 @@ func _finish_sleep() -> void:
 	Events.day_started.emit(day_index)
 
 func set_time(hour: int, minute_in_hour: int) -> void:
-	if _sleeping:
+	if _sleeping or _day_end_held:
 		return
 	var requested_minute: int = maxi(0, hour * 60 + minute_in_hour)
 	minute = clampi(requested_minute, MORNING_MINUTE, DAY_END_MINUTE - 1)
@@ -137,6 +156,10 @@ func serialize() -> Dictionary:
 	}
 
 func deserialize(data: Dictionary) -> void:
+	if _sleeping:
+		time_speed = _sleep_restore_speed
+	_sleeping = false
+	_day_end_held = false
 	day_index = maxi(0, int(data.get("day_index", 0)))
 	minute = clampi(int(data.get("minute", MORNING_MINUTE)), MORNING_MINUTE, DAY_END_MINUTE)
 	season = StringName(data.get("season", "spring"))

@@ -35,6 +35,7 @@ var _save_dirty: bool = false
 var weather_state: Object
 var ui_coordinator: UiCoordinator
 var hud_presenter: LifeHudPresenter
+var day_end_flow: LifeDayEndFlow
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector2
@@ -43,7 +44,7 @@ var presentation: WorldPresentation
 var _pending_appearance: Dictionary = {}
 
 func _process(delta: float) -> void:
-	if not _game_started:
+	if not _game_started or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
 		return
 	_real_seconds_since_save += delta
 	_seconds_since_dirty_save += delta
@@ -156,6 +157,9 @@ func _ready() -> void:
 	hud_presenter = LifeHudPresenter.new()
 	add_child(hud_presenter)
 	hud_presenter.configure(self)
+	day_end_flow = LifeDayEndFlow.new()
+	add_child(day_end_flow)
+	day_end_flow.configure(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
 	title_backdrop.menu = start_menu
@@ -183,7 +187,9 @@ func _on_day_started(_day_index: int) -> void:
 	if bool(weather_state.call("is_rainy")):
 		farm_state.water_all_crops()
 	day_simulator.call("simulate_day", farm_state)
-	_save_game_to_slot(0)
+	day_end_flow.on_morning(_day_index)
+	if not day_end_flow.is_advancing():
+		_save_game_to_slot(0)
 	_show_toast(tr("UI_SAVED"))
 
 func _on_season_changed(season: StringName) -> void:
@@ -194,7 +200,7 @@ func _save_game() -> void:
 	_show_toast(tr("UI_SAVED"))
 
 func _save_game_to_slot(slot: int) -> void:
-	if npc_system.is_open():
+	if npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
 		return
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
@@ -205,7 +211,9 @@ func _save_game_to_slot(slot: int) -> void:
 		"profile": profile,
 		"weather": weather_state.call("serialize"),
 		"wallet": wallet.serialize(),
-		"social": npc_system.state.serialize()
+		"social": npc_system.state.serialize(),
+		"day_ledger": day_end_flow.ledger.serialize(),
+		"day_end": day_end_flow.state.serialize()
 	}
 	if not SaveService.save_game(payload, slot):
 		push_warning("Main: could not save slot %d" % slot)
@@ -230,6 +238,7 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	farm_state.reset()
 	quest_state.deserialize({})
 	wallet.deserialize(_initial_wallet)
+	day_end_flow.reset()
 	var fresh_weather: WeatherState = WeatherState.new()
 	fresh_weather.configure(preload("res://data/weather_profile.tres"), 0)
 	weather_state.call("deserialize", fresh_weather.serialize())
@@ -254,7 +263,7 @@ func _continue_game() -> void:
 		return
 	_load_payload(latest)
 	start_menu.visible = false
-	world.player.movement_enabled = true
+	world.player.movement_enabled = not day_end_flow.panel.visible
 
 func _return_to_start_menu() -> void:
 	if _game_started:
@@ -298,6 +307,7 @@ func _load_payload(payload: Dictionary) -> void:
 		var cell: Vector2i = GridMath.world_to_cell(legacy)
 		cell = cell.clamp(world.CONFIG.player_region.position, world.CONFIG.player_region.end - Vector2i.ONE)
 		world.player.move_to_cell(cell)
+	day_end_flow.restore(payload)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:

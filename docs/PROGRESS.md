@@ -1,16 +1,204 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-2 committed as bf8ed55; ISO-3 automation/render review delivered)
+Last updated: 2026-11-03 (ISO-3 committed as 8706dfb; ISO-4 automation/render review delivered)
 
 ## Current milestone
 
-`ISO-3 (modular mockup HUD)` — plan/ALLOW_LIST explicitly approved by “Duyệt ISO-3, bắt đầu triển khai”, including B inventory with I/Tab. Delivered with 13 small UI classes (18–69 lines), nine scene wrappers, live mockup HUD regions and real state. Final official runner: 62/62 headless, 178/178 renderer, parse/data/main PASS. Human editor acceptance and ISO-3 commit remain pending. ISO-2 is committed as `bf8ed55`. Existing edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) belongs to the owner and is preserved outside our changes. Next milestone ISO-4 needs its own plan/approval; do not silently redesign other mockup screens.
+`ISO-4 (day-end summary, ledger and guarded sleep)` — explicitly approved by “Duyệt, commit ISO-3 và triển khai ISO-4”. ISO-3 was committed as `8706dfb` after DataValidator PASS. ISO-4 implementation/automated render review delivered: focused headless 17/17, official headless 62/62, full renderer 195/195, parse/data/main PASS. Save format is now v5; v1–v4 goldens remain unchanged. Human editor acceptance and ISO-4 commit remain pending. Existing owner edit in docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line) is preserved. Next ISO-5 requires its own approved scope; no inventory capacity or future screen is implemented here.
 
-## ISO-4 proposal — day-end summary and sleep flow (pending approval, 2026-11-03)
+## ISO-5 proposal — modular inventory and supported tab shell (pending approval, 2026-11-03)
 
-Owner said “oke tiếp tục” after ISO-3 delivery. Read-only discovery confirms ROADMAP ISO-4 is next; ISO-3 remains uncommitted (HEAD bf8ed55). No ISO-4 source has been written. AGENTS §3 requires approval of this new multi-file/domain plan before coding; ROADMAP requires a commit boundary. Proposal includes committing exactly the delivered ISO-3 files after a fresh data-validator check, excluding the owner's master-plan edit, then implementing the scope below.
+Owner said “oke đấy tiếp tục làm đi” after ISO-4 delivery. Read-only review of reference 06, roadmap, current inventory/item/tab APIs, source and D34/D35 confirms ISO-5 is next. ISO-4 remains uncommitted at HEAD 8706dfb. No ISO-5 source has been written. Proposal includes committing the delivered ISO-4 set after a fresh data-validator check, excluding the owner's master-plan edit, then implementing this plan after approval under AGENTS §3.
 
-Findings: WalletState currently serializes only coins and emits signed deltas/reasons; it has no daily ledger. Shop/NPC paths contain refund/rollback wallet changes, so counting every positive delta as income would be wrong. SaveService currently writes v4 and explicitly whitelists top-level payload fields. GameClock currently rolls over immediately at its cutoff, while manual bed interaction calls try_sleep; the summary needs a coordinated decision before rollover. Existing DaySimulator remains the sole farm simulation path.
+Current gaps: InventoryState defaults to 12 and persists compact item stacks; ItemData has IDs/prices/stack/visual metadata but no category/description/edible effect. No stamina/eating or storage/chest domain exists. The mockup's “Cất vào ô” can be represented truthfully by selecting a real stack on the existing toolbar, not by pretending a chest exists. Existing journal provides working quest content; character/calendar/map screens are not yet implemented. The supplied image has 8 columns and visually fewer occupied/display rows, while the explicit prompt requires 8×5 / 40: follow the explicit 40-slot requirement and the image's layout/style.
+
+Plan:
+1. Commit only delivered ISO-4 files after validator PASS. Preserve the owner edit. Keep ISO-5 as a separate milestone/commit; no push.
+2. Add data-owned inventory configuration (40 default slots, eight columns/five visible rows), item category and optional localized description metadata. Populate only metadata on current item Resources; prices, stack limits and IDs remain unchanged. Tool/material filters may truthfully be empty; do not inject HUD tool capabilities into inventory as fake item stacks.
+3. Build ui/inventory from small separate scene/script classes: common five-tab header/shell, filter bar, eight-column grid/slot, detail card, capacity/footer, discard quantity/confirmation, presenter and controller. Reuse shared Theme/ISO-2 components. Follow reference 06's wood/paper frame, top tabs, left filters/grid, right selected detail/real sale price and fixed footer. Default grid is 40 slots; legacy capacity above 40 remains usable through extra scrolling rows rather than dropping items.
+4. Implement stateless InventoryActions and narrow typed owner APIs for validated sort/discard. Quantity/selected-stack identity is checked again at execution; stale/full/invalid operations do not change inventory. Sort preserves every item/quantity and remaps active selection; discard affects only the selected stack after a quantity confirmation. Keep InventoryPanel's public modal/select signals and existing toolbar/farming APIs. Quick selection uses the existing toolbar selection behavior; do not promise storage transfer or fixed slot reassignment.
+5. Shell shows five reference tabs, but only Bag and the existing Quest journal are enabled. Character/Calendar/Map are disabled/unavailable, with no fake screens or data. Reuse the same shell/header for supported views, retaining Main's existing public paths. Q/E cycle supported tabs only and consume input before world interaction/placement. B/I/Tab/J/Escape remain compatible. F quick-selects the highlighted real stack; Z sorts only while inventory is open. Eating is hidden/disabled because no edible/stamina effect exists; no effect numbers are invented. Prices are actual sell_price, no fake quality/market bonus.
+6. Explicit save v6 migration v5 -> v6 raises old player inventory capacity to at least the configured 40 while preserving larger capacities, slot order, IDs, quantities and all ledger/day-end/clock/farm/profile/social data. Preserve old fixtures v1–v5; add a v6 golden. Constructor tests with an explicitly small capacity stay meaningful. Invalid external item/capacity/quantity payloads must be handled without silent loss of valid contents or crashes.
+7. Test old saves/full inventory/stack limits, sorting multiset/selection, stale discard and quantity validation, exact action count, no wallet/journal changes from selection, physical grid/filter/detail/buttons, Q/E/F/Z context and modal/day-end suppression. Run parse/data/headless/full renderer/main checks, and compare actual three-size vi/en captures with reference 06. Keep documentation/API/schema/scene contracts current and provide manual editor steps.
+
+Proposed explicit new InputMap actions (only after approval): inventory_tab_prev=Q, inventory_tab_next=E, inventory_quick_select=F, inventory_sort=Z. Existing world interact=E and rotate_ccw=Q remain; new actions are modal-only. “Quick select” is deliberately the supported toolbar operation, not an unimplemented chest/storage action.
+
+Proposed ALLOW_LIST (effective only after approval):
+```text
+ui/inventory/**
+ui/components/**
+ui/theme/**
+scripts/data/{inventory_config,item_data}.gd
+scripts/data/inventory_config.gd.uid
+data/inventory_config.tres
+data/items/*.tres (category/description metadata only; no price/stack/id changes)
+scripts/domain/inventory_state.gd
+scripts/domain/inventory_actions.{gd,gd.uid}
+scripts/core/{save_service,data_validator}.gd
+scripts/view/{inventory_panel,main,hotbar_panel,ui_coordinator,ui_layout,npc_panel,npc_system,chibi_ui_motion}.gd
+scenes/main/main.tscn
+project.godot (only the four contextual actions above)
+tools/validate_data.gd (inventory config/metadata gate only)
+localization/strings_{vi,en}.*
+tests/unit/** (only affected inventory/save/UI/input/transaction regressions)
+tests/golden_saves/save_v6.json (new only; v1–v5 fixtures read-only)
+docs/{API_INDEX,ARCHITECTURE,DECISIONS,DATA_SCHEMA,PROGRESS,ROADMAP,UI_LAYOUT,INPUT_MAP}.md
+docs/PROJECT_RULES.md (migration-status notice only; no locked-rule changes)
+docs/SCENE_CONTRACTS/{inventory,hud,ui_components}.md
+```
+
+Read-only context: reference 06/shared kit, original prompt, current public inventory/item/clock/day-end/save/toolbar/NPC-journal APIs and contracts, item Resources, input/style rules. Everything else, world scenes, crop/economy balance, stamina/eating/storage/calendar/map systems and old save fixtures are outside scope. No rename/removal of existing public IDs/signals/methods or new autoload is proposed.
+
+Acceptance proposed: small modular classes and reference-06 composition; default 40 slots in eight columns; metadata-driven filters/details; supported selection/sort/discard are validated and lossless apart from explicit confirmed discard; unavailable actions/tabs stay unavailable; contextual Q/E/F/Z cannot trigger world input; v1–v5 contents and larger inventories survive v6 migration; toolbar/day-end/merchant behavior stays working; all official checks pass with real vi/en three-size render review. Human editor acceptance and commits remain explicit milestones.
+
+## ISO-4 handoff — day-end report and save v5 (2026-11-03)
+
+Acceptance delivered:
+- Small pure journal/guard domain classes and nine UI/application helpers, five scene wrappers, plus an isolated Theme builder extension. New UI scripts are 14–114 lines. Reference 13's wood/paper two-column sheet, blue title, real ledger/totals, actual next-day forecast/tutorial progress, warning, green next-day and manual return controls are composed from native Controls.
+- Actual integer cash deltas/reasons drive income/expense/net. Refund/minh_rollback reduce expenses; optional successful trade item/quantity metadata does not count cash twice. Failed purchases do not add entries. Starting wallet/load notifications are excluded. Old or corrupt history is marked incomplete instead of reported as known zero.
+- Legal bedtime interaction opens manual review; 02:00 opens forced review. Review holds clock/input and cannot be bypassed by raw minute advance, modal switching or repeated confirms. Manual Stay/Escape returns without simulation; forced review has no Stay and cannot dismiss. Exactly one existing DaySimulator path runs; completed state and tutorial sleep event are captured by morning autosave.
+- Save v5 persists journal/review guard, resumes manual/forced review and preserves v1–v4 fixture data. Direct/manual/forced three-night farm/weather/clock/wallet/inventory results match. Newest-save precision/tie handling is fixed so Continue selects the completed morning over its old review. Deliberately loading an older save restores that older timeline normally.
+- Native mouse/keyboard/modal, double/re-entrant confirm, safe-save, refund, copies, malformed new fields, old/golden migration, hidden/visible locale refresh and three-size layout/render checks pass. Main parse/data/headless/full renderer/main smoke pass; reference PNGs and old golden files are unchanged.
+
+Clear implementation diff:
+- Added scripts/domain/economy/day_ledger_state.gd and scripts/domain/day_end_state.gd with immediate serialize/deserialize. Added ui/day_end scene/script components, separate presenter/flow/formatting/weather-symbol helpers and ui/theme/day_end_theme.gd; generated shared Theme includes their variations.
+- Main wires day_end_flow and stores day_ledger/day_end, resets/restores them with new/load, routes day_started through the existing simulator, and suppresses mid-sleep/rollover writes. GrayBoxWorld emits a local bed request; GameClock adds an optional review hold/cutoff signal without removing old low-level APIs. No new event-bus action/autoload/input binding is added.
+- UiCoordinator registers/locks the summary, supports native focus/clicks, blocks switching behind it and limits Escape to manual cancellation. UiLayout supplies responsive sheet bounds, ChibiUiMotion includes the sheet. Other UI/world roots and public paths remain intact.
+- SaveService writes v5/migrates v4 history explicitly, preserves subsecond latest-save timestamps and resolves exact-time ties by saved day. Existing tests expecting the current save version now expect 5; all previous preservation assertions remain. New tests add actual state/behavior checks rather than replacing gameplay tests.
+- Added 25 localization keys per language, D39, schema/API/architecture/UI/scene contracts and milestone memory. PROJECT_RULES changes only its stale migration-status notice under the approved exception; locked rules remain unchanged. The owner master-plan blank line stays separate. No crop price/growth, inventory capacity, existing world scene, InputMap or third-party asset changes.
+
+Manual editor steps and tests (owner still needs to run):
+1. Open in Godot 4.7.2 and let import finish. No manual scene/Inspector wiring is required: Main constructs the new sheet from its scene wrapper and registers it with the existing modal owner. Keep scenes/main/main.tscn as the main scene; F5, New/Continue, dismiss help.
+2. Make a seed purchase and sale through the existing UI. At 20:00 or later, approach home and E to review. Use existing debug time control if needed. Confirm rows/quantities match actual transactions, total income/expense/net match cash changes, forecast matches saved tomorrow weather and planted/unwatered plots produce a truthful warning. No XP/stamina/event numbers should appear.
+3. Click Stay or Esc: clock/day/crops/coins stay unchanged and movement resumes. Reopen and click next-day twice quickly: the day increments once, crops/weather use the existing simulation once, morning is 06:00 and sleep tutorial completion is saved. Try inventory/journal/pause shortcuts and world clicks during review; none may switch or act underneath.
+4. Reach 02:00 without sleeping: forced summary has no Stay, Escape cannot dismiss it, and confirm advances once. Close/restart while reviewing both manual and forced cases; Continue must reopen the same held review. After confirming and restarting, Continue must show the new morning, never replay the previous night.
+5. Load an older save: wallet/inventory/farm/social/profile remain; today's report labels history incomplete. After the next day its fresh journal is complete. Test vi/en by changing existing Settings language while the sheet is closed, and check both locales at 1152×648, 1280×720 and 1920×1080 against docs/ui_reference/13-ket-thuc-ngay.png. Ledger scrolls; action buttons stay visible. Final art is still replaceable placeholder code/SVG, not the finished mockup texture.
+
+Run from project root:
+```powershell
+$env:GODOT = 'D:\godot\Godot_v4.7.2-stable_win64_console.exe'
+& .\tools\run_tests.bat
+# New ISO-4 behavior/domain/save/layout checks without renderer captures:
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_godot_bounded.ps1 -Godot $env:GODOT -Arguments '--headless --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_day_ledger_state.gd,res://tests/unit/test_day_end_flow.gd,res://tests/unit/test_day_end_save.gd,res://tests/unit/test_day_end_rollover.gd,res://tests/unit/test_day_end_layout.gd -gexit' -OutputPath "$env:TEMP\the_life_iso4_focus_final.log"
+```
+
+Real output, 2026-11-03 (summary excerpts, ANSI colors removed):
+```text
+[validate_data] PASS  (before ISO-3 commit)
+[master 8706dfb] feat: compose modular isometric HUD from mockup references
+[check_parse] OK
+[validate_data] PASS
+[run_tests] running domain and 2D headless tests
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             849
+Time              2.741s
+---- All tests passed! ----
+[run_tests] running COMPLETE GUT suite with graphics renderer
+Scripts              62
+Tests               195
+Passing Tests       195
+Asserts            6894
+Time              38.708s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+Focused ISO-4 headless:
+Scripts               5
+Tests                17
+Passing Tests        17
+Asserts             381
+Time              4.447s
+---- All tests passed! ----
+```
+
+Logs: %TEMP%/the_life_{headless,gut,main,validate}.log.{stdout,stderr}; focused log the_life_iso4_focus_final.log; final editor import exits 0 (the_life_iso4_final_import.log). The same three pre-existing GUT orphan Labels remain (inventory UI two, pause menu one); no new engine errors/warnings or persistent new orphans. No test was skipped/weakened, no package installed. Final English warning copy edit is followed by the dedicated renderer layout/capture check; no behavior changes follow the full runner.
+
+Render artifacts: %TEMP%/the_life_test_appdata/Godot/app_userdata/game godot/iso4_{vi,en}_{manual,partial,forced}_{1152,1280,1920}.png (18 PNGs). Visual review compared actual vi/1152 manual, en/1152 incomplete, final vi/1152 forced/rain and en/1920 manual to reference 13. Every locale/size/state has bounds/column/no-horizontal-overflow assertions. Captures use isolated test transactions through real services; these example funds are never injected into normal gameplay. Existing cursor at upper-left may appear in captures independently of the sheet.
+
+Assumptions/known limits:
+- UI assets are code/SVG placeholders with replaceable wood/paper/weather symbols. No XP, stamina, birthday/festival or numerical reward system is invented. Current tutorial offers real completed/7; warning reads current watered/withered plot flags without inventing a wither countdown. Existing growth/weather ordering is preserved for later ISO-6 work.
+- Legacy saves have no reconstructible past journal; incomplete-history note persists for that day. Journal corruption/integrity bounds can also mark it incomplete. Reporting does not change wallet or enforce new gameplay limits. Unknown item metadata displays localized generic cash reasons. Existing validation of unrelated legacy payload fields is not expanded by this task.
+- Low-level try_sleep keeps its old accelerated behavior. The new application confirm uses the existing immediate sleep_to_morning path with sleep notifications and one final safe autosave. An older snapshot intentionally restores its older timeline; replay protection is within the restored state, not anti-rollback storage outside saves.
+- Atomic saving remains the existing SaveService implementation; disk/hardware failure injection was not performed. Hardware/manual gameplay acceptance and Gates remain pending. ISO-4 is not committed/pushed; only ISO-3 was explicitly committed. Suggested commit: feat: add modular day-end summary and resumable daily ledger.
+
+Exact ISO-4 files created/modified (including Godot UID metadata):
+
+```text
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/game_clock.gd
+scripts/core/save_service.gd
+scripts/domain/day_end_state.gd
+scripts/domain/day_end_state.gd.uid
+scripts/domain/economy/day_ledger_state.gd
+scripts/domain/economy/day_ledger_state.gd.uid
+scripts/view/chibi_ui_motion.gd
+scripts/view/gray_box_world.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+tests/golden_saves/save_v5.json
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_flow.gd.uid
+tests/unit/test_day_end_layout.gd
+tests/unit/test_day_end_layout.gd.uid
+tests/unit/test_day_end_rollover.gd
+tests/unit/test_day_end_rollover.gd.uid
+tests/unit/test_day_end_save.gd
+tests/unit/test_day_end_save.gd.uid
+tests/unit/test_day_ledger_state.gd
+tests/unit/test_day_ledger_state.gd.uid
+tests/unit/test_npc_social_save.gd
+tests/unit/test_save_service.gd
+tests/unit/test_weather.gd
+ui/day_end/day_end_flow.gd
+ui/day_end/day_end_flow.gd.uid
+ui/day_end/day_end_parts.gd
+ui/day_end/day_end_parts.gd.uid
+ui/day_end/day_end_presenter.gd
+ui/day_end/day_end_presenter.gd.uid
+ui/day_end/day_end_sheet.gd
+ui/day_end/day_end_sheet.gd.uid
+ui/day_end/day_end_sheet.tscn
+ui/day_end/farm_warning.gd
+ui/day_end/farm_warning.gd.uid
+ui/day_end/farm_warning.tscn
+ui/day_end/ledger_row.gd
+ui/day_end/ledger_row.gd.uid
+ui/day_end/ledger_row.tscn
+ui/day_end/ledger_view.gd
+ui/day_end/ledger_view.gd.uid
+ui/day_end/ledger_view.tscn
+ui/day_end/tomorrow_card.gd
+ui/day_end/tomorrow_card.gd.uid
+ui/day_end/tomorrow_card.tscn
+ui/day_end/weather_symbol.gd
+ui/day_end/weather_symbol.gd.uid
+ui/theme/day_end_theme.gd
+ui/theme/day_end_theme.gd.uid
+ui/theme/the_life_theme.tres
+ui/theme/theme_factory.gd
+```
+
+## ISO-4 approved plan — day-end summary and sleep flow (2026-11-03)
+
+Owner said “oke tiếp tục”, reviewed this plan, then explicitly approved commit ISO-3 and implement ISO-4. The delivered 65-file ISO-3 set was committed as 8706dfb after a fresh validator PASS, excluding the owner's master-plan edit. The following scope is approved; D39 records implementation choices and safe-save boundaries.
+
+Pre-ISO-4 findings: WalletState serialized only coins and emitted signed deltas/reasons, with no daily journal. Shop/NPC paths contain refund/rollback changes, so counting all positive deltas as income would be wrong. SaveService wrote v4 and whitelisted top-level payloads. Clock cutoff rolled immediately while bed interaction called try_sleep; review needed a coordinated pre-rollover decision. The implementation below preserves DaySimulator as the sole farm simulation path.
 
 Plan:
 1. Add pure small day-ledger/day-end state classes with serialize/deserialize from their first implementation. Track real integer money changes by day/reason and available successful trade metadata, reverse refunds/rollbacks correctly, exclude load/starting balance from income, and compute income minus expense. Keep wallet/trade services authoritative; the report never changes coins. Old saves without history are marked incomplete rather than inventing past zero revenue.
@@ -19,7 +207,7 @@ Plan:
 4. Save the ledger and resumable day-end review state with an explicit v5 schema/migrate_4_to_5 and a new golden v5 sample; preserve v1–v4 fixtures and all previous payloads. Handle old/malformed history safely. Saving/loading a review or repeating the confirm action must not advance a day twice. Only save at safe boundaries, not halfway through rollover.
 5. Add meaningful ledger/refund/serialization/migration/corruption tests; manual versus cutoff/repeated sleep equivalence; double-click/modal/input tests; vi/en three-size renderer captures compared with reference 13. Run parse/data/headless/full renderer/main checks; update APIs/contracts/schema/progress and give manual editor steps.
 
-Proposed ALLOW_LIST (effective only after approval):
+Approved ALLOW_LIST:
 ```text
 scripts/domain/economy/day_ledger_state.{gd,gd.uid}
 scripts/domain/day_end_state.{gd,gd.uid}

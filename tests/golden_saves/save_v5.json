@@ -1,0 +1,21 @@
+{
+  "meta": {"save_version": 5, "game_version": "0.1.0", "saved_utc": 0},
+  "clock": {"day_index": 2, "minute": 1200, "season": "spring", "year": 1},
+  "player": {"position": {"x": -4.5, "y": 0, "z": 5.5}},
+  "inventory": {"capacity": 12, "slots": [{"item_id": "turnip", "quantity": 2}]},
+  "farm": {"plots": []},
+  "quests": {"completed": [true, true, false, false, false, false, false]},
+  "wallet": {"coins": 160},
+  "weather": {"world_seed": 0, "today": "sunny", "forecast": ["cloudy", "rain", "sunny"]},
+  "social": {},
+  "day_ledger": {
+    "day_index": 2,
+    "complete": true,
+    "entries": [
+      {"amount": 105, "reason": "sell_produce", "item_id": "spring_carrot", "quantity": 3},
+      {"amount": -80, "reason": "buy_seed", "item_id": "", "quantity": 0},
+      {"amount": 20, "reason": "refund", "item_id": "", "quantity": 0}
+    ]
+  },
+  "day_end": {"phase": 1, "day_index": 2, "forced": false, "last_completed_day": 1}
+}

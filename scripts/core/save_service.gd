@@ -5,7 +5,7 @@
 ##   func delete_save(slot: int = 1) -> void
 extends Node
 
-const CURRENT_VERSION: int = 4
+const CURRENT_VERSION: int = 5
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -27,7 +27,9 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"profile": payload.get("profile", {}),
 		"weather": payload.get("weather", {}),
 		"wallet": payload.get("wallet", {}),
-		"social": payload.get("social", {})
+		"social": payload.get("social", {}),
+		"day_ledger": payload.get("day_ledger", {}),
+		"day_end": payload.get("day_end", {})
 	}
 	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
 	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
@@ -81,17 +83,24 @@ func has_save(slot: int = 1) -> bool:
 
 func load_latest() -> Dictionary:
 	var latest: Dictionary = {}
-	var latest_time: int = -1
+	var latest_time: float = -1.0
+	var latest_day: int = -1
 	for slot: int in [0, 1]:
 		var payload: Dictionary = load_game(slot)
 		if payload.is_empty():
 			continue
 		var metadata: Dictionary = payload.get("meta", {})
-		var saved_utc: int = int(metadata.get("saved_utc", 0))
+		var raw_utc: Variant = metadata.get("saved_utc",0)
+		var saved_utc: float = float(raw_utc) if (raw_utc is int or raw_utc is float) and is_finite(float(raw_utc)) else 0.0
 		if not metadata.has("saved_utc"):
 			saved_utc = int(metadata.get("saved_at", "0").hash())
-		if saved_utc >= latest_time:
+		var raw_clock: Variant = payload.get("clock",{})
+		var day: int = DayLedgerState.number(raw_clock.get("day_index",0)) if raw_clock is Dictionary else 0
+		# Keep subsecond precision; a completed morning wins an exact timestamp tie
+		# with the preceding review. Otherwise Continue can replay the old night.
+		if saved_utc > latest_time or (saved_utc == latest_time and day >= latest_day):
 			latest_time = saved_utc
+			latest_day = day
 			latest = payload
 	return latest
 
@@ -126,6 +135,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated["wallet"] = migrated.get("wallet", {"coins": 100})
 	if version <= 3:
 		migrated = migrate_3_to_4(migrated)
+	if version <= 4:
+		migrated = migrate_4_to_5(migrated)
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -142,6 +153,15 @@ func migrate_3_to_4(data: Dictionary) -> Dictionary:
 		migrated["social"] = {}
 	else:
 		migrated["social"] = migrated.get("social", {})
+	return migrated
+
+func migrate_4_to_5(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var clock: Variant = migrated.get("clock",{})
+	var day: int = maxi(0,DayLedgerState.number(clock.get("day_index",0))) if clock is Dictionary else 0
+	# Existing balances are real; past transaction history was never saved.
+	migrated["day_ledger"] = {"day_index":day,"complete":false,"entries":[]}
+	migrated["day_end"] = {"phase":0,"day_index":day-1,"forced":false,"last_completed_day":day-1}
 	return migrated
 
 func _save_path(slot: int) -> String:

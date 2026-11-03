@@ -2,6 +2,8 @@
 
 Approved by owner: “Duyệt ISO-3, bắt đầu triển khai”. All new files below are under `ui/hud/`. Main keeps existing direct public node paths and view APIs; thin adapters delegate to the new views. No domain or save state moves into UI.
 
+ISO-4 registers DayEndSheet with the same modal owner. During summary review the interactive HUD is hidden, result toasts follow existing modal suppression, and world input is locked. LifeDayEndFlow owns domain journal/guard states; the sheet/presenter only display them. Clock/coins/quest/toolbar APIs and Main's existing paths remain compatible. See day_end.md.
+
 | Scene/script | Responsibility / runtime children |
 |---|---|
 | hud_root / LifeHudRoot | non-interactive full-rect shell; RightColumn VBox -> ClockCard, WalletFrame/CoinLabel; ToastStack |

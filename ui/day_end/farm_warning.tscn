@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/day_end/farm_warning.gd" id="1"]
+[node name="FarmWarning" type="PanelContainer"]
+script = ExtResource("1")

@@ -18,6 +18,8 @@ Status: ISO-1 active scenes are now 2D (D36). The legacy architecture tables/sav
 
 ## 1. Layers and dependency direction
 
+ISO-4 boundary (D39): Main owns LifeDayEndFlow, which holds pure DayLedgerState/DayEndState and a read-only modular sheet. The flow observes existing wallet deltas/trade metadata and never spends/grants coins. Bed requests or GameClock's cutoff signal open one modal review and hold the clock. Confirm is latched through the existing sleep_to_morning -> Main.day_started -> DaySimulator path, emits existing sleep notifications and autosaves only after completion. No new autoload, bus signal or InputMap action.
+
 ISO-3 active HUD (D38): Main wires a `LifeHudPresenter` to a `LifeHudRoot` and the existing HUD adapters. `LifeHudRegions` handles anchors independently of bindings. Dedicated clock/arc, pinned checklist, eight-slot toolbar/slot, shortcut bar and toast stack/card scripts supply small reusable views under `ui/hud/`. World remains CanvasLayer 0; Main HUD layer 1; existing interaction layer 2; modal backdrop/panels use z80/81 and supported transaction-result toasts z82. Existing Main direct paths and Label text adapters remain compatible while their obsolete visual surfaces are hidden. No UI owns coins, inventory, weather, tutorial completion or simulation. B now opens inventory; `open_build` remains as an unbound action ID. No new domain system/autoload/save field is introduced.
 
 ISO-2 implemented UI foundation (D37): `ui/theme/the_life_theme.tres` is the project GUI theme and the same resource is assigned to active Main panels, world labels and the standalone gallery. `LifeTheme` is a VIEW resource accessor; `LifeThemeFactory` and `tools/build_ui_theme.gd` are offline tooling, never a new autoload. `ui/components/` contains native Controls with read-only display setters and request signals. Consumers remain responsible for validating requests through existing services. Gallery examples own no domain state and never save. Body/headings/secondary fonts are Nunito 600, Baloo 2 800 and Noto Serif Italic 400 with Open Sans fallback. Existing C4 geometry, modal ownership, InputMap, autoload order and save v4 are unchanged; final artwork and ISO-3 onward remain separate tasks.
@@ -122,6 +124,8 @@ Triggered by: sleeping, reaching 02:00, or (later) offline catch-up calling it N
 Invariant (tested): `simulate_day` called N times in a row == N nights of sleeping.
 
 ## 6. Save format (JSON, `user://saves/slot_N.json`)
+
+Actual format is v5; the older sketch below is historical target context. v5 adds day_ledger/day_end (DATA_SCHEMA), keeping wallet/inventory/farm/quests/profile/weather/social and legacy player.position.x/y/z. Migration creates incomplete history rather than fictitious prior transactions. Review can be saved/restored with its clock hold; advancing is never written halfway through live rollover. Restore reconciles old/new-day snapshots. Atomic writes/backups remain; latest-save selection uses fractional time and later-day tie breaking. See D39 and v1–v5 goldens.
 
 ```json
 {

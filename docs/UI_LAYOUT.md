@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-4 active day-end sheet (2026-11-03, D39)
+
+Reference 13 is composed by small ui/day_end views: centered wood/paper sheet, blue title, scrolling ledger/totals on the left, actual next-day date/forecast/tutorial completion on the right, green next-day and manual-stay buttons, and an unwatered-crop warning. Separate presenter/flow classes bind real state. No example income, XP/stamina/event data is shown; SVG/code placeholder artwork remains replaceable.
+
+Reachable bedtime interaction or 02:00 cutoff opens the existing modal lock. Review holds the clock/hides interactive HUD. Manual Stay/Escape returns without simulation; forced cutoff hides Stay and ignores dismissal. Confirm runs one existing rollover and autosaves the completed morning. Restored reviews reopen held; confirmation cannot run twice. Ledger scrolls independently of fixed action buttons. Captions refresh in vi/en while hidden/visible; manual, incomplete-history and forced/rain-preview states are renderer-checked at three sizes against reference 13.
+
 ## ISO-3 active layout (2026-11-03, D38)
 
 This section supersedes the historical C4 HUD region geometry below. Reference targets are `03-trong-game-ban-ngay.png` and `04-trong-game-dem-mua.png`. New UI is split into small scene/script pairs under `ui/hud/`: clock/weather card + time arc, pinned checklist, toolbar + slot, round shortcut bar, toast stack + card, with separate root/presenter/region/decoration helpers. Main supplies wiring; UiCoordinator retains sole modal ownership; UiLayout retains existing modal rectangles and delegates HUD anchors to LifeHudRegions.
