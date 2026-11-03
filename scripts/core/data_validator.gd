@@ -50,8 +50,8 @@ static func validate_isometric_world_config(config: IsometricWorldConfig) -> Pac
 	if config == null:
 		errors.append("isometric world config is missing")
 		return errors
-	if config.tile_size != Vector2i(64, 32):
-		errors.append("isometric tile size must be 64x32")
+	if config.tile_size != Vector2i(128, 64):
+		errors.append("isometric tile size must be 128x64")
 	if config.map_region.size.x <= 0 or config.map_region.size.y <= 0 or config.player_region.size.x <= 0 or config.player_region.size.y <= 0:
 		errors.append("isometric map/player regions must be positive")
 	if config.interaction_reach <= 0 or config.camera_follow_speed <= 0:

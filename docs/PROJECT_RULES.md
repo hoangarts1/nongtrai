@@ -146,7 +146,7 @@ Bad patterns:
 
 - Collision layer names/numbers come only from `docs/COLLISION_LAYERS.md`. Input actions come only from `docs/INPUT_MAP.md`. Both must match `project.godot`.
 - Movement is screen-relative with `CharacterBody2D`; normalize the input vector, then multiply its vertical component by 0.5 for the isometric view. Do not normalize again after vertical compression. The diagonal speed must match cardinal speed in the uncompressed movement space. Use `move_and_slide()` without arguments. `Camera2D` has no yaw/pitch or free rotation.
-- World presentation uses Ground and Farmland `TileMapLayer` nodes, an Objects `Node2D` with y-sorting, and a Highlight overlay. The TileSet uses 64×32 px isometric tiles. Tall sprites have ground-level sort origins.
+- World presentation uses Ground and Farmland `TileMapLayer` nodes, an Objects `Node2D` with y-sorting, and a Highlight overlay. The active imported ground TileSet uses 128×64 px isometric tiles at Camera2D zoom0.5. Tall sprites have ground-level sort origins.
 - Gameplay input goes through `_unhandled_input` so UI can consume events first. Never read raw keys (`KEY_W`) in gameplay.
 
 ## 13. Localization

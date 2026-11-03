@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/data/isometric_world_config.gd" id="1"]
 [resource]
 script = ExtResource("1")
-tile_size = Vector2i(64, 32)
+tile_size = Vector2i(128, 64)
 map_region = Rect2i(-12, -12, 27, 27)
 player_region = Rect2i(-10, -10, 22, 22)
 spawn_cell = Vector2i(3, 3)
@@ -12,8 +12,8 @@ shipping_bin_cell = Vector2i(5, 10)
 shop_cell = Vector2i(-2, 7)
 debug_home_cell = Vector2i(11, 8)
 interaction_reach = 2.5
-zoom_levels = PackedFloat32Array(0.85, 1.0, 1.25)
-zoom_index = 1
+zoom_levels = PackedFloat32Array(0.5, 0.75, 1.0)
+zoom_index = 0
 camera_follow_speed = 6.0
 camera_center_min = Vector2(-128, -48)
 camera_center_max = Vector2(128, 192)

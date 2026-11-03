@@ -1,12 +1,48 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-11 committed 962bba9; next ISO plan pending approval)
+Last updated: 2026-11-03 (ISO-12 automated acceptance delivered; human editor acceptance pending)
 
-## Proposed next scope — new asset/UI/crop ISO sequence (NOT APPROVED)
+## Approved task — ISO-12 imported 2D ground/assets (automated acceptance delivered)
 
-Owner decisions recorded in D49: use the supplied 128×64 ground atlas with Camera2D zoom0.5; Baloo 2 + Nunito with Open Sans fallback; Monday-start seven-day weeks, 28-day seasons and 06:00 wake time; the confirmed B/J/K/M/H/Escape, 1–8, E, Q/E, F, Z and T bindings; one-cell perennials; the supplied CropData balance table; and the approved wither/recovery/death rules. ISO-11 is complete in commit `962bba9`; the focused quest-book tests pass. The full harness is currently blocked by unrelated worktree deletion of `ui/ui_gallery.gd`, which is intentionally excluded from that commit.
+Owner approved ISO-12 after commit `11d488e` of the planning documents. D50 authorizes restoring the accidentally deleted `ui/ui_gallery.gd`, importing only `tiles`, `decor` and `objects` into the root `assets/` directories, using the 128×64 atlas at Camera2D zoom0.5, replacing the generated placeholder ground at runtime, and selecting grass variants from a stable coordinate hash. ISO-11 is complete in commit `962bba9`. Implementation is ready to commit; human editor/render acceptance remains pending.
 
-The following is a plan only. No implementation, asset import, InputMap edit or gameplay-data change is authorized until the owner approves this scope and the per-step allow list:
+### ISO-12 ALLOW_LIST
+
+~~~text
+assets/tiles/**
+assets/decor/**
+assets/objects/**
+data/isometric_world_config.tres
+scripts/data/isometric_world_config.gd
+scripts/core/data_validator.gd
+scripts/view/gray_box_world.gd
+tests/unit/test_isometric_migration.gd
+tests/unit/test_ui_gallery.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+docs/PROJECT_RULES.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+ui/ui_gallery.gd
+ui/ui_gallery.gd.uid
+~~~
+
+The existing nested source bundle under `assets/the_life_assets/` is retained. No crop, rock, grass-clump, scene, InputMap, save, domain or interaction changes are authorized by ISO-12.
+
+### ISO-12 acceptance record
+
+- Imported root assets: 114 files under `assets/tiles/`, `assets/decor/` and `assets/objects/`; source bundle retained.
+- Runtime no longer generates placeholder ground pixels. The imported 128×64 Diamond Down TileSet is shared by Ground/Farmland; cell-based hash selection covers atlas row 0, with Highlight unchanged.
+- Restored `ui/ui_gallery.gd` and `ui/ui_gallery.gd.uid`; the gallery test uses an explicit preload so the full GUT collector resolves it deterministically.
+- `godot --headless --path . --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Focused migration/farm layout tests: PASS.
+- Official harness headless: 63/63 tests, 884 asserts, PASS.
+- Full graphics GUT diagnostic run (300s bound): 290/290 tests, 14,264 asserts, PASS in 179.475s. The repository harness's 180s wrapper was reached during one run after the suite crossed its boundary; the completed diagnostic run stayed within 180s.
+- No gameplay/domain/save/InputMap changes; no placeholder source files were deleted.
+
+## Proposed later scope — ISO-13–17 (not approved)
 
 1. **ISO-12 ground/assets:** inspect the supplied files, validate/rebuild the 128×64 Isometric TileSet, preserve placeholders, and wire deterministic ground/decor presentation.
 2. **ISO-13 theme/HUD:** verify fonts and diacritics, then align existing native UI/HUD components to the selected tokens without adding unsupported state.

@@ -33,7 +33,7 @@ func test_active_tree_is_2d_with_shared_isometric_grid_and_sort_origins() -> voi
 	assert_eq(_count_3d(main),0,"Archived 3D art cannot enter active gameplay")
 	assert_true(main.world.player is CharacterBody2D)
 	assert_eq(main.world.camera.get_parent(),main.world.player)
-	assert_eq(main.world.ground.tile_set.tile_size,Vector2i(64,32))
+	assert_eq(main.world.ground.tile_set.tile_size,Vector2i(128,64))
 	assert_eq(main.world.ground.tile_set.tile_shape,TileSet.TILE_SHAPE_ISOMETRIC)
 	assert_eq(main.world.ground.tile_set.tile_layout,TileSet.TILE_LAYOUT_DIAMOND_DOWN)
 	assert_eq(main.world.farmland.tile_set,main.world.ground.tile_set)
@@ -49,7 +49,7 @@ func test_negative_cell_round_trips_survive_camera_zoom_pan_and_layer_transform(
 	var main: Node = _game()
 	var cells: Array[Vector2i] = [Vector2i(-7,-3),Vector2i(-1,0),Vector2i.ZERO,Vector2i(5,5),Vector2i(11,10)]
 	main.world.camera_rig.set_process(false)
-	for zoom: float in [0.85,1.0,1.25]:
+	for zoom: float in [0.5,0.75,1.0]:
 		main.world.camera.zoom = Vector2.ONE * zoom
 		main.world.camera.global_position = Vector2(41,-27)
 		main.world.ground.position = Vector2(17,9)
@@ -65,6 +65,16 @@ func test_negative_cell_round_trips_survive_camera_zoom_pan_and_layer_transform(
 			event.position = screen_point
 			_viewport.push_input(event,true)
 			assert_eq(main.world.grid.mouse_cell(),cell)
+
+func test_ground_uses_imported_atlas_variants_without_grid_lines() -> void:
+	var main: Node = _game()
+	await get_tree().process_frame
+	assert_eq(main.world.ground.tile_set.resource_path,"res://assets/tiles/tileset/ground_tileset_128x64.tres")
+	assert_eq(main.world.ground.get_cell_source_id(Vector2i(-12,-12)),0)
+	var atlas_coords: Vector2i = main.world.ground.get_cell_atlas_coords(Vector2i(-12,-12))
+	assert_true(atlas_coords.x >= 0 and atlas_coords.x <= 7)
+	assert_eq(atlas_coords.y,0)
+	assert_eq(main.world.ground.get_cell_source_id(Vector2i(14,14)),0)
 
 func test_ui_stays_fixed_while_camera_moves_the_world() -> void:
 	var main: Node = _game()

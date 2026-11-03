@@ -19,7 +19,7 @@ Path remains `scenes/world/gray_box_world.tscn`, script `scripts/view/gray_box_w
 ```text
 GrayBoxWorld (Node2D)
 ├─ WorldCanvas (CanvasLayer)                  layer 0; follow_viewport_enabled = true
-│  ├─ Ground (TileMapLayer)                   %Ground; z -20; y-sort; 64×32 isometric Diamond Down
+│  ├─ Ground (TileMapLayer)                   %Ground; z -20; y-sort; 128×64 isometric Diamond Down; Camera2D zoom0.5
 │  ├─ Farmland (TileMapLayer)                 %Farmland; z -10; y-sort; shared TileSet/origin
 │  │  └─ Cell_<x>_<y> (Polygon2D, runtime)    furrows/moisture only
 │  ├─ Objects (Node2D)                       %Objects; y-sort; grounded roots

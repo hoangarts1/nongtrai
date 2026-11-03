@@ -1,5 +1,6 @@
 extends GutTest
 
+const UI_GALLERY_SCRIPT: GDScript = preload("res://ui/ui_gallery.gd")
 var _locale: String
 var _paused: bool
 
@@ -13,7 +14,7 @@ func after_each() -> void:
 	GameClock.paused = _paused
 
 func test_gallery_contains_every_section_and_no_gameplay_world() -> void:
-	var gallery: LifeUiGallery = preload("res://ui/ui_gallery.tscn").instantiate() as LifeUiGallery
+	var gallery: Variant = preload("res://ui/ui_gallery.tscn").instantiate()
 	add_child_autofree(gallery)
 	await get_tree().process_frame
 	for id: String in ["buttons","slots","tokens","inputs","badges","fonts","icons","frame","tabs"]:
@@ -32,7 +33,7 @@ func test_gallery_fits_three_sizes_in_both_locales_and_captures_all_scroll_regio
 			viewport.world_2d = World2D.new()
 			viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 			add_child(viewport)
-			var gallery: LifeUiGallery = preload("res://ui/ui_gallery.tscn").instantiate() as LifeUiGallery
+			var gallery: Variant = preload("res://ui/ui_gallery.tscn").instantiate()
 			viewport.add_child(gallery)
 			for frame: int in range(5):
 				await get_tree().process_frame

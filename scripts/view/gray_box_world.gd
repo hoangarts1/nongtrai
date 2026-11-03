@@ -8,6 +8,7 @@ class_name GrayBoxWorld
 extends Node2D
 
 const CONFIG: IsometricWorldConfig = preload("res://data/isometric_world_config.tres")
+const GROUND_TILE_SET: TileSet = preload("res://assets/tiles/tileset/ground_tileset_128x64.tres")
 signal shipping_bin_interacted()
 signal seed_shop_interacted()
 signal bed_requested()
@@ -49,34 +50,21 @@ func _ready() -> void:
 	_apply_day_night(GameClock.minute)
 
 func _build_tiles() -> void:
-	var tiles: TileSet = TileSet.new()
-	tiles.tile_size = CONFIG.tile_size
-	tiles.tile_shape = TileSet.TILE_SHAPE_ISOMETRIC
-	tiles.tile_layout = TileSet.TILE_LAYOUT_DIAMOND_DOWN
-	var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
-	atlas.texture_region_size = CONFIG.tile_size
-	var texture_image: Image = Image.create(CONFIG.tile_size.x * 4, CONFIG.tile_size.y, false, Image.FORMAT_RGBA8)
-	texture_image.fill(Color.TRANSPARENT)
-	var colors: Array[Color] = [CONFIG.ground_color, CONFIG.dry_soil_color, CONFIG.wet_soil_color, CONFIG.ground_color.darkened(0.12)]
-	for tile_index: int in range(colors.size()):
-		for y: int in range(CONFIG.tile_size.y):
-			for x: int in range(CONFIG.tile_size.x):
-				var diamond_distance: float = absf((float(x) + 0.5) / float(CONFIG.tile_size.x) * 2.0 - 1.0) + absf((float(y) + 0.5) / float(CONFIG.tile_size.y) * 2.0 - 1.0)
-				if diamond_distance <= 1.0:
-					var color: Color = colors[tile_index]
-					if diamond_distance > 0.92:
-						color = color.darkened(0.10)
-					texture_image.set_pixel(tile_index * CONFIG.tile_size.x + x, y, color)
-	atlas.texture = ImageTexture.create_from_image(texture_image)
-	for tile_index: int in range(colors.size()):
-		atlas.create_tile(Vector2i(tile_index, 0))
-	tiles.add_source(atlas, 0)
-	ground.tile_set = tiles
-	farmland.tile_set = tiles
+	ground.tile_set = GROUND_TILE_SET
+	farmland.tile_set = GROUND_TILE_SET
 	for y: int in range(CONFIG.map_region.position.y, CONFIG.map_region.end.y):
 		for x: int in range(CONFIG.map_region.position.x, CONFIG.map_region.end.x):
-			ground.set_cell(Vector2i(x, y), 0, Vector2i.ZERO)
+			var cell: Vector2i = Vector2i(x, y)
+			ground.set_cell(cell, 0, _ground_variant(cell))
 	ground.update_internals()
+
+func _ground_variant(cell: Vector2i) -> Vector2i:
+	var bucket: int = absi(cell.x * 92837111 + cell.y * 689287499 + 12345) % 100
+	if bucket < 85:
+		return Vector2i(bucket % 6, 0)
+	if bucket < 95:
+		return Vector2i(6 + (bucket % 2), 0)
+	return Vector2i((bucket - 95) % 6, 0)
 
 func _build_obstacles() -> void:
 	var locations: WorldLocations = (preload("res://data/npcs/phase8_world.tres") as NpcWorldData).locations

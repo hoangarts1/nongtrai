@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## ISO-12 ground/assets APIs (2026-11-03, D50)
+
+- `GrayBoxWorld._build_tiles()` assigns the imported `res://assets/tiles/tileset/ground_tileset_128x64.tres` to Ground and Farmland. `_ground_variant(cell: Vector2i) -> Vector2i` deterministically selects the atlas grass/flower row-0 variant from the logical cell; no gameplay state or save field is added.
+- `IsometricWorldConfig.tile_size` is `Vector2i(128, 64)` and its default camera zoom is `0.5`; `IsometricGrid` remains the only projection adapter using `TileMapLayer.map_to_local()` / `local_to_map()`. Highlight remains the only hover-cell visualization.
+- Imported ISO-12 asset roots are `assets/tiles/`, `assets/decor/` and `assets/objects/`; the nested source bundle remains retained. See `SCENE_CONTRACTS/gray_box_world.md`.
+
 ## ISO-11 Quest book APIs (2026-11-03, D48)
 
 - Existing Main/NpcJournal remains NpcPanel; enable_quest_book(main: Node)/show_quest_book() -> void add journal-only book: LifeQuestBook and book_controller: LifeQuestBookController. tabs references book.tabs; legacy margin is hidden, existing column/title_label/close_button/show_content/enable_tabs/close_requested stay for dialogue/standalone callers. Dialogue action selectors remain unchanged. NpcSystem.open_journal keeps guards/lock/fallback; InventoryController.attach_main enables the book before connecting tabs. Main resets transient UI on New Game/load/title.
@@ -551,4 +557,3 @@ Format:
 - `ChibiWorldBuilder` and `tools\build_chibi_world.bat` reproducibly generate 21 grounded world/building/prop/critter scenes plus `assets/generated/models/world/manifest.json`; `ChibiMeshAudit` enforces the existing C0 budgets.
 - `tools\art_review_world.bat` writes five normal-renderer seasonal/day-night/four-angle contact sheets and invokes `tools\capture_chibi_world.bat` for a real-main-scene image. The private `--capture-chibi-world` argument is review-only, reads/writes no slot and exits after its image.
 - `DataValidator.validate_world_art_catalog_path(path)` validates the C3 catalog in the normal data gate. C3 tests additionally lock safe passive placements, anchor/marker transforms, seasonal effect cap, material readability and review layout.
-

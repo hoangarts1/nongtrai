@@ -2,7 +2,7 @@
 class_name IsometricWorldConfig
 extends Resource
 
-@export var tile_size: Vector2i = Vector2i(64, 32)
+@export var tile_size: Vector2i = Vector2i(128, 64)
 @export var map_region: Rect2i = Rect2i(-12, -12, 27, 27)
 @export var player_region: Rect2i = Rect2i(-10, -10, 22, 22)
 @export var spawn_cell: Vector2i = Vector2i(3, 3)
@@ -11,8 +11,8 @@ extends Resource
 @export var shop_cell: Vector2i = Vector2i(-2, 7)
 @export var debug_home_cell: Vector2i = Vector2i(11, 8)
 @export var interaction_reach: float = 2.5
-@export var zoom_levels: PackedFloat32Array = PackedFloat32Array([0.85, 1.0, 1.25])
-@export var zoom_index: int = 1
+@export var zoom_levels: PackedFloat32Array = PackedFloat32Array([0.5, 0.75, 1.0])
+@export var zoom_index: int = 0
 @export var camera_follow_speed: float = 6.0
 @export var camera_center_min: Vector2 = Vector2(-128, -48)
 @export var camera_center_max: Vector2 = Vector2(128, 192)
