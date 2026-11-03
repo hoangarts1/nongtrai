@@ -4,9 +4,10 @@
 ##   func load_game(slot: int = 1) -> Dictionary
 ##   func delete_save(slot: int = 1) -> void
 ##   func migrate_5_to_6(data: Dictionary) -> Dictionary
+##   func migrate_6_to_7(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 6
+const CURRENT_VERSION: int = 7
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -140,6 +141,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_4_to_5(migrated)
 	if version <= 5:
 		migrated = migrate_5_to_6(migrated)
+	if version <= 6:
+		migrated = migrate_6_to_7(migrated)
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -177,6 +180,17 @@ func migrate_5_to_6(data: Dictionary) -> Dictionary:
 	var old_capacity: int = DayLedgerState.number(inventory.get("capacity",0))
 	inventory["capacity"] = maxi(InventoryState.CONFIG.default_capacity,old_capacity)
 	migrated["inventory"] = inventory
+	return migrated
+
+func migrate_6_to_7(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var farm: Variant = migrated.get("farm", {})
+	var plots: Variant = farm.get("plots", []) if farm is Dictionary else []
+	if plots is Array:
+		for entry: Variant in plots:
+			if entry is Dictionary and not entry.has("consecutive_dry_days"):
+				# Old saves contain no evidence of missed care; never invent it.
+				entry["consecutive_dry_days"] = 0
 	return migrated
 
 func _rotate_backups(save_path: String) -> void:

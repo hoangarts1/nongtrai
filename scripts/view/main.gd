@@ -183,11 +183,14 @@ func _ready() -> void:
 		call_deferred("_capture_chibi_ui")
 
 func _on_day_started(_day_index: int) -> void:
-	weather_state.call("advance_day", GameClock.day_index)
-	farm_state.mark_out_of_season()
+	# Finish yesterday's care before tomorrow's rain can touch the plots.
 	if bool(weather_state.call("is_rainy")):
 		farm_state.water_all_crops()
 	day_simulator.call("simulate_day", farm_state)
+	farm_state.mark_out_of_season()
+	weather_state.call("advance_day", GameClock.day_index)
+	if bool(weather_state.call("is_rainy")):
+		farm_state.water_all_crops()
 	day_end_flow.on_morning(_day_index)
 	if not day_end_flow.is_advancing():
 		_save_game_to_slot(0)

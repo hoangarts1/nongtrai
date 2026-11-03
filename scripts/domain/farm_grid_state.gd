@@ -6,6 +6,7 @@
 ##   func advance_day() -> void
 ##   func can_harvest(cell: Vector2i) -> bool
 ##   func harvest_cell(cell: Vector2i) -> Dictionary
+##   func get_dry_days_remaining(cell: Vector2i) -> int
 ##   func serialize() -> Dictionary
 ##   func deserialize(data: Dictionary) -> void
 class_name FarmGridState
@@ -30,6 +31,7 @@ func till_cell(cell: Vector2i) -> bool:
 			"crop_id": &"",
 			"growth_days": 0,
 			"watered": false,
+			"consecutive_dry_days": 0,
 			"withered": false
 		}
 	if bool(plot.get("tilled", false)):
@@ -56,6 +58,7 @@ func plant_crop(cell: Vector2i, crop_id: StringName) -> bool:
 	plot["crop_id"] = crop_id
 	plot["growth_days"] = 0
 	plot["watered"] = false
+	plot["consecutive_dry_days"] = 0
 	plot["withered"] = false
 	_plots[cell] = plot
 	plot_changed.emit(cell)
@@ -67,11 +70,12 @@ func water_cell(cell: Vector2i) -> bool:
 	if plot.is_empty() or not bool(plot.get("tilled", false)):
 		return false
 	var crop_id: StringName = plot.get("crop_id", &"")
-	if crop_id == &"":
+	if crop_id == &"" or bool(plot.get("withered", false)):
 		return false
 	if bool(plot.get("watered", false)):
 		return false
 	plot["watered"] = true
+	plot["consecutive_dry_days"] = 0
 	_plots[cell] = plot
 	plot_changed.emit(cell)
 	Events.plot_watered.emit(cell)
@@ -110,20 +114,26 @@ func advance_day() -> void:
 		if not bool(plot.get("tilled", false)):
 			continue
 		var crop_id: StringName = plot.get("crop_id", &"")
-		if crop_id == &"":
+		if crop_id == &"" or bool(plot.get("withered", false)):
 			continue
 		var crop_data: Resource = DataRegistry.get_crop(crop_id)
 		if crop_data == null:
 			continue
-		if bool(plot.get("watered", false)):
+		var needs_water: bool = int(crop_data.get("water_need")) > 0
+		if bool(plot.get("watered", false)) or not needs_water:
 			plot["growth_days"] = int(plot.get("growth_days", 0)) + 1
+			plot["consecutive_dry_days"] = 0
+		else:
+			var limit: int = int(crop_data.get("max_consecutive_dry_days"))
+			plot["consecutive_dry_days"] = mini(limit, int(plot.get("consecutive_dry_days", 0)) + 1)
+			plot["withered"] = limit > 0 and int(plot["consecutive_dry_days"]) >= limit
 		plot["watered"] = false
 		_plots[cell] = plot
 		plot_changed.emit(cell)
 
 func can_harvest(cell: Vector2i) -> bool:
 	var plot: Dictionary = _plots.get(cell, {})
-	if plot.is_empty():
+	if plot.is_empty() or bool(plot.get("withered", false)):
 		return false
 	var crop_id: StringName = plot.get("crop_id", &"")
 	if crop_id == &"":
@@ -142,6 +152,13 @@ func get_growth_remaining(cell: Vector2i) -> int:
 	if crop_data == null:
 		return 0
 	return maxi(0, int(crop_data.get("growth_days")) - int(plot.get("growth_days", 0)))
+
+func get_dry_days_remaining(cell: Vector2i) -> int:
+	var plot: Dictionary = _plots.get(cell, {})
+	var crop: CropData = DataRegistry.get_crop(plot.get("crop_id", &"")) as CropData
+	if crop == null or crop.water_need <= 0 or bool(plot.get("withered", false)):
+		return 0
+	return maxi(0, crop.max_consecutive_dry_days - int(plot.get("consecutive_dry_days", 0)))
 
 func get_harvest_payload(cell: Vector2i) -> Dictionary:
 	if not can_harvest(cell):
@@ -178,25 +195,51 @@ func serialize() -> Dictionary:
 			"crop_id": String(plot.get("crop_id", &"")),
 			"growth_days": int(plot.get("growth_days", 0)),
 			"watered": bool(plot.get("watered", false)),
+			"consecutive_dry_days": int(plot.get("consecutive_dry_days", 0)),
 			"withered": bool(plot.get("withered", false))
 		})
 	return {"plots": entries}
 
 func deserialize(data: Dictionary) -> void:
-	_plots.clear()
-	for entry: Dictionary in data.get("plots", []):
-		var cell: Vector2i = Vector2i(
-			int(entry.get("cell_x", 0)),
-			int(entry.get("cell_y", 0))
-		)
-		var crop_id: StringName = StringName(entry.get("crop_id", ""))
+	var entries: Variant = data.get("plots", [])
+	if not entries is Array:
+		push_warning("FarmGridState: malformed plots retained previous farm")
+		return
+	var restored: Dictionary = {}
+	for entry: Variant in entries:
+		if not entry is Dictionary:
+			push_warning("FarmGridState: invalid plot ignored")
+			continue
+		var id: Variant = entry.get("crop_id", "")
+		if not (id is String or id is StringName) or not _valid_integer(entry.get("cell_x", 0)) or not _valid_integer(entry.get("cell_y", 0)) or not _valid_integer(entry.get("growth_days", 0)):
+			push_warning("FarmGridState: invalid plot fields ignored")
+			continue
+		var crop_id: StringName = StringName(id)
+		var crop: CropData = DataRegistry.get_crop(crop_id) as CropData
+		if not crop_id.is_empty() and crop == null:
+			push_warning("FarmGridState: unknown crop ignored")
+			continue
+		var cell: Vector2i = Vector2i(int(entry.get("cell_x", 0)), int(entry.get("cell_y", 0)))
+		var limit: int = crop.max_consecutive_dry_days if crop != null and crop.water_need > 0 else 0
+		var dry: int = _dry_count(entry.get("consecutive_dry_days", 0), limit)
 		var plot: Dictionary = {
-			"tilled": bool(entry.get("tilled", false)),
+			"tilled": entry.get("tilled", false) == true,
 			"crop_id": crop_id,
-			"growth_days": int(entry.get("growth_days", 0)),
-			"watered": bool(entry.get("watered", false)),
-			"withered": bool(entry.get("withered", false))
+			"growth_days": maxi(0, int(entry.get("growth_days", 0))),
+			"watered": entry.get("watered", false) == true,
+			"consecutive_dry_days": dry,
+			"withered": entry.get("withered", false) == true or (limit > 0 and dry >= limit)
 		}
 		if plot["tilled"] or not StringName(plot["crop_id"]).is_empty():
-			_plots[cell] = plot
+			restored[cell] = plot
+	_plots = restored
 	plot_changed.emit(Vector2i())
+
+static func _valid_integer(value: Variant) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and float(value) == floorf(float(value)) and float(value) >= -2147483648.0 and float(value) <= 2147483647.0
+
+static func _dry_count(value: Variant, limit: int) -> int:
+	if not (value is int or value is float) or not is_finite(float(value)) or float(value) != floorf(float(value)):
+		push_warning("FarmGridState: invalid dry counter defaults to zero")
+		return 0
+	return int(clampf(float(value), 0.0, float(limit)))

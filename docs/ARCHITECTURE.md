@@ -102,6 +102,8 @@ Add a row BEFORE emitting a new bus signal.
 
 ## 5. Day simulation order (fixed — `DaySimulator.simulate_day(world)`)
 
+ISO-6a implemented adapter (D41): the existing GameClock.day_started callback already has the next day index. Main resolves the finished day using its stored plot water and outgoing WeatherState.today, invokes DaySimulator exactly once, marks new-season withering, advances WeatherState, then applies new-morning rain to survivors. Care counters persist in FarmGridState; no simulation is added to views or review/cancel. This corrects the previous new-rain-before-old-day order while retaining the existing sleep/clock/guard path. The larger future world simulation sketch below remains a target, not implemented animal/machine/director APIs.
+
 Triggered by: sleeping, reaching 02:00, or (later) offline catch-up calling it N times.
 
 1. Lock input, fade out.
@@ -125,7 +127,7 @@ Invariant (tested): `simulate_day` called N times in a row == N nights of sleepi
 
 ## 6. Save format (JSON, `user://saves/slot_N.json`)
 
-Actual format is v6; v6 floors player inventory capacity to configured 40, preserves larger capacities/all stacks/previous fields, and adds metadata-driven modular inventory views (D40; v1–v6 goldens). InventoryActions is stateless; InventoryState owns item mutations, views own transient selection/filter/confirmation. Existing journal shares the supported tab header. No new autoload. the older sketch below is historical target context. v5 adds day_ledger/day_end (DATA_SCHEMA), keeping wallet/inventory/farm/quests/profile/weather/social and legacy player.position.x/y/z. Migration creates incomplete history rather than fictitious prior transactions. Review can be saved/restored with its clock hold; advancing is never written halfway through live rollover. Restore reconciles old/new-day snapshots. Atomic writes/backups remain; latest-save selection uses fractional time and later-day tie breaking. See D39 and v1–v5 goldens.
+Actual format is v7; v7 adds per-plot consecutive_dry_days with unknown old history defaulting to 0 (D41, v1–v7 goldens); v6 floors player inventory capacity to configured 40, preserves larger capacities/all stacks/previous fields, and adds metadata-driven modular inventory views (D40; v1–v6 goldens). InventoryActions is stateless; InventoryState owns item mutations, views own transient selection/filter/confirmation. Existing journal shares the supported tab header. No new autoload. the older sketch below is historical target context. v5 adds day_ledger/day_end (DATA_SCHEMA), keeping wallet/inventory/farm/quests/profile/weather/social and legacy player.position.x/y/z. Migration creates incomplete history rather than fictitious prior transactions. Review can be saved/restored with its clock hold; advancing is never written halfway through live rollover. Restore reconciles old/new-day snapshots. Atomic writes/backups remain; latest-save selection uses fractional time and later-day tie breaking. See D39 and v1–v5 goldens.
 
 ```json
 {

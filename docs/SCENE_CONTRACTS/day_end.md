@@ -1,5 +1,7 @@
 # ISO-4 day-end sheet and flow
 
+ISO-6a keeps the sheet/flow tree and generic unwatered warning unchanged. Confirm runs one Main -> DaySimulator transition: finished-day care/current rain first, then new-season withering, new weather and morning rain. Tomorrow's rain cannot undo a completed drought wither. v7 persists crop-care counters alongside the unchanged day_ledger/day_end guard. Forced/manual/direct paths remain equivalent; no care runs while review is merely open or cancelled.
+
 Owner approved the ISO-4 plan/ALLOW_LIST, including domain ledger, save v5 and small UI classes. `ui/day_end/day_end_sheet.tscn` is a PanelContainer with LifeDayEndSheet script. Runtime composition uses the shared Theme; native Buttons and ScrollContainers remain real input controls. No mockup PNG is a runtime texture.
 
 Tree: DayEndSheet -> wood frame -> VBox(Header blue Banner, Columns HBox). Left LedgerView (scrolling LedgerRow scenes, income/expense/profit, incomplete-history note, FarmWarning); right TomorrowCard (real next-day/weather forecast, actual tutorial completed count), expanding spacer, Continue Button and Stay Button. Unsupported XP/stamina/event cards are absent. Children are constructed by the small dedicated scripts, with typed fields/setters. Buttons emit confirmed() / cancelled(); the sheet owns no game state.

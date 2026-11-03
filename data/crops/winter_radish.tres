@@ -13,3 +13,4 @@ growth_days = 3
 water_need = 1
 seasons = PackedStringArray("winter")
 color = Color(0.88, 0.94, 0.98, 1)
+max_consecutive_dry_days = 2

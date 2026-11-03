@@ -1,5 +1,13 @@
 # DATA SCHEMA — THE LIFE
 
+## ISO-6a implemented daily care / save v7 (D41)
+
+- CropData.max_consecutive_dry_days: int = 0 by default; every shipped crop Resource explicitly supplies 2. Water-requiring crops must have a positive threshold; water_need=0 ignores dry care. Existing growth_days/yield_qty/seasons/IDs and all prices remain unchanged pending ISO-6b.
+- farm.plots entries add consecutive_dry_days: int. New planting initializes 0; manual/rain care resets 0; an unwatered finished day increments toward the crop threshold and pauses growth. At threshold the existing withered flag becomes true. Ripe plants still need care. Withered plants never grow, receive water, revive or yield; clearing/replanting starts new care state.
+- Current-day rain is resolved before the single finished-day farm simulation; new weather/rain is applied after it to surviving morning plants. No delta/timer growth or second sleep path.
+- Save v7 migration initializes unknown old dry history to 0 without changing any old plot field, slot, balance, ledger, guard or profile/social/weather/clock progress. v1–v6 goldens stay read-only. v7 golden covers dry=1 living and dry=2 withered mature plots. Missing counters also default 0 during direct domain restore.
+- Restored counter must be numeric, finite and integral; invalid types/fractions/NaN/infinity warn and default 0. Negative values clamp to 0, excessive values to the Resource threshold; reaching threshold sets terminal withering. Water-free/empty plots clamp to 0. Unknown crops/invalid rows and nonintegral/nonfinite/outside-int32 coordinates/growth are warned and skipped; malformed whole plot arrays retain previous farm. Valid neighbours survive; no broad top-level save rewrite.
+
 ## ISO-5 implemented inventory/save v6 additions (D40)
 
 - data/inventory_config.tres (InventoryConfig): default_capacity=40, columns=8, visible_rows=5; positive integers, capacity must equal columns × rows. Explicit small-capacity constructors retain their meaning.

@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## ISO-6a crop-care readout (D41)
+
+No scene/tree/export/input changes. FarmGridState owns per-plot consecutive_dry_days and exposes get_dry_days_remaining(cell). Existing FarmView observes the withered flag; CropInspector's existing note_label reads the owner's counter and shows a localized warning after missed care. Its current Water/Harvest action_requested signal and Main's ToolActionController binding remain. Watering/harvesting a withered plant cannot mutate it. Ripe plants still need care. Main simulates the finished day's stored water/current rain once before preparing the new weather/rain. Data thresholds, domain persistence and view readouts remain separate.
+
 ## ISO-1 implemented tree (D33/D36)
 
 ISO-4 adds local bed_requested() on the existing reachable/night bed interaction. Main's LifeDayEndFlow consumes it to open the reference-13 summary before rollover; standalone world keeps its previous try_sleep fallback. Existing player/camera/bed marker paths, reach data and sleep-started/finished handlers remain intact. No world scene node is added/moved/renamed. See day_end.md for the Main-owned summary and clock-hold contract.

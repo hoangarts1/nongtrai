@@ -1,8 +1,19 @@
 # API INDEX — THE LIFE
 
+## ISO-6a crop care APIs (2026-11-03, D41)
+
+Current save version is **7**. Older milestone entries below describe their original deliveries.
+
+- CropData adds max_consecutive_dry_days: int, with 2 in all nine existing crop Resources. Only care metadata changes; growth/yield/seasons/prices/IDs are unchanged. A crop with water_need=0 does not accumulate dry days. DataValidator requires a positive threshold for water-requiring CropData while retaining the existing economy invariants.
+- FarmGridState owns consecutive_dry_days: int per plot. advance_day() grows watered/water-free crops, resets their dry streak, or increments dry days and withers at the Resource threshold. It skips terminal withered crops. water_cell()/water_all_crops() reset surviving plants' streak; withered crops cannot be watered/revived/harvested. Ripe crops left planted still require care.
+- FarmGridState.get_dry_days_remaining(cell: Vector2i) -> int returns threshold minus current streak, or 0 for absent/withered/water-free plants. serialize()/deserialize() persist the counter; restore clamps it, rejects malformed new values safely and preserves old progress. Withered flags and threshold-reaching saved counters block harvest even when mature.
+- Main's single day_started -> DaySimulator path applies the FINISHED day's stored care/current rain, simulates once, marks new-season withering, advances weather, then waters surviving new-morning plots if rainy. New rain cannot rescue yesterday's second missed day; yesterday's rain cannot stay on a sunny morning. Existing flow/clock/modal and save-safe-point APIs remain.
+- CropInspector reads the real remaining dry days through the owner query and shows UI_CROP_DRY_WARNING only for an unwatered surviving plant with a nonzero dry streak (including ripe plants). Water/Harvest requests keep existing tool/reach/capacity ownership. Locale notification refreshes visible text. No scene or InputMap changes.
+- SaveService CURRENT_VERSION=7, migrate_6_to_7(data: Dictionary) -> Dictionary deep-copies and initializes absent plot counters to 0. v1–v6 goldens are unchanged; v7 golden includes a threatened plant and a terminal withered mature plant. Existing other fields, atomic writes, ledger/guard, inventory migration and latest-save selection remain.
+
 ## ISO-5 inventory APIs (2026-11-03, D40)
 
-Current save version is **6**. Historical milestone entries below describe their original deliveries.
+At ISO-5 delivery the save version was **6**; ISO-6a above supersedes it with v7.
 
 - InventoryConfig (scripts/data/inventory_config.gd, data/inventory_config.tres): default_capacity=40, columns=8, visible_rows=5. Explicit InventoryState(max_slots) still supports small-capacity tests. ItemData adds category (seed/produce/tool/material/other) and optional description_key; current IDs/prices/stack limits remain unchanged.
 - InventoryState adds transient revision: int, sort_slots() -> Array[int] (new-index -> old-index, stable category/id order), discard_from_slot(index: int, expected_id: StringName, expected_quantity: int, expected_revision: int, quantity: int) -> bool. Exact-row discard validates identity/count/revision, emits normal removal once, and never changes coins. Deserialize preserves valid legacy stacks beyond declared capacity/stack limits; malformed shapes/unsafe totals retain previous state with warnings.
@@ -183,8 +194,8 @@ Format:
 - func water_all_crops() -> void — waters every planted crop, used by rainy mornings
 - func mark_out_of_season() -> void — marks crops outside their allowed season as withered
 - func clear_withered(cell: Vector2i) -> bool — removes a withered crop from a plot
-- func advance_day() -> void — advances each planted crop by one day if watered, then resets moisture
-- func can_harvest(cell: Vector2i) -> bool — returns true once the crop has matured
+- func advance_day() -> void — advances cared-for/water-free living crops, updates consecutive dryness/terminal withering, then resets moisture
+- func can_harvest(cell: Vector2i) -> bool — returns true only for a mature non-withered crop
 - func get_growth_remaining(cell: Vector2i) -> int — returns the number of watered growth days remaining
 - func harvest_cell(cell: Vector2i) -> Dictionary — removes the crop and returns the harvest payload
 - func get_harvest_payload(cell: Vector2i) -> Dictionary — previews the complete harvest result without changing the plot

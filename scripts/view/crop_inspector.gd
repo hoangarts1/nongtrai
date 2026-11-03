@@ -68,6 +68,7 @@ func _refresh() -> void:
 	if withered:
 		countdown_label.text = tr("CROP_STATUS_WITHERED")
 		estimate_label.text = tr("UI_CROP_WITHERED_NOTE")
+		water_label.text = ""
 		note_label.text = ""
 	elif ready:
 		countdown_label.text = tr("CROP_STATUS_READY")
@@ -79,6 +80,8 @@ func _refresh() -> void:
 		var hours: int = (minutes % GameClock.MINUTES_PER_DAY) / 60
 		countdown_label.text = tr("UI_CROP_COUNTDOWN") % [days, hours, minutes % 60]
 		estimate_label.text = tr("UI_CROP_ESTIMATE_AT") % [GameClock.day_index + remaining_days + 1, GameClock.format_time(GameClock.MORNING_MINUTE)]
+	if not withered and not watered and int(plot.get("consecutive_dry_days", 0)) > 0:
+		note_label.text = tr("UI_CROP_DRY_WARNING") % _farm.get_dry_days_remaining(_cell)
 
 func _on_plot_changed(cell: Vector2i) -> void:
 	if visible and cell == _cell:
@@ -86,6 +89,10 @@ func _on_plot_changed(cell: Vector2i) -> void:
 
 func _on_time_changed(_day_index: int, _minute: int) -> void:
 	if visible:
+		_refresh()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and _farm != null and visible:
 		_refresh()
 
 func _build_ui() -> void:

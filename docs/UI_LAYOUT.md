@@ -1,5 +1,9 @@
 # HUD layout
 
+## ISO-6a crop-care warning (D41)
+
+Existing CropInspector remains a small nonmodal HUD region (360×262 default; native minimum size may expand for longer text, within the tested viewport bounds). Its existing note Label shows actual remaining dry days after a missed watering day, including ripe plants left in soil; wet/watered/water-free plants use the ordinary care estimate, and terminal withered status disables actions. It reads FarmGridState and sends the existing Water/Harvest request through ToolActionController; no view owns the counter. Visible text refreshes on locale change. The terminal description applies to both drought/season withering and no longer asks a dead plant to be watered. The day-end sheet retains its real generic unwatered count; no new per-plot countdown or modal is added there. Check warning/ripe-warning/withered states at all three design sizes in vi/en.
+
 ## ISO-5 inventory (D40)
 
 InventoryPanel uses small ui/inventory scene/script components, shared Theme and reference-06 wood/paper frame. At 1152×648 it occupies viewport minus 64×48 margins, growing to at most 1200×760. Five tabs plus close remain fixed; only Bag/Quest work. Left region has metadata filters, eight-column/five-row 40-cell default grid, actual occupied/capacity bar and sort/key hints. Right region has existing item art/name/category/count/description/actual unit sale price and explicit toolbar-selection/discard requests. Legacy capacities above 40 add scrolling rows. Icons use trimmed AtlasTexture views without editing art. Eating/quality/market effects stay unavailable.

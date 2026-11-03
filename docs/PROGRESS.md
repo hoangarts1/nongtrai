@@ -1,10 +1,78 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-4 committed c8b94f9; ISO-5 automated acceptance/render review delivered)
+Last updated: 2026-11-03 (ISO-5 committed 67c63a2; ISO-6a automated acceptance/render review delivered)
 
 ## Current milestone
 
-`ISO-5 (modular 40-slot inventory and supported tab shell)` — owner approved “Duyệt, commit ISO-4 và triển khai ISO-5”. ISO-4 committed as **c8b94f9** after DataValidator PASS; no push. ISO-5 implementation and automated render review are delivered: focused headless 22/22 (548 asserts), official headless 62/62 (853 asserts), full renderer 206/206 (7515 asserts), parse/data/main PASS; save format is v6. New small components follow reference 06; Bag/Quest only, Q/E/F/Z contextual; invalid/stale discard rejected, existing selection remapped. Historical v1–v5 golden files remain unchanged. Owner's master-plan leading blank line remains untouched. Human editor acceptance remains pending. ISO-5 is not committed; propose a commit after delivery, do not advance ISO-6 without its scope/approval.
+`ISO-6, slice 6a (daily crop care / withering / save v7)` — owner approved “Duyệt, commit ISO-5 và triển khai ISO-6a”. ISO-5 committed as **67c63a2** after fresh DataValidator PASS, exactly its 95-file delivery manifest, excluding the owner's master-plan edit. ISO-6a implementation and automated render review are delivered: focused headless 22/22 (437 asserts), official headless 62/62 (853 asserts), full renderer 221/221 (7915 asserts), parse/data/main PASS, including rain/day boundaries and v1–v6 preservation. Current source saves v7; older fixtures stay unchanged. No ISO-6a commit/push. Human editor acceptance remains pending. Growth/prices/regrow/fertilizer/house unlock remain ISO-6b, not silently implemented or marked complete.
+
+## ISO-6a final automated acceptance (2026-11-03, D41)
+
+Delivered: data-owned 2-day dry threshold, serialized care streak and exact remaining-day query; terminal withered guard (including ripe plants); one corrected outgoing-rain -> day simulation -> new-season/new-rain path; actual localized warning and cause-neutral withered text; save v7 preserving v1–v6 progress with unknown dry history default 0. Existing prices/growth/yields/IDs, 40-slot inventory, transactions, journal/guard, input/scenes/art and owner edit are retained. ISO-6b remains pending its specification; human editor acceptance remains pending. ISO-5 committed 67c63a2; ISO-6a is uncommitted, no push.
+
+Real final output (Godot 4.7.2 / GUT 9.7.1; isolated APPDATA):
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+
+Official headless subset:
+Totals
+------
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             853
+Time              3.603s
+
+
+---- All tests passed! ----
+
+Focused care/save/weather/rollover headless:
+Totals
+------
+Scripts               5
+Tests                22
+Passing Tests        22
+Asserts             437
+Time              6.696s
+
+
+---- All tests passed! ----
+
+COMPLETE graphics-renderer suite:
+Totals
+------
+Scripts              67
+Tests               221
+Passing Tests       221
+Asserts            7915
+Time              79.168s
+
+
+---- All tests passed! ----
+
+[run_tests] starting main scene headless
+[run_tests] PASS
+
+Separate clean-render inspector/input suite:
+Totals
+------
+Scripts               1
+Tests                 5
+Passing Tests         5
+Asserts             219
+Time              7.887s
+
+
+---- All tests passed! ----
+~~~
+
+Final scans: zero SCRIPT ERROR / Parse Error / ERROR / resource-leak / orphan matches in official headless/full-renderer/main logs. Corrupted-data tests deliberately produce FarmGridState warnings (counter fallback/clamp, bad shape/row/coordinate/ID) and the retained InventoryState warning cases. No warning suppression, skipped tests or weakened acceptance. Existing save-version expectations deliberately change to 7; farm preservation compares every original field plus the new zero-care default. git diff --check PASS; all 41 ISO-6a files are inside the approved ALLOW_LIST; old goldens and item prices have no diff. FarmGridState is 245 lines; new test scripts are below 250 lines. gdtoolkit lint was not run because it is not installed; no packages installed.
+
+Clean visual evidence: 18 captures in C:/Users/daova/AppData/Local/Temp/the_life_iso6a_review/iso6a_{vi,en}_{warning,ripe_warning,withered}_{1152,1280,1920}.png. Checked vi warning/en ripe warning at 1152; vi/en withered at 1280; vi ripe warning/en warning at 1920. Native controls/text remain within viewport; minimum-size expansion for long descriptions stays within tested bounds. The withered text no longer falsely attributes drought to season or asks for ineffective watering. Source world/icon art remains existing placeholders, not new final art.
+
+Acceptance, exact file manifest/review command and F5 manual checklist appear in the ISO-6a handoff at the end of this document. No manual node/Inspector/InputMap edits required. Proposed commit: `feat: add daily crop care and save v7 migration`.
 
 ## ISO-5 final automated acceptance (2026-11-03)
 
@@ -61,9 +129,69 @@ Final error-text scan: zero SCRIPT ERROR/Parse Error/ERROR/resource-leak/orphan 
 A separate clean renderer run of test_inventory_screen passed 6/6, 402 asserts (before the final one-assert current-tab click regression was added; that addition passed in the final headless/full runs above). It produced 36 vi/en captures for 1152×648, 1280×720, 1920×1080, covering empty/partial/full/filter/discard/journal. Clean copies are C:/Users/daova/AppData/Local/Temp/the_life_iso5_review/iso5_{vi,en}_{empty,partial,full,filter,discard,journal}_{1152,1280,1920}.png. Visually reviewed vi partial 1152, en full 1152, vi filter 1280, en discard 1280, vi partial 1920 and en journal 1920 against reference 06. All 40 default cells and fixed controls fit; original icons remain placeholders. Repeated current-tab clicks keep the active toggle selected.
 
 Exact manifest, review commands and manual editor checklist are in the ISO-5 sections at the end of this document. API_INDEX/DATA_SCHEMA/ARCHITECTURE/INPUT_MAP/UI_LAYOUT/contracts/D40/ROADMAP are updated. Proposed commit: `feat: add modular forty-slot inventory and save v6 migration`. Do not mark human acceptance or advance ISO-6 on automation alone.
-## ISO-6a proposed task — daily crop care and save v7 (pending approval, 2026-11-03)
+## ISO-6b1 proposal — crop balance and repeat harvest (pending approval, 2026-11-03)
 
-Owner said “oke tiếp tục đi” after ISO-5 delivery. This authorizes continuing preparation; it is not treated as explicit permission to commit ISO-5 or invent missing crop balance rules. Read-only review and DataValidator baseline are complete: [validate_data] PASS, git diff --check PASS. HEAD remains c8b94f9. No ISO-6 source has been edited and no commit/push performed. The ISO-5 exact manifest below remains the commit boundary; owner's master-plan leading blank line is excluded.
+Owner said “oke tiếp tục” after ISO-6a delivery. Read-only planning is complete; no new source changes or commit/push. HEAD remains 67c63a2; ISO-6a's 41-file manifest is the proposed preceding commit boundary, excluding the owner's master-plan blank line. Fresh baseline: [validate_data] PASS and git diff --check PASS. Existing delivered automation remains 221/221 renderer; this proposal has no implementation/test claim.
+
+Findings/decisions needing approval:
+- D35 supplies first growth carrot 3 / tomato 5 / turnip 4 / corn 7 and selected prices. DATA_SCHEMA §4 and the original master-plan starter table both show tomato regrow every 2 days; adopt 2 only if this proposal is approved. Keep the already requested yield 2 (D27), care threshold 2, IDs/seasons and all unrelated prices.
+- There is no current fertilizer effect/item or house-level/upgrade domain. Original prompt §6 defers the house-upgrade screen. Recommended scope is 6b1 (growth/price/repeat harvest); fertilizer and corn house-level gating remain explicitly unfinished until their behavior and usable progression path are specified. Keep corn's current availability for this slice; never claim the house-level unlock is implemented. Do not add an inert shop item or unreachable fake upgrade.
+- Current DataValidator requires slower-growing crops' seed/unit-sale prices to be no lower than every faster crop. Preserve this gate. The target changes require three additional, explicit price adjustments: tomato unit sale 70 -> 72 (existing 4-day cabbage sale 72); corn seed 28 -> 35 and unit sale 75 -> 100 (existing 5-day pumpkin seed/sale 35/100). Other unspecified prices stay unchanged.
+- Repeat harvest plus existing yield 2 exceeds the historical starter-table 18 coins/plot-day example. That table explicitly describes starting examples, not verified current balance; existing shipped crops already exceed it after D27. Approval must choose an explicit current data-owned crop ceiling instead of pretending the old example passed. Proposed current-MVP ceiling: 80 coins/plot-day, checking first-cycle net return and repeat-cycle marginal return with integer cross multiplication. Tomato's repeat rate is 2*72/2 = 72; its ideal 28-watered-day net is 12*2*72-35 = 1693 per plot. This is a provisional cozy-game balance decision requiring owner approval and playtest, not a claim of final balance. No other economic/recipe cap is changed.
+
+Proposed exact affected crop values (buy = seed purchase, sale = unit produce sale):
+
+| Crop ID | First growth | Regrow | Seed buy | Produce sale | Yield per pick |
+|---|---:|---:|---:|---:|---:|
+| spring_carrot | 3 | 0 | 20 | 35 | 2 |
+| summer_tomato | 5 | 2 | 35 | 72 | 2 |
+| turnip | 4 | 0 | 25 | 45 | 2 |
+| summer_corn | 7 | 0 | 35 | 100 | 2 |
+
+The other five crops retain their existing values. Script-free read-only calculation over the current nine Resources verified these adjustments preserve the existing monotonic price gate. Forecast assumptions exclude missed care, travel, harvest timing delays, market saturation and other future systems; no such systems are invented.
+
+MILESTONE: ISO-6, slice 6b1 — data balance, tomato repeat harvest, save v8. This does not complete fertilizer/house-unlock work or mark all ISO-6 accepted.
+READ-ONLY CONTEXT: AGENTS/PROJECT_RULES; PROGRESS/API_INDEX/ARCHITECTURE/DATA_SCHEMA/CODE_PATTERNS; D27/D35/D41; original migration prompt §4–6 and master-plan starter table; gray_box_world/hud/inventory/day_end/ui_components contracts; existing tool/harvest/shop/bin/wallet/ledger/weather APIs and v1–v7 goldens.
+
+Plan after approval:
+1. Fresh DataValidator PASS, commit precisely ISO-6a's delivered 7-created/34-modified manifest (including current PROGRESS), excluding owner changes; message feat: add daily crop care and save v7 migration. No push. Human editor acceptance remains pending.
+2. Apply the reviewed table in crop/item Resources only. CropData adds regrow_days (0 for single-harvest, 2 for tomato). Add CropEconomyConfig and data/crop_economy_config.tres for the explicitly proposed ceiling 80; validate positive values/durations/references, existing unit-price and monotonic rules, and initial/repeat profit rates. Small stateless CropEconomyRules receives Resource snapshots and uses integer arithmetic; tools/validate_data.gd includes the gate. Tests reject invalid/cap-breaking data; no guard/test is silently removed to make values pass.
+3. FarmGridState continues to own every plot. Introduce small stateless CropCycleRules and FarmSaveCodec helpers to keep the existing 245-line owner small: codec extracts its current farm serialization/validation without changing care semantics; cycle helper supplies read-only target calculations. Add per-plot growth_target: int and regrowing: bool. New plants freeze their Resource first-growth target. A valid tomato harvest grants the existing yield once, retains the same plant, sets growth_days=0 / growth_target=2 / regrowing=true, and requires the next cared-for day boundaries. Harvest does not grant free water, reset drought or consume another seed. Other crops retain existing removal behavior. Full inventory blocks the whole action and leaves crop/cycle/care unchanged; no same-frame repeat harvest.
+4. Use one existing DaySimulator path and retain ISO-6a dry/rain/season rules in every cycle. Withered plants never yield or regrow. FarmView and CropInspector query the owner for the actual target so visuals/countdown agree for first growth, legacy plants and regrowing plants. Inspector uses a real localized repeat-growth note, with no new screen, input action or UI-owned state. Existing tool controller receives only necessary compatibility wiring and physical-action regression coverage.
+5. Save v8 adds growth_target/regrowing. Existing v1–v7 plots retain every original field and first-growth timing/ripeness by assigning their prior Resource durations, not the new longer durations. A data-only CropMigrationConfig Resource (data/crop_migration_v7.tres) contains the exact previous nine-crop durations: turnip2, carrot3, pea3, tomato4, corn4, wheat3, pumpkin5, radish3, cabbage4. No active gameplay duration is hardcoded in scripts. Existing plants keep these targets for their current first crop; newly planted crops use the new table; tomato regrows at 2 after a real harvest. Old raw growth numbers are not rewritten. Every old fixture stays read-only; add v8 golden with an active repeat cycle. Validate new fields safely; preserve inventory/wallet/weather/clock/profile/social/ledger/guard and atomic writes.
+6. Test exact Resource table and economy ceiling/invariants; first and multiple repeat cycles; no premature/repeated grant; seed/care preservation; dry/rain/season/wither/full-inventory behavior; old mature/immature target preservation and v8 round-trip/corruption; real harvest/water inputs; vi/en three-size inspector states. Update the full-year test to use approved durations and explicitly clear retained withered plants before replanting, preserving the full 112-day/nonnegative-wallet/transaction invariants and adding repeated-pick coverage. Run focused headless, complete official renderer suite, parse/data/main, actual captures and honest docs/handoff.
+
+Proposed ALLOW_LIST (effective only after approval; preceding ISO-6a commit uses its delivered manifest):
+~~~text
+scripts/data/crop_data.gd
+scripts/data/crop_economy_config.{gd,gd.uid} (new)
+scripts/data/crop_migration_config.{gd,gd.uid} (new)
+data/crop_economy_config.tres (new)
+data/crop_migration_v7.tres (new)
+data/crops/*.tres (growth_days/regrow_days only; IDs/yields/seasons/care/art unchanged)
+data/items/{spring_carrot_seed,spring_carrot,summer_tomato_seed,summer_tomato,turnip_seed,turnip,summer_corn_seed,summer_corn}.tres (only approved buy_price/sell_price values above)
+scripts/domain/farm_grid_state.gd
+scripts/domain/crop_cycle_rules.{gd,gd.uid} (new, stateless)
+scripts/domain/farm_save_codec.{gd,gd.uid} (new, stateless)
+scripts/domain/economy/crop_economy_rules.{gd,gd.uid} (new, stateless)
+scripts/core/{data_validator,save_service}.gd
+scripts/view/{main,farm_view,crop_inspector,tool_action_controller}.gd (cycle compatibility only)
+localization/strings_{vi,en}.* (real repeat-growth descriptions only)
+tools/validate_data.gd (crop economy/migration data gate)
+tests/unit/** (affected crop/economy/transaction/input/save/layout regressions only)
+tests/golden_saves/save_v8.json (new; v1–v7 read-only)
+docs/{API_INDEX,ARCHITECTURE,DECISIONS,DATA_SCHEMA,PROGRESS,ROADMAP,UI_LAYOUT}.md
+docs/PROJECT_RULES.md (migration-status notice only; no locked-rule deletion)
+docs/SCENE_CONTRACTS/{gray_box_world,hud,inventory,day_end,ui_components}.md (actual cycle/readout/price compatibility only)
+~~~
+
+DO NOT TOUCH: all other files, all .tscn, InputMap, crop/item IDs, stack limits/yields/seasons, final/source art, old golden fixtures, NPC quote Resources and owner edits. No new autoload/bus signal/network call/house-upgrade/fertilizer item or unapproved package/commit/push.
+ACCEPTANCE: approved table and data ceiling pass every retained/new validator; tomato first growth 5 then repeat every 2 cared-for days with exactly 2 produce once per ready cycle; no seed re-consumption/free water/drought reset; no full-bag loss or withered/off-season/regrow exploit; UI/readout matches domain; v1–v7 progress/ripeness and all prior fields preserved via legacy targets, v8 cycle round-trip; required automation passes and real output/manual checklist recorded. Human gates and remaining fertilizer/house-unlock work stay pending.
+RISKS: proposed ceiling 80 is a deliberate replacement for historical crop examples and requires explicit approval; repeat crops can dominate income without later saturation/progression. Resource updates change future market quotes but not old inventory quantities/IDs. Snapshotting growth targets must keep views, codec, old goldens and year-simulation assumptions consistent. No behavior for fertilizer or house-level gating is inferred.
+
+## ISO-6a approved task — daily crop care and save v7 (2026-11-03)
+
+Owner explicitly approved this plan/ALLOW_LIST and the ISO-5 commit via “Duyệt, commit ISO-5 và triển khai ISO-6a”. Commit 67c63a2 records the delivered ISO-5 set after DataValidator PASS; no push. The following gap analysis is the pre-implementation baseline. ISO-6a source/tests are now implemented with automated acceptance recorded below.
 
 Concrete gaps: FarmGridState only pauses growth when unwatered; it has no consecutive-dry-day counter. can_harvest does not reject a withered mature plot and water_cell can mark a withered crop watered. Main currently advances weather and waters with the NEW day's rain before simulating the finished day, contrary to ARCHITECTURE §5's finished-day weather order. CropInspector has real moisture/countdown but no impending-dryness warning. Existing saves cannot reconstruct past missed watering, so migration must initialize unknown dry history to zero.
 
@@ -80,7 +208,7 @@ Plan after approval:
 5. Save version 7 adds consecutive_dry_days. Deep-copy v6→v7 migration initializes absent counters to zero (no invented dry history), preserving watered/withered/growth/crop/cell and all inventory/wallet/clock/ledger/guard/profile/social state. Older fixtures remain read-only; add v7 golden. Validate/clamp malformed new fields and unknown crops safely without a broad unrelated save rewrite.
 6. Test dry/water/rain resets, threshold exactly once, no growth/harvest/revival after withering, ripe crop handling, water-free data, out-of-season behavior, full inventory, real input/clock/sleep/modal interactions, v1–v6 preservation and v7 round-trip/corruption, three-size vi/en inspector warnings. Run focused headless, parse/data, full official renderer suite and main smoke; paste actual output, exact manifest/diff and manual checklist into PROGRESS/API/docs.
 
-Proposed ALLOW_LIST (effective only after approval; ISO-5 commit uses its already delivered manifest):
+Approved ISO-6a ALLOW_LIST (ISO-5 commit uses its delivered manifest):
 ~~~text
 scripts/data/crop_data.gd
 scripts/domain/farm_grid_state.gd
@@ -1657,3 +1785,76 @@ Assumptions/limits: compact existing stack model remains (sort does not merge); 
 During verification, a 72-pixel slot height clipped the fifth row on the small viewport; final 64-pixel cells plus shared outer inset preserve all rows and animated focus bounds. A physical-close regression revealed the read-only clock decoration intercepting GUI events above the wide header; UiCoordinator now marks its static readout subtree mouse-ignore. Wide shells keep stable geometry during open. Original regression tests were kept; the old list-row selector test now clicks the grid and explicitly quick-selects, matching the approved two-step interaction. Existing migration assertions compare slots unchanged plus the new capacity floor, with all other field checks retained.
 
 Proposed ISO-5 commit: feat: add modular forty-slot inventory and save v6 migration
+
+## ISO-6a exact file manifest (relative to 67c63a2)
+
+Created (7 files):
+
+~~~text
+tests/golden_saves/save_v7.json
+tests/unit/test_crop_care.gd
+tests/unit/test_crop_care.gd.uid
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_care_save.gd.uid
+tests/unit/test_crop_care_ui.gd
+tests/unit/test_crop_care_ui.gd.uid
+~~~
+
+Modified (34 files):
+
+~~~text
+data/crops/autumn_pumpkin.tres
+data/crops/autumn_wheat.tres
+data/crops/spring_carrot.tres
+data/crops/spring_pea.tres
+data/crops/summer_corn.tres
+data/crops/summer_tomato.tres
+data/crops/turnip.tres
+data/crops/winter_cabbage.tres
+data/crops/winter_radish.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/PROJECT_RULES.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/UI_LAYOUT.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/data_validator.gd
+scripts/core/save_service.gd
+scripts/data/crop_data.gd
+scripts/domain/farm_grid_state.gd
+scripts/view/crop_inspector.gd
+scripts/view/main.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_save_service.gd
+tests/unit/test_weather.gd
+~~~
+
+Owner edit excluded: docs/reference/THE_LIFE_MASTER_PLAN.txt (one leading blank line). No .tscn, project.godot, source-art, item-resource or old-golden changes. Review tracked source with git diff 67c63a2 -- . ':(exclude)docs/reference/THE_LIFE_MASTER_PLAN.txt'; inspect the created files above or use git diff --no-index -- NUL <path> for their addition diffs. Files are not staged; no ISO-6a commit/push performed.
+
+## ISO-6a editor handoff and acceptance checklist
+
+Acceptance: first missed eligible watering day pauses growth and warns; two consecutive missed days wither once; watering/rain resets a living crop; terminal/ripe withered plants cannot grow, revive, water or harvest; source Resource sets the threshold; dry→rain/rain→dry/out-of-season boundaries use the correct completed day; one manual/forced/direct simulation path; save v7 round-trip and v1–v6 preservation; prior inventory/farming/economy/modal behavior retained. Automation passed; human checks below remain pending.
+
+Editor steps: none. Existing Main/scene paths, Inspector controls, signals and InputMap stay intact. Open the project with pinned Godot 4.7.2 and F5; updated Resources/translations/scripts import normally. Run all automation by setting GODOT to D:\godot\Godot_v4.7.2-stable_win64_console.exe then tools\run_tests.bat. Focused suite uses test_crop_care.gd, test_crop_care_save.gd, test_crop_care_ui.gd, test_day_end_rollover.gd and test_save_service.gd via tools/run_godot_bounded.ps1; headless flags and real output are recorded above.
+
+- [ ] F5, start/continue, dismiss help. On a sunny day till/plant a crop, leave it unwatered for one completed day; inspect it. Growth is paused, it is alive, warning reports one remaining dry day. Ripe plants left in soil receive the same warning.
+- [ ] Water via the existing tool or Inspector button before the next rollover. Warning clears, no item/coin/ledger change from watering; growth advances once at the day boundary. Another isolated missed day starts a new streak.
+- [ ] Leave a plant unwatered through two consecutive sunny day boundaries. It becomes withered; watering/harvesting cannot revive or yield. Previously ripe plants are also blocked. Existing hoe clearing/replanting starts fresh care state.
+- [ ] Use existing weather/debug controls to compare outgoing sunny → tomorrow rain versus outgoing rain → tomorrow sunny. A second completed dry day still withers before new rain; a survivor gets morning rain without free previous-day growth; an outgoing rainy day counts as cared-for even for a newly planted crop, and leaves no old moisture on a sunny morning.
+- [ ] Open manual bedtime review and cancel: no counter/growth change. Confirm once or repeatedly: one day only. Repeat forced 02:00 review: cannot cancel/bypass; new day and autosave include completed care. Check season boundary and unwatered summary count without reviving dead crops.
+- [ ] Save/reload a threatened plant: counter/warning remain, next missed day withers once. Continue a v1–v6 save: original fields/growth/wither/water/order/items/wallet/social/ledger/guard remain; absent dry history starts 0. Check v7 withered mature plant cannot harvest after load.
+- [ ] Switch vi/en; check warning, ripe warning and terminal status at 1152×648, 1280×720, 1920×1080. B/I/Tab/J/Escape modal behavior and toolbar selection stay working; native Water action respects reach/locks. Full inventory still blocks harvest without destroying the live crop.
+
+Assumptions/known limits: maturity does not exempt a crop left planted from care (explicitly approved); water_need=0 exempts dryness. No unavailable historical care is inferred on migration. Existing data says all shipped crops need water and supplies threshold 2. Growth/prices, tomato repeat-harvest interval, fertilizer effects and house-level corn unlock are intentionally ISO-6b, not implemented or validated by this slice. Old artifacts remain placeholders. Malformed row handling is limited to farm state/new counters, not a new general top-level save format/security rewrite. Source FarmGridState remains the state owner and DaySimulator the one daily transition; no future system or hidden balance change.
+
+Proposed ISO-6a commit: feat: add daily crop care and save v7 migration

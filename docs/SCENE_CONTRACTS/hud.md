@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-6a adds the actual dry-day warning to CropInspector's existing note_label only; no HUD scene, toolbar, shortcut, modal or InputMap change. note_label refreshes on locale/plot changes and clears after successful watering. The withered state disables actions even for previously ripe crops. See gray_box_world.md/D41 for the data/domain owner and day-boundary order.
+
 ISO-5 keeps toolbar/shortcut APIs and adds InventoryPanel's modular 40-cell screen plus shared journal header (inventory.md). F explicitly selects an existing stack; sort/discard remap surviving toolbar selection without another tool action. Q/E are modal-only. DayEndSheet retains precedence.
 
 Approved by owner: “Duyệt ISO-3, bắt đầu triển khai”. All new files below are under `ui/hud/`. Main keeps existing direct public node paths and view APIs; thin adapters delegate to the new views. No domain or save state moves into UI.
