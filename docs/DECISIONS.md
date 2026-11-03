@@ -306,3 +306,9 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Why: the supplied art is complete, but the current domain has only nine crops and no approved balance/item table for the seven new crops. Visual integration can proceed without fabricating gameplay values.
 - Consequence: unmatched existing crops retain explicit placeholders; new crop art is not plantable, purchasable or saved until a later approved data task.
 - Changeable until: before full 16-crop gameplay data is approved.
+
+### D54 — ISO-16 supported presentation screens (2026-11-03) — Status: LOCKED by owner approval
+- Keep day-end, inventory and pause/settings as read-only/native presentation consumers of existing owners: DayEndFlow/SaveService, InventoryService/DataRegistry and Settings/UiCoordinator respectively.
+- Why: these screens already satisfy the supported mockup subset; changing domain ownership or inventing unavailable calendar/events/house/dialogue state would violate the milestone boundary.
+- Consequence: ISO-16 is accepted through focused and full automated verification without runtime rewrites. Human editor/render acceptance remains separate.
+- Changeable until: before ISO-17 shop/remaining presentation is approved.

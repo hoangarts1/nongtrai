@@ -1,6 +1,48 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-15 visual crop asset integration in progress; human editor acceptance pending)
+Last updated: 2026-11-03 (ISO-16 automated acceptance delivered; human editor acceptance pending)
+
+## Approved task — ISO-16 supported presentation screens (automated acceptance delivered)
+
+Owner approved ISO-16 to verify and complete the existing presentation for day-end, inventory planting-item display and pause/settings. These screens must read registered state only, preserve existing modal/day-end precedence and atomic owners, and keep unavailable calendar/events/house upgrades/dialogue features explicit.
+
+### ISO-16 ALLOW_LIST
+
+~~~text
+ui/day_end/**
+ui/inventory/**
+ui/pause/**
+tests/unit/test_day_end_*.gd
+tests/unit/test_inventory_*.gd
+tests/unit/test_pause_*.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/inventory.md
+docs/SCENE_CONTRACTS/pause_menu.md
+~~~
+
+### ISO-16 acceptance
+
+- Day-end displays actual ledger, farm warnings and next-day weather, and retains guarded sleep/save ownership.
+- Inventory displays actual planting items and quantities through existing ItemData/InventoryService ownership; no fabricated crops or shop data.
+- Pause/settings preserves existing preferences, save/load/menu actions, modal lock and native GUI input behavior.
+- Unsupported mockup systems remain unavailable and explicit; no new domain/save/InputMap state.
+- Run focused ISO-16 tests, parse, data validation and full GUT before marking complete.
+
+### ISO-16 acceptance record
+
+- Existing day-end presentation shows actual ledger/farm warning/weather values and retains the existing guarded sleep, simulation and save owners.
+- Existing inventory presentation shows registered item categories, planting seeds and quantities from InventoryService/DataRegistry; no fabricated crop/shop data is added.
+- Existing pause/settings presentation preserves Settings drafts, save/load/menu actions, modal world lock, native GUI input and day-end precedence.
+- Unsupported calendar/events/house upgrades/dialogue features remain explicit and do not gain new state.
+- `godot --headless --path . --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Focused ISO-16 suite: 33/33 tests, 2,034 asserts, PASS.
+- Full GUT suite: 293/293 tests, 14,982 asserts, PASS.
+- No runtime changes were required; human editor/render acceptance remains pending.
 
 ## Approved task — ISO-15 crop visual assets and existing-domain presentation (automated acceptance delivered)
 
