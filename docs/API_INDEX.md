@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## ISO-7 modular pause/settings APIs (2026-11-03, D43)
+
+- Existing Main/PauseMenu keeps configure(save_callback: Callable, load_callback: Callable, main_menu_callback: Callable), open(), close(), toggle() -> void and _toggle_settings() compatibility. New typed fields shell: LifePauseShell, presenter: LifePausePresenter. Six scene/script pairs under ui/pause separate shell/actions/settings/audio/game/bindings; see SCENE_CONTRACTS/pause_menu.md.
+- LifePausePresenter.configure(menu: PanelContainer, shell: LifePauseShell, save: Callable, load: Callable, exit: Callable), begin(), apply(), defaults(), request(id: StringName), show_result(key: StringName), refresh_summary() -> void. Drafts live only in native controls. Apply calls existing Settings setters; Default edits only supported drafts; opening reloads current values. Language changes refresh captions without rebuilding signal emitters.
+- LifeSettingsPanel.select_tab(index: int), show_status(key: StringName) -> void; applied()/defaulted() request signals. LifeAudioSettings.set_values(music_volume: float, effects_volume: float) -> void; native music/effects sliders have read-only Theme-backed ProgressBar tracks. LifeGameSettings.set_locale(value: String) -> void / get_locale() -> String. LifeControlsHelp.refresh() -> void reads current bindings. LifePauseActions.requested(id: StringName) requests resume/save/load/settings/menu.
+- Main private callbacks _save_game(), _save_game_to_slot(slot: int), _load_game(), _load_game_from_slot(slot: int), _return_to_start_menu() now return bool. Blocked/failed save returns false, manual/morning feedback reflects actual outcomes, and required save failure prevents return to title. No payload/schema/save-backup/Settings API changes: version stays8, v1-v8 goldens retained.
+- UiLayout gives PauseMenu the wide summary-style rectangle; excludes its modular styling from legacy recursion. UiCoordinator keeps modal ownership/day-end precedence and permits native ui_* focus/activation/navigation before overlapping world shortcuts inside pause. Existing clock hold restores on close.
+
 ## ISO-6b1 crop cycle/economy APIs (2026-11-03, D42)
 
 Current save version is **8**. Historical milestone entries below describe their original deliveries.
@@ -346,7 +354,7 @@ Format:
 
 ## PauseMenu  (scripts/view/pause_menu.gd)
 - func open() -> void — pauses the game clock and locks player movement
-- func close() -> void — resumes the game clock and unlocks player movement
+- func close() -> void — closes the overlay; modal owner restores the prior clock hold and movement gate
 - func toggle() -> void — toggles the pause overlay
 
 ## StartMenu  (scripts/view/start_menu.gd)

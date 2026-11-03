@@ -193,19 +193,20 @@ func _on_day_started(_day_index: int) -> void:
 		farm_state.water_all_crops()
 	day_end_flow.on_morning(_day_index)
 	if not day_end_flow.is_advancing():
-		_save_game_to_slot(0)
-	_show_toast(tr("UI_SAVED"))
+		var saved: bool = _save_game_to_slot(0)
+		_show_toast(tr("UI_SAVED") if saved else tr("PAUSE_SAVE_FAILED"))
 
 func _on_season_changed(season: StringName) -> void:
 	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))
 
-func _save_game() -> void:
-	_save_game_to_slot(1)
-	_show_toast(tr("UI_SAVED"))
+func _save_game() -> bool:
+	var saved: bool = _save_game_to_slot(1)
+	_show_toast(tr("UI_SAVED") if saved else tr("PAUSE_SAVE_FAILED"))
+	return saved
 
-func _save_game_to_slot(slot: int) -> void:
+func _save_game_to_slot(slot: int) -> bool:
 	if npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
-		return
+		return false
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
 		"player": {"position": _legacy_player_position()},
@@ -221,15 +222,18 @@ func _save_game_to_slot(slot: int) -> void:
 	}
 	if not SaveService.save_game(payload, slot):
 		push_warning("Main: could not save slot %d" % slot)
+		return false
+	return true
 
-func _load_game() -> void:
-	_load_game_from_slot(1)
+func _load_game() -> bool:
+	return _load_game_from_slot(1)
 
-func _load_game_from_slot(slot: int) -> void:
+func _load_game_from_slot(slot: int) -> bool:
 	var payload: Dictionary = SaveService.load_game(slot)
 	if payload.is_empty():
-		return
+		return false
 	_load_payload(payload)
+	return true
 
 func _quit_game() -> void:
 	_save_before_exit()
@@ -269,13 +273,15 @@ func _continue_game() -> void:
 	start_menu.visible = false
 	world.player.movement_enabled = not day_end_flow.panel.visible
 
-func _return_to_start_menu() -> void:
-	if _game_started:
-		_save_game_to_slot(1)
+func _return_to_start_menu() -> bool:
+	if _game_started and not _save_game_to_slot(1):
+		_show_toast(tr("PAUSE_SAVE_FAILED"))
+		return false
 	pause_menu.close()
 	start_menu.refresh_continue()
 	start_menu.visible = true
 	world.player.movement_enabled = false
+	return true
 
 func _load_payload(payload: Dictionary) -> void:
 	GameClock.deserialize(payload.get("clock", {}))

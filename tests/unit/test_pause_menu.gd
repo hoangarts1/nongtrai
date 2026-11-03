@@ -9,6 +9,13 @@ func test_pause_menu_stops_clock_and_locks_player() -> void:
 	var main: Node = preload("res://scenes/main/main.tscn").instantiate()
 	get_tree().root.add_child(main)
 	await get_tree().process_frame
+	# Exercise a running game; a title screen must keep movement locked after closing.
+	main.set("_game_started", true)
+	main.start_menu.hide()
+	main.tutorial_panel.close_help()
+	main.ui_coordinator.close_active()
+	GameClock.paused = false
+	await get_tree().process_frame
 	var pause_menu: PanelContainer = main.get_node("PauseMenu")
 	pause_menu.open()
 	assert_true(pause_menu.visible)

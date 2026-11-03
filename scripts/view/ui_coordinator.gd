@@ -176,6 +176,11 @@ func _input(event: InputEvent) -> void:
 					get_viewport().set_input_as_handled()
 		return
 	var target: StringName = &""
+	if _active == _main.pause_menu:
+		# Tab/Space also bind world actions; native GUI focus/activation wins here.
+		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
+			if event.is_action_pressed(action):
+				return
 	if event.is_action_pressed("open_inventory"):
 		target = &"inventory"
 	elif event.is_action_pressed("open_help"):

@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-7 composes the existing wood/paper/banner/button/slider Theme in six ui/pause components (pause_menu.md). Each native HSlider has a mouse-ignoring read-only LifeProgressGreen track underlay because the shared slider StyleBox has zero content height; shared Theme resources are never mutated. Unsupported preferences are disabled with localized explanation. No new generic Theme type, bus signal or gameplay ownership.
+
 ISO-6b1 introduces no reusable Control/scene/theme variations. Existing item details/inspector read new Resource prices and owner cycle targets through current fields/APIs. Gameplay caps, migration mappings and repeat rules stay outside component classes.
 
 ISO-5 extends the shared Theme with LifeInv* variations via ui/theme/inventory_theme.gd. Focused inventory components/header live under ui/inventory rather than changing this generic catalogue; see inventory.md for typed fields/signals. Reference mockups are never runtime assets.

@@ -1,5 +1,13 @@
 # HUD layout
 
+## ISO-7 pause/settings composition (D43)
+
+Reference14 is implemented as six small ui/pause scene/script pairs, with separate presenter/construction helpers. Existing Main/PauseMenu mounts a transparent VBox shell: top-right close control with motion padding, side-by-side wood/paper action and settings cards, fixed footer. UiLayout supplies the wide summary-style rectangle (up to1200x760, viewport margins32x24). The red pause ribbon, green Resume/Apply/active tab and yellow Settings reuse the shared Theme; no mockup bitmap or new Theme override is used.
+
+Right card has fixed Audio/Graphics/Controls/Game tabs and fixed status/Default/Apply controls around a vertically scrolling page. Native sliders keep their real input and numeric percentages; read-only Theme-backed ProgressBars supply visible tracks without altering the shared Theme. Language/volume drafts apply only on Apply; Default selects the supported defaults in the draft. Close/modal switching discards unapplied drafts on reopening. All captions refresh in vi/en. Graphics, rain/wind audio, key-hint/autosave/shake/font-size switches are explicitly unavailable; no fake active values. Controls read current InputMap bindings.
+
+Left card keeps Resume/Save/Settings/Return to menu plus secondary Load. Latest-save day/timestamp comes from SaveService metadata. Save/load outcomes are real bool results; failed required save keeps the current game open. Existing morning/periodic/dirty autosave behavior and v8 data/backups/goldens remain. UiCoordinator remains the modal owner, permits native Tab/Space/arrows before overlapping world actions in pause and retains Escape, modal switching, player/clock locking and day-end precedence. See SCENE_CONTRACTS/pause_menu.md for fields and manual cases.
+
 ## ISO-6b1 repeat-growth readout (D42)
 
 Existing CropInspector reads each plot's frozen growth_target, showing the real repeat countdown and localized new-fruit care note. Dry warning has precedence; withered/ready states retain their truthful behavior. FarmView stages use the same owner query so legacy first crops and repeat crops cannot disagree with the inspector. Restore refreshes every crop through the existing FarmView.configure API, including cells other than zero. No new scene/input/theme/HUD state; vi/en captures at three sizes cover legacy-ready, repeat, repeat-ready and dry-repeat views. Bag/shop/bin continue to show actual updated Resource prices; no unavailable fertilizer/house action is displayed.

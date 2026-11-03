@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-7 keeps all HUD/toolbar APIs and adds a modular wide pause/settings consumer (pause_menu.md). UiCoordinator still hides interactive HUD during pause; settings own only drafts. Native GUI navigation wins over overlapping Tab/Space world shortcuts inside this modal. DayEndSheet retains precedence. No scene, InputMap, signal-bus or game-state changes.
+
 ISO-6b1 keeps the same HUD/toolbar/InputMap. The existing inspector note shows real repeat growth; dryness warnings win when applicable. Seed choice/quantity remains the actual inventory; repeat harvest does not consume a seed. Bag unit sale captions read the approved updated ItemData. No house-upgrade or fertilizer shortcut is added.
 
 ISO-6a adds the actual dry-day warning to CropInspector's existing note_label only; no HUD scene, toolbar, shortcut, modal or InputMap change. note_label refreshes on locale/plot changes and clears after successful watering. The withered state disables actions even for previously ripe crops. See gray_box_world.md/D41 for the data/domain owner and day-boundary order.

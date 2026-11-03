@@ -133,7 +133,7 @@ func _check_buttons(node: Node, panel: Control) -> void:
 			continue
 		if child is Button and (child as Button).is_visible_in_tree():
 			var button: Button = child as Button
-			assert_true(panel.get_global_rect().encloses(button.get_global_rect()), "Visible button fits panel: %s / %s" % [panel.name, button.text])
+			assert_true(panel.get_global_rect().encloses(button.get_global_rect()), "Visible button fits panel: %s / %s (%s in %s)" % [panel.name, button.text,button.get_global_rect(),panel.get_global_rect()])
 			assert_gte(button.size.y, 36.0, "Readable button height")
 		_check_buttons(child, panel)
 
