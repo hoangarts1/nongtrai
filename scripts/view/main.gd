@@ -36,6 +36,7 @@ var weather_state: Object
 var ui_coordinator: UiCoordinator
 var hud_presenter: LifeHudPresenter
 var day_end_flow: LifeDayEndFlow
+var morning_flow: LifeMorningFlow
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector2
@@ -160,6 +161,9 @@ func _ready() -> void:
 	day_end_flow = LifeDayEndFlow.new()
 	add_child(day_end_flow)
 	day_end_flow.configure(self)
+	morning_flow = LifeMorningFlow.new()
+	add_child(morning_flow)
+	morning_flow.configure(self)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -195,6 +199,7 @@ func _on_day_started(_day_index: int) -> void:
 	if not day_end_flow.is_advancing():
 		var saved: bool = _save_game_to_slot(0)
 		_show_toast(tr("UI_SAVED") if saved else tr("PAUSE_SAVE_FAILED"))
+	morning_flow.queue_day(_day_index)
 
 func _on_season_changed(season: StringName) -> void:
 	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))
@@ -242,6 +247,7 @@ func _quit_game() -> void:
 func _start_new_game(player_name: String, farm_name: String) -> void:
 	_game_started = false
 	GameClock.deserialize({})
+	morning_flow.reset()
 	inventory.clear()
 	farm_state.reset()
 	quest_state.deserialize({})
@@ -277,6 +283,7 @@ func _return_to_start_menu() -> bool:
 	if _game_started and not _save_game_to_slot(1):
 		_show_toast(tr("PAUSE_SAVE_FAILED"))
 		return false
+	morning_flow.reset()
 	pause_menu.close()
 	start_menu.refresh_continue()
 	start_menu.visible = true
@@ -285,6 +292,7 @@ func _return_to_start_menu() -> bool:
 
 func _load_payload(payload: Dictionary) -> void:
 	GameClock.deserialize(payload.get("clock", {}))
+	morning_flow.reset()
 	inventory.deserialize(payload.get("inventory", {}))
 	farm_state.deserialize(payload.get("farm", {}))
 	farm_view.configure(farm_state)

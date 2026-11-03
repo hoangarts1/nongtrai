@@ -1,5 +1,7 @@
 # ISO-4 day-end sheet and flow
 
+ISO-9 adds a separate presentation-only MorningBulletin after this flow completes. Main queues the day at the end of its existing day_started handler; LifeMorningFlow waits for is_advancing(), review visibility, sleep and other modal guards to clear. Confirm's existing synchronous completed-morning save finishes before the next process frame. Morning Begin/Escape only dismisses its own view and cannot confirm another day. Restored review remains primary; Continue/load never auto-opens a morning bulletin. This flow/source/domain/save format is unchanged. See morning_bulletin.md.
+
 ISO-6b1 retains the summary tree, signed ledger/refund model and one guarded day transition. Existing crops' frozen first/repeat targets are domain fields saved with v8; manual/forced review must not duplicate growth or harvest. Market transactions annotate current Resource prices while historical saved ledger entries stay their original signed amounts. No fabricated repricing of old history or new modal.
 
 ISO-6a keeps the sheet/flow tree and generic unwatered warning unchanged. Confirm runs one Main -> DaySimulator transition: finished-day care/current rain first, then new-season withering, new weather and morning rain. Tomorrow's rain cannot undo a completed drought wither. v7 persists crop-care counters alongside the unchanged day_ledger/day_end guard. Forced/manual/direct paths remain equivalent; no care runs while review is merely open or cancelled.

@@ -18,6 +18,7 @@ func configure(main: Node) -> void:
 	_main = main
 	_panels.assign([main.inventory_panel, main.tutorial_panel, main.debug_menu, main.pause_menu, main.start_menu, main.seed_shop_panel, main.shipping_bin_panel, main.npc_system.dialogue, main.npc_system.journal])
 	_panels.append(main.day_end_flow.panel)
+	_panels.append(main.morning_flow.panel)
 	# Read-only HUD decoration must not intercept the wide modal header beneath it.
 	_ignore_pointer(main.hud_presenter.root.right_column)
 	_backdrop = ColorRect.new()
@@ -99,6 +100,8 @@ func _visibility_changed(panel: Control) -> void:
 func _close(panel: Control) -> void:
 	if panel == _main.day_end_flow.panel:
 		_main.day_end_flow.cancel()
+	elif panel == _main.morning_flow.panel:
+		_main.morning_flow.dismiss()
 	elif panel == _main.inventory_panel:
 		_main.inventory_panel.close_inventory()
 	elif panel == _main.tutorial_panel:
@@ -182,7 +185,7 @@ func _input(event: InputEvent) -> void:
 					get_viewport().set_input_as_handled()
 		return
 	var target: StringName = &""
-	if _active == _main.pause_menu:
+	if _active == _main.pause_menu or _active == _main.morning_flow.panel:
 		# Tab/Space also bind world actions; native GUI focus/activation wins here.
 		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
 			if event.is_action_pressed(action):

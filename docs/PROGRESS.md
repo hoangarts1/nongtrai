@@ -1,14 +1,100 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-8a committed a683feb; ISO-8b automated acceptance/render review delivered)
+Last updated: 2026-11-03 (ISO-8b committed 57008ab; ISO-9 automated acceptance/render review delivered)
 
-## Proposed next task — ISO-9 morning bulletin (awaiting owner approval)
+## Proposed next task — ISO-10 character/relationships (awaiting owner approval)
 
-After owner “oke tiep tuc”, read-only review proposes reference05. ISO-8b remains delivered/uncommitted,264/264 renderer tests recorded in its handoff; human F5 acceptance still pending. No ISO-9 source/scene/domain/save or commit has been made. Approval request combines: fresh DataValidator, commit ISO-8b's exact50-file handoff manifest below (including this proposal), then implement this scope. Exclude/preserve owner master-plan leading blank line. No push/automatic ISO-9 commit.
+After owner “oke tiep tuc”, read-only review proposes reference07. ISO-9 remains delivered/uncommitted:273/273 renderer tests,62/62 official headless,30/30 focused,9/9 clean native; parse/data/main PASS. Human F5 acceptance remains pending. No ISO-10 source/scene/domain/save or commit has been made. Approval combines fresh DataValidator, commit exactly the44-file ISO-9 handoff below (including this proposal in the already-allowed PROGRESS file), then implement this scope. Preserve/exclude owner's master-plan leading blank line. No push/automatic ISO-10 commit.
 
 ### MILESTONE / TASK / ACCEPTANCE
 
-Proposed MILESTONE: ISO-9 — modular morning bulletin from reference05, using existing weather/farm/quest/item APIs. Only this deferred screen is opened.
+Proposed MILESTONE: ISO-10 — modular Character screen from reference07, with real saved profile/appearance and existing NPC friendship only. Add this approved row/D47 before implementation; no other deferred screen or skill system is opened.
+
+- Recreate reference07's common five-tab wood/paper shell, left framed farmer portrait/name/farm card, right skills area and relationship cards using native Controls/shared Theme. Split seven scene/script pairs: sheet, identity card, avatar portrait, skills panel, skill row, relationship list, relationship card; separate flow/presenter/snapshot helpers, aim <=250 lines each. Existing reference PNG/art/Theme/old scenes are read-only, never runtime mockup textures.
+- Left reads Main.profile's actual player_name/farm_name/appearance, with existing localized legacy-name fallback where absent. Reuse the actual PlaceholderAvatar2D renderer/CharacterAppearanceCatalog/AvatarHair2D for UI-local player and NPC portraits. Match saved player choices and actual NPC recipes; no new hairstyle/color/portrait data, rotation, cosmetic editing or independent character renderer.
+- No domain supports skill levels/XP/fishing/upgrades/bonuses yet. Preserve the five pictured skill labels as presentation rows marked localized unavailable; do not display invented levels/XP/percentages, working progress bars, yield/speed/price bonuses or upgrade buttons. The identity card omits fictitious farmer level/XP. Mockup's decorative equipment/gift icons must not become unsupported actions.
+- Relationship list enumerates the real NpcSocialState.content.npcs, not the mockup's invented roster. Read actual display_name_key, friendship and per-NPC friendship_max. Show raw points/cap plus the shared five-heart row as a view-only floor of the normalized ratio, not gameplay tiers/unlocks. Portraits use each existing NPC appearance. All registered NPCs appear via scroll/wrap; no fake birthdays/gift preferences/discounts/roles/remote talk or gifting actions. Unknown/empty legacy profile/social values use the existing owner defaults rather than fabricated progress.
+- Enable Character tab index1 in the common header; Bag0/Character1/Quest2 are enabled, Calendar3/Map4 remain unavailable. Explicitly authorize extending the previous Bag/Quest-only navigation: existing Q/E actions cycle these three in order, native mouse tabs/Close work in all three headers. Preserve J's existing journal and B/I/Tab's inventory shortcuts; add no direct character hotkey, InputMap action, project.godot change or new HUD shortcut. INPUT_MAP edits are descriptive only.
+- Main constructs a small view-only character flow before inventory attach/UiCoordinator configure. InventoryController remains the shared header/Q/E request router, extended to the new panel without owning profile/social state. Document typed APIs/tree before coding. No NpcSystem/NpcPanel/domain/public existing API rename or scene edit. Character opening refreshes actual profile/social values; no stale portrait after new game/load.
+- UiCoordinator remains the sole modal owner: centered wide bounds, clock held/world locked, prior pause restored, normal modal replacement/native Tab/Enter/Space/mouse routing, title/tutorial/sleep guards and day-end precedence. Character cannot bypass bedtime review/start flow. Begin/dismiss morning bulletin, pause, journal and bag keep their existing behavior; no duplicate modal stack or world E/Q/Space action.
+- Opening/scrolling/locale changes/tab switches/dismissal only read state. Never call talk/get_dialogue as a simulated conversation, roll weather, grant friendship, accept/deliver quests, spend/grant coins/items or advance a day. No new domain fields, save schema/version/flags; v8/v1-v8 goldens remain read-only. Existing authoritative normalization/daily-talk cap remain unchanged.
+- Extend old inventory/tab tests only for the approved third enabled tab and Q/E traversal, retaining all inventory/sort/discard/selection/clock/world/day-end assertions. Add focused native tab/key/scroll/close/portrait/real friendship and no-mutation tests; exercise zero/partial/max friendship, all real NPCs, old saves, new-game/load resets, prior holds and forced/manual review precedence.
+- Parse/DataValidator/focused/full official suite pass under the unchanged180s graphics bound/error gates. Review clean vi/en captures at1152x648,1280x720,1920x1080 with long names/farm names, all six player choices, all NPCs and friendship/empty states. Record exact files/diff/logs/manual F5 cases; human acceptance remains pending.
+
+### READ-ONLY CONTEXT / DO NOT TOUCH
+
+AGENTS; PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/INPUT_MAP/STYLE_GUIDE/UI_LAYOUT; contracts inventory/hud/ui_components/character_creation/player/day_end/morning_bulletin; reference07; current profile/appearance catalogue/PlaceholderAvatar2D and social/NpcData APIs. Read-only inspection confirmed NpcData.friendship_max/talk_friendship and NpcSocialState.friendship/content.npcs; no skill/XP/birthday/gift domain exists. Existing inventory controller/header currently hard-code enabled[0,2], and test_inventory_screen expects E from Bag to Quest; the above navigation change explicitly authorizes their targeted migration.
+
+Everything outside the following ALLOW_LIST is read-only: all core/domain/data, NpcSystem/NpcPanel, old .tscn, avatar/appearance/hair renderers, art/Theme, title/profile/pause/morning/day-end source, project.godot, save goldens, tools/timeouts/error gates and owner's master plan. If another file proves necessary, request that exact extension before editing.
+
+### Proposed ISO-10 ALLOW_LIST
+
+Existing files:
+~~~text
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+ui/inventory/common_tabs.gd
+ui/inventory/inventory_controller.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_inventory_screen.gd
+tests/unit/test_inventory_ui.gd
+tests/unit/test_ui_layout.gd
+tests/unit/test_ui_mouse.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/PROJECT_RULES.md
+docs/UI_LAYOUT.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/inventory.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/ui_components.md
+~~~
+
+New files (each named .gd also permits its matching .gd.uid):
+~~~text
+ui/character/character_sheet.gd
+ui/character/character_sheet.tscn
+ui/character/identity_card.gd
+ui/character/identity_card.tscn
+ui/character/avatar_portrait.gd
+ui/character/avatar_portrait.tscn
+ui/character/skills_panel.gd
+ui/character/skills_panel.tscn
+ui/character/skill_row.gd
+ui/character/skill_row.tscn
+ui/character/relationship_list.gd
+ui/character/relationship_list.tscn
+ui/character/relationship_card.gd
+ui/character/relationship_card.tscn
+ui/character/character_flow.gd
+ui/character/character_presenter.gd
+ui/character/character_snapshot.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_character_layout.gd
+docs/SCENE_CONTRACTS/character.md
+~~~
+
+### Order / assumptions / risks
+
+1. After approval, verify ISO-9 exact44-file handoff manifest plus excluded owner edit; fresh DataValidator PASS; commit that manifest only. Suggested commit: feat: add modular morning bulletin after completed day rollover.
+2. Record D47/roadmap/contract and the enabled-tab migration. Implement read-only small views/portraits/snapshots, Main wiring, shared tab routing and modal layout. Preserve authoritative profile/social/save/simulation owners.
+3. Add meaningful no-mutation/real-friendship/player-NPC portrait/native three-tab/input/legacy-save/guard coverage; adjust only old third-tab expectations, keeping their behavioral checks.
+4. Run focused/official checks, inspect clean captures and record full diff/manifest/logs/manual F5/API/memory. Leave ISO-10 uncommitted until later explicit instruction.
+
+Risks: reference07 includes unsupported progression and some fictional NPC details; copying them would misrepresent game state. Five hearts must describe the existing numeric ratio only. Four current NPC cards/long names/six-choice portraits require responsive scrolling at1152. Q/E must move through three panels without leaking world interaction or losing prior clock hold. Native Tab/Space must work in the new modal without opening Bag/using tools. Existing journal/quest actions remain untouched. No promise of skill/XP/gift/calendar/house/fertilizer implementation is included.
+
+## Approved task — ISO-9 morning bulletin (automated acceptance delivered)
+
+Owner approved “Duyệt, commit ISO-8b và triển khai ISO-9”. Fresh DataValidator PASS preceded commit **57008ab**, exactly the50-file ISO-8b handoff (including the approved proposal), excluding/preserving owner's master-plan leading blank line. ISO-9 implementation, automated acceptance and render review are delivered under this scope; exact handoff follows below. No ISO-9 commit/push. Human F5 acceptance remains pending.
+
+### MILESTONE / TASK / ACCEPTANCE
+
+MILESTONE: ISO-9 — modular morning bulletin from reference05, using existing weather/farm/quest/item APIs. Only this deferred screen is opened.
 
 - Recreate the newspaper/paper composition with shared Theme/native Controls: actual date/season/year masthead, three columns, forecast row, real to-do strip and green Begin Day button. Split sheet/weather/garden/market/price-row/task-strip scene pairs plus small flow/presenter/snapshot helpers (aim <=250 lines each). Never load the reference PNG as a runtime texture; no new artwork/Theme resource.
 - Left: actual WeatherState.today, localized weather/care explanation and the existing three saved forecast days, not fabricated extra predictions to fill reference's five pictured icons. Read saved forecast only; rendering/open/close/load never rolls weather, advances time or waters crops.
@@ -25,7 +111,7 @@ Proposed MILESTONE: ISO-9 — modular morning bulletin from reference05, using e
 
 AGENTS; PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/INPUT_MAP/STYLE_GUIDE/UI_LAYOUT; contracts day_end/hud/ui_components; reference05; existing WeatherState/FarmGridState/TutorialQuestState/DataRegistry/ItemData/ShippingBinPanel APIs; day-end/clock/save tests and flow. Everything outside the following ALLOW_LIST is read-only, including all core/domain/data, DayEndFlow source, existing .tscn, artwork/Theme, title/profile/pause source, project.godot, v1-v8 goldens, tools/error gates and owner's master plan.
 
-### Proposed ISO-9 ALLOW_LIST
+### Approved ISO-9 ALLOW_LIST
 
 Existing files:
 ~~~text
@@ -312,7 +398,7 @@ Risks: English text and the two-panel composition need scrolling at the smallest
 
 ## Current milestone
 
-`ISO-8b (creation UI/shared2D hair)` — owner approved “Duyệt, commit ISO-8a và triển khai ISO-8b”. ISO-8a committed **a683feb** after fresh DataValidator PASS, exact42-file manifest, owner edit excluded. Source/automated acceptance/render review delivered: five profile scenes/seven UI scripts, six data-backed choices, actual2D preview/shared player hair, fixed Back/Start, one-request latch and unchanged Main/profile/save owners. Official renderer264/264 (11480 asserts), official headless62/62 (879), focused headless32/32 (2521), clean renderer8/8 (964); parse/data/main PASS.42 clean vi/en/three-size captures reviewed. Native pixel tests prove six distinct silhouettes, preview/game parity and exact legacy NPC restoration. Core/domain/data/Main/old scenes/art/Theme/InputMap/save-v8/goldens unchanged. No ISO-8b commit/push; human F5 acceptance pending. Other deferred screens/fertilizer/house remain outside scope. Exact handoff/diff/logs/manual cases below.
+`ISO-9 (morning bulletin)` — approved; ISO-8b committed **57008ab** after fresh validator PASS, exact50-file manifest, owner edit excluded. Six small scene pairs plus flow/presenter/snapshot render real weather/forecast, tutorial/garden status and produce prices after completed rollover. Begin/Escape only dismiss; UiCoordinator owns clock/world lock and day-end precedence. New Game/load/title reset transient pending state; v8/goldens and all core/domain/data/DayEndFlow remain unchanged. Official renderer273/273 (12339 asserts), official headless62/62 (879), focused headless30/30 (2415), clean renderer9/9 (859); parse/data/main PASS.24 vi/en/three-size captures reviewed. ISO-9 uncommitted, human F5 acceptance pending. Other deferred screens/fertilizer/house remain outside scope. Historical handoffs below retain their delivery-time status; ISO-8b is now committed.
 ## ISO-6b1 final automated acceptance (2026-11-03, D42)
 
 Delivered within the approved scope: exact crop/price table, data-owned 80-coin initial/repeat return ceiling with retained price guards; first/repeat crop targets owned by FarmGridState; small stateless cycle/codec/economy helpers; one-time seed consumption, no free water/dry-streak reset, full-bag/no-repeat-harvest guards; real cycle-aware stage/countdown; v8 old-plant compatibility and multi-cell view refresh. Existing old fields/goldens, crop IDs/yields/seasons/care, input/scenes/art/autoloads/bus, atomic saves and owner edit remain. ISO-6a committed **7f7a429**; ISO-6b1 is uncommitted, no push. Fertilizer/house unlock and human editor acceptance remain pending; this does not mark all ISO-6 complete.
@@ -2748,3 +2834,129 @@ Run automation: `$env:GODOT='D:\godot\Godot_v4.7.2-stable_win64_console.exe'; & 
 Assumptions/limits: current body/scenery/flat Theme artwork is replaceable, not a new final-art commission. All six existing options are kept even though reference02 pictures fewer. Small viewport scrolls choices; names retain original empty-name fallback/no new validation. UI arrows cycle hair only. No domain/save/data/input/bus/autoload migration, package installation or log suppression. Human F5 playtest remains pending. gdtoolkit lint not run (not installed).
 
 Proposed ISO-8b commit: feat: add modular farmer creation and shared 2d hair preview
+
+## ISO-9 handoff and exact manifest (relative to 57008ab, D46)
+
+Acceptance implemented: reference05 pinned newspaper composition, actual date/season/year, weather/three saved forecasts, real tutorial/garden status, current produce shipping-bin prices, fixed task strip and green Begin button. Six scene/script pairs plus three helpers; UI scripts20-54 lines. Uses existing Theme/weather symbols/cropped inventory icons, never the reference PNG. Weather/garden/market scroll independently; vi/en and three resolutions remain usable. Unsupported calendar/events/trends are explicit; no invented rewards or game state.
+
+Main queues presentation after its existing completed-morning care/simulation/weather/journal/direct-save attempt. The next process frame waits for day-end advancement/final save/review/sleep/other modal to finish. Manual/direct/forced rollover tests prove one simulation and completed-morning save; Begin/Escape/locale refresh cannot add another day or mutate weather/farm/quests/ledger/wallet/inventory. UiCoordinator owns hold/input and restores prior pause. Same-day dedup and New Game/load/title reset guards are view-only. Tutorial/Continue/load do not auto-open; restored review retains precedence. Existing save version8/v1-v8 goldens, domain/core/data/DayEndFlow remain unchanged.
+
+ISO-8b was committed57008ab after fresh validator PASS, exact50 files. ISO-9 remains uncommitted; no push. Human editor acceptance is pending.
+
+Exact44-file delivery manifest (15 modified,29 created; matching .gd.uid included):
+
+~~~text
+M docs/API_INDEX.md
+M docs/ARCHITECTURE.md
+M docs/DECISIONS.md
+M docs/PROGRESS.md
+M docs/PROJECT_RULES.md
+M docs/ROADMAP.md
+M docs/SCENE_CONTRACTS/day_end.md
+M docs/SCENE_CONTRACTS/hud.md
+A docs/SCENE_CONTRACTS/morning_bulletin.md
+M docs/SCENE_CONTRACTS/ui_components.md
+M docs/UI_LAYOUT.md
+M localization/strings_en.csv
+M localization/strings_vi.csv
+M scripts/view/main.gd
+M scripts/view/ui_coordinator.gd
+M scripts/view/ui_layout.gd
+A tests/unit/test_morning_flow.gd
+A tests/unit/test_morning_flow.gd.uid
+A tests/unit/test_morning_layout.gd
+A tests/unit/test_morning_layout.gd.uid
+A ui/morning/garden_column.gd
+A ui/morning/garden_column.gd.uid
+A ui/morning/garden_column.tscn
+A ui/morning/market_column.gd
+A ui/morning/market_column.gd.uid
+A ui/morning/market_column.tscn
+A ui/morning/morning_flow.gd
+A ui/morning/morning_flow.gd.uid
+A ui/morning/morning_presenter.gd
+A ui/morning/morning_presenter.gd.uid
+A ui/morning/morning_sheet.gd
+A ui/morning/morning_sheet.gd.uid
+A ui/morning/morning_sheet.tscn
+A ui/morning/morning_snapshot.gd
+A ui/morning/morning_snapshot.gd.uid
+A ui/morning/price_row.gd
+A ui/morning/price_row.gd.uid
+A ui/morning/price_row.tscn
+A ui/morning/task_strip.gd
+A ui/morning/task_strip.gd.uid
+A ui/morning/task_strip.tscn
+A ui/morning/weather_column.gd
+A ui/morning/weather_column.gd.uid
+A ui/morning/weather_column.tscn
+~~~
+
+All44 files are in the approved ISO-9 ALLOW_LIST, zero outside. Owner docs/reference/THE_LIFE_MASTER_PLAN.txt remains exactly its pre-existing leading blank line (1 insertion/0 deletions), excluded from delivery. Existing allowed day-end/weather/UI tests needed no edits and were rerun unchanged. All existing .tscn/core/domain/data/DayEndFlow/art/Theme/project.godot/InputMap/goldens/tools remain unchanged. No test weakening or timeout/error-gate edits. Godot generated the11 matching .gd.uid files.
+
+Clear combined diff including new files: C:/Users/daova/AppData/Local/Temp/the_life_iso9_review/ISO-9-review.patch. Dry-run git apply --reverse --check validates against this working tree; no patch is applied and no staging/commit occurs. Clean24 screenshots plus contact-sheet.png and validation.txt are in the same review directory. These local review artifacts are outside the repository/ALLOW_LIST; no gameplay asset is added.
+
+Real final test output (ANSI color codes omitted):
+
+~~~text
+Focused headless: morning_flow,morning_layout,day_end_flow,day_end_save,weather,ui_layout,ui_mouse
+Scripts               7
+Tests                30
+Passing Tests        30
+Asserts            2415
+Time              10.132s
+---- All tests passed! ----
+
+Clean native renderer: morning_flow,morning_layout (-gopacity=0)
+Scripts               2
+Tests                 9
+Passing Tests         9
+Asserts             859
+Time               6.004s
+---- All tests passed! ----
+
+tools/run_tests.bat (Godot4.7.2/GUT9.7.1, isolated APPDATA):
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                62
+Passing Tests        62
+Asserts             879
+Time               4.154s
+---- All tests passed! ----
+Complete graphics suite:
+Scripts              79
+Tests               273
+Passing Tests       273
+Asserts           12339
+Time             131.425s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Final focused/native logs: %TEMP%/the_life_iso9_{focused,render}.log.{stdout,stderr}. Official logs: %TEMP%/the_life_{parse,validate,headless,gut,main}.log.{stdout,stderr}. Final scans: zero SCRIPT ERROR/Parse Error/Failed to load script/ERROR/failing-summary/orphan/leak matches; native/focused stderr empty. Full-suite warnings are expected malformed-save/capacity/backend-rejection fixtures, including the deliberate slot -1 failure; the official runner exits0. Graphics bound remains the approved180s, all error gates unchanged. git diff --check passes.
+
+During development, an initial snapshot guessed a needs_water field and added1 to an already one-based seasonal date; fixed to documented CropData.water_need and direct GameClock.get_day_in_season(). Direct-sleep tests initially assumed immediate completion; corrected to exercise the real accelerated sleep through public advance_minutes. No core/domain workaround or weakened assertion. Final code passed all checks above.
+
+How to rerun from project root:
+
+~~~powershell
+.\tools\run_tests.bat
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_godot_bounded.ps1 -Godot 'D:\godot\Godot_v4.7.2-stable_win64.exe' -Arguments '--path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_morning_flow.gd,res://tests/unit/test_morning_layout.gd -gopacity=0 -gexit' -OutputPath "$env:TEMP\the_life_iso9_render.log"
+~~~
+
+Run test processes sequentially: they share the existing isolated APPDATA. Copy clean screenshots before the official full runner overwrites user:// captures with its visible GUT overlay. Tests never use player APPDATA/saves.
+
+Manual editor acceptance (owner, still pending; no scene-tree/Inspector/project-setting edits required):
+
+- [ ] F5 New Game/Continue: initial tutorial/save resumes normally without a morning bulletin. Reach20:00, interact with bed, inspect/cancel summary; no morning popup or domain advancement on cancel. Confirm sleep: summary closes, one morning bulletin appears at06:00 after the completed save.
+- [ ] Compare real weather/forecast, garden counts (ripe/young/empty/withered/repeating tomato), tutorial progress and unit prices against the existing garden/shipping-bin data. Rain shows0 needs-water after actual morning care. No added weather roll or transaction on open/refresh/close.
+- [ ] Click green Begin, repeat click, Escape, Tab/Enter/Space, mouse-wheel price scroll and ordinary modal switching. No tool action/item use or extra day. World/clock remain locked while visible and restore their prior hold after close. Day-end review always wins.
+- [ ] Test forced02:00 review/confirm; still one rollover/bulletin. Load an old v1-v8 save, saved review and completed-morning save; no automatic bulletin/replay. Return-title/load/New Game clear pending popup; next actual sleep opens it once.
+- [ ] Compare vi/en at1152x648,1280x720,1920x1080: all three columns/footer/button fit, long text wraps/scrolls, Vietnamese accents render and current icons/prices are readable. Empty/completed quest states remain truthful.
+
+Known limits/assumptions: current placeholder2D world/art remains; newspaper approximates the reference composition with the existing shared Theme. Three saved forecasts are shown, not five invented entries. Birthdays/festivals/trends remain unavailable; no unsupported event/reward/XP/stamina system. Morning UI does not gate gameplay on save success: it waits until the existing completed save attempt returns; existing failure feedback/behavior is preserved. Bulletin dismissal is not saved, so loading a morning resumes gameplay without replaying it. Human F5 visual/game-feel approval remains required before marking roadmap rows complete.
+
+Proposed ISO-9 commit: feat: add modular morning bulletin after completed day rollover

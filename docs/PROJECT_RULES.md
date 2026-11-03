@@ -6,6 +6,8 @@ Migration notice (2026-11-03, D33–D44): ISO-1 converted the active runtime to 
 
 D45 status notice (2026-11-03): ISO-8a committed a683feb; ISO-8b creation UI/shared player2D hair automated acceptance/render review is delivered. Human acceptance remains pending; all locked rules below are unchanged.
 
+D46 status notice (2026-11-03): ISO-8b committed57008ab; ISO-9 morning bulletin is approved and implemented using read-only weather/garden/quest/price values after the existing completed rollover. Automated verification is recorded in PROGRESS; human acceptance remains pending. No locked rule, domain/save schema or deferred calendar system changes.
+
 Items marked `<<FILL: ...>>` must be filled by the human before roadmap task 0.1 starts. An agent that finds an unfilled marker must STOP and ask.
 
 ---

@@ -1,5 +1,7 @@
 # ISO-2 reusable UI contracts
 
+ISO-9 composes six native ui/morning scene pairs with flow/presenter/snapshot helpers: sheet, weather/garden/market columns, price row and fixed task strip. Reuses existing paper, Theme variations, LifeDayWeatherSymbol and LifeInventoryIcon.for_item; no generic component/Theme/art mutations. Display values are read-only; Begin emits a dismissal only. See morning_bulletin.md.
+
 ISO-8b adds native creation consumers under ui/profile: name fields, choice rows/swatches, actual2D preview and presenter/helpers. Swatch colors use unchanged Resource palettes; selected/focus states use existing Theme, no StyleBox overrides. Shared AvatarHair2D is view-only drawing used by preview/player, not a domain component. See character_creation.md.
 
 ISO-8a composes five ui/title scenes plus presenter/helpers from existing Theme and ISO-7 settings components. Typed fields replace the approved old internal menu paths; see start_menu.md. No generic component/Theme/art resource changes, no invented save statistics.

@@ -1,5 +1,11 @@
 # HUD layout
 
+## ISO-9 morning bulletin (D46)
+
+Reference05 is rebuilt as six scene/script pairs under ui/morning plus flow/presenter/snapshot helpers. Wide summary bounds contain pinned paper/masthead, three equal columns, fixed garden-note strip and green Begin button. Weather/garden/market content scrolls independently; current produce rows reuse cropped existing icons. Shared Theme/weather symbols are unchanged; no reference image is loaded at runtime.
+
+Actual date/current weather/three saved forecasts, tutorial/garden counts and ItemData shipping-bin prices are read only after the existing completed rollover. Calendar/events/trends are explicitly unavailable. No new simulation, save schema, forecast roll or transaction. Begin/Escape dismiss only; native Tab/Space/Enter stay GUI actions. UiCoordinator owns the clock/world hold, restores its prior value and retains day-end precedence. Load/New Game/title reset the transient queue; no popup merely from Continue/tutorial. See SCENE_CONTRACTS/morning_bulletin.md for APIs and manual checks. Automated vi/en captures cover1152x648,1280x720,1920x1080; human acceptance remains pending.
+
 ## ISO-8b creation (D45)
 
 Profile mode uses the wide summary-style viewport bounds with4px motion padding. The old outer title frame/banner/footer become transparent/hidden only in profile mode; title/settings retain their composition. Inside: left wood/paper/red banner, paired names, six hairstyle buttons and six swatches per palette in a focus-following vertical scroll; fixed Back/Start. Right: actual2D preview on decorative sky/grass, arrows cycling hairstyles, paper-backed localized hint/name/farm captions (long captions limit display lines without editing drafts).

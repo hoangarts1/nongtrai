@@ -1,5 +1,7 @@
 # ISO-3 modular HUD contract
 
+ISO-9 registers MorningBulletin with the existing exclusive modal owner. Main wires morning_flow after day_end_flow and before UiCoordinator.configure; only the existing completed rollover queues presentation. Interactive HUD/world input is suppressed while visible, prior pause restores on dismissal, native GUI keys win over world shortcuts and day-end remains primary. No HUD binding/InputMap/bus changes. See morning_bulletin.md.
+
 ISO-8b changes only creation mode within the existing start modal: wide two-panel form/preview, native six-choice rows, no new HUD binding. World/HUD lock remains UiCoordinator-owned; see character_creation.md. No game state before Start.
 
 ISO-8a updates StartMenu's script-built internals only (start_menu.md). Main/StartMenu and gameplay HUD paths stay unchanged; title/profile/settings share the existing start modal and world lock. No new HUD shortcut, gameplay state or InputMap action.
