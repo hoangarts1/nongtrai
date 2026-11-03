@@ -1,6 +1,57 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-10 committed b44c5d5; ISO-11 automated acceptance/render review delivered)
+Last updated: 2026-11-03 (ISO-11 committed 962bba9; next ISO plan pending approval)
+
+## Proposed next scope — new asset/UI/crop ISO sequence (NOT APPROVED)
+
+Owner decisions recorded in D49: use the supplied 128×64 ground atlas with Camera2D zoom0.5; Baloo 2 + Nunito with Open Sans fallback; Monday-start seven-day weeks, 28-day seasons and 06:00 wake time; the confirmed B/J/K/M/H/Escape, 1–8, E, Q/E, F, Z and T bindings; one-cell perennials; the supplied CropData balance table; and the approved wither/recovery/death rules. ISO-11 is complete in commit `962bba9`; the focused quest-book tests pass. The full harness is currently blocked by unrelated worktree deletion of `ui/ui_gallery.gd`, which is intentionally excluded from that commit.
+
+The following is a plan only. No implementation, asset import, InputMap edit or gameplay-data change is authorized until the owner approves this scope and the per-step allow list:
+
+1. **ISO-12 ground/assets:** inspect the supplied files, validate/rebuild the 128×64 Isometric TileSet, preserve placeholders, and wire deterministic ground/decor presentation.
+2. **ISO-13 theme/HUD:** verify fonts and diacritics, then align existing native UI/HUD components to the selected tokens without adding unsupported state.
+3. **ISO-14 world decor:** add deterministic rocks/grass/decor visuals with the approved collision boundary; no cleanup gameplay.
+4. **ISO-15 crops:** expand CropData from the approved table, read manifest pivots, connect stage/wilted/perennial presentation to existing FarmGridState/DaySimulator owners, and preserve saves.
+5. **ISO-16 supported screens:** align day-end, inventory planting-item display, and pause/settings before any screen whose domain state is absent.
+6. **ISO-17 shop/remaining presentation:** add data-driven planting-item purchasing and only then screens backed by real systems.
+
+### Proposed ISO-12–17 ALLOW_LIST (pending owner approval)
+
+Planning/document files:
+~~~text
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/
+docs/UI_LAYOUT.md
+docs/INPUT_MAP.md
+~~~
+
+Asset/data files, only when the corresponding ISO is approved:
+~~~text
+assets/tiles/
+assets/decor/
+assets/objects/
+assets/rocks/
+assets/grass_clumps/
+assets/crops/
+data/crops/
+ui/theme/
+~~~
+
+Runtime/view/test files, only when explicitly named by the approved step:
+~~~text
+scripts/view/
+scripts/domain/
+scripts/data/
+ui/
+tests/unit/
+~~~
+
+Everything else remains DO NOT TOUCH, especially existing placeholder art until replacement assets pass validation, old scenes unless explicitly listed, save/core systems outside the named crop integration, and the user's master prompt files.
 
 ## Approved task — ISO-11 quest book (automated acceptance delivered)
 
