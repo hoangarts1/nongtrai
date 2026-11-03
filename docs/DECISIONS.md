@@ -288,3 +288,15 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Import the supplied `tiles`, `decor` and `objects` assets into the root `assets/` directories without deleting the retained source bundle. Use `ground_tileset_128x64.tres`, Camera2D zoom0.5 and the existing TileMapLayer conversion path.
 - Remove the generated placeholder ground texture from active runtime. Ground variants are selected by a stable coordinate hash; the imported atlas has no authored grid lines, and Highlight remains the only hover-cell visualization.
 - Do not add gameplay state, save fields, crop balance, object interactions or new collision behavior in ISO-12. Large-rock collision and other decor gameplay remain deferred to ISO-14.
+
+### D51 — ISO-13 shared theme/font and HUD baseline (2026-11-03) — Status: LOCKED by owner approval
+- Keep the existing shared `the_life_theme.tres` and modular native HUD as the presentation baseline. Baloo 2 is used for headings, Nunito for body text, and Open Sans remains the fallback; Vietnamese diacritics must be verified before acceptance.
+- Why: ISO-2/ISO-3 already provide the requested replaceable Theme and real-state HUD, so rebuilding them would add risk without changing player-facing behavior.
+- Consequence: ISO-13 is a validation/documentation completion of the existing implementation. No stamina, event, save, domain, InputMap or fabricated HUD values are added.
+- Changeable until: before the next approved visual milestone.
+
+### D52 — ISO-14 deterministic passive scenery (2026-11-03) — Status: LOCKED by owner approval
+- Use coordinate hashing to place imported rocks and grass clumps outside the farm and interaction-anchor exclusion cells. Sprite roots stay at `TileMapLayer`-derived cell positions, and only large rocks use the existing `world_static` collision layer.
+- Why: scenery must be stable across runs without becoming domain/save state, while large rocks need the approved passive boundary for future cleanup gameplay.
+- Consequence: small/medium rocks and grass clumps remain non-colliding visuals; rock cleanup, harvesting and interaction are deferred.
+- Changeable until: before ISO-14 gameplay interaction is separately approved.

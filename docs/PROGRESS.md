@@ -1,6 +1,71 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-12 automated acceptance delivered; human editor acceptance pending)
+Last updated: 2026-11-03 (ISO-13 automated acceptance delivered; human editor acceptance pending)
+
+## Approved task — ISO-14 deterministic rocks, grass clumps and decor presentation (automated acceptance delivered)
+
+Owner approved ISO-14 in sequence. This slice imports the supplied rock and grass-clump art retained in the nested asset bundle, replaces only passive world scenery placeholders with deterministic sprite presentation, and gives large rocks the existing `world_static` collision layer. Cleanup, harvesting, interaction and any new gameplay state remain deferred.
+
+### ISO-14 ALLOW_LIST
+
+~~~text
+assets/rocks/**
+assets/grass_clumps/**
+scripts/view/world_presentation.gd
+tests/unit/test_world_presentation.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+~~~
+
+### ISO-14 acceptance
+
+- Copy supplied `rocks` and `grass_clumps` assets from the retained bundle into the approved root asset directories.
+- Select scenery size/variant only from stable logical-cell hashing; do not use global random state or save fields.
+- Keep scenery outside farm plots and interaction anchors; preserve existing y-sort foot roots and camera/grid conversion.
+- Only large rocks create passive `world_static` collision; all cleanup gameplay remains unavailable.
+- Add automated checks for imported assets, deterministic placement, sprite anchors, layer visibility and large-rock collision.
+- Run parse, data validation, focused world tests and the complete GUT suite before marking complete.
+
+### ISO-14 acceptance record
+
+- Imported root assets: 72 files under `assets/rocks/` and `assets/grass_clumps/`; retained source bundle unchanged.
+- Passive scenery uses stable logical-cell hashing and `TileMapLayer`-derived cell positions. Farm and interaction exclusion cells remain clear.
+- Large rocks alone contain `WorldStaticCollision`; small/medium rocks and grass clumps are non-colliding. Cleanup interactions remain deferred.
+- `godot --headless --path . --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Focused world presentation tests: 5/5 tests, 618 asserts, PASS.
+- Full GUT suite rerun: 291/291 tests, 14,832 asserts, PASS.
+- Human editor/render acceptance remains pending.
+
+## Approved task — ISO-13 shared theme/font and HUD baseline (automated acceptance delivered)
+
+The approved ISO-13 review confirmed that the shared Theme, selected fonts and modular HUD already satisfy the roadmap scope. No runtime rewrite was needed: the existing implementation uses Baloo 2 headings, Nunito body text, Open Sans fallback, the shared replaceable Theme, localized text and real HUD/domain values without adding stamina, event data, save fields or InputMap actions.
+
+### ISO-13 ALLOW_LIST
+
+~~~text
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/SCENE_CONTRACTS/hud.md
+ui/theme/**
+ui/components/**
+ui/hud/**
+tests/unit/test_ui_theme.gd
+tests/unit/test_isometric_hud.gd
+~~~
+
+### ISO-13 acceptance record
+
+- Font files verified: Baloo 2, Nunito, Open Sans fallback and existing Noto Serif secondary style, including SIL OFL notices.
+- `godot --headless --path . --quit`: PASS.
+- Focused Theme/HUD GUT run: 8/8 tests, 872 asserts, PASS.
+- Existing tests verify Vietnamese diacritics, shared Theme ownership, design tokens, button states, HUD bounds at 1152×648/1280×720/1920×1080, vi/en layout, modal behavior, real clock/coin/quest state, and absence of fabricated stamina/event cards.
+- No gameplay/domain/save/InputMap changes were required. Human editor/render acceptance remains pending.
 
 ## Approved task — ISO-12 imported 2D ground/assets (automated acceptance delivered)
 

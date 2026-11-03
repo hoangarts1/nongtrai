@@ -11,6 +11,8 @@ extends Node
 const PALETTE: Resource = preload("res://data/art/palette/chibi_valley.tres")
 const CATALOG: Resource = preload("res://data/art/world/chibi_world_catalog.tres")
 const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
+const SCENERY_SIZES: Array[StringName] = [&"small", &"medium", &"large"]
+const SCENERY_VARIANTS: int = 3
 var _world: GrayBoxWorld
 var _main: Node
 var _world_art: Node2D
@@ -42,8 +44,75 @@ func configure(main: Node) -> void:
 			tree.global_position = _world.cell_to_global(cell)
 			tree.configure(&"tree", "", PALETTE.call("get_color", &"foliage", GameClock.season))
 			index += 1
+	_build_natural_scenery()
 	GameClock.season_changed.connect(_on_season_changed)
 	_on_season_changed(GameClock.season)
+
+func _build_natural_scenery() -> void:
+	var map_region: Rect2i = _world.CONFIG.map_region
+	var placed: int = 0
+	for y: int in range(map_region.position.y, map_region.end.y):
+		for x: int in range(map_region.position.x, map_region.end.x):
+			var cell: Vector2i = Vector2i(x, y)
+			if _reserved_scenery_cell(cell):
+				continue
+			var bucket: int = _scenery_hash(cell) % 100
+			if bucket < 7:
+				_add_scenery_sprite(&"rock", cell, _scenery_hash(cell + Vector2i(17, 3)) % 3, placed)
+				placed += 1
+			elif bucket < 18:
+				_add_scenery_sprite(&"grass_clump", cell, _scenery_hash(cell + Vector2i(5, 29)) % 3, placed)
+				placed += 1
+
+func _reserved_scenery_cell(cell: Vector2i) -> bool:
+	var farm_region: Rect2i = Rect2i(0, 0, 6, 6)
+	if farm_region.has_point(cell):
+		return true
+	for reserved: Vector2i in [_world.CONFIG.house_cell, _world.CONFIG.shipping_bin_cell, _world.CONFIG.shop_cell, _world.CONFIG.spawn_cell]:
+		if cell.distance_squared_to(reserved) <= 4:
+			return true
+	return false
+
+func _scenery_hash(cell: Vector2i) -> int:
+	return absi(cell.x * 92837111 + cell.y * 689287499 + 314159)
+
+func _add_scenery_sprite(kind: StringName, cell: Vector2i, variant: int, index: int) -> void:
+	var size: StringName = SCENERY_SIZES[_scenery_hash(cell + Vector2i(41, 11)) % SCENERY_SIZES.size()]
+	var prefix: String = "rock" if kind == &"rock" else "grass_clump"
+	var asset_directory: String = "grass_clumps" if kind == &"grass_clump" else "rocks"
+	var path: String = "res://assets/%s/%s_%s_%d.png" % [asset_directory, prefix, size, variant + 1]
+	var texture: Texture2D = load(path) as Texture2D
+	var root: Node2D = Node2D.new()
+	root.name = "%s_%d_%d" % [prefix, index, _scenery_hash(cell) % 1000]
+	root.set_meta("cell", cell)
+	root.set_meta("scenery_kind", kind)
+	root.set_meta("scenery_size", size)
+	root.set_meta("variant", variant)
+	root.global_position = _world.cell_to_global(cell)
+	_world_art.add_child(root)
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.name = "Sprite2D"
+	sprite.texture = texture
+	sprite.centered = false
+	sprite.position = Vector2(-64, -128)
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	root.add_child(sprite)
+	if kind == &"rock" and size == &"large":
+		_add_large_rock_collision(root)
+
+func _add_large_rock_collision(root: Node2D) -> void:
+	var body: StaticBody2D = StaticBody2D.new()
+	body.name = "WorldStaticCollision"
+	body.set_collision_layer_value(1, true)
+	body.collision_mask = 0
+	body.add_to_group("obstacles")
+	var shape: CollisionShape2D = CollisionShape2D.new()
+	var circle: CircleShape2D = CircleShape2D.new()
+	circle.radius = 24.0
+	shape.shape = circle
+	shape.position = Vector2(0, -12)
+	body.add_child(shape)
+	root.add_child(body)
 
 func _place_anchor(anchor_name: String, cell: Vector2i, kind: StringName, title: String) -> void:
 	var anchor: Node2D = _world.objects.get_node(anchor_name) as Node2D

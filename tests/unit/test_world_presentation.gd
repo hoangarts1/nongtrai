@@ -51,6 +51,39 @@ func test_world_art_separates_readable_places_without_changing_their_interaction
 			assert_false(farm_cells.has_point(child.get_meta("cell")),"Passive scenery stays outside farm")
 	assert_gt(main.presentation.get_season_fx().get_active_effect_count(),0)
 
+func test_natural_scenery_uses_imported_assets_and_stable_cell_anchors() -> void:
+	var first: Node = _game()
+	await _settle()
+	var first_root: Node2D = first.presentation.get_world_art_root()
+	var first_cells: Array[Vector2i] = []
+	var large_rocks: int = 0
+	for child: Node in first_root.get_children():
+		if not child.has_meta("scenery_kind"):
+			continue
+		var cell: Vector2i = child.get_meta("cell")
+		first_cells.append(cell)
+		assert_eq(child.global_position,first.world.cell_to_global(cell))
+		assert_true(child.has_node("Sprite2D"))
+		var sprite: Sprite2D = child.get_node("Sprite2D") as Sprite2D
+		assert_true(sprite.texture.resource_path.begins_with("res://assets/"))
+		if child.get_meta("scenery_kind") == &"rock" and child.get_meta("scenery_size") == &"large":
+			assert_not_null(child.get_node_or_null("WorldStaticCollision"))
+			large_rocks += 1
+		else:
+			assert_null(child.get_node_or_null("WorldStaticCollision"))
+		assert_false(Rect2i(0,0,6,6).has_point(cell))
+	assert_gt(first_cells.size(),0)
+	assert_gt(large_rocks,0)
+	first.queue_free()
+	await get_tree().process_frame
+	var second: Node = _game()
+	await _settle()
+	var second_cells: Array[Vector2i] = []
+	for child: Node in second.presentation.get_world_art_root().get_children():
+		if child.has_meta("scenery_kind"):
+			second_cells.append(child.get_meta("cell"))
+	assert_eq(first_cells,second_cells)
+
 func test_lighting_is_gentle_forward_plus_post_processing_with_soft_sun_shadows() -> void:
 	# 3D postprocessing is intentionally replaced by world-only CanvasModulate.
 	var main: Node = _game()
