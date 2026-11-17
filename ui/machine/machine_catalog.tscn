@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/machine/machine_catalog.gd" id="1"]
+[node name="MachineCatalog" type="ScrollContainer"]
+script = ExtResource("1")

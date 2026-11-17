@@ -1,6 +1,6 @@
 ## CropPresentation — 2D crop-stage placeholders; existing crop Resources own growth/yield.
 ## API:
-##   static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, cell: Vector2i) -> void
+##   static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, cell: Vector2i, regrowing: bool = false) -> void
 ##   static func clear(crop: Sprite2D) -> void
 class_name CropPresentation
 extends RefCounted
@@ -14,12 +14,12 @@ static func clear(crop: Sprite2D) -> void:
 	crop.set_meta("mature", false)
 	crop.set_meta("withered", false)
 
-static func get_stage_id(growth_ratio: float, withered: bool = false) -> StringName:
-	return &"withered" if withered else StringName(str(3 if growth_ratio >= 0.999 else clampi(floori(growth_ratio * 3.0), 0, 2)))
+static func get_stage_id(growth_ratio: float, withered: bool = false, regrowing: bool = false) -> StringName:
+	return &"withered" if withered else StringName(str(maxi(0, CropStageRules.ratio_stage_index(growth_ratio, regrowing))))
 
-static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, _cell: Vector2i) -> void:
-	var stage: StringName = get_stage_id(growth_ratio, withered)
-	var stage_index: int = 3 if growth_ratio >= 0.999 else clampi(floori(growth_ratio * 3.0), 0, 2)
+static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, crop_color: Color, withered: bool, watered: bool, _cell: Vector2i, regrowing: bool = false) -> void:
+	var stage: StringName = get_stage_id(growth_ratio, withered, regrowing)
+	var stage_index: int = maxi(0, CropStageRules.ratio_stage_index(growth_ratio, regrowing))
 	var visual: Dictionary = _get_visual(crop_id, stage_index, withered)
 	if visual.is_empty():
 		var key: String = "%s:%s:%s:%s" % [crop_id, stage, crop_color.to_html(), str(watered)]
@@ -34,7 +34,8 @@ static func render(crop: Sprite2D, crop_id: StringName, growth_ratio: float, cro
 	crop.set_meta("stage_id", stage)
 	crop.set_meta("visual_stage", stage_index + 1)
 	crop.set_meta("visual_asset", visual.get("path", "placeholder"))
-	crop.set_meta("mature", stage == &"3")
+	# Fruit art in the last quarter does not authorize an early harvest.
+	crop.set_meta("mature", not withered and is_finite(growth_ratio) and growth_ratio >= 1.0)
 	crop.set_meta("withered", withered)
 	crop.set_meta("crop_id", crop_id)
 

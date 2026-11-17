@@ -11,6 +11,7 @@
 [ext_resource type="Resource" path="res://data/shops/minh_autumn_discount.tres" id="9_offer"]
 [ext_resource type="Resource" path="res://data/shops/minh_winter_discount.tres" id="10_offer"]
 [ext_resource type="Resource" path="res://data/shops/minh_turnip_request.tres" id="11_offer"]
+[ext_resource type="Resource" path="res://data/water_sources.tres" id="12_water"]
 
 [sub_resource type="Resource" id="minh_intro"]
 script = ExtResource("5_dialogue")
@@ -57,6 +58,7 @@ locations = {
 &"minh_market": Vector3(-4.5, 0, 6.5)
 }
 nav_region = Rect2i(-10, -10, 30, 30)
+water_sources = ExtResource("12_water")
 solid_rects = Array[Rect2i]([Rect2i(0, 0, 6, 6), Rect2i(9, 9, 4, 3), Rect2i(-3, 7, 2, 2), Rect2i(8, 9, 1, 1), Rect2i(-4, 2, 1, 1)])
 
 [sub_resource type="Resource" id="minh_visit"]

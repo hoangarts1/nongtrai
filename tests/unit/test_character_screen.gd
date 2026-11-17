@@ -5,11 +5,14 @@ var _viewport: SubViewport
 var _clock: Dictionary
 var _paused: bool
 var _locale: String
+var _tutorial_dismissed: bool
 
 func before_each() -> void:
 	_clock = GameClock.serialize()
 	_paused = GameClock.paused
 	_locale = TranslationServer.get_locale()
+	_tutorial_dismissed = Settings.is_tutorial_dismissed()
+	Settings.set_tutorial_dismissed(false)
 	SaveService.delete_save(0)
 	SaveService.delete_save(1)
 	_viewport = SubViewport.new()
@@ -24,6 +27,7 @@ func after_each() -> void:
 	GameClock.deserialize(_clock)
 	GameClock.paused = _paused
 	TranslationServer.set_locale(_locale)
+	Settings.set_tutorial_dismissed(_tutorial_dismissed)
 	SaveService.delete_save(0)
 	SaveService.delete_save(1)
 
@@ -151,7 +155,7 @@ func test_old_saves_and_new_game_refresh_real_profile_without_saved_ui_state() -
 		var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v%d.json" % version))
 		_main.call("_load_payload",raw)
 		assert_false(_main.character_flow.panel.visible)
-		assert_eq(SaveService.CURRENT_VERSION,8)
+		assert_eq(SaveService.CURRENT_VERSION,12)
 		var snapshot: Dictionary = CharacterSnapshot.capture(_main)
 		assert_eq(snapshot.appearance,LifeCharacterPortrait.CATALOG.normalize_player_customization(_main.profile.appearance))
 		var before: Dictionary = _domains()

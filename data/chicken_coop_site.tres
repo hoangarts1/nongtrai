@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ChickenCoopSiteConfig" load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/data/chicken_coop_site_config.gd" id="1"]
+[ext_resource type="Resource" path="res://data/isometric_world_config.tres" id="2"]
+[ext_resource type="Resource" path="res://data/land_expansion_config.tres" id="3"]
+[ext_resource type="Resource" path="res://data/chicken_coop_config.tres" id="4"]
+[resource]
+script = ExtResource("1")
+site_id = &"home_coop"
+purchase_price = 700
+initial_hens = 4
+footprint = Rect2i(10, 14, 2, 2)
+entrance = Vector2i(10, 13)
+access_route = Array[Vector2i]([Vector2i(3,6),Vector2i(6,6),Vector2i(6,8),Vector2i(7,8),Vector2i(7,13),Vector2i(10,13)])
+clearance = 1
+world = ExtResource("2")
+land = ExtResource("3")
+coop_config = ExtResource("4")

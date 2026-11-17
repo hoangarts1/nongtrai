@@ -1,5 +1,103 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F1/F2/F3 automation delivered, uncommitted (2026-11-18)
+
+Sequential full gates passed: F1 596/596, F2 603/603, F3 607/607; final 36789 assertions, parse/data/headless63/Main PASS. Shared crop stage/care/repeat rules, exact/debug Ctrl+M and compact modular machine header/layout delivered. 24 additive cases; old cases/assertions/goldens/runner retained (test_machine_screen only adds geometry/convergence). Scope 44 files, outside approved union0; save12/InputMap/old scenes/art preserved. Detailed per-milestone evidence/diffs/manual limits at PROGRESS and DELIVERY.md in the F3 backup. Human F5/release export/commit remain separate. Other audit goals are not implicitly complete.
+
+## AUDIT-F2 automation delivered (2026-11-18)
+
+F1 596/596 and F2 603/603 full gates passed sequentially. Exact/debug policy and world lifecycle guards delivered, 7 additive cases; all 596 earlier cases unchanged. F3 is approved and now eligible to start. InputMap/save12/gameplay owners/art unchanged; release export/human acceptance/commit remain separate.
+
+## Approved sequential audit followups (2026-11-18)
+
+Owner approved AUDIT-F1 ->F2 ->F3 and each exact ALLOW_LIST in PROGRESS, with no auto commit. F1 (ISO-15/18): shared quarter boundaries, repeatstage3, real maturity, legacy save12 preservation; automation596/596 delivered with all583old cases preserved, commit/human separate. F2: exact debug Ctrl+M in all existing routes, approved but not started. F3: measure/fix machine layout and extract a small header, approved but not started. Full unchanged gate after each part before progressing; no final feature/GateA/B/commit claim before evidence. AUDIT_REPORT remains the immutable earlier snapshot.
+
+## Phase7.1b weather runtime continuation (2026-11-18; automation583/583 delivered)
+
+Connect validated weather to existing owner/Main/save12; use DetRandom tag1 only for fresh/tail draws, preserve saved today/seed/three forecasts and merchant stream. Exact-next-day captured reservation protects daily callbacks and lifecycle; malformed component has explicit actual-day fallback. Four new suites and real pinned RNG golden cover signed seeds/1000 days/migrations/runtime/manual-forced-direct mornings. Existing557 tests retained with exact owner-approved compatibility patches, old goldens/runners/bounds preserved. No7.2/ecology/director/UI expansion. Human playtest/commit separate; do not mark a gate passed before actual logs recorded in PROGRESS.
+
+Final unchanged gate: parse/data/headless63/63/graphics140 scripts583/583 (33606 assertions)/Main PASS. Exact57-path scope and approved compatibility patches;20 real saves unchanged. Groups106.692/120.926s retain180s bounds. D86/API/schema/contracts/current memory updated; full evidence/manual checks in PROGRESS.
+
+
+## Phase7.1a weather validation foundation (2026-11-17; automation557/557 delivered)
+
+Owner approved16 paths: strict pure WeatherProfile validation with horizon3 and independent snapshot decoder, current wire/forecast choices preserved. Focused42/42 pass; existing D19/ISO weather/day-night/forecast remains. No runtime codec wiring, DetRandom migration/day token/save change or7.2/ecology/director expansion. Current weather runtime gaps explicitly remain for separately planned7.1b; full7.1 is not complete. Final unchanged gate parse/data/headless63/63/graphics557/557 (27858 assertions)/Main PASS; groups100.503/119.284s retain180s limits. All535 previous cases/goldens/runners unchanged,22 new cases. Evidence in PROGRESS; no commit authorization.
+
+
+## Phase6.7 recipe gate continuation (2026-11-17; automation535/535 delivered)
+
+Owner approved24 paths for actual recipe/machine/item reference checks, Resource-owned15/40/120 unlock-tier hourly ceilings and24-hour duration conversion. Current crop80 and zero-price processed outputs remain unchanged. Focused28/28 and real CLI normal0/over-cap1/invalid-reference1 passed; final unchanged gate parse/data/headless63/63/graphics535/535 (27533 assertions)/Main PASS. Groups105.582/123.424s retain180s bounds; all516 old cases/goldens/runners unchanged,19 additive tests. Exact evidence in PROGRESS. No runtime pricing/house progression/UI/save changes or commit authorization.
+
+
+## Phase6.6d playable coop integration (2026-11-16; automation516/516 delivered; human acceptance separate)
+
+700-for4 fixed coop south of house; E modular purchase/care/collection UI, actual food20 debit and egg30 data, once-per-day farm->animal->machine path, occupied-site protection/derived NPC routes and savev11 migration preserving prior water v10. No other animals/relocation/mood/house upgrades. Final unchanged gate PASS: parse/data/headless63/63/graphics131 scripts516/516 (27350 assertions)/Main; groups98.776/140.484s retain180s bounds. All492 old cases retained with the exact29-line compatibility patch;24 additive cases and28 actual vi/en frames. Evidence/history/manual acceptance in PROGRESS. No commit authorized.
+
+
+## Phase6.6c real inventory feeding continuation (2026-11-09)
+
+Owner selected separate feed buy20/egg30 and approved20 paths for registered chicken_feed/config identity, actual bag debit and coop-owned mutual exclusion with collection. Partial feeding by hens, exact-day/stock validation and captured settlement; no free feed/extra eggs or whole-owner rollback. Food remaining stock and standalone fed-hens codec persist under existingv10/fields; no player shop/Main/world/day/UI/animal-save integration. Wheat42 and all old balance stay. Focused headless46/46 and final unchanged parse/data/headless63/63/graphics492/492 (25236 assertions)/Main PASS; groups108.826/104.735s under180s. All479 old cases/goldens/runners/18 visual paths preserved;13 additive cases. Exact failed-parse history/diff/audit in PROGRESS, no human animal feature or commit claim.
+
+
+## Phase6.6b guarded egg collection continuation (2026-11-08)
+
+Owner approved18 paths for registered egg/30 and real bag collection: whole-capacity preflight, source reservation shared across facades/raw methods, one grant and conservation on rejecting/partial fault doubles without undoing independent callbacks. Documented item/name/description and existing fallback, four-field standalone codec andv10 bag persistence; no animal world/Main/day/feeding/purchase/UI/save field. Current wheat balance stays. Focused headless42/42 and final unchanged parse/data/headless63/63/graphics479/479 (25087 assertions)/Main PASS; groups106.823/103.399s under180s. Old466 tests/goldens/runners/limits preserved;13 additive cases. Exact history/diff/audit in PROGRESS, no human animal acceptance/commit claim.
+
+
+## Phase6.6a standalone coop foundation (2026-11-08)
+
+Owner approved14 paths for DATA4/1/1 and pure serializable chicken state: explicit herd/day, partial feed, once-per-day eggs, no mortality, retained output and exact trusted extraction, checked numeric/JSON validation. First focused headless15/15 (9 new) and final unchanged gate parse/data/headless63/63/graphics466/466 (24894 assertions)/Main PASS; groups110.473/109.769s under180s. Exact implementation/evidence is in PROGRESS. No runtime feed/collection/purchase/placement/visual/Main/day-path/save integration or current wheat repricing; parent6.6 is not yet a playable animal system. All457 old tests/goldens/runners and savev10 preserved; human F5/commit remain separate.
+
+
+## Phase6.5h3 first can-upgrade continuation (2026-11-08)
+
+Owner approved42 paths for the existing first20→40/200 upgrade through Bag footer and modular confirmation. Preserve remaining water and savev10; existing source refill can then reach40. Connect existing service and shared safe-point guards, plus correct actual expense/refund labels/classification. Final unchanged gate PASS: parse/data/headless63/63/graphics457/457 (24539 assertions)/Main; groups86.263/124.588s under180s. All446 old tests unchanged;11 additive cases and24 actual vi/en frames. Exact evidence is recorded in PROGRESS. No later80/600/1800 interpretation, source/map/art change or full parent6.5 completion claim; human F5/commit remain pending.
+
+
+## Phase6.5h2b watering-runtime continuation (2026-11-08)
+
+Owner approved finite20-use manual watering plus all three existing dry-bank/E refill paths, a small read-only meter beside the toolbar caption, one Main-owned can and savev10 preserving prior progress. D78 documents explicit selected-can source priority and old-format full-base grant versus conservative malformedcurrent state. Existing source world/balance/owners/scene/input bindings remain. Final unchanged gate PASS: parse/data/headless63/63/complete graphics446/446 (23929 assertions)/Main; groups89.423/118.957s under unchanged180s bounds. Exact scoped diff/21 real frames and verification history are in PROGRESS; no human F5/commit claim.
+
+This integrates the D71/D77 foundations coherently before finite consumption is exposed. First40/200 upgrade purchase UI and later80/prices remain separate; no automatic overnight refill or new source is inferred. Parent6.5 is not fully complete while these/human acceptance remain deferred.
+
+## Phase6.5h2a map/source continuation (2026-11-07)
+
+Owner approved all three sources and expanded world: background85×85, roaming39×39, bounded deterministic scenery43×43, well beside home plus western stream/eastern pond with clear dry approaches/shared physics/NPC/land exclusions. D77 source data/stateless geometry/modular runtime art and translated names are implemented; final unchanged gate on2026-11-08 PASS: parse/data/headless63/63/graphics430/430 (23287 assertions)/Main. Exact verification and two explicitly approved old-fixture adjustments are in PROGRESS. Original farm/east parcel/anchors/NPC destinations and savev9 remain. Human F5/commit pending.
+
+This completes only the map/source foundation for task6.5. Next separate scope must wire existing D71 can to all manual watering paths, real source/reach/refill feedback, HUD and deliberate save migration together before enabling consumption; first40/200 upgrade UI remains separate. No full watering-completion claim.
+
+## D72-C4 live locale follow-up (2026-11-07)
+
+Owner approved refreshing player/shop/bin/NPC-home labels and dismissing stale-language toasts on actual vi/en switch, with unchanged gameplay/save-v9/old tests. Same-locale apply retains cards; safe deferred ID cleanup avoids mutating the tree during translation traversal or deleting replacement feedback. Focused9/9/144 assertions, differential same-Main probe and first unchanged full C2 gate PASS: parse/data/headless63/63/graphics421/421 (21249 assertions)/Main. Five live-locale frames inspected; exact11-file scope/diff/raw logs in PROGRESS. Existing C3 toolbar/C1 graphics/P1 coverage stays intact; no commit or human F5 acceptance.
+
+## D72-C3 toolbar follow-up (2026-11-05)
+
+Owner approved finishing the remaining item highlight/caption/five-vs-four page defect. Keep four tools/four item buttons, align selected item/caption/style and page size, keep legacy key9 item identity and existing wheel routing. Only two view scripts/two explicitly obsolete test expectations/new selection tests and the listed docs change. First focused11/11/1296 assertions and first unchanged C2 full gate PASS: parse/data/headless63/63/graphics418/418 (21153 assertions)/Main. Eight C3 frames inspected; exact11-file scope/diff and raw logs in PROGRESS. No new gameplay/save/watering/scene/InputMap/art change, commit or human F5 acceptance.
+
+## D72-C2 complete-runner continuation (2026-11-05)
+
+Owner approved splitting full graphics into two deterministic sequential processes with unchanged180s per child and complete test/capture coverage. Runner/helper and four docs only; C1 source/art/gameplay/save-v9/GUT/test bytes remain frozen. Implementation,47 validator/6 orchestration probes and first official complete run PASS are delivered: parse/data/headless63/63/graphics415/415 (20556 assertions)/Main. Graphics group GUT times90.167s/121.726s, combined wall225.897s. Exact output/audit and preserved external project normalization are recorded at the top of PROGRESS. This does not claim a180s total two-process run, human F5 acceptance or a commit.
+
+## D72-C1 handoff completion (2026-11-05)
+
+Owner approved finishing the stopped agent's D72 graphics slice. Inherited baseline408/408 passed, but native diagnostics exposed Shift/toolbar wheel wrongly zooming and completed machines remaining in working rows. C1 fixes those VIEW paths, data-owns pan extents, verifies the offline asset generator, preserves inherited cosmetics/source images and adds separate native/animation/render tests. Focused7/7 (253 assertions)/20 reviewed captures pass, while three unchanged complete graphics attempts timed out at180s before a full summary. Those C1 attempts remain historical failures. Subsequently approved D72-C2 verified all415 tests with unchanged C1/test sources and180s per child, by splitting only runner orchestration. Actual verification/scope evidence is in PROGRESS. No new gameplay/save/watering integration or commit is implied; human F5 is separate.
+
+## D72 — 2D Isometric Camera Pan/Zoom & Cozy Visual Polish (2026-11-05)
+
+Owner approved camera zoom-out/zoom-in via Mouse Wheel (`0.35`, `0.5`, `0.75`, `1.0`, `1.25`), Right/Middle Mouse drag-panning across the map without conflicting with Left Mouse tile hover/farming, generated 2D isometric PNG assets (`tools/build_isometric_2d_assets.gd`), and cozy 2D isometric character/hair/world/UI visual redesign with live animations (`PlaceholderAvatar2D`, `AvatarHair2D`, `PlaceholderWorld2D`, `FarmView`, `MachinePresentation`, `LifeHudFrame`, `LifePanelWood`).
+
+## Phase6.5h1 continuation (2026-11-05)
+
+Owner approved standalone watering config/state/manual-command/first-upgrade domain, with explicit20->40/200 mapping and preserved remaining water. Implementation and official407/407 verification are delivered at the top of PROGRESS. Runtime source/HUD/tools/save integration and watering80/later prices remain deferred; existing game watering is unchanged. Parent original6.5 remains[~], not complete. No commit/human acceptance is implied.
+
+## Phase6.5g continuation (2026-11-05)
+
+Owner approved the first bag upgrade40->52 for300, modular confirmation, existing-v9 persistence and legacy-content preservation. Implementation and official394/394 verification are delivered at the top of PROGRESS; the parent inventory/watering upgrade task remains[~] because only one bag tier is implemented and watering stays deferred. No commit/human F5 is implied. Phase6.4b runtime land integration was delivered in automation384/384; its earlier foundation-only wording below is historical.
+
+## Phase6.4b continuation status (2026-11-05)
+
+Owner approved runtime land ownership, modular purchase UI and save v9 after D68 foundation. Implementation and official automated384/384 verification are delivered at the top of PROGRESS. The parent land-expansion task stays[~] pending final verification/human F5/explicit commit; do not infer that later land parcels, a new merchant/shop-access system, house upgrades or terrain editing are delivered.
+
 Each row is ONE task for the agent. Move to the next row only after acceptance + commit. Status column: `[ ]` todo, `[~]` in progress, `[x]` done (the human ticks it; the agent mirrors it in `docs/PROGRESS.md`).
 Hour estimates are the HUMAN's working hours incl. review, testing and fixes — rough guesses, re-measure after 4 weeks.
 
@@ -28,8 +126,10 @@ This sequence takes precedence over the historical 3D presentation tasks below. 
 | ISO-13 | Apply shared theme/font baseline and mockup HUD alignment | Use Baloo 2 + Nunito with Open Sans fallback; verify Vietnamese text; preserve one replaceable Theme and native UI components; align the existing HUD without inventing stamina/events or changing domain owners | [x] |
 | ISO-14 | Add deterministic rocks, grass clumps and decor presentation | Use supplied 3×3 variants and coordinate hashing; only large rocks collide; keep cleanup/gameplay interactions deferred; render review proves y-sort, anchors and layer visibility | [x] |
 | ISO-15 | Expand CropData and crop presentation for 16 crops | Add the approved stage/wilted/seed data and manifest-driven pivots; implement the approved wither/recovery/death and perennial regrow rules through existing FarmGridState/DaySimulator owners; preserve save compatibility and test every crop category | [x] |
+| ISO-17 | Manager-farm redesign | Remove player authority and character creation; add bounded drag/zoom camera, direct cell interactions, and exact debug Ctrl+M machine shop while preserving legacy saves | [~] |
 | ISO-16 | Complete supported presentation screens from the mockups | Deliver day-end, inventory planting-item display and pause/settings alignment first; only use registered state; keep calendar/events, house upgrades, dialogue and other unavailable systems explicit | [x] |
 | ISO-17 | Add data-driven planting-item shop and remaining screens when systems exist | Read planting items through CropData; preserve atomic EconomyService/InventoryService ownership; add house/NPC/shop art only as supplied or placeholder assets, never as fabricated gameplay data | [x] |
+| ISO-18 | Integrate supplied crop data, soil contrast and withered-crop shovel | Register all 16 supplied crops/items, use row-2 dry/wet atlas tiles, apply stage/wilted assets and manifest pivots, support watering/rain recovery, two-day death and shovel cleanup; preserve save compatibility and validate all supplied assets | [x] |
 
 References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest book reads existing onboarding/delivery state; daily/pin/map/XP/deadline systems remain unavailable. Character uses actual profile/NPC friendship only; skills/XP/bonuses remain unavailable. The bulletin uses existing real state only; calendar events/trends remain unavailable. Mockup redesigns09 calendar/events,10 shop,11 house upgrade and12 dialogue remain later work after their corresponding domain requirements are ready. Existing implementations are preserved during migration. Night/rain attachment points belong in ISO-1; full 2D visual polish must use existing weather state rather than invent a replacement simulation. No human gate is passed by this plan.
 
@@ -109,19 +209,31 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 
 | ID | Task | Acceptance | Status |
 |---|---|---|---|
-| 6.1 | `RecipeData` + `MachineState` (finish by `total_minutes`, also across sleep) | completes after N days; buffer full → pauses, never breaks | [ ] |
-| 6.2 | `OccupancyMap` + footprint check | no overlap; no placing on locked land; 90° rotation correct | [ ] |
-| 6.3 | Build mode: place/rotate/move/remove + refund + save | reload keeps buildings; refund correct; ghost green/red correct | [ ] |
-| 6.4 | Land expansion by parcel | locked parcel not tillable; cost by formula; saved | [ ] |
-| 6.5 | Upgrades: inventory, watering can | new limits effective; serialized | [ ] |
-| 6.6 | Chicken coop + eggs (daily, domain only) | not fed → no egg, hen never dies | [ ] |
-| 6.7 | Validator: profit caps for crops/recipes | a deliberately "money-printing" recipe makes the validator FAIL | [ ] |
+| 6.1 | `RecipeData` + `MachineState` (finish by `total_minutes`, also across sleep) | completes after N days; buffer full → pauses, never breaks | [~] |
+| 6.1a | Machine Shop domain/data | seven machine resources have data-owned prices/house unlocks; atomic purchase and separate saved machine inventory; no UI or placement | [~] |
+| 6.2 | `OccupancyMap` + footprint check | no overlap; no placing on locked land; 90° rotation correct | [x] |
+| 6.3 | Build mode domain: place/rotate/move/remove + machine return + save | atomic logical commands preserve occupancy, ownership and rotation; UI/ghost deferred | [x] |
+| 6.4 | Machine shop and operation test UI | E opens script-built machine shop; purchases, test placement, recipe start, day progression and output collection use real domain state | [~] |
+| 6.5 | Direct machine presentation and interaction | placed machines use manifest pivots/assets; mouse cell + E opens operation controls; no new input or scene | [~] |
+| 6.5b | Safe buffered output into bag (D63; automation/render review delivered, human acceptance pending) | seven existing output ItemData; atomic pickup once; full/unknown preserve buffer; localized UI/deferred refresh; save/reentry/Player regressions; renderer340/340, headless63/63, focused57/57, parse/data/main PASS; no recipe/balance/save-v8/scene change | [~] |
+| 6.5c | Modular machine shop/operation UI from reference10 (D64; automation/render review delivered) | five small scene pairs + snapshot/presenter/controller; real data/outcomes; fixed actions/scroll/focus/vi-en/three sizes; renderer342/342, headless63/63, focused62/62, parse/data/main PASS; Player/domain/save/access preserved; human acceptance pending | [~] |
+| 6.5d | Job-safe machine placement lifecycle (D65; automation delivered) | connected facade; busy/orphan protection, safe idle cleanup, rotation/rollback/reentry/save/Main checks; renderer351/351, headless63/63, focused71/71, parse/data/main PASS; no UI/schema/balance change; human acceptance pending | [~] |
+| 6.5e | Mouse placement and nearby idle return (D66; automation delivered) | Resource-owned6x6 region; modal ghost/status, single confirm/safe return, input/lifecycle protection; focused79/79, native16/16, official renderer359/359 at173.546s, headless63/63, parse/data/Main PASS; unchanged180s bound remains tight, earlier timeout/profile logs retained; human F5/commit pending | [~] |
+| 6.5e-P1 | Inventory test-fixture timing (automation delivered; commit pending) | same six native tests/370 headless/406 renderer assertions and36 fresh captures per run; bounded refresh/layout convergence, render once; three renderer runs9.97/9.69/9.907s versus29.8s; official renderer359/359 at170.057s, parse/data/headless63/63/Main PASS; no runtime/runner/bound change | [~] |
+| 6.5f | Nearby idle-machine move UI (D67; automation delivered) | source-preserving preview; zero-spare-stock move/idle rotation, live snapshot/target/job guards; focused24/24, clean renderer13/13, official369/369 at155.38s, parse/data/headless63/63/Main PASS; old tests/P1/save-v8 preserved; human F5/commit pending | [~] |
+| 6.4 | Land expansion by parcel | locked parcel not tillable; cost by formula; saved;6.4a foundation +6.4b modular runtime/save-v9 integration automated384/384 delivered; human F5/commit pending | [~] |
+| 6.4a | Standalone land data/domain foundation (D68; automation delivered) | east36 cells/500 first price; integer formula, ordered ownership/JSON, wallet purchase/refund/reentry; focused8/288, official377/377 at154.692s, parse/data/headless63/63/Main PASS after F5 stopped; no runtime/UI/save-v8 change; commit pending | [~] |
+| 6.5g | First bag upgrade (D70; automation delivered) |40->52 for300; modular confirmation; existing-v9 capacity; official394/394 at170.227s; parse/data/headless63/Main PASS; human F5/commit pending | [~] |
+| 6.5h1 | Standalone watering-can foundation (D71; automation delivered) | config20/40/200; serialized can; manual water reservation/refund and guarded upgrade; no runtime/save-v9 change; focused13/357, official407/407 at167.665s, parse/data/headless63/Main PASS | [~] |
+| 6.5 | Upgrades: inventory, watering can | first bag tier delivered; watering domain foundation implemented; runtime refill/HUD/save and further tiers deferred | [~] |
+| 6.6 | Chicken coop + eggs (daily) | 6.6a/b/c domain plus6.6d fixed700-for4/E modular UI/real food20/once-day eggs/owned collision-NPC routing/savev11 delivered; full516/516 automation, human editor acceptance and commit remain separate | [~] |
+| 6.7 | Validator: profit caps for crops/recipes | D84 actual catalog and integer recipe caps delivered; deliberate printing361>360 exits1; full535/535 automation, all516 old cases unchanged; human review/commit remain separate | [~] |
 
 ## Phase 7 — Living world  ~70–120 h
 
 | ID | Task | Acceptance | Status |
 |---|---|---|---|
-| 7.1 | `WeatherService` seeded (sunny/rain) + 3-day pre-roll + save | golden sequence for a seed; load doesn't re-roll; rain waters plots | [ ] |
+| 7.1 | Seeded weather + saved forecast | D86 tagged RNG/day reservations/save12 preserve saved forecasts; actual RNG golden/1000-day invariants/full583/583 verified; all557 previous cases retained; human editor acceptance/commit separate, evidence in PROGRESS | [~] |
 | 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | smooth transitions; no logic in views | [ ] |
 | 7.3 | `EcologyState` (read-only) | metrics respond to actions; eased; thresholds fire once | [ ] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |

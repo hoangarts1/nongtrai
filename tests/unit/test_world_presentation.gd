@@ -124,10 +124,10 @@ func test_tilled_soil_has_furrows_and_water_uses_a_subtle_moisture_sheen() -> vo
 	var soil: Polygon2D = main.farm_view.get_cell_view(cell)
 	assert_not_null(soil.get_node_or_null("SoilFurrow_0"))
 	assert_null(soil.get_node_or_null("MoistureSheen"))
-	assert_eq(main.world.farmland.get_cell_atlas_coords(cell),Vector2i(1,0))
+	assert_eq(main.world.farmland.get_cell_atlas_coords(cell),Vector2i(0,2))
 	assert_true(main.farm_state.water_cell(cell))
 	assert_not_null(soil.get_node_or_null("MoistureSheen"))
-	assert_eq(main.world.farmland.get_cell_atlas_coords(cell),Vector2i(2,0))
+	assert_eq(main.world.farmland.get_cell_atlas_coords(cell),Vector2i(4,2))
 
 func _settle() -> void:
 	await get_tree().process_frame

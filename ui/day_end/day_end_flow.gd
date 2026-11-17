@@ -22,7 +22,7 @@ func configure(main: Node) -> void:
 	Events.item_purchased.connect(_bought)
 
 func request(automatic: bool = false) -> bool:
-	if not bool(_main.get("_game_started")) or GameClock.is_sleeping():
+	if bool(_main.call("_purchase_in_progress")) or not bool(_main.get("_game_started")) or GameClock.is_sleeping():
 		return false
 	if not automatic and not GameClock.can_sleep():
 		return false
@@ -36,7 +36,7 @@ func request(automatic: bool = false) -> bool:
 	return true
 
 func cancel() -> bool:
-	if not state.cancel():
+	if bool(_main.call("_purchase_in_progress")) or not state.cancel():
 		return false
 	GameClock.release_day_end(GameClock.day_index)
 	panel.hide()
@@ -44,7 +44,7 @@ func cancel() -> bool:
 	return true
 
 func confirm() -> void:
-	if not state.confirm(GameClock.day_index):
+	if bool(_main.call("_purchase_in_progress")) or not state.confirm(GameClock.day_index):
 		return
 	panel.continue_button.disabled = true
 	# Existing Main.day_started remains the only simulation path. Guard stays set

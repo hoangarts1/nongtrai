@@ -4,6 +4,7 @@
 ##   func talk(npc_id: StringName, day: int, season: StringName) -> DialogueData
 ##   func get_dialogue(npc_id: StringName, season: StringName) -> DialogueData
 ##   func update_schedule(day: int, minute: int, season: StringName, rainy: bool) -> void
+##   func refresh_routes() -> void
 ##   func serialize() -> Dictionary
 ##   func deserialize(data: Dictionary) -> void
 class_name NpcSocialState
@@ -86,6 +87,12 @@ func update_schedule(day: int, minute: int, season: StringName, rainy: bool) -> 
 		paths[npc.npc_id] = scheduler.route(cells[npc.npc_id], scheduler.location_cell(target))
 		if not paths[npc.npc_id].is_empty():
 			paths[npc.npc_id].pop_front()
+
+func refresh_routes() -> void:
+	for npc_id: StringName in targets:
+		paths[npc_id] = scheduler.route(cells[npc_id],scheduler.location_cell(targets[npc_id]))
+		if not paths[npc_id].is_empty():
+			paths[npc_id].pop_front()
 
 func advance_step(npc_id: StringName) -> void:
 	var path: Array = paths.get(npc_id, [])

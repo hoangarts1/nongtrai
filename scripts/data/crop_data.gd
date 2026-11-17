@@ -18,3 +18,5 @@ extends Resource
 @export var pivot: Vector2 = Vector2.ZERO
 @export var perennial: bool = false
 @export var planting_item: StringName = &"seed"
+@export_range(0, 9999) var planting_item_buy_price: int = 0
+@export_range(0, 9999) var produce_sell_price: int = 0

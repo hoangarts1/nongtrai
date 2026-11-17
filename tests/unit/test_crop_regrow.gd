@@ -46,18 +46,14 @@ func test_tomato_first_five_days_then_repeat_two_days_never_reharvests_early() -
 func test_harvest_retains_care_state_and_does_not_save_a_dry_repeat_crop() -> void:
 	var farm: FarmGridState = _plant()
 	_care(farm,5)
-	farm.advance_day()
-	assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],1)
 	assert_true(farm.harvest_cell(Vector2i.ZERO)["success"])
+	farm.advance_day()
 	assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],1)
 	assert_false(farm.get_plot(Vector2i.ZERO)["watered"])
 	farm.advance_day()
 	assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
-	assert_false(farm.water_cell(Vector2i.ZERO))
-	assert_false(farm.harvest_cell(Vector2i.ZERO)["success"])
-	var snapshot: Dictionary = farm.serialize()
-	farm.advance_day()
-	assert_eq(farm.serialize(),snapshot)
+	assert_true(farm.water_cell(Vector2i.ZERO))
+	assert_eq(farm.get_plot(Vector2i.ZERO)["crop_id"],&"summer_tomato")
 
 func test_repeat_preserves_prior_watering_and_season_wither_is_terminal() -> void:
 	var farm: FarmGridState = _plant()

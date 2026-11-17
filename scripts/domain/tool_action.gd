@@ -21,6 +21,8 @@ static func apply(
 			if farm_state.clear_withered(cell):
 				return true
 			return farm_state.till_cell(cell)
+		&"shovel":
+			return farm_state.clear_withered(cell)
 		&"water":
 			return farm_state.water_cell(cell)
 		&"seed":

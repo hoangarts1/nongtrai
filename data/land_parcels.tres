@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="LandParcelData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/land_parcel_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+locked_cells = Array[Vector2i]([Vector2i(12, 12), Vector2i(12, 13), Vector2i(13, 12), Vector2i(13, 13)])

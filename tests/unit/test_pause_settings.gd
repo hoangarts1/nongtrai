@@ -93,7 +93,7 @@ func test_apply_and_defaults_persist_supported_preferences_only() -> void:
 	assert_eq(Settings.get_locale(),"vi")
 	assert_almost_eq(Settings.get_music_volume(),1.0,0.001)
 	assert_almost_eq(Settings.get_effects_volume(),1.0,0.001)
-	assert_eq(SaveService.CURRENT_VERSION,8)
+	assert_eq(SaveService.CURRENT_VERSION,12)
 
 func test_save_load_results_and_blocked_return_preserve_game() -> void:
 	_main.pause_menu.open()

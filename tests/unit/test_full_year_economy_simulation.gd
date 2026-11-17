@@ -79,7 +79,7 @@ func test_one_full_year_four_seasons_farming_and_economy_simulation() -> void:
 		for cell: Vector2i in planted_cells:
 			if bool(farm_state.get_plot(cell).get("withered",false)):
 				assert_true(farm_state.clear_withered(cell),"Clear the retained seasonal repeat crop before sowing")
-			assert_true(farm_state.till_cell(cell), "Till cell %s" % cell)
+			assert_true(farm_state.till_cell(cell) or bool(farm_state.get_plot(cell).get("tilled", false)), "Till cell %s" % cell)
 			assert_true(farm_state.plant_crop(cell, s_info["crop_id"]), "Plant in %s" % cell)
 			inventory.remove_item(seed_id, 1)
 		assert_eq(inventory.get_quantity(seed_id), 0, "All bought seeds planted")

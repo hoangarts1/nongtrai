@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MachineData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/machine_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+machine_id = &"roaster"
+display_name_key = &"MACHINE_ROASTER_NAME"
+sprite_dir = "res://assets/machines/roaster"
+recipe_ids = PackedStringArray("roaster_coffee")
+unlock_house_level = 3
+purchase_price = 900

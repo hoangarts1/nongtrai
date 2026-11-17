@@ -3,6 +3,7 @@ extends GutTest
 const SIZES: Array[Vector2i] = [Vector2i(1152, 648), Vector2i(1280, 720), Vector2i(1920, 1080)]
 var _clock: Dictionary
 var _pause: bool
+var _viewport: SubViewport
 
 func before_each() -> void:
 	_clock = GameClock.serialize()
@@ -13,8 +14,13 @@ func after_each() -> void:
 	GameClock.paused = _pause
 
 func _game() -> Node:
+	# Keep native layout/input active; render the world only for the existing captures.
+	_viewport = SubViewport.new()
+	_viewport.size = Vector2i(get_viewport().get_visible_rect().size)
+	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+	add_child(_viewport)
 	var main: Node = preload("res://scenes/main/main.tscn").instantiate()
-	add_child(main)
+	_viewport.add_child(main)
 	main.set("_game_started", true)
 	main.start_menu.hide()
 	main.tutorial_panel.close_help()
@@ -36,7 +42,7 @@ func test_hud_regions_are_inside_viewport_and_do_not_overlap() -> void:
 			for second: int in range(first + 1, controls.size()):
 				assert_false(controls[first].get_global_rect().intersects(controls[second].get_global_rect()), "HUD overlap: %s / %s" % [controls[first].name, controls[second].name])
 		assert_gte(main.hotbar_panel.get_theme_default_font_size(), 18)
-		main.free()
+		_viewport.free()
 
 func test_every_modal_has_readable_content_and_visible_controls_at_three_sizes() -> void:
 	var locale_before: String = TranslationServer.get_locale()
@@ -53,10 +59,12 @@ func test_every_modal_has_readable_content_and_visible_controls_at_three_sizes()
 			await get_tree().process_frame
 			await _capture(main, "hud", locale, viewport_size)
 			var panels: Array[Control] = [main.inventory_panel, main.pause_menu, main.debug_menu, main.tutorial_panel, main.seed_shop_panel, main.shipping_bin_panel, main.start_menu]
+			if main.machine_shop_panel!=null:
+				panels.append(main.machine_shop_panel)
 			for panel: Control in panels:
 				if panel == main.inventory_panel:
 					main.inventory_panel.toggle_inventory()
-				elif panel == main.pause_menu or panel == main.seed_shop_panel or panel == main.shipping_bin_panel:
+				elif panel == main.machine_shop_panel or panel == main.pause_menu or panel == main.seed_shop_panel or panel == main.shipping_bin_panel:
 					panel.call("open")
 				elif panel == main.tutorial_panel:
 					main.tutorial_panel.open_help()
@@ -97,7 +105,7 @@ func test_every_modal_has_readable_content_and_visible_controls_at_three_sizes()
 					panel.hide()
 				else:
 					main.ui_coordinator.close_active()
-			main.free()
+			_viewport.free()
 	TranslationServer.set_locale(locale_before)
 
 func test_modal_shortcuts_replace_each_other_and_escape_closes_only_one() -> void:
@@ -122,7 +130,7 @@ func test_modal_shortcuts_replace_each_other_and_escape_closes_only_one() -> voi
 	_push(&"open_inventory")
 	assert_true(main.start_menu.visible, "Start menu cannot be bypassed by gameplay keys")
 	assert_false(main.inventory_panel.visible)
-	main.free()
+	_viewport.free()
 
 func _check_buttons(node: Node, panel: Control) -> void:
 	for child: Node in node.get_children():
@@ -138,11 +146,12 @@ func _push(action: StringName) -> void:
 	var event: InputEventAction = InputEventAction.new()
 	event.action = action
 	event.pressed = true
-	get_viewport().push_input(event)
+	_viewport.push_input(event)
 
 func _capture(main: Node, mode: String, locale: String, viewport_size: Vector2i) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
+	_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	await RenderingServer.frame_post_draw
 	var screenshot: Image = main.get_viewport().get_texture().get_image()
 	assert_eq(screenshot.save_png("user://ui_repair_%s_%s_%dx%d.png" % [mode, locale, viewport_size.x, viewport_size.y]), OK)

@@ -35,7 +35,8 @@ static func validate(config: CropEconomyConfig, crops: Array[Resource], items: A
 			continue
 		var gross: int = crop.yield_qty * product.sell_price
 		var net: int = gross - seed.buy_price
-		if net <= 0 or net > config.max_profit_per_plot_day * crop.growth_days:
+		var initial_loss_allowed: bool = crop.perennial and crop.regrow_days > 0
+		if (net <= 0 and not initial_loss_allowed) or net > config.max_profit_per_plot_day * crop.growth_days:
 			errors.append("crop economy %s initial return exceeds ceiling or is not profitable" % crop.crop_id)
 		if crop.regrow_days > 0 and gross > config.max_profit_per_plot_day * crop.regrow_days:
 			errors.append("crop economy %s repeat return exceeds ceiling" % crop.crop_id)

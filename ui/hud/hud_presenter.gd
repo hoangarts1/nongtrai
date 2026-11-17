@@ -16,7 +16,9 @@ func configure(main: Node) -> void:
 	main.wallet.coins_changed.connect(_coins_changed)
 	main.quest_state.step_changed.connect(_quest_changed)
 	main.feedback.message_shown.connect(show_message)
+	main.watering_runtime.water_changed.connect(_water_changed)
 	_refresh_clock()
+	_water_changed(main.watering_can.get_charges(),main.watering_can.get_capacity())
 	root.coins.set_coins(main.wallet.get_coins())
 
 func _notification(what: int) -> void:
@@ -57,3 +59,6 @@ func _coins_changed(total: int, _delta: int, _reason: StringName) -> void:
 func _quest_changed(index: int, completed: bool) -> void:
 	if completed:
 		show_message(tr("HUD_QUEST_DONE") % tr(String(_main.quest_panel.STEP_KEYS[index])),&"journal")
+
+func _water_changed(charges: int, capacity: int) -> void:
+	_main.hotbar_panel.toolbar.water_meter.display(charges,capacity)

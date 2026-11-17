@@ -1,6 +1,190 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F2 debug action routing (D88)
+
+VIEW-only MachineShopShortcut owns a stateless exact-action predicate, not a modal/gameplay owner. Main, UiCoordinator, DebugMenu and NpcSystem pass OS.is_debug_build; modal/title/day-end filters no longer use nonexact debug matches. Main independently gates transaction/title/sleep/day-end before the world debug entry, including the no-active-modal case. The existing UiCoordinator alone still owns modal visibility/pause/player lock; service/state/one-day path remain untouched. No DOMAIN/DATA/autoload/scene/InputMap/save12 change. False-build tests and real release-export evidence are distinguished in PROGRESS.
+
+## AUDIT-F1 shared stage policy (D87)
+
+DATA CropStageConfig owns the four-image/repeat-stage convention. DOMAIN stateless CropStageRules evaluates integer elapsed/target days for care and finite progress ratios for presentation, with the same quarter boundaries. FarmGridState replaces its inconsistent ceil/modulo predicate only; grace/dry-limit/care and the one daily pipeline remain. Maturity is also a care boundary and not inferred from image4. VIEW FarmView reads plot.regrowing and passes it to CropPresentation, which keeps repeat art atstage3 until actual maturity. No Node/clock/RNG/new persistent owner enters the helper; no save12/schema/global event/autoload/input/scene change. This is the approved F1 scope, not completion of the separate manager/stamina systems or all crop targets. Verification remains pending until PROGRESS has actual output.
+
+## Phase7.1b daily weather owner / save12 (D86)
+
+This section supersedes the historical7.1a runtime-gap status below. DATA WeatherProfile owns initial sunny/horizon3 and unchanged weighted entries. DOMAIN WeatherRoller uses stateless DetRandom tag1 per absolute future day; WeatherSnapshotCodec validates3/4-field wire values and WeatherSaveCodec handles envelope compatibility without RNG. WeatherState remains the single persistent owner, not a new service/autoload. Newly generated forecasts intentionally use the tagged algorithm; already saved values are never inferred or rerolled from seed.
+
+Main reserves exact next-day weather before farm notifications. Existing DaySimulator outer orchestration remains farm (outgoing rain through the unchanged one-argument injectable delegate) -> captured animal production -> machine completion. Main checks the animal owner completed the signaled/current clock day, marks season care, commits captured weather, applies actual new rain, reconciles ledger, releases shared busy and only then saves/queues bulletin. Weather tokens and notification busy reject duplicate/reentry/skip and lifecycle replacement. Detached arrays prevent forecast signal arguments mutating the owner. No second daily listener, catch-up, per-frame growth or new global signal. GameClock raw debug setters are not transaction commands.
+
+Committed weather wire is{world_seed,today,forecast,day_index}; transient tokens are never serialized. Valid old3 binds to saved clock once, valid current4 must agree with clock, ordinary invalid deserialize retains prior owner. Main explicitly initializes missing/corrupt components at actual loaded day with seed0/declared initial weather; unrelated progress stays. Empty legacy weather remains{} at SaveService boundary until Main initialization. Save v12 migration changes no water/coop/ledger semantics. New game/load retain the same WeatherState object for existing views. No scene/UI/art change; editor playtest separate from automation.
+
+
+## Phase7.1a DATA and wire-validation foundation (D85)
+
+WeatherProfile owns weather metadata and pure validation. Existing entries are unchanged; forecast_days3 documents the existing horizon. DataValidator path/resource facades expose those checks to the already existing official data gate. No DATA dependency on DOMAIN/Nodes/autoloads.
+WeatherSnapshotCodec is a stateless DOMAIN boundary over a validated profile and untrusted Variant. Successful decode returns only detached canonical three-field wire values; invalid input returns errors with no partial/fabricated owner state. No random stream, event, day/time, mutation or persistence is involved. Zero-weight but known IDs stay valid pre-rolled choices. Snapshot seed uses signed exact-JSON integer range and integral float normalization.
+This slice does NOT connect codec to runtime. Existing WeatherState public APIs/custom arithmetic RNG/unchecked deserialize and existing Main/DaySimulator/savev11 remain byte-identical; no locked DetRandom rule is relaxed. Actual runtime restore integration, DetRandom.make_rng weather-tag migration, exact completed-day handling and any new save schema need a separately approved7.1b scope. D19 already implemented early weather/day-night/season views; new codec is not a replacement service or new visual system.
+
+
+## Phase6.7 validation-only boundary (D84)
+
+RecipeEconomyConfig DATA owns the approved cap mapping and24-hour conversion. Pure RecipeCatalogRules/RecipeEconomyRules consume typed Resource arrays; no Node/autoload/scene/HTTP/time progression or saved state. DataValidator remains a stateless facade. Tool/VIEW code reads actual root DataRegistry only after deferred initialization; new read-only enumerations prevent a separate price catalog from drifting away from runtime supplied items. Array snapshots are detached, Resource references remain authoritative; negative fixtures deep-clone them.
+Recipe value uses input sell opportunity cost, not buy prices (many harvested inputs have buy0). All arithmetic stays checked int64 and compares whole numerators/denominators without rounded hourly floats. Recipe.unlock_house_level selects validation tiers1/2/3 with caps15/40/120; this does not introduce a player-stage system. Actual daily production and current crop cap80 remain unchanged. Current temp output sell0 passes as non-monetized, not as established profitability.
+Official data tool retains all prior gates, defers its body until autoload data is ready and appends actual seven-recipe validation. Standalone CLI normal/negative checks use exactly the same public rules, do not write Resources and propagate real exit codes. Existing runtime/savev11/coop/UI/scenes/assets/input/day order remain byte-identical. Stateless validators need no serialize/deserialize; no new persistent owner/autoload/global event.
+
+
+## Phase6.6d runtime animal ownership and one daily path (D83)
+
+Main owns ChickenCoopHoldingState and its stable inner ChickenCoopState. Application runtime/flow retain refs, transient locks/quantity/feedback only; views never own hens/feed/eggs/coins. Existing inventory/wallet/feeding/collection APIs remain authoritative. Buying700 includes4 hens; new/legacy games start unowned0, no free stock. Food20/egg30/wheat42 remain registered data values.
+All shop/feed/collection/day reservations are source-shared opaque tokens, excluded from saves. Main safe-point guard and day-end request/confirm/cancel block busy owners; normal lifecycle cannot write or replace mid-command. UI consumes transaction-time input. Atomic commands capture actual refs and terms, debit before grant, recheck after callbacks and refund only their exact rejected debit. Independent changes survive. Invalid custom inventory counts fail closed instead of guessing rollback.
+Main retains its injectable one-argument day_simulator farm-step API through a Callable delegate; ChickenCoopRuntime.simulator is the stateless completed-day orchestrator. The source reserves before the delegate applies outgoing rain. Runtime busy spans all morning weather/ledger bookkeeping and releases before safe autosave. DaySimulator now implements farm -> animals -> machines in the existing morning callback, using completed_day=current day-1. Reserve the animal day and captured egg production before farm emits synchronous plot notifications; reject duplicate/reentrant/stale/busy day before touching farm/machines. Remove former independently connected machine callback. Pure farm-only optional-argument calls remain compatible. Clock remains time-only; render/load never simulate.
+Owned coop collision lives outside passive WorldArt2D refresh. NPC path grid is derived from fixed solids plus owned footprint; explicitly clear old solid flags before rebuilding, then recompute paths to unchanged schedule targets. On load/new game remove stale derived obstacles before restoring NPC cells, reapply actual saved ownership afterward. Never teleport actors/delete old plots or machines to make room: occupied site purchase fails.
+Savev11 serializes only purchased flag and daily domain state in root chicken_coop. Old v1-v10 migration adds unowned0 at saved day; malformed current component warns/falls back while valid other progress survives. Watering format threshold remains10 independent of CURRENT_VERSION11. New golden11 joins immutable old goldens. No new autoload/event/InputMap/old scene edits. See new scene contracts for runtime-created children and actual UI boundaries.
+
+
+## Phase6.6c actual inventory feeding boundary (D82)
+
+Owner chose separate chicken_feed buy20, egg30 unchanged; no current wheat42 repricing. Resource config owns food identity and unchanged4/1/1 quantities. New registered material ItemData uses common99 stack/resale0 and existing fallback. Pure config validates identity/number shape; validator checks real logical item reference without Node calls in DATA. Historical18 C2 visual members remain identical. Seed-only shop is unchanged, so price data is not a purchase feature yet.
+
+ChickenCoopFeedingService is a stateless DOMAIN command over actual coop/bag refs. The coop owns opaque feeding reservation and reserved hen count; no second fed/wallet/item owner. Whole food debit completes before synchronous inventory notification; fed hens commit afterward. Same/second facade, raw day/feed/take/reset/restore and collection all see the owner busy. Preserve collection_busy during existing collection; new feeding_busy distinguishes the other operation. Raw legacy feed result remains compatible.
+
+Capture original refs and food terms before callbacks. Matching finish_feeding token with actual debit true commits only previously authorized hens, even if a callback changed Resource terms; false grants none. Independent bag gifts/consumption and facade future reconfiguration remain, without whole-inventory rollback. Existing InventoryState truthful all-or-nothing bool removal contract is required; no guessed repair of dishonest owners. Cross-operation/null/reused tokens do not unlock another reservation.
+
+Four-field standalone codec stays; transient feeding/collection locks do not serialize and busy snapshots cannot be game-save points. Registered food stack quantity already survivesv10 inventory save; no coop field/version/migration. Current Main/DaySimulator/clock/world/UI/shop and CollectionService source stay unchanged. No runtime animal/input/placement/purchase grant is made by this foundation. Future integration must gate lifecycle/day/save on is_busy and wire the sole day path explicitly. Evidence/history in PROGRESS.
+
+
+## Phase6.6b source reservation and bag transfer boundary (D81)
+
+Egg is registered DATA only with documented30 value,99 stack and existing icon fallback. No animal runtime state is created. ChickenCoopCollectionService is a stateless domain adapter over actual ChickenCoopState/InventoryState; no duplicate item/output owner. Preflight is read-only and whole-quantity. Actual InventoryState inserts before notifying synchronous observers; coop reserves/clears source first, so no callback sees a payable original buffer.
+
+Opaque reservation identity and reserved quantity live transiently inside the existing coop owner. All raw state mutation/other collection facades respect is_busy. Only the captured token can finish, with remaining0..reserved; finish works despite invalidated Resource data so output is never discarded merely because a callback changed config. Service captures owner references before callbacks. Independent bag gift/consumption and facade reconfiguration remain; no whole-inventory/state deserialize rollback. Exact-zero rejected additions restore all output; valid partial-added-count doubles restore only untransferred remainder with explicit partial result. Normal actual inventory never begins when full and grants the whole preflight batch.
+
+Serialization remains four fields and must be used only at safe points when not busy. A busy snapshot is diagnostic; future Main/game-save integration must add its guard explicitly. A broken inventory added-count contract fails closed as settlement_failed with reservation retained; normal InventoryState cannot produce that count. Current Main/DaySimulator/GameClock/SaveServicev10/UI/world/input/can/machines/land stay unchanged. Owned registered egg stacks already persist through ordinary inventory codec; the coop itself is still not a game-save field or playable animal feature.
+
+All18 old historical C2 model/icon checks remain on the same original set; egg passes logical item and translation validation while using approved fallback. No asset substitute or skipped old art rule. Actual feed identity/economics and future modular animal views require another scope. Verification/limitations are recorded in PROGRESS.
+
+
+## Phase6.6a standalone animal domain boundary (D80)
+
+ChickenCoopConfig is DATA-only; ChickenCoopState is a pure RefCounted daily herd/feed/output owner with standalone serialization. No Main instance, Node/clock/autoload reference, global event, randomness/delta or actual runtime grant. Caller explicitly supplies herd/day during configure. Feed and raw egg extraction are trusted primitives, not inventory-authorized player commands; future service must validate and atomically debit/transfer actual items before exposure.
+
+Exact completed-day token prevents duplicate/old/skipped-day production. Partial feeding counts each hen once; unfed hens retain their count. Pending eggs accumulate safely, are not destroyed by another day, and exact expected-buffer extraction occurs once. Checked Resource products and numeric additions/day increment reject overflow atomically. The numeric precision bound is not a gameplay storage limit. Deserialize validates a complete snapshot and retains prior state on any malformed/missing field, warning instead of clamping feed into unwarranted output.
+
+Existing DaySimulator/farm/machine/weather/clock day path remains byte-identical. The later fixed Animals.advance_day slot below is still a future integration target, not a new simulation or live owner. Main/SaveService keepv10 with no animal field/migration. Bag/wallet/registry/UI/art/scene/source/can behavior stays. Animal purchase/placement, feed item identity/economics, inventory-safe commands, actual day-order/save and modular views require later explicit scope. Current pure tests and complete regression evidence are in PROGRESS.
+
+
+## Phase6.5h3 existing upgrade-command boundary (D79)
+
+Main configures the unchanged WateringCanUpgradeService with its actual can/wallet and existing20/40/200 Resource. WateringUpgradeFlow is a transient application adapter; snapshot/presenter and three small shared-theme scenes display detached terms. No second water/currency owner, daily simulation, autoload/global event or new persistent flag. Upgrade changes capacity only; remaining water is preserved and existing authorized sources refill separately.
+
+Bag footer requests deferred opening through the active-modal owner. UiCoordinator still owns single modal/pause/Player lock/day-end precedence and native GUI focus/accept routing. Flow.busy joins existing Main safe-point checks; service retains atomic debit/grant/debit-only refund. Completed actual can changes notify existing WateringRuntime for HUD/dirty. Lifecycle close differs from explicit Back to Bag; load/new keep the same can identity. Wallet/can/locale changes refresh actual data. Stale displayed terms cannot silently buy changed terms.
+
+DayLedgerState classifies the already defined watering rollback as reduced expense, and day-end presenter localizes the actual reason. Raw signed entries, independent callback transactions and savev10 shape remain unchanged. Tests/captures/limits and human acceptance are reported separately in PROGRESS. Historical h1/h2 notices below describe their own earlier scopes.
+
+
+## Phase6.5h2b runtime water command/persistence boundary (D78)
+
+Main now owns one pre-existing D71 can state alongside farm. WateringRuntime is an application adapter: actual context/reach/permission checks, WateringService manual command and stateless WaterRefillService source authorization. It holds references/transient busy only, never duplicate charges. Source service reads existing WaterSourceConfig/WorldLocations and shared shore geometry, with no Nodes/autoload/clock. DATA and all underlying can/farm/day/ownership owners stay unchanged.
+
+Every real manual mouse/drag/Space/Inspector water path converges at ToolActionController -> Runtime -> WateringService. Successful new water consumes once, rejected/repeated commands do not; actual wither recovery stays as implemented. Pure low-level ToolAction/FarmGridState and rain/bulk/day calls retain their meanings and do not debit the can. No unmetered runtime fallback. Refill uses actual Player bank and selected-can context, existing E and existing source IDs, no source argument supplied by UI.
+
+GrayBoxWorld delegates query/command; it owns no can. Selected can + valid dry bank wins over nearby bin, ordinary tools retain prior E behavior. GUI/modal/sleep/placement/Player lock guards stay authoritative, NPC/menu input keeps precedence. Full can does not mutate replacement token or unexpectedly sell/open another panel. Source art/map/colliders/navigation stay D77.
+
+Local WateringRuntime.water_changed updates the small Toolbar caption-row meter and save dirty flag after a completed command. Busy rejects reentry and Main save/load/new/title during debit/refund. New-game/load batches suppress intermediate notifications until owners are restored. Existing LandRuntime.restore runs before the water-only busy batch because it uses the shared entry guard itself; no change to land adapter/rights policy. No new global bus/autoload, polling UI state owner or event replay.
+
+Savev10 stores only domain capacity/charges. Oldv1..9 migration grants explicit data-owned full base; existingv10 partial/corrupt cases follow codec. New game starts full; load/Continue/rain/overnight do not refill. Atomics, backups, existing progression and day simulation order remain. Upgrade purchase UI is deferred. Historical standalone/map-first descriptions below are superseded for this newly integrated slice only.
+
+## Phase6.5h2a source-world foundation (D77)
+
+Static DATA WaterSourceConfig references IsometricWorldConfig, never NPC/land/domain. WorldLocations optionally references it; land config references existing NPC world, avoiding a Resource cycle. WaterSourceRules is pure/stateless geometry; DATA validation never calls it. DataValidator combines Resource structural checks with original static exclusions and base/planned farmland. No stateful domain object is added.
+
+WorldLocations.get_solid_regions deduplicates old solids and source regions. Existing player collider generator consumes that list; NPC schedule clips it to unchanged AStar nav bounds, and land validation rejects source overlap. Old farm remains NPC-only exclusion, passable for Player. Exact old well blocker is reused once. New map size changes walking/background only; ownership/save rights stay unchanged.
+
+WorldPresentation adds floor art to Ground's actual WorldCanvas (z=-15, Ground=-20/Farmland=-10), with well art in existing Objects y-sort. WaterSourceView maps through Ground/IsometricGrid and renders localized names/cosmetic pause-aware ripples. Source/approach clearance is cached once, and deterministic passive scenery stays within43×43, independent of85×85 background. Scene-local art owns no gameplay data. Existing crop/machine/avatar/UI, single camera and projection path remain.
+
+No can runtime/refill command/HUD/save schema/day simulation/transaction changes. Save remainsv9; standalone D71 can foundation is still deferred from Main. Later integration must cover all manual water paths and reuse these exact sources. Historical smaller-map descriptions below are superseded only for active map/player/scenery/camera extent values by D77.
+
+## D72-C1 camera/visual completion boundary (D73)
+
+Continue the owner's inherited D72 VIEW work; all Main/domain/save-v9/purchase/farm/Player movement/collision owners remain unchanged. CameraRig and HotbarPanel arbitrate existing pointer input in _unhandled_input: camera yields Shift/GUI-hover wheel, hotbar processes qualified native wheel, plain map wheel zooms once. Existing tool_next/tool_prev remain valid unbound action IDs; no binding is fabricated. All native input tests use an actual Main/SubViewport/GUI path.
+
+Pan extents are IsometricWorldConfig data using inherited defaults; existing grid/Camera2D projection and zoom/follow remain. No extra camera/projection formula. MachinePresentation retains actual MachineState references from its existing render setup, synchronizes ready/idle texture even while paused, and advances only cosmetic work frames while unpaused. It never starts/advances/collects jobs or adds per-frame owner lookups that create rows. Refresh clears transient timers/rows.
+
+The inherited avatar/hair/world/crop/wood renderers are preserved. Five generated PNGs remain draft/offline outputs, honestly documented rather than claimed as live bindings. A pure byte-based asset gate checks files/dimensions; the generator can write to isolated user:// output for deterministic/error verification. Existing PNG/imports/Theme/font sources are protected. No new runtime UI/system, save field, autoload/global signal or clock simulation. New tests/real captures validate behavior; human F5 remains separate.
+
+## Phase6.5h1 standalone watering boundary (D71)
+
+DATA WateringCanConfig owns base20, target40 and first price200, validated without Nodes/autoload-dependent command owners. DOMAIN WateringCanState alone owns standalone capacity/charges and provides serialization from its first implementation. Its mutation primitives invoke no external callbacks. A transient replacement revision protects reservation refunds across independent refill/load/reset, without adding saved state or a gameplay clock.
+
+WateringService is a pure adapter over the actual can/farm owners: read-only readiness, reserve one, invoke the existing water_cell, and refund only that debit on rejection if it has not already been subsumed by a refill/replacement. Existing crop wither/dry recovery and signals remain in FarmGridState. Same-service reentry is guarded while farm callbacks run; original owners are captured so reconfiguration cannot redirect the command. Rain/direct bulk/DaySimulator are outside manual consumption and unchanged.
+
+WateringCanUpgradeService is a pure command adapter over actual can/WalletState, never a new money owner. It rechecks state/config/price/order after payment, grants only the configured first tier and refunds only this debit on rejected grant. Remaining charges and legitimate independent callback effects are preserved; no full-state snapshot rollback. No state/event/autoload/simulation owner is added elsewhere.
+
+This is NOT runtime integration. Main has no WateringCanState instance; existing tools/drag/inspector/refill/HUD/UI/scenes/ownership/reach/save-v9 remain untouched. A future approved slice must connect reachable source, feedback, all manual paths and versioned save migration together before limiting player watering. Low-level refill is not a source/reach permission check. Domain-only tests do not claim player-visible features or human playtest acceptance.
+
+## Phase6.5g capacity upgrade boundary (D70)
+
+Existing InventoryState.capacity remains the only persistent bag-capacity owner. Main configures InventoryUpgradeService from a Resource and the actual inventory/wallet; the service spends through WalletState then invokes the expected-capacity expansion API. Rejection refunds only its debit, preserving independent callback item/wallet changes. The service/flow purchase guards are transient and never serialized. Main and land/bag flows share _purchase_in_progress callback safety; save/load/new-game/title cannot persist/reset half a transaction or cross-purchase through the other modal.
+
+BagUpgradeFlow is a Main-owned application adapter for transient confirmation/result/quote selection only. Three lazy scene/script pairs and snapshot/presenter reuse the shared Theme; current inventory footer opens them through UiCoordinator, with no new key/shop role. Existing grid naturally renders current capacity in8 columns/scroll area. Native tests exercise slot52/F/toolbar/sort/discard without changing those consumers.
+
+Data terms are base40+12/300 for the single first tier; capacity>=52 is already complete and larger legacy bags are preserved. Existing inventory.capacity serialization is sufficient, so save staysv9 and historical goldens remain unchanged. New Game explicitly restores base40 instead of inheriting a previously bought capacity; ordinary clear() keeps it. Pure Resource validation shares the unchanged4096 integrity bound with the codec and does not load services/autoloads in --script mode. Watering upgrades/later tiers remain deferred. Actual verification and human acceptance status are in PROGRESS.
+
+## Phase6.4b ownership/runtime/save boundary (D69)
+
+Main configures one D68 land state and service from data/land_expansion_config.tres, using the actual wallet. Its placement request receives this state before world presentation. LandRuntime is a Node application adapter for transient UI/transaction/lifecycle guards; it never becomes a second domain owner. UI snapshots read authoritative state; the service alone debits/grants/refunds through WalletState. Main save/load/new-game/title requests reject a land purchase callback stack before mutating or persisting anything.
+
+New empty-cell farming/build/move targets require ownership. Existing tilled plots outside base remain usable, and old placed machines/in-place idle rotation keep their prior behavior without unlocking adjacent land. Pure low-level farm/build codecs are not repurposed as ownership authorities. WorldPresentation uses detached region geometry to clear only its generated passive root/colliders; identical snapshots avoid rebuilding. NPC route data and movement bounds are unchanged, including Linh's stream point inside the east parcel.
+
+The land view is three small scenes plus snapshot/presenter and a lazy Main-owned runtime adapter. A shop-only header request opens it using UiCoordinator exclusivity, existing shared Theme and native GUI input. No new InputMap action/autoload/global event/day simulation. Shop access still inherits current debug Ctrl+M. Save v9 adds land_ownership string IDs only; old migration defaults purchased rights empty and preserves crop/machine progress. Human F5 acceptance remains distinct from automated checks in PROGRESS.
+
 Source of truth for how the pieces fit. Agents update the relevant table whenever they add a signal, autoload, domain class or save field.
+
+## Phase6.4a standalone land-expansion foundation (D68)
+
+DATA ExpansionParcelData owns the proposed farm_east_1 ID/region; LandExpansionConfig owns base region, ordered parcel Resources and integer price parameters. It references the existing world/NPC-world Resources for shared bounds/static-solid validation. The legacy LandParcelData machine-lock list is unchanged. No new runtime registration/autoload.
+
+DOMAIN LandExpansionRules validates context/geometry/unique snake_case IDs and computes exact rational integer quotes with checked intermediate/rounding overflow. LandOwnershipState alone owns a serializable ordered known-ID prefix; only base and acquired parcel regions answer can_use_cell. All new entry points fail closed for invalid config/ownership. Standalone deserialize drops malformed/unknown/duplicate/non-next grants without unlocking arbitrary cells.
+
+LandExpansionService is a command adapter, not a second coin/state owner. Read-only quote/eligibility checks actual next ID/funds; purchase uses WalletState.remove_coins with buy_land, then grants once. A rejected/stale grant refunds only this debit via add_coins/buy_land_rollback, preserving independent callback transactions. Transient reentry guard rejects nested same-facade commands; captured transaction references prevent callback reconfiguration from redirecting money. No new global signal or daily/frame simulation.
+
+This state is NOT owned by Main or included in SaveService payloads yet. Runtime scene/terrain/farm/tools/build gates/UI/save integration is deferred together; game saves stayv8 and no player-visible land access/purchase is introduced. The east parcel still contains natural scenery and an NPC waypoint that require explicit future treatment.
+
+## Phase6.5f nearby idle-machine relocation (D67)
+
+The existing stateless MachinePlacementRequest adds source eligibility, detached source snapshot validation and revalidated move requests. MachineBuildService.can_move is a pure preflight over actual placement/occupancy and the D65 operation guard; its existing move command shares that preflight. Current distinct1x1 footprints allow destination checks without releasing the source. D65 remains the sole mutation/empty-job-cleanup/rollback boundary. No new state owner, simulation, save field/version or balance.
+
+The existing MachinePlacementFlow has two transient modes: empty source for original Place, detached source dictionary for Move. Shop footer/controller defer begin_move after a native Button event, rechecking active operation selection. The source machine stays rendered/occupied/saved during preview; only the UI ghost moves. Status displays actual source/destination/saved angle and native confirm/cancel controls. Confirmation checks the current source identity/rotation, idle state and source/destination reach again. Different destinations also use D66 region/Player/no-plot policy; idle in-place rotation/no-op retains legacy source footprint/jobs without applying new-cell restrictions. Busy UI is always blocked, while existing non-UI facade in-place rotation semantics remain compatible.
+
+Lifecycle/modal hide clears source before another Place. Success caches feedback before hide clears transient state, refreshes actual MachinePresentation and marks the existing save dirty. Main, tools, UiCoordinator, Player/camera/world/presentation sources, scenes, Resource configs, InputMap and saved-v8 payloads stay unchanged. No move/confirm path changes stored machine quantity, wallet, bag or crop state.
+
+## Phase6.5e placement command and modal composition (D66, 2026-11-04)
+
+DATA MachineBuildConfig owns the reserved farm placement region; world Resource owns reach. DOMAIN MachinePlacementRequest is a stateless RefCounted adapter over the real farm and D65 build facade. Its read-only preview checks current stock/jobs/occupancy/rotation, region, Player/reach and absence of tilled plots/crops; command repeats validation. Return checks actual nearby idle eligibility, including legacy placements outside the region. D65 is still the mutation/rollback authority, D63 still owns collection. No duplicated placement/inventory/job state, save field/version or simulation.
+
+VIEW Main wires adapter and MachinePlacementFlow after real owners and before UiCoordinator. The flow adds a full-viewport modal root with a projected ghost and fixed bottom status/actions. Overlay lazily creates its controls on first use; immutable manifest pivot cache and coalesced layout avoid repeated startup/layout work. UiCoordinator remains the only clock/Player/camera authority. Flow resets on hide/load/new-game/title/sleep/day-end/another modal, without stock reservation. Place begins after the opening Button callback; successful confirm exits and refreshes MachinePresentation/dirty tracking/feedback. Return is an operation-mode footer action using actual domain readiness.
+
+Typed local overlay signals are pointed(Vector2), confirmed(), cancelled(), rotated(int); status forwards the last three. Native child Buttons/navigation win over the background click plane. Background LMB/Space confirms, RMB/Esc cancels, existing R/Q rotate; actual InputMap is unchanged. Pointer sampling uses the background hover only, preserving the last cell while over controls. ToolController cancels farm strokes during placement and gates held confirmation until release; outside placement only hoe/seed on occupied machine cells are blocked, preserving legacy care/harvest. Existing Player/world/camera/interaction sources, machine physics/directional art and save-v8 remain unchanged.
+
+## Phase6.5d placement/job command boundary (D65, 2026-11-04)
+
+Main initializes MachineOperationService from the existing inventory/placement owners before passing both placement and operations to MachineBuildService.configure. The facade remains a pure command adapter with no new persistent state. Runtime views keep their current commands; no UI/scene/asset/input change occurs. Existing low-level placement primitives remain codec/unit operations and are not a job-aware runtime command boundary.
+
+The operation owner previews edit eligibility and owns empty-job cleanup. Different-cell move/remove require fully idle, empty source jobs; destinations with active/orphan/buffered/corrupt jobs fail closed. After a successful place/move/remove, only verified empty idle rows are dropped. Failed placement never drops a row; cleanup rejection restores placement/owned-count/job snapshots. Rotation preserves job bytes and same-cell move delegates to rotation. The collection guard blocks facade edits/cleanup throughout output reservation and inventory callbacks, even when the state temporarily appears idle. No active output is silently adopted, deleted, refunded or collected.
+
+No new simulation path, autoload, signal, inventory/wallet authority, save field/version or balance value. Domain owners continue serializing the same job/placement/ownership shapes; removing an empty idle row changes payload contents, not schema. Main change is initializer wiring only; Player/camera/reach/modal/sleep/day order, current machine UI and data/Theme/assets remain untouched.
+
+## Phase6.5c machine VIEW composition (D64, 2026-11-04)
+
+Main still owns the same MachineShopPanel adapter. Its screen is a five-component wood/paper reference10 composition: screen, catalogue, card, details and footer. Snapshot/presenter read existing machine/recipe/inventory/wallet/job owners and reuse manifest textures; the controller keeps transient selected IDs/cell/mode/result and delegates requests to unchanged services. No new gameplay state, simulation, domain signal/autoload or save field/version is introduced. Cached textures are read-only VIEW resources. The previously missing machine-name keys now resolve in vi/en; current prices/unlocks/recipes/output values remain unchanged.
+
+Inventory/wallet callbacks coalesce deferred refreshes. Catalogue Buttons are reused, so input handlers do not destroy their emitting controls; current row/cell/focus/scroll remain valid. A command guard prevents wallet/inventory callback reentry, hidden/inactive/mismatched actions do nothing, and wallet load/new-game resets transient operation state. Fresh disabled-Start preview avoids creating a low-level empty job on missing inputs; the domain still authorizes every actual start. Safe Collect remains the D63 domain transfer; place/start/collect refresh the existing MachinePresentation after success only.
+
+UiLayout gives this panel the existing centered wide rectangle and skips legacy style rewriting; UiCoordinator keeps modal/clock/Player authority and gives machine GUI native navigation/accept precedence. Existing debug construction/exact Ctrl+M/nearby E/reach/escape/sleep/day-end priority remain; no Main/world/Player/scene/domain/core/data/assets/Theme/InputMap/save changes. Shop mode uses real equipment preview rather than a fictitious merchant. Disabled Sell/Buyback, explicit test placement/house-level1 and existing single-unit purchase reflect actual support.
+
+## Phase6.5b collection boundary (D63, 2026-11-04)
+
+DATA registers the seven existing recipe-output IDs as ItemData; no recipe/machine/crop terms change. DOMAIN MachineOperationService validates placement/job/recipe/item/capacity and owns the entire bag transfer. It snapshots inventory/job, reserves output before inventory callbacks and blocks nested transfer/start/raw extraction/day progress with a transient guard; rejected additions restore snapshots. Preview/failure never grants or clears output. No wallet mutation, new signal/autoload/state owner or save field/version is introduced. Raw take_output remains compatible for low-level callers.
+
+VIEW MachineShopPanel only submits the safe command and formats its actual result. Header/result stay outside rebuilt rows; inventory/locale changes queue a coalesced deferred refresh, preserve valid action focus and keep selected operation cell. The existing bag/detail/icon fallback displays registered outputs. UiCoordinator retains Player/modal/clock authority; no extra simulation occurs. Existing debug-only Ctrl+M/test placement/house-level1 UI, nearby E, old scenes and D62 remain unchanged. Human playtest remains pending.
 
 ## 0. 2D migration target (D33–D35, 2026-11-02)
 
@@ -15,6 +199,10 @@ Status: ISO-1 active scenes are now 2D (D36). The legacy architecture tables/sav
 - Existing weather/time services are kept. Their 3D renderers must be replaced with 2D views; CanvasModulate, house-light and rain attachment points must not invent weather values. Detailed visual polish follows the relevant UI/world step.
 - Keep old generated 3D art/review assets intact as historical tools. ISO-1 acceptance requires no 3D node in the active gameplay tree; it does not authorize deleting archive assets or bypassing their tests.
 - No new bus signal, autoload or save field is defined by ISO-0. Planned APIs must remain separate from the implemented API index.
+
+### Player restoration override (D62, 2026-11-04)
+
+Owner revoked player removal while retaining new crops/machines. Active runtime again has Player CharacterBody2D, a child Camera2D driven by the prior follow/zoom CameraRig, movement/collision/reach and saved logical position/customization. UiCoordinator/sleep gate Player movement. Main keeps all current machine inventory/placement/processing/shop/presentation fields and save blocks alongside restored player data. Supplied crop/art/care/shovel changes remain. The former manager-only camera/direct NPC/tool interaction override is superseded; placed-machine mouse selection and exact Ctrl+M shop remain, blocked behind overlays/sleep.
 
 ## 1. Layers and dependency direction
 

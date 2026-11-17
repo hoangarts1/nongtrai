@@ -78,6 +78,9 @@ func _pick_cell(point: Vector2, world: GrayBoxWorld, farm_view: Node) -> Variant
 		return crop_cell
 	return world.pick_cell(point)
 
+func cancel() -> void:
+	_end()
+
 func _end() -> void:
 	_active = false
 	_visited_cells.clear()

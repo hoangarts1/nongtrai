@@ -143,7 +143,7 @@ func test_real_trades_refunds_failed_purchase_and_review_save_restore() -> void:
 	GameClock.set_time(20,0)
 	assert_true(flow.request())
 	var saved: Dictionary = SaveService.load_game(1)
-	assert_eq(int(saved["meta"]["save_version"]),8)
+	assert_eq(int(saved["meta"]["save_version"]),12)
 	assert_true(flow.cancel())
 	_main.call("_load_payload",saved)
 	await _settle()

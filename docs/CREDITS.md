@@ -1,6 +1,28 @@
 # CREDITS & LICENSES
 
+## D72 inherited 2D visual work and C1 completion
+
+Inherited avatar/hair/world/crop/machine/frame drawing and five draft PNGs are project-authored procedural work from the other coding agent's D72 slice. tools/build_isometric_2d_assets.gd reproducibly generates cottage160x140, market140x128, bin96x88, farmer sheet256x64 and wood frame96x96 under existing assets folders. They remain offline/draft outputs; active runtime components still draw their procedural visuals and use existing supplied crops/machine textures/shared Theme/fonts.
+
+C1 retains those source images/imports and art direction, completes pointer/animation lifecycle and generator verification, and adds no externally sourced art/font/audio or license dependency. Separate inherited28-file and completion diff/artifacts are listed in PROGRESS; no claim is made that draft PNGs replaced runtime/customization renderers.
+
+## Phase6.5g bag upgrade panel
+
+No new external/generated bitmap, font, audio or source asset. New bag upgrade scenes reuse existing shared wood/paper/blue-banner Theme, native Godot controls and project fonts. New vi/en interface text is project-authored. Existing bag icons/grid assets are not edited. Screenshot review and validation are recorded in PROGRESS.
+
+## Phase6.4b land panel
+
+No new external/generated raster, font, audio or licensed asset. New land controls reuse the project's existing shared wood/paper Theme, native Godot controls and existing fonts. Generated passive scenery is rebuilt from existing assets without editing/deleting them; no source-art ownership or license changes. New vi/en interface text is project-authored. See PROGRESS for screenshot review and automated status.
+
+Phase6.4a (2026-11-04): new land data/domain/test code introduces no external/generated art, font, audio, addon or license dependency. Existing world/NPC-world Resources are read-only validation context; no terrain or scene asset is modified.
+
 Add a row EVERY time an outside asset, font, addon or sound enters the project. Keep a copy of each license text/page. Unknown source = do not use.
+
+Phase6.5f reuse (2026-11-04): idle-machine Move reuses the existing projected idle sprite/pivot, isometric adapter, modal/status controls and shared Theme/reference10 styling. The original world machine remains visible during preview. No new outside/generated asset, font, addon, scene texture or license claim.
+
+Phase6.5e reuse (2026-11-04): mouse placement projects the same supplied machine idle sprites/pivot and existing Theme colors/buttons/paper/wood styles. No new outside/generated asset, font, addon or license claim; the preview is drawn in Godot through the existing isometric adapter.
+
+Phase6.5c reuse (2026-11-04): the modular machine UI reuses the existing shared Theme/fonts and project-supplied `assets/machines/` sprites resolved through `machines_manifest.json`. Existing registered item icons remain the processed-product fallback. Reference `docs/ui_reference/10-cua-hang.png` guides layout only and is not embedded as a texture. This slice introduces no downloaded/generated asset, font, addon or new license claim.
 
 | Asset / addon | Type | Author | License | URL | Date taken | Changes made | Used in |
 |---|---|---|---|---|---|---|---|

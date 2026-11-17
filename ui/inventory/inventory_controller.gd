@@ -21,11 +21,16 @@ func configure(owner_panel: InventoryPanel, state: InventoryState) -> void:
 	panel.screen.discard.confirmed.connect(confirm_discard)
 	panel.screen.discard.cancelled.connect(cancel_discard)
 	panel.screen.footer.sort_requested.connect(sort_items)
+	panel.screen.footer.upgrade_requested.connect(request_upgrade)
+	panel.screen.footer.watering_upgrade_requested.connect(request_watering_upgrade)
 	panel.screen.tabs.tab_requested.connect(show_tab)
 	queue_render()
 
 func attach_main(main: Node) -> void:
 	_main = main
+	panel.screen.footer.upgrade_button.show()
+	panel.screen.footer.watering_upgrade_button.show()
+	main.watering_runtime.water_changed.connect(func(_charges: int, _capacity: int) -> void: queue_render())
 	main.npc_system.journal.enable_quest_book(main)
 	main.npc_system.journal.tabs.tab_requested.connect(show_tab)
 	main.character_flow.panel.tabs.tab_requested.connect(show_tab)
@@ -54,6 +59,13 @@ func _render() -> void:
 	panel.screen.items.display(slots,inventory.capacity,category,selected)
 	panel.screen.detail.display(slots[selected] if selected>=0 else {})
 	panel.screen.footer.display(slots.size(),inventory.capacity,selected<0 and not category.is_empty())
+	if _main!=null:
+		var upgrade: Dictionary = _main.bag_upgrade.can_purchase(inventory.capacity)
+		panel.screen.footer.upgrade_button.disabled = upgrade.reason in [&"already_upgraded",&"invalid_service"]
+		panel.screen.footer.upgrade_button.tooltip_text = LifeBagUpgradePresenter.reason(StringName(upgrade.reason))
+		var water: Dictionary = _main.watering_upgrade.can_purchase(_main.watering_can.get_capacity())
+		panel.screen.footer.watering_upgrade_button.disabled = water.reason in [&"already_upgraded",&"invalid_service"]
+		panel.screen.footer.watering_upgrade_button.tooltip_text = LifeWateringUpgradePresenter.reason(StringName(water.reason))
 
 func _matches(slot: Dictionary) -> bool:
 	return category.is_empty() or (DataRegistry.get_item(slot["item_id"]) as ItemData).category==category
@@ -70,6 +82,14 @@ func filter(value: StringName) -> void:
 	category = value
 	cancel_discard()
 	queue_render()
+
+func request_upgrade() -> void:
+	if _main!=null and _can_act() and _pending.is_empty():
+		_main.bag_upgrade_flow.call_deferred("open")
+
+func request_watering_upgrade() -> void:
+	if _main!=null and _can_act() and _pending.is_empty():
+		_main.watering_upgrade_flow.call_deferred("open")
 
 func _can_act() -> bool:
 	return panel.visible and not GameClock.is_sleeping() and (_main==null or _main.ui_coordinator.get_active_panel()==panel)

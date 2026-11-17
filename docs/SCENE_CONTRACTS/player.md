@@ -39,3 +39,7 @@ No player group is currently declared by the scene/script; the old draft group w
 - Position is resolved to a logical cell before saving. The actual v4 wire schema retains legacy player.position.x/y/z cell-center coordinates for compatibility (D36); canvas pixels are never saved. Restore snaps subcell offsets to a valid cell center. No facing/save field was invented.
 - Input actions only from `docs/INPUT_MAP.md`.
 - Sprite/placeholder replacement cannot change collision, movement, inventory, crop state or saved cell IDs. The active player subtree must have no 3D node after ISO-1.
+
+## D72-C1 preserved player/render boundary (D73)
+
+Player movement/collider/scene/save are untouched. The inherited procedural chibi avatar and shared six-style hair remain, with cosmetic phases pausing and existing real-time action/emotion feedback expiry retained. Camera pan extents are new Resource fields with inherited values; camera returns smoothly on walking and immediately on double-right/reset. Native wheel routing does not alter the player or tool domain. Preview tests retain actual resolved skin/hair/outfit choices; generated farmer_sheet PNG is an offline draft, not the live avatar.

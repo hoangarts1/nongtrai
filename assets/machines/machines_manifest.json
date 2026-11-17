@@ -1,0 +1,78 @@
+{
+ "canvas_2x": [
+  128,
+  152
+ ],
+ "pivot_2x": [
+  64,
+  120
+ ],
+ "footprint_cells": [
+  1,
+  1
+ ],
+ "states": {
+  "idle": "nghỉ",
+  "work_a": "hoạt động khung 1",
+  "work_b": "hoạt động khung 2"
+ },
+ "work_animation": "luân phiên work_a <-> work_b, gợi ý 0.4s mỗi khung (2.5 fps)",
+ "machines": {
+  "stove": {
+   "name_vi": "Bếp nấu",
+   "files": [
+    "stove_idle",
+    "stove_work_a",
+    "stove_work_b"
+   ]
+  },
+  "oven": {
+   "name_vi": "Lò nướng",
+   "files": [
+    "oven_idle",
+    "oven_work_a",
+    "oven_work_b"
+   ]
+  },
+  "press": {
+   "name_vi": "Máy ép",
+   "files": [
+    "press_idle",
+    "press_work_a",
+    "press_work_b"
+   ]
+  },
+  "mill": {
+   "name_vi": "Cối xay",
+   "files": [
+    "mill_idle",
+    "mill_work_a",
+    "mill_work_b"
+   ]
+  },
+  "barrel": {
+   "name_vi": "Thùng ủ",
+   "files": [
+    "barrel_idle",
+    "barrel_work_a",
+    "barrel_work_b"
+   ]
+  },
+  "roaster": {
+   "name_vi": "Máy rang cà phê",
+   "files": [
+    "roaster_idle",
+    "roaster_work_a",
+    "roaster_work_b"
+   ]
+  },
+  "dryer": {
+   "name_vi": "Máy sấy",
+   "files": [
+    "dryer_idle",
+    "dryer_work_a",
+    "dryer_work_b"
+   ]
+  }
+ }
+}

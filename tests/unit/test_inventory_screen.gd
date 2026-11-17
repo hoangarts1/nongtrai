@@ -15,7 +15,7 @@ func before_each() -> void:
 	_viewport = SubViewport.new()
 	_viewport.size = Vector2i(1152,648)
 	_viewport.world_2d = World2D.new()
-	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	add_child(_viewport)
 	_main = preload("res://scenes/main/main.tscn").instantiate()
 	_viewport.add_child(_main)
@@ -33,9 +33,26 @@ func after_each() -> void:
 	TranslationServer.set_locale(_locale)
 
 func _settle() -> void:
-	for frame: int in range(10):
+	# Wait for actual deferred work and geometry, not a delay after every action.
+	var previous: Array[Rect2] = []
+	var stable_frames: int = 0
+	for frame: int in range(120):
 		await get_tree().process_frame
-	await get_tree().create_timer(0.18).timeout
+		var current: Array[Rect2] = _visible_rects()
+		var pending: bool = bool(_main.inventory_panel.controller.get("_queued")) or bool(_main.ui_coordinator.get("_layout_queued"))
+		stable_frames = stable_frames+1 if not pending and current==previous else 0
+		previous = current
+		if stable_frames>=2:
+			return
+	assert_true(false,"Native inventory refresh/layout did not settle within120 process frames")
+
+func _visible_rects() -> Array[Rect2]:
+	var rects: Array[Rect2] = []
+	for node: Node in _main.find_children("*","Control",true,false):
+		var control: Control = node as Control
+		if control.is_visible_in_tree():
+			rects.append(control.get_global_rect())
+	return rects
 
 func _key(code: Key) -> void:
 	var event: InputEventKey = InputEventKey.new()
@@ -201,6 +218,7 @@ func test_reference_regions_both_languages_three_sizes_empty_full_filter_and_dis
 
 func _capture(filename: String) -> void:
 	if DisplayServer.get_name()!="headless":
+		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 		await RenderingServer.frame_post_draw
 		assert_eq(_viewport.get_texture().get_image().save_png("user://%s.png" % filename),OK)
 

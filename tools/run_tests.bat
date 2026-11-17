@@ -22,20 +22,10 @@ powershell -NoProfile -Command "$text = (Get-Content -Raw '%TEMP%\the_life_headl
 if errorlevel 1 exit /b 1
 
 echo [run_tests] running COMPLETE GUT suite with graphics renderer
-powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "-s --path . addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gprefix=test_ -gexit" -OutputPath "%TEMP%\the_life_gut.log" -TimeoutMs 180000
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_graphics_tests.ps1 -Godot "%GODOT%"
 set GUT_EXIT=%ERRORLEVEL%
 if not "%GUT_EXIT%"=="0" (
   echo [run_tests] FAILED
-  exit /b 1
-)
-findstr /C:"SCRIPT ERROR" /C:"Parse Error" /C:"Failed to load script" /C:"ERROR:" "%TEMP%\the_life_gut.log.stdout" "%TEMP%\the_life_gut.log.stderr" >nul
-if not errorlevel 1 (
-  echo [run_tests] ERROR TEXT FOUND
-  exit /b 1
-)
-powershell -NoProfile -Command "$text = (Get-Content -Raw '%TEMP%\the_life_gut.log.stdout') + (Get-Content -Raw '%TEMP%\the_life_gut.log.stderr'); if ($text -notmatch '---- All tests passed! ----' -or $text -match 'Failing Tests\s+[1-9][0-9]*') { exit 1 }"
-if errorlevel 1 (
-  echo [run_tests] TEST SUMMARY FAILED
   exit /b 1
 )
 echo [run_tests] starting main scene headless

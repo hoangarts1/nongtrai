@@ -4,6 +4,8 @@
 
 [resource]
 script = ExtResource("1_weather")
+initial_weather_id = &"sunny"
+forecast_days = 3
 entries = Array[Dictionary]([
 	{"id": &"sunny", "probability": 55, "darkness": 0.0, "rain": false, "storm": false},
 	{"id": &"cloudy", "probability": 25, "darkness": 0.12, "rain": false, "storm": false},

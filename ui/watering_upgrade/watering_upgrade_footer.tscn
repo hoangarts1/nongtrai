@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/watering_upgrade/watering_upgrade_footer.gd" id="1"]
+[node name="BagFooter" type="VBoxContainer"]
+script = ExtResource("1")

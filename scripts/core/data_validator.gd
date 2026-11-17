@@ -1,7 +1,13 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
+##   static func validate_crop_stage_config(config: CropStageConfig) -> PackedStringArray
+##   static func validate_weather_resource(profile: WeatherProfile) -> PackedStringArray
+##   static func validate_recipe_catalog(recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray
+##   static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray
 ##   static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
 ##   static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray
+##   static func validate_watering_can_config(config: WateringCanConfig) -> PackedStringArray
+##   static func validate_isometric_2d_assets(asset_root: String = "res://assets") -> PackedStringArray
 ##   static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray
 ##   static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray
 ##   static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray
@@ -12,8 +18,13 @@
 ##   static func validate_farming_art_catalog_path(path: String) -> PackedStringArray
 ##   static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray
 ##   static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray
+##   static func validate_land_expansion_config(config: LandExpansionConfig) -> PackedStringArray
+##   static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_crop_stage_config(config: CropStageConfig) -> PackedStringArray:
+	return config.validation_errors() if config != null else PackedStringArray(["crop stage config is required"])
 
 static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
 	return CropEconomyRules.validate(config, crops, items)
@@ -29,6 +40,8 @@ static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Re
 			errors.append("crop migration requires CropData")
 			continue
 		ids[resource.crop_id] = true
+		if resource is CropData and (resource as CropData).planting_item_buy_price > 0:
+			continue
 		var days: Variant = config.previous_growth_days.get(resource.crop_id)
 		if not days is int or int(days) <= 0 or int(days) > CropEconomyRules.MAX_RULE_INTEGER:
 			errors.append("crop migration %s requires a positive historical duration" % resource.crop_id)
@@ -45,6 +58,45 @@ static func validate_inventory_config(config: InventoryConfig) -> PackedStringAr
 		errors.append("inventory default capacity must match its configured grid")
 	return errors
 
+static func validate_machine_build_config(config: MachineBuildConfig, world: IsometricWorldConfig) -> PackedStringArray:
+	if config == null or world == null or not config.is_valid(world.map_region):
+		return PackedStringArray(["machine build region must be positive and inside the map"])
+	return PackedStringArray()
+
+static func validate_watering_can_config(config: WateringCanConfig) -> PackedStringArray:
+	return config.validation_errors() if config!=null else PackedStringArray(["watering can config is required"])
+
+static func validate_bag_upgrade_config(config: BagUpgradeConfig) -> PackedStringArray:
+	return config.validation_errors() if config!=null else PackedStringArray(["bag upgrade requires a config"])
+
+static func validate_land_expansion_config(config: LandExpansionConfig) -> PackedStringArray:
+	return LandExpansionRules.validate(config)
+
+static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray:
+	if locations==null or land==null:
+		return PackedStringArray(["water sources require static locations and land config"])
+	var regions: Array[Rect2i] = [land.initial_region]
+	for parcel: ExpansionParcelData in land.parcels:
+		if parcel!=null:
+			regions.append(parcel.region)
+	return WaterSourceRules.validate(config,locations.solid_rects,regions)
+
+static func validate_isometric_2d_assets(asset_root: String = "res://assets") -> PackedStringArray:
+	var errors: PackedStringArray = []
+	# Offline image canvas contracts; these are not gameplay values or live sprite bindings.
+	var sizes: Dictionary = {"buildings/cottage_2x.png":Vector2i(160,140),"buildings/market_2x.png":Vector2i(140,128),"buildings/shipping_bin_2x.png":Vector2i(96,88),"characters/farmer_sheet_2x.png":Vector2i(256,64),"ui/frame_wood_9slice.png":Vector2i(96,96)}
+	for relative: String in sizes:
+		var path: String = asset_root.path_join(relative)
+		if not FileAccess.file_exists(path):
+			errors.append("isometric draft asset missing: %s" % path)
+			continue
+		var img: Image = Image.new()
+		if img.load_png_from_buffer(FileAccess.get_file_as_bytes(path))!=OK or img.is_empty():
+			errors.append("isometric draft asset unreadable: %s" % path)
+		elif img.get_size()!=sizes[relative]:
+			errors.append("isometric draft asset size mismatch: %s" % path)
+	return errors
+
 static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
 	if config == null:
@@ -54,8 +106,14 @@ static func validate_isometric_world_config(config: IsometricWorldConfig) -> Pac
 		errors.append("isometric tile size must be 128x64")
 	if config.map_region.size.x <= 0 or config.map_region.size.y <= 0 or config.player_region.size.x <= 0 or config.player_region.size.y <= 0:
 		errors.append("isometric map/player regions must be positive")
+	if not config.map_region.encloses(config.player_region) or config.scenery_region.size.x<=0 or config.scenery_region.size.y<=0 or not config.map_region.encloses(config.scenery_region):
+		errors.append("isometric player/scenery regions must be positive and inside map")
 	if config.interaction_reach <= 0 or config.camera_follow_speed <= 0:
 		errors.append("isometric reach/follow speed must be positive")
+	if not is_finite(config.camera_pan_min.x) or not is_finite(config.camera_pan_min.y) or not is_finite(config.camera_pan_max.x) or not is_finite(config.camera_pan_max.y):
+		errors.append("camera pan bounds must be finite")
+	elif config.camera_pan_min.x>=config.camera_pan_max.x or config.camera_pan_min.y>=config.camera_pan_max.y or config.camera_pan_min.x>0 or config.camera_pan_min.y>0 or config.camera_pan_max.x<0 or config.camera_pan_max.y<0:
+		errors.append("camera pan bounds must be ordered and contain the player origin")
 	if config.zoom_levels.is_empty() or config.zoom_index < 0 or config.zoom_index >= config.zoom_levels.size():
 		errors.append("isometric initial zoom is invalid")
 	for zoom: float in config.zoom_levels:
@@ -139,36 +197,9 @@ static func validate_crop_references(crops: Array[Resource], items: Array[Resour
 				errors.append("seed item %s for crop %s must have positive buy_price" % [seed_id, crop_id])
 			if sell_price <= 0:
 				errors.append("product item %s for crop %s must have positive sell_price" % [prod_id, crop_id])
-			if sell_price <= buy_price:
+			var initial_loss_allowed: bool = crop is CropData and (crop as CropData).perennial and (crop as CropData).regrow_days > 0
+			if sell_price <= buy_price and not initial_loss_allowed:
 				errors.append("crop %s product sell_price (%d) must exceed seed buy_price (%d)" % [crop_id, sell_price, buy_price])
-	for i: int in range(crops.size()):
-		var crop_a: Resource = crops[i]
-		if crop_a == null:
-			continue
-		var growth_a: int = int(crop_a.get("growth_days"))
-		var seed_a: Resource = item_dict.get(StringName(crop_a.get("seed_item")))
-		var prod_a: Resource = item_dict.get(StringName(crop_a.get("product_item")))
-		if seed_a == null or prod_a == null:
-			continue
-		for j: int in range(i + 1, crops.size()):
-			var crop_b: Resource = crops[j]
-			if crop_b == null:
-				continue
-			var growth_b: int = int(crop_b.get("growth_days"))
-			var seed_b: Resource = item_dict.get(StringName(crop_b.get("seed_item")))
-			var prod_b: Resource = item_dict.get(StringName(crop_b.get("product_item")))
-			if seed_b == null or prod_b == null:
-				continue
-			if growth_a > growth_b:
-				if int(seed_a.get("buy_price")) < int(seed_b.get("buy_price")):
-					errors.append("crop %s seed buy_price is lower than faster crop %s" % [crop_a.get("crop_id"), crop_b.get("crop_id")])
-				if int(prod_a.get("sell_price")) < int(prod_b.get("sell_price")):
-					errors.append("crop %s product sell_price is lower than faster crop %s" % [crop_a.get("crop_id"), crop_b.get("crop_id")])
-			elif growth_b > growth_a:
-				if int(seed_b.get("buy_price")) < int(seed_a.get("buy_price")):
-					errors.append("crop %s seed buy_price is lower than faster crop %s" % [crop_b.get("crop_id"), crop_a.get("crop_id")])
-				if int(prod_b.get("sell_price")) < int(prod_a.get("sell_price")):
-					errors.append("crop %s product sell_price is lower than faster crop %s" % [crop_b.get("crop_id"), crop_a.get("crop_id")])
 	return errors
 
 static func validate_crop_paths(crop_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
@@ -216,26 +247,17 @@ static func validate_translation_keys(paths: Array[String], required_keys: Packe
 	return errors
 
 static func validate_weather_profile(path: String) -> PackedStringArray:
-	var errors: PackedStringArray = PackedStringArray()
 	if not ResourceLoader.exists(path):
-		errors.append("weather profile is missing: %s" % path)
-		return errors
+		return PackedStringArray(["weather profile is missing: %s" % path])
 	var profile: Resource = load(path)
-	if profile == null:
-		errors.append("weather profile cannot be loaded: %s" % path)
-		return errors
-	var total: int = 0
-	for entry: Dictionary in profile.get("entries"):
-		var weather_id: String = String(entry.get("id", ""))
-		if weather_id.is_empty() or not _is_snake_case(weather_id):
-			errors.append("weather id is invalid: %s" % weather_id)
-		var probability: int = int(entry.get("probability", 0))
-		if probability < 0:
-			errors.append("weather probability is negative: %s" % weather_id)
-		total += probability
-	if total <= 0:
-		errors.append("weather probabilities must have a positive total")
-	return errors
+	if profile==null:
+		return PackedStringArray(["weather profile cannot be loaded: %s" % path])
+	if not profile is WeatherProfile:
+		return PackedStringArray(["weather profile requires WeatherProfile Resource: %s" % path])
+	return validate_weather_resource(profile as WeatherProfile)
+
+static func validate_weather_resource(profile: WeatherProfile) -> PackedStringArray:
+	return profile.validation_errors() if profile!=null else PackedStringArray(["weather profile is missing"])
 
 static func validate_art_palette_path(path: String) -> PackedStringArray:
 	var errors: PackedStringArray = PackedStringArray()
@@ -543,3 +565,9 @@ static func _resource_identifier(resource: Resource) -> String:
 
 static func _is_snake_case(value: String) -> bool:
 	return value == value.to_lower() and not value.contains(" ") and not value.contains("-")
+
+static func validate_recipe_catalog(recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+	return RecipeCatalogRules.validate(recipes,machines,items)
+
+static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+	return RecipeEconomyRules.validate(config,recipes,machines,items)

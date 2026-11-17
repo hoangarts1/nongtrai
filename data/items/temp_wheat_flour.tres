@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/item_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_id = &"temp_wheat_flour"
+display_name_key = &"ITEM_TEMP_WHEAT_FLOUR"
+description_key = &"ITEM_PROCESSED_DESCRIPTION"
+category = &"other"
+max_stack = 99
+buy_price = 0
+sell_price = 0

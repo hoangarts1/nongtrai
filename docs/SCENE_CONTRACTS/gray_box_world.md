@@ -1,5 +1,49 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## AUDIT-F1 derived crop stage (D87)
+
+No node/scene/Inspector/physics/input edit. FarmView._render_cell passes its actual plot.regrowing to CropPresentation's new optional final argument. Crop roots still use the manifest texture/pivot and shared world grid. Normal image stages change at25/50/75%; mature metadata waits for actual100% and a non-withered plot. Repeating crops keep normal/wilted image3 during the wait and image4 at maturity; no seed-stage tree replacement after harvest. Existing roots/hidden Labels/crop picking and farm state fields are retained. Care reads the shared stateless stage rules; no view advances days or grants produce. Full-gate/human acceptance is recorded separately in PROGRESS.
+
+## Phase7.1b weather transaction (D86; no scene edits)
+
+Main uses the existing WeatherState instance at actual GameClock day. On a legitimate next morning, reserve captured weather before outgoing-rain/farm callbacks; keep farm->animal->machine ordering, finish the weather day once, apply morning rain, reconcile ledger and then safe autosave/bulletin. Weather busy blocks save/load/new/title/sleep commands during callbacks; duplicate/skipped/stale signals do nothing. Saved3 forecasts remain exact through load/migration, newly needed tail uses DetRandom tag1. Save12 weather day must match saved clock; missing/corrupt weather is explicitly initialized at loaded day without replaying simulation. Existing typed events/views/modal tree/input/Inspector remain unchanged. Bulletin and tomorrow card only read forecast; no view rolls weather.
+
+Manual: record today/three forecasts, sleep once through review, confirm new today equals saved first forecast; save/load and repeat through all three predictions. Compare water/coop/items/coins and ensure no duplicated care/eggs/bookkeeping, one morning bulletin, unchanged rain presentation. Continue/load alone must neither advance a day nor open bulletin. No editor setup required; full automated evidence/current acceptance in PROGRESS.
+
+## D83 coop delegate
+Existing world adds configure_chicken_coop(query:Callable,request:Callable). E/prompt checks water then actual coop context then old anchors. Runtime SiteView is a child of objects outside passive WorldArt2D; owns only illustration/owned-only layer1 collision. Existing node paths/scenes/Player/camera remain. See chicken_coop.md.
+
+
+## Phase6.5h2b runtime watering hooks (D78)
+
+No .tscn/Player/camera/map/source/collider/marker/Inspector/stroke change. Main adds one WateringCanState and WateringRuntime application Node; existing ToolActionController.configure_watering(runtime) routes its converged manual water branch to the real can. GrayBoxWorld.configure_water_refill(query:Callable,request:Callable) delegates source authorization/command; it owns no charges. New `_water_context` accepts only actual source context from the delegate.
+
+Selected can + unlocked actual dry bank adds honest refill/full text to existing InteractionPrompt.message_label (existing Message child) and handles existing E before bin. Normal tools keep old interactions; GUI/NPC/menu routing and movement/sleep locks remain. Shared SourceRules/WorldLocations geometry authorizes banks, not a new marker or duplicated projection. Source view art/labels/collisions stay D77. See watering.md for exact runtime/HUD APIs/tree and savev10 boundary.
+
+No editor wiring. F5: select watering can (visible slot3), water dry crops via mouse/drag/Space/Inspector, see amount decrease once; at0 next dry crop waits. Reach well dry cell(7,9), stream(-14,6), pond(15,9), E refills; full is unchanged. Test hoe at nearby bin, menu E, pause/placement, legacy farming/land/machines/save/Continue. Actual human playtest pending.
+
+## Phase6.5h2a expanded source world (D77)
+
+No .tscn or Inspector/InputMap change. IsometricWorldConfig now supplies85×85 Ground,39×39 Player bounds and43×43 scenery bounds plus expanded camera/pan. WorldPresentation creates WaterSources Node2D under existing WorldCanvas (obtained from Ground parent), not the default GrayBoxWorld canvas; see water_sources.md for exact generated tree. Source floor art z=-15, optional stream/pond NameLabel z16; well art in Objects y-sort. Existing exports/markers/interactions/player/camera/anchors unchanged.
+
+WorldLocations.get_solid_regions supplies existing static generator with deduplicated sources: reuse old well cell once, append stream/pond colliders on layer1/group obstacles. Farm stays passable for Player. NPC routing clips the same solids to its unchanged nav region; ownership/parcel validation retains current rights and excludes water. Existing Objects/WorldArt2D rebuild clears only passive scenery, whose source/approach reservation is cached. No source-refill prompt or new interaction exists yet; unlimited watering/savev9 remain.
+
+F5: walk from farm boundary(3,6) along data routes to well(7,9), stream(-14,6), pond(15,9); each dry approach is passable and stone/water blocks movement. Try old farm/east parcel/buildings/machines, five zooms/pan/picking, vi/en and paused ripples. No manual scene setup. Automated output/manual limits are in PROGRESS.
+
+## D72-C4 live-language label/feedback correction (D76)
+
+No scene/tree/Inspector/InputMap/Theme/localization-file edit. Existing WorldPresentation-created House/SeedShop/ShippingBin art labels and NpcSystem.homes labels respond to the existing translation notification, using current profile name/NpcData and existing keys. The same nodes/positions/colors/colliders/appearance and paused animation phases remain. Requesting redraw updates the decorative label pill while paused; it does not reconfigure/reset art. Empty/unconfigured/teardown states are guarded. Player-authored names stay unchanged.
+
+Existing HudRoot.toasts dismisses old formatted messages on an actual locale change. Hide immediately during tree notification, free captured old IDs afterward; show_message flushes only dismissed IDs before adding new cards. Three-second/max-two and same-locale lifetime stay unchanged. Old deferred timer IDs cannot affect replacements. Public view APIs/signals remain; no event replay/metadata/Settings/domain/save change. Earlier startup-language residue described below is the historical C1/C3 limitation corrected here for these named labels and visible toasts, not a claim about every other UI/debug string.
+
+Manual: on one running game with visible feedback, use existing pause/settings Apply to switch vi->en->vi; player/shop/bin/NPC-home signs change without reopening game, old toast disappears, subsequent feedback uses chosen language. Same-language Apply keeps existing feedback under normal max-two policy. Inspect paused pill text/geometry and preserve current player name/location/appearance/items/coins/crops/jobs/NPC state. No editor wiring. Full measured proof/status in PROGRESS.
+
+## Phase6.5e Main-owned placement overlay (D66)
+
+Existing scene/tree/exports/pick_cell/cell_to_global/get_player_cell and Player/CameraRig/world sources remain unchanged. Main's new overlay uses world.pick_cell and grid.cell_to_screen, actual camera zoom and manifest pivot; it adds no world child/collision/second projection formula. New placements are restricted by Resource to the already reserved6x6 farm region and existing reach, cannot overlap Player or tilled/cropped cells. Legacy placements outside remain preserved. UiCoordinator locks Player/camera while placement is active and restores prior clock hold on close/interruption. ToolController suspends strokes and gates held confirm until release; only new hoe/seed on machine cells are blocked, retaining legacy crop care/harvest. See machine_build.md for overlay composition and F5 checks.
+
+D62 restoration (2026-11-04): owner restored Player and its child Camera2D after withdrawing manager-only removal. WorldCanvas/Objects/Player, PlayerSpawn, typed world.player/get_player_cell and reach-based bed/shop/bin/NPC/tool behavior are restored from HEAD. Retain the new machine_shop_marker/machine_shop_interacted, placed-machine mouse selection and all supplied crop/machine presentation. Overlays/sleep lock Player; saved logical position coexists with machine save fields. CameraRig again targets Player, not a second manager camera. No crop/machine Resource or domain rollback.
+
 ISO-8b/D45 preserves this scene, all world nodes/state/interaction APIs. WorldPresentation's existing configure_player_appearance applies the same normalized catalogue values to PlaceholderAvatar2D, now with shared six-style hair rendering matching the creation preview. NPC empty customization retains legacy arc; no game/collision/time/save changes. See character_creation.md.
 
 ## ISO-6b1 first/repeat cycle readout (D42)
@@ -127,3 +171,11 @@ GrayBoxWorld (Node3D)
 - C3 paths, water, bridge, forest/cliff border and village props are non-colliding decoration. They must remain outside the FarmView cells `(0..5, 0..5)`, the player spawn/route cells and the documented interaction-reach areas around the house, seed shop and shipping bin.
 - `GrayBoxWorld` continues to apply `DayNightProfile` and `WeatherState`. `WorldSeasonFx` only observes their existing signals to select presentation: spring petals, summer day butterflies/birds and night fireflies, autumn leaves, winter snow, and rain-water ripples. Its effect count is catalogue-bounded and it never calls gameplay random, changes weather/time, or serializes state.
 - C3 may use a local readable material override for instantiated C0 toon pieces because the established world-light pipeline otherwise renders those parts nearly black. Source scenes, DayNightProfile values, weather values and shared palette assets remain untouched; foliage/water shaders keep their view-only motion treatment.
+
+## Phase6.4b generated land presentation (D69)
+
+No existing scene/node path/Inspector edit. Main configures authoritative land before WorldPresentation. refresh_land(regions:Array[Rect2i]) rebuilds only generated children of its existing WorldArt2D root; remove children from tree immediately then queue their deletion, including large-rock StaticBody2D WorldStaticCollision layer1. Passive tree/rock/grass generation excludes owned cells and preserves source art. Identical region snapshots avoid rebuilding. Anchors, NPC homes/routes, weather, crops/machines and Player remain outside this rebuild. New Game/load refresh the appropriate geometry. linh_stream remains at(7,4); no new navigation wall or movement bound.
+
+## D72-C1 camera/presentation handoff completion (D73)
+
+No old scene/node/Inspector edit. Existing CameraRig/player Camera2D handles the inherited five zoom levels and RMB/MMB pan, now clamped by camera_pan_min/max Resource data. Native Shift/GUI-hover wheel yields to qualified hotbar/control input. Existing cell_to_screen/map picking/projection remain; native pan/zoom tests assert logical cells round-trip. Modal/sleep/placement retain authority. Machine work rows read actual state refs and switch to idle when ready; no job/day/save mutation. See isometric_visuals.md.

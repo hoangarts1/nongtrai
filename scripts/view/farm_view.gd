@@ -17,6 +17,24 @@ var _highlight: Polygon2D
 var _effects: FarmEffects
 var _world: GrayBoxWorld
 var _in_reach: bool = false
+var _phase: float = 0.0
+var _accum: float = 0.0
+
+func _process(delta: float) -> void:
+	if GameClock.paused:
+		return
+	_phase += delta
+	_accum += delta
+	if _accum < 0.12:
+		return
+	_accum = 0.0
+	for cell: Vector2i in _crops:
+		var crop: Sprite2D = _crops[cell] as Sprite2D
+		if crop != null and crop.visible and not bool(crop.get_meta("withered", false)):
+			crop.skew = sin(_phase * 2.2 + float(cell.x) * 0.7 + float(cell.y) * 0.5) * 0.035
+	if _highlight != null and _highlight.visible:
+		var alpha: float = 0.35 + sin(_phase * 4.5) * 0.08
+		_highlight.color.a = alpha
 
 func setup(world: GrayBoxWorld) -> void:
 	_world = world
@@ -118,7 +136,7 @@ func _render_cell(cell: Vector2i) -> void:
 	var withered: bool = bool(plot.get("withered", false))
 	var crop_id: StringName = plot.get("crop_id", &"")
 	if tilled:
-		_world.farmland.set_cell(cell, 0, Vector2i(2 if watered else 1, 0))
+		_world.farmland.set_cell(cell, 0, Vector2i(4 if watered else 0, 2))
 	else:
 		_world.farmland.set_cell(cell, 0, Vector2i(3, 0))
 	SoilPresentation.render(soil, tilled, watered, cell)
@@ -133,4 +151,4 @@ func _render_cell(cell: Vector2i) -> void:
 	label.text = tr("CROP_STATUS_WITHERED") if withered else (tr("CROP_STATUS_READY") if growth_days >= required_days else tr("CROP_STATUS_REMAINING") % maxi(1,required_days-growth_days))
 	if not withered and growth_days < required_days and not watered:
 		label.text += "\n" + tr("CROP_STATUS_NEEDS_WATER")
-	CropPresentation.render(crop,crop_id,float(growth_days)/float(required_days),crop_data.get("color"),withered,watered,cell)
+	CropPresentation.render(crop,crop_id,float(growth_days)/float(required_days),crop_data.get("color"),withered,watered,cell,bool(plot.get("regrowing",false)))

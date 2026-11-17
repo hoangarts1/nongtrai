@@ -4,6 +4,7 @@
 class_name DetRandom
 extends RefCounted
 
+const TAG_WEATHER: int = 1
 const TAG_MERCHANT: int = 8
 const MOD: int = 2147483647
 

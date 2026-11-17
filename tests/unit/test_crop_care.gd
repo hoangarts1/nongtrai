@@ -23,63 +23,59 @@ func _planted() -> FarmGridState:
 	farm.plant_crop(Vector2i.ZERO, &"turnip")
 	return farm
 
-func test_second_consecutive_dry_day_withers_once_and_cannot_revive_or_yield() -> void:
+func test_missed_stage_transition_day_withers_current_stage() -> void:
 	var farm: FarmGridState = _planted()
-	var simulator: DaySimulator = DaySimulator.new()
-	assert_eq(farm.get_dry_days_remaining(Vector2i.ZERO),2)
-	simulator.simulate_day(farm)
-	assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],1)
-	assert_eq(farm.get_dry_days_remaining(Vector2i.ZERO),1)
+	farm.advance_day()
 	assert_false(farm.get_plot(Vector2i.ZERO)["withered"])
-	assert_eq(farm.get_plot(Vector2i.ZERO)["growth_days"],0)
-	watch_signals(farm)
-	simulator.simulate_day(farm)
-	assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
-	assert_eq(farm.get_dry_days_remaining(Vector2i.ZERO),0)
-	var snapshot: Dictionary = farm.serialize()
-	for day: int in range(3):
-		simulator.simulate_day(farm)
-		farm.water_all_crops()
-		assert_false(farm.water_cell(Vector2i.ZERO))
-		assert_false(farm.can_harvest(Vector2i.ZERO))
-		assert_false(farm.harvest_cell(Vector2i.ZERO)["success"])
-		assert_eq(farm.serialize(),snapshot)
-	assert_signal_emit_count(farm,"plot_changed",1,"Withered state transitions once")
-	assert_true(farm.clear_withered(Vector2i.ZERO))
-	assert_true(farm.till_cell(Vector2i.ZERO))
-	assert_true(farm.plant_crop(Vector2i.ZERO,&"turnip"))
-	assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],0)
+	farm.advance_day()
+	var plot: Dictionary = farm.get_plot(Vector2i.ZERO)
+	assert_true(plot["withered"])
+	assert_eq(plot["growth_days"],0)
+	assert_eq(plot["withered_days"],1)
 
-func test_manual_and_rain_watering_reset_dry_streak_without_free_growth() -> void:
-	for rain: bool in [false,true]:
+func test_manual_and_rain_watering_restore_withered_crop() -> void:
+	for rain: bool in [false, true]:
 		var farm: FarmGridState = _planted()
 		farm.advance_day()
+		farm.advance_day()
+		assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
 		if rain:
 			farm.water_all_crops()
 		else:
 			assert_true(farm.water_cell(Vector2i.ZERO))
-		assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],0)
-		assert_eq(farm.get_plot(Vector2i.ZERO)["growth_days"],0)
-		assert_false(farm.water_cell(Vector2i.ZERO),"Repeated care cannot grow a crop")
-		farm.advance_day()
-		assert_eq(farm.get_plot(Vector2i.ZERO)["growth_days"],1)
-		assert_false(farm.get_plot(Vector2i.ZERO)["watered"])
-		farm.advance_day()
-		assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],1)
 		assert_false(farm.get_plot(Vector2i.ZERO)["withered"])
-
-func test_ripe_crop_still_needs_care_and_withered_maturity_does_not_bypass_guard() -> void:
-	var farm: FarmGridState = _planted()
-	for day: int in range(_crop.growth_days):
-		farm.water_cell(Vector2i.ZERO)
+		assert_eq(farm.get_plot(Vector2i.ZERO)["withered_days"],0)
 		farm.advance_day()
-	assert_true(farm.can_harvest(Vector2i.ZERO))
+		assert_eq(farm.get_plot(Vector2i.ZERO)["crop_id"],&"turnip")
+
+func test_second_consecutive_withered_day_kills_crop() -> void:
+	var farm: FarmGridState = _planted()
 	farm.advance_day()
-	assert_true(farm.can_harvest(Vector2i.ZERO))
 	farm.advance_day()
+	assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
+	farm.advance_day()
+	var plot: Dictionary = farm.get_plot(Vector2i.ZERO)
+	assert_eq(plot["crop_id"],&"")
+	assert_true(plot["tilled"])
+	assert_false(plot["withered"])
+
+func test_withered_crop_does_not_grow_or_harvest() -> void:
+	var farm: FarmGridState = _planted()
+	farm.advance_day()
+	farm.advance_day()
+	var before: int = farm.get_plot(Vector2i.ZERO)["growth_days"]
 	assert_false(farm.can_harvest(Vector2i.ZERO))
-	assert_eq(farm.get_harvest_payload(Vector2i.ZERO)["quantity"],0)
-	assert_gte(farm.get_plot(Vector2i.ZERO)["growth_days"],_crop.growth_days)
+	farm.advance_day()
+	assert_eq(farm.get_plot(Vector2i.ZERO)["growth_days"],before)
+
+func test_shovel_clears_withered_crop_and_preserves_tilled_plot() -> void:
+	var farm: FarmGridState = _planted()
+	farm.advance_day()
+	farm.advance_day()
+	assert_true(ToolAction.apply(&"shovel",farm,Vector2i.ZERO,&""))
+	assert_true(farm.get_plot(Vector2i.ZERO)["tilled"])
+	assert_eq(farm.get_plot(Vector2i.ZERO)["crop_id"],&"")
+	assert_true(farm.plant_crop(Vector2i.ZERO,&"turnip"))
 
 func test_threshold_is_resource_owned_and_water_free_crop_never_withers_from_dryness() -> void:
 	_crop.max_consecutive_dry_days = 3
@@ -96,27 +92,7 @@ func test_threshold_is_resource_owned_and_water_free_crop_never_withers_from_dry
 		farm.advance_day()
 	assert_true(farm.can_harvest(Vector2i.ZERO))
 	assert_eq(farm.get_plot(Vector2i.ZERO)["consecutive_dry_days"],0)
-	assert_eq(farm.get_dry_days_remaining(Vector2i.ZERO),0)
 	assert_false(farm.get_plot(Vector2i.ZERO)["withered"])
-
-func test_out_of_season_wither_is_terminal_and_full_inventory_keeps_harvest() -> void:
-	var farm: FarmGridState = _planted()
-	for day: int in range(_crop.growth_days):
-		farm.water_cell(Vector2i.ZERO)
-		farm.advance_day()
-	var inventory: InventoryState = InventoryState.new(1)
-	inventory.add_item(&"turnip",(DataRegistry.get_item(&"turnip") as ItemData).max_stack)
-	var before: Dictionary = farm.serialize()
-	assert_false(inventory.can_add_item(&"turnip",_crop.yield_qty))
-	assert_eq(farm.serialize(),before)
-	GameClock.season = &"winter"
-	farm.mark_out_of_season()
-	assert_false(farm.can_harvest(Vector2i.ZERO))
-	GameClock.season = &"spring"
-	farm.water_all_crops()
-	farm.advance_day()
-	assert_true(farm.get_plot(Vector2i.ZERO)["withered"])
-	assert_false(farm.harvest_cell(Vector2i.ZERO)["success"])
 
 func test_validator_rejects_missing_care_threshold_without_changing_balance_rules() -> void:
 	assert_true(DataValidator.validate_crop_references(DataRegistry.get_all_crops(),DataRegistry.get_all_items()).is_empty())

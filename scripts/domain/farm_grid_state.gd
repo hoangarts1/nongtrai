@@ -36,7 +36,8 @@ func till_cell(cell: Vector2i) -> bool:
 			"regrowing": false,
 			"watered": false,
 			"consecutive_dry_days": 0,
-			"withered": false
+			"withered": false,
+			"withered_days": 0
 		}
 	if bool(plot.get("tilled", false)):
 		return false
@@ -66,6 +67,7 @@ func plant_crop(cell: Vector2i, crop_id: StringName) -> bool:
 	plot["watered"] = false
 	plot["consecutive_dry_days"] = 0
 	plot["withered"] = false
+	plot["withered_days"] = 0
 	_plots[cell] = plot
 	plot_changed.emit(cell)
 	Events.crop_planted.emit(cell, crop_id)
@@ -76,12 +78,14 @@ func water_cell(cell: Vector2i) -> bool:
 	if plot.is_empty() or not bool(plot.get("tilled", false)):
 		return false
 	var crop_id: StringName = plot.get("crop_id", &"")
-	if crop_id == &"" or bool(plot.get("withered", false)):
+	if crop_id == &"":
 		return false
 	if bool(plot.get("watered", false)):
 		return false
 	plot["watered"] = true
 	plot["consecutive_dry_days"] = 0
+	plot["withered"] = false
+	plot["withered_days"] = 0
 	_plots[cell] = plot
 	plot_changed.emit(cell)
 	Events.plot_watered.emit(cell)
@@ -110,7 +114,14 @@ func clear_withered(cell: Vector2i) -> bool:
 	var plot: Dictionary = _plots.get(cell, {})
 	if not bool(plot.get("withered", false)):
 		return false
-	_plots.erase(cell)
+	plot["crop_id"] = &""
+	plot["growth_days"] = 0
+	plot["growth_target"] = 0
+	plot["regrowing"] = false
+	plot["withered"] = false
+	plot["withered_days"] = 0
+	plot["watered"] = false
+	_plots[cell] = plot
 	plot_changed.emit(cell)
 	return true
 
@@ -120,19 +131,41 @@ func advance_day() -> void:
 		if not bool(plot.get("tilled", false)):
 			continue
 		var crop_id: StringName = plot.get("crop_id", &"")
-		if crop_id == &"" or bool(plot.get("withered", false)):
+		if crop_id == &"":
 			continue
 		var crop_data: Resource = DataRegistry.get_crop(crop_id)
 		if crop_data == null:
 			continue
+		if bool(plot.get("withered", false)):
+			var withered_days: int = int(plot.get("withered_days", 1)) + 1
+			if withered_days >= 2:
+				plot["crop_id"] = &""
+				plot["growth_days"] = 0
+				plot["growth_target"] = 0
+				plot["regrowing"] = false
+				plot["withered"] = false
+				plot["withered_days"] = 0
+			else:
+				plot["withered_days"] = withered_days
+			plot["watered"] = false
+			_plots[cell] = plot
+			plot_changed.emit(cell)
+			continue
 		var needs_water: bool = int(crop_data.get("water_need")) > 0
+		var target_days: int = get_growth_target(cell)
+		var current_days: int = int(plot.get("growth_days", 0))
+		var next_days: int = mini(target_days, current_days + 1)
+		var dry_limit: int = maxi(1, int(crop_data.get("max_consecutive_dry_days")))
+		var stage_transition: bool = current_days > 0 and CropStageRules.crosses_stage(current_days, next_days, target_days, bool(plot.get("regrowing", false)))
+		stage_transition = stage_transition or int(plot.get("consecutive_dry_days", 0)) + 1 >= dry_limit
 		if bool(plot.get("watered", false)) or not needs_water:
 			plot["growth_days"] = int(plot.get("growth_days", 0)) + 1
 			plot["consecutive_dry_days"] = 0
 		else:
-			var limit: int = int(crop_data.get("max_consecutive_dry_days"))
-			plot["consecutive_dry_days"] = mini(limit, int(plot.get("consecutive_dry_days", 0)) + 1)
-			plot["withered"] = limit > 0 and int(plot["consecutive_dry_days"]) >= limit
+			plot["consecutive_dry_days"] = mini(dry_limit, int(plot.get("consecutive_dry_days", 0)) + 1)
+			if stage_transition:
+				plot["withered"] = true
+				plot["withered_days"] = 1
 		plot["watered"] = false
 		_plots[cell] = plot
 		plot_changed.emit(cell)

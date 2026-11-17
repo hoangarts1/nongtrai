@@ -6,9 +6,17 @@
 ##   func migrate_5_to_6(data: Dictionary) -> Dictionary
 ##   func migrate_6_to_7(data: Dictionary) -> Dictionary
 ##   func migrate_7_to_8(data: Dictionary) -> Dictionary
+##   func migrate_8_to_9(data: Dictionary) -> Dictionary
+##   func migrate_9_to_10(data: Dictionary) -> Dictionary
+##   func migrate_10_to_11(data: Dictionary) -> Dictionary
+##   func migrate_11_to_12(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 8
+const CURRENT_VERSION: int = 12
+const WEATHER_CONFIG: WeatherProfile = preload("res://data/weather_profile.tres")
+const WATERING_INTRODUCED_VERSION: int = 10
+const COOP_CONFIG: ChickenCoopConfig = preload("res://data/chicken_coop_config.tres")
+const WATERING_CONFIG: WateringCanConfig = preload("res://data/watering_can_config.tres")
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 
@@ -25,10 +33,16 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
 		"inventory": payload.get("inventory", {}),
+		"machine_inventory": payload.get("machine_inventory", {}),
+		"machine_placements": payload.get("machine_placements", {}),
+		"machine_operations": payload.get("machine_operations", {}),
+		"land_ownership": payload.get("land_ownership", {}),
+		"watering_can": payload.get("watering_can", {}),
+		"chicken_coop": payload.get("chicken_coop", ChickenCoopSaveCodec.empty(_coop_day(payload))),
 		"farm": payload.get("farm", {}),
 		"quests": payload.get("quests", {}),
 		"profile": payload.get("profile", {}),
-		"weather": payload.get("weather", {}),
+		"weather": WeatherSaveCodec.pack(WEATHER_CONFIG,payload.get("weather",{}),_coop_day(payload)),
 		"wallet": payload.get("wallet", {}),
 		"social": payload.get("social", {}),
 		"day_ledger": payload.get("day_ledger", {}),
@@ -146,6 +160,20 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_6_to_7(migrated)
 	if version <= 7:
 		migrated = migrate_7_to_8(migrated)
+	if version <= 8:
+		migrated = migrate_8_to_9(migrated)
+	if version <= 9:
+		migrated = migrate_9_to_10(migrated)
+	if version<=10:
+		migrated = migrate_10_to_11(migrated)
+	if version<=11:
+		migrated = migrate_11_to_12(migrated)
+	if not migrated.has("machine_inventory"):
+		migrated["machine_inventory"] = {}
+	if not migrated.has("machine_placements"):
+		migrated["machine_placements"] = {}
+	if not migrated.has("machine_operations"):
+		migrated["machine_operations"] = {}
 	if not migrated.has("meta"):
 		migrated["meta"] = {}
 	migrated["meta"]["save_version"] = CURRENT_VERSION
@@ -153,6 +181,15 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	if not metadata.has("saved_at") and metadata.has("saved_utc"):
 		metadata["saved_at"] = Time.get_datetime_string_from_unix_time(int(metadata["saved_utc"]))
 	migrated["meta"] = metadata
+	# Use the existing codec for canonical integer wire values on every load.
+	# This temporary validator is not a persistent gameplay owner.
+	var can: WateringCanState = WateringCanState.new()
+	can.configure(WATERING_CONFIG)
+	var raw_can: Variant = migrated.get("watering_can",{})
+	can.deserialize(raw_can if raw_can is Dictionary else {})
+	migrated["watering_can"] = can.serialize()
+	migrated["chicken_coop"] = ChickenCoopSaveCodec.normalize(migrated.get("chicken_coop"),_coop_day(migrated),COOP_CONFIG)
+	migrated["weather"] = WeatherSaveCodec.normalize(WEATHER_CONFIG,migrated.get("weather",{}),_coop_day(migrated))
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -210,6 +247,12 @@ func migrate_7_to_8(data: Dictionary) -> Dictionary:
 			entry["regrowing"] = false
 	return migrated
 
+func migrate_8_to_9(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# No historical proof of purchase; preserve all old plots/machines separately.
+	migrated["land_ownership"] = {"owned_parcels":[]}
+	return migrated
+
 func _rotate_backups(save_path: String) -> void:
 	for index: int in range(MAX_BACKUPS, 0, -1):
 		var source: String = "%s.bak%d" % [save_path, index - 1] if index > 1 else save_path
@@ -221,3 +264,25 @@ func _rotate_backups(save_path: String) -> void:
 				ProjectSettings.globalize_path(source),
 				ProjectSettings.globalize_path(target)
 			)
+
+func migrate_9_to_10(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# No earlier format owned water state: grant the explicit fresh legacy default.
+	migrated["watering_can"] = {"capacity":WATERING_CONFIG.base_capacity,"charges":WATERING_CONFIG.base_capacity}
+	return migrated
+
+func migrate_10_to_11(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	migrated["chicken_coop"] = ChickenCoopSaveCodec.empty(_coop_day(migrated))
+	return migrated
+
+func _coop_day(data: Dictionary) -> int:
+	var clock: Variant = data.get("clock",{})
+	var raw: Variant = clock.get("day_index",0) if clock is Dictionary else 0
+	var day: int = ChickenCoopState._json_integer(raw)
+	return maxi(0,day)
+
+func migrate_11_to_12(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	migrated["weather"] = WeatherSaveCodec.normalize(WEATHER_CONFIG,migrated.get("weather",{}),_coop_day(migrated),true)
+	return migrated

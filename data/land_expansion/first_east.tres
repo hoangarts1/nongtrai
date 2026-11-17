@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ExpansionParcelData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/expansion_parcel_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name_key = &"LAND_EAST_NAME"
+parcel_id = &"farm_east_1"
+region = Rect2i(6, 0, 6, 6)

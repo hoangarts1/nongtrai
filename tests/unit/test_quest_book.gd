@@ -162,7 +162,7 @@ func test_old_saves_reset_transient_book_and_keep_review_and_title_guards() -> v
 		_main.call("_load_payload",raw)
 		assert_false(_main.npc_system.journal.visible)
 		assert_eq(_main.npc_system.journal.book_controller.active_filter,&"all")
-		assert_eq(SaveService.CURRENT_VERSION,8)
+		assert_eq(SaveService.CURRENT_VERSION,12)
 		var before: Dictionary = _domains()
 		_main.npc_system.open_journal()
 		await _settle()

@@ -13,7 +13,7 @@ extends RefCounted
 # A corruption/resource bound, not a gameplay earning or transaction limit.
 const MAX_SAVED_ENTRIES: int = 4096
 const MAX_JSON_INTEGER: int = 9007199254740991
-const REFUNDS: Array[StringName] = [&"refund",&"minh_rollback"]
+const REFUNDS: Array[StringName] = [&"refund",&"minh_rollback",&"buy_land_rollback",&"buy_bag_upgrade_rollback",&"buy_watering_upgrade_rollback",&"buy_chicken_coop_rollback",&"buy_chicken_feed_rollback"]
 var day_index: int = 0
 var complete: bool = true
 var _entries: Array[Dictionary] = []

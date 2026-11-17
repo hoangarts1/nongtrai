@@ -17,7 +17,7 @@ func test_all_old_goldens_preserve_payloads_and_mark_unknown_history() -> void:
 	for version: int in range(1,5):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),8)
+		assert_eq(int(loaded["meta"]["save_version"]),12)
 		for key: String in ["clock","player","farm","quests","profile","weather","wallet","social"]:
 			if original.has(key):
 				var expected: Variant = original[key]
@@ -27,6 +27,10 @@ func test_all_old_goldens_preserve_payloads_and_mark_unknown_history() -> void:
 						plot["consecutive_dry_days"] = 0
 						plot["growth_target"] = int(preload("res://data/crop_migration_v7.tres").previous_growth_days.get(StringName(plot.get("crop_id", "")), 0))
 						plot["regrowing"] = false
+				if key=="weather" and not expected.is_empty():
+					expected = original[key].duplicate(true)
+					expected["world_seed"] = int(expected["world_seed"])
+					expected["day_index"] = int(original["clock"]["day_index"])
 				assert_eq(loaded[key],expected,"v%d keeps %s plus unknown-care default" % [version,key])
 		assert_eq(loaded["inventory"]["slots"],original["inventory"]["slots"])
 		assert_gte(int(loaded["inventory"]["capacity"]),40)

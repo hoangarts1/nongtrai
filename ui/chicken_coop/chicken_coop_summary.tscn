@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/chicken_coop/chicken_coop_summary.gd" id="1"]
+[node name="ChickenCoopSummary" type="VBoxContainer"]
+script = ExtResource("1")

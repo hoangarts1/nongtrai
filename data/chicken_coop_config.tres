@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ChickenCoopConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/chicken_coop_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+hen_capacity = 4
+feed_per_hen = 1
+eggs_per_fed_hen = 1
+feed_item_id = &"chicken_feed"

@@ -17,6 +17,22 @@ ITEM_WINTER_RADISH_SEED,Winter radish seeds
 ITEM_WINTER_RADISH,Winter radish
 ITEM_WINTER_CABBAGE_SEED,Winter cabbage seeds
 ITEM_WINTER_CABBAGE,Winter cabbage
+ITEM_CARROT_SEED,Carrot seeds
+ITEM_RADISH_SEED,Radish seeds
+ITEM_CABBAGE_SEED,Cabbage seeds
+ITEM_TOMATO_SEED,Tomato seeds
+ITEM_CHILI_SEED,Chili seeds
+ITEM_STRAWBERRY_SEED,Strawberry seeds
+ITEM_EGGPLANT_SEED,Eggplant seeds
+ITEM_RICE_SEED,Rice seeds
+ITEM_CORN_SEED,Corn seeds
+ITEM_SUNFLOWER_SEED,Sunflower seeds
+ITEM_PUMPKIN_SEED,Pumpkin seeds
+ITEM_COFFEE_SEED,Coffee seeds
+ITEM_PEPPER_SEED,Pepper cuttings
+ITEM_ORANGE_SEED,Orange saplings
+ITEM_APPLE_SEED,Apple saplings
+ITEM_BANANA_SEED,Banana suckers
 CROP_TURNIP,Turnip
 CROP_SPRING_CARROT,Spring carrot
 CROP_SPRING_PEA,Spring pea
@@ -70,6 +86,7 @@ UI_INV_BUTTON_ACTIVE,Inventory active
 UI_SLEEP_HINT,[E] Sleep
 UI_SLEEP_PENDING,Sleeping...
 UI_TOOL_HOE,Hoe
+UI_TOOL_SHOVEL,Shovel
 UI_TOOL_WATER,Water
 UI_TOOL_SEED,Seed
 UI_TOOL_HARVEST,Harvest
@@ -136,6 +153,22 @@ CROP_STATUS_REMAINING,%d days left
 CROP_STATUS_NEEDS_WATER,Needs water
 CROP_STATUS_READY,Ripe! Ready to harvest
 CROP_STATUS_WITHERED,Withered
+CROP_CARROT,Carrot
+CROP_RADISH,Radish
+CROP_CABBAGE,Cabbage
+CROP_TOMATO,Tomato
+CROP_CHILI,Chili
+CROP_STRAWBERRY,Strawberry
+CROP_EGGPLANT,Eggplant
+CROP_RICE,Rice
+CROP_CORN,Corn
+CROP_SUNFLOWER,Sunflower
+CROP_PUMPKIN,Pumpkin
+CROP_COFFEE,Coffee
+CROP_PEPPER,Pepper
+CROP_ORANGE,Orange
+CROP_APPLE,Apple
+CROP_BANANA,Banana
 UI_WALLET_COINS,"%d coins"
 UI_PROMPT_SELL,"[E] Sell items"
 UI_SHIPPING_BIN_TITLE,"SHIPPING BIN"
@@ -146,6 +179,14 @@ UI_NO_SELLABLE_ITEMS,"No sellable items to sell"
 UI_FEEDBACK_SOLD,"+ %d coins"
 UI_MAX,"Max"
 UI_PROMPT_SHOP,"[E] Buy Seeds"
+UI_PROMPT_MACHINE_SHOP,"[E] Buy Machines"
+UI_MACHINE_SHOP_TITLE,"Machine Shop"
+UI_COINS,"coins"
+UI_HOUSE_LEVEL,"House %d"
+UI_BUY,"Buy"
+UI_MACHINE_PLACE_TEST,"Place (test)"
+UI_MACHINE_START,"Start"
+UI_MACHINE_COLLECT,"Collect"
 UI_SEED_SHOP_TITLE,"SEED SHOP"
 UI_BUY_PRICE,"Price: %d coins"
 UI_CONFIRM_BUY,"Buy Seeds"
@@ -460,3 +501,176 @@ BOOK_UNKNOWN_GIVER,"Giver information is not available."
 BOOK_GIVER,"From: %s"
 BOOK_VISIT,"Accept and deliver this task through dialogue with %s."
 BOOK_KEYS,"Q · Previous tab     E · Next tab     Esc · Close"
+ITEM_TEMP_CARROT_MEAL,"Carrot meal"
+ITEM_TEMP_WHEAT_FLOUR,"Wheat flour"
+ITEM_TEMP_ROASTED_COFFEE,"Roasted coffee"
+ITEM_TEMP_CORN_BREAD,"Corn bread"
+ITEM_TEMP_DRIED_CHILI,"Dried chili"
+ITEM_TEMP_PICKLED_CABBAGE,"Pickled cabbage"
+ITEM_TEMP_ORANGE_JUICE,"Orange juice"
+ITEM_PROCESSED_DESCRIPTION,"A product from a processing machine."
+UI_MACHINE_COLLECT_SUCCESS,"Added %d %s to your bag."
+UI_MACHINE_COLLECT_BUSY,"Moving the product. Please wait a moment."
+UI_MACHINE_COLLECT_INVALID,"This machine's output cannot be collected yet."
+UI_MACHINE_COLLECT_NO_MACHINE,"There is no machine on this plot."
+UI_MACHINE_COLLECT_NO_OUTPUT,"There is no product to collect yet."
+UI_MACHINE_COLLECT_UNKNOWN,"This product cannot be stored in your bag yet."
+UI_MACHINE_COLLECT_FULL,"Your bag needs more space. The product stays in the machine."
+UI_MACHINE_COLLECT_FAILED,"The product could not be moved. Please try again."
+UI_MACHINE_OUTPUT,"Ready: %s × %d"
+UI_MACHINE_STATE_IDLE,"Ready"
+UI_MACHINE_STATE_WORKING,"%d days left"
+UI_MACHINE_STATE_BLOCKED,"Awaiting collection"
+UI_MACHINE_PRODUCT_UNKNOWN,"Unknown product"
+MACHINE_STOVE_NAME,"Stove"
+MACHINE_MILL_NAME,"Mill"
+MACHINE_PRESS_NAME,"Press"
+MACHINE_BARREL_NAME,"Pickling barrel"
+MACHINE_OVEN_NAME,"Oven"
+MACHINE_DRYER_NAME,"Dryer"
+MACHINE_ROASTER_NAME,"Roaster"
+MUI_OPERATION_TITLE,"Processing machine"
+MUI_MACHINE_PREVIEW,"Farm processing equipment"
+MUI_SELL,"Sell"
+MUI_BUYBACK,"Buyback"
+MUI_UNAVAILABLE,"This feature is not available yet."
+MUI_RECIPES,"Recipes"
+MUI_BACK,"Back to shop"
+MUI_CARD,"%d coins · House level %d · Stored: %d"
+MUI_PLACEMENT,"Placed machine at %s"
+MUI_REQUIREMENT,"Requires house level %d · Stored: %d"
+MUI_TEST_LEVEL,"This test view uses house level 1."
+MUI_RECIPE_TERMS,"Inputs: %s\nOutput: %s\nDuration: %d days"
+MUI_DAYS,"%d processing days"
+MUI_LOCKED,"Requires a higher house level. This test view uses level 1."
+MUI_NO_COINS,"You need more coins to buy this machine."
+MUI_MISSING_INPUT,"Your bag does not have all the ingredients yet."
+MUI_BUSY,"This machine is busy. Wait or collect its output first."
+MUI_NOT_OWNED,"There is no stored machine of this type to place."
+MUI_NO_CELL,"This cell is unavailable. Choose another free cell."
+MUI_PURCHASED,"Machine purchased and added to storage."
+MUI_PLACED,"Machine placed. Select its cell and press E to use it."
+MUI_STARTED,"The machine has started processing."
+PLC_PLACE,"Place machine"
+PLC_RETURN,"Store machine"
+PLC_RETURNED,"Machine returned to storage."
+PLC_TITLE,"Place %s"
+PLC_CELL,"Cell %s · Rotation %d° · Placement area %d×%d cells"
+PLC_PICK,"Choose a free cell near you."
+PLC_VALID,"You can place the machine here."
+PLC_HINTS,"Left click / Space: place · R / Q: rotate · Right click / Esc: cancel"
+PLC_LEFT,"Rotate left [Q]"
+PLC_RIGHT,"Rotate right [R]"
+PLC_CANCEL,"Cancel placement"
+PLC_CONFIRM,"Place at selected cell"
+PLC_REGION,"Choose a cell inside the permitted farm area."
+PLC_PLAYER,"You are standing on this cell."
+PLC_FAR,"Move closer to the machine cell and try again."
+PLC_PLOT,"This cell has tilled soil or a crop. Choose another cell."
+PLC_MACHINE_CELL,"A machine occupies this cell. Choose another cell to till or sow."
+PLC_INVALID,"This action is not available right now."
+PLC_MOVE,"Move machine"
+PLC_MOVE_TITLE,"Move %s"
+PLC_MOVE_CELL,"From cell %s · To cell %s · Rotation %d°"
+PLC_MOVE_PICK,"Choose a new nearby cell or rotate the machine in place."
+PLC_MOVE_VALID,"You can confirm this position and rotation."
+PLC_MOVE_HINTS,"Left click / Space: confirm · R / Q: rotate · Right click / Esc: cancel"
+PLC_MOVE_CONFIRM,"Confirm position"
+PLC_MOVE_CANCEL,"Cancel move"
+PLC_MOVED,"The machine has moved to its new position."
+PLC_ROTATED,"Machine rotation confirmed."
+PLC_MOVE_STALE,"The machine has changed. Please select it again."
+LAND_TITLE,Expand farm
+LAND_EAST_NAME,East parcel
+LAND_DESCRIPTION,Add land beside your garden for crops and machines.
+LAND_OWNED,Owned land: %d cells
+LAND_EXTRA,Add %d cells
+LAND_PRICE,Price: %d coins
+LAND_WALLET,Your wallet: %d coins
+LAND_BUY,Confirm purchase
+LAND_AVAILABLE,This parcel is ready for your farm.
+LAND_COMPLETE,You own all currently available parcels.
+LAND_NO_COINS,You need more coins for this parcel.
+LAND_PURCHASED,Your farm has more room to grow!
+LAND_BUSY,The purchase is being completed.
+LAND_STALE,The parcel changed. Please check again.
+LAND_REJECTED,The parcel could not be added. Your coins were returned.
+LAND_INVALID,Land expansion is unavailable right now.
+LAND_LOCKED,Purchase this parcel before using it.
+LAND_PLACEMENT,Cell %s · Angle %d° · Owned land: %d cells
+LAND_LEDGER,Land purchase
+BAG_UP_ACTION,Upgrade bag
+BAG_UP_TITLE,Upgrade your bag
+BAG_UP_DESCRIPTION,Make room for seeds and produce. Everything in your bag stays with you.
+BAG_UP_CAPACITY,Capacity: %d → %d slots
+BAG_UP_PRICE,Upgrade price: %d coins
+BAG_UP_WALLET,Your wallet: %d coins
+BAG_UP_BACK,Back to bag
+BAG_UP_CONFIRM,Confirm upgrade
+BAG_UP_AVAILABLE,Your bag is ready to upgrade.
+BAG_UP_SUCCESS,More room in your bag. Enjoy your harvest!
+BAG_UP_COMPLETE,Your bag has reached the available upgrade.
+BAG_UP_NO_COINS,You need more coins to upgrade your bag.
+BAG_UP_STALE,The upgrade details changed. Please check again.
+BAG_UP_BUSY,Your bag upgrade is being completed.
+BAG_UP_REFUND,Your bag could not be upgraded. Your coins were returned.
+BAG_UP_INVALID,Bag upgrades are unavailable right now.
+BAG_UP_LEDGER,Bag upgrade
+WATER_SOURCE_WELL,Well
+WATER_SOURCE_STREAM,Stream
+WATER_SOURCE_POND,Pond
+WATER_CAN_COUNT,Water %d/%d
+WATER_CAN_EMPTY,"The can is empty. Refill at a well, stream, or pond."
+WATER_REFILL_HINT,[E] Refill water
+WATER_REFILLED,Your watering can is full.
+WATER_CAN_FULL,The can is already full.
+WATER_REFILL_UNAVAILABLE,Stand beside the well or on a dry bank to refill.
+WATER_UP_ACTION,Upgrade can
+WATER_UP_TITLE,Upgrade your watering can
+WATER_UP_DESCRIPTION,Carry more water for your garden. Your remaining water stays the same; visit a water source to refill.
+WATER_UP_CAPACITY,Capacity: %d → %d uses
+WATER_UP_PRICE,Upgrade price: %d coins
+WATER_UP_WALLET,Your wallet: %d coins
+WATER_UP_BACK,Back to bag
+WATER_UP_CONFIRM,Confirm upgrade
+WATER_UP_AVAILABLE,Your watering can is ready to upgrade.
+WATER_UP_SUCCESS,Your can holds more now. Your remaining water stays the same.
+WATER_UP_COMPLETE,Your can has reached the available upgrade.
+WATER_UP_NO_COINS,You need more coins to upgrade your can.
+WATER_UP_STALE,The upgrade details changed. Please check again.
+WATER_UP_BUSY,Your watering can upgrade is being completed.
+WATER_UP_REFUND,Your can could not be upgraded. Your coins were returned.
+WATER_UP_INVALID,Can upgrades are unavailable right now.
+WATER_UP_LEDGER,Watering can upgrade
+WATER_UP_REMAINING,Water remaining: %d uses
+ITEM_EGG_NAME,Egg
+ITEM_EGG_DESCRIPTION,An egg from hens fed with care each day.
+ITEM_CHICKEN_FEED_NAME,Chicken feed
+ITEM_CHICKEN_FEED_DESCRIPTION,Grain for hens. One portion feeds a hen for the day.
+COOP_TITLE,Chicken coop
+COOP_SITE,A home for your hens
+COOP_OWNED,Your little flock
+COOP_DAY,Day %d · Care for your hens
+COOP_COUNTS,%d hens   ·   %d fed   ·   %d eggs
+COOP_STOCK,Feed in bag: %d   ·   Wallet: %d coins
+COOP_CARE,Each hen fed today lays one egg tomorrow. Unfed hens rest and stay well.
+COOP_BUNDLE,A cozy coop with %d hens: %d coins. Pick up some feed to care for your flock.
+COOP_BUY,Build coop · %d coins
+COOP_FOOD_QUANTITY,Feed quantity
+COOP_HENS_QUANTITY,Hens to feed
+COOP_BUY_FEED,Buy · %d coins
+COOP_FEED,Feed hens
+COOP_COLLECT,Collect %d eggs
+COOP_BAG,Open bag
+COOP_READY,How would you like to care for your hens?
+COOP_PURCHASED,Your purchase is ready.
+COOP_FED,Your hens have their meal for today.
+COOP_COLLECTED,The eggs are safely in your bag.
+COOP_NO_COINS,You need a few more coins.
+COOP_FULL,Your bag needs more room. Your eggs stay safe in the coop.
+COOP_NO_FEED,Pick up some more chicken feed.
+COOP_OCCUPIED,The coop site is occupied. Please check that the space is clear.
+COOP_CHANGED,Things have changed. Please check and try again.
+COOP_PROMPT,[E] Visit the chicken coop
+COOP_LEDGER,Chicken coop
+COOP_FOOD_LEDGER,Chicken feed

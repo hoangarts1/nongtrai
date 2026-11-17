@@ -48,7 +48,8 @@ static func decode(data: Dictionary, crops: Dictionary, legacy: CropMigrationCon
 			"regrowing": repeating,
 			"watered": entry.get("watered", false) == true,
 			"consecutive_dry_days": dry,
-			"withered": entry.get("withered", false) == true or (limit > 0 and dry >= limit)
+			"withered": entry.get("withered", false) == true,
+			"withered_days": maxi(0, int(entry.get("withered_days", 0)))
 		}
 		if plot["tilled"] or not crop_id.is_empty():
 			restored[cell] = plot

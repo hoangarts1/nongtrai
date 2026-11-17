@@ -1,6 +1,8 @@
 ## Main — wires shared debug tooling to the active gray-box world.
 extends CanvasLayer
 
+const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
+
 @onready var world: GrayBoxWorld = $GrayBoxWorld
 @onready var debug_menu: DebugMenu = $DebugMenu
 @onready var inventory_panel: InventoryPanel = $InventoryPanel
@@ -20,9 +22,30 @@ extends CanvasLayer
 @onready var wallet_hud: Label = $WalletHud
 @onready var shipping_bin_panel: ShippingBinPanel = $ShippingBinPanel
 @onready var seed_shop_panel: SeedShopPanel = $SeedShopPanel
+var machine_shop_panel: Control
 @onready var npc_system: NpcSystem = $NpcSystem
-const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
 var inventory: InventoryState
+var machine_inventory: MachineInventory
+var machine_placements: MachinePlacementState
+var machine_build: MachineBuildService
+var machine_placement_request: MachinePlacementRequest
+var machine_placement_flow: MachinePlacementFlow
+var machine_operations: Object
+var machine_presentation: Node
+var machine_interaction: Node
+var land_ownership: LandOwnershipState
+var land_expansion: LandExpansionService
+var land_runtime: LandRuntime
+var bag_upgrade: InventoryUpgradeService
+var bag_upgrade_flow: BagUpgradeFlow
+var watering_can: WateringCanState
+var watering_upgrade_config: WateringCanConfig = preload("res://data/watering_can_config.tres")
+var watering_upgrade: WateringCanUpgradeService
+var watering_upgrade_flow: WateringUpgradeFlow
+var watering_runtime: WateringRuntime
+var chicken_coop: ChickenCoopHoldingState = ChickenCoopHoldingState.new()
+var chicken_coop_runtime: ChickenCoopRuntime
+var chicken_coop_flow: ChickenCoopFlow
 var farm_state: FarmGridState
 var day_simulator: Object
 var quest_state: Variant
@@ -61,10 +84,22 @@ func _process(delta: float) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if _purchase_in_progress():
+			return
 		_save_before_exit()
 		get_tree().quit()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if MachineShopShortcut.matches(event, OS.is_debug_build()) and machine_shop_panel != null:
+		if not _game_started or start_menu.visible or _purchase_in_progress() or GameClock.is_sleeping() or GameClock.is_day_end_held() or day_end_flow.is_advancing():
+			get_viewport().set_input_as_handled()
+			return
+		machine_shop_panel.call("open")
+		get_viewport().set_input_as_handled()
+
 func _save_before_exit() -> void:
+	if _purchase_in_progress():
+		return
 	if _game_started:
 		npc_system.close_panels()
 		_save_game_to_slot(1)
@@ -74,14 +109,43 @@ func _ready() -> void:
 	if is_instance_valid(debug_menu):
 		debug_menu.configure(world.player)
 	inventory = preload("res://scripts/domain/inventory_state.gd").new()
+	machine_inventory = MachineInventory.new()
+	machine_placements = MachinePlacementState.new()
+	machine_placements.configure(preload("res://data/land_parcels.tres"), machine_inventory)
+	machine_build = MachineBuildService.new()
+	machine_operations = preload("res://scripts/domain/production/machine_operation_service.gd").new()
+	machine_operations.configure(inventory, machine_placements)
+	machine_build.configure(machine_placements, machine_operations as MachineOperationService)
+	if OS.is_debug_build():
+		machine_shop_panel = preload("res://scripts/view/machine_shop_panel.gd").new() as Control
+		machine_shop_panel.name = "MachineShopPanel"
+		add_child(machine_shop_panel)
 	farm_state = preload("res://scripts/domain/farm_grid_state.gd").new()
+	watering_can = WateringCanState.new()
+	watering_can.configure(preload("res://data/watering_can_config.tres"))
+	watering_runtime = WateringRuntime.new()
+	add_child(watering_runtime)
+	watering_runtime.configure(self)
+	watering_runtime.water_changed.connect(_mark_save_dirty)
+	land_ownership = LandOwnershipState.new()
+	land_ownership.configure(preload("res://data/land_expansion_config.tres"))
+	machine_placement_request = MachinePlacementRequest.new()
+	machine_placement_request.configure(machine_build, farm_state, preload("res://data/machine_build_config.tres"), world.CONFIG.map_region, world.CONFIG.interaction_reach, land_ownership)
 	day_simulator = preload("res://scripts/domain/day_simulator.gd").new()
 	quest_state = preload("res://scripts/domain/tutorial_quest_state.gd").new()
 	weather_state = preload("res://scripts/domain/weather_state.gd").new()
-	weather_state.call("configure", preload("res://data/weather_profile.tres"), 0)
+	weather_state.call("configure", preload("res://data/weather_profile.tres"), 0, GameClock.day_index)
 	wallet = preload("res://scripts/domain/economy/wallet_state.gd").new(100)
+	land_expansion = LandExpansionService.new()
+	land_expansion.configure(preload("res://data/land_expansion_config.tres"), land_ownership, wallet)
+	bag_upgrade = InventoryUpgradeService.new()
+	bag_upgrade.configure(preload("res://data/bag_upgrade_config.tres"), inventory, wallet)
+	watering_upgrade = WateringCanUpgradeService.new()
+	watering_upgrade.configure(watering_upgrade_config, watering_can, wallet)
 	_initial_wallet = wallet.serialize()
 	_spawn_position = world.player.position
+	if machine_shop_panel != null:
+		machine_shop_panel.call("configure", self)
 	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	weather_fx.configure(weather_state)
@@ -104,6 +168,11 @@ func _ready() -> void:
 	world.shipping_bin_interacted.connect(shipping_bin_panel.open)
 	seed_shop_panel.configure(inventory, wallet, world.player, feedback)
 	world.seed_shop_interacted.connect(seed_shop_panel.open)
+	if machine_shop_panel != null:
+		world.machine_shop_interacted.connect(machine_shop_panel.open)
+	machine_interaction = preload("res://scripts/view/machine_interaction_controller.gd").new()
+	add_child(machine_interaction)
+	machine_interaction.configure(world, machine_placements, machine_shop_panel)
 	tool_controller.configure(world, farm_state, inventory, farm_view, world.player, inventory_panel, debug_menu, feedback, audio_service, hotbar_panel, shipping_bin_panel, seed_shop_panel)
 	crop_inspector = CropInspector.new()
 	add_child(crop_inspector)
@@ -111,6 +180,7 @@ func _ready() -> void:
 	tool_controller.configure_crop_inspector(crop_inspector)
 	inventory_panel.slot_selected.connect(hotbar_panel.select_slot)
 	hotbar_panel.register_tool(&"hoe", tr("UI_TOOL_HOE"), func() -> void: tool_controller.select_tool(&"hoe"))
+	hotbar_panel.register_tool(&"shovel", tr("UI_TOOL_SHOVEL"), func() -> void: tool_controller.select_tool(&"shovel"))
 	hotbar_panel.register_tool(&"watering_can", tr("UI_TOOL_WATER"), func() -> void: tool_controller.select_tool(&"watering_can"))
 	hotbar_panel.register_tool(&"seed", tr("UI_TOOL_SEED"), tool_controller.select_seed)
 	hotbar_panel.register_tool(&"harvest", tr("UI_TOOL_HARVEST"), func() -> void: tool_controller.select_tool(&"harvest"))
@@ -168,6 +238,25 @@ func _ready() -> void:
 	character_flow = LifeCharacterFlow.new()
 	add_child(character_flow)
 	character_flow.configure(self)
+	machine_placement_flow = MachinePlacementFlow.new()
+	add_child(machine_placement_flow)
+	machine_placement_flow.configure(self)
+	tool_controller.configure_placement(machine_placement_request)
+	land_runtime = LandRuntime.new()
+	add_child(land_runtime)
+	land_runtime.configure(self)
+	bag_upgrade_flow = BagUpgradeFlow.new()
+	add_child(bag_upgrade_flow)
+	bag_upgrade_flow.configure(self)
+	watering_upgrade_flow = WateringUpgradeFlow.new()
+	add_child(watering_upgrade_flow)
+	watering_upgrade_flow.configure(self)
+	chicken_coop_runtime = ChickenCoopRuntime.new()
+	add_child(chicken_coop_runtime)
+	chicken_coop_runtime.configure(self)
+	chicken_coop_flow = ChickenCoopFlow.new()
+	add_child(chicken_coop_flow)
+	chicken_coop_flow.configure(self)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -181,6 +270,9 @@ func _ready() -> void:
 	add_child(presentation)
 	presentation.configure(self)
 	_apply_player_appearance()
+	machine_presentation = preload("res://scripts/view/machine_presentation.gd").new()
+	add_child(machine_presentation)
+	machine_presentation.configure(self)
 	if OS.get_cmdline_user_args().has("--capture-chibi-characters"):
 		call_deferred("_capture_chibi_characters")
 	elif OS.get_cmdline_user_args().has("--capture-chibi-farming"):
@@ -191,19 +283,37 @@ func _ready() -> void:
 		call_deferred("_capture_chibi_ui")
 
 func _on_day_started(_day_index: int) -> void:
-	# Finish yesterday's care before tomorrow's rain can touch the plots.
-	if bool(weather_state.call("is_rainy")):
-		farm_state.water_all_crops()
-	day_simulator.call("simulate_day", farm_state)
+	if _day_index!=GameClock.day_index or chicken_coop_runtime.busy or not bool(chicken_coop.coop.day_quote(_day_index-1).ok) or not bool(weather_state.call("day_quote",_day_index).ok):
+		return
+	var weather_day: Dictionary = weather_state.call("begin_day",_day_index)
+	if not bool(weather_day.ok):
+		return
+	chicken_coop_runtime.busy = true
+	chicken_coop_runtime.simulator.simulate_day(farm_state,chicken_coop.coop,machine_operations,_day_index-1,_simulate_farm_day)
+	if int(chicken_coop.coop.serialize().current_day)!=_day_index:
+		weather_state.call("abort_day",weather_day.token)
+		chicken_coop_runtime.busy = false
+		push_warning("Main: daily simulation did not complete; weather retained")
+		return
+	chicken_coop_runtime.refresh_site()
 	farm_state.mark_out_of_season()
-	weather_state.call("advance_day", GameClock.day_index)
+	if not bool(weather_state.call("finish_day",weather_day.token)):
+		push_warning("Main: weather reservation failed after simulation; lifecycle remains locked")
+		return
 	if bool(weather_state.call("is_rainy")):
 		farm_state.water_all_crops()
 	day_end_flow.on_morning(_day_index)
+	chicken_coop_runtime.busy = false
 	if not day_end_flow.is_advancing():
 		var saved: bool = _save_game_to_slot(0)
 		_show_toast(tr("UI_SAVED") if saved else tr("PAUSE_SAVE_FAILED"))
 	morning_flow.queue_day(_day_index)
+
+func _simulate_farm_day(farm: FarmGridState) -> void:
+	# Keep the injectable one-argument farm step while the outer simulator owns ordering.
+	if bool(weather_state.call("is_rainy")):
+		farm.water_all_crops()
+	day_simulator.call("simulate_day",farm)
 
 func _on_season_changed(season: StringName) -> void:
 	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))
@@ -214,12 +324,18 @@ func _save_game() -> bool:
 	return saved
 
 func _save_game_to_slot(slot: int) -> bool:
-	if npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
+	if _purchase_in_progress() or npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
 		return false
 	var payload: Dictionary = {
 		"clock": GameClock.serialize(),
 		"player": {"position": _legacy_player_position()},
 		"inventory": inventory.serialize(),
+		"machine_inventory": machine_inventory.serialize(),
+		"machine_placements": machine_placements.serialize(),
+		"machine_operations": machine_operations.serialize(),
+		"land_ownership": land_ownership.serialize(),
+		"watering_can": watering_can.serialize(),
+		"chicken_coop": chicken_coop.serialize(),
 		"farm": farm_state.serialize(),
 		"quests": quest_state.serialize(),
 		"profile": profile,
@@ -238,6 +354,8 @@ func _load_game() -> bool:
 	return _load_game_from_slot(1)
 
 func _load_game_from_slot(slot: int) -> bool:
+	if _purchase_in_progress():
+		return false
 	var payload: Dictionary = SaveService.load_game(slot)
 	if payload.is_empty():
 		return false
@@ -245,25 +363,40 @@ func _load_game_from_slot(slot: int) -> bool:
 	return true
 
 func _quit_game() -> void:
+	if _purchase_in_progress():
+		return
 	_save_before_exit()
 	get_tree().quit()
 
 func _start_new_game(player_name: String, farm_name: String) -> void:
+	if _purchase_in_progress():
+		return
+	bag_upgrade_flow.close()
+	watering_upgrade_flow.close()
+	chicken_coop_runtime.prepare_restore()
+	land_runtime.restore({})
+	watering_runtime.busy = true
+	machine_placement_flow.cancel()
 	_game_started = false
+	watering_runtime.reset()
 	npc_system.journal.book_controller.reset()
 	character_flow.close()
 	GameClock.deserialize({})
 	morning_flow.reset()
-	inventory.clear()
+	inventory.deserialize({"capacity":InventoryState.CONFIG.default_capacity,"slots":[]})
+	machine_inventory.deserialize({})
+	machine_placements.deserialize({})
+	machine_operations.deserialize({})
+	if machine_presentation != null:
+		machine_presentation.call("refresh")
 	farm_state.reset()
 	quest_state.deserialize({})
 	wallet.deserialize(_initial_wallet)
 	day_end_flow.reset()
-	var fresh_weather: WeatherState = WeatherState.new()
-	fresh_weather.configure(preload("res://data/weather_profile.tres"), 0)
-	weather_state.call("deserialize", fresh_weather.serialize())
+	weather_state.call("restore_for_day",{},GameClock.day_index,0)
 	world.player.position = _spawn_position
 	npc_system.restore({})
+	chicken_coop_runtime.reset()
 	_pending_appearance = _normalize_player_appearance(_pending_appearance)
 	profile = {"player_name": player_name, "farm_name": farm_name, "appearance": _pending_appearance.duplicate(true)}
 	_apply_player_appearance()
@@ -273,11 +406,15 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	if inventory.get_slots().is_empty():
 		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
 		inventory.add_item(starter_seed, 10)
+	watering_runtime.busy = false
+	watering_runtime.refresh()
 	_save_game_to_slot(1)
 	if not Settings.is_tutorial_dismissed():
 		tutorial_panel.open_help()
 
 func _continue_game() -> void:
+	if _purchase_in_progress():
+		return
 	var latest: Dictionary = SaveService.load_latest()
 	if latest.is_empty():
 		return
@@ -286,9 +423,16 @@ func _continue_game() -> void:
 	world.player.movement_enabled = not day_end_flow.panel.visible
 
 func _return_to_start_menu() -> bool:
+	if _purchase_in_progress():
+		return false
+	bag_upgrade_flow.close()
+	watering_upgrade_flow.close()
+	land_runtime.close()
+	chicken_coop_flow.close()
 	if _game_started and not _save_game_to_slot(1):
 		_show_toast(tr("PAUSE_SAVE_FAILED"))
 		return false
+	machine_placement_flow.cancel()
 	morning_flow.reset()
 	pause_menu.close()
 	character_flow.close()
@@ -299,15 +443,29 @@ func _return_to_start_menu() -> bool:
 	return true
 
 func _load_payload(payload: Dictionary) -> void:
+	if _purchase_in_progress():
+		return
+	bag_upgrade_flow.close()
+	watering_upgrade_flow.close()
+	chicken_coop_runtime.prepare_restore()
+	var raw_land: Variant = payload.get("land_ownership",{})
+	land_runtime.restore(raw_land if raw_land is Dictionary else {})
+	watering_runtime.busy = true
+	machine_placement_flow.cancel()
 	npc_system.journal.book_controller.reset()
 	character_flow.close()
 	GameClock.deserialize(payload.get("clock", {}))
 	morning_flow.reset()
 	inventory.deserialize(payload.get("inventory", {}))
+	machine_inventory.deserialize(payload.get("machine_inventory", {}))
+	machine_placements.deserialize(payload.get("machine_placements", {}))
+	machine_operations.deserialize(payload.get("machine_operations", {}))
+	if machine_presentation != null:
+		machine_presentation.call("refresh")
 	farm_state.deserialize(payload.get("farm", {}))
 	farm_view.configure(farm_state)
 	quest_state.deserialize(payload.get("quests", {}))
-	weather_state.call("deserialize", payload.get("weather", {}))
+	weather_state.call("restore_for_day",payload.get("weather",{}),GameClock.day_index,0)
 	wallet.deserialize(payload.get("wallet", {}))
 	var social_data: Variant = payload.get("social", {})
 	npc_system.restore(social_data if social_data is Dictionary else {})
@@ -337,6 +495,13 @@ func _load_payload(payload: Dictionary) -> void:
 		cell = cell.clamp(world.CONFIG.player_region.position, world.CONFIG.player_region.end - Vector2i.ONE)
 		world.player.move_to_cell(cell)
 	day_end_flow.restore(payload)
+	chicken_coop_runtime.restore(payload)
+	watering_runtime.restore(payload)
+	watering_runtime.busy = false
+	watering_runtime.refresh()
+
+func _purchase_in_progress() -> bool:
+	return (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:

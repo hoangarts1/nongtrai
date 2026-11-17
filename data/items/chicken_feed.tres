@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/item_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_id = &"chicken_feed"
+display_name_key = &"ITEM_CHICKEN_FEED_NAME"
+description_key = &"ITEM_CHICKEN_FEED_DESCRIPTION"
+category = &"material"
+max_stack = 99
+buy_price = 20
+sell_price = 0

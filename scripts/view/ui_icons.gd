@@ -2,14 +2,16 @@
 class_name UiIcons
 extends RefCounted
 
-const ICON_IDS: PackedStringArray = ["backpack", "help", "journal", "settings", "pause", "hoe", "watering_can", "seed", "harvest", "sun", "coin", "carrot", "turnip", "pea", "tomato", "corn", "pumpkin", "wheat", "radish", "cabbage", "play", "close"]
+const ICON_IDS: PackedStringArray = ["backpack", "help", "journal", "settings", "pause", "hoe", "shovel", "watering_can", "seed", "harvest", "sun", "coin", "carrot", "turnip", "pea", "tomato", "corn", "pumpkin", "wheat", "radish", "cabbage", "play", "close"]
 static var _textures: Dictionary = {}
 
 static func get_icon(icon_id: StringName) -> Texture2D:
 	var id: String = String(icon_id)
 	if not ICON_IDS.has(id):
 		return null
-	if id in ["hoe", "watering_can", "seed", "harvest"]:
+	if id == "shovel" and not ResourceLoader.exists("res://assets/icons/ui_shovel.svg"):
+		return load("res://assets/icons/ui_hoe.svg") as Texture2D
+	if id in ["hoe", "shovel", "watering_can", "seed", "harvest"]:
 		var generated_tool_path: String = "res://assets/generated/icons/tool_%s.png" % id
 		if ResourceLoader.exists(generated_tool_path):
 			var generated_tool: Texture2D = _load_texture(generated_tool_path)

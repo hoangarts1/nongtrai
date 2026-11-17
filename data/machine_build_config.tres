@@ -1,0 +1,5 @@
+[gd_resource type="Resource" script_class="MachineBuildConfig" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/machine_build_config.gd" id="1"]
+[resource]
+script = ExtResource("1")
+allowed_region = Rect2i(0, 0, 6, 6)

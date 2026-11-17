@@ -17,6 +17,22 @@ ITEM_WINTER_RADISH_SEED,Hạt củ cải đông
 ITEM_WINTER_RADISH,Củ cải đông
 ITEM_WINTER_CABBAGE_SEED,Hạt bắp cải đông
 ITEM_WINTER_CABBAGE,Bắp cải đông
+ITEM_CARROT_SEED,Hạt cà rốt
+ITEM_RADISH_SEED,Hạt củ cải
+ITEM_CABBAGE_SEED,Hạt bắp cải
+ITEM_TOMATO_SEED,Hạt cà chua
+ITEM_CHILI_SEED,Hạt ớt
+ITEM_STRAWBERRY_SEED,Hạt dâu tây
+ITEM_EGGPLANT_SEED,Hạt cà tím
+ITEM_RICE_SEED,Hạt lúa
+ITEM_CORN_SEED,Hạt ngô
+ITEM_SUNFLOWER_SEED,Hạt hướng dương
+ITEM_PUMPKIN_SEED,Hạt bí ngô
+ITEM_COFFEE_SEED,Hạt cà phê
+ITEM_PEPPER_SEED,Cành giâm tiêu
+ITEM_ORANGE_SEED,Cây giống cam
+ITEM_APPLE_SEED,Cây giống táo
+ITEM_BANANA_SEED,Chồi chuối
 CROP_TURNIP,Củ cải
 CROP_SPRING_CARROT,Cà rốt xuân
 CROP_SPRING_PEA,Đậu xuân
@@ -70,6 +86,7 @@ UI_INV_BUTTON_ACTIVE,Kho đồ đang mở
 UI_SLEEP_HINT,[E] Ngủ
 UI_SLEEP_PENDING,Đang ngủ...
 UI_TOOL_HOE,Cuốc
+UI_TOOL_SHOVEL,Xẻng
 UI_TOOL_WATER,Tưới
 UI_TOOL_SEED,Hạt giống
 UI_TOOL_HARVEST,Thu hoạch
@@ -136,6 +153,22 @@ CROP_STATUS_REMAINING,Còn %d ngày
 CROP_STATUS_NEEDS_WATER,Cần tưới
 CROP_STATUS_READY,Chín! Thu hoạch được
 CROP_STATUS_WITHERED,Đã héo
+CROP_CARROT,Cà rốt
+CROP_RADISH,Củ cải
+CROP_CABBAGE,Bắp cải
+CROP_TOMATO,Cà chua
+CROP_CHILI,Ớt
+CROP_STRAWBERRY,Dâu tây
+CROP_EGGPLANT,Cà tím
+CROP_RICE,Lúa
+CROP_CORN,Ngô
+CROP_SUNFLOWER,Hướng dương
+CROP_PUMPKIN,Bí ngô
+CROP_COFFEE,Cà phê
+CROP_PEPPER,Tiêu
+CROP_ORANGE,Cam
+CROP_APPLE,Táo
+CROP_BANANA,Chuối
 UI_WALLET_COINS,"%d Xu"
 UI_PROMPT_SELL,"[E] Bán hàng"
 UI_SHIPPING_BIN_TITLE,"THÙNG BÁN HÀNG"
@@ -146,6 +179,14 @@ UI_NO_SELLABLE_ITEMS,"Không có vật phẩm nào để bán"
 UI_FEEDBACK_SOLD,"+ %d Xu"
 UI_MAX,"Tối đa"
 UI_PROMPT_SHOP,"[E] Mua hạt giống"
+UI_PROMPT_MACHINE_SHOP,"[E] Mua máy móc"
+UI_MACHINE_SHOP_TITLE,"Cửa hàng máy móc"
+UI_COINS,"xu"
+UI_HOUSE_LEVEL,"Nhà cấp %d"
+UI_BUY,"Mua"
+UI_MACHINE_PLACE_TEST,"Đặt thử máy"
+UI_MACHINE_START,"Chạy"
+UI_MACHINE_COLLECT,"Nhận sản phẩm"
 UI_SEED_SHOP_TITLE,"CỬA HÀNG HẠT GIỐNG"
 UI_BUY_PRICE,"Giá: %d Xu"
 UI_CONFIRM_BUY,"Mua hạt"
@@ -460,3 +501,176 @@ BOOK_UNKNOWN_GIVER,"Chưa có thông tin người giao."
 BOOK_GIVER,"Từ: %s"
 BOOK_VISIT,"Nhận và giao nhiệm vụ qua hội thoại với %s."
 BOOK_KEYS,"Q · Tab trước     E · Tab sau     Esc · Đóng"
+ITEM_TEMP_CARROT_MEAL,"Món cà rốt"
+ITEM_TEMP_WHEAT_FLOUR,"Bột mì"
+ITEM_TEMP_ROASTED_COFFEE,"Cà phê rang"
+ITEM_TEMP_CORN_BREAD,"Bánh ngô"
+ITEM_TEMP_DRIED_CHILI,"Ớt khô"
+ITEM_TEMP_PICKLED_CABBAGE,"Bắp cải muối"
+ITEM_TEMP_ORANGE_JUICE,"Nước cam"
+ITEM_PROCESSED_DESCRIPTION,"Thành phẩm từ máy chế biến."
+UI_MACHINE_COLLECT_SUCCESS,"Đã cất %d %s vào túi."
+UI_MACHINE_COLLECT_BUSY,"Đang chuyển sản phẩm, bạn chờ một chút nhé."
+UI_MACHINE_COLLECT_INVALID,"Chưa thể thu sản phẩm từ máy này."
+UI_MACHINE_COLLECT_NO_MACHINE,"Không tìm thấy máy tại ô này."
+UI_MACHINE_COLLECT_NO_OUTPUT,"Máy chưa có sản phẩm để thu."
+UI_MACHINE_COLLECT_UNKNOWN,"Chưa thể cất loại sản phẩm này vào túi."
+UI_MACHINE_COLLECT_FULL,"Túi chưa đủ chỗ. Sản phẩm vẫn được giữ trong máy."
+UI_MACHINE_COLLECT_FAILED,"Chưa chuyển được sản phẩm. Bạn hãy thử lại nhé."
+UI_MACHINE_OUTPUT,"Chờ thu: %s × %d"
+UI_MACHINE_STATE_IDLE,"Sẵn sàng"
+UI_MACHINE_STATE_WORKING,"Còn %d ngày"
+UI_MACHINE_STATE_BLOCKED,"Chờ thu sản phẩm"
+UI_MACHINE_PRODUCT_UNKNOWN,"Sản phẩm chưa có thông tin"
+MACHINE_STOVE_NAME,"Bếp"
+MACHINE_MILL_NAME,"Cối xay"
+MACHINE_PRESS_NAME,"Máy ép"
+MACHINE_BARREL_NAME,"Thùng muối"
+MACHINE_OVEN_NAME,"Lò nướng"
+MACHINE_DRYER_NAME,"Máy sấy"
+MACHINE_ROASTER_NAME,"Máy rang"
+MUI_OPERATION_TITLE,"Máy chế biến"
+MUI_MACHINE_PREVIEW,"Máy chế biến cho nông trại"
+MUI_SELL,"Bán"
+MUI_BUYBACK,"Mua lại"
+MUI_UNAVAILABLE,"Chưa có chức năng này."
+MUI_RECIPES,"Công thức"
+MUI_BACK,"Về cửa hàng"
+MUI_CARD,"%d xu · Nhà cấp %d · Trong kho: %d"
+MUI_PLACEMENT,"Máy đã đặt tại %s"
+MUI_REQUIREMENT,"Cần nhà cấp %d · Trong kho: %d"
+MUI_TEST_LEVEL,"Bản thử hiện dùng nhà cấp 1."
+MUI_RECIPE_TERMS,"Nguyên liệu: %s\nThành phẩm: %s\nThời gian: %d ngày"
+MUI_DAYS,"%d ngày chế biến"
+MUI_LOCKED,"Cần nhà cấp cao hơn. Bản thử hiện dùng cấp 1."
+MUI_NO_COINS,"Chưa đủ xu để mua máy này."
+MUI_MISSING_INPUT,"Chưa đủ nguyên liệu trong túi."
+MUI_BUSY,"Máy đang bận. Hãy chờ hoặc thu sản phẩm trước nhé."
+MUI_NOT_OWNED,"Trong kho chưa có máy này để đặt."
+MUI_NO_CELL,"Ô này chưa thể đặt máy. Hãy chọn ô trống khác nhé."
+MUI_PURCHASED,"Đã mua máy và cất vào kho."
+MUI_PLACED,"Đã đặt máy. Chọn ô máy rồi nhấn E để sử dụng."
+MUI_STARTED,"Máy đã bắt đầu chế biến."
+PLC_PLACE,"Đặt máy"
+PLC_RETURN,"Cất máy"
+PLC_RETURNED,"Đã cất máy vào kho."
+PLC_TITLE,"Đặt %s"
+PLC_CELL,"Ô %s · Góc %d° · Vùng đặt %d×%d ô"
+PLC_PICK,"Chọn một ô trống gần bạn nhé."
+PLC_VALID,"Có thể đặt máy ở ô này."
+PLC_HINTS,"Chuột trái / Space: đặt · R / Q: xoay · Chuột phải / Esc: hủy"
+PLC_LEFT,"Xoay trái [Q]"
+PLC_RIGHT,"Xoay phải [R]"
+PLC_CANCEL,"Hủy đặt"
+PLC_CONFIRM,"Đặt tại ô đã chọn"
+PLC_REGION,"Chọn ô trong vùng nông trại cho phép nhé."
+PLC_PLAYER,"Bạn đang đứng ở ô này."
+PLC_FAR,"Đi gần ô máy hơn rồi thử lại nhé."
+PLC_PLOT,"Ô này đã có đất xới hoặc cây. Hãy chọn ô khác nhé."
+PLC_MACHINE_CELL,"Ô này có máy. Chọn ô khác để xới hoặc gieo nhé."
+PLC_INVALID,"Chưa thể thực hiện thao tác này."
+PLC_MOVE,"Dời máy"
+PLC_MOVE_TITLE,"Dời %s"
+PLC_MOVE_CELL,"Từ ô %s · Đến ô %s · Góc %d°"
+PLC_MOVE_PICK,"Chọn vị trí mới gần bạn hoặc xoay máy tại ô cũ nhé."
+PLC_MOVE_VALID,"Có thể xác nhận vị trí và hướng này."
+PLC_MOVE_HINTS,"Chuột trái / Space: xác nhận · R / Q: xoay · Chuột phải / Esc: hủy"
+PLC_MOVE_CONFIRM,"Xác nhận vị trí"
+PLC_MOVE_CANCEL,"Hủy di chuyển"
+PLC_MOVED,"Đã dời máy đến vị trí mới."
+PLC_ROTATED,"Đã xác nhận hướng máy."
+PLC_MOVE_STALE,"Máy đã thay đổi. Hãy chọn lại máy nhé."
+LAND_TITLE,Mở rộng đất
+LAND_EAST_NAME,Lô phía đông
+LAND_DESCRIPTION,Thêm đất liền kề khu vườn để trồng cây và đặt máy.
+LAND_OWNED,Đất đang có: %d ô
+LAND_EXTRA,Mở thêm %d ô
+LAND_PRICE,Giá mua: %d xu
+LAND_WALLET,Trong ví: %d xu
+LAND_BUY,Xác nhận mua đất
+LAND_AVAILABLE,Lô đất này đã sẵn sàng để mở rộng.
+LAND_COMPLETE,Bạn đã sở hữu hết các lô đất hiện có.
+LAND_NO_COINS,Bạn chưa đủ xu để mua lô đất này.
+LAND_PURCHASED,Đã mở rộng đất. Khu vườn đang chờ bạn!
+LAND_BUSY,Giao dịch đang được hoàn tất.
+LAND_STALE,Lô đất đã thay đổi. Hãy kiểm tra lại.
+LAND_REJECTED,Chưa thể mở rộng đất. Xu đã được hoàn lại.
+LAND_INVALID,Chưa thể mở rộng đất lúc này.
+LAND_LOCKED,Bạn cần mua lô đất này trước khi sử dụng.
+LAND_PLACEMENT,Ô %s · Góc %d° · Đất đang có: %d ô
+LAND_LEDGER,Mua đất
+BAG_UP_ACTION,Nâng túi
+BAG_UP_TITLE,Nâng cấp túi đồ
+BAG_UP_DESCRIPTION,Thêm chỗ mang theo hạt giống và nông sản. Đồ đang có vẫn được giữ nguyên.
+BAG_UP_CAPACITY,Sức chứa: %d → %d ô
+BAG_UP_PRICE,Giá nâng cấp: %d xu
+BAG_UP_WALLET,Trong ví: %d xu
+BAG_UP_BACK,Quay về túi
+BAG_UP_CONFIRM,Xác nhận nâng túi
+BAG_UP_AVAILABLE,Túi đã sẵn sàng để nâng cấp.
+BAG_UP_SUCCESS,Túi đã rộng hơn. Chúc bạn một ngày thu hoạch vui!
+BAG_UP_COMPLETE,Túi đã đạt mức nâng cấp hiện có.
+BAG_UP_NO_COINS,Bạn chưa đủ xu để nâng túi.
+BAG_UP_STALE,Thông tin nâng túi đã thay đổi. Hãy kiểm tra lại.
+BAG_UP_BUSY,Đang hoàn tất nâng cấp túi.
+BAG_UP_REFUND,Chưa thể nâng túi. Xu đã được hoàn lại.
+BAG_UP_INVALID,Chưa thể nâng túi lúc này.
+BAG_UP_LEDGER,Nâng cấp túi
+WATER_SOURCE_WELL,Giếng
+WATER_SOURCE_STREAM,Suối
+WATER_SOURCE_POND,Ao
+WATER_CAN_COUNT,Nước %d/%d
+WATER_CAN_EMPTY,"Bình đã hết nước. Ghé giếng, suối hoặc ao để nạp nhé."
+WATER_REFILL_HINT,[E] Nạp nước
+WATER_REFILLED,Đã nạp đầy bình.
+WATER_CAN_FULL,Bình đã đầy.
+WATER_REFILL_UNAVAILABLE,Hãy đứng cạnh giếng hoặc trên bờ khô để nạp nước.
+WATER_UP_ACTION,Nâng bình tưới
+WATER_UP_TITLE,Nâng bình tưới
+WATER_UP_DESCRIPTION,Bình lớn hơn cho chuyến chăm vườn. Nước còn lại được giữ nguyên; hãy đến nguồn nước để nạp đầy.
+WATER_UP_CAPACITY,Sức chứa: %d → %d lượt
+WATER_UP_PRICE,Giá nâng bình: %d xu
+WATER_UP_WALLET,Ví của bạn: %d xu
+WATER_UP_BACK,Trở về Túi
+WATER_UP_CONFIRM,Xác nhận nâng bình
+WATER_UP_AVAILABLE,Bình tưới đã sẵn sàng để nâng.
+WATER_UP_SUCCESS,Bình đã lớn hơn. Nước còn lại vẫn được giữ nguyên.
+WATER_UP_COMPLETE,Bình đã đạt mức nâng hiện có.
+WATER_UP_NO_COINS,Bạn cần thêm xu để nâng bình tưới.
+WATER_UP_STALE,Thông tin nâng bình đã đổi. Bạn xem lại nhé.
+WATER_UP_BUSY,Bình tưới đang được nâng.
+WATER_UP_REFUND,Chưa thể nâng bình. Số xu đã được hoàn lại.
+WATER_UP_INVALID,Hiện chưa thể nâng bình tưới.
+WATER_UP_LEDGER,Nâng bình tưới
+WATER_UP_REMAINING,Nước còn lại: %d lượt
+ITEM_EGG_NAME,Trứng gà
+ITEM_EGG_DESCRIPTION,Trứng từ những cô gà được chăm ăn mỗi ngày.
+ITEM_CHICKEN_FEED_NAME,Thức ăn gà
+ITEM_CHICKEN_FEED_DESCRIPTION,Khẩu phần hạt dành cho gà. Mỗi cô gà dùng một phần mỗi ngày.
+COOP_TITLE,Chuồng gà
+COOP_SITE,Góc nhỏ cho đàn gà
+COOP_OWNED,Đàn gà của bạn
+COOP_DAY,Ngày %d · Chăm đàn gà
+COOP_COUNTS,%d gà   ·   %d đã ăn   ·   %d trứng
+COOP_STOCK,Thức ăn trong Túi: %d   ·   Tiền: %d xu
+COOP_CARE,"Mỗi gà ăn hôm nay cho một trứng sáng mai. Chưa cho ăn thì gà nghỉ, vẫn khỏe nhé."
+COOP_BUNDLE,Chuồng ấm cùng %d gà: %d xu. Bạn hãy mua thêm thức ăn để chăm đàn gà.
+COOP_BUY,Dựng chuồng · %d xu
+COOP_FOOD_QUANTITY,Mua thức ăn
+COOP_HENS_QUANTITY,Số gà cho ăn
+COOP_BUY_FEED,Mua · %d xu
+COOP_FEED,Cho ăn
+COOP_COLLECT,Thu %d trứng
+COOP_BAG,Mở Túi
+COOP_READY,Bạn muốn chăm đàn gà thế nào?
+COOP_PURCHASED,"Đã mua xong, bạn nhé."
+COOP_FED,Đàn gà đã có bữa ăn hôm nay.
+COOP_COLLECTED,Trứng đã được cất vào Túi.
+COOP_NO_COINS,Bạn cần thêm một ít xu.
+COOP_FULL,Túi chưa đủ chỗ. Trứng vẫn ở trong chuồng nhé.
+COOP_NO_FEED,Bạn mua thêm thức ăn cho gà nhé.
+COOP_OCCUPIED,Chỗ dựng chuồng đang có đồ hoặc có người. Bạn kiểm tra lại nhé.
+COOP_CHANGED,Thông tin vừa thay đổi. Bạn kiểm tra rồi thử lại nhé.
+COOP_PROMPT,[E] Chăm đàn gà
+COOP_LEDGER,Dựng chuồng gà
+COOP_FOOD_LEDGER,Mua thức ăn gà

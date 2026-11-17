@@ -78,7 +78,7 @@ func test_day_growth_updates_estimate_and_missed_watering_delays_it() -> void:
 	GameClock.deserialize({"day_index": 2, "minute": 360})
 	assert_eq(main.farm_state.get_growth_remaining(cell), 2, "No water means no extra growth")
 	assert_ne(main.crop_inspector.estimate_label.text, expected, "Conditional harvest day moves after a missed watering")
-	assert_eq(main.crop_inspector.get_remaining_minutes(), 2880)
+	assert_eq(main.crop_inspector.get_remaining_minutes(), 0)
 	main.farm_state.water_cell(cell)
 	main.day_simulator.simulate_day(main.farm_state)
 	main.farm_state.water_cell(cell)

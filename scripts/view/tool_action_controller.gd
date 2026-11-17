@@ -4,6 +4,11 @@ extends Node
 
 const TOOL_DRAG_STROKE: Script = preload("res://scripts/view/tool_drag_stroke.gd")
 
+var _watering: WateringRuntime
+
+func configure_watering(runtime: WateringRuntime) -> void:
+	_watering = runtime
+
 var _world: GrayBoxWorld
 var _farm_state: FarmGridState
 var _inventory: InventoryState
@@ -23,6 +28,21 @@ var _shipping_bin_panel: Control = null
 var _seed_shop_panel: Control = null
 var _crop_inspector: CropInspector
 var _drag_stroke: Variant = TOOL_DRAG_STROKE.new()
+var _placement_active: bool = false
+var _placement_release_pending: bool = false
+var _placement_request: MachinePlacementRequest
+
+func configure_placement(request: MachinePlacementRequest) -> void:
+	_placement_request = request
+
+func set_placement_active(active: bool) -> void:
+	if _placement_active and not active:
+		_placement_release_pending = Input.is_action_pressed("use_tool") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	_placement_active = active
+	_drag_stroke.cancel()
+	_hovered_valid = false
+	if _farm_view!=null:
+		_farm_view.call("set_hovered_cell",Vector2i.ZERO,false,false)
 
 func configure_crop_inspector(inspector: CropInspector) -> void:
 	_crop_inspector = inspector
@@ -99,7 +119,9 @@ func get_selected_tool() -> StringName:
 	return _selected_tool
 
 func _process(_delta: float) -> void:
-	if _world == null or _farm_view == null:
+	if _placement_release_pending and not Input.is_action_pressed("use_tool") and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_placement_release_pending = false
+	if _placement_active or _world == null or _farm_view == null:
 		return
 	var cell_variant: Variant = _world.pick_cell(get_viewport().get_mouse_position())
 	if cell_variant == null:
@@ -113,6 +135,8 @@ func _process(_delta: float) -> void:
 	_farm_view.call("set_hovered_cell", _hovered_cell, true, _hovered_valid)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _placement_active or _placement_release_pending:
+		return
 	if event is InputEventMouse:
 		var handled: bool = _drag_stroke.handle(
 			event as InputEventMouse,
@@ -148,8 +172,23 @@ func _apply_drag_cell(cell: Vector2i) -> bool:
 	return true
 
 func _use_selected_tool() -> void:
+	if _placement_request!=null:
+		var permission: Dictionary = _placement_request.can_use_farm_tool(_hovered_cell,_selected_tool)
+		if not bool(permission.ok):
+			_show_feedback("LAND_LOCKED" if permission.reason==&"land_locked" else "PLC_MACHINE_CELL")
+			return
 	if _selected_tool == &"harvest":
 		_harvest_selected_crop()
+		return
+	if _selected_tool == &"water":
+		if _watering==null:
+			_show_feedback("UI_FEEDBACK_NOT_READY")
+			return
+		var result: Dictionary = _watering.water(_hovered_cell)
+		if bool(result.ok):
+			_play_character_tool(&"water")
+			_play_sound(&"water")
+			_play_farm_effect(&"water")
 		return
 	if _selected_tool == &"seed":
 		var seed_item_id: StringName = &""
@@ -256,4 +295,4 @@ func _reach_for_selected_tool() -> int:
 	return int(tool_data.get("reach_cells"))
 
 func _is_input_locked() -> bool:
-	return GameClock.is_sleeping() or _inventory_panel.visible or _debug_menu.visible or (_shipping_bin_panel != null and _shipping_bin_panel.visible) or (_seed_shop_panel != null and _seed_shop_panel.visible)
+	return _placement_active or _placement_release_pending or GameClock.is_sleeping() or _inventory_panel.visible or _debug_menu.visible or (_shipping_bin_panel != null and _shipping_bin_panel.visible) or (_seed_shop_panel != null and _seed_shop_panel.visible)

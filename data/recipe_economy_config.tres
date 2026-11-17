@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="RecipeEconomyConfig" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/recipe_economy_config.gd" id="1"]
+[resource]
+script = ExtResource("1")
+max_value_added_per_game_hour_by_unlock_level = {1: 15, 2: 40, 3: 120}
+game_hours_per_day = 24

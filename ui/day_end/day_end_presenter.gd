@@ -3,6 +3,10 @@ class_name LifeDayEndPresenter
 extends RefCounted
 
 const REASON_KEYS: Dictionary = {
+	"buy_chicken_coop":&"COOP_LEDGER","buy_chicken_feed":&"COOP_FOOD_LEDGER","buy_chicken_coop_rollback":&"END_REFUND","buy_chicken_feed_rollback":&"END_REFUND",
+	"buy_watering_upgrade":&"WATER_UP_LEDGER","buy_watering_upgrade_rollback":&"END_REFUND",
+	"buy_bag_upgrade":&"BAG_UP_LEDGER","buy_bag_upgrade_rollback":&"END_REFUND",
+	"buy_land":&"LAND_LEDGER","buy_land_rollback":&"END_REFUND",
 	"sell_produce":&"END_SALE","buy_seed":&"END_BUY_SEED","refund":&"END_REFUND",
 	"minh_discount":&"END_MERCHANT_BUY","minh_rollback":&"END_REFUND","minh_request":&"END_MERCHANT_SALE"
 }

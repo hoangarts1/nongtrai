@@ -1,6 +1,4245 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
-Last updated: 2026-11-03 (ISO-17 automated acceptance delivered; human editor acceptance pending)
+## Checkpoint commit/push do người dùng yêu cầu (2026-11-18)
+
+Người dùng yêu cầu “comit up lên xong hãy tiếp tục 3 plan liên tiếp”. Snapshot này gom code/data/art/test/docs phụ thuộc đã có từ các mốc6.x,7.1 và AUDIT-F1/F2/F3; không chỉ stage44file cuối vì thiếu các dependency chưa được commit sẽ làm checkout không chạy. Source hiện tại khớp hash của lượt full607/607 vừa bàn giao; DataValidator chạy lại trước commit PASS. Full cuối parse/data/headless63/graphics607/607(36789assert)/Main PASS; human F5/release export vẫn chưa xác nhận.
+
+Chọn1432path dự án đã kiểm tra; Git chuẩn hóa CRLF cho tutorial_panel.gd và xác nhận nội dung file này đã giống HEAD, nên staged diff thực tế1431file. Không sửa mã để ép thêm diff. Giữ riêng thay đổi xóa the_life_prompt.md và file the_life_master_prompt.md chưa theo dõi. Không chỉnh/xóa nội dung hai tệp đó. Remote origin/master trước push còn chậm20commit so với local, không có commit remote mới xung đột. Commit/push lần này được user cho phép rõ; không force push/reset/clean. Backup/status/index/manifest ở D:/godot/game-godot-backups/commit-push-next-three-20261118-030029/. Hash commit và kết quả remote sẽ ghi ở checkpoint sau khi thực hiện. Sau push sẽ cụ thể hóa ba kế hoạch tiếp theo bằng phạm vi/acceptance, không tự đoán stamina/house/art mới.
+
+## AUDIT-F1 → F2 → F3 đã hoàn tất kiểm thử tự động, chưa commit (2026-11-18)
+
+Đã triển khai liên tiếp đúng ba kế hoạch được duyệt, mỗi mốc chỉ bắt đầu sau full gate mốc trước PASS. Tổng 44 đường dẫn thay đổi so với baseline trước F1: 22 file mới, 22 file sửa; không ngoài union ALLOW_LIST 48 đường dẫn. Không triển khai mốc thứ tư. HEAD/index và báo cáo AUDIT_REPORT giữ nguyên; thay đổi kế thừa không bị dọn/hoàn tác. Save v12, InputMap, art/giá/growth/yield/season, Theme/fonts, scene cũ và runner/180000ms mỗi nhóm giữ nguyên.
+
+| Mốc | Kết quả full GUT | Assertion | GUT giây | Parse/data/headless/Main |
+|---|---:|---:|---:|---|
+| F1: stage/care/cây tái sinh | 596/596 | 35160 | 241.724 | PASS, headless63/63 |
+| F2: Ctrl+M exact/debug | 603/603 | 35301 | 238.273 | PASS, headless63/63 |
+| F3: bố cục/header cửa hàng máy | 607/607 | 36789 | 259.835 | PASS, headless63/63 |
+
+F3 thực hiện 13/17 đường dẫn cho phép: 8 file sửa, 5 file mới. Chỉ tạo scene machine_header.tscn; không sửa scene cũ. Probe GUT trước sửa ở cả frame2 và frame30 cho thấy nút đất bị co còn28px, header250px(vi)/276px(en), body174/148px. Tắt wrapping ở hai nút header và tách LifeMachineHeader; sau sửa header92px, body332px tại1152×648, land128×44(vi)/133×44(en). Screen giữ alias banner/land_button/close_button và tín hiệu công khai. Catalogue dùng inset LifeGalleryMargin sẵn có để giữ thẻ phóng khi focus trong vùng cuộn. Không cần sửa details/footer/card/UiLayout hoặc Theme.
+
+Suite mới4case kiểm shop/locked/idle/work/ready/fullbag/longtext ×vi/en ×3kích thước, đủ2thẻ thường, cuộn máy cuối, output/nút thật, focus/Close/Land/Tab. Hai case cũ test_machine_screen giữ nguyên thân và mọi assertion; chỉ nâng helper settle thành đo rectangle/minimum-size ổn định3frame, giới hạn24frame và thêm assertion hình học lúc capture. Tất cả583case baseline còn nguyên tên;24case mới cộng dồn, không bỏ test/golden. Chỉ tools/validate_data.gd được thêm gate Resource F1 theo duyệt; runner/golden/test fixture cũ khác còn nguyên byte.
+
+F3 focused headless cuối:2scripts6/6,1734assert,15.296s; renderer:5scripts14/14,2654assert,40.887s. Đã đối chiếu mockup10, xem7bảng ảnh chứa đủ42capture mới và kiểm riêng ảnh1152; giữ15capture cũ, tổng57PNG. Thông báo dài không cắt nội dung, detail có thể cuộn. Full nguyên cmd /c tools\run_tests.bat exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 146 scripts, 607/607 tests, 36789 assertions; GUT 259.835s, wall 272.5729212s
+[run_tests] PASS
+~~~
+Nhóm1:73scripts304/304,19564assert,120.789s; nhóm2:73scripts303/303,17225assert,139.046s; totalwall290.2399823s. Không nới180s/nhóm. Strict scan focused cuối/full không Script/Parse/ERROR/leak/pending. Source ngoài docs không đổi trong fullrun;20file save thật không đổi. Expected warning fixture/placeholder và duplicate import UID kế thừa vẫn có.
+
+Lịch sử lỗi được giữ trung thực: hai lượt focused F3 ban đầu4/6 rồi5/6. Fixture mới cần chọn lại stove/focus/scroll cho mỗi size, title12lần chưa đủ tràn ở1920 nên tăng48lần; assertion cũ không giảm. Assertion mới sau đó phát hiện thẻ scale focus vượt vùng cuộn; sửa inset ở production rồi6/6. Hai probe SceneTree ngoài project lỗi autoload, một probe GUT chuyển đổi thiếu get_tree() khiến không chạy case dù exit0 (không tính PASS); probe GUT đúng sau đó1/1 đo được lỗi. Chỉ dừng process probe của mình, không đóng Editor. Thiếu PIL khi làm bảng ảnh: dùng System.Drawing có sẵn, không cài package. Chi tiết/lỗi/log ở REVIEW và backup.
+
+Bàn giao tổng: D:/godot/game-godot-backups/audit-f3-20261118-023636/DELIVERY.md. Có danh sách44file chính xác, cumulative.patch, diff từng mốc, before/after, source/scope/save hash, output thật và captures. Backup F1 audit-f1-20261118-020236; F2 audit-f2-20261118-022337; F3 audit-f3-20261118-023636.
+
+Chạy lại: cmd /c tools\run_tests.bat. Không cần bước Inspector, chỉnh scene hoặc Project Settings. Manual F5 còn chờ người dùng: kiểm4stage/biên héo/cây tái sinh và save-load giữa vụ; Ctrl+M đúng modifier từ world/modal, title/sleep/day-end/busy bị khóa; cửa hàng vi/en ở1152/1280/1920, cuộn máy cuối, mua/đặt/chạy/thu/túi đầy/dời/cất, Close/Land/Tab/Escape. Kiểm false-build flag đã chạy nhưng chưa có template để thử executable release. Sell/Buyback/giỏ hàng/NPC/house/stamina/manager và các mục audit khác chưa nằm trong ba mốc này. Không commit/push. Commit tổng đề xuất: fix: align crop stages, gate debug shortcut, and compact machine shop.
+
+Các mục kế hoạch/checkpoint cũ bên dưới là lịch sử; kết quả mới nhất là khối đầu này.
+
+## AUDIT-F2 hoàn tất kiểm thử tự động (2026-11-18)
+
+Đã thực hiện đúng 17 đường dẫn được duyệt, gồm 11 file sửa và 6 file mới (3 script + 3 UID). MachineShopShortcut thống nhất exact_match=true, không echo/release và debug-only ở Main/UiCoordinator/DebugMenu/NpcSystem. Main kiểm thêm title/chưa bắt đầu/busy/sleep/day-end ngay tại world entry. Giữ InputMap, E-shop, save v12, domain và toàn bộ 596 case trước F2.
+
+Focused: headless 11/11, 173 assertion, 4.471s; renderer 11/11, 174 assertion, 7.672s. Full launcher nguyên trạng exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 145 scripts, 603/603 tests, 35301 assertions; GUT 238.273s, wall 251.4215315s
+[run_tests] PASS
+~~~
+7 case mới; không sửa test cũ. Không có lượt GUT F2 thất bại. Một lệnh đọc diff PowerShell dùng brace expansion sai cú pháp đã được thay bằng đường dẫn tường minh, không tác động source/test. Không Script/Parse/ERROR/leak/pending trong focused/full logs; warning fixture/placeholder/duplicate import UID kế thừa vẫn được ghi nhận. Toàn bộ source được hash trước full run; scope audit, 20 file save thật và HEAD/index được đối chiếu trong bàn giao. Không export template cục bộ: false-build flag được kiểm bằng policy test, chưa chạy executable release. Human F5 chưa xác nhận; không commit.
+
+Bàn giao: D:/godot/game-godot-backups/audit-f2-20261118-022337/{REVIEW.md,implementation.patch,changed-files.json,scope-audit-final.json,before/,after/,full-final/,focused-*.log.*}. F5: Ctrl+M mở shop từ world/Túi/Tạm dừng/Nhân vật/NPC; plain M và Ctrl+Shift/Alt/Meta+M giữ màn hiện tại; thử title, tổng kết ngày, ngủ và transaction busy. Đóng shop phải khôi phục quyền di chuyển/pause cũ, không đổi vật phẩm/coin. Không cần Inspector/scene/project setting. Commit đề xuất: fix: gate machine shop shortcut with exact debug input.
+
+F3 đã được duyệt, chỉ bắt đầu sau full PASS F2 này. Các checkpoint bên dưới được giữ như lịch sử.
+
+## AUDIT-F1 hoàn tất kiểm thử tự động — chuyển tiếp F2 (2026-11-18)
+
+Theo duyệt chung cả3phạm vi, F1 đã hoàn tất đúng24path:13file sửa+11file mới (gồm5UID). CropStageConfig4/3 và stateless CropStageRules đồng bộ biên quý, giữ stage3 cho7IDtái sinh và mature chỉ khi đủngày. FarmGridState chỉ thay predicate ranh giới care; dữ liệu giá/growth/yield/season, water/dry-limit/grace/death, save12 và tất cả583case cũ/golden/InputMap/runner/art giữ nguyên.
+
+Focused headless:6scripts29/29,1867assertions,2.983s. Focused renderer:3scripts13/13,1554assertions,3.55s;6ảnh vi/en/3size đã xem, có5cây lâu năm và wiltedstage3. CLI validator PASS. Full nguyên cmd /c tools\run_tests.bat exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless:63/63
+[graphics_tests] PASS: 143 scripts, 596/596 tests, 35160 assertions; GUT 241.724s, wall 255.2069s
+[run_tests] PASS
+~~~
+Nhóm1/2 109.727/131.997s, vẫn180000ms/child; totalwall274.4366737s.13case mới,583case cũ còn nguyên byte. Strictscan không Script/Parse/ERROR/leak; expectednegative/placeholder warnings và importUIDtrùng kế thừa vẫn có. Sourcefreeze toàn bộ implementation không đổi trong fullrun, ngoài scope0;3fileJSONsave thật đã hash không đổi. Không có lần test F1 thất bại. Không commit; humanF5 chưa xác nhận.
+
+Bàn giao đầy đủ/diff/manifest/log/capture/manual:D:/godot/game-godot-backups/audit-f1-20261118-020236/{REVIEW.md,implementation.patch,changed-files.json,before/,after/,full-final/,captures/,scope-audit-final.json}. Chạy F5: gieo cây target5ngày, xem4hình tại biên; không thu chỉ vì có quả; thu coffee/pepper/orange/apple/banana/tomato, cây còn stage3 rồi chín đúnghẹn; thử thiếu nước/tưới cứu/túi đầy/save-load giữa regrow. Không có bước Inspector/scene/InputMap. Commit đề xuất: fix: align crop stages and retain regrowing plant visuals.
+
+F2 được duyệt và bắt đầu sau baseline F1 này; F3 vẫn chưa triển khai. Khối plan/checkpoint bên dưới là lịch sử, không phải xin duyệt lại.
+
+## AUDIT-F1 đang triển khai — cả3kế hoạch đã được duyệt (2026-11-18)
+
+Người dùng duyệt “Duyệt cả 3, triển khai liên tiếp”. Áp dụng đúng ALLOW_LIST F1(24), F2(17), F3(17) đã ghi dưới đây;48path union. Làm tuần tự, không commit/push; fullgate mỗi phần trước khi chuyển tiếp. Khối đề xuất bên dưới là checkpoint trước duyệt, không còn là yêu cầu xin lại cùng phạm vi. Backup/hash F1: D:/godot/game-godot-backups/audit-f1-20261118-020236/. Hiện mới ghi phê duyệt và baseline, chưa có kết quả triển khai/test mới. Giữ583case cũ, save12/golden/runner/art/InputMap và toàn bộ pending kế thừa.
+
+## Đề xuất 3 kế hoạch sau kiểm toán — AUDIT-F1 → F2 → F3 (chờ duyệt, 2026-11-18)
+
+Người dùng yêu cầu: “tiếp tục theo plan đi hãy làm 3 plan liên tiếp đi”. Cụ thể hóa ba ưu tiên đã nêu ở cuối kiểm toán: stage cây, exact/debug Ctrl+M, bố cục cửa hàng máy. Yêu cầu mới cho phép xử lý ba mốc trong cùng đợt; triển khai tuần tự, chỉ chuyển mốc khi kiểm tra mốc trước pass, không làm chồng nhiều milestone. Không suy ra quyền git commit/push. Nhiệm vụ audit chỉ đọc đã hoàn tất; docs/AUDIT_REPORT.md được giữ nguyên như snapshot18/11, không sửa ngược các kết luận lịch sử để ghi tiến độ mới.
+
+Trạng thái hiện tại: HEAD e7136608199a5d758433f7c599c8f89f31515cea;95 modified,1 deleted,1315 untracked (bao gồm báo cáo audit). Kết quả kiểm toán thực tế gần nhất: parse/data/headless63/63/graphics140script583/583 với33606assertions/Main PASS; graphics108.399s/121.166s trong180s/nhóm. Đây là baseline trước các sửa mới, KHÔNG phải kết quả cho ba kế hoạch chưa triển khai. Editor9516 còn mở, không có phiênF5 ở lần kiểm tra tiến trình vừa thực hiện. Không đóng Editor của người dùng.
+
+AGENTS.md:53 yêu cầu “plan first ... and wait for approval before coding” khi sửa nhiều file/domain. Vì ba phạm vi này chưa có ALLOW_LIST được duyệt riêng, hiện chỉ ghi kế hoạch này vào PROGRESS. Chưa sửa implementation/test/scene/data. Xin duyệt một lần toàn bộ ba phạm vi; sau đó không hỏi lại giữa mốc nếu vẫn đúng các danh sách dưới đây. Mọi phát sinh ngoài danh sách hoặc test cũ cần sửa ngoài phần cho phép phải được đưa ra bằng diff cụ thể trước.
+
+### Ranh giới chung
+
+READ-ONLY CONTEXT: AGENTS, PROJECT_RULES, ARCHITECTURE/API_INDEX/DATA_SCHEMA/CODE_PATTERNS/DECISIONS/ROADMAP, AUDIT_REPORT; D49/D53/D56/D62/D64/D73/D86 và toàn bộ contract liên quan gray_box_world/isometric_visuals/machine_shop/ui_components/player/inventory. Đã đối chiếu source/consumer/test thật, không chỉ dựa vào tick roadmap. Giữ DATA→DOMAIN→VIEW, GDScript typed, API công khai/ID/signal cũ, một DaySimulator, DetRandom, fonts/Theme và nguồn art hiện có.
+
+DO NOT TOUCH chung: mọi file ngoài ALLOW_LIST mốc đang chạy; đặc biệt project.godot/InputMap, Player/creation/Character/camera, crop/machine/item/recipe giá/growth/yield/season/house data hiện có, weather/animal/water/land/wallet/inventory owners, SaveService/savev12/wire/golden/fixture cũ, runner/GUT/timeout, localization, assets/imports, tệp prompt bị xóa và các thay đổi kế thừa. Không đổi nội dung audit đã bàn giao; các kết quả mới ghi vào PROGRESS/API và diff riêng. Không thêm stamina/manager removal/house/calendar/Director trong ba mốc này. Các mục đó cần hợp đồng riêng; không giả số liệu UI.
+
+Xác minh mỗi mốc: backup các file sắp sửa, hash toàn bộ working tree không bị ignore và toàn bộ test/tool/golden bảo vệ, lưu manifest/diff/task-specific before-after ngoài repo; chạy focused headless/native/render phù hợp rồi nguyên cmd /c tools\run_tests.bat bằng pinned4.7.2. Giữ cả583 case cũ, mọi assertion/golden/input-fixture cũ, discovery đầy đủ và180000ms/nhóm. Không nới giới hạn hoặc đổi runner để đạt pass. Nếu cần import cache cho class mới dùng helper isolated hiện có; UID phát sinh chỉ trong các path mới đã liệt kê. Không được bỏ test/đổi assertion cũ để hợp thức hóa lỗi.
+
+Bàn giao từng mốc: tiêu chí nghiệm thu, manifest chính xác, diff đầy đủ của riêng mốc, output thật, ảnh đã xem, bước F5, giới hạn/điểm chưa kiểm chứng, API/PROGRESS cập nhật, một dòng commit đề xuất; không auto commit. Mốc sau sử dụng hash sau mốc trước làm baseline nối tiếp, giữ diff trước. Nếu một mốc bị chặn/lỗi chưa giải quyết, không ghi cả chuỗi đã hoàn tất.
+
+### AUDIT-F1 — đồng bộ4stage và cây tái sinh (ISO-15/18; đề xuất D87)
+
+TASK: sửa cách suy stage để art/care dùng một quy tắc dữ liệu; giữ mô phỏng ngày/growth_target/regrowing và ngày thu thật. Hiện CropPresentation chia3 khoảng, FarmGridState dùng ceil(target/4) rồi modulo, CropCycleRules đặt growth0 khi thu nên cây lâu năm trở lại hình hạt. Không thay field save hoặc reset tăng trưởng đã lưu.
+
+Thiết kế cụ thể để duyệt:
+1. Thêm DATA CropStageConfig ở data/crop_stage_config.tres: stage_count4 và repeat_stage3 (thứ tự hình1-based). Validator kiểm đúng hợp đồng4ảnh hiện có, repeat nằm trong miền; không đưa giá/ngày thu mới vào script. Thêm stateless DOMAIN CropStageRules nhận progress/target/regrowing, không Node/clock/autoload/state hay serialize mới. Đề xuất API stage_index(growth_days:int,target_days:int,regrowing:bool=false)->int, crosses_stage(current_days:int,next_days:int,target_days:int,regrowing:bool=false)->bool; chỉ số nội bộ0-based, output art1–4. Helper cho tỷ lệ view phải có cùng kết quả ở biên, không dùng công thức thứ hai lệch nhau.
+2. Vụ đầu: stage1=[0,25%), stage2=[25,50%), stage3=[50,75%), stage4=[75,100%]. Khi target không chia hết4, xác định ranh giới bằng progress thật, không modulo ceil. Stage4 là giai đoạn có quả đang lớn; KHÔNG đồng nghĩa có thể thu sớm. Mature/harvest feedback chỉ đúng khi owner FarmGridState.can_harvest đúng (đủ ngày và chưa héo), không suy mature từ số hình4.
+3. Vòng tái sinh: plot.regrowing=true giữ artstage3 trong suốt thời gian chờ, chỉ artstage4 khi đạt growth_target; áp dụng mọi crop đang tái sinh, gồm coffee/pepper/orange/apple/banana và cả tomato/summer_tomato. Giữ nguyên growth_days=0 sau thu, regrow_days, độ ẩm/dry history/yield/seed/slot/coin. Với héo dùng đúng wilted texture của stage đang giữ, nước/mưa hồi phục theo đường cũ. Render không mutation owner.
+4. FarmGridState chỉ thay phép phát hiện qua ranh giới stage bằng helper chung, gồm cuối chu kỳ chín; giữ ưu tiên nước/mưa, nguyên tắc current_days>0 trước ranh giới (grace gieo mới), dry_limit Resource,2ngày héo thì chết, shovel, mùa và toàn bộ giao dịch thu. Đây là điều chỉnh care tại biên stage đã yêu cầu: ví dụ target5ngày, từ growth2 sang3 là một biên thật, khác modulo cũ; thiếu nước ở đó phải héo tại growth2 chứ không tăng trưởng. Ngày thu đủ nước và số lượng không đổi. Repeat chỉ có biên stage3→4 cuối chu kỳ, vẫn chịu dry_limit cũ.
+5. CropPresentation giữ các API cũ; nếu cần truyền regrowing thì thêm tham số cuối có defaultfalse để các caller hiện tại giữ tương thích. FarmView truyền regrowing thật; pivot/path/scale/picking giữ hợp đồng. get_stage_id vẫn trả0..3 hoặc withered, không rename metadata cũ; mature tách khỏi số hình để stage4 nonripe không nhảy ready.
+
+ACCEPTANCE: test biên0/25/50/75/100%, target3/4/5/7/12 và số không chia hết4; actual no-water transition vs dry-limit, repeat care, water-free; mọi16crop dùng đúng normal/wilted textures/pivot mà không được thu sớm. Vòng thật của5perennial và2IDtomato: mature→thu1lần→stage3→đợi đủngày→stage4; fullbag giữ cây/đầu ra, save/load giữa regrow không đổi ngày/yield/water/coin/weather/coop/ledger hoặc version12. Các test cũ giữ nguyên byte; thêm ba suite riêng cho rules/presentation/runtime, snapshots vi/en và root picking. Full gate đúng runner pass rồi mới sang F2. Không tuyên bố đã sửa toàn bộ ISO-15/18 nếu còn mục ngoài scope.
+
+ALLOW_LIST F1 —24đường dẫn, UID mới là tùy chọn do Godot sinh:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/DATA_SCHEMA.md
+docs/ARCHITECTURE.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+scripts/data/crop_stage_config.gd
+scripts/data/crop_stage_config.gd.uid
+data/crop_stage_config.tres
+scripts/domain/crop_stage_rules.gd
+scripts/domain/crop_stage_rules.gd.uid
+scripts/domain/farm_grid_state.gd
+scripts/view/crop_presentation.gd
+scripts/view/farm_view.gd
+scripts/core/data_validator.gd
+tools/validate_data.gd
+tests/unit/test_crop_stage_rules.gd
+tests/unit/test_crop_stage_rules.gd.uid
+tests/unit/test_crop_stage_presentation.gd
+tests/unit/test_crop_stage_presentation.gd.uid
+tests/unit/test_crop_stage_runtime.gd
+tests/unit/test_crop_stage_runtime.gd.uid
+~~~
+
+Rủi ro/giới hạn F1: target3ngày không thể nhìn đủ4hình ở từng ngày nguyên; test boundary tách trường hợp này khỏi số ngày gameplay. Có artstage4 trước ngày thu là chủ ý chia quý, mature vẫn do state; cần ghi rõ trong API/manual check. Thay điều kiện care tại biên là sửa logic có ảnh hưởng thời điểm héo nên có test đối chiếu cụ thể, không gọi là chỉ thay texture. Placeholder crop cũ vẫn giữ khi thiếu basename; không bổ sung art/giá.
+
+### AUDIT-F2 — exact/debug-only Ctrl+M (D62/Phase6.5; đề xuất D88)
+
+TASK: thống nhất route phím tắt shop máy, chỉ nhận Ctrl+M đúng modifier ở build debug; plainM và Ctrl+Shift/Alt/Meta+M không thành phím debug. Main hiện có OSguard nhưng UiCoordinator modal không có; callsites đều bỏ exact_match. Giữ shop E theo gameplay hiện tại và quyền ưu tiên GUI/day-end/sleep/transaction/modal, không thêm action M hay sửa InputMap.
+
+Thiết kế cụ thể: thêm stateless VIEW MachineShopShortcut.matches(event:InputEvent,debug_build:bool)->bool dùng đúng action toggle_debug_menu, pressed không echo/release, exact_match=true. Mọi caller Main/UiCoordinator/DebugMenu/NpcSystem dùng chung policy và truyền OS.is_debug_build(). Đối với danh sách chặn phím trong title/day-end/NPC, xử lý riêng actiondebug qua cùng policy, tránh route không exact còn sót; giữ nguyên logic các action khác. Không bật lại console debug cũ, không đổi nguồn state/shop/purchase và không thay hành vi E.
+
+ACCEPTANCE: unit/native event matrix pressed/released/echo, physical/key events, CtrlM đúng, plainM, CtrlShiftM, CtrlAltM, CtrlMetaM và debug_build=false. Với Main thật kiểm world, bag/pause/Character/NPC/title/day-end/sleep/busy: chỉ route cho phép mới mở/thay modal; reject giữ owner/active panel/clock/player và không mua máy. Dùng event.is_action(action, true) trong probe để chứng minh CtrlM không khớp open_map exact; M vẫn chưa có handler/màn, không bịa dual-trigger runtime. Giữ test_player_restoration và tất cả test cũ; thêm2suite riêng. Kiểm false-build bằng policy flag + review callsite bắt buộc OSguard; chưa có exporttemplates hiện tại, vì vậy KHÔNG mô tả kiểm policy này là đã chạy file.exe release. Nếu tìm được template local phù hợp sẽ chạy probe riêng ngoài repo, không cài đặt/thêm exportpreset. Full gate pass rồi mới sang F3.
+
+ALLOW_LIST F2 —17đường dẫn:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/INPUT_MAP.md
+docs/ARCHITECTURE.md
+docs/SCENE_CONTRACTS/machine_shop.md
+scripts/view/machine_shop_shortcut.gd
+scripts/view/machine_shop_shortcut.gd.uid
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/debug_menu.gd
+scripts/view/npc_system.gd
+tests/unit/test_machine_shop_shortcut.gd
+tests/unit/test_machine_shop_shortcut.gd.uid
+tests/unit/test_machine_shop_shortcut_input.gd
+tests/unit/test_machine_shop_shortcut_input.gd.uid
+~~~
+
+Rủi ro/giới hạn F2: native GUI có thể ăn event trước Main, phải test cả modal và world thay vì chỉ gọi helper. Synthetic InputEventAction dùng cho test khác phải được cân nhắc giữ đúng action hiện có; không đổi fixture/test cũ. Không chứng nhận releaseexport khi chưa chạy bản release thật.
+
+### AUDIT-F3 — cửa hàng máy vừa khung, chia header nhỏ (Phase6.5c; ảnh10; đề xuất D89)
+
+TASK: chốt nguyên nhân và sửa khung máy đang có, không biến nó thành cửa hàng CôHoa chưa có domain. Ảnh audit1152×648 có banner cao làm vùng nội dung rất ngắn; test hiện chỉ enclosure/scroll, không đo diện tích hữu ích. Trước khi sửa phải đo header/banner/body/details/catalog/footer sau2frame và sau layout ổn định để phân biệt lỗi UI lâu dài với screenshot quá sớm.
+
+Thiết kế cụ thể:
+1. Tách header thành LifeMachineHeader (HBoxContainer, script+scene nhỏ mới) dùng Theme/components hiện có, gồm banner/land/close; typed request signals. LifeMachineScreen giữ alias public banner/land_button/close_button cùng signals/caller hiện có, thêm header field nếu cần; header/foot không cuộn, chỉ body expand. Không đụng Theme/fonts/globalstyle/assets hay scene cũ.
+2. Sizing/expand/shrink và wrapping phải rõ ở machine components. Preview có tỉ lệ, detail/catalog cuộn riêng; ví tiền/result/nút không đè nhau. Các Label dùng variation có sẵn, không thêm StyleBox override rải rác. Footer nhiều lệnh ở operation phải vẫn tiếp cận đầy đủ ở cửa sổ nhỏ và văn bản Anh dài. Chỉ thay đoạn machine-modal trong UiLayout nếu cần; không đổi rectangle các màn khác.
+3. Thêm bounded layout convergence trên đúng pending resize/minimum-size thay vì sleep tùy ý; timeout là fail, không bỏ ảnh hoặc assertion. Nếu đo cho thấy banner chỉ sai ở capture2frame, sửa fixture capture/thời điểm reflow và ghi rõ phát hiện; không gọi đó là lỗi runtime đã sửa. Mọi case cũ còn nguyên, chỉ thêm assertion/hỗ trợ settle đúng; không thay input/outcome hay số case cũ.
+
+ACCEPTANCE: shop/locked/idle/working/ready/fullbag/longtext ở1152×648,1280×720,1920×1080,vi/en. Ở trạng thái shop bình thường1152: header không quá20%chiều cao modal và body>=240px, nhìn đủ ít nhất2card bình thường; title/land/close có text và hit rect, footer/chi tiết/danh sách không chồng, vẫn scroll tới máy cuối. Kiểm status/buffer/nút ở operation và điều hướng native/focus ổn định sau resize/locale/deferred refresh; tất cả buy/place/start/collect/move/return giữ outcome/domain/save12. Capture SubViewport render thật, xem đối chiếu ảnh10; không đặt PNG mockup vào game. Giữ mọi case/assertion cũ của test_machine_screen.gd; chỉ bổ sung geometric assertions/convergence. New test_machine_screen_layout riêng. Full parse/data/headless/graphics/Main pass và task diff/source audit kết thúc chuỗi. Chưa làm Sell/Buyback/cart/houselevels/NPCportrait.
+
+ALLOW_LIST F3 —17đường dẫn; chỉ scene mới machine_header.tscn được phép tạo:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/machine_shop.md
+ui/machine/machine_screen.gd
+ui/machine/machine_details.gd
+ui/machine/machine_footer.gd
+ui/machine/machine_catalog.gd
+ui/machine/machine_card.gd
+ui/machine/machine_header.gd
+ui/machine/machine_header.gd.uid
+ui/machine/machine_header.tscn
+scripts/view/ui_layout.gd
+tests/unit/test_machine_screen.gd
+tests/unit/test_machine_screen_layout.gd
+tests/unit/test_machine_screen_layout.gd.uid
+~~~
+
+Rủi ro/giới hạn F3: layout tạm thời có thể bị test chụp quá sớm; phải có số đo/ảnh ổn định trước-sau. Tăng khoảng hữu ích không được giấu lỗi text bằng việc bỏ thông báo thật; thông báo dài phải còn đọc được qua wrap/scroll/tooltip phù hợp. Giữ scope các màn máy, không refactor global UI. Các ngưỡng240px/20%là tiêu chí hình học nghiệm thu, không phải số cân bằng gameplay.
+
+### Handoff của bước lập kế hoạch hiện tại
+
+Chỉ sửa docs/PROGRESS.md để đưa ba kế hoạch/ALLOW_LIST cụ thể ra duyệt. Các API/Resource/scene/test mới ở trên là ĐỀ XUẤT, chưa tồn tại/triển khai; không ghi DONE/PASS mới. Full583/583 được dẫn như baseline của audit. Tổng hợp union48path cho cả3mốc, từng mốc vẫn chỉ dùng danh sách riêng. Chờ người dùng duyệt cả3hoặc chỉnh phạm vi trước khi viết code. Sau duyệt sẽ làm đủ3mốc liên tiếp khi không gặp điều kiện chặn, không dừng sau mỗi phần chỉ để xin xác nhận lại cùng phạm vi.
+
+Bản trước kế hoạch, SHA toàn repo/HEAD/index, ba allow-list JSON và bản kế hoạch để review: D:/godot/game-godot-backups/audit-followups-plan-20261118-015251/. Một dòng commit đề xuất cho bước tài liệu này: docs: plan three sequential audit followups. Không commit.
+
+## Phase7.1b — runtime weather/save12 automation delivered (583/583; human acceptance/commit separate, 2026-11-18)
+
+Owner approved original56 paths, the exact five additional weather expectations, and “Duyệt sửa fixture chuyển ngày thật” for tests/unit/test_day_simulator.gd. Final scope57 paths:43 modified+14 created including6 generated UIDs. Resume hash checks found0 source/scope/save drift. All557 old case names/assertions retained,26 additive cases;27 old test files match only the three exact approved patches,334 other protected test/tool files byte-identical. No stage/commit/push. Inherited pending work/prompt deletion preserved;20 real-save hashes unchanged.
+
+Delivered: WeatherProfile declares initial sunny/horizon3 with unchanged four IDs/order/55-25-15-5 weights/effects. New WeatherRoller uses existing DetRandom tag1 per absolute future day; merchant tag8/mixer unchanged. WeatherState validates atomically, persists committed day, captures opaque next-day reservations and keeps busy through detached notifications. Main preflights exact signaled/current clock day, reserves before callbacks, preserves the existing one-argument farm delegate and farm->animal->machine order, commits weather/new rain/ledger before safe autosave/bulletin. Save12 migration binds old valid weather to saved clock without rerolling any today/seed/three choices; only new tail uses tagged RNG. Missing/corrupt component uses explicit actual-day baseline with other progress retained. Water introduction10/coop11 semantics and gameplay data stay.
+
+Acceptance: genuine pinned4.7.2 RNG golden covers30 signed/large-seed/day vectors plus merchant draws;1000-day/resume invariants, invalid restore, no replay/reentry/skips, captured callback terms, real v1-v12 migration/load/Continue, saved-first-three predictions through reload and manual/forced/direct mornings pass. No new UI/scene/art/input/autoload/global signal or future7.2/ecology/director work. Empty legacy v1 weather remains{} at save boundary. New scripts<=159 lines; existing large Main/SaveService changes are narrow wiring.
+
+Focused5 real output:10 scripts49/49,6517 assertions,8.277s. Resumed focused6 exact fixture and rollover checks:
+~~~text
+Scripts               2
+Tests                 7
+Passing Tests         7
+Asserts              59
+Time              2.241s
+---- All tests passed! ----
+~~~
+Official unchanged cmd /c tools\run_tests.bat, full2.log exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts882; Time5.328s
+---- All tests passed! ----
+[graphics_tests] PASS: 140 scripts, 583/583 tests, 33606 assertions; GUT 227.618s, wall 239.5804094s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+~~~
+Group1=291/291/15782 assertions/106.692s; group2=292/292/17824 assertions/120.926s. Both sequential180000ms bounds unchanged. Total official wall=256.8345552s. Strict final archive has no SCRIPT ERROR/Parse Error/ERROR/failure/ignored case/orphan. Expected old negative-data/placeholder/float warnings and deliberate busy/corrupt-weather warnings remain. Import inherited duplicate-asset UID warnings are recorded; no new art claim.
+
+Honest history: initial source smoke caught a nonexistent coop day getter, fixed to existing serialize().current_day. New tests initially needed correct JSON numeric-type expectations and actual rain-reset care expectation; golden was captured once, never rewritten to hide failure. Original full1 stopped correctly at headless62/63 because an old fixture emitted tomorrow without changing clock. The owner-approved exact fixture now uses real sleep_to_morning, explicit sunny forecast for original drain assertion, clock/pause cleanup, and2 added growth/day assertions. Failed logs retained; no failed run counted as PASS.
+
+Editor steps: none. Manual F5: record today/three forecasts, sleep through review and compare new today to saved head; save/load and repeat through all3. Continue/load alone must not advance day/open bulletin. Compare coins/items/water/coop/ledger, one care/egg update and one bulletin; dismissal must not simulate. Check current rain/new sunny drain. Human acceptance remains pending. To reproduce automation use unchanged full command above and pinned D:/godot/Godot_v4.7.2-stable_win64.exe; bounded runner isolates user:// from real saves.
+
+Limits: fresh/tail sequence intentionally migrates RNG; saved values never inferred from seed. No seasonal probabilities/offline catch-up. Ordinary invalid deserialize retains prior state; trusted Main load/new explicitly initializes missing/corrupt weather. Raw debug fields/GameClock setters are not guarded gameplay transactions. Serialize during reservation is diagnostic; only save committed safe points. D86/APIs/schema/architecture/roadmap/world/day-end/morning contracts updated. Full task list/full contents/diff/raw logs/audits in D:/godot/game-godot-backups/phase71b-20261117/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,source-freeze.json,full2.log,full-result2.json,full-final/,scope-audit-final.json,player-save-audit.json,reverse-check.txt}.
+
+Suggested commit only: feat: lock daily weather and preserve forecasts in save v12
+
+
+### Phase7.1b approved plan and implementation checkpoints (historical; delivered status above)
+
+MILESTONE: ROADMAP7.1 after delivered standalone7.1a. Owner asked to continue; owner explicitly approved all56 paths with “Duyệt Phase7.1b, bắt đầu triển khai”. All16 delivered7.1a hashes match with0 drift. Last actual gate remains parse/data/headless63/63/graphics557/557 (27858 assertions)/Main PASS. No new code/test/PASS claimed. Only this planning memory is written. No stage/commit/push authorization; preserve all inherited pending work, prompt deletion and real saves.
+
+Implementation checkpoint: new tagged Roller/day reservations/runtime/save12 and four new suites are written within approved scope. First focused6 scripts43/43 passed; another focused run exposed old weather-envelope equality expectations in five old tests, plus new-test numeric-type/care expectation issues being corrected. No full PASS claimed. Prepared externally ONLY: D:/godot/game-godot-backups/phase71b-20261117/proposed-weather-migration-test-compatibility.patch and proposed-extra-test-changes.json. Await owner approval to add expectation-only blocks in test_crop_care_save.gd/test_crop_regrow_save.gd/test_day_end_save.gd/test_land_save.gd/test_watering_runtime_save.gd: copy original expected weather, canonicalize world_seed:int and add day_index:int from original saved clock, retaining the existing complete equality assertion. No old test names/assertions/goldens/runners removed or weakened; all other comparisons unchanged. These five files already exist in the56 paths, but the extra blocks exceed the specifically approved30-version/legacy-roundtrip patch, so AGENTS2.1/3 requires this narrow review before applying them. Remaining independent new tests/docs may proceed.
+
+
+Owner approved the exact five extra weather expectation blocks; applied with before/after SHA checks. Focused5 strict49/49,6517 assertions passed. First official full gate stopped correctly at headless62/63 (879/880 assertions): test_day_simulator.gd::test_main_connects_day_started_to_day_simulator emits tomorrow signal while leaving clock yesterday. The new actual-day guard correctly rejects that inconsistent fixture; no runtime/parse error. Proposed external ONLY D:/godot/game-godot-backups/phase71b-20261117/proposed-day-signal-fixture.patch replaces synthetic emit with real sleep_to_morning, fixes sunny next weather explicitly for existing water-drain assertion, restores shared clock/pause, retains every assertion and adds growth/day consistency checks. This test file is outside56 paths, awaiting owner approval for57th path. No full PASS or old-test bypass.
+
+
+2026-11-18 owner explicitly approved “Duyệt sửa fixture chuyển ngày thật”. Resumed after source/scope/20-save drift checks all0. Applied exact proposed-day-signal-fixture.patch with before/after SHA verification; ALLOW_LIST now57 paths (43 existing+14 new), additional test_day_simulator.gd only. Original assertion retained and2 growth/weather-day assertions added; no production code change on resume. Full gate pending rerun; no stage/commit/push.
+
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS D03/D19/D83/D85/CODE_PATTERNS/ROADMAP; actual WeatherProfile/WeatherSnapshotCodec/WeatherState, DetRandom and merchant usage, Main/DaySimulator/day-end/morning/coop/weather/save/water flows and contracts, all save goldens1-v11/current compatibility tests. Keep existing world/UI and exact one-argument injectable farm-step seam. No new node/scene/input/autoload/global signal.
+
+TASK: connect validated weather to actual runtime, route new rolls through DetRandom.make_rng, persist exact current weather day and reject duplicate/reentrant/skipped day progression. Preserve every valid saved today/seed/three forecast choices through migration and reload; only future newly needed entries use the new RNG. Keep four IDs/order/weights55-25-15-5/darkness/flags and all gameplay prices/timing/progression unchanged. New-game and newly appended forecast results intentionally follow the new tagged RNG; this is an approved algorithm migration proposal, not a claim of identical legacy rolls forever.
+
+Concrete policy/API plan:
+1. Add WeatherProfile.initial_weather_id:StringName, shipped=&sunny (the already existing startup weather), validate known ID even if its weight is zero. Keep forecast_days3 and all entries byte-identical. Add actual DetRandom.TAG_WEATHER:int=1 from documented reserved weather tag; retain merchant tag8, MOD/mix/make_rng bodies and merchant sequence unchanged. No RNG global calls/hash/seed algorithm rewrite.
+2. New pure WeatherRoller stateless helper validates profile/seed/day and selects from current integer weights using DetRandom.make_rng(seed,absolute_day,TAG_WEATHER).randi_range(0,total-1). Forecast horizons come from profile. New-game current day0 uses declared initial sunny; future days1..3 are pre-rolled. Each later completed rollover consumes exactly the saved first value and appends only the needed absolute day (new_day+forecast_days). No reroll of a valid saved today/forecast, zero-weight-but-known saved values remain valid. Bound seed/day and day+horizon to signed exact-JSON precision; invalid/overflow preflight fails explicitly.
+3. Keep WeatherSnapshotCodec.decode(profile,raw) and its legacy three-field result unchanged. Add decode_at_day(profile,raw,expected_day:int=-1)->Dictionary: require nonnegative integral JSON-safe day_index with space for horizon; optional expected day must match; return canonical four-field snapshot or errors. New pure WeatherSaveCodec normalizes envelopes at explicit saved clock day, separates legacy3/current4 formats and preserves empty{} weather components. Valid legacy3 gains day_index=clock.day_index, preserving every value/order; malformed component warns and becomes{} without touching other progress. No RNG in save codec/migration. Legacy missing/empty weather stays{} until runtime initialization (retains existing v1 expectation).
+4. WeatherState keeps existing names/signatures of advance_day/force_weather/serialize/deserialize and configure's existing arguments; optional start_day follows seed for explicit context. Add get_day_index()->int, is_busy()->bool, day_quote(target_day:int)->Dictionary, begin_day(target_day:int)->Dictionary, finish_day(token:RefCounted)->bool, abort_day(token:RefCounted)->bool, restore_for_day(raw:Variant,day:int,default_seed:int=0)->Dictionary. One persistent owner: day_index joins world_seed/today/forecast. Day advance accepts exact current+1 only; duplicates/past/skips/invalid state/numeric overflow/busy reject before draw/pop/signals. Captured opaque day reservation protects raw mutation/reconfigure/restore/force across callbacks; invalid/null/reused tokens cannot settle/abort someone else's day. Reserved snapshot is transient, never saved. Keep methods<=250 lines per new script; factor pure roll/save work into listed helpers rather than growing a god class.
+5. begin_day captures the next committed today/forecast/day terms before any farm callbacks, without applying them. Matching finish commits those captured terms once, then publishes one weather/forecast change through existing typed local/global signals; no Node references in DOMAIN. Busy remains through notifications so callback day/force/reset/restore cannot replay. Observers receive detached forecast arrays. abort leaves original owner unchanged; the tagged per-day RNG is stateless so abort cannot alter merchant/global streams. serialize includes four canonical fields, tokens/busy excluded; serialize during a reservation is diagnostic, not a safe save.
+6. Ordinary deserialize validates complete current4 or backward-compatible complete legacy3 snapshots atomically (legacy binds caller's configured current day), keeps prior owner and emits nothing on invalid input. No blind StringName/int/container conversions. configure rejects invalid terms unchanged and initializes silently, preserving existing initial notification behavior. Explicit restore_for_day is the trusted Main new/load replacement command: first decode a valid component at requested day and apply it without drawing; for missing/invalid weather initialize deterministic default_seed0/initial sunny/three future tagged rolls at that actual day, warn for corruption and publish final state once. This is deliberate component fallback, not fallback inside the pure legacy decoder. Preserve whole valid saved forecasts even if they differ from fresh seed output.
+7. Main ready configures weather at actual GameClock.day_index. New game/load use restore_for_day on the same WeatherState instance so existing views/refs remain. Main's morning handler first checks animal and weather target days, reserves weather BEFORE outgoing rain/farm simulation; existing runtime busy remains across farm->animals->machines, season care, weather finish, new rain and ledger reconciliation. Use signaled day consistently. Only finish weather after the completed simulation's owner day is confirmed; abort on rejected preconditions, fail closed on impossible internal error. No independent weather clock/delta/second simulation path. Source busy joins Main._purchase_in_progress, protecting save/load/new/title/sleep/input throughout weather callbacks; no UI/day-end source edit is needed for existing delegates. Keep one-argument injected farm-step interface and established outgoing-rain/new-rain order.
+8. SaveService.CURRENT_VERSION12, new migrate_11_to_12 and immutable save_v12 golden copied fromv11 with weather.day_index equal saved clock day. v1-v11 valid weather preserves seed/today/all3 predictions and gains day; empty/malformed weather stays/normalizes{} for actual-day runtime fallback. Currentv12 requires valid matching day; future versions still reject. Trusted save_game callers supplying legacy complete3 may be packed at explicit clock day for API compatibility; malformed component is diagnosed/empty rather than crashing or fabricating values. Keep other fields/migrations/atomic writes/backups intact. Preserve watering introduction10 and coop data/v11 ownership semantics; no water refill/free hens/ledger/other-progress loss. Raw prebuilt _load_payload legacy fixtures remain supported through explicit actual-day binding.
+9. Compatibility edits are ONLY external proposed-test-compatibility.patch:30 output-version expectations11->12 in25 old files (two same-line captions v11->v12), plus the legacy WeatherSnapshotCodec runtime-roundtrip test projects serialized day_index away from its intentional three-field fixture and adds one assertion that restored day_index==0. No existing assertion/test name removed; v1 empty-weather assertion, v10 watering fixtures, all old save goldens/weather fixture/input versions stay unchanged. Existing future-version fixture uses CURRENT_VERSION+1 and needs no edit. All557 old test names/cases retained; no blanket replacements of11 or deleting failures.
+10. Four new test suites: tagged RNG and genuine pinned sequence/cold-vs-resume/merchant independence; serializable day owner/atomic invalid restore/zero-weight choices/duplicate and token reentry; real Main v1-v12 save migration/new/load/Continue/default fallback/other progress preservation; day-end/rain/bookkeeping callbacks/shared lifecycle guards/duplicate day signals and actual next forecast. Exercise legitimate manual/forced/direct mornings, preserved injected farm spy, current clock day loading, same saved first3 choices through three mornings and only then new tail, malformed component safety and repeated load/no draw. Add1000-day deterministic invariants without off-line/skip catch-up or statistical-flaky frequency assertions.
+11. New tests/fixtures/weather_rng_v12.json is a REAL RNG golden for pinned4.7.2/tag1 and documented seed/day vectors, generated from the actual implementation, reviewed/pinned once; never guessed from legacy formula or rewritten to silence failures. Include signed/large safe seeds and stable merchant stream checks. Do not edit old golden files or v11 codec fixture. No new art/UI scene needed; existing HUD/morning/rain/care/view tests remain in the full suite, with no mockup or visual-completion claim.
+12. Document D86/schema/APIs/architecture/day-end/morning/world contracts and current roadmap/memory, including intentional new RNG tail/fallback policy. Before code copy/hash all pending work/scoped originals/protected tests/tools/goldens/player save bytes. Run focused new domain/runtime/old weather/save/care/morning checks, then unchanged cmd /c tools\run_tests.bat with complete discovery, fixed63 headless cases, both sequential180000ms graphics bounds and Main smoke. Strictly reject ignored/parse failures even if GUT exits0. Deliver exact manifest/full contents/task diff/raw logs/manual steps/scope-save audit and suggested commit. No auto commit, runner/time-limit changes or claim of unconfirmed human acceptance. Unexpected need for another old test/path edit requires a new concrete review.
+
+PROPOSED ALLOW_LIST — exactly56 paths (42 existing,14 new including6 optional generated UIDs):
+
+Existing documentation/contracts (9):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/morning_bulletin.md
+~~~
+Existing implementation (7):
+~~~text
+scripts/data/weather_profile.gd
+data/weather_profile.tres
+scripts/domain/weather_state.gd
+scripts/domain/weather_snapshot_codec.gd
+scripts/domain/quests/det_random.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+~~~
+Existing tests (26), ONLY pre-reviewed patch edits:
+~~~text
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_chicken_coop_collection.gd
+tests/unit/test_chicken_coop_feeding.gd
+tests/unit/test_chicken_coop_runtime_save.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_save.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_recipe_economy.gd
+tests/unit/test_save_service.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_water_source_world.gd
+tests/unit/test_watering_runtime_save.gd
+tests/unit/test_watering_upgrade_flow.gd
+tests/unit/test_weather.gd
+tests/unit/test_weather_snapshot_codec.gd
+~~~
+New files (14):
+~~~text
+scripts/domain/weather_roller.gd
+scripts/domain/weather_roller.gd.uid
+scripts/domain/weather_save_codec.gd
+scripts/domain/weather_save_codec.gd.uid
+tests/unit/test_weather_rolls.gd
+tests/unit/test_weather_rolls.gd.uid
+tests/unit/test_weather_daily_state.gd
+tests/unit/test_weather_daily_state.gd.uid
+tests/unit/test_weather_runtime_save.gd
+tests/unit/test_weather_runtime_save.gd.uid
+tests/unit/test_weather_rollover_guard.gd
+tests/unit/test_weather_rollover_guard.gd.uid
+tests/golden_saves/save_v12.json
+tests/fixtures/weather_rng_v12.json
+~~~
+
+DO NOT TOUCH: everything else, including all existing .tscn/art/Theme/localization/Player/camera/input/project.godot/autoload list/Events, current weather entries/weights/order/darkness/flags/forecasthorizon3, other items/crops/recipes/machines/coop/land/water/inventory/wallet/ledger/gameplay numbers, DaySimulator/animal/machine/day-end/UI sources, old goldens/fixtures/GUT/tools/runners/bounds and all old tests except the exact proposed patch. No season-specific weights/ecology/director/offline catch-up/house/stamina/event systems, new signal names, public API rename/deletion, package installation or commit/stage/push. Existing runtime effects/styles remain.
+
+ACCEPTANCE: new draws use tagged DetRandom while merchant stream and all weather weights stay; valid old/current saves preserve exact today/seed/three pre-rolls and reload never rerolls; fresh/tail sequence has a real pinned golden. Four-field owner day survives save12/load; exact-next-day/token guards reject duplicate/reentry/skips before mutation, source/Main lifecycle cannot save or replace half-completed weather/care. Legitimate day order/weather UI/current-rain care stay correct. Invalid inputs never blindly cast/crash; ordinary invalid restore retains prior state, actual load's corrupt/missing component gets documented correct-day deterministic baseline with other progress intact. All557 old cases retained with exact approved compatibility edits, all old goldens/data/runners/bounds preserved, complete strict gate/Main and artifacts pass. Human acceptance/commit remain separate.
+
+Review artifacts: D:/godot/game-godot-backups/phase71b-plan-20261117/{allow-list.json,baseline-audit.json,proposed-test-compatibility.patch,proposed-test-changes.json,before-tests/,proposed-tests/,PROGRESS-before-plan.md,proposed-plan.md}. The patch is prepared externally and NOT applied. No new runtime code or PASS claim before approval.
+
+
+## Phase7.1a — weather profile and independent codec (557/557 automation delivered; runtime wiring/review/commit separate, 2026-11-17)
+
+Owner approved all16 paths with “Duyệt Phase7.1a, bắt đầu triển khai”. Pre-code backup D:/godot/game-godot-backups/phase71a-20261117 copied/SHA256-verified1382 pending files, all9 scoped originals,356 existing test/tool hashes, HEAD/index and20 real saves with bytes. Exact delivery16 files:9 modified+7 new including3 generated UIDs. No stage/commit/push. Final outside-scope drift0; all356 old test/tool files/all535 previous cases/goldens/runners remain byte-identical. WeatherState/DetRandom/Main/day/saving/UI/art remain untouched. Real20 save hashes unchanged; inherited deleted prompt/pending work preserved.
+
+Delivered DATA: WeatherProfile.forecast_days=3 metadata and pure strict validation. Preserve all four IDs/order/55-25-15-5 weights/darkness/flags/get_entry behavior. Reject duplicate/non-string/non-ASCII-snake IDs, invalid horizon/empty entries, wrong/negative/unsafe integer weights/unsafe or nonpositive total, nonfinite/out-of-unit darkness, nonboolean flags and storm without rain. DataValidator gains resource facade and narrowly adapts existing path facade, preserving missing/unloadable/basic validation coverage and adding wrong Resource rejection. Existing official data tool inherits these checks without source/runners changes.
+
+Delivered DOMAIN: stateless WeatherSnapshotCodec.decode(profile,raw) validates complete current wire shape. Signed exact-JSON seed int/integral finite float canonicalizes within +/-9007199254740991; today/forecast IDs must be known strings/StringNames, forecast Array/PackedStringArray exact horizon. Saved known zero-weight choices remain valid. Success returns detached canonical three-field snapshot, preserves values/order, drops extras. Failure returns explicit errors without partial/default snapshot. No randomness, events, day/time, mutation, resource/node references in output or persistence. Fixture copies actual unchanged golden11 weather component; it is codec compatibility data, NOT an RNG sequence golden.
+
+Scope boundary: codec is deliberately NOT connected to runtime. Current WeatherState still has its old hardcoded3/custom RNG/unchecked raw restore/no completed-day token. This task does not waive the DetRandom rule, claim malformed game loads repaired, migrate savev11 or complete all7.1. These remain separately approved7.1b work. Existing D19/ISO weather/day-night/forecast visuals continue unchanged; no competing WeatherService or new ecology/director system.
+
+Acceptance restated: unchanged real profile values pass stricter pure data gate; malformed profiles fail explicitly. Complete valid wire/JSON preserves saved choices/canonical scalar types and detached values, rejects malformed/unsafe data without coercion/partial result/mutation/randomness/events. Fixture matches actual v11 component, all535 old tests/goldens/runners and runtime sequences/save stay unchanged. Complete bounded gate/Main and exact documentation/diff/raw output/scope-save audit delivered. Human review/commit separate.
+
+Real focused headless output from focused1.log.stdout (new22 cases plus20 old weather/morning/save/data checks):
+~~~text
+Scripts               6
+Tests                42
+Passing Tests        42
+Asserts             489
+Time              2.861s
+---- All tests passed! ----
+~~~
+
+Official unchanged cmd /c tools\run_tests.bat, full1.log exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.306s
+---- All tests passed! ----
+[graphics_tests] PASS: 136 scripts, 557/557 tests, 27858 assertions; GUT 219.787s, wall 231.6013044s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+~~~
+Group1=68 scripts279/279/10517 assertions/100.503s; group2=68 scripts278/278/17341 assertions/119.284s. Both sequential180000ms bounds unchanged.22 new cases/325 assertions; all535 old cases stay byte-identical. Strict final logs have no SCRIPT ERROR/Parse Error/ERROR/ignored-script/orphan. Expected old malformed-data/visual/float warnings remain; import duplicate-asset UID warnings are inherited. Focused and full runs passed; no failed/ignored run is counted. No new UI/art/capture claim for a pure foundation.
+
+Editor steps: none. No scene/Inspector/InputMap wiring. Current profile Inspector shows forecast_days3; no need to change it. From repo root, use existing isolated tools/run_godot_bounded.ps1 with pinned D:/godot/Godot_v4.7.2-stable_win64.exe and -Arguments '--headless --path . --script tools/validate_data.gd' plus external -OutputPath; expect [validate_data] PASS. Run GUT test_weather_profile_validation.gd/test_weather_snapshot_codec.gd for22 new cases: valid JSON/legacy wire and signed/integral seeds preserve forecast; malformed containers/IDs/flags/weights/nonfinite/unsafe seeds fail with no partial result; mutation/event/purity cases pass. Use unchanged full command above for all regression. Do not modify real saves or shipped profiles to exercise malformed cases; tests clone data. Existing game play/load behavior is unchanged, not a newly accepted runtime repair.
+
+Assumptions/known limits: MAX_WEIGHT_TOTAL2147483647 is integrity, not probability tuning; horizon3 metadata is not yet consumed by the legacy runtime. Current three-field decoder is not a last-day/schema migration. Complete known zero-weight IDs must remain valid pre-rolls; no inferred weather from seed, new sunny fallback or partial acceptance. Unknown fields drop and StringName/string containers canonicalize; valid negative seeds retained. Actual future RNG/day/save integration requires its own plan and potential version review. No locked rule is relaxed and no feature beyond this foundation is claimed.
+
+D85/API/schema/architecture/roadmap/current memory updated; prior6.7-and-earlier memory preserved byte-for-byte. Full task list/full contents/clear diff/raw logs/audits: D:/godot/game-godot-backups/phase71a-20261117/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,source-freeze.json,focused1.log.*,full1.log,full-final/,full-result.json,scope-audit-final.json,player-save-audit.json,reverse-check.txt}. Suggested commit only, not executed: feat: validate weather profiles and decode saved snapshots
+
+
+### Phase7.1a approved plan checkpoint: — weather data contract and standalone snapshot codec (APPROVED; implementation in progress, 2026-11-17)
+
+MILESTONE: ROADMAP7.1 foundation, after Phase6.7. Owner asked to continue; owner explicitly approved all16 paths with “Duyệt Phase7.1a, bắt đầu triển khai”. All24 delivered6.7 file hashes match with0 drift; last real gate remains parse/data/headless63/63/graphics535/535 (27533 assertions)/Main PASS. No new tests or implementation/PASS claimed. Only this planning memory is written. No commit/stage/push authorization.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS D03/D19/D84/CODE_PATTERNS/ROADMAP, existing WeatherProfile/WeatherState, actual DetRandom, weather/morning/care/save tests and golden1-v11. No scene changes; no scene contract/node path/input/signal is introduced. Preserve all inherited dirty files, prompt deletion and real player progress.
+
+Findings: D19 already delivered weather/four seasons/day-night and the ISO runtime already displays forecast/rain. Do not create a competing WeatherService or claim these features are absent just because old roadmap rows are unchecked. WeatherProfile currently has entries only; validator checks basic IDs/nonnegative probability/positive total through coercion. WeatherState.deserialize coerces arbitrary saved seed/id/forecast types and can reroll an empty list; current rolling uses its own arithmetic instead of required DetRandom.make_rng. It stores no completed-day token. Actual DetRandom exists at scripts/domain/quests/det_random.gd with merchant tag8; sample TAG_WEATHER1 in CODE_PATTERNS is documentation, not an implemented constant. These legacy runtime/RNG gaps are recorded, not silently declared compliant or fixed by this slice.
+
+TASK: establish validated DATA and a pure independent decoder for the CURRENT three-field weather wire shape. Add stricter WeatherProfile checks to the existing official data gate, and unit/JSON compatibility coverage. Do not connect the decoder to current runtime or change any generated/saved forecast. Later7.1b must separately plan actual WeatherState restore/day/RNG integration and any save-version migration; this foundation is not completion of all7.1 acceptance or repair of arbitrary malformed runtime loads.
+
+Plan:
+1. Add WeatherProfile.forecast_days:int with value3 in data/weather_profile.tres, matching the existing three-day contract. Add pure validation_errors()->PackedStringArray. Validate positive horizon, nonempty entries, unique valid ASCII snake_case IDs, nonnegative strictly integer weights with positive safely bounded total, finite darkness within0..1, boolean rain/storm flags and storm implies rain. Use an explicit numeric integrity bound, not a new gameplay probability. Keep every existing weather ID, entry order,55/25/15/5 weights, darkness/flags, get_entry signature and Resource path/UID unchanged. The new horizon is DATA contract metadata; current WeatherState still uses its legacy hardcoded3 until the next approved integration.
+2. Add DataValidator.validate_weather_resource(profile:WeatherProfile)->PackedStringArray and adapt existing validate_weather_profile(path:String) narrowly to validate resource type and delegate to the pure checks. Retain existing missing/unloadable path, ID, negative probability and positive-total coverage; strengthen type/duplicate/flag/finite checks without silent coercion. Existing tools/validate_data.gd already calls this public path method, so the official gate gains strict profile validation WITHOUT editing tools/runners.
+3. New pure stateless WeatherSnapshotCodec RefCounted: static decode(profile:WeatherProfile,raw:Variant)->Dictionary. Validate profile first; require a Dictionary with world_seed, today, forecast. Seed must be an int or finite integral JSON float in signed exact-JSON range[-9007199254740991,+9007199254740991]; preserve valid negative/zero seeds rather than inventing a new seed policy. today and every forecast member must be String/StringName IDs known to the validated profile. Forecast must be an Array or PackedStringArray of exactly profile.forecast_days entries. No strings/dictionaries treated as arrays, no arbitrary StringName casts. Known zero-weight weather IDs remain valid saved pre-roll values: a probability edit must not make a known saved forecast reroll.
+4. Decoder success returns {ok:true,snapshot:{world_seed:int,today:String,forecast:Array[String]}} with detached canonical data and unchanged values/order. Ignore unknown extra keys and never retain Node/Resource references. Failure returns {ok:false,errors:PackedStringArray}, with no fabricated sunny/default seed/forecast or partial accepted snapshot. No random draw, event/signal, caller mutation, state owner, day advance, fallback or file write. It is stateless, so no serialize/deserialize methods or new game-save version are needed. Do not claim malformed saves are repaired in game while this decoder remains unconnected.
+5. New codec fixture tests/fixtures/weather_snapshot_v11.json copies only the actual weather object from unchanged tests/golden_saves/save_v11.json: seed0/today sunny/forecast[cloudy,rain,sunny]. This is a wire/codec compatibility fixture, NOT a weather RNG-sequence golden. Existing save goldens remain byte-identical. Test decoding preserves every saved choice even if it does not match a fresh seed roll; valid JSON int normalization must not be mistaken for a different forecast.
+6. Add two test scripts: profile valid data/duplicate IDs/invalid types/weights/zero total/overflow/flags/darkness/horizon and existing-path facade compatibility; codec exact valid wire, signed seeds/integral floats, detached snapshots/extras, known zero-weight IDs, unknown/non-string IDs, wrong forecast container/length, missing fields/null/bool/nonintegral/nonfinite/unsafe numbers, malformed profile and input purity. Compare raw/profile data before/after and repeated decode results; valid old WeatherState serialize/restore samples must retain existing three fields/forecast. Never feed corrupt data through the unchanged legacy runtime and then pretend the new helper fixed it. All535 old tests/fixtures/goldens/runners/names/assertions stay untouched.
+7. Write D85/API/schema/architecture/current memory and accurate7.1 foundation status. Keep7.2 existing visual work described as prior D19/ISO behavior, without claiming new review or expanding scope into ecology/director. Record remaining legacy RNG/day-token/restore work explicitly. New scripts target<=250 lines. No new scene/asset/UI/camera/Player/binding, probability tuning, seasonal rules or stage feature.
+8. Back up/hash pending work, all9 scoped originals, protected tests/tools/goldens and real save bytes before code. Run focused new profile/codec plus old weather/morning/save/data validation checks, then unchanged cmd /c tools\run_tests.bat with full discovery, fixed63 headless cases, two sequential180000ms graphics bounds and Main smoke. Preserve all old check members/runners/timeouts; no old test edits or invented PASS. Deliver exact list/full contents/task-only diff/raw logs/scope-save audit/manual CLI checks and suggested commit. No new visual capture required for this pure foundation. Human acceptance/commit stay separate.
+
+PROPOSED ALLOW_LIST — exactly16 paths (9 existing,7 new including3 optional generated UIDs):
+
+Existing files allowed to modify:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+scripts/data/weather_profile.gd
+data/weather_profile.tres
+scripts/core/data_validator.gd
+~~~
+New files allowed to create:
+~~~text
+scripts/domain/weather_snapshot_codec.gd
+scripts/domain/weather_snapshot_codec.gd.uid
+tests/unit/test_weather_profile_validation.gd
+tests/unit/test_weather_profile_validation.gd.uid
+tests/unit/test_weather_snapshot_codec.gd
+tests/unit/test_weather_snapshot_codec.gd.uid
+tests/fixtures/weather_snapshot_v11.json
+~~~
+
+DO NOT TOUCH: everything else, including WeatherState/DetRandom/merchant/Main/DaySimulator/GameClock/SaveService/savev11/old save goldens, all previous tests/fixtures/GUT/tools/runners/bounds, current weather weights/IDs/order/flags, all other resources/items/crops/recipes/machines/coop/land/water/inventory/wallet, all scenes/UI/.tscn/assets/Theme/localization/Player/camera/input/project.godot/autoload list. No runtime decoder wiring, RNG/tag/sequence change, new last-day/save field/migration/fallback/seasonal weather/ecology/director or automatic commit. Only the new profile horizon/validation method and narrowly adapted data validator are exposed to the current official gate.
+
+ACCEPTANCE: unchanged shipped weather values pass stricter type/identity/weight/flag/finite profile validation; unsafe profiles fail explicitly. Decoder preserves complete valid current wire/forecast/order with canonical seed/string types and detached values, rejects malformed/incomplete/unsafe data without coercion/partial result/mutation/events/randomness. Fixture equals actual existingv11 weather component, not a fabricated RNG golden. No runtime forecast/save/sequence or old behavior changes, all535 old tests/goldens/runners/probability data preserved; complete bounded gate/Main pass and exact docs/diff/raw evidence delivered. Full7.1 and actual runtime load/RNG/day-token repair remain separate.
+
+Planning evidence: D:/godot/game-godot-backups/phase71a-plan-20261117/{allow-list.json,baseline-audit.json,PROGRESS-before-plan.md,proposed-plan.md}. No code or new PASS claim before owner approval.
+
+
+## Phase6.7 — recipe catalog and integer profit-cap gate (535/535 automation delivered; review/commit separate, 2026-11-17)
+
+Owner approved all24 paths with “Duyệt Phase6.7, bắt đầu triển khai” on2026-11-16. Backup D:/godot/game-godot-backups/phase67-20261116 copied/SHA256-verified1367 pending files,348 old test/tool hashes, all9 scoped originals, HEAD/index and20 real saves with original bytes. Delivery24 paths:9 modified+15 new including7 generated UIDs. No stage/commit/push. Final outside-scope drift0; all347 other old test/tool files and all516 prior cases/goldens/runners/fixtures unchanged. Real20 saves retain original hashes. Inherited deleted prompt and pending art/code remain intact. On2026-11-17 rechecked all18 tested non-doc hashes with0 drift before finishing this handoff; no redundant rerun or new PASS claim is substituted for the actual run below.
+
+Delivered: Resource-owned recipe validation mapping unlock_house_level1/2/3 ->15/40/120 coins per game hour and24 hours per existing duration_day. Pure RecipeCatalogRules checks complete actual item/recipe/machine Resource types and identities, snake_case/duplicates, whole bounded quantities/durations, prices, references/reciprocal links, slots and exactly one runtime output. Pure RecipeEconomyRules uses current input sell opportunity cost and exact integer sum(outputs)-sum(inputs) <=cap*duration_days*24, with checked int64 sums/products and explicit missing-tier/overflow rejection. No float/rounded cap or invented positive product price. Nonpositive value-added/zero-sale products are allowed and honestly reported as not priced for sale.
+
+DataValidator adds facades; DataRegistry adds detached actual recipe/machine enumeration arrays without changing registration. Official tools/validate_data defers its original body until autoload initialization, retains every previous check/all18 historical visual members, then appends the actual recipe gate. Standalone CLI uses the same public validator, prevalidates actual catalog and deep-clones negative fixtures in memory. Normal7 recipes/7 machines/7 zero-sale outputs exits0; over-cap clone361>360 and missing item clones exit1 with identified diagnostics. Unknown/impossible fixture exits2. Windows CLI tests reuse unchanged hidden/isolated bounded harness at15000ms per child; no orphan child or player save writes.
+
+Acceptance restated: real seven-catalog validation/readers are pure; approved tier/day conversion is DATA-owned, current crop80/output0/prices/unlocks/durations/savev11 unchanged; exact cap boundary passes/+1 fails; malformed/type/reference/slot/tier/overflow data fail explicitly. Normal/negative actual CLI exit codes checked, no .tres/global mutation. All516 old cases/goldens/runners retained and complete bounded gate/Main pass; exact docs/diff/raw evidence/manual commands and scope/save audit delivered. Human review/commit remain separate.
+
+Real focused headless: focused1.log.stdout Scripts5/Tests27/Passing27/Asserts220/3.471s. Added a valid-distinct-input slot-capacity case and prevalidated CLI fixture construction without altering any old test. Final focused2.log.stdout:
+~~~text
+Scripts               5
+Tests                28
+Passing Tests        28
+Asserts             222
+Time              3.056s
+---- All tests passed! ----
+~~~
+Actual bounded standalone commands and native exit outcomes:
+~~~text
+normal: exit0
+[recipe_economy] PASS: recipes=7 machines=7 zero_sale_outputs=7 (not priced for sale)
+over-cap: exit1 (expected)
+[recipe_economy] FAIL: recipe stove_carrot_meal exceeds value-added cap: net=361 maximum=360 tier=1 hours=24
+invalid-reference: exit1 (expected)
+[recipe_economy] FAIL: recipe stove_carrot_meal inputs references unknown item missing_recipe_input
+~~~
+
+Official unchanged cmd /c tools\run_tests.bat, full1.log exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.895s
+---- All tests passed! ----
+[graphics_tests] PASS: 134 scripts, 535/535 tests, 27533 assertions; GUT 229.006s, wall 240.9628084s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+~~~
+Group1=67 scripts270/270/10448 assertions/105.582s; group2=67 scripts265/265/17085 assertions/123.424s. Both sequential180000ms limits unchanged.19 new cases/183 additive assertions; all516 prior cases remain byte-identical. Final raw logs have no SCRIPT ERROR/Parse Error/ERROR/ignored-script/orphan. Expected old invalid-data/visual/float warnings remain; import duplicate-asset UID warnings are inherited. No failed run is disguised as a pass. No new UI/art/screenshot acceptance claim for this validation-only scope.
+
+Editor steps: none. No scene/Inspector/input wiring. Manual CLI from repo root: use existing tools/run_godot_bounded.ps1 with pinned D:/godot/Godot_v4.7.2-stable_win64.exe, -Arguments '--headless --path . --script tools/validate_recipe_economy.gd', external -OutputPath and -TimeoutMs15000. Normal exits0. Append ' -- --fixture=over-cap' or ' -- --fixture=invalid-reference' and expect1 plus the corresponding reason, no PASS line. Fixtures do not write data; reopening normal CLI still returns0. Run official cmd /c tools\run_tests.bat for full regression. Manual editor game play is unchanged; owner review/commit is not presumed.
+
+Assumptions/limits: tier mapping is approved validation policy based on RecipeData.unlock_house_level, not a new runtime player-stage/house system. Duration conversion24h is independent of awake hours/real-time speed. Current seven temp outputs remain buy0/sell0, so gate PASS establishes no positive sale profitability and does not reprice or enable sales. Current crop safety Resource80 retains precedence over old generic18/30/60 examples. Checked arithmetic rejects unverifiable overflow conservatively; no float fallback. The CLI fixture is deliberately built for the valid shipped first recipe, failing2 if no bounded over-cap fixture can be made. CLI regression harness is Windows-specific, matching project target. No new state owner/save version/UI/runtime/production/clock/coop/assets/translation/package changes.
+
+D84/API/schema/architecture/roadmap/memory updated; stale6.6 row now reflects delivered runtime while preserving human acceptance/commit status. Exact files/full contents/clear task-only diff and logs at D:/godot/game-godot-backups/phase67-20261116/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,source-freeze.json,full1.log,full-final/,focused1.log.*,focused2.log.*,cli-*.log.*,cli-results.json,scope-audit-final.json,player-save-audit.json,reverse-check.txt}. Previous6.6d-and-earlier memory retained byte-for-byte. Suggested commit only, not executed: feat: validate recipe catalogs and integer profit caps
+
+
+### Phase6.7 approved plan checkpoint: — recipe catalog and integer profit-cap validation (APPROVED; implementation in progress, 2026-11-16)
+
+MILESTONE: ROADMAP6.7, following delivered6.6d. Owner asked to continue; owner explicitly approved all24 paths with “Duyệt Phase6.7, bắt đầu triển khai”. Read-only review verified all96 delivered6.6d hashes with0 drift. Last actual acceptance remains parse/data/headless63/63/complete graphics516/516 (27350 assertions)/Main PASS. No new test run/PASS, implementation or commit is claimed. Only this planning memory is written. Existing HEAD is e7136608199a5d758433f7c599c8f89f31515cea; preserve inherited dirty work/deletion and live player progress.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS/CODE_PATTERNS/ROADMAP; actual DataRegistry, DataValidator, CropEconomyConfig/Rules and current validator tool; RecipeData/MachineData/MachineState, actual seven recipes/machines/temp outputs and supplied crop-item creation. No scene is touched. There is no need to invent scene paths/input/actions/signals or change current6.6d runtime.
+
+Findings: current CropEconomyRules and tool already enforce approved data-owned80 per plot-day; older18/30/60 table does not override D49/ISO-6b1. RecipeData currently uses duration_days, not the old sample90/180 game minutes, and all seven temp output ItemData deliberately have sell_price0/buy_price0. Existing DataValidator has no recipe catalog/value-added check. DataRegistry creates current supplied item definitions, so the new gate must use its actual complete item catalog rather than a second invented price table. Runtime supports one output entry per recipe, even though RecipeData stores an Array. Current ROADMAP6.6 row still says runtime deferred; fix only that now-stale row during this approved documentation task, preserving human acceptance/commit status.
+
+TASK: add pure structural recipe validation and exact integer value-added caps to the official data-validation gate, plus real negative CLI checks proving that an over-cap recipe fails. Preserve all shipped economic/gameplay/production data and existing crop checks. This is a build/test safeguard, not a new pricing or progression feature.
+
+Assumptions requiring approval: use recipe.unlock_house_level as an explicit validation tier, with cap mapping1->15,2->40,3->120 coins per game hour from the existing schema table. The association with those existing unlock metadata values is a NEW policy proposal; do not silently equate house levels with a runtime player-stage system. Store the mapping in a new RecipeEconomyConfig Resource. Convert the existing daily duration to24 game hours per day (existing1440-minute day/60 minutes per hour), independent of awake hours/real-time speed. This changes no job duration or clock behavior. Keep current crop cap80 and all prices, including all seven unsellable temp outputs0; report those honestly as not currently monetized, not as positively balanced products.
+
+Implementation plan:
+1. New RecipeEconomyConfig DATA: max_value_added_per_game_hour_by_unlock_level Dictionary with integer keys1/2/3 and values15/40/120; game_hours_per_day24. Pure validation rejects missing/non-int/nonpositive/unsafe terms and missing tiers. No Node/autoload calls in DATA. No new saved state or serialize contract needed for these stateless rules/Resources.
+2. New RecipeCatalogRules pure RefCounted static validator over supplied Array[Resource] recipes/machines/items. Reject missing/wrong Resources, malformed/duplicate snake_case IDs, unknown/unresolved item/machine/recipe links, missing reciprocal machine membership, empty arrays, wrong/zero/negative/noninteger/unsafe quantities and durations, duplicate item/machine references, invalid unlock tiers and unsupported output multiplicity. Enforce actual machine input/output slot capacities and the current single-output runtime boundary. Do not change MachineState/RecipeData to pretend multiple outputs work. Use real resource identities; do not read nodes/registry inside DOMAIN.
+3. New RecipeEconomyRules pure/stateless validator consumes config plus actual catalog. Opportunity cost=sum(input sell_price*quantity); output value=sum(output sell_price*quantity); value_added=output-input. Enforce value_added <= tier_cap * duration_days * game_hours_per_day using checked int64 multiplication/addition and cross multiplication, no rounded/float rates or guessed purchase prices. Reject unsafe arithmetic, negative prices and missing tiers explicitly rather than overflowing or silently passing. Nonpositive value-added is not a printing exploit and is permitted: current output0 recipes remain valid and unchanged. State clearly that passing this gate does not assign prices or establish product profitability.
+4. DataValidator adds documented public static facades validate_recipe_catalog(recipes,machines,items) and validate_recipe_economy(config,recipes,machines,items). Keep all existing validation logic/checks intact; no drive-by split of the already long class. New scripts each target<=250 lines.
+5. DataRegistry adds read-only get_all_machines()->Array[Resource] and get_all_recipes()->Array[Resource], matching existing get_all_items/get_all_crops snapshot enumeration. No registration/ID/value/list/order rewrite or persistent owner change. Tools/validate_data defers its existing body from _init to an initial deferred _run so actual autoload data has initialized; use the documented root DataRegistry only in CLI/VIEW, fail explicitly if unavailable. Preserve every old item/crop/asset/key/quest/weather/world/source/coop check, including all18 historical visual members. Append new catalog/economy gates using actual enumerated Resources; ordinary official runner automatically inherits the gate without runner edits.
+6. New tools/validate_recipe_economy.gd standalone headless entry defers until registry ready and calls the same public validator/config. Default real seven-recipe catalog must pass. An explicit negative fixture option clones catalog/ItemData and injects an over-cap output value in memory only; it must emit an identified recipe/cap diagnostic and exit1, without writing .tres or mutating the live registry. Add an invalid-reference negative fixture as a separate reason check. Never suppress a nonzero outcome or loosen the normal gate for a test.
+7. Add three test scripts: structural/catalog coverage and real seven-machine enumeration; precise cap boundaries, tiers, duration conversion, multi-entry sums, negative/zero/invalid values, missing/duplicate references and safe-overflow rejection; CLI subprocess checks normal exit0 and deliberate printing/reference failures exit1 with matching reason. Compare Resource snapshots before/after to prove purity; clone negative fixtures rather than changing global Resources. Current zero-price outputs are verified unchanged, alongside current crop80/coop20-30-42/savev11 compatibility. Retain all516 previous tests/goldens/fixtures/names/assertions byte-identical. CLI children must run headless with isolated test user:// and bounded lifetime, without opening an Editor or leaving orphan processes.
+8. Add D84/API/schema/architecture/current memory and accurate ROADMAP6.6/6.7 status; no human acceptance/commit fabrication. Before code back up/hash all pending work and scoped originals, tests/tools/goldens and real saves; account for independently changing Editor F5 saves without overwriting them. Run focused new/old validator/crop tests, ordinary standalone recipe check and actual negative exit1 commands, then unchanged cmd /c tools\run_tests.bat with full discovered suite, fixed63 headless tests, two sequential180000ms graphics bounds and Main smoke. No new UI screenshot claim is needed for a validation-only task. Deliver exact file list/full snapshots/task diff/raw logs/scope audit/manual CLI instructions and a suggested commit; no automatic commit.
+
+PROPOSED ALLOW_LIST — exactly24 paths (9 existing,15 new including7 optional generated UIDs):
+
+Existing files allowed to modify:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+scripts/core/data_registry.gd
+scripts/core/data_validator.gd
+tools/validate_data.gd
+~~~
+
+New files allowed to create:
+~~~text
+scripts/data/recipe_economy_config.gd
+scripts/data/recipe_economy_config.gd.uid
+data/recipe_economy_config.tres
+scripts/domain/economy/recipe_catalog_rules.gd
+scripts/domain/economy/recipe_catalog_rules.gd.uid
+scripts/domain/economy/recipe_economy_rules.gd
+scripts/domain/economy/recipe_economy_rules.gd.uid
+tools/validate_recipe_economy.gd
+tools/validate_recipe_economy.gd.uid
+tests/unit/test_recipe_catalog_validation.gd
+tests/unit/test_recipe_catalog_validation.gd.uid
+tests/unit/test_recipe_economy.gd
+tests/unit/test_recipe_economy.gd.uid
+tests/unit/test_recipe_validator_cli.gd
+tests/unit/test_recipe_validator_cli.gd.uid
+~~~
+
+DO NOT TOUCH: everything else, including all old tests/fixtures/goldens/GUT/runners/bounds, all .tscn/assets/Theme/localization/InputMap/project.godot/autoload list, all shipped ItemData/CropData/RecipeData/MachineData/resources and their IDs/prices/durations/unlocks, CropEconomyRules/config80, Main/DaySimulator/coop/feeding/purchase/inventory/wallet/savev11/Player/camera/world/UI. No recipe repricing, exposing finished goods for sale, production duration migration, house upgrade/player-stage system, new save version, UI refactor, package installation or commit/stage/push.
+
+ACCEPTANCE: all real seven recipes/machines/items enumerate and validate without mutation; exact approved tier mapping and24-hour conversion are Resource-owned, crop80 unchanged. Deliberate valid-structure over-cap recipe fails for the cap reason at the boundary+1 while exact boundary passes; malformed/reference/quantity/tier/overflow inputs fail explicitly. Actual normal CLI exits0 and two identified negative fixtures exit1; no shared registry/Resource/save writes or orphan children. Official gate includes new checks while retaining every old check and all516 prior cases/goldens/runners; complete bounded suite/Main passes. Docs/diff/real outputs/scope/save audit delivered. Passing zero-output-price recipes does not imply positive product economics; human acceptance and commit remain separate.
+
+Planning artifacts: D:/godot/game-godot-backups/phase67-plan-20261116/{allow-list.json,baseline-audit.json,PROGRESS-before-plan.md,proposed-plan.md}. No implementation/PASS claimed before approval.
+
+
+## Phase6.6d — playable coop and modular UI/save v11 (516/516 automation delivered; human acceptance/commit separate, 2026-11-16)
+
+Owner explicitly approved all96 paths with “Duyệt Phase6.6d, bắt đầu triển khai”. Pre-code backup D:/godot/game-godot-backups/phase66d-20261116 copied/SHA256-verified1319 pending files, captured335 old test/tool hashes, scoped originals, HEAD/index and20 real-save hashes. Exact delivery96 paths:51 modified,45 created (including17 generated UIDs). No stage/commit/push. Scope audit has0 drift outside ALLOW_LIST; all23 compatibility test files match the exact preapproved patch. All other old tests/tools/goldens remain byte-identical. Inherited deletion the_life_prompt.md remains.
+
+Delivered: data-owned fixed footprint(10,14,2,2)/entrance(10,13)/passive access corridor,700 includes4 hens, real food20 shop and guarded inventory feeding/whole egg collection. Egg30 and wheat42/current balance unchanged; new/old saves default unowned0 without free food. Actual player/NPC/plot/machine occupancy denies purchase without erasing progress. Holding wrapper retains one stable daily owner; shop/feed/collection/day share opaque source reservations. Capture actual refs/terms before callbacks, exact rejected-debit refunds, preserve independent changes. Ledger labels expenses/refunds honestly.
+
+New runtime/flow/site view and three small screen/summary/controls scenes plus snapshot/presenter use existing wood/paper Theme/fonts and existing E/native modal input. Source art is code-native; only owned footprint adds collision, outside passive art refresh. Clear/rebuild derived NPC grid flags and reroute same targets without resetting friendship/cells/targets. Clear stale derived obstacles before restore. No existing scene/asset/Player/camera/InputMap/autoload/global event change.
+
+Daily route is farm -> animals -> machines through stateless DaySimulator. Preserve Main.day_simulator's injectable one-argument farm-step API using optional Callable delegation; reserve captured animal day BEFORE outgoing-rain/farm callbacks. Main uses the morning signal's day-1, and holds runtime busy through weather/ledger reconciliation before safe autosave. Duplicate/reentrant day rejects before advancing owners. Loading/rendering never simulates. Savev11 wraps purchased plus validated four-field daily state, migratesv1-v10 unowned/empty at saved day, preserves all prior fields and water-introduction threshold10; old goldens untouched, new golden11 added. Exact27 output-version expectations plus2 absent-coop expectations changed;29 assertion lines/2 same-line captions only, all old names/assertion counts intact.
+
+Acceptance restated:700-for4 once; actual food20 and chosen-hen stock debit; legitimate next-day eggs only; whole collection once/full bag retains output; callback/lifecycle/occupancy/route safety; modular localized native UI and28 actual captures; v11/legacy/corrupt/future saves and old partial water; all492 prior tests retained with approved compatibility edits; unchanged complete bounded gates and artifact/scope/manual evidence. Automation meets these criteria. Human editor sign-off is separate.
+
+Real accepted outputs:
+~~~text
+renderer2.log.stdout (before final morning adapter): Scripts5; Tests23; Passing Tests23; Asserts2124; Time9.452s
+Final targeted day-regression2.log.stdout: Scripts6; Tests28; Passing Tests28; Asserts510; Time20.35s
+---- All tests passed! ----
+[check_parse] OK
+[validate_data] PASS
+Final headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.97s
+---- All tests passed! ----
+[graphics_tests] PASS: 131 scripts, 516/516 tests, 27350 assertions; GUT 239.26s, wall 252.3353196s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+[run_tests] PASS
+~~~
+Official unchanged command: cmd /c tools\run_tests.bat, final full3.log exit0. Graphics group1=66 scripts262/262/9531 assertions/98.776s; group2=65 scripts254/254/17819 assertions/140.484s. Both sequential180000ms bounds unchanged.24 new cases added; all492 old cases retained. Final raw logs contain no SCRIPT ERROR/Parse Error/ERROR/ignored-script/orphan. Expected malformed-input/guard/old visual/float warnings remain.28 vi/en UI/world PNGs plus inspected contact sheet: no clipped controls at1152/1280/1600, actual owner-state immutability assertions during rendering. No mocked screenshot as output.
+
+Verification history retained, not counted as success: first import exposed a helper named draw_ellipse conflicting with native CanvasItem; renamed new helper _draw_hen. Initial guarded text edit stopped before an ambiguous header match; resumed with anchored method bodies. Focused1 exposed untyped [] via dynamic Node calls, expected JSON float/int mismatch in a new test, empty unplanted callback fixture and transient stale wrapped-label minimum height. Corrected source typed arrays and deferred min-size layout; new fixture now plants/waters an actual crop and expects canonical ints. Focused2 also found old dynamic solid flags retained by AStarGrid2D.update; explicitly cleared before rebuilding. Focused3 passed20/20; renderer1 passed20/20, refined UI/expanded new coverage then renderer2 passed23/23. First full run stopped at old day test because callback used global rather than signaled day; fixed source only, targeted10/10 passed. Second full run group1 failed6 old sleep/care/morning cases because injected farm simulators accept1 argument; preserved that API with Callable delegation while retaining outer orchestration, and added weather/bookkeeping guard coverage. Targeted28/28 and final full3 pass. No test skip/weakening, no runner/timeout increase. Earlier failures/imports/raw logs preserved.
+
+Manual editor steps / playtests: No editor scene tree/Inspector/project setting work is required. Reload scripts/project if the Editor still has pre-change classes. Start/continue normally, walk south of the house to the sign by the pond and press E. With700 coins buy the coop once (4 hens), select/buy food at20 each, choose hens to feed, sleep via actual evening review, return and collect eggs. Each fed hen yields1 next morning; unfed hens rest without death. Open Bag returns to existing inventory; native Tab/arrows/Space/Enter and Escape work.
+Manual acceptance: try699 coins, repeat buy, occupied footprint, no food/partially fed flock and repeated feed; check exact wallet/food changes and no same-day eggs. With a full bag, collect fails and pending output remains; free room and collect once. Leave eggs over an unfed day; save/reload with both pending eggs and a partially fed day. Load an oldv10 game with partial upgraded water and confirm stock/capacity/other progress. Try vi/en at1152/1280/1600, both old pause states, E/refill priority, routes/collision around an owned coop and unchanged player customization/crops/machine jobs. Human F5 acceptance has not been explicitly confirmed; observed Editor F5 activity is not substituted for owner acceptance.
+
+Assumptions / limits: Approved fixed site/700-for4 only, existing food20/egg30/wheat42. Art is replaceable code-native illustration. No coop relocation/other animals/mood/death/house unlock/new binding/automatic commit. Inventory/Wallet are trusted existing owners: malformed custom added-count contracts fail closed with settlement_failed and retained reservation, requiring owner diagnosis rather than guessed item rollback. Raw domain/clock primitives remain trusted internal APIs. Single-argument injected farm steps must honor the existing actual farm-step contract; outer stateless DaySimulator reserves and orders the animal/machine owners. Tests use isolated user://. A separate Editor-launched F5 was observed during final run; real slot1 and its three backups changed. Agent did not restore/overwrite them; current20 save files were copied externally and both hash sets recorded. Do not claim all original real-save hashes stayed unchanged.
+
+Exact files, full snapshots/clear task-only diff, captures and raw audits: D:/godot/game-godot-backups/phase66d-20261116/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,captures/,ui-contact-sheet.png,full3.log,full-final/,source-freeze.json,scope-audit-final.json,player-save-audit.json,reverse-check.txt}. Prior memory below retained byte-for-byte. Suggested commit only: feat: add playable chicken coop with modular UI and save v11
+
+
+### Phase6.6d approved plan checkpoint: — playable coop, modular operation UI and save v11 (APPROVED; implementation in progress, 2026-11-16)
+
+MILESTONE: ROADMAP6.6, following delivered Phase6.6a/b/c. Latest instruction is to continue; owner explicitly approved all96 paths with “Duyệt Phase6.6d, bắt đầu triển khai”. Read-only review verified all20 delivered6.6c file hashes without drift. Last recorded accepted gate remains parse/data/headless63/63/graphics492/492 (25236 assertions)/Main PASS; no new test run or runtime implementation is claimed. Only this planning memory is written. No staging/commit/push or player-save modification is authorized.
+
+READ-ONLY CONTEXT: PROJECT_RULES, existing API/architecture/schema/decisions/patterns/roadmap/style/input/collision rules; world/isometric/day-end/watering contracts; current coop/data/inventory/wallet/clock/save owners, machine daily path, NPC routes and small modal UI patterns. Retain all inherited dirty files, historical assets and deleted the_life_prompt.md. External review evidence: D:/godot/game-godot-backups/phase66d-plan-20261116.
+
+TASK / assumptions requiring this approval: make one usable coop at a fixed site south of the house. The documented700-coin purchase INCLUDES4 hens (new explicit bundle proposal; no invented separate hen price). Separate chicken_feed remains buy20/resale0; egg remains sell30; wheat42 unchanged. Unowned/new/legacy games have0 hens and no free feed. Use existing E near the site to open a small wood/paper operation screen: buy coop, buy a selected whole quantity of feed, feed selected unfed hens from the actual bag, collect the entire actual egg buffer, close or return to Bag. No new key/autoload/global signal. Match existing operation/reference10 styling using small reusable classes, not one large UI script. No other animals, death/mood/XP, free starter stock, coop relocation or new house unlock.
+
+Concrete implementation plan:
+1. New ChickenCoopSiteConfig Resource owns site_id home_coop, price700, initial_hens4, footprint Rect2i(10,14,2,2), entrance Vector2i(10,13), access route [(3,6),(6,6),(6,8),(7,8),(7,13),(10,13)] and passive-scenery clearance1. Reuse actual world/land/NPC geometry and existing interaction_reach2.5; validate footprint/route against bounds, fixed structures, water and farmland. These are proposed data values, not implemented coordinates. Unowned marker is passable. Owned footprint becomes solid using existing layer1/Objects y-sort conventions. Never remove saved crops/machines or move actors to force a purchase: deny an occupied site. Only procedural passive scenery clears along the reserved site/access route. Existing well/pond/stream, house/bin/shop/farmland/player/camera stay intact.
+2. New pure ChickenCoopHoldingState owns purchased flag plus ONE existing ChickenCoopState; preserve the same inner instance across reset/load so feeding/collection services share the source. Serialize {owned:bool,coop:{current_day,hen_count,fed_hens,pending_eggs}} from its first implementation. New pure PurchaseRules validates price/whole quantities/actual occupancy. New stateless ShopService uses actual WalletState/InventoryState and configured terms. Add coop-owned opaque shop reservation (begin_shop/finish_shop, purchase_busy) shared with feed/collection/raw mutation; target4 commits the build, target0 locks a food transaction. Holding alone binds build completion to owned. No second coin/item/egg owner.
+3. Buy coop: preflight valid unowned/clear site/700 funds, reserve source before spending, capture owners/terms, recheck after synchronous wallet callbacks, grant ownership+4 hens once; exact refund on rejected grant with a rollback reason. Buy feed: owned required, positive quantity up to registered item stack limit, whole bag room and funds; reserve, debit, recheck room/terms, add actual full quantity, settle. Missing funds/full bag/stale/context/busy failures preserve owners. Preserve independent callback effects; never roll back whole wallet/bag snapshots. Normal InventoryState obeys its documented actual-count contract; unexpected partial/lying owner contracts must report explicit conservation/settlement failure rather than silently duplicating grants/refunds. Test reentry through same/second facades and lifecycle callbacks.
+4. New Main-owned ChickenCoopRuntime coordinates references/context/commands/transient busy only. New ChickenCoopFlow owns modal lifecycle/read-model/layout; new SiteView owns projected drawing/body. Three small scene/script pairs (screen/summary/controls), separate snapshot/presenter, existing Theme/fonts/frame and vi/en keys. UiCoordinator owns pause/player lock/Escape/native focus. Query world interaction uses actual game/location context, water priority retained; modal commands use active panel and current location while Player is correctly locked. Show only real owned/hens/fed/unfed/eggs/feed/coins/prices. No per-frame domain mutation. Art is small code-native wood/fence/hen drawing using current palette because no existing coop asset was found; no PNG generator or art replacement.
+5. NPC navigation: add derived dynamic obstacles to NpcSchedule, recompute routes from current cells to current targets via NpcSocialState/NpcSystem when ownership changes; do not reset friendship, positions or schedule targets. Existing same-target short circuit must not keep a route through the new footprint. Restore clears stale derived obstacles before validating old NPC positions, then reapplies current ownership. Check player/NPC/plot/machine occupancy at purchase. New scene contracts document all new APIs/node trees before implementation; no guessed existing paths.
+6. One daily path: remove Main's separate machine day_started lambda. Extend DaySimulator optional arguments while preserving farm-only calls, then run farm -> coop -> machines once at the existing completed-morning boundary; coop uses completed day=current day-1. Preflight coop day/busy context before advancing owners. Opening/rendering/loading does not simulate days. Feeding one hen gives exactly1 egg at the next legitimate completed-day boundary; no feed gives0 and no death. Retain uncollected eggs. Clock remains time-only; no delta-based production. Add Main and day-end safe-point guards so normal save/load/new-game/title/sleep/review cannot serialize or replace an owner during a transaction.
+7. SaveService version11 plus migrate_10_to_11 and immutable new save_v11 golden. New root chicken_coop stores HoldingState only, no nodes/tokens/views. Pure SaveCodec validates owned/state/day shape; new/legacyv1-v10 migrates to unowned0 at saved clock day and never grants food/hens from unknown old fields. Valid v11 preserves exact fed hens/pending eggs/ownership. Malformed animal component warns and conservatively becomes unowned/empty; all other valid progress survives. Reject future versions. Preserve v1-v10 goldens. Fix WateringRuntime's current-version comparison to the water-format INTRODUCED version10: v10 water stock/capacity remains intact after current version becomes11; old water fixtures are not rewritten into v11 inputs.
+8. Ledger records actual buy_chicken_coop/buy_chicken_feed expenses and exact *_rollback refunds using existing owner events; add real labels/refund classification without fake seed purchases. No crop/machine/feed/egg repricing. New tests cover affordability/full bag/ownership/context, day ordering and duplicate rejection, lifecycle/callback isolation, current/legacy/corrupt saves including water v10, actual E/modal input, collision/NPC routes/accessibility and UI/state immutability.
+9. Compatibility test edits are EXACTLY the external proposed patch:27 output-version assertions10->11 in23 files, plus2 old assertions of absent chicken_coop replaced with asserting migrated owned=false. Preserve all test names/assertion counts/input v10 watering fixtures/old goldens/runners. Two inline 'Migrated to v10' expectation captions become v11. No other old-test edits permitted without a new review. Existing future-version fixture already uses CURRENT_VERSION+1. The patch and per-line/hash manifest are reviewable before approval and have NOT been applied.
+10. Back up/hash all pending work, scoped originals, old tests/tools/goldens and real saves before code. New scripts target <=250 lines; existing larger scripts get narrow wiring only. Run focused domain/save/runtime/input checks, actual renderer matrix vi/en x1152/1280/1600 for4 screen states (24 frames) plus4 world unowned/owned frames, then unchanged cmd /c tools\run_tests.bat. Keep all492 old cases, full discovered graphics set, fixed63 headless tests, both sequential180000ms bounds and Main smoke. Strictly reject ignored-script/parse failures even if GUT exits0. Inspect captures, deliver clear task-only diff/full file snapshots/raw output/scope-save audits/manual F5 steps. Human editor acceptance and commit remain separate.
+
+PROPOSED ALLOW_LIST — exactly96 paths:51 existing +45 new (including optional Godot-generated UIDs). Approval covers these paths only; no existing .tscn or resource asset is edited.
+
+Existing documentation (11):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/watering.md
+~~~
+Existing implementation (17):
+~~~text
+scripts/domain/chicken_coop_state.gd
+scripts/domain/day_simulator.gd
+scripts/domain/economy/day_ledger_state.gd
+scripts/domain/quests/npc_schedule.gd
+scripts/domain/quests/npc_social_state.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+scripts/view/gray_box_world.gd
+scripts/view/world_presentation.gd
+scripts/view/npc_system.gd
+scripts/view/ui_coordinator.gd
+scripts/view/watering_runtime.gd
+ui/day_end/day_end_flow.gd
+ui/day_end/day_end_presenter.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+~~~
+Existing tests (23), ONLY the29 assertion lines and2 inline caption changes in the proposed patch:
+~~~text
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_chicken_coop_collection.gd
+tests/unit/test_chicken_coop_feeding.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_save.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_save_service.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_water_source_world.gd
+tests/unit/test_watering_runtime_save.gd
+tests/unit/test_watering_upgrade_flow.gd
+tests/unit/test_weather.gd
+~~~
+New files (45):
+~~~text
+scripts/data/chicken_coop_site_config.gd
+scripts/data/chicken_coop_site_config.gd.uid
+data/chicken_coop_site.tres
+scripts/domain/chicken_coop_holding_state.gd
+scripts/domain/chicken_coop_holding_state.gd.uid
+scripts/domain/chicken_coop_shop_service.gd
+scripts/domain/chicken_coop_shop_service.gd.uid
+scripts/domain/chicken_coop_purchase_rules.gd
+scripts/domain/chicken_coop_purchase_rules.gd.uid
+scripts/domain/chicken_coop_save_codec.gd
+scripts/domain/chicken_coop_save_codec.gd.uid
+scripts/view/chicken_coop_runtime.gd
+scripts/view/chicken_coop_runtime.gd.uid
+scripts/view/chicken_coop_flow.gd
+scripts/view/chicken_coop_flow.gd.uid
+scripts/view/chicken_coop_site_view.gd
+scripts/view/chicken_coop_site_view.gd.uid
+ui/chicken_coop/chicken_coop_screen.gd
+ui/chicken_coop/chicken_coop_screen.gd.uid
+ui/chicken_coop/chicken_coop_screen.tscn
+ui/chicken_coop/chicken_coop_summary.gd
+ui/chicken_coop/chicken_coop_summary.gd.uid
+ui/chicken_coop/chicken_coop_summary.tscn
+ui/chicken_coop/chicken_coop_controls.gd
+ui/chicken_coop/chicken_coop_controls.gd.uid
+ui/chicken_coop/chicken_coop_controls.tscn
+ui/chicken_coop/chicken_coop_snapshot.gd
+ui/chicken_coop/chicken_coop_snapshot.gd.uid
+ui/chicken_coop/chicken_coop_presenter.gd
+ui/chicken_coop/chicken_coop_presenter.gd.uid
+tests/unit/test_chicken_coop_purchase.gd
+tests/unit/test_chicken_coop_purchase.gd.uid
+tests/unit/test_chicken_coop_runtime.gd
+tests/unit/test_chicken_coop_runtime.gd.uid
+tests/unit/test_chicken_coop_runtime_save.gd
+tests/unit/test_chicken_coop_runtime_save.gd.uid
+tests/unit/test_chicken_coop_screen.gd
+tests/unit/test_chicken_coop_screen.gd.uid
+tests/unit/test_chicken_coop_callback_lifecycle.gd
+tests/unit/test_chicken_coop_callback_lifecycle.gd.uid
+tests/helpers/chicken_coop_fixture.gd
+tests/helpers/chicken_coop_fixture.gd.uid
+tests/golden_saves/save_v11.json
+docs/SCENE_CONTRACTS/chicken_coop.md
+docs/SCENE_CONTRACTS/npc_navigation.md
+~~~
+
+DO NOT TOUCH: everything else; all prior .tscn, project.godot/InputMap, autoload list/Events/GameClock, Player/camera/Theme/fonts/PNG/imports, current item/config balance, InventoryState/WalletState/feeding/collection implementations, existing world/water/land/NPC Resources, old save goldens, GUT/runners/timeouts and all old tests except the exact proposed29 assertion lines. No actor/progress deletion, unrelated cleanup, automatic commit/stage/push or live player-save changes. New site art/body is a runtime child described in the new contract, not an unlisted scene edit.
+
+ACCEPTANCE: actual700-for4 purchase once; food20 from real wallet to real bag; chosen hens consume actual food; legitimate day produces exactly one egg per fed hen; complete collection once/full bag retains all output. Duplicate/reentrant/stale/invalid operations and lifecycle transitions cannot grant/free/lose value. Site and route reachable with correct owned collision/NPC avoidance and untouched old progress. Small localized input-safe UI and28 real captures, no simulated state from drawing. V11 roundtrip and v1-v10 migration retain all prior state including v10 watering, defaulting only new coop; malformed component/future version handled honestly. All492 prior tests retained with only approved compatibility patch; unchanged complete gate passes within original bounds. Deliver exact changes, docs, real logs, manual steps and suggested commit. No current PASS claim for this proposed scope.
+
+Review artifacts: allow-list.json, baseline-audit.json, proposed-test-compatibility.patch, proposed-test-changes.json, before-tests/, proposed-tests/, PROGRESS-before-plan.md and status-before-plan.txt under D:/godot/game-godot-backups/phase66d-plan-20261116. No runtime code or tests changed during planning.
+
+
+## Phase6.6c — registered feed and guarded inventory feeding (492/492 automation delivered; animal runtime/commit pending, 2026-11-09)
+
+Owner selected “Thức ăn riêng: mua 20 xu; giữ trứng 30 xu”, then explicitly approved all20 paths with “Duyệt Phase6.6c, bắt đầu triển khai”. Pre-code copied/SHA256-verified1313 pending entries and scoped originals to D:/godot/game-godot-backups/phase66c-20261108-235744, recorded331 prior test/tool hashes, HEAD/index/status and two real player-save hashes. Delivery is exactly20 paths (13 modified,7 created including3 generated UIDs). No stage/commit/push or user-save mutation.
+
+Delivered: chicken_feed ItemData/material/stack99/buy20/resale0, vi/en name/description and existing generic icon fallback. ChickenCoopConfig owns required feed_item_id=&chicken_feed and unchanged4 hens/1 feed per hen/1 egg per fed hen. Current egg30/autumn_wheat42 Resources are unchanged. DataRegistry registers food; validator checks nonempty config identity plus resolution among valid logical items/keys. All18 old C2 visual members stay identical. SeedShop remains seed-only: price data is prepared, but no food purchase UI or runtime supply is claimed.
+
+New stateless ChickenCoopFeedingService validates exact current day/positive unfed count/known matching food/whole stock, captures original owners/terms, reserves hens on the coop owner, removes actual food and then settles. The full debit is visible before earliest inventory notification, while fed_hens is still unchanged; only after true debit does the captured hen count commit. False debit grants0, unlocks, retains original state and legitimate independent bag gifts. No wallet use/free feed/full-snapshot rollback. Partial feeding by hens is supported up to actual unfed count; no eggs appear until legitimate completed-day advance.
+
+Shared owner guard covers feeding and existing collection across all facades/raw feed/day/take/reset/restore. Existing collection_busy behavior remains; feeding_busy is new. Matching opaque tokens only may settle/abort the proper operation; invalid/null/reused/cross-operation tokens do not release anything. Facade reconfiguration changes future commands only; Resource food ID/cost/capacity changes during callbacks cannot redirect current debit or strand already paid hens. Standalone four-field codec and raw legacy-feed result stay compatible; both transient locks excluded. Busy snapshots are diagnostic, not safe game saves.
+
+Registered food remaining stock/order/other items survive current inventory/savev10 codec; standalone partial daily fed_hens survives valid JSON. No coop field/version/golden/migration is added. Main/DaySimulator/clock/InventoryState/WalletState/CollectionService/UI/world/shop/can/machines/land/art/Theme/input remain byte-identical. This is a domain feeding slice, not player-accessible animal gameplay or game-save integration.
+
+Acceptance restated: food20/egg30/wheat42 and data identity; exact actual stock debit for legitimate unfed hens/day; missing/wrong/unknown/invalid/stale/overfeed/busy rejected unchanged; debit-before-grant and mutual exclusion with collection; false debit never feeds, true debit commits captured hens despite callback changes and preserves independent bag effects; no early/duplicate eggs; old codec/v10 bag persistence; all479 old cases/goldens/runners/18 art paths retained; focused/full bounded gates and exact docs/diff/audits delivered. Human animal/runtime acceptance remains separate.
+
+Real accepted focused output:
+~~~text
+focused2.log.stdout: Scripts7; Tests46; Passing Tests46; Asserts688; Time0.573s
+---- All tests passed! ----
+validate-final.log.stdout:
+[validate_data] PASS
+~~~
+
+Verification history retained: an initial edit selected the API-header mention of feed() instead of its anchored actual body, producing a parse error. Initial focused run misleadingly exited0 with11 inventory/save tests and ignored five coop scripts; it is NOT accepted or counted as passing coverage. After the turn interruption, confirmed only Editor remained, saved broken State externally, rebuilt from verified pre-code source with line-anchored function replacement and checked one body per method plus comments-only pre-class header. Bounded import refreshed classes. Fixed focused run explicitly checked7 scripts/46 tests and absence of ignored-script/parse/error text; all46 passed. Original479 tests remained byte-identical; no assertion/fixture/runner weakening. Initial/fixed import and focused logs plus state-before-parser-fix.gd remain under backup. Import duplicate-asset UID warnings are inherited.
+
+Final unchanged official command `cmd /c tools\run_tests.bat`, exit0: parse/data PASS; fixed headless63/63/880 assertions/5.624s; graphics126 scripts/492/492/25236 assertions. Group1=238/238/15121 assertions/108.826s; group2=254/254/10115 assertions/104.735s. Graphics GUT213.561s, wall225.7764533s. Both sequential children keep180000ms. All479 prior cases plus13 new (149 added graphics assertions); Main smoke PASS. Final official stdout/stderr has no SCRIPT ERROR/Parse Error/ERROR/Orphan/ignored script. Expected corrupt-data/busy-guard and old float-int/visual warnings remain. No new screenshots are needed/claimed because no view changed.
+
+Real final output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.624s
+---- All tests passed! ----
+[graphics_tests] PASS: 126 scripts, 492/492 tests, 25236 assertions; GUT 213.561s, wall 225.7764533s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+Manual editor steps: none; reload scripts/Resource if needed. Use existing isolated bounded runner for both new feeding scripts plus coop/collection/inventory/save regressions, or full command above. Fixture cases: stock4/feed2 at day3 leaves2 food, fed2 and0 immediate eggs; advance3 gives2, feed next day and collect previous eggs safely. Partial/full across stacks debits configured units, preserves other items/order. Wrong wheat alone never substitutes for chicken_feed; insufficient/unknown/stale/overfeed leave both owners. Callback sees full debit but reserved hens not yet committed, cannot reenter feeding/collection/raw mutations; false-removal double grants no fed hens and preserves gift; true removal preserves independent consumption/gifts and captures original terms under config/ref mutation. JSON/savev10 keeps actual food stock and standalone fed counts. No F5 shop/animal UI feature is exposed by this scope.
+
+Known limits: new food buy20 is DATA only; current seed shop does not offer it. Runtime coop/ownership/placement/purchase/feeding UI/day/save wiring still requires a coherent approved slice; future lifecycle must check is_busy. Existing truthful all-or-nothing InventoryState.remove_item bool is required; a custom owner lying about actual debit is outside that contract and must not be guessed away with destructive snapshot rollback. Raw token/feed primitives are trusted internal APIs, not direct player commands. Resource field addition does not alter saved shape; current game saves contain food items only, not coop state. No human playtest/commit claimed.
+
+Exact files/full contents/task-only diff/logs/audits: D:/godot/game-godot-backups/phase66c-20261108-235744/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,focused1.log.*,focused2.log.*,import.log.*,import-fixed.log.*,state-before-parser-fix.gd,validate-final.log.*,full-run.log,full-final/,full-result.json,legacy-art-validation-audit.json,scope-audit-final.json,reverse-check.txt,player-save-audit.json}. Old6.6b delivery memory retained byte-for-byte. D82/API/schema/architecture/roadmap/current memory updated. Suggested commit only, not executed: feat: add guarded inventory feeding with chicken feed
+
+
+### Phase6.6c approved plan (historical proposal checkpoint)
+
+Approval: owner replied “Duyệt Phase6.6c, bắt đầu triển khai” for all20 paths. Verified pre-code backup: D:/godot/game-godot-backups/phase66c-20261108-235744. Food buy20/egg30 already selected separately. No commit authorization.
+
+MILESTONE: original ROADMAP6.6 following6.6a/D80 and6.6b/D81. Food decision is resolved: owner explicitly chose “Thức ăn riêng: mua 20 xu; giữ trứng 30 xu”. At proposal time only the product choice was approved; the owner subsequently approved the exact20-path plan. Implementation and actual acceptance are above. No code/PASS was claimed before approval, and no commit/stage/push is authorized.
+
+Planning baseline: all17 non-memory files of6.6b's18-file delivery match their final hashes. Only previous choice-review memory was added. Last official baseline is parse/data/headless63/63/graphics479/479 (25087 assertions)/Main PASS. Preserve inherited pending work/backups/player saves and all previous tests/goldens/runner bounds. Human animal runtime acceptance remains pending; parent6.6 is not yet a playable world system.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS D80/D81/CODE_PATTERNS/ROADMAP/STYLE_GUIDE and inventory contract. Actual ChickenCoopConfig/State shared collection reservation, CollectionService, InventoryState all-or-nothing remove_item and synchronous callback order, DataRegistry/ItemData/current SeedShop seed-only catalogue, validator legacy-visual/logical separation and existing state/collection/save tests. No scene/UI node is touched, so no new scene contract/Inspector wiring or assumed path/input.
+
+TASK: register separate chicken_feed data with owner-selected buy20 and route feeding through actual inventory debit plus an owner-shared feeding reservation. Preserve4 hens/1 feed per hen/day/1 egg per fed hen, partial feeding by counts, no mortality, retained eggs and existing safe collection. Current wheat42 and egg30 remain unchanged. Keep this as a standalone domain command slice: data price is prepared, but shop availability, Main-owned coop, world UI/day path/animal save integration are not claimed.
+
+Proposed implementation:
+1. Add data/items/chicken_feed.tres as ItemData: stable ID chicken_feed, name/description keys ITEM_CHICKEN_FEED_NAME/ITEM_CHICKEN_FEED_DESCRIPTION in vi/en, category material (existing category/filter), max_stack99 (existing common default), buy_price20 selected by owner, sell_price0 (not offered for resale), empty visual paths using the existing generic icon fallback. No new art/model/Theme, animal purchase price or crop repricing. Register in ordinary DataRegistry. Current SeedShop enumerates seeds only, so this does not falsely claim a purchase button or player-accessible source of food yet.
+2. Extend ChickenCoopConfig with typed feed_item_id:StringName, requiring nonempty data-owned identity without touching Nodes/registry in the Resource. Set shipped data/chicken_coop_config.tres feed_item_id=&chicken_feed and retain exact4/1/1 numeric terms. tools/validate_data.gd checks referenced feed ID resolves among valid logical ItemData Resources; include new item/translation keys. Retain identical18 historical C2 art members and include feed only in logical/fallback validation like egg. All old item data and egg.tres remain untouched. New Resource field is DATA configuration, not a saved-field/schema/version change.
+3. Extend ChickenCoopState narrowly: feeding_quote(day_index:int,hens_to_feed:int)->Dictionary returns exact-day/unfed availability plus item_id/feed_units/hen terms; begin_feeding(day_index:int,hens_to_feed:int)->Dictionary returns opaque token and captures only validated requested hens/terms; finish_feeding(token:RefCounted,debited:bool)->bool settles matching reservation. Successful debit commits only the captured hens; failed debit commits none, releases reservation and retains original daily feed/output/day/herd. Finish must settle captured authorization even if a callback changes or invalidates config, without recomputing a different cost or losing paid feed.
+4. is_busy covers feeding and collection, with shared owner protection across all service facades and raw methods. Preserve existing collection_busy code when collection is active; feeding uses a specific feeding_busy result. During either operation raw feed/day/take/reset/restore/new reservations cannot mutate the owner; unrelated/invalid/reused tokens cannot settle another operation. Preserve old public names/signatures and the exact legacy raw-feed result dictionary, old collection behavior and all old tests. Existing CollectionService source stays unchanged and relies on the shared state quote/guard. Current State156 lines leaves room to remain≤250; avoid unrelated refactors or a new helper file unless separately approved.
+5. New ChickenCoopFeedingService (stateless RefCounted): configure(state:ChickenCoopState,inventory:InventoryState), can_feed(day_index:int,hens_to_feed:int)->Dictionary, feed(day_index:int,hens_to_feed:int)->Dictionary. Quote checks actual state/configured registered matching food item and sufficient whole feed quantity. Capture actual original owners and food terms, reserve hens, remove exactly hens_to_feed*feed_per_hen through existing InventoryState, then settle according to truthful boolean debit result. InventoryState removes the whole quantity before callbacks; no unprotected grant window, duplicate debit or free feeding. No wallet use, item grant or whole-inventory/state snapshot rollback.
+6. Insufficient/unknown/wrong food, invalid/stale/skipped day, invalid/overfed count and busy requests must leave both owners unchanged. A rejecting remove_item double returningfalse with no actual debit leaves hens unfed and releases lock, preserving independent legitimate bag gifts. A true whole debit commits captured hens exactly once and preserves independent bag consumption/gifts or facade reconfiguration, while raw state/other feeding/collection commands stay blocked. Resource changes during callback do not redirect current food ID/quantity or strand an authorized settlement. Assume the existing remove_item truthful all-or-nothing contract; do not attempt guessed rollback if a custom owner lies about removal.
+7. Keep four-field coop wire shape {current_day,hen_count,fed_hens,pending_eggs}, transient feeding/collection tokens excluded. Existing valid snapshots remain compatible under current shipped config. Busy snapshots stay diagnostic only; future runtime must check is_busy before save/load/new/title/day transitions. SaveServicev10 remains unchanged, but registered food stacks/remaining quantities already persist through current inventory codec. No animal field, golden or migration change.
+8. Two new test files cover data20/30/42 and ID/locales/fallback, config references/invalid ID, real partial/full stock debit, no overfeed, fed→one completed-day egg production then existing collection, no-feed/no-mortality regressions, insufficient/wrong/unknown food and stale/duplicate requests, no early egg grant, bag/coop JSON/v10 roundtrip and independent items. Callback tests cover earliest debit notification, same/second facade reentry, both directions of feed↔collection lock, raw methods/reset/restore, token identity/reuse, rejecting debit, legitimate gifts/consumption, future facade reconfiguration and captured terms/config invalidation. All479 previous tests/goldens/runners byte-identical; new scripts≤250 lines.
+9. Record D82/API/schema/architecture/roadmap/current memory and actual product choice. Before code copy/hash all pending entries/scoped originals and record HEAD/index/player-save baselines. Run focused new pure/headless commands plus original state/collection/inventory/save regressions, then unchanged cmd /c tools\run_tests.bat with complete discovery and two sequential180000ms bounds. Deliver exact files/full contents/clear diff/real logs/protected-test/visual-set/scope/HEAD/index/player-save audit. Preserve failures, do not weaken tests or increase timeout. No new screenshot/manual animal-feature claim; no commit unless separately requested.
+
+PROPOSED ALLOW_LIST — exactly20 paths (13 existing,7 new including3 optional generated UIDs):
+
+Existing files allowed to modify:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+scripts/data/chicken_coop_config.gd
+data/chicken_coop_config.tres
+scripts/domain/chicken_coop_state.gd
+scripts/core/data_registry.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+~~~
+
+New files allowed to create:
+~~~text
+data/items/chicken_feed.tres
+scripts/domain/chicken_coop_feeding_service.gd
+scripts/domain/chicken_coop_feeding_service.gd.uid
+tests/unit/test_chicken_coop_feeding.gd
+tests/unit/test_chicken_coop_feeding.gd.uid
+tests/unit/test_chicken_coop_feeding_callbacks.gd
+tests/unit/test_chicken_coop_feeding_callbacks.gd.uid
+~~~
+
+DO NOT TOUCH: everything else, including ChickenCoopCollectionService, current config/state UIDs, InventoryState/WalletState/economy/ledger/other services, Main/DaySimulator/GameClock/SaveService/savev10/goldens/old tests/runners/GUT/bounds, egg.tres/current wheat/crops/recipes/machines/land/can, all UI/.tscn/Theme/art/map/Player/camera/project.godot/InputMap. No actual coop/hens/food grant, purchase UI/shop stock change, feeding UI/world interaction, animal simulation/save field, new prices beyond approved chicken feed20, animal health/mood/death or additional species.
+
+ACCEPTANCE: chicken_feed registered/config-referenced with buy20, current egg30/wheat42 retained; real feed debit exactly configured units for positive unfed hens/current day once; missing/wrong/unknown/busy/stale/invalid/overfeed reject unchanged; debit before settled fed hens, owner-shared mutual exclusion with existing egg collection and raw state methods; rejecting false debit grants no hens and preserves independent changes, true whole debit commits captured terms and unlocks despite callback reconfiguration/config invalidation; no extra eggs until one legitimate completed-day advance. Old codec andv10 item persistence remain;479 old cases/goldens/runners/18 art paths preserved; focused/headless/full bounded gates pass, exact evidence/docs/diff/audits delivered. No player-accessible food shop/animal UI/world/save claim.
+
+Assumptions/risks for approval: owner has already selected a separate feed buy20 with egg30. This plan additionally proposes stable ID chicken_feed/category material/stack99/resale0/existing fallback. Purchase price is prepared in DATA; seed-only current shop cannot sell it without a later approved UI/catalogue scope. Shared state guard is essential because actual inventory signals are synchronous; a facade-only guard would allow a second service to advance or collect mid-debit. Preserve original collection error/result behavior to keep its tests truthful. Settlement honors captured feed authorization without depending on a mutable live Resource after payment. Existing truthful InventoryState boolean removal contract is required. Additional code/file/test need beyond this list must be proposed before editing.
+
+Plan-only evidence: D:/godot/game-godot-backups/phase66c-plan-20261108-235538. Suggested eventual commit, not executed: feat: add guarded inventory feeding with chicken feed
+
+
+### Phase6.6c food-choice review (resolved; historical checkpoint)
+
+Resolved after this review: owner chose “Thức ăn riêng: mua 20 xu; giữ trứng 30 xu”. The pending-choice text below is historical; new exact scope awaits approval above.
+
+Owner said tiếp tục after6.6b. Reviewed current memory/API/architecture/roadmap/rules, ChickenCoopConfig/State reservation hooks and actual autumn_wheat ItemData. All18 delivered6.6b hashes match. Last real baseline: parse/data/headless63/63/graphics479/479 (25087 assertions)/Main PASS; no new test run or code/PASS claim in this review. No stage/commit/push authorization.
+
+Required product choice was asked: use new chicken feed with proposed buy20/keep egg30, or use existing autumn_wheat keeping42/30. Current schema/master table used historical wheat20; actual registered autumn_wheat sells42. Feeding1 wheat42 for1 egg30 reduces sale value12 per hen/day. D80/D81 explicitly deferred this mapping/economics. AGENTS§2.2/§5 prohibits silently selecting the unknown item/price. No default selection is treated as an answer. New feed price20 is only a proposal until the owner replies; no item ID/Resource/registry/price is implemented.
+
+Independent technical review: a feeding service should consume actual InventoryState only after a pure exact-day/unfed-hen/food quantity quote, with a coop-owned feeding reservation protecting raw day/feed/take/reset/restore and collection across facades. Existing is_busy must cover both operations; keep collection_busy behavior for existing collection tests. Capture original owner/food terms before callbacks; truthful remove_item false grants no fed hens, true commits only reserved hens after the actual whole debit. Invalid config changes must not strand an already authorized settlement. Do not restore entire inventory snapshots that could erase independent gifts/consumption. Preserve four-field coop codec and savev10 until runtime wiring is explicitly scoped. Existing InventoryState removal inserts no callbacks before it has completed the whole debit, which supports reserve→debit→settle without an unprotected grant window.
+
+This is preliminary design only, not an approved plan/ALLOW_LIST. After the food choice arrives, write a concrete Phase6.6c file list/acceptance: config-owned feed identity, stateless command adapter, shared owner reservation, focused rejection/reentry/cross-collection/JSON tests and unchanged full bounded gate. New feeding must not silently create Main-owned hens, add animal UI/placement/shop/save migration or reprice current crops. Exact scope depends on whether an ItemData/registry/localization entry is needed, so do not code either branch yet.
+
+Current repo write: only this planning memory note; earlier6.6b delivery/history retained byte-for-byte. Choice/audit evidence: D:/godot/game-godot-backups/phase66c-choice-20261108-234959. No commit suggestion until the concrete scope is prepared.
+
+
+## Phase6.6b — registered egg and guarded bag collection (479/479 automation delivered; animal runtime/commit pending, 2026-11-08)
+
+Owner approved all18 paths with “Duyệt Phase6.6b, bắt đầu triển khai”. Before code copied/SHA256-verified1306 pending entries and scoped originals to D:/godot/game-godot-backups/phase66b-20261108-232511, recorded327 existing test/tool hashes, HEAD/index/status and two real player-save hashes. Delivery is exactly18 paths (11 modified,7 created including3 generated UIDs). No unapproved path/test/golden/runner edits, no stage/commit/push or real-player save mutation.
+
+Delivered data: egg ItemData registered through ordinary DataRegistry, category produce/max_stack99/buy0/sell30 from the documented product table, vi/en name/description and existing icon fallback. No new art/scene/model/icon binding, wheat repricing or animal feed mapping. Logical item/translation validation includes egg; historical C2 visual validation keeps exactly its18 original item paths, verified against pre-code source. Positive ItemData value is available to existing generic price/selling code; no sale/shop UI/source is changed.
+
+Delivered command: stateless ChickenCoopCollectionService validates exact current egg buffer, matching registered item and whole bag room, captures original owners, reserves source before InventoryState item callbacks, adds once and settles remaining output. Same/second facade and raw feed/advance/take/reset/restore cannot replay/change the reserved owner. State-owned opaque token plus valid remainder alone may finish; settlement works even if callbacks invalidate Resource. Independent bag gift/consumption and facade reconfiguration are preserved, never overwritten by a full snapshot rollback. Full/unknown/stale/empty/invalid/busy failures preserve original owners; actual full-bag path never calls add or reserves source.
+
+Normal real InventoryState grants the complete preflight batch once. A zero-grant rejecting double restores all eggs; a valid partial-count fault retains actual added eggs and restores only untransferred remainder, reporting partial_transfer quantity/remaining explicitly. This recovery is not partial-full-bag gameplay. An invalid added-count contract returns settlement_failed and retains reservation fail-closed; existing InventoryState obeys the contract. Four-field standalone codec remains; transient token/count never serialize. Busy snapshots are diagnostic only, and future Main/save integration must check is_busy before persistence.
+
+Registered egg stacks roundtrip through existing InventoryState/SaveServicev10 with actual explicit capacity/order/other items/wallet/farm retained; no coop field/version/migration/golden change. Main/DaySimulator/GameClock/InventoryState/WalletState/config4-1-1/crops/machines/land/can/UI/map/Player/camera/Theme/input remain byte-identical. No player-accessible animal feature, runtime herd, actual feed debit, placement/purchase/UI or coop game-save owner is added by this slice.
+
+Acceptance restated: registered egg/30/locales/fallback; one complete real-bag collection with full/unknown/stale failure preservation; owner-shared reservation rejects all callback reentry/raw mutation; safe ref/config changes; zero/partial fault conservation and independent bag changes retained; current four-field codec andv10 item persistence; original466 cases/goldens/runners preserved, focused/full bounded gates and exact diff/docs/audits delivered. This satisfies collection-domain scope, not animal-world acceptance.
+
+Real focused headless output (13 new collection/callback tests +9 original coop +6 inventory +9 machine collection +5 save):
+~~~text
+focused2.log.stdout: Scripts6; Tests42; Passing Tests42; Asserts679; Time0.524s
+---- All tests passed! ----
+validate-final.log.stdout:
+[validate_data] PASS
+~~~
+
+Verification history retained: initial edit helper stopped on a mixed CRLF/LF match before validator/locales were written; remaining scoped edits completed byte-preservingly, without duplicating registry insertion. Bounded Editor import registered classes, with inherited duplicate-asset UID warnings. First focused run had one new assertion incorrectly assuming currentv10 floors a4-slot fixture to40; inspected actual migration: only old-version upgrade does that. Corrected only the new assertion to require retaining explicit inventory.capacity; SaveService and old tests remain unchanged. First official run stopped at data validation because appending egg to the logical item list also sent it to historical3D-model/icon validation, contrary to the approved generic fallback. Corrected scoped validator to retain the exact18 old visual members while validating all19 logical items and new keys; no old art check is skipped/weakened and no invented asset added. Focused42/42, explicit validator and final full run pass. First failures/focused/import/first-validation logs and legacy-art-validation-audit.json are preserved.
+
+Final official command: unchanged `cmd /c tools\run_tests.bat`, exit0. Parse/data PASS, fixed headless63/63/880 assertions/5.299s; complete graphics124 scripts/479/479/25087 assertions. Group1=231/231/15053 assertions/106.823s; group2=248/248/10034 assertions/103.399s. Graphics GUT210.222s, wall221.5749059s, both sequential children retain180000ms. All466 old tests remain byte-identical plus13 new/193 assertions. Main smoke PASS. Final official stdout/stderr has no SCRIPT ERROR/Parse Error/ERROR/Orphan. Expected invalid-data/busy-guard warnings and old float-int/historical visual warnings remain; no new screenshot/human F5 acceptance is claimed.
+
+Real final output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.299s
+---- All tests passed! ----
+[graphics_tests] PASS: 124 scripts, 479/479 tests, 25087 assertions; GUT 210.222s, wall 221.5749059s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+Manual editor steps: none; reload new scripts/Resource if necessary. Run new GUT collection/callback scripts with the existing isolated bounded runner, or the full command above. Check standalone pending4 -> real bag egg4/source0; repeat4 is stale. Bag with96/99 eggs in one slot and pending4 must stay unchanged with inventory_full/no add call; space permitting, split stacks at99 and keep other items/order. Callback tries second facade/raw take/feed/day/reset/restore and sees busy/source0 while the full bag grant is already visible. Independent gift/consumption remains. Reject0 restores4, partial fault adds2/restores2 then exact retry2 grants remainder once. Roundtrip collected104 eggs throughv10 keeps both stacks/other items/explicit bag capacity and no animal field. F5 has no new animal interaction because Main/UI/world integration remains outside scope.
+
+Assumptions/known limits: egg30 and99 stack were explicitly approved; no positive-profit assumption for actual wheat42. Collection relies on truthful InventoryState.add_item added count; malformed nonstandard count cannot be guessed or rolled back without risking independent changes, so invalid settlement stays locked and requires owner-side diagnosis rather than duplicate release. Raw reservation/take/feed APIs remain trusted internal only. No busy snapshot may be persisted by future runtime; add lifecycle guard when Main is integrated. Current bag items persist, coop itself does not yet enter game saves. No package/runner/timeout/editor-scene change or commit.
+
+Exact files/full contents/clear task-only diff/logs/audits: D:/godot/game-godot-backups/phase66b-20261108-232511/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,focused1.log.*,focused2.log.*,full-run.log,first-validation/,validate-final.log.*,full-run2.log,full-final/,full-result.json,legacy-art-validation-audit.json,scope-audit-final.json,reverse-check.txt,player-save-audit.json}. Original1306-entry pending backup is preserved. D81/API/schema/architecture/roadmap/current memory updated; previous6.6a memory retained byte-for-byte. Suggested commit only, not executed: feat: register eggs and add guarded coop collection
+
+
+### Phase6.6b approved plan (historical proposal checkpoint)
+
+Approval: owner replied “Duyệt Phase6.6b, bắt đầu triển khai” for all18 paths. Pre-code verified backup: D:/godot/game-godot-backups/phase66b-20261108-232511. No commit authorization.
+
+MILESTONE: original ROADMAP6.6, following delivered standalone6.6a/D80. Owner requested continuation; the original proposal preceded code, then the owner explicitly approved all18 paths. Implementation and real acceptance are recorded above. No code/PASS was claimed before approval. No stage/commit/push requested. Current baseline is h3 plus6.6a: last official parse/data/headless63/63/complete graphics466/466 (24894 assertions)/Main PASS; the14-file6.6a delivery hashes have zero drift. Preserve all inherited work/metadata/backups/player progress.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS D80/CODE_PATTERNS/ROADMAP/STYLE_GUIDE, existing inventory contract; actual ChickenCoopConfig/State, InventoryState callbacks/capacity/codec, DataRegistry/ItemData, current output-item/validator/localization patterns and collection/save tests. No view/scene is modified. Existing machine output collection is context, not a refactor target.
+
+TASK: register documented egg as ItemData and add an inventory-aware collection command for a standalone coop. Preflight whole bag capacity, reserve the actual current egg buffer before item signals, grant through existing InventoryState exactly once, retain untransferred output on failure and block reentrant coop mutations across all facades. Do not wire Main, daily simulation, animal purchase/placement/UI/feed inventory/save fields yet. This next slice deliberately addresses collection first; actual food identity/current wheat42 versus historical20 remains unresolved for a later feeding scope.
+
+Proposed implementation:
+1. Add data/items/egg.tres with documented stable item_id egg, vi/en ITEM_EGG_NAME/ITEM_EGG_DESCRIPTION, category produce, max_stack99 (existing ItemData/common produce default), buy_price0 (not shop-buyable) and sell_price30 from existing schema/master plan. Empty icon uses existing fallback; do not invent/rebind art. Register it through existing DataRegistry list and tools/validate_data item/translation checks. No recipe, crop, wheat42 price or existing ID/value changes. The positive documented price makes owned eggs eligible for existing generic selling behavior where supported; do not build a new shop/sale UI or promise historical wheat profit.
+2. Extend ChickenCoopState narrowly with transient opaque reservation identity/quantity, shared across collection facades. New documented APIs: collection_quote(expected_quantity:int)->Dictionary (read-only valid/busy/exact positive buffer terms), begin_collection(expected_quantity:int)->Dictionary (reserve/clear buffer and return opaque RefCounted token plus item_id/quantity), finish_collection(token:RefCounted,remaining_quantity:int)->bool (only matching token and valid0..reserved amount may restore remainder/release), is_busy()->bool. Tokens never enter serialize. Finish must release/restore reserved output even if the Resource was invalidated during callbacks, without overwriting unrelated state.
+3. While collection is reserved, existing feed/advance_day/raw take_eggs reject with explicit busy failure; configure/deserialize warn and retain current owner state. New reservations reject reentry. Keep names/signatures/default standalone behavior and exact four-field wire shape; all original9 coop tests remain byte-identical. serialize during a reservation is diagnostic only; future runtime saves must use is_busy safe-point guard, not persist half a transfer. No live Main save wiring is added here.
+4. New ChickenCoopCollectionService RefCounted is a stateless command adapter holding actual coop/inventory references, not another egg/item owner: configure(state:ChickenCoopState,inventory:InventoryState), can_collect(expected_quantity:int)->Dictionary, collect(expected_quantity:int)->Dictionary. Validate actual state/registered egg and full capacity first. Capture original references before signals, then reserve source and call existing inventory.add_item once. Existing InventoryState preflights/inserts the complete quantity before callbacks; normal successful command clears exactly the original buffer. Full/unknown/stale/invalid/busy queries/commands change neither owner. No inventory or coop full-snapshot rollback that could erase independent callback changes.
+5. For a rejecting inventory double returning0 actual additions, restore all reserved eggs; for a fault-injection double reporting a valid partial count0<n<requested, retain only the untransferred remainder and report explicit partial_transfer quantity/remaining, preserving conservation instead of duplicating already transferred eggs. This is defensive recovery for a nonstandard inventory implementation, not partial-full-bag gameplay: the actual InventoryState whole-capacity preflight blocks a full bag before reservation and performs one whole normal grant. Trust the documented added-count contract; no guessed rollback of independently consumed/moved callback items. Invalid reservation token/amount cannot release another command. A callback can reconfigure the service's future references without redirecting the in-progress transfer from captured original owners.
+6. New tests with real registry/InventoryState/coop verify registered egg data/name/description/price30, read-only preview, one-time bag pickup, empty/full/unknown/stale/wrong quantity and valid persistence of egg stacks through existing inventory/SaveServicev10 codec. Complete batch and partial/full stacks preserve limits/order/other items; no new save field/version or old golden change. Unknown-registry tests restore exact prior registry entry afterward.
+7. Separate callback/fault tests: same/second collection facade reentry, raw take/feed/advance/configure/deserialize while reserved, invalid token/remaining amount, actual add-before-signal observability, independent legitimate bag gift/consumption retained, service reconfiguration, zero/partial rejecting doubles, and current config invalidation. Assert source+bag conservation/no duplicate/no lost output, safe unlock, and unchanged four-field domain serialization. No old test edits or skipped assertions. New scripts target≤250 lines; split only within listed files or ask before adding scope.
+8. Write D81/API/schema/architecture/roadmap/current memory; back up/hash all pending work and scoped originals before code. Run new focused headless commands plus existing coop/inventory/collection/save regressions, then unchanged cmd /c tools\run_tests.bat with all466 prior cases and full discovery, two sequential180000ms bounds. Deliver exact manifest/full contents/clear diff/raw logs, protected-test/golden/runner/HEAD/index/player-save audit. No new screen/asset/capture claim or automatic commit.
+
+PROPOSED ALLOW_LIST — exactly18 paths (11 existing,7 new including3 optional generated UIDs):
+
+Existing files allowed to modify:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+scripts/domain/chicken_coop_state.gd
+scripts/core/data_registry.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+~~~
+
+New files allowed to create:
+~~~text
+data/items/egg.tres
+scripts/domain/chicken_coop_collection_service.gd
+scripts/domain/chicken_coop_collection_service.gd.uid
+tests/unit/test_chicken_coop_collection.gd
+tests/unit/test_chicken_coop_collection.gd.uid
+tests/unit/test_chicken_coop_collection_callbacks.gd
+tests/unit/test_chicken_coop_collection_callbacks.gd.uid
+~~~
+
+DO NOT TOUCH: everything else, including ChickenCoopConfig/4-1-1 Resource/current State UID, InventoryState/WalletState/economy/ledger/other services, Main/DaySimulator/GameClock/SaveService/savev10/goldens/old tests/runners/GUT/bounds, current crops/recipes/machines/land/can/feed items/prices, all UI/.tscn/Theme/assets/map/Player/camera/project.godot/InputMap. No runtime coop or hens grant, feeding item debit/mapping, new purchase/placement/animal UI/simulation/save field, egg recipes/house upgrade/death/mood/other animals or changed wheat price.
+
+ACCEPTANCE: egg registered with correct documented ID/30 price/translations and existing fallback; real whole-quantity collection once into InventoryState, full/unknown/stale/invalid blocked with original owners retained; reservation shared across facades/raw coop methods and safe after callback reconfiguration/config invalidation; rejecting0 restores all eggs, valid partial fault retains exactly untransferred remainder with explicit result; independent bag changes not reverted. Existing wire fields andv10 inventory persistence hold; original466 cases/goldens/runners byte-identical and complete bounded gate passes. Docs/diff/real outputs/scope/save audit delivered. No playable animal world/UI/feeding integration claim.
+
+Assumptions/risks for approval: registering egg with30 is sourced from the existing schema, not a new balance guess. Stack99 follows existing ItemData/common produce behavior. Actual wheat42 identity/economics remain deferred, so no positive animal-profit claim. Source reservation and transient state guard are required because InventoryState emits synchronous item callbacks; do not rely solely on one facade's busy flag or whole-owner snapshot rollback. Normal engine inventory addition is full after preflight; partial handling is conservative fault recovery, explicitly not a weakened full-bag rule. Reserved-state serialization is not a safe game-save point; Main integration must guard it later. If an old test asserts a fixed registered-item list, report exact failure and propose any expectation change separately before touching it.
+
+Plan-only evidence: D:/godot/game-godot-backups/phase66b-plan-20261108-232337. Suggested eventual commit, not executed: feat: register eggs and add guarded coop collection
+
+
+## Phase6.6a — standalone daily chicken-coop foundation (466/466 automation delivered; runtime integration/commit pending, 2026-11-08)
+
+Owner approved all14 paths with “Duyệt Phase6.6a, bắt đầu triển khai”. Before code copied/SHA256-verified1296 pending entries and scoped originals to D:/godot/game-godot-backups/phase66a-20261108-225621; recorded322 existing test/tool hashes, HEAD/index/status and two real player-save hashes. Task delivery is exactly14 paths (7 modified,7 created including3 engine-generated UIDs). Three optional h3 test UIDs were also generated by the Godot filesystem import; these are previously approved metadata, separately recorded/preserved without manual source edits. No stage/commit/push or new player-save mutation.
+
+Delivered: ChickenCoopConfig Resource data owns4-hen capacity/1 feed per hen/1 egg per fed hen. Pure ChickenCoopState explicitly initializes a supplied herd/day, accepts partial feeding by hens and returns required feed units; it does not consume real inventory. Exact completed-day token produces once, clears daily feed, increments day and retains all hens. Unfed100-day regression produces0 and never kills a hen. Pending eggs accumulate across days; exact positive expected-buffer take returns documented egg token/quantity once, retaining output on stale/invalid request. Checked Resource products and pending/day arithmetic prevent numeric overflow before any mutation. Numeric precision bound is external integrity, not an invented small gameplay buffer limit.
+
+State serialize returns four detached integer fields current_day/hen_count/fed_hens/pending_eggs; no config reference/ready flag/Node. Explicit configuration is required before restore. Valid integral JSON numbers canonicalize to ints; unknown extras are ignored. Missing/malformed/null/bool/string/collection/nonintegral/nonfinite/negative/oversized/over-capacity/overfed known fields reject the entire snapshot with warning and retain previous valid state, rather than clamping feed into output or deleting eggs. Invalid initialization is inert empty; subsequently invalidated Resource blocks commands but retains saved fields.
+
+This is an internal domain foundation only. Raw feed/take primitives are not inventory-authorized player commands and cannot be exposed directly. Main/DaySimulator/clock/day order, InventoryState/WalletState/DataRegistry/ItemData, source/can/machines/land/UI/scene/art/map/Theme/InputMap/localization and SaveService/savev10/goldens remain byte-identical. No actual hens/coop/item grant, player input/UI, new simulation path or animal field in game saves. Future integration must provide actual item debit/collection safeguards and deliberate day/save wiring. Historical wheat20/egg30 versus actual autumn_wheat42 economics remain unassigned, not silently repriced.
+
+Acceptance restated: DATA4/1/1; pure typed serialized state with explicit herd; fed hens produce configured eggs exactly once per completed day, unfed0 and no mortality; partial/full feed/overfeed/stale/duplicate/skipped day atomicity; retained output/exact one-time trusted take; checked integer overflow and detached JSON roundtrip/conservative complete restore; all457 old tests/goldens/runners preserved; focused headless and full official gate pass under unchanged bounds; exact docs/diff/audit delivered. Automation meets this standalone scope, not a playable animal-system acceptance claim.
+
+Real focused headless output (9 new coop +2 existing day simulator +4 existing can):
+~~~text
+Scripts3; Tests15; Passing Tests15; Asserts502; Time1.036s
+---- All tests passed! ----
+~~~
+
+Final official command: unchanged `cmd /c tools\run_tests.bat`, exit0. Parse/data PASS, fixed headless63/63/880 assertions/5.334s; full graphics122 scripts/466/466/24894 assertions. Group1=224/224/14933 assertions/110.473s; group2=242/242/9961 assertions/109.769s. Graphics GUT220.242s, wall232.0074266s. Both sequential children retain180000ms; old457 cases byte-identical plus9 new/355 assertions. Main smoke PASS.
+
+Real final output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.334s
+---- All tests passed! ----
+[graphics_tests] PASS: 122 scripts, 466/466 tests, 24894 assertions; GUT 220.242s, wall 232.0074266s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+Verification history: bounded headless Editor filesystem import registered new classes before focused execution, producing inherited duplicate-asset UID warnings. First focused and first full run passed; no failing assertion/source fix iteration, old test rewrite or timeout extension. Expected corrupt-config/snapshot rejection warnings are deliberately exercised in new tests; existing negative-case/float-int/historical visual warnings remain. Final official stdout/stderr has no SCRIPT ERROR/Parse Error/ERROR/Orphan. No new screenshots required or claimed: this task changes no view. Existing renderer tests/captures still run in the full suite; no new human F5 claim.
+
+Manual editor steps: none; reload new scripts/Resource if needed. Run the new GUT script headless through existing isolated run_godot_bounded.ps1, or full command above. Cases: configured4 hens feed2 at day0 -> completed day0 gives2 eggs/day1; repeat day0 or skip to2 rejected; feed2 then2 at day1 ->4 more eggs/total6, no feed next day leaves6 and4 hens. take expected5 retains6; take6 returns once, repeat fails. JSON roundtrip while partial feed/output preserves all four fields; invalid known field retains whole previous snapshot. F5 animal UI is intentionally absent because runtime/scene/save integration was outside this approved scope.
+
+Assumptions/known failure points: owner approved partial feeding and all uncollected output retention. Internal feed/take are not safe bag transactions until a later approved command layer exists. Reconfigure is an explicit initialization/reset, never an automatic world grant; deserialize requires valid prior configuration and rejects incomplete snapshots instead of inventing defaults. Caller must advance consecutive completed days; no offline/catch-up is inferred. Current wheat identity/price versus historical table needs a future gameplay decision. Savev10 includes no coop state; standalone serialize is not game-save persistence.
+
+Exact full contents/clear task-only diff/raw outputs/audits: D:/godot/game-godot-backups/phase66a-20261108-225621/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,focused-headless.log.*,full-run.log,full-final/,full-result.json,scope-audit-final.json,reverse-check.txt,player-save-audit.json,observed-prior-approved-metadata.json}. Original1296-entry pending backup preserved. D80/API/architecture/schema/roadmap/current memory updated; old h3 memory retained byte-for-byte. Suggested commit only, not executed: feat: add standalone daily chicken coop state
+
+
+### Phase6.6a approved plan (historical proposal checkpoint)
+
+Approval: owner replied “Duyệt Phase6.6a, bắt đầu triển khai” for all14 paths. Pre-code verified backup: D:/godot/game-godot-backups/phase66a-20261108-225621. No commit authorization.
+
+MILESTONE: original ROADMAP6.6 “Chicken coop + eggs (daily, domain only)”. Owner said tiếp tục after Phase6.5h3; at proposal time this continued review/planning only. Owner subsequently approved the14-path domain plan, now implemented as reported above. No code/PASS was claimed before approval. No stage/commit/push authorization. First can-upgrade automation is delivered; human F5/commit and later ambiguous upgrades remain pending, not silently completed.
+
+Planning baseline: h3 delivered39-file manifest has zero source drift. Last official parse/data/headless63/63/graphics457/457 (24539 assertions)/Main PASS. Preserve all pending work, previous backups and old tests/goldens/runners. New plan changes only this memory file before approval.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API_INDEX/ARCHITECTURE (fixed animal day-step is a future target)/DATA_SCHEMA/DECISIONS/CODE_PATTERNS/ROADMAP; master plan S22,6.6 and animal balance table. Existing DaySimulator only advances farm and is deliberately unchanged in this foundation. No scene is touched, so no new scene contract/UI/Inspector wiring is required.
+
+Documented rules: coop supports4 hens;1 wheat per fed hen per completed day yields1 egg. Unfed hens yield0 and never die. Existing schema/master plan defines egg base30 and old wheat20 economics, while actual registered autumn_wheat sells42; do not silently reprice/bind that item or claim old positive profit. Feed item mapping, ItemData/price/registry, buying coop/hens, inventory transactions, visuals/runtime/day simulation/save integration are separate later scope.
+
+TASK: implement a pure, standalone data-owned daily coop state and tests. This is a trusted internal domain model, not a player-accessible free feed/egg action or an integrated animal system. State serializes from its first implementation. No game save version/payload/Main/day simulation change.
+
+Proposed plan:
+1. ChickenCoopConfig Resource exports hen_capacity=4, feed_per_hen=1, eggs_per_fed_hen=1 through data/chicken_coop_config.tres, directly from documented rules. validation_errors()->PackedStringArray is pure; reject missing/nonpositive/unsafe values. Shared MAX_JSON_INTEGER is an external numeric integrity bound, not a production/buffer gameplay cap. No guessed ItemData/icon/path, animal price, build footprint, unlock or new balance value.
+2. ChickenCoopState RefCounted owns configured current_day, hen_count, fed_hens and pending_eggs only. configure(config:ChickenCoopConfig,start_day:int,hen_count:int) initializes an explicitly supplied standalone herd0..capacity, never a free runtime grant. No Node/clock/autoload/inventory/wallet/global event/random/delta. Domain header/static types; target≤250 lines per script.
+3. Proposed feed(day_index:int,hens_to_feed:int)->Dictionary is an internal state primitive: validate exact current day/positive amount/available unfed hens and mark only those hens fed, return required feed_units from Resource. A future player command must debit the actual feed inventory atomically before authorizing this primitive; no such transaction or runtime input is exposed here. Partial requests may feed2 then2, never more than actual hens; duplicate overfeed/stale/invalid requests leave state unchanged. This deliberately models feeding counts only, not an invented free item source.
+4. advance_day(completed_day:int)->Dictionary accepts exactly current_day, produces fed_hens*eggs_per_fed_hen once, appends to pending_eggs, clears fed count and advances day by1. Duplicate/old/skipped/invalid day is rejected without mutation; no speculative catch-up or second simulation path. Unfed days produce0 and retain all hens. Uncollected eggs persist and accumulate across days; no arbitrary gameplay buffer cap/destruction. Check multiplication/addition/day overflow before mutation against numeric integrity bounds; failed command is atomic.
+5. take_eggs(expected_quantity:int)->Dictionary is a trusted raw output-buffer primitive only: require expected exact positive pending count, return egg ID from documented schema and quantity once, then clear. Stale/repeated/invalid requests do not clear/grant. Future player collection must preflight bag and reserve/transfer atomically in its own approved service before exposure; no new ItemData/registry/inventory command here. Snapshot/serialize are detached; rendering cannot own state.
+6. serialize()->Dictionary and deserialize(data:Dictionary)->void preserve current_day/hen_count/fed_hens/pending_eggs. Validate raw JSON Variant types/integral numbers/ranges/config before restoring; conservative handling rejects forged fed counts/negative/nonintegral/overflow/unknown malformed shapes without generating eggs. No Node tree or transient config reference saved. JSON roundtrips preserve numeric meaning. Explicit tests document each malformed-field policy before acceptance.
+7. Add a new test file for configured4/1/1 and invalid config; no feed0 eggs/no mortality over many completed days; partial/full feeding and next-day reset; duplicate/stale/skipped day idempotence; buffered eggs retention/one-time trusted extraction; exact amount/overflow atomicity; detached serialization/current partial-feed/buffer JSON roundtrip and malformed payloads. Keep all457 existing cases/old golden bytes/runners unchanged. Validate config in tools/validate_data.gd without runtime registration; update D80/API/schema/architecture/roadmap/current memory to distinguish foundation from gameplay integration.
+8. Before code copy/hash all pending work and scoped originals. Run new pure test headless plus focused regressions, then unchanged cmd /c tools\run_tests.bat with complete graphics discovery and existing two sequential180000ms bounds. Preserve failure logs; deliver exact files/full contents/clear diff/real output/scope/HEAD/index/player-save audit. No commit, install, existing test change or timeout extension.
+
+PROPOSED ALLOW_LIST — exactly14 paths (7 existing,7 new including3 optional engine-generated UIDs):
+
+Existing files allowed to modify:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+tools/validate_data.gd
+~~~
+
+New files allowed to create:
+~~~text
+scripts/data/chicken_coop_config.gd
+scripts/data/chicken_coop_config.gd.uid
+data/chicken_coop_config.tres
+scripts/domain/chicken_coop_state.gd
+scripts/domain/chicken_coop_state.gd.uid
+tests/unit/test_chicken_coop_state.gd
+tests/unit/test_chicken_coop_state.gd.uid
+~~~
+
+DO NOT TOUCH: everything else, especially Main/DaySimulator/GameClock/SaveService/savev10/all goldens, InventoryState/WalletState/DataRegistry/ItemData/current wheat/crop/recipe/economy prices, source/can/upgrades/land/machines/Player/camera/map/UI/art/Theme/localization/project.godot/InputMap, all .tscn, old tests/GUT/runners/bounds. No actual coop/hens grant, bag consumption/collection/sale/purchase, gameplay feed binding, health/death/mood/pet/fishing/simulation catch-up or new runtime system.
+
+ACCEPTANCE: actual Resource4/1/1; pure typed state configured with explicit herd; each fed hen yields exactly1 per completed day, unfed0 and no hen loss; partial feeding/overfeed/stale/duplicate/skipped/overflow invalid commands atomic; buffered eggs never silently discarded and trusted extraction once; detached valid JSON roundtrips and conservative malformed restore; all457 previous tests/goldens/runners retained; focused headless and full official bounded suite pass, exact evidence/docs/audit delivered. No runtime/UI/save-integration or human-playtest claim.
+
+Assumptions/risks for approval: explicit approval of this plan also approves partial feeding by counts and retaining all uncollected eggs without inventing a small buffer cap. Raw feed/take primitives are trusted internal building blocks and must never be exposed directly as player commands; inventory-safe transaction/lifecycle/day-order/save/UI work will be separately planned. Registered wheat identity/current42 price versus historical20 is unresolved for future gameplay mapping, deliberately outside this model. Config/herd/day/JSON bounds must not make corrupt input produce eggs or change hen count through starvation. No existing source/test drift was observed while planning.
+
+Plan-only evidence: D:/godot/game-godot-backups/phase66a-plan-20261108-225235. Suggested eventual commit, not executed: feat: add standalone daily chicken coop state
+
+
+## Phase6.5h3 — modular first can-upgrade confirmation (457/457 automation delivered; human F5/commit pending, 2026-11-08)
+
+Owner approved all42 proposed paths with “Duyệt Phase6.5h3, bắt đầu triển khai”. Before code copied/SHA256-verified1277 pending entries, scoped originals,319 existing test/tool files and two real player-save hashes to D:/godot/game-godot-backups/phase65h3-20261108-220152. Current source delivery uses39 paths (20 modified,19 created; three optional new-test UIDs absent). No outside-ALLOW_LIST edits, old test/golden/runner drift, stage/commit/push or player-save mutation.
+
+Delivered behavior: Bag footer has a separate native can-upgrade entry; three small lazy scene/script pairs plus detached snapshot/presenter reuse existing Theme/fonts. Actual20→40 capacity, Resource200 price, current water/wallet/readiness appear in both locales even with insufficient funds. Confirm calls unchanged WateringCanUpgradeService using actual Main can/wallet, charges once and preserves0/7/20 water. Completed result disables repeat purchase. Source refill subsequently reaches40; no free water is granted. Existing savev10 persists actual capacity/charges; fresh game resets20/20. Real owned land/crops/items/machine placement/jobs roundtrip unchanged.
+
+Main adds a configured upgrade service and transient flow; shared transaction guard covers lifecycle/save/load/title/continue/other purchase/water/refill during debit/grant/refund. Stale terms/hidden/canceled/discard/reentry cannot pay; failed grant refunds only its debit and retains independent wallet/water changes, then updates the true HUD. UiCoordinator remains the single modal/pause/Player-lock/native-focus authority. Generic close can replace the modal during a callback without leaving two visible; explicit safe Back returns to Bag and lifecycle close does not. Prior debug clock hold survives. Existing bag-upgrade/filter/sort/discard/extra rows/native wheel and all source/map/Player/camera/art/save paths stay.
+
+Ledger recognizes existing buy_watering_upgrade_rollback as reduced expense and localizes purchase/refund reasons. A rejected/refunded purchase has zero net income/expense; a separate real11-coin sale remains income11. No ledger/save shape or raw history rewrite. Both locales/validator add18 keys. Resource/state/manual/upgrade/refill domain services and Runtime source remain byte-identical; no extra balance/tier/autoload/global event/InputMap/Theme change.
+
+Acceptance restated: one200-coin20→40 upgrade, remaining water retained, honest insufficient/completed UI; no stale/hidden/reentrant/half-transaction mutation; real HUD/refill40/savev10/new-game20 behavior with prior progress; native input/Back/Escape/modal/pause/locales/layout; correct signed ledger refund and independent transactions; all446 old tests/goldens/assertions/runners preserved; real complete bounded gate/captures/diff/audits delivered. Automation passes below; human F5 remains pending.
+
+Real focused output:
+~~~text
+focused1.log.stdout: Scripts3; Tests10; Passing Tests10; Asserts587; Time7.417s
+---- All tests passed! ----
+focused2.log.stdout: Scripts5; Tests19; Passing Tests19; Asserts1468; Time24.55s
+---- All tests passed! ----
+~~~
+
+Verification history retained: initial parse ran before Godot registered the new global classes and reported missing types. A bounded headless editor filesystem import registered them; import also reported inherited duplicate asset UID warnings (assets were not edited). First complete run found one old inventory render test failing ten assertions: new footer button left the five-row grid352px inside349px available height at the smallest size. Fixed only scoped footer code by reusing existing LifeHudShortcutColumn spacing (3 instead of8), retaining native button size and the original capacity row. Added explicit five-row assertion to the new test; all old test bytes remain. Review also removed an unnecessary busy-only close veto so UiCoordinator can replace a callback modal, and added reverse cross-purchase/rejected-grant/independent-mutation coverage. Focused regression19/19 and final full run pass. First failed full logs/import/focused outputs remain; no test/assertion/timeout weakening.
+
+Final official command: unchanged `cmd /c tools\run_tests.bat`; exit0. Parse/data PASS; fixed headless63/63/880 assertions/5.302s; complete graphics121 scripts/457/457/24539 assertions. Group1=229/229/8867 assertions/86.263s; group2=228/228/15672 assertions/124.588s. Total graphics GUT210.851s, wall221.9484355s; both sequential children retain180000ms. All446 prior tests retained byte-for-byte plus11 new cases in three scripts. Main smoke PASS. Expected negative-case warnings, old float/int GUT warnings and historical crop visual warning remain; no SCRIPT ERROR/Parse Error/ERROR/Orphan in final stdout/stderr.
+
+Real final output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.302s
+---- All tests passed! ----
+[graphics_tests] PASS: 121 scripts, 457/457 tests, 24539 assertions; GUT 210.851s, wall 221.9484355s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+24 actual native screenshots: vi/en ×1152×648/1280×720/1600×900 ×insufficient/available/complete/Bag. Inspected full contact sheet and full-size default Bag/English available/Vietnamese small completed frames. New entry fits the left footer, all five grid rows remain visible, actual native controls/text fit, old slots/Theme remain. Captures are rendered from the real game SubViewport, not a mockup. Old36 inventory render cases and existing bag-upgrade images/tests remain in the full suite. Human visual approval is separate.
+
+Manual editor steps: no Inspector/tree/project setting changes. Reload new scripts/scenes and F5. Open Bag with B/I/Tab, select Nâng bình tưới/Upgrade can; below200 coins check current20→40/price200 and disabled Confirm. With at least200 coins and partly used can, confirm once: wallet decreases200, HUD capacity40 while water remains unchanged; repeat cannot charge. Back returns to Bag; Escape closes to world with prior pause hold retained. Refill with selected can/E at well/stream/pond to40. Save/reload/Continue/return title with partial water; confirm upgraded40 and other progress persist. Fresh game resets20/20. Check vi/en, native Tab/Space/Enter/mouse, old bag upgrade/F/Z/filter/discard and five visible rows at default size.
+
+Assumptions/known limits: first20→40/200 was explicitly assigned by owner in D71. Upgrade does not refill; later80/600/1800 interpretation remains deferred. Tests run isolated APPDATA; Editor human playtest was not performed. New classes may need normal Editor filesystem refresh on reload. Full test import exposed old duplicated asset UID warnings without source/art changes; historical expected test warnings remain. No claim parent6.5 is wholly complete or human acceptance/commit occurred.
+
+Exact files/full contents/clear task-only diff and raw logs: D:/godot/game-godot-backups/phase65h3-20261108-220152/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,full-run2.log,full-final/official/,captures/,captures-contact-sheet.png,scope-audit-final.json,reverse-check.txt,player-save-audit.json}. Original1277-entry pending backup and first failure logs are preserved. API/architecture/schema/D79/roadmap/input and five contracts are updated. Suggested commit only, not executed: feat: add first watering can upgrade confirmation
+
+
+### Phase6.5h3 approved plan (historical proposal checkpoint)
+
+Approval: owner explicitly replied "Duyệt Phase6.5h3, bắt đầu triển khai" for all42 paths. Pre-code pending backup: D:/godot/game-godot-backups/phase65h3-20261108-220152. No commit authorization.
+
+MILESTONE: original ROADMAP Phase6 task6.5, following delivered Phase6.5h2b/D78. Owner said tiếp tục after the446/446 handoff. At the initial proposal checkpoint this authorized review/planning only; the owner subsequently approved the exact42-path plan and it is now implemented as reported above. No game/test/scene code or new PASS was claimed at proposal time. No commit/stage/push is authorized.
+
+Planning baseline: h2b official parse/data/headless63/63/complete graphics446/446 (23929 assertions)/Main PASS; human F5/commit pending. The50 delivered files were hash-compared without source drift during planning. Preserve four optional h2b test .gd.uid files subsequently generated by Editor, all inherited pending work, the existing deletion and prior backups. The actual runtime can20/refill/HUD/savev10 is integrated; standalone WateringCanUpgradeService already supports the owner-approved20→40/200 transition while preserving remaining water.
+
+READ-ONLY CONTEXT: PROJECT_RULES, API_INDEX, ARCHITECTURE, DATA_SCHEMA, DECISIONS D70/D71/D78, ROADMAP, CODE_PATTERNS, INPUT_MAP, STYLE_GUIDE; inventory/watering/hud/day_end/bag_upgrade contracts; actual Main, UiCoordinator, inventory footer/controller, BagUpgradeFlow/screen/snapshot/presenter, WateringCanConfig/State/UpgradeService/Runtime, WalletState, ledger/day-end/savev10 and existing tests. Use documented APIs; document proposed new runtime nodes/interfaces before implementation. No new input action or assumed path.
+
+TASK: expose exactly the existing first can upgrade through a separate native Button in the Bag footer. A small shared-style confirmation shows actual remaining water, current/target capacity, Resource price, wallet and availability. Confirm uses the existing domain service and actual can/wallet; charge200 once for20→40, preserve current water, and show completion. Keep savev10, existing bag upgrade, source refill and all prior progress. Classify actual purchase/refund ledger entries correctly.
+
+Proposed implementation:
+1. Main adds watering_upgrade:WateringCanUpgradeService and watering_upgrade_flow:WateringUpgradeFlow, configured from existing data/watering_can_config.tres and the actual persistent can/wallet. Create the flow before inventory attachment/UiCoordinator registration. Include flow.busy in the existing shared purchase safe-point guard, and close it on new game/load/title. Existing reset/load keeps the same can instance. No domain service/state/Resource/save schema change.
+2. Add a separate watering_upgrade_requested() signal and watering_upgrade_button:Button to LifeInventoryFooter; keep the original capacity/sort/bag-upgrade row intact and put the new entry alongside wrapping hints in a second row. Controller shows it only with actual Main, queues live readiness refresh from existing water_changed, and defers opening only from active Bag without a discard prompt. Insufficient funds can open explanatory confirmation; completed/invalid service disables entry. Verify left-pane width and native focus without altering grid/slots/filter/discard/toolbar sources.
+3. New WateringUpgradeFlow owns transient panel/model/result/busy only. configure(main), open(), close(), back_to_bag(), purchase(expected_capacity:int), refresh() use existing modal and service APIs. Snapshot reads detached actual charges/capacity/wallet and configured target/price even when funds are insufficient. Confirmation rechecks displayed capacity/target/price and live eligibility; stale/hidden/repeated/reentrant requests cannot pay again. Wrap domain command with shared lifecycle/other-purchase/water/refill guards. Refresh existing WateringRuntime after actual can changes for HUD/dirty tracking; preserve legitimate independent callback mutations and debit-only refunds. Generic close/lifecycle never reopens Bag; explicit safe Back does. Refresh actual wallet/can/locale, close correctly on load.
+4. Create three small scene/script pairs under ui/watering_upgrade using existing Theme/fonts/icon: LifeWateringUpgradeScreen (LifeHudFrame), LifeWateringUpgradeSummary and LifeWateringUpgradeFooter. Also separate detached snapshot/presenter. Minimal .tscn wrappers listed below are explicitly part of proposed permission. Document Main/WateringUpgrade -> shared wood/paper/header (Banner/Close), Summary (before/target/remaining/price/readiness), Footer (wallet/result/Back/Confirm) in a new contract before use. Screen emits closed(), backed(), purchased(expected_capacity:int); footer confirmed()/backed(). Lazy build and centered responsive layout follow the existing bag-upgrade pattern. UiCoordinator registers root with existing modal z81/backdrop80, close routing and native focus/accept pass-through. Preserve prior pause/Player-lock/day-end precedence.
+5. Add existing buy_watering_upgrade_rollback reason to DayLedgerState.REFUNDS and localized purchase/refund labels in DayEndPresenter. A failed debit/grant/refund contributes zero net expense and zero income; preserve signed raw entries and independent real transactions. No ledger shape/history rewrite, wallet refactor or new state owner.
+6. Add vi/en translation keys plus validator coverage. Text states remaining water is retained and the upgrade does not refill. Write D79/API/architecture/schema/roadmap/input and relevant contracts as delivered facts only after verification. New scripts aim ≤250 lines; no new Theme/art/global signal/autoload/simulation path.
+7. Add three new focused test scripts only: actual entry/purchase/lifecycle/safe-point/stale/reentry/save-load/new-game/refill40 and old progress preservation; native screen/focus/Back/Escape/live locale and actual vi/en screenshots at1152×648,1280×720,1600×900 for available/insufficient/completed states (18 frames), plus Bag footer fit; ledger spend/refund/independent-wallet/localized summary/save roundtrip. Preserve all446 prior tests/assertions/fixtures/goldens byte-for-byte and fixed runner limits. Existing low-level upgrade tests remain unchanged.
+8. Before code, copy/hash all pending entries and scoped originals to a new external backup; retain HEAD/index/status/player-save baseline. Run focused tests and unchanged cmd /c tools\run_tests.bat (parse/data/fixed63 headless/full sequential graphics groups each180000ms/Main). Inspect actual captures; deliver clear task-only diff, exact file list/full before-after, raw logs and old-test/scope/source/index/HEAD/user-save audit. No commit unless separately requested. Human editor acceptance remains separate.
+
+PROPOSED ALLOW_LIST — exactly42 paths (20 existing,22 new including9 optional generated .gd.uid); everything else read-only:
+
+Existing files allowed to modify:
+~~~text
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+ui/inventory/capacity_footer.gd
+ui/inventory/inventory_controller.gd
+scripts/domain/economy/day_ledger_state.gd
+ui/day_end/day_end_presenter.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/inventory.md
+docs/SCENE_CONTRACTS/watering.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/day_end.md
+~~~
+
+New files allowed to create (UIDs only if generated):
+~~~text
+scripts/view/watering_upgrade_flow.gd
+scripts/view/watering_upgrade_flow.gd.uid
+ui/watering_upgrade/watering_upgrade_screen.gd
+ui/watering_upgrade/watering_upgrade_screen.gd.uid
+ui/watering_upgrade/watering_upgrade_summary.gd
+ui/watering_upgrade/watering_upgrade_summary.gd.uid
+ui/watering_upgrade/watering_upgrade_footer.gd
+ui/watering_upgrade/watering_upgrade_footer.gd.uid
+ui/watering_upgrade/watering_upgrade_snapshot.gd
+ui/watering_upgrade/watering_upgrade_snapshot.gd.uid
+ui/watering_upgrade/watering_upgrade_presenter.gd
+ui/watering_upgrade/watering_upgrade_presenter.gd.uid
+tests/unit/test_watering_upgrade_flow.gd
+tests/unit/test_watering_upgrade_flow.gd.uid
+tests/unit/test_watering_upgrade_screen.gd
+tests/unit/test_watering_upgrade_screen.gd.uid
+tests/unit/test_watering_upgrade_ledger.gd
+tests/unit/test_watering_upgrade_ledger.gd.uid
+ui/watering_upgrade/watering_upgrade_screen.tscn
+ui/watering_upgrade/watering_upgrade_summary.tscn
+ui/watering_upgrade/watering_upgrade_footer.tscn
+docs/SCENE_CONTRACTS/watering_upgrade.md
+~~~
+
+DO NOT TOUCH: everything else, including existing .tscn, WateringCanConfig/State/Service/UpgradeService/Runtime, source/map/Player/camera/crops/jobs/art/Theme, SaveService/version10/all goldens, project.godot/InputMap bindings, old446 tests, GUT and all test runners/bounds. No80-capacity/later price/tier, new upgrade/source, free refill, additional wallet/can owner or unrelated cleanup. If evidence requires any extra file or old expectation change, propose exact diff and ask before editing.
+
+ACCEPTANCE: actual Bag entry opens modular confirmation without disrupting existing bag upgrade/grid; correct current/target20→40, Resource200, remaining water and wallet in both locales even with insufficient funds. Exactly one successful debit grants capacity40 while0/7/20 remaining stays0/7/20; invalid/stale/repeated/hidden/reentrant/canceled requests cannot buy and rejected grants refund only their debit. Save/load/new/title/refill and other purchases cannot observe a half-completed transaction. Completed purchase updates HUD and persists with existingv10; subsequent source refill reaches40, new game returns configured20/20, prior items/land/crops/jobs remain. Refund reduces expense rather than increasing income; independent transactions persist. Native mouse/focus/accept/Escape/Back/clock holds/world locks/live locale and18 real screen captures plus footer fit pass. All old446 tests/goldens/assertions/runners preserved; full official gate passes unchanged bounds. Honest logs/diff/audits/docs delivered; no human-playtest or commit claim.
+
+Assumptions/risks: first20→40 price200 is already explicitly approved in D71; later ambiguous prices remain deferred. Upgrade preserves charges, including empty; refill remains a separate existing source action. Footer left pane is narrower than the whole sheet: wrapping/focus/scroll must be checked on real renders. Wallet callbacks can reenter and trigger independent changes, so reuse existing guarded service and refresh actual owners without whole-state rollback. Insufficient service quotes omit price/target, so snapshot must read configured terms directly. Historical ledger reason strings already serialize under v10; only classification/presentation changes. Full graphics runtime must be measured without increasing180s or dropping tests.
+
+Plan-only evidence and proposed allow-list: D:/godot/game-godot-backups/phase65h3-plan-20261108-215134. Suggested eventual commit (not executed): feat: add first watering can upgrade confirmation
+
+
+## Phase6.5h2b — runtime watering, three-source refill, HUD and save-v10 (446/446 automation delivered; human F5/commit pending, 2026-11-08)
+
+MILESTONE: original ROADMAP Phase6 task6.5, following delivered Phase6.5h1/D71 can foundation and Phase6.5h2a/D77 map/source foundation. Owner said "tiếp tục" after the430/430 handoff; at proposal time this authorized review/planning, and the owner subsequently approved the exact domain/multi-file plan below before code. At that proposal checkpoint no game/test/scene change had been made. No commit/stage/push is requested or authorized.
+
+Approval: owner explicitly replied "Duyệt Phase6.5h2b, bắt đầu triển khai". Approved all54 listed paths, including the narrow23 expected-version checks. Before code copied/SHA256-verified1258 pending entries and scoped originals under D:/godot/game-godot-backups/phase65h2b-20261108-001326. No commit authorization.
+
+Current delivered state: finite20-use manual watering, three-source/E refill, actual HUD count and savev10 are integrated; final official446/446/parse/data/headless63/Main PASS. Human F5/commit remain pending. Detailed implementation/evidence/manual cases follow this approved plan.
+
+Planning baseline at approval: unchanged final34-file D77 hashes; last official cmd /c tools\run_tests.bat PASS on2026-11-08: parse/data/headless63/63/graphics430/430 (23287 assertions)/Main. No new tests have run during this planning step. Editor process only was observed, no F5 child. All inherited pending work/deletion/backups must stay intact. At that review the can20/40/200 was standalone, watering unlimited and game savesv9. A coherent all-manual-path/source/feedback/persistence integration must precede enabling consumption.
+
+READ-ONLY CONTEXT: PROJECT_RULES/PROGRESS/API/ARCHITECTURE/DATA_SCHEMA/DECISIONS D71/D77/CODE_PATTERNS/STYLE_GUIDE/INPUT_MAP; current gray_box_world/hud/water_sources/player contracts; actual Main/controller/stroke/Inspector/ToolAction, WateringCanConfig/State/WateringService/UpgradeService, WaterSourceConfig/Rules/WorldLocations, HUD presenters/toolbar/Theme/layout and UiCoordinator, SaveService migrations/goldens/day-end/autosave, existing430 tests, D72/D77 evidence and fixed C2 runner. CropInspector has no dedicated contract file; its existing documented gray_box/API hooks remain and the new watering contract will document integration, without changing Inspector nodes or behavior.
+
+TASK: activate the existing single20-charge can for every real manual watering path; one successful newly watered dry crop consumes one, failures/repeats consume none. Expose actual remaining/capacity in a small existing-style HUD component. With watering can selected, the existing E/interact action at a dry bank beside the existing well/stream/pond refills it to its current capacity for free, without changing time. Preserve farm/ownership/wither/rain/day simulation and existing sources/map/art. Own and persist the same can through Main, new game, save/load/Continue/autosave/day-end/title, with deliberate save-v10 migration. First40/200 purchase UI and later tiers remain a separate milestone.
+
+Approved implementation plan:
+1. Reuse WateringCanState and WateringService unchanged as authoritative state/manual command. Main owns exactly one WateringCanState and injects it into a small WateringRuntime Node application adapter plus the existing farm owner. Keep current typed owner/public APIs; add wiring/lifecycle/save payload calls only. Runtime holds only command/context/busy/feedback references, never duplicate charges. A local typed water_changed(charges:int,capacity:int) notification occurs after commands finish for HUD and dirty tracking; no global event/autoload/new daily simulation.
+2. Add pure stateless WaterRefillService RefCounted, configured from actual can/config plus existing source config/WorldLocations. can_refill(player_cell:Vector2i)->Dictionary is read-only; refill(player_cell)->Dictionary rechecks actual validity, dry player bank via WaterSourceRules.is_shore, playable bounds and combined static/water exclusions. Return actual stable source ID/name key/current charges/capacity and explicit full/unavailable/invalid reasons. Do not trust a caller-supplied source ID or use scenery clearance as a new reach balance. Only valid actual-bank commands call trusted can.refill; already-full/invalid/out-of-range commands do not change revision/state/time. No cost, cooldown, new source or source geometry duplication.
+3. Add WateringRuntime.configure(main:Node), water(cell:Vector2i)->Dictionary, can_refill()->Dictionary, refill()->Dictionary, reset()/restore(payload:Dictionary) lifecycle hooks and busy command guard (typed exact APIs/contracts documented before implementation). Runtime reads actual Player/tool/modal/sleep/placement context, validates existing watering ToolData reach and placement/legacy-farm permission, and delegates to WateringService/WaterRefillService. ToolActionController gets one configure_watering(runtime) hook and branches manual water to it; Mouse/LMB drag/Space/Inspector already converge there. Preserve other tool paths and pure low-level ToolAction/FarmGridState APIs, rain/water_all/DaySimulator. No unmetered real-runtime fallback. UI context cannot supply a fake Player cell/source.
+4. GrayBoxWorld gets a small documented configure_water_refill(query:Callable,request:Callable) hook using runtime delegates. Its existing input/prompt branch recognizes valid source banks only while the actual can is selected and Player/gameplay are unlocked; E then invokes refill once and consumes that event. Otherwise original bin/shop/bed/NPC behavior remains. This explicitly resolves overlapping well/bin reach: selected can + valid bank prioritizes refill; ordinary tool context retains the old interaction. A full can shows honest full feedback without a fake state change or unexpected sale action. Native tests cover GUI/modal/NPC/E-tab routing and non-source E behavior. No new InputMap action or project.godot edit; Q/E inside menus remains menu-owned.
+5. Add a small LifeHudWaterMeter script-built view using existing Theme/UiIcons watering_can icon, localized count/empty/full text and pointer-ignore behavior. Put it beside the existing tool caption in a documented Toolbar/StatusRow/WaterMeter row; retain caption reference/text, eight slots, selection/slot APIs, hidden legacy adapters, overall toolbar rectangle and existing right clock/wallet layout. HUD presenter reads actual can via runtime notifications and refreshes on reset/load/locale; no UI state owner, expanded right-column card or scene/Theme/font rewrite. Verify vi/en800/1152/1600 layouts and native wheel/GUI input. Proposed name keys WATER_CAN_COUNT, WATER_CAN_EMPTY, WATER_REFILL_HINT, WATER_REFILLED, WATER_CAN_FULL, WATER_REFILL_UNAVAILABLE are added to both CSV and validator. Example text: "Nước %d/%d" / "Water %d/%d"; "Bình đã hết nước. Ghé giếng, suối hoặc ao để nạp nhé." / "The can is empty. Refill at a well, stream, or pond."
+6. SaveService CURRENT_VERSION10, top-level watering_can:{capacity:int,charges:int}; add migrate_9_to_10 deep copy. Historicalv1-v9 saves deliberately get full base capacity from WateringCanConfig (currently20/20), overriding any untrusted pre-v10 field because no earlier game-save water authority existed. Do not touch old goldens. Add save_v10.json based on v9 preserving all old payload fields/rights/progress and showing a partial can. Validv10 known capacity20/40 and charges round-trip exactly; unknown/wrong-type/missing/corruptv10 can state restores conservatively through existing codec (empty base or validated clamps), with refill always reachable. A direct legacy _load_payload without new-format metadata uses the same explicit legacy default, not previous-game charges. New Game alone resets full base; Continue/repeated load/overnight/rain do not create free refills or reroll weather. No purchased flag, UI/source/pixel/transient data saved.
+7. Extend Main command-entry safety so save/load/new game/Continue/title cannot cross a pending water debit/farm callback/refund stack; retain existing purchase/NPC/sleep/day-end policies. Refill marks dirty despite no farm signal; command failure does not mark a fake success. Reset/restore notifications refresh HUD without accidentally carrying previous slot charges. Test reentry/refused farm callback, independent state replacement, failed backend save/retry, slot switching and before/after day-end snapshots. Leave atomic file/backups and general schema behavior unchanged apart from the new field/migration.
+8. Add four <=250-line tests: pure refill geometry/state; native runtime all four manual paths/exact20 boundary/invalid/repeat/ownership/GUI guards; actual save migration/lifecycle/slots/rollback/legacy goldens1..9/newv10; native HUD/refill at all three actual sources/live locales/pause/zoom and owner invariance with useful real captures. Preserve all430 old test names/assertions/capture sources and old goldens/runners. Explicitly allow ONLY expected output-version literals9->10 (and corresponding "Migrated to v9" text->v10) in the19 listed old test files, because this task deliberately increments current schema; old golden input versions9/paths/ranges and actual domain assertions remain unchanged. Do not mass-replace every9 or change unrelated expectations/timings.
+9. Record D78/API/schema/architecture/roadmap/input/contracts/current memory. Before code, copy/hash all current pending work and scoped originals incl19 version-check files. Run focused headless/native/render and unchanged full cmd /c tools\run_tests.bat; retain sequential180000ms bounds and complete discovered coverage. Save raw logs/actual screenshots/clear task-only diff/full before-after/old-test-method/source hash/scope/reverse-patch/user-save-byte audit. Human F5 and commit remain separate; new gameplay activation is delivered only with its source/refill/HUD/save integration passing together.
+
+Implementation verification note: the first full run exposed a second current-version dependency in test_land_save.gd: its "future version rejected" INPUT is hardcoded10, which is now the intentionally supported current format. Output-version literal changes were approved, but this input-fixture edit was not included in the narrow23-line exception. Prepared proposed-future-version-fixture.patch changing only that input to SaveService.CURRENT_VERSION+1; assertion remains exact empty-result rejection. Owner explicitly approved "Duyệt điều chỉnh fixture phiên bản tương lai"; applied exactly that reviewed one-line change after copying its pre-extension text. The other roundtrip failure was fixed in authorized SaveService using the existing can codec as a temporary canonical integer validator on load, retaining all existing old roundtrip assertions rather than casting/skipping them. Focused save regression now has only the intentionally stale future fixture failing; no full PASS claimed.
+
+Approved exception extension: test_land_save.gd future INPUT uses SaveService.CURRENT_VERSION+1. This is the only additional old-test change beyond the23 expected-output literals/labels; no assertion or test name removed. A shell restart before the patch was applied was terminated and retained as aborted-before-fixture-applied, not counted as a completed acceptance run.
+
+Approved ALLOW_LIST — existing source/localization/data gate:
+~~~text
+scripts/view/main.gd
+scripts/view/tool_action_controller.gd
+scripts/view/gray_box_world.gd
+scripts/core/save_service.gd
+ui/hud/hud_presenter.gd
+ui/hud/toolbar.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+~~~
+Approved ALLOW_LIST — documents:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/water_sources.md
+~~~
+Approved ALLOW_LIST — existing tests, only expected current save-version checks9->10 and their migration expectation labels:
+~~~text
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_save.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_save_service.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_water_source_world.gd
+tests/unit/test_weather.gd
+~~~
+Approved new files (.gd.uid permitted only if generated):
+~~~text
+scripts/domain/water_refill_service.gd
+scripts/domain/water_refill_service.gd.uid
+scripts/view/watering_runtime.gd
+scripts/view/watering_runtime.gd.uid
+ui/hud/water_meter.gd
+ui/hud/water_meter.gd.uid
+tests/unit/test_watering_refill.gd
+tests/unit/test_watering_refill.gd.uid
+tests/unit/test_watering_runtime.gd
+tests/unit/test_watering_runtime.gd.uid
+tests/unit/test_watering_runtime_save.gd
+tests/unit/test_watering_runtime_save.gd.uid
+tests/unit/test_watering_hud.gd
+tests/unit/test_watering_hud.gd.uid
+tests/golden_saves/save_v10.json
+docs/SCENE_CONTRACTS/watering.md
+~~~
+DO NOT TOUCH: everything else, including all .tscn, all old goldens1..9, all other existing test bodies/assertions/timings/GUT/C2 runners/bounded helper, project.godot/InputMap bindings, map/source geometry/physics/navigation/presentation code, art/PNG/imports/Theme/fonts, Player/CameraRig/HotbarPanel/CropInspector/ToolDragStroke/ToolAction/FarmGridState/DaySimulator/WateringCanState/WateringService/upgrade/wallet/inventory/ownership/jobs/NPC owners. No first40/200 upgrade UI,80/later tiers/price mapping, fertilizer/house/animals/fishing/swimming, new balance, autoload/global signal, source relocation, unrelated refactor, real-save write, stage/commit/push/reset/install. If actual failures require more than the narrowly proposed version assertions or another file, report the evidence and request scope before changing it.
+
+ACCEPTANCE: new game20/20; real manual LMB/drag/Space/Inspector each successful new dry crop decrements once, repeated/failed/out-of-reach/GUI/empty/locked commands do not consume or mutate farm/items. Last charge succeeds and next crop stays dry until authorized refill. Valid dry bank at every existing well/stream/pond + selected can + E refills current capacity once; source interior/far/blocked/modal/sleep/full cases have no free state changes. Old interactions remain available in normal tool contexts, and native menu E never reaches world. HUD reflects real0/partial/full/reset/load/current capacity and live vi/en without changing caption/selection/slots/scene layout or owners. Rain/day simulation and overnight never debit/reset can. v10 actual partial save/reload and slot/new-game/title/day-end/autosave guards retain capacity/charges and all previous progress; v1-v9 migrate to data-owned fresh base, malformedv10 fails safely, no old golden changes. All old430 tests retain names/assertions except explicitly approved expected-version changes; focused/new and complete official gates pass under unchanged bounds, inspected real captures and exact audit substantiate claims.
+
+Assumptions/risks for approval: activating20-use finite watering is a gameplay change authorized only with this coherent slice. Chosen refill interaction is existing E with can selected at dry banks; this explicit context priority avoids turning well visits into sales while preserving ordinary bin use. No monetary/day-time refill cost or automatic overnight refill is inferred. New HUD component belongs alongside toolbar caption rather than increasing right-card height; small-view layouts/input need actual checks. Legacy initial full can is an explicit migration grant; corruptv10 is intentionally different and cannot force-refill by loading. Configured known40 capacity can deserialize, but purchase UI remains deferred. Gameplay tests may reveal assumptions beyond simple version assertions; do not silently broaden tests or loosen limits. No missing engine API/input/path is assumed: document all new proposed hooks/nodes before implementing. No code or new PASS is claimed before approval.
+
+Suggested commit after future acceptance, not executed: feat: integrate watering charges refill HUD and save v10
+
+
+
+### Phase6.5h2b implementation and acceptance delivery (2026-11-08)
+
+Current result: finite watering is now connected coherently to runtime/refill/HUD/savev10. Main owns one existing can state; four real manual paths share existing WateringService, actual reach and farm/placement permission. First20 newly watered dry crops consume once each, the next stays dry until refill, and repeated/failed/locked commands do not debit. Existing domain wither recovery remains, including its normal one successful watering cost. Rain/direct bulk/day/overnight do not consume/reset the can. Raw low-level domain APIs remain unchanged and do not authorize player input.
+
+All three existing source banks support selected can + existing E, actual Player location and current context; full can reports full without revision/state mutation. This context wins over the overlapping bin at the well; ordinary tool contexts retain bin/shop/bed/NPC interaction and native menu E never refills. No new input binding/source/geometry/collider/marker/camera/Player/art/scene. Stateless WaterRefillService reuses shared shoreline and combined solids. New Runtime is transient context/command/busy only, not duplicate water. Local post-command notification refreshes the meter and marks refill dirty even without plot events. Save/load/new/title/reentry are guarded during pending debit/refund; Main batch notifications wait for complete owner restoration. Existing LandRuntime.restore is called before entering the water-only batch so its own shared guard still permits legitimate land reset/load.
+
+HUD uses a separate small LifeHudWaterMeter beside the original caption, reusing Theme/icon and existing toolbar rectangle/eight slots/caption/selection. Right clock/wallet cards do not grow. Live vi/en,0/partial/full/known40 load and paused layout/render reflect the actual state. Pointer ignore preserves wheel/GUI ownership. No upgrade purchase UI, later tier, overnight refill, economy/simulation/global event/autoload/Theme/font/asset change.
+
+SaveServicev10 adds watering_can capacity/charges. Explicit oldformat1..9 migration grants data-owned full base (20/20), overriding forged old can data while preserving previous payload. Current format normalizes via the existing state codec into canonical integer wire values on load; the temporary validation object is not a persistent game owner. Thus old strict whole-payload roundtrip assertions remain intact, rather than skipping/casting the new field in old tests. Corruptcurrent/missing fields are conservative empty/validated clamps; valid20/40 quantities persist. Main fresh game alone resets base/full; partial/slot/Continue/title/day-end/autosave load exact quantities. Newv10 golden preserves v9 example plus20/13; all old goldens remain unchanged. Actual player's saves were read-only hash checked and remain unchanged; test writes use isolated APPDATA.
+
+Acceptance restated: one successful new manual watering = one unit on all four routes, last unit succeeds/next dry crop waits, invalid/repeat/input-locked actions consume none; all three actual dry-bank/E sources refill authorized current capacity once without money/time, wrong/full/source interior/GUI contexts do not mutate; true HUD values/locales/layout/input preserved; data-owned legacy grant versus conservativecurrent restore with prior progress retained; old430 cases/assertions/goldens and fixed bounds preserved except the explicitly reviewed23 version expectations plus one future-version fixture input. Automated evidence below satisfies these checks; human editor acceptance remains pending.
+
+Focused real outputs (not a first-pass claim):
+~~~text
+existing-smoke.log.stdout
+Scripts4; Tests17; Passing Tests17; Asserts759; Time10.934s
+---- All tests passed! ----
+
+focused-native2.log.stdout (16 new tests plus original toolbar regression3)
+Scripts5; Tests19; Passing Tests19; Asserts1203; Time8.773s
+---- All tests passed! ----
+
+save-canonical-final.log.stdout (current/legacy save integration + old land roundtrip)
+Scripts2; Tests6; Passing Tests6; Asserts349; Time2.187s
+---- All tests passed! ----
+~~~
+
+Failure history retained: first new runtime test assumed terminal withering, corrected to preserve actual recovery and use an explicit rejecting-farm double for refund coverage. New save tests initially compared raw JSON floats to integer dictionaries and an unnormalized sparse old golden to canonical owners; tests now assert canonical owners plus each old plot field. A new test used a guessed prompt Label path; corrected to the actual documented Message/public message_label. Deferred scenery teardown needed frames to drain queued deletes; native source prompt checks wait for the actual next process phase. First complete gate exposed current/new-water numeric readback stability and old future-version10 input; codec read normalization fixed source behavior, and the exact future fixture edit was separately approved. A prematurely restarted shell run after a patch-application failure was stopped (only test processes), archived as aborted-before-fixture-applied, never counted as acceptance. The approved one-line patch was then applied byte-preservingly; final focused and complete runs passed. No failure log was replaced/deleted, no assertion/test/runner/bound weakened.
+
+Final official command: unchanged `cmd /c tools\run_tests.bat`; exit0. Parse/data PASS, headless63/63/880 assertions at5.744s, full graphics118 scripts/446/446/23929 assertions, Main smoke PASS. Group1=226/226/10176 assertions/89.423s; group2=220/220/13753 assertions/118.957s. Complete graphics GUT208.38s, wall220.0625551s; both sequential children keep180000ms bounds and exact discovery/hash checks. Final logs contain no Orphan/SCRIPT ERROR/ERROR/Parse Error text. Expected negative-case validation/backend warnings and historical missing-turnip visual warning remain. No package/install/runner/GUT/InputMap change.
+
+Real final output:
+~~~text
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.744s
+---- All tests passed! ----
+[graphics_tests] PASS: 118 scripts, 446/446 tests, 23929 assertions; GUT 208.38s, wall 220.0625551s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+21 native screenshots: vi/en at800×450/1152×648/1600×900 with0/7/20, plus actual full/E result at all three sources. Inspected contact sheet and full-size small empty, default English partial, pond/full feedback and large full cases. Meter fits caption-row/toolbar bounds, original selected-tool text/eight slots remain and world/HUD stay separate. Old capture scripts/assertions remain; previous D72/D77 screenshots/backups are preserved. Human F5 remains separate.
+
+Exact source delivery:50 files (38 modified,12 created; four optional new-test .gd.uid absent). Manifest and SHA256 in changed-files.json; clear task-only implementation.patch and complete before/after text under the task backup. Matching .gd.uid for three new scripts is included. Separately preserve two engine-generated previously approved D77 test .gd.uid files as observed metadata, not manual source changes. Narrow old-test audit confirms exactly23 expected-version9->10 checks/labels and one separately approved future INPUT, all other bytes in those19 files unchanged. All other protected pending entries/historical goldens/runners/source art remain unchanged; HEAD/index/pre-existing deletion and actual user-save bytes remain intact. Reverse diff/whitespace/scope evidence is included. No stage/commit/push, no human acceptance claim.
+
+Manual editor steps: none; reload scripts/resources and F5. Select watering can (visible slot3), use LMB/stroke/Space on reachable dry crops and the Inspector Water button, check each success decrements once and repeats do not. At0 the next crop remains dry and guidance points to sources. With can selected walk to well(7,9), stream(-14,6), pond(15,9), E refills; full remains unchanged. Select hoe to use the bin near the well; test menu E/pause/placement/too-far/interior and five-level zoom/Shift-hotbar wheel. Save a partial amount, load/Continue/switch slots, sleep/rain, confirm quantity persists and old coins/items/crops/machines/land rights remain. New Game starts20/20. Savev1..9 first load grants20/20; corruptv10 can remains conservative and refill remains usable. New40/200 upgrade purchase UI is not present.
+
+Review/evidence: D:/godot/game-godot-backups/phase65h2b-20261108-001326/{REVIEW.md,changed-files.json,implementation.patch,before/,after/,full-result.json,full-run-final2.log,full-final/,captures/,captures-contact-sheet.png,narrow-test-audit.json,scope-audit-final.json,reverse-check.txt,real-user-save-readonly-audit.json}. Old failure/focused/aborted logs remain beside these; original1258-entry backup is preserved. API/architecture/schema/D78/roadmap/input and four relevant contracts updated. Next separately scoped work is first40/200 upgrade UI; no later price/tier is assigned. Commit suggestion only (not executed): feat: integrate watering charges refill HUD and save v10
+
+## Phase6.5h2a — expanded world with well, stream and pond (430/430 automation delivered; human F5/commit pending, 2026-11-07→08)
+
+MILESTONE: resume original ROADMAP Phase6 task6.5 after the finished D72 graphics handoff. Owner chose all three water-source types and requested a larger map: well beside the player house, a stream and a pond. Owner subsequently explicitly approved Phase6.5h2a and the exact multi-file ALLOW_LIST below. Latest complete official baseline is C4 parse/data/headless63/63/graphics421/421 (21249 assertions)/Main PASS. Human F5/commit pending; no commit is authorized.
+
+Current state: can domain20/40/200 is already implemented under D71 but not connected to runtime. Existing watering remains unlimited; no refill interaction or water counter exists. The master plan explicitly permits well/stream refilling, and the owner now requests a pond too. Build the requested expanded world and all three physical source sites first, then separately wire one coherent can/HUD/all-manual-path/save-v10 slice before enabling consumption. Do not expose a fake refill prompt while no runtime can owner exists. This task delivers the map/source foundation; it does not claim the entire watering integration complete.
+
+Read-only review: no known code/doc changes since C4 handoff; current421-test sources remain intact. Existing world is map27x27 Rect(-12,-12,27,27), player22x22 Rect(-10,-10,22,22), tile128x64. Farm base0..5 and bought east parcel6..11/y0..5 must remain unchanged. House stays(11,10), shop(-2,7), shipping bin(5,10), spawn(3,3), NPC locations/routes/IDs stay. The existing solid Rect(8,9,1,1) beside the house can host the well without introducing a new building footprint there. Source sites farther west/east are placed beyond the old map footprint.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API/ARCHITECTURE/DATA_SCHEMA/DECISIONS/CODE_PATTERNS/INPUT_MAP/STYLE_GUIDE; gray_box_world/player/isometric_visuals/hud contracts; master-plan watering/source notes; current WorldLocations/NpcSchedule/GrayBoxWorld/IsometricGrid/WorldPresentation/CameraRig, map/world config and land ownership/parcel rules; C1-C4/P1 tests/captures/GUT/C2 runners; D71 can/manual-water/upgrade foundations. No guessed node path/input/resource API; all new resource IDs/fields/generated nodes must be documented before implementation.
+
+Concrete proposed layout (logical cells, Resource-owned):
+- Ground/background map Rect2i(-40,-40,85,85), replacing27x27. This extra terrain margin reduces empty borders around the larger walking area; it is finite terrain, not an infinite-map promise.
+- Player roam Rect2i(-18,-18,39,39), replacing22x22; cells-18..20 on both axes. Existing map/player cells/anchors/owned farms all remain inside; expansion does not grant free farmland or additional parcels.
+- New data-owned scenery_region Rect2i(-20,-20,43,43). Keep dense node/collision scenery in this area instead of spawning85x85 worth of rocks/grass. Terrain outside is background; source access corridors/dry shores stay clear. Preserve hash-based variants at unchanged existing cells outside the intentional new corridors/sites.
+- home_well: kind well, footprint Rect2i(8,9,1,1), label at(8,9), reuse/deduplicate the pre-existing solid prop cell. Dry approach from(7,9).
+- forest_stream: kind stream, water Rect2i(-16,-7,2,14), label at(-15,0); dry banks on either side, approach from(-14,6). It is beyond old map's western edge, away from existing farm/parcels/homes.
+- east_pond: kind pond, water Rect2i(16,8,4,4), label at(17,9), dry approach(15,9). It is beyond old map's eastern edge, below/beyond existing east farmland, with a walkable bank.
+- Resource-owned orthogonal access waypoints: well (3,6)->(6,6)->(6,8)->(7,8)->(7,9); stream (3,6)->(-14,6); pond (3,6)->(6,6)->(6,8)->(15,8)->(15,9). Their shared access point(3,6) is just outside the original farm; ordinary movement from spawn through the existing passable farm connects to it without painting/replacing farm cells. Reserve a small data-owned dry clearance along these paths/banks, avoiding actual static building solids and all water footprints. Waypoints describe cell routes, never duplicated isometric projection math.
+- Camera center bounds Vector2(-2368,-1120)..Vector2(2496,1312), pan min/max(-2600,-1400)/(2600,1400), existing follow speed/offset/five zoom levels/default unchanged. The center values come from an actual TileMap/IsometricGrid probe of the proposed player corners, not a handwritten projection formula. Probe source/raw output is in D:/godot/game-godot-backups/phase65h2a-plan-20261107/source_layout_probe.gd and source-layout-probe.log.*. Well and both bank positions were projected through the same actual grid; no source/game file changed for this probe.
+
+Approved plan:
+1. Add typed WaterSourceData and WaterSourceConfig Resources, plus data/water_sources.tres with exactly the three stable IDs/regions/label/access data above, localized display_name_key values and presentation palette values. Config may reference existing IsometricWorldConfig; avoid cyclic Resource references. Resource validation stays DATA-only; domain/source rules never require Nodes/autoloads. All gameplay geometry/clearance values remain in Resource data, not hidden script constants.
+2. Add a small stateless WaterSourceRules RefCounted helper for source lookup, blocked-cell/shore/access-cell geometry and validation against map/player/static-solid/land regions. It authorizes geometry only; no can charge/refill/state mutation. Reject invalid/overlapping/unsafe/out-of-bounds source shapes, submerged/broken access cells and farm/parcel/anchor conflicts. Reusing the exact existing well prop solid is intentional; never duplicate a collider or silently erase an existing gameplay object. Future runtime refill should consume these same source IDs/cells.
+3. Extend WorldLocations with an optional source-config reference and a public get_solid_regions() combining/deduplicating original solids plus source footprints; keep the original solid_rects field/IDs unchanged. Link actual phase8_world locations to the same source Resource. GrayBoxWorld uses the combined regions for actual static2D bodies, retaining the old NPC-only farm exclusion rule. NpcSchedule uses the same combined data clipped to its existing nav_region (stream lies outside it); no off-grid AStar calls, no relocated NPC destinations/schedule/relationship/quest state. LandExpansionRules also checks the same combined exclusions to prevent a future parcel from covering water; current east parcel/price/rights remain identical.
+4. Apply expanded ground/player/camera Resource values and add scenery_region to IsometricWorldConfig plus structural validation. WorldPresentation builds passive natural scenery only in scenery_region and reserves the three sites/dry corridors/banks using SourceRules. Add a small WaterSourceView using existing isometric-grid conversion/palette/Theme primitives: well art beneath a ground-level y-sort origin, water/shore/path floor rendering beneath actors, name labels localized live like D76, cosmetic ripple phase respecting pause. All source blocked shapes match actual visible cells. Keep active character/hair/crop/machine/UI art and draft PNG bindings unchanged; no new bitmap generation or package.
+5. Generated view roots/labels/collision hooks are documented in new water_sources contract and existing gray_box/isometric contracts before use. Create runtime nodes from scripts; no .tscn edits or new input bindings. Source names are plain names (no unusable [E]/refill action). Keep existing interactions/movement math/land permission and all legacy crop/item/machine/player/NPC save progress intact. On any actual saved-object conflict, report it rather than deleting/repositioning progress silently.
+6. Add separate config/domain and native-world regression tests: three data IDs/shapes/shore accessibility/combined solid dedup/AStar clipping, same old farm/parcel/anchor/layout state, actual player movement/collision/dry approaches and camera/tile picking at five zooms, deterministic decor/corridor clearance, vi/en/live-locale/paused water rendering and useful overview/default/close screenshots at1152/1600. New tests <=250 lines each; no existing test/fixture/coverage/assertion modification. Preserve C4's5/C3's8/C1's20 and P1's36 captures.
+7. Record D77/API/schema/architecture/roadmap/current memory/contracts. Back up/hash all pending work before code. Run focused pure/headless/native/render tests, then unchanged cmd /c tools\run_tests.bat with exact complete discovery and existing sequential180000ms-per-child bounds. Measure the larger map's actual setup/render cost; keep scenery bounded and optimize only newly touched map/source code when needed. No reduced old tests or increased timeout. Deliver exact file manifest/clear diff/full before-after text, inspected actual captures, real logs, source/hash/scope/index/HEAD/deletion audit and reverse-patch check.
+
+Approved ALLOW_LIST — existing source/data/localization:
+~~~text
+data/isometric_world_config.tres
+data/npcs/phase8_world.tres
+scripts/data/isometric_world_config.gd
+scripts/data/world_locations.gd
+scripts/domain/quests/npc_schedule.gd
+scripts/domain/building/land_expansion_rules.gd
+scripts/view/gray_box_world.gd
+scripts/view/world_presentation.gd
+scripts/core/data_validator.gd
+tools/validate_data.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+~~~
+Approved ALLOW_LIST — documents:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+~~~
+Approved new files (matching .gd.uid only if generated is permitted):
+~~~text
+scripts/data/water_source_data.gd
+scripts/data/water_source_data.gd.uid
+scripts/data/water_source_config.gd
+scripts/data/water_source_config.gd.uid
+data/water_sources.tres
+scripts/domain/water_source_rules.gd
+scripts/domain/water_source_rules.gd.uid
+scripts/view/water_source_view.gd
+scripts/view/water_source_view.gd.uid
+tests/unit/test_water_source_config.gd
+tests/unit/test_water_source_config.gd.uid
+tests/unit/test_water_source_world.gd
+tests/unit/test_water_source_world.gd.uid
+docs/SCENE_CONTRACTS/water_sources.md
+~~~
+DO NOT TOUCH: everything else, especially all existing tests/P1/GUT/C2 runners/bounded helper/180s limit/goldens, all .tscn, Main/Player movement/collision shape/CameraRig code/ToolAction/ToolActionController/drag/inspector/can/wallet/inventory/crop/machine owners/SaveService/save-v9/Settings/HUD, source PNG/imports/Theme/fonts/project.godot/InputMap and prior backup evidence/deletion. No consumption/refill command/HUD/upgrades/save-v10 activation in this map-first slice, no fishing/swimming/animals/new parcel grants, no stage/commit/push/reset/install.
+
+ACCEPTANCE: all three requested world sites exist and can be approached on dry ground from the old playable center; water/well footprints block player and NPC navigation consistently with shared data; no source/clearance route covers original farm/east parcel/buildings/targets or loses saved progress. Player can roam39x39 with data-owned following/pan and stable five-level picking; background85x85/scenery43x43 are deterministic and bounded. Labels and cosmetic water redraw correctly in vi/en and pause; old art/customization/UI/input remains. Static-source data/rules expose no false can/refill availability. All421 prior tests retain coverage/assertions and pass; two explicitly owner-approved map-compatibility fixture changes are documented below with added real coverage/captures, no weakened limits, and actual logs/scope/diff evidence. Save staysv9 and watering stays unlimited until the coherent runtime/HUD/save step.
+
+Risks/assumptions: owner requested three sites/larger map; this concrete size/location/collision/source-slice proposal received explicit AGENTS3 approval. The larger background is finite and extreme overview/pan may still show edges; no infinite terrain promise. Map expansion is walking/presentation space, not free farming ownership. Background tiles increase setup cost; scene-object scenery stays limited to43x43. Source footprints derive from one Resource, preventing render/physics/NPC/land-check drift. NPCs retain existing destinations (including the legacy named linh_stream location); no route/story migration is silently performed. No bridge/swimming/boat system is needed for bank access. Existing save rights/content and visible gameplay numbers stay unchanged.
+
+Next integration boundary (later separate plan): connect the existing20-capacity can to every manual water path (click/Space/drag/Inspector), show real remaining water and usable refill actions at all three sources, and migrate/save it deliberately before turning on consumption. Source placement and path data from this task must be reused; do not invent a fourth source or duplicate geometry. First40/200 upgrade UI remains a separate approved slice. This current task must not advertise that the complete can gameplay is implemented.
+
+Approval/baseline: owner replied "Duyệt Phase6.5h2a, triển khai". Before code, copied/SHA256-verified1242 pending entries, the approved plan and scoped originals with HEAD/index/deletion under D:/godot/game-godot-backups/phase65h2a-20261107-233253. Earlier planning/projection evidence and C1-C4 remain preserved. Focused/new tests, first complete failure and final post-approval PASS are documented below. Suggested commit (not executed): feat: expand world with well stream and pond
+
+### Phase6.5h2a approved test compatibility extension
+
+After the first full run, owner explicitly approved adding tests/unit/test_camera_rig.gd and tests/unit/test_land_expansion.gd to this task ALLOW_LIST, replying "Duyệt hai điều chỉnh kiểm thử theo bản đồ mới" to the exact reviewable proposed-test-compatibility.patch. Copied/hashed both originals before applying. Camera's near-position1s/<1px assertion remains; only the expanded far-bound trip gets two1s follow steps at unchanged Resource speed and unchanged <1px tolerance. The invalid land fixture now starts at actual player_region.end instead of hardcoded(12,12), which is valid inside the newly approved39×39 map. No assertion/test is removed, no gameplay restriction/follow speed/bound/runner is changed. All other419 old tests remain byte-identical. The original frozen-test clause is superseded only for these two reviewed changes. No further scope extension or commit authorization.
+
+### Phase6.5h2a implementation, acceptance and verification record
+
+Implemented the approved map/source geometry and generated views, with no .tscn/InputMap/Player/CameraRig/Main/can/HUD/save-owner change. Background85×85 and roaming39×39 coexist with bounded43×43 passive scenery. Existing farm/east parcel/building/NPC anchors, source-independent hash variants, actual ownership and savev9 remain. Original well solid is deduplicated; stream/pond append blockers. The same combined rectangles feed clipped NPC navigation and parcel validation. Resources reference world config in one direction; pure geometry owns no state. Source art uses Ground's actual WorldCanvas and isometric adapter, well joins Objects y-sort, labels translate live and paused water phase stays still. No refill prompt/charge/upgrade is enabled.
+
+Acceptance restated: exactly the requested well/stream/pond with dry approach routes and blocked water/stone; larger walking/background without free farmland; stable old anchors/progress/ownership; single actual grid/camera with five zoom levels; localized/pause-aware bounded presentation; no false refill behavior; preserve every old test/assertion with only the two reviewed compatibility changes; truthful bounded complete-gate evidence. Tests validate paths through actual CharacterBody2D.move_and_collide, shared source/nav/land geometry, node identities/reservations, real render/picking/locales and unchanged serialized owners. Native source views also assert the same canvas RID as Ground, preventing the default-canvas regression from masquerading as a camera pass.
+
+Failure history retained, not a first-pass claim: first focused run found negative-size Rect2i.has_point engine error and newly written test-isolation/API mistakes. Invalid rectangle labels are now guarded before has_point; tests copy external world/parcel Resources explicitly, use typed approach mutation and scalar movement-distance tolerance. Initial image review found floor views in the default canvas; corrected generated parent to existing WorldCanvas and added canvas identity/centered-picking checks. First full gate then reported old camera/land fixture assumptions plus an external-parcel test-copy leak; fixed only the new test leak, verified world-presentation regressions14/14, and separately confirmed current groups before asking for the two exact old fixture edits. Prior logs/screenshots/first full failure are preserved. No test was skipped or assertion dropped to pass.
+
+Real focused output (Godot4.7.2/GUT9.7.1):
+~~~text
+focused-headless-final.log.stdout
+Scripts               2
+Tests                 9
+Passing Tests         9
+Asserts            1270
+Time              1.882s
+---- All tests passed! ----
+
+focused-isolation-fix.log.stdout (new tests plus unchanged world-presentation regression)
+Scripts               3
+Tests                14
+Passing Tests        14
+Asserts            2656
+Time              4.743s
+---- All tests passed! ----
+~~~
+
+Before the compatibility approval, complete groups were independently run sequentially with180000ms bounds: group1=217/219 (9805/9810 assertions,83.041s), group2=211/211 (13477 assertions,124.787s). Exactly the two documented old fixtures remained failing; these are historical failures, not complete PASS. The unchanged official command was restarted after applying the explicitly approved patch. Its final result was observed and is recorded below. Parse/data/headless63/63/880 assertions and Main smoke passed in the preceding run; no full gate PASS is claimed from partial logs.
+
+Visual review:13 actual Forward+/D3D12 source captures, all three sources in vi/en at1152×648/default0.5 and1600×900/close1.25, plus expanded overview0.35. Inspected contact sheet and full-size well/stream/pond/overview frames; localized names render, dry corridors are clear, well stays beside unchanged house, water/shore align to ground, old HUD stays separate. Initial wrongly parented frames live separately in captures-before-canvas-fix, never final evidence. Preserved historical C4 five/C3 eight/C1 twenty/P1 thirty-six captures. No mockup/bitmap substitution. Human editor playtest remains pending.
+
+Read-only real save geometry audit parsed all123 farm entries in slot0 and114 in slot1, no machine placements, no source-footprint conflict. Actual user save bytes are hashed and rechecked; tests use only the runner's isolated APPDATA. No progress is deleted/repositioned or rewritten. Other legacy/custom saves can still contain arbitrary data; static expansion is not a schema migration, and any newly observed real conflict must be reported rather than erased.
+
+Manual editor steps: none, no scene or Inspector wiring. Reload scripts/resources and F5. From farm exit(3,6), follow path to well dry cell(7,9), stream(-14,6), pond(15,9); try entering water/stone and walking back. Check old crop/machine interactions and bought east parcel rights, map wheel/Shift-hotbar wheel/RMB-MMB pan and all five zooms, vi->en->vi labels and pause/resume ripples. Save/load an existing slot using existing UI; watering remains unlimited/savev9. No refill key is advertised. Background is finite and extreme pan/overview may expose edges. This task does not complete can/HUD/refill/save-v10 or first40/200 upgrade UI.
+
+Review artifacts: D:/godot/game-godot-backups/phase65h2a-20261107-233253/{changed-files.json,implementation.patch,before/,after/,captures/,captures-contact-sheet.png,scope-audit-final.json,reverse-check.txt,user-save-conflict-readonly.json}. Manifest lists the exact modified/created paths and hashes; patch is relative to the pre-code backup, not the much older HEAD, so it does not attribute inherited work to this task. Matching full before/after contents are retained. Prior D72 backups and pending deletion remain untouched. Godot generated the previously approved C4 test's optional .gd.uid after this task baseline; preserve/record this metadata separately as observed-engine-metadata, do not misreport it as a manual source change.
+
+Commit suggestion only (not executed): feat: expand world with well stream and pond
+
+### Phase6.5h2a final official gate — observed PASS on2026-11-08
+
+Ran unchanged `cmd /c tools\run_tests.bat`; exit0. Parse/data PASS, original headless63/63 (880 assertions,5.519s), complete graphics114 scripts/430/430 (23287 assertions), Main smoke PASS. Group1=219/219/9810 assertions/84.946s; group2=211/211/13477 assertions/117.718s. Sequential complete graphics wall214.0347919s; each child remains bounded180000ms. Prior421 test names retained,419 method bodies byte-identical, only the two specifically approved compatibility method edits;9 new tests. No timeout/runner/GUT/assertion reduction. Expected negative-case warnings and historical missing-turnip visual warning remain; no failing/error-text gate is bypassed.
+
+Real final output:
+~~~text
+Headless: Scripts16; Tests63; Passing Tests63; Asserts880; Time5.519s
+---- All tests passed! ----
+[graphics_tests] PASS: 114 scripts, 430/430 tests, 23287 assertions; GUT 202.664s, wall 214.0347919s
+[run_tests] starting main scene headless
+Godot Engine v4.7.2.stable.official.ed1daf0bf
+[run_tests] PASS
+~~~
+
+Final artifacts: full-result.json, full-run-final.log, full-final/ raw logs/discovery/hash manifest/complete summary under the task backup. Source delivery34 files (22 modified,12 created; optional new-test .gd.uid absent), exact paths/hashes and before/after text in changed-files.json/implementation.patch/before/after plus REVIEW.md. Scoped whitespace check exit0, all new scripts <=250 lines. Reverse patch check exit0. Scope audit:1223 protected pending entries identical; outside-scope source drift0; separately preserved one engine-generated optional prior-C4 .gd.uid. HEAD/index unchanged, prior deletion preserved, actual user save bytes unchanged. No commit/stage/push or manual editor acceptance claim.
+
+API_INDEX/ARCHITECTURE/DATA_SCHEMA/DECISIONS D77/ROADMAP and three scene contracts updated. Acceptance automation is complete. Human F5 remains pending; next can/runtime/HUD/refill/save integration requires its own scope. Commit suggestion (not executed): feat: expand world with well stream and pond
+
+## D72-C4 — live world-label locale refresh and stale-toast dismissal (421/421 automation delivered; human F5/commit pending, 2026-11-07)
+
+TASK: continue finishing the inherited D72 graphics/UI work after delivered C3. Fix the specifically observed static world labels that retain their startup language when existing language settings are applied, and dismiss already-rendered transient toasts on an actual locale change. No new gameplay/watering integration or commit. The latest complete official PASS remains C3 on2026-11-05: parse/data/headless63/63/graphics418/418 (21153 assertions)/Main. No new complete suite has been run today.
+
+Session review: original HEAD e713660 unchanged;1239 pending entries. Compared with the C3 handoff, no known game/test/doc source changed; only the new test file and its subsequently Editor-generated UID appear relative to C3's pre-code snapshot. Keep that UID and all prior work. Current process inventory found Editor only. All rules remain in force, especially multi-file plan approval and no unapproved commit.
+
+Read-only actual diagnosis on2026-11-07: external SceneTree probe created the real Main under an isolated test SubViewport, set vi before creation, then en without recreating Main. House='Nhà của Mai', SeedShop='[E] Mua hạt giống', ShippingBin='[E] Bán hàng' and both real NPC home signs stayed Vietnamese. Both existing toasts stayed present (count2). Inventory/wallet/farm/jobs/clock serialization stayed unchanged. Probe exited0, with no script/parse/error/leak text observed; it is reproduction evidence, not a passing regression or full acceptance. Source/UTF8 JSON/raw stdout+stderr: D:/godot/game-godot-backups/d72-c4-plan-20261107/locale_probe.gd, probe-result.json and locale-probe.log.*. The terminal wrapper's default text decoding can display mojibake; the raw UTF8 JSON contains correct Vietnamese. No game/test source was edited for the probe; user:// was isolated by the existing bounded helper.
+
+READ-ONLY CONTEXT: PROJECT_RULES/PROGRESS/API/ARCHITECTURE/ROADMAP/D73-D75/CODE_PATTERNS/STYLE_GUIDE; actual gray_box_world/hud/isometric_visuals contracts; WorldPresentation and PlaceholderWorld2D label/pill rendering, NpcSystem/NpcActor homes/actor-name paths, LifeHudToastStack/Card and FeedbackPopup/Presenter message routing; existing Settings.set_locale and supported pause presenter Apply; prior locale/settings/visual tests, C1-C3/P1 logs/screenshots and both unchanged C2 runners. No missing node/InputMap/translation key/API is invented.
+
+Approved plan:
+1. In WorldPresentation, react to the existing translation-changed notification and refresh only the existing House/SeedShop/ShippingBin art labels. Use the actual current player_name and existing UI_NPC_HOME/UI_PROMPT_SHOP/UI_PROMPT_SELL translations; never translate or overwrite the user's profile name. Guard pre-configure/empty-profile/teardown timing, keep empty owner labels hidden, and use already-created anchors or references without introducing scene paths. Request cosmetic redraw so the existing label pill matches changed text even while GameClock is paused. Do not rebuild scenery, reset avatar/animation, move anchors or refresh land/collision.
+2. In NpcSystem, refresh only existing home sign labels from its actual homes map/NpcData display_name_key and UI_NPC_HOME on locale change, with the same paused redraw/initialization safeguards. NpcActor name/talk labels already translate in the existing process; do not change actor motion, schedule/domain/quests/dialogue/trades/friendship/debug actions. This is a small label-only addition to the existing larger adapter, not a broad refactor or new owner.
+3. In LifeHudToastStack, on a genuine locale change clear only its currently displayed transient cards/timers through the existing clear/remove lifecycle. The API receives already-formatted strings and cannot safely reconstruct translation keys: do not guess/retranslate/replay history or add message metadata across gameplay callers. Reapplying the same locale should preserve current cards/lifetime; new feedback uses the newly selected language normally. Keep the existing max-two/three-second view timer policy. Late/deferred callbacks from removed cards must never remove a replacement card or report an invalid/freed-object error. Existing hidden legacy text adapters/signals/public show_message/clear APIs remain unchanged.
+4. Add tests/unit/test_d72_locale_refresh.gd (optional generated UID permitted), using the same real Main instance across vi->en->vi and both TranslationServer and supported pause settings Apply paths. Check player/shop/bin/all actual NPC home strings and unchanged node identity/position/appearance/phase while paused. Test old-toast dismissal, same-locale preservation, new-language feedback, deferred timeout after replacement and safe configure/new-game/load/title/teardown transitions where supported. Preserve isolated settings bytes/config/locale/clock in teardown. Snapshot inventory/wallet/farm/jobs/NPC schedule/friendship/clock/profile/save values around view-only changes; never call gameplay simulation to obtain a visual test pass. Render and inspect actual before/after locale captures at useful sizes without recreating Main between languages, so startup-only localization cannot mask the regression.
+5. Record D76/API/ROADMAP/current memory and three affected scene contracts; no new player-facing text or localization key. Back up/hash all current pending work before code, including the new C3 UID and previously observed project.godot normalization. Run focused new/existing locale/HUD/settings regressions, then unchanged cmd /c tools\run_tests.bat (parse/data/headless/two sequential complete graphics groups/Main;180000ms per child). Retain all old tests/assertions/C3 eight/C1 twenty/P1 thirty-six captures, source art/scenes/theme/fonts and the previous complete gate evidence. Publish exact changed-file diff/full before-after text, raw output, screenshot review and scope/hash/reverse-patch checks. Human F5 and commit remain separate.
+
+Approved ALLOW_LIST — existing VIEW source:
+~~~text
+scripts/view/world_presentation.gd
+scripts/view/npc_system.gd
+ui/hud/toast_stack.gd
+~~~
+Approved ALLOW_LIST — documents:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+~~~
+Approved new files:
+~~~text
+tests/unit/test_d72_locale_refresh.gd
+tests/unit/test_d72_locale_refresh.gd.uid
+~~~
+DO NOT TOUCH: every other file, especially all existing tests/P1/C1-C3/GUT/runners/bounded helper/180s limits, all .tscn, Main/NpcActor/PlaceholderWorld2D/player/camera/domain/simulation/inventory/wallet/save-v9/Settings/pause controllers/feedback callers/translation CSV/art/Theme/fonts/project.godot/InputMap and earlier backups/deletion. No package install, stage/commit/push/reset, new gameplay policy/system, new global signal/autoload, draft-PNG runtime binding or watering integration. If an additional file is necessary, ask before touching it.
+
+ACCEPTANCE: on the same running Main, actual vi/en switching immediately updates the three interactive world anchors plus all real NPC home signs, including while paused, with correct player/NPC identity and updated pill redraw. Display nodes/positions/colliders/appearance/animation phases and gameplay/save values stay intact. Current transient toasts disappear only on an actual locale switch; same-language apply keeps them, replacement/new-language messages work, and old callbacks cannot damage a new card. Settings persistence behavior stays as-is and test settings are restored. All old tests/captures remain unchanged and pass; focused/new full graphics discovery is exact, every child retains180s and sequential execution, and real outputs/audited allowed scope/inspected screenshots substantiate the change.
+
+Assumptions/risks: dismissing already-visible toasts on language change is an explicit proposed VIEW policy for owner approval, not silent loss/retranslation/replay of a domain event. Existing actor/dialogue/debug localization and any other unrelated UI are outside this narrowly named defect. Notification delivery can occur before configuration or during teardown; guard it and test callback lifetime. English/Vietnamese names use existing data keys; player-authored names stay unchanged. New tests should stay <=250 lines and bounded; no old timing/assertion changes or expanded timeout. No scene/Inspector wiring should be required. Human F5/commit remains pending.
+
+Approval/baseline: owner explicitly replied "Duyệt D72-C4, triển khai và chạy toàn bộ kiểm thử". Before code, copied/SHA256-verified1239 pending entries, allowed before-text, approved plan, reproduction probe/logs and HEAD/index/deletion under D:/godot/game-godot-backups/d72-c4-20261107-223936. Earlier planning.patch and C1-C3 evidence remain preserved. No new regression/full PASS claimed yet. Suggested commit (not executed): fix: refresh world labels when locale changes
+
+
+### D72-C4 implementation / focused regression and failure history
+
+WorldPresentation caches its existing created anchor-art references and refreshes only their label text/visibility/redraw on translation notification and existing profile appearance setup. Current profile name stays verbatim; valid node/label guards handle unconfigured/teardown cases. NpcSystem updates only its existing home-label map from real NpcData and queues redraw. No anchors/scenery/appearance/phase/collider or domain state are rebuilt/reset. Existing actor-name process remains unchanged.
+
+ToastStack tracks only transient locale/dismissed IDs. Actual language change hides old cards synchronously; captured IDs are freed after the notification traversal. A new message flushes old dismissals before applying the existing max-two policy. Timer callbacks capture an instance ID and resolve/validate its current parent before removal, so freed or already-dismissed cards cannot damage a replacement. Same-locale notifications do not hide/clear/restart timers. Public clear remains immediate outside notifications. Max-two/three-second lifecycle, all caller APIs and message strings remain unchanged; no translation-key guessing/event replay.
+
+First focused run FAILED with busy-parent remove_child/data.parent engine errors then crash: clearing/freeing toast children inside the locale notification collided with traversal. Exact first stdout/stderr and pre-fix toast/test source preserved under BACKUP/focused-attempt1. Fixed production lifecycle as above; no old test was altered. New test now checks immediate invisibility and next-frame node cleanup, retains the same-turn deferred-timeout/replacement race, and clears an existing Apply-result card before asserting same-locale identity (max-two can otherwise evict that fixture card normally). This is not suppression/weakening; actual invalid-tree errors must disappear.
+
+New test file has3 cases: actual same-Main vi/en/back and paused draw signals/identity/phase/owner preservation; existing pause presenter Apply/same-locale/new-game/save-load/title/empty-player-name/pre-configure guards; stale-toast/new-language feedback/deferred timer replacement. Settings bytes/config/locale and clock accumulator/speed restore in teardown. All old tests are byte-identical.
+
+Actual second focused command: unchanged bounded helper, graphics --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_d72_locale_refresh.gd,res://tests/unit/test_pause_settings.gd -gexit, isolated user:// and default120s. Real output:
+~~~text
+Scripts               2
+Tests                 9
+Passing Tests         9
+Asserts             144
+Time              3.88s
+---- All tests passed! ----
+~~~
+Existing intentional invalid-slot warning remains; no script/parse/error/leak in this successful focused output. Logs are %TEMP%/the_life_d72_c4_focused.log.* and will be copied to BACKUP/logs. Five real captures use one Main across language changes and1152/1600 widths; images are preserved in BACKUP/screenshots-focused before the full run. No fresh-per-locale reconstruction masks the bug.
+
+Re-ran the identical external reproduction after the fix, before full tests: before labels are Vietnamese and toast count2; after en labels are Mai's home/[E] Buy Seeds/[E] Sell items/Linh's home/Minh's home and toast count0, with owner serialization unchanged. Exit0. Raw locale-probe-after.log.* and correct UTF8 probe-after-result.json are in BACKUP. The original pre-fix probe remains separate. The complete unchanged C2 official gate subsequently passed on its first C4 full run; actual output follows. BACKUP is D:/godot/game-godot-backups/d72-c4-20261107-223936.
+
+
+### D72-C4 final official PASS / exact handoff
+
+Actual command: cmd /c tools\run_tests.bat, exit0. Real output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              4.838s
+---- All tests passed! ----
+[graphics_tests] group 1/2: 56 scripts, 213 tests; timeout 180s
+Scripts              56
+Tests               213
+Passing Tests       213
+Asserts            8551
+Time              75.899s
+---- All tests passed! ----
+[graphics_tests] group 2/2: 56 scripts, 208 tests; timeout 180s
+Scripts              56
+Tests               208
+Passing Tests       208
+Asserts           12698
+Time              101.033s
+---- All tests passed! ----
+[graphics_tests] PASS: 112 scripts, 421/421 tests, 21249 assertions; GUT 176.932s, wall 187.9489453s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+Each child retained the existing180000ms bound, sequential execution and real graphics renderer. Per-group Time is GUT duration;187.949s is combined graphics wall time including startup/exit, not whole-batch time or a180s total guarantee. This first C4 full run certifies every prior418 test plus3 additive C4 cases with exact manifest union/hash coverage; no existing test/assertion/source was changed. No game/test/runner/data source changed after this full PASS; only docs/external QA/audit copies followed.
+
+Independent final scan:0 error/failing/pending/orphan/resource-leak text matches across successful focused and official parse/data/headless/both graphics/Main stdout+stderr. Old expected placeholder/malformed-save/invalid-slot/GUT warnings remain visible. The first failed focused run/engine crash remains preserved separately in focused-attempt1, with the reason/fix above; it is not labeled PASS or included in a successful-log scan. Exact raw logs, manifest, combined JSON and final-error-scan.txt live in BACKUP/logs. The identical before/after probe is also retained and demonstrates translated labels/count2->0 toasts with owner snapshots unchanged.
+
+Exact C4 files11 (10 modified /1 created):
+~~~text
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+scripts/view/npc_system.gd
+scripts/view/world_presentation.gd
+tests/unit/test_d72_locale_refresh.gd
+ui/hud/toast_stack.gd
+~~~
+Clear complete diff: BACKUP/d72-c4.patch; exact original/complete final file text: before/ and after/; manifest: changed-files.txt; reproducible scope/hash/discovery/log validation: audit_c4.py and scope-audit.txt. BACKUP is D:/godot/game-godot-backups/d72-c4-20261107-223936. Reverse git apply --reverse --check PASS. All1239 pending entries were backed up/SHA256-verified before code. Final protected pending entries1231 unchanged; outside-ALLOW_LIST0; public view signatures unchanged; all old tests/P1/C1-C3/GUT/C2 runners/bounded helper/art/scenes/Settings/localization/project.godot/domain/gameplay/save-v9 unchanged. HEAD/index, previous deletion, original backups and Editor-generated C3 UID remain intact. No stage/commit/push/install. New C4 UID is allowed but was not generated/fabricated by runtime tests.
+
+Size/scope: WorldPresentation173->191 lines; NpcSystem262->273 (already-large existing adapter, only11 label-related lines, no unapproved broad refactor); ToastStack29->55; new test203, below250. No new public method/signal, autoload, domain/persistent field, translation key, sprite binding or gameplay number. The dismissal-ID list is transient VIEW lifecycle metadata, not saved state.
+
+Visual QA: inspected all5 focused same-Main captures via locale-qa-contact.png and full-size English1152 frame. vi initial/vi live-back/en live agree with current language at1152x648 and1600x900, while the player name remains unchanged; no observed stale pill background from paused redraw. Existing finite-map edges and world-label occlusion behind HUD remain unchanged. Independent test draw signals prove each targeted paused art node redraws after a real locale switch without resize, and identity/phase/appearance/scenery/owner/save snapshots stay equal. BACKUP/screenshots-focused preserves those inspected frames; screenshots/ contains5 C4 plus8 C3,20 C1 and36 P1 current full-run captures. Source image/art files remain untouched.
+
+Manual editor/Inspector steps: none. Reload scripts or stop/restart an older F5 session before human checks. Existing Tạm dừng/Cài đặt language Apply is the supported entry point; do not create nodes/actions or change project settings. Manual cases:
+1. On one game with a visible toast, Apply vi->en then close pause: player cottage, seed shop, shipping bin and all real NPC home signs use English without recreating the game. Switch back to vi; user player/NPC identity stays correct.
+2. Verify label pill geometry redraws while paused and that player position/appearance, crops/items/coins/machine jobs/NPC schedule/friendship remain unchanged by language settings. No day/job simulation should occur.
+3. Old-language toast hides immediately on an actual locale switch; subsequent feedback uses the new language normally. Applying the same locale does not clear or restart an existing card; normal three-second expiry/max-two eviction still applies.
+4. Repeatedly change locale with toast expiry/replacement, then new-game/load/return-title through supported flows. No stuck card, deleted replacement, freed-object/busy-parent error or crash. New/loaded profile name appears correctly; empty preconfigured profile does not show a stale house name.
+
+How to rerun: focused command above through existing bounded helper, or cmd /c tools\run_tests.bat for complete acceptance with F5 stopped. Existing C2 runner discovers112 scripts/421 tests automatically; no runner/limit change. New headless reproduction runs use the same external locale_probe.gd through the existing helper with isolated user://; they do not alter the player's preferences/saves.
+
+Acceptance achieved in automation: targeted same-Main labels change instantly with safe paused redraw, old-language transient feedback disappears without translation guessing/replay, same-locale cards/lifetime and new feedback remain correct, late callbacks cannot touch replacements, supported Apply/lifecycle/empty/init guards and settings/clock restoration pass, gameplay/save/test/art scope is preserved, and full verified coverage plus inspected renders/audit/raw diff are delivered. Human F5 acceptance/commit and the complete project's Definition of Done remain pending. Other unrelated UI/debug localization, finite terrain borders and offline draft-PNG roles stay outside C4; no watering/gameplay integration. Suggested commit (not executed): fix: refresh world labels when locale changes
+
+## D72-C3 — correct toolbar item highlight/caption and four-item pages (418/418 automation delivered; human F5/commit pending, 2026-11-05)
+
+TASK: continue the approved inherited-graphics handoff after completed C2, resolving the remaining toolbar selection presentation defect. Last complete official baseline is parse/data/headless63/63/graphics415/415 (20556 assertions)/Main PASS through unchanged180s-per-child sequential batches. Human F5 and commit remain pending. Owner explicitly approved D72-C3 and running the complete tests. This authorizes the exact source/test/document scope below; no commit is requested.
+
+Read-only diagnosis: toolbar.request uses four tools, while display computes item highlight with +3. Selecting bag index0 therefore uses the correct item but highlights/captions harvest. HotbarPanel select/remap still pages by5 even though the rendered toolbar has four item buttons, so indices4/9/etc can be selected without appearing in the visible page. Existing test_isometric_hud explicitly expects the obsolete five-stack offset; C1's off-window camera case reflects that same presentation. C1 preserved these protected files intentionally. The current request to continue is not treated as approval to silently modify those tests.
+
+READ-ONLY CONTEXT: PROJECT_RULES/API/architecture/ROADMAP/D73-D74/CODE_PATTERNS; actual hud/isometric_visuals contracts; LifeHudToolbar/ToolbarSlot/HotbarPanel and existing inventory selection/sort/discard/remap APIs; actual numeric/GUI/native wheel paths; C1/C2 tests/logs/manifests and all other existing source/art. No missing input/node/API is invented.
+
+Approved plan:
+1. Keep the eight rendered slots: four existing tools, then four actual item slots. Derive display selection from TOOLS.size() and the selected item relative to its visible page, with a valid populated-index check. Exactly the selected real button receives selected styling and the caption/tooltip names that item. No stale caption/highlight on absent or invalid selection; reuse existing tr() keys. Keep public method/signal names, icon/quantity/name data and scene tree.
+2. Align HotbarPanel's private selection/remap page calculation with the actual four item buttons rather than5. Selecting bag index0-3 shows page0-3, index4-7 shows page4-7, legacy key9 selects the same bag index8 and shows page8-11 (its first item is toolbar slot5, zero-based active_index4). Preserve real selected item identity after existing sort/discard remap; never reorder/mutate inventory from display. No new tool/hotkey and no change to what actual seed/item a request uses.
+3. Keep C1 native wheel ownership and page-local cycle policy: Shift/toolbar wheel cycles four tools plus populated items in the current page, skips absent items, wraps both ways and never zooms. Plain map wheel, +/-/pan/modal locks/placement/farming are untouched. Selecting an item from another page first brings it into view; no hidden fifth slot is introduced.
+4. Correct only the two specifically wrong legacy test expectations under the explicit new ALLOW_LIST: test_isometric_hud's key9 offset becomes4 with added real item/caption/selected-style checks; test_d72_camera_input's old off-window-index4 case now verifies advancement within the newly visible page and unchanged zoom/owners. Keep all existing test functions, numeric/click/modal/selection/input ownership assertions; no test deletion/skips or reduced assertion coverage. This is an intentional corrected view contract, not a workaround for a failing test.
+5. Add tests/unit/test_d72_toolbar_selection.gd (matching generated UID permitted), using actual Main/registered inventory/theme/native UI paths. Cover item/page boundaries0/3/4/7/8 and partial last page; actual first/last-item native wheel/numeric/button/F-selection behavior where supported; remap and empty/invalid display; vi/en actual caption/tooltip/icon/selected styling. Snapshot owners to prove display/selection do not alter inventory quantities/order, wallet/farm/jobs/clock/save. Retain all old P1 six tests/36 captures and C1 seven tests/20 captures; any new screenshots are isolated test artifacts.
+6. Update D75/API/ROADMAP/current memory and the two affected scene contracts. Back up/hash current pending work and preserve C1/C2/external-project evidence before code. Run focused native/view regressions, then the unchanged official cmd /c tools\run_tests.bat (parse/data/headless/two sequential complete graphics groups/Main). Keep existing180000ms per child, runners/GUT/source art/scenes/gameplay/save-v9 byte-identical. Inspect actual vi/en toolbar captures; publish exact diff/manifest/raw logs/scope/reverse-patch checks. No editor wiring or new UI scene/class is needed.
+
+Approved ALLOW_LIST — existing source/tests:
+~~~text
+ui/hud/toolbar.gd
+scripts/view/hotbar_panel.gd
+tests/unit/test_isometric_hud.gd
+tests/unit/test_d72_camera_input.gd
+~~~
+Approved ALLOW_LIST — documents:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+~~~
+Approved new files:
+~~~text
+tests/unit/test_d72_toolbar_selection.gd
+tests/unit/test_d72_toolbar_selection.gd.uid
+~~~
+DO NOT TOUCH: everything else, especially .tscn files, Main/domain/inventory/economy/farm/Player/machine/watering/save-v9, all other tests/P1/GUT/goldens, both C2 runners/bounded helper/180s limits, CameraRig, localization/assets/Theme/fonts/InputMap/project.godot and observed external changes. No future watering/gameplay integration, asset generation, stage/commit/push/reset/install. Preserve the existing deleted historical file.
+
+ACCEPTANCE: every real selected item is visible and exactly its toolbar button/caption/tooltip/icon corresponds; first seed never highlights harvest; page boundaries and key9 preserve the actual stack index; empty/partial pages never highlight an absent item or retain the prior caption. Native map/Shift/toolbar wheel and modal/placement routing remain exclusive; owners remain unchanged by selection/render. Existing test methods/coverage preserved except the explicitly explained corrected expectations; new coverage is real and additive. Focused plus entire official gate pass with exact discovery/hash audit and inspected vi/en captures; all out-of-scope sources preserved. No manual scene/Inspector step, human playtest/commit remains separate.
+
+Assumptions/risks: four visible item slots are the authoritative existing composition, so item pages intentionally change from5 to4; the old key9 active_index expectation6 is incorrect and becomes4 under this approved contract while still selecting inventory index8. Sort/discard/remap must keep selected item identity and page, and final partial pages must not invent empty requests. Wheel remains page-local rather than cycling through the whole bag. New tests should stay small/bounded and <=250 lines; do not alter old render timing to obtain PASS. An unanticipated affected file outside this ALLOW_LIST still requires approval.
+
+Approval/baseline: owner replied "Duyệt D72-C3, triển khai và chạy toàn bộ kiểm thử". Before code, copied/SHA256-verified1237 pending entries and recorded HEAD/index plus the existing deletion under D:/godot/game-godot-backups/d72-c3-20261105-094250. Exact approved plan is archived there. No new test result is claimed yet; focused/full checks follow. Suggested commit (not executed): fix: align toolbar item selection with four-slot pages
+
+
+### D72-C3 implementation / focused PASS
+
+Changed only toolbar display selection/fallback and adapter private page calculation. Four tool indexes remain0-3, items4-7; all public signatures/signals/InputMap/scenes/domain/save are unchanged. Partial/out-of-page/invalid item selection cannot leave selected styling or stale caption. Actual bag index8 is still key9's stack; it now starts its four-item page. Existing wheel arbitration remains adapter-owned and page-local.
+
+Updated only the two explicitly approved wrong expectations: old key9 five-item offset6 ->4 with real identity/style/icon/title checks (assertion statements43 ->48); old hidden-index4 wheel case ->actual next-item5 on the visible second page with extra active-index/zoom/owner checks. No old test function or other assertion was removed. New test file has3 actual Main/native/render/remap cases,198 lines; registered nine-stack fixture and exact caption/icon/quantity/selected-button assertions, boundary pages, native9/5-8/click/Shift-hover-wheel/F, real sort/discard remap, absent/stale clearing and owner snapshots. Eight actual toolbar captures cover vi/en,1152x648/1600x900, first seed and partial third page.
+
+Actual focused command: existing tools/run_godot_bounded.ps1 with graphics --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_d72_toolbar_selection.gd,res://tests/unit/test_d72_camera_input.gd,res://tests/unit/test_isometric_hud.gd -gexit; default120s focused bound, isolated test user://. First run:
+~~~text
+Scripts               3
+Tests                11
+Passing Tests        11
+Asserts            1296
+Time              17.426s
+---- All tests passed! ----
+~~~
+No compile/script/error/leak in focused stdout/stderr. Logs are %TEMP%/the_life_d72_c3_focused.log.stdout/.stderr; focused screenshots preserved in the C3 backup/screenshots-focused directory before the full run. New runtime screenshots localize the toolbar/HUD in each locale; previously created world labels can retain startup language as documented by C1, so do not claim an unrelated runtime world-localization fix. The unchanged sequential C2 official gate subsequently passed on its first C3 run; actual output follows.
+
+
+### D72-C3 review package / manual checks
+
+Acceptance recap: selected stack must appear on the current four-item page with exactly its own selected button/caption/tooltip/icon/quantity; invalid/empty/out-of-page displays cannot retain stale selection. Key9 still means bag index8. All page-local wheel/numeric/click/F and sort/discard remap paths preserve actual item identity and existing camera/modal/farming ownership. Only explicitly approved test expectations change; all other test/GUT/runner/art/gameplay/save bytes remain preserved.
+
+Exact current completion files11 (10 existing /1 new; generated UID is allowed if the Editor later creates it, not fabricated here):
+~~~text
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+scripts/view/hotbar_panel.gd
+tests/unit/test_d72_camera_input.gd
+tests/unit/test_d72_toolbar_selection.gd
+tests/unit/test_isometric_hud.gd
+ui/hud/toolbar.gd
+~~~
+Full clear diff/manifest and complete before/after text: BACKUP/d72-c3.patch, changed-files.txt and before/after directories, where BACKUP is D:/godot/game-godot-backups/d72-c3-20261105-094250. audit_c3.py reproduces hashes/scope/assertion-preservation/manifest/log checks; scope-audit.txt is its result. Initial1237 pending entries were copied/SHA256-verified before code; HEAD/index/deletion and prior C1/C2 backups remain unchanged. Scope audit so far:1227 protected pending entries unchanged, outside-ALLOW_LIST0; all other tests/P1/GUT/C2 runners/bounded helper/art/scenes/localization/project.godot/domain/gameplay/save-v9 unchanged. Only the two named old test files change; same test methods, assertion statements43->48 and49->51. Added-line whitespace0; reverse patch check passes. Final status follows the full gate below.
+
+Visual inspection: reviewed all8 fresh toolbar captures through BACKUP/toolbar-qa-contact.png, using the actual focused screenshots in screenshots-focused. First seed selects button5 while harvest remains unselected; the ninth seed starts its partial third page on button5, with remaining item buttons empty. Quantity1/9, icons and localized captions match; selected frame/text fit at1152x648 and1600x900. These are rendered Main UI views, not mockups. World-label locale residue is outside this toolbar correction as already noted; C1's separate fresh-locale world matrix remains retained.
+
+Manual editor setup: none; do not rebuild/change scenes, Inspector, Theme, InputMap or Resources. Human F5 cases after code reload:
+1. Select the first seed from Bag/F or key5: the seed slot is selected and its real name/quantity appears, while harvest stays unselected.
+2. Select real stack indices3/4/7/8 (use Bag for later pages); the chosen stack stays visible in pages0-3/4-7/8-11. Key9 keeps the ninth stack selected, now on visible key5; keys5-8 request the actual shown page items.
+3. On a partial last page, scroll Shift-wheel or hover-wheel both ways. Skip empty slots, wrap tools/items once and preserve camera zoom. Plain map wheel/+/-/RMB/MMB behavior remains unchanged.
+4. Use F from Bag, sort, and discard a different earlier stack; selected remaining item identity, caption and four-item page stay aligned. Discard/empty selection returns to the existing hoe fallback; no invented item appears.
+5. Inspect vi/en captions/icons/quantities/selected frame at both reviewed sizes; open another modal/placement and verify existing world locks/cancel behavior. Automated native tests are evidence; human playtest remains pending.
+
+Rerun focused with the exact command above or run cmd /c tools\run_tests.bat for complete parse/data/headless/two sequential graphics/Main. The unchanged runner automatically discovers the new test; each child keeps180000ms, no simultaneous Godot/F5. Known limits: item pages intentionally migrate5->4, wheel remains page-local, and the UID may be generated by Editor later. Domain/save/inventory order/quantity never changes from selection/render; explicit sort/discard commands retain their existing effects. Human editor acceptance/commit remain separate. Suggested commit (not executed): fix: align toolbar item selection with four-slot pages
+
+
+### D72-C3 final official PASS
+
+Actual command: cmd /c tools\run_tests.bat, exit0. Real output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.964s
+---- All tests passed! ----
+[graphics_tests] group 1/2: 56 scripts, 206 tests; timeout 180s
+Scripts              56
+Tests               206
+Passing Tests       206
+Asserts           11452
+Time              99.924s
+---- All tests passed! ----
+[graphics_tests] group 2/2: 55 scripts, 212 tests; timeout 180s
+Scripts              55
+Tests               212
+Passing Tests       212
+Asserts            9701
+Time              101.975s
+---- All tests passed! ----
+[graphics_tests] PASS: 111 scripts, 418/418 tests, 21153 assertions; GUT 201.899s, wall 216.0684261s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+All111 discovered scripts/418 declared tests executed exactly once, including all prior415 methods and3 additive C3 tests. Existing two test files retain their5+3 test methods; assertion statements43->48 and49->51, with only the explicitly approved corrected expectation changes. Per-group Time is GUT duration;216.068s is combined graphics wall time, not whole-batch time or a180s total claim. Each unchanged child limit stays180000ms. No runner/test/data/game source changed after this first successful full run; only docs/audit copies followed.
+
+Final independent audit:11 files (10 modified/1 created),1227 protected pending entries unchanged, outside-ALLOW_LIST0; all other tests/P1/GUT/C2 runners/bounded helper/art/scenes/localization/project.godot/domain/gameplay/save-v9 unchanged. HEAD/index/pre-existing deletion preserved; added whitespace0; reverse patch check PASS. Current project.godot bytes match the C3 start, preserving the earlier explicitly recorded Editor rewrite from C2. No .tscn edit, UID fabrication, stage/commit/push/install or gameplay/watering expansion. The optional allowed new .gd.uid was not generated by these runtime test runs.
+
+Official/focused error, failing/pending, orphan/resource-leak text matches0. Expected old placeholder/malformed-save/invalid-slot/suite warnings remain in raw logs. Actual full/focused stdout+stderr, exact discovery/hash manifest/combined summary and final-error-scan.txt are in D:/godot/game-godot-backups/d72-c3-20261105-094250/logs. Scope/diff/complete file text are in the review package above. Screenshots/ contains current8 C3,20 C1 and36 P1 captures; screenshots-focused/ preserves the8 inspected C3 frames and toolbar-qa-contact.png is the reviewed montage.
+
+Acceptance achieved in automation: first item never highlights harvest, every requested page item is visible and correctly captioned/selected, partial/absent displays clear stale state, legacy9/F/native wheel/numeric/click/remap preserve actual identity and world-input ownership, and exact full coverage passes with unchanged limits. Human F5/manual checks above remain pending, with no scene/Inspector setup. Complete project Definition of Done/commit is not claimed. Suggested commit (not executed): fix: align toolbar item selection with four-slot pages
+
+## D72-C2 — sequential complete graphics runner (415/415 automation delivered; human F5/commit pending, 2026-11-05)
+
+Owner approved "Duyệt D72-C2, triển khai và chạy lại toàn bộ" after the three preserved C1 full-suite timeouts. This authorizes only runner orchestration and four documents; all C1 game/data/test/asset sources remain frozen. The concrete approved plan and its ALLOW_LIST remain in the C1 history below. No commit is authorized. A later user continuation resumes this same task; it does not replace it.
+
+Before runner work, archived all28 C1 completion files/diff/manifest/scope/hash report into D:/godot/game-godot-backups/d72-c2-20261105-032226/c1-frozen; verified all14 non-doc C1 source hashes against handoff. Recorded SHA256 for1235 pending entries, original HEAD/index/status, and exact pre-change runner/doc text. The single pre-existing deletion remains recorded. Backup marker: %TEMP%/the_life_d72_c2_backup.txt. No existing timeout evidence is overwritten.
+
+Approved ALLOW_LIST:
+~~~text
+tools/run_tests.bat
+tools/run_graphics_tests.ps1
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+~~~
+DO NOT TOUCH: every other file, especially all current415 test declarations/old tests/GUT/bounded helper/180000ms value/P1 coverage/36 captures/C1 sources/art/scenes/InputMap/domain/save-v9 and previous deletions. No package install, stage/commit/push or concurrent Godot test processes.
+
+Acceptance: execute all discovered graphics scripts/tests exactly once across two deterministic sequential groups; each child keeps180000ms timeout and isolated test user://. Fail on missing/extra/duplicate scripts, test-count mismatch, missing/duplicate complete success summary, nonzero child exit, error/pending/failing/orphan/leak text or changed test bytes. Preserve parse/data/headless/Main gates, all test sources/assertions/captures and timeout logs. Report actual per-group/combined counts and elapsed times, whole official batch result, exact diff/files and scope audit. Human F5 remains separate; do not imply total graphics time is bounded to180s.
+
+Implementation: new tools/run_graphics_tests.ps1 uses ordinal root test_*.gd discovery, records file/hash/top-level method counts and alternates sorted files into two55-script groups (210/205 declared tests). It invokes unchanged run_godot_bounded.ps1 in separate child PowerShell processes, sequentially; passes the already-supported -gtest CSV and original graphics flags. It validates ANSI-stripped stdout+stderr, exact script set and summary metrics, then rediscovery/SHA256 after both runs. Manifest and status/combined JSON are written to %TEMP%/the_life_gut.manifest.json and .summary.json; group stdout/stderr to the_life_gut_1.log.* and _2.log.*. Failed runs never retain a passed status. run_tests.bat replaces only the former single-graphics block and delegates its result; other gates are unchanged.
+
+Compatibility/limits: PowerShell5.1 syntax; no new Godot/GUT API. Discovery intentionally fails closed for nonstandard/zero-top-level/inner-class-only tests or unsafe CSV filenames until this tooling contract is deliberately extended. Existing project has110 root scripts/415 top-level tests and no inner test classes. Configured GUT directories or filters cannot silently add/drop scripts or tests because exact coverage/count checks reject them. Existing warnings and test names containing orphan remain acceptable; actual errors/leaks/nonzero quality totals fail.
+
+Verification before Godot: PowerShell parser0 syntax errors;47/47 external AST-extracted helper probes PASS, including valid ANSI/warnings, malformed/duplicate/missing summaries, test/script coverage/counts, error/leak/pending stderr, missing log files, unsafe discovery and the two-singleton-group array case. Probe source/results live in backup probes/validate_runner.ps1 and validation-results.json; no project test was edited. Initial external-probe shell preparation had a nested-here-string quoting parse error before execution; corrected the external harness, with no project-source impact. User confirmed saving/stopping F5; process check found only Editor before official execution.
+
+Official complete verification passed on the first C2 batch run; exact output/handoff follows. Suggested commit (not executed): test: run complete graphics suite in sequential batches
+
+
+### D72-C2 final official PASS / exact handoff
+
+Actual command: cmd /c tools\run_tests.bat. Exit0. Real output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              6.222s
+---- All tests passed! ----
+[graphics_tests] group 1/2: 55 scripts, 210 tests; timeout 180s
+Scripts              55
+Tests               210
+Passing Tests       210
+Asserts            8450
+Time              90.167s
+---- All tests passed! ----
+[graphics_tests] group 2/2: 55 scripts, 205 tests; timeout 180s
+Scripts              55
+Tests               205
+Passing Tests       205
+Asserts           12106
+Time              121.726s
+---- All tests passed! ----
+[graphics_tests] PASS: 110 scripts, 415/415 tests, 20556 assertions; GUT 211.893s, wall 225.8974593s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+Per-group Time is GUT execution time;225.897s is measured combined graphics wall time including startup/exit, not total whole-batch time. Both children completed inside the unchanged180000ms process bounds. No second complete run is needed: no runner/test/data/game source changed after this successful run, only documentation/external probes/audit artifacts. All415 declarations were covered exactly once across two55-file groups. All7 C1 tests and six P1 inventory tests/36 images remain included; new C1 matrix20 images is retained. This first C2 official PASS supersedes the C1 timing blocker without erasing its three failed attempts.
+
+Independent final audit verifies manifest union/no duplicates/counts, complete GUT markers and source SHA256; error/leak text matches0 across official parse/data/headless/both graphics/Main stdout+stderr. Existing expected placeholder/malformed-save/invalid-slot/suite warnings remain visible; no test was skipped/weakened or warning converted to a fake PASS. Full raw outputs, manifest/summary JSON and final-error-scan.txt are in D:/godot/game-godot-backups/d72-c2-20261105-032226/logs. Backup screenshots/ preserves all20 d72_c1 PNGs and36 iso5 PNGs. C1 contact sheets/asset deterministic hashes remain in the original takeover verification directory.
+
+Additional external boundary checks after the real run:6/6 orchestration probes used a byte-identical helper copy in a shadow two-script fixture and a mocked bounded child, never launching Godot. Verified successful two-group execution, child exit42, timeout124, truncated log, unexpected coverage and source tampering; failures exit1 and stop before group2 where appropriate. Also invoked the actual helper with a deliberately nonexistent executable and separate output prefix: exit1/status failed/no group2. The protected bounded wrapper can emit a startup error without a useful nonzero exit; complete-summary validation still rejects that case. Expected negative logs remain under probes/, separate from official PASS logs. Together with47/47 schema/discovery probes, this checks real control flow and failure behavior without changing project tests or the bounded wrapper.
+
+Exact C2 created/modified files6 (5 modified /1 created):
+~~~text
+docs/API_INDEX.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+tools/run_graphics_tests.ps1
+tools/run_tests.bat
+~~~
+Full clear diff: D:/godot/game-godot-backups/d72-c2-20261105-032226/d72-c2.patch. Exact original/complete final text: before/ and after/ in the same directory; changed-files.txt is the manifest. audit_c2.py reproduces scope/hashes/discovery/log checks; git apply --reverse --check on the patch passes. Only the original graphics block in run_tests.bat changes; parse/data/headless/Main blocks remain byte-identical. New helper is97 lines. HEAD/index unchanged, pre-existing deletion retained. No stage/commit/push/install.
+
+External file observation during interrupted session: project.godot changed outside C2 while Editor was restarted (Editor08:43:17, file08:43:25; resumed official child after08:54). Removed explicit viewport1152x648/aspect defaults, normalized InputEvent object formatting and removed an empty physics section. No agent command edited this file; preserve its observed bytes. Original/observed exact text+diff and both hashes are in observed-external/ and observed-external.json. The full PASS applies to this observed project version. It is NOT silently included in C2 patch/ALLOW_LIST and not counted as an agent scope edit. Final audit:1230 pending protected entries unchanged,1 explicitly recorded external difference preserved,0 unexplained outside-ALLOW_LIST changes; C1 non-doc sources14/14, all tests/GUT/bounded wrapper/art/scenes/gameplay/domain/save-v9 unchanged. Do not claim every original protected byte is identical without this exception.
+
+Acceptance status: complete graphics coverage, failure guards, unchanged180s child limits, full official batch, all source/capture preservation, raw logs and scope/diff checks PASS. No editor/scene/Inspector/InputMap setup is required. To run: cmd /c tools\run_tests.bat from repo root (or use existing GODOT executable override). Keep F5 stopped during measurement; do not run groups concurrently. Optional direct graphics-only command: powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_graphics_tests.ps1 -Godot D:/godot/Godot_v4.7.2-stable_win64.exe. To verify guards independently, run external probes/validate_runner.ps1 with RepoRoot and ArtifactRoot; the real whole batch is the acceptance evidence.
+
+Known limits: total graphics wall time exceeds180s by design;180s applies to each child. Nonstandard/inner-only/parameterized test declarations may require explicit discovery-contract extension rather than silent under-counting. The observed external project normalization is preserved. Inherited C1 toolbar item highlight/caption offset, finite terrain border, draft PNG runtime roles and real-time feedback semantics remain exactly as documented below; no new game feature or watering integration is added. Human F5/manual checks from C1 and a commit remain pending; complete project Definition of Done is not claimed. Suggested commit (not executed): test: run complete graphics suite in sequential batches
+
+## D72-C1 — finish inherited camera/2D visual work (415/415 verified via C2; original timing history below, 2026-11-05)
+
+TASK: owner confirmed the other coding agent has stopped and requested completion of its graphics work, not watering integration. Continue the inherited D72 camera/2D/cozy-visual slice already described in DECISIONS/INPUT_MAP/ROADMAP. Preserve its renderer/art direction and all prior gameplay, bag/land/machines/watering foundation. Owner approved D72-C1; completion code and focused checks are delivered below; three original full runs timed out, then approved C2 certified all415 tests without changing C1 source. The original handoff/timing history remains below. This is the concrete completion plan required by AGENTS sections2.1/3; no commit is authorized.
+
+READ-ONLY: PROJECT_RULES/API/architecture/schema/decisions/patterns/style; current player/world/HUD/creation/build contracts; inherited camera/zoom/hotbar/avatar/hair/world/farm/machine/frame/asset-builder code and generated PNGs; actual modal/placement/GUI input routing; previous tests/goldens/P1/runners and D71 artifacts. No previous task/commit is silently reset.
+
+Takeover evidence:
+- Compared with D71 delivery:28 inherited file changes, including five generated PNG/import pairs, visual/camera scripts, camera tests and four docs. PROGRESS was not updated by that agent; D72 was appended in DECISIONS and ROADMAP.
+- After owner confirmed handoff, copied/SHA256-verified1224 pending files and recorded the existing deletion under D:/godot/game-godot-backups/d72-takeover-20261105-023000. HEAD/index unchanged. Existing before-review world screenshot was preserved. This is the baseline for our completion diff, distinct from the earlier D71 baseline.
+- Read-only parse PASS; existing camera4/4,13 assertions,0.542s PASS. Captured the actual inherited world with the existing --capture-chibi-world tool. No source change was needed for these checks.
+- Native viewport probe reproduced input priority defects: map wheel0.5->0.75 works; Shift+wheel then changes zoom0.75->0.5 with tool still0; wheel over toolbar changes zoom0.5->0.35 with tool still0. Both contradict inherited D72 docs. RMB start/release over HUD did clear panning in this probe; do not claim a stuck-drag failure was observed.
+- Actual machine job became blocked/ready after advance_day but presentation still retained one working animation row. Current process loop does not check live job status, so ready output can keep its working animation when resumed.
+- Five generated PNGs currently have no renderer references; active avatar/world/wood controls use their procedural 2D renderers. Preserve six-choice appearance/customization; document generated assets' actual role honestly rather than claiming they are active sprites.
+- Unmodified official baseline passed parse/data/headless63/63 (880 assertions,4.843s), renderer408/408 (20303 assertions,167.883s), Main PASS before any completion code. Temporary diagnostic script initially needed runtime autoload lookup when launched outside the project; corrected probe ran successfully. Diagnostic logs are not game-source changes.
+
+Baseline artifacts: takeover backup verification/inherited-d72.patch contains the28-file inherited delta including binary PNGs; inherited_before/inherited_after are exact snapshots and inherited-files.txt the manifest. takeover_baseline holds parse/camera/native-probe/capture/official logs; inherited-world.png is the actual reviewed frame. Current baseline command cmd /c tools\run_tests.bat returned:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts             107
+Tests               408
+Passing Tests       408
+Asserts           20303
+Time              167.883s
+[run_tests] PASS
+~~~
+These existing passing tests did not cover the native wheel/ready-animation issues above. No game source has been changed by this takeover review.
+
+Approved completion plan:
+1. Fix camera/hotbar wheel precedence through the existing unhandled-input/GUI routing: plain map wheel zooms, Shift+wheel or toolbar-hover wheel cycles tools, each event changes only its intended target once. Preserve five levels0.35/0.5/0.75/1/1.25, default0.5, existing +/- actions and player/modal/sleep locks. No InputMap edit/new key. Verify native events, not just direct callback calls.
+2. Retain RMB/MMB pan, existing map/Player/grid projection and pan return on walking/double-right-click. Make current pan bounds data-owned in IsometricWorldConfig (camera_pan_min/max with the inherited values(-1400,-800)/(1400,800)); validate finite/non-inverted bounds. Keep current framing/zoom/follow values. Check release, overlay, move/placement cancel, pan reset and tile picking across zooms. No second camera, custom projection formula or movement/collision change.
+3. Finish machine presentation lifecycle: animate only actual working jobs, stop/switch to the appropriate existing static frame when ready/idle/removed, honor pause, reset transient animation on refresh and retain manifest pivots/cell anchors. Do not advance jobs, create outputs, collect items or change saved state from presentation. If a view lookup can create a low-level empty row, preserve established owner behavior and avoid adding a new mutation path.
+4. Review inherited avatar/hair/world/crop/wood-frame code and actual images. Make only targeted D72 visual/layout/pause-regression fixes needed by observed cases, preserving existing colors/customization/assets and small view responsibilities. Keep active procedural renderers and generated PNGs' roles explicit. No wholesale redesign, asset deletion or replacement of appearance choices. No new gameplay numbers/time simulation in visual animation.
+5. Finish offline asset-builder reliability: retain the existing pixel algorithms and five filenames, check directory creation/PNG-write results and return nonzero on failure. Permit a documented output root for verification in isolated user://, so regeneration/determinism/error tests do not overwrite the inherited PNGs. Existing images/import metadata stay protected. Validate actual asset existence/dimensions through a pure validator/data gate; do not pull autoload-dependent domain into --script compilation.
+6. Add separate native-camera/input, live/pause-animation and visual/asset-review tests. Existing tests, including inherited test_camera_rig.gd and the six P1 inventory tests/36 captures, remain byte-identical. New tests cover Shift/toolbar/map wheel arbitration, five zoom bounds, RMB/MMB/reset/modal/placement protection and tile picking; working->ready animation/paused stability; actual vi/en world/UI/appearance frames at useful zooms/sizes. Rendering/preview must not mutate wallet/inventory/farm/jobs/time.
+7. Run focused tests plus unchanged sequential parse/data/headless/full-graphics/Main gate within180s. Profile only new test waits/render-once if needed; never weaken old assertions/coverage or alter runners/bounds. Inspect actual screenshots, keep first-failure logs, publish separate inherited-vs-completion diffs and update API/contracts/data/architecture/D73/CREDITS/ROADMAP/memory. Human F5 remains separate from automation.
+
+Approved ALLOW_LIST — existing source/data/tooling:
+~~~text
+data/isometric_world_config.tres
+scripts/data/isometric_world_config.gd
+scripts/core/data_validator.gd
+scripts/view/camera_rig.gd
+scripts/view/hotbar_panel.gd
+scripts/view/machine_presentation.gd
+scripts/view/avatar_hair_2d.gd
+scripts/view/placeholder_avatar_2d.gd
+scripts/view/placeholder_world_2d.gd
+scripts/view/farm_view.gd
+ui/components/panel_wood.gd
+ui/hud/hud_frame.gd
+tools/build_isometric_2d_assets.gd
+tools/validate_data.gd
+~~~
+
+Approved ALLOW_LIST — documentation:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/player.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/character_creation.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+tests/unit/test_d72_camera_input.gd
+tests/unit/test_d72_animation.gd
+tests/unit/test_d72_visual_review.gd
+docs/SCENE_CONTRACTS/isometric_visuals.md
+~~~
+
+DO NOT TOUCH: everything else, especially Main/domain/wallet/farm state/day simulation/Player movement/collision, bag/land/watering implementation, SaveService/version9/goldens, all prior test sources/P1, actual .tscn files, existing PNGs/imports/assets/Theme/fonts, localization, project.godot/InputMap, GUT/runners/bounds, PROJECT_RULES, prior backup artifacts and pre-existing deletion. No watering integration, new UI screen/system, new content/balance, commit/push/stage/reset/package install.
+
+ACCEPTANCE:
+- Native plain map wheel changes zoom only; Shift/toolbar wheel changes tool only, once. All five limits and +/- behavior work. Overlays/scrollable bag/placement keep correct input ownership; LMB farming, RMB placement-cancel and player movement/reach remain intact. Camera pan bounds are data-owned/validated and preserve inherited defaults.
+- Actual machine animation follows real job status and freezes when paused, preserving cell/pivot/output/inventory/coins/save state. Avatar/hair/world/crop/UI visual changes retain customization, labels, anchors and pause behavior; observed regressions are fixed without gameplay refactors.
+- Generated assets validate; offline regeneration into isolated output is deterministic and write failure is reported. Existing source PNG/imports remain byte-identical. No false claim that unused draft PNGs are active renderers.
+- New native/render tests and inspected screenshots substantiate D72 at overview/default/close zoom and vi/en/useful viewports. All old tests pass unchanged; no skipped/weakened coverage or inflated180s bound. Exact changed/protected hashes, HEAD/index/deletion and reverse-diff checks pass. No commit unless explicitly requested.
+
+Approval record: AGENTS.md sections2.1/3 required this concrete plan/ALLOW_LIST before multi-file work. The owner explicitly approved D72-C1 in the session before implementation. The original approved text is preserved in verification/approved-completion-plan.md.
+
+### D72-C1 approval / baseline
+
+Owner explicitly approved completing the graphics through the D72-C1 question. Full1224-file backup and inherited binary-inclusive28-file diff were prepared before code. The exact approved plan is also copied to verification/approved-completion-plan.md. D73 records routing/model/asset boundaries. Existing tests, source PNGs/imports, gameplay/save-v9 and previous bag/land/watering work remain protected.
+
+### D72-C1 implementation / focused verification
+
+Fixed wheel arbitration: CameraRig yields Shift/GUI-hover wheel, HotbarPanel handles native wheel because tool_next/tool_prev action lists are actually empty. Probe now shows Shift wheel tool0->1 and toolbar wheel1->2, with zoom unchanged0.75. Data-owned pan min/max preserve inherited values; no map/player/zoom/follow/InputMap changes. Machine presentation keeps actual state refs, synchronizes ready/idle even paused and resets transient timers/rows without extra per-frame owner lookup/mutation.
+
+Builder now checks directories/writes and accepts isolated output roots; two runs produced all5 byte-identical PNGs matching inherited originals. An intentional file/directory collision returned nonzero with expected error log, separately labeled from final gates. Pure byte-based asset validation checks five canvas contracts without autoload coupling or Image.load export warnings. Existing source PNG/imports and all inherited avatar/hair/world/crop/frame source renderers stay unchanged.
+
+New native/animation/visual suites7/7,222 assertions,7.323s PASS. The first focused run found one new test assumption about queue_free: only the queued parent root reports is_queued_for_deletion, not its sprite child. Corrected that assertion while keeping the awaited one-child cleanup check; no old test was changed. Actual render matrix includes20 screenshots, inspected close world/profile/night frames. The full official gate subsequently timed out as recorded below; final PASS is not claimed.
+
+
+### D72-C1 peer review / expanded native regression / timing history
+
+Read-only peer review found a second native-wheel defect: deriving the next request from the protected toolbar display active_index repeats the first seed, and empty item slots can stall reverse cycling. HotbarPanel now derives its cycle from its actual tool/selected inventory/window, skips absent displayed stacks and safely enters the four-item window from legacy off-window selection. Both native wheel and legacy action requests use the same private adapter helper. New native assertions cover first-seed exit, reverse wrap, every visible stack, empty slots and off-window legacy selection; no old toolbar/test source changed.
+
+Known inherited limitation: toolbar.display still uses its historical item highlight offset (+3 while request uses four tools). This completion avoids depending on that offset; selection commands are correct, but an item highlight/caption can still show the preceding slot. The protected toolbar.gd and its existing legacy-index test remain byte-identical. Correcting that separate presentation contract requires a future scoped task; do not silently claim it fixed here.
+
+The first two official attempts reached the existing180s process bound before a complete summary (attempt1 after world-review test, attempt2 during world-presentation tests). Both are FAILED/TIMEOUT, never PASS. Full copies are in verification/completion_attempt1_timeout and completion_attempt2_timeout. The only timing changes are in new tests: remove redundant pre-dispatch pointer waits, use one post-dispatch frame for synchronous wheel/key input, and let world-only captures wait for actual pending layout rather than three stable rectangle frames. UI capture convergence, all prior tests/P1/36 captures, the new7 tests/20 captures and180s runner remain intact.
+
+Earlier focused7/7/222 (7.323s), then7/7/236 (6.051s) remain historical logs. After peer-review cycle coverage and locale-isolated world creation, current focused output is:
+~~~text
+Scripts               3
+Tests                 7
+Passing Tests         7
+Asserts             253
+Time              6.463s
+---- All tests passed! ----
+~~~
+Command: existing tools/run_godot_bounded.ps1, graphics --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_d72_camera_input.gd,res://tests/unit/test_d72_animation.gd,res://tests/unit/test_d72_visual_review.gd -gexit; isolated user:// and the default120s focused bound. Raw logs: completion_logs/the_life_d72_completion_focused_final.log.stdout/.stderr. No test/script/parse errors or leaks observed in this focused output; the existing missing-turnip-visual warning remains with its placeholder.
+
+Visual QA reviewed all20 actual captures through vi/en/all contact sheets and full-size world/profile/night frames. No observed panel clipping/overlap, Vietnamese glyph loss or cell-anchor drift at1152x648/1600x900. First English captures retained vi world labels/transient feedback because Main was created before changing locale; the new fixture now creates a fresh real Main after selecting each language. This is fixture correctness, not a runtime localization refactor. Contact sheets live in verification/d72-qa-all20-contact.png, d72-qa-vi-contact.png, d72-qa-en-contact.png. Finite terrain edges and offline/draft PNG roles remain explicitly documented.
+
+
+### D72-C1 review package / manual handoff
+
+Acceptance restated: exclusive native map-vs-hotbar wheel and actual complete cycling; all five zoom levels/keys and data-owned pan limits; existing modal/placement/farming input ownership; only live-working machine cosmetic frames, stable while paused and static when ready; deterministic/error-reporting offline generator and real PNG validation; retained inherited art/customization/gameplay/save-v9/old tests; actual reviewed vi/en renders and exact scope/diff evidence. Human F5 is still pending; complete-project Definition of Done/commit is not claimed.
+
+Exact completion files28 (21 modified /7 new, including3 new generated UIDs):
+~~~text
+data/isometric_world_config.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/character_creation.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/hud.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/player.md
+scripts/core/data_validator.gd
+scripts/data/isometric_world_config.gd
+scripts/view/camera_rig.gd
+scripts/view/hotbar_panel.gd
+scripts/view/machine_presentation.gd
+tests/unit/test_d72_animation.gd
+tests/unit/test_d72_animation.gd.uid
+tests/unit/test_d72_camera_input.gd
+tests/unit/test_d72_camera_input.gd.uid
+tests/unit/test_d72_visual_review.gd
+tests/unit/test_d72_visual_review.gd.uid
+tools/build_isometric_2d_assets.gd
+tools/validate_data.gd
+~~~
+
+Full clear completion diff and complete before/after file text: D:/godot/game-godot-backups/d72-takeover-20261105-023000/verification/d72-completion.patch, completion_before/, completion_after/. completion-files.txt is the exact manifest; completion-scope-audit.txt and audit_completion.py reproduce scope/hashes/unchanged index+HEAD checks. inherited-d72.patch separately contains the stopped agent's28-file delta including binary draft images; these two deltas must not be confused. Earlier1224 pending-file backup and the pre-existing deletion remain preserved. No staging/commit/push/install.
+
+Current scope audit:28 completion files,1201 protected pending entries unchanged, outside-ALLOW_LIST0, prior tests including inherited camera/P1 unchanged, source PNG/imports/Main/domain/save-v9 unchanged, added-line whitespace0, HEAD/index unchanged, pre-existing deletion preserved. Reverse patch check passed. New tests214/207/139 lines respectively, each below250; no future gameplay system was implemented. The final audit is refreshed after documentation; no final official PASS exists.
+
+Manual editor setup: none. Existing scenes, node trees, Inspector references, collision layers, InputMap and Theme remain unchanged. IsometricWorldConfig now exposes the same inherited pan extents as Resource fields; do not add a second camera or rebuild scenes. Existing six appearance choices and procedural renderers stay active. F5 checks for the human:
+1. On the map scroll through all five zoom levels and use +/-; hold Shift or hover hotbar to cycle both directions through four tools and populated visible stacks. First seed must no longer trap cycling; camera zoom must stay fixed during hotbar cycling. The old item highlight/caption offset noted above remains a separate inherited limitation.
+2. Drag RMB/MMB, release over HUD, walk to return pan and double-right-click to reset. Pick the same logical crop/plot at overview/default/close zoom; farming/reach/collision should remain the existing behavior.
+3. Open/scroll bag and another modal; camera stays locked. Enter existing machine placement, RMB-cancel without consuming stock, then LMB till a reachable plot. No new construction hotkey was added.
+4. Start a real stove job using current operation UI; observe work texture changes unpaused, pause to freeze cosmetic phases, complete the actual recipe day(s), see static ready frame, collect once, then move/store only under existing idle/job guards. Presentation must not create/collect/progress items on its own.
+5. Inspect actual vi/en HUD/bag/profile at1152x648 and1600x900, six hairstyle choices, colors and night/rain. The20 reviewed captures/contact sheets are automation evidence, not a human editor session.
+
+How to rerun: cmd /c tools\run_tests.bat is the unchanged official sequential gate (isolated user://,180s graphics bound). The focused command is recorded above. Offline generator checks used --headless --path . --script tools/build_isometric_2d_assets.gd -- --output-root=user://d72_assets_a and b through the existing bounded wrapper; five output hashes in builder-determinism.json match each other AND source PNGs. Its intentional file/directory collision must return nonzero; that expected-error log is separately labeled and is not an official-gate failure. Never regenerate protected source PNGs just to test the builder.
+
+Assumptions/known limits: inherited finite diamond map exposes gray outside terrain at overview; camera/lighting/terrain generation were not redesigned. Draft PNGs validate but remain offline/unbound. The protected legacy toolbar highlight/caption item offset remains as described; command selection/cycling is covered separately. Existing missing-turnip-art uses the established placeholder. Runtime hot locale switching can retain previously created world labels/toasts; screenshots use a fresh real Main per locale and do not claim that unrelated localization path was changed. Watering foundation stays standalone with no new gameplay charge/refill/UI/save field. Prior human playtests and manual acceptance remain pending.
+
+Suggested commit (not executed): fix: finish D72 camera input and machine visuals
+
+
+### D72-C1 final measured status — three full-suite timeouts, no full PASS
+
+After expanded native regression, the third unchanged cmd /c tools\run_tests.bat run again hit180s. No further fix/retry was attempted after this repeated failure. The latest raw output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              4.883s
+---- All tests passed! ----
+[run_tests] running COMPLETE GUT suite with graphics renderer
+...108 completed script summaries,409 tests in those completed scripts...
+res://tests/unit/test_world_presentation.gd
+* test_world_art_separates_readable_places_without_changing_their_interaction_logic
+* test_natural_scenery_uses_imported_assets_and_stable_cell_anchors
+[run_tests] FAILED
+~~~
+Full graphics had109 scripts started/108 complete, with409 passing tests reported by completed script summaries; it has NO full Run Summary/All-tests-passed marker. The bounded child timed out at180s; the batch exited1. These partial counts are diagnostics, not acceptance. The full415 expected tests have not been certified on completion code. All three timeout attempts are preserved under verification/completion_attempt{1,2,3}_timeout. The initial inherited baseline408/408/167.883s remains the last complete official full PASS, before C1 code.
+
+Separately, after the failed batch, existing bounded --headless --path . --quit-after120 Main smoke completed exit0 (completion_logs/the_life_d72_completion_main.log.stdout/.stderr); this is a standalone smoke check, not the official batch's unexecuted Main stage. Latest focused7/7/253/6.463s is complete PASS, and all20 screenshots were regenerated/reviewed after locale isolation: actual English feedback/world labels now read English. No test/data/game source changed after that focused/full attempt, only documentation/artifacts.
+
+Evidence identifies a process-time budget failure: the runner kills the graphics process at180s near the final scripts, without an observed assertion/script/parse failure in the completed output. Inherited baseline already consumed167.883s of GUT time, and the new focused checks take6.463s plus process startup/exit. Two wait refinements did not reliably bring the complete process under its bound. This does not prove the uncompleted tail would pass or that a functional bug is impossible. No old assertions/coverage/runner/bound were changed to hide it.
+
+AGENTS.md section5 says: "The same bug has failed 3 fix attempts: stop, explain the root cause, and suggest splitting the task." Conservatively treating the three repeated timed-out attempts as this stop point, stop further timing fixes/retries here. Sections2.1/3 additionally require approval before changing the protected runner. Below is a concrete separate plan; no runner code is modified yet. Scope audit/diff and requested manual checks are still delivered above. Human F5, full automated acceptance and commit remain pending.
+
+### Approved D72-C2 plan — split complete graphics execution without dropping coverage (approved in subsequent reply)
+
+Task: retain all current415 tests and every capture/assertion while splitting graphics discovery into two deterministic sequential GUT processes. This changes runner orchestration only. Each process retains the existing180000ms bound; never run them concurrently. Preserve parse/data/headless/Main gates, isolated user:// and all original test/source/art/gameplay state. The runner must report both groups plus combined counts, fail on either timeout/nonzero/error/leak/missing success summary, and verify every discovered test script is included exactly once. No skipping, prefix exclusions, changing test declarations, raising a timeout or accepting partial logs.
+
+Proposed ALLOW_LIST (only after explicit owner approval):
+- Existing `tools/run_tests.bat`: replace only its single full-graphics invocation/check block with the dedicated sequential helper; keep other gates and exit propagation.
+- New `tools/run_graphics_tests.ps1`: discover the actual tests/unit/test_*.gd list, sort and partition into two disjoint deterministic groups; invoke the unchanged run_godot_bounded.ps1 with the already-used -gtest CSV/GUT exit arguments and180000ms per group; validate both logs and complete discovery coverage; publish totals and preserve each stdout/stderr.
+- Existing `docs/PROGRESS.md`, `docs/API_INDEX.md`, `docs/DECISIONS.md`, `docs/ROADMAP.md`: record approval/runner contract, D74, exact changes, raw verification and the distinction between per-process180s and total two-process duration.
+
+DO NOT TOUCH: all other files, especially test sources/GUT/bounded helper/old180s value/art/scenes/project.godot/InputMap/data/Main/domain/save/localization and earlier C1 sources. No commit/staging/install. Archive/hash current28-file C1 review package before runner work.
+
+Acceptance: both graphics groups pass completely and their union equals discovery with no duplicates/missing scripts; actual combined tests/assertions and elapsed times are recorded, including all7 new checks and20 captures plus all prior P1 tests/36 captures. Entire updated official batch passes parse/data/headless/both graphics/Main. Intentionally malformed helper inputs/log/coverage must fail closed in external tooling probes without editing project tests. Preserve all three original timeout logs; source/test/scope/index/HEAD audit and reverse diff pass. Human F5 remains separate.
+
+Assumptions/risks: extra Godot startup can increase total batch duration; the180s limit remains per graphics process, not a claim that total graphics duration is180s. Deterministic equal-sized script groups may have unequal runtime, so measure both before claiming headroom. Fresh processes isolate accidental cross-script globals; preserve existing command flags and expose any dependence rather than weakening tests. This split is explicitly a new runner-scope decision for the owner, not a workaround silently applied inside C1.
+
+## Phase6.5h1 — watering-can data/domain foundation (foundation automation delivered; runtime integration deferred, 2026-11-05)
+
+MILESTONE: continue the original ROADMAP Phase6 task6.5 Upgrades: inventory/watering can, after delivered bag slice6.5g. Latest official baseline is parse/data PASS, headless63/63, renderer394/394 with19940 assertions at170.227s, Main PASS. Human F5/explicit commit remain pending. Owner approved the exact20 ->40/200 mapping and Phase6.5h1 scope. Implementation and official407/407 verification are delivered below; no commit is authorized.
+
+READ-ONLY: PROJECT_RULES/API/architecture/schema/decisions/patterns/ROADMAP; master-plan watering/progression sections; FarmGridState.get_plot/water_cell/water_all_crops and crop-care behavior; actual tool/controller/drag/inspector routes; actual WalletState and prior transactional adapters; current pure-Resource validation pattern; SaveService/v1-v9 goldens; previous tests/P1 fixture and task backups. No scene is modified by this foundation slice.
+
+Why split: no runtime can-charge/refill owner or supported refill interaction exists yet. Introducing a limit before a reachable refill source/HUD/save migration would interrupt working farming. Implement and test the domain first; separately approve one coherent runtime/refill/HUD/save slice before enabling limits. Existing gameplay remains unchanged until then.
+
+Explicit proposed data decision, requiring owner approval:
+- Base can capacity20, one first upgrade target40 at200 coins. DATA_SCHEMA/master plan list20 ->40 ->80 but three prices200/600/1800; the transition mapping is ambiguous. This proposal explicitly assigns200 to20 ->40 only. No80 tier,600/1800 assignment or invented later price is implemented. The owner can correct this mapping before implementation.
+- Fresh configured can starts full20. Upgrade raises capacity to40 while preserving actual remaining charges; it does not refill or create free water. One successful new manual crop watering consumes one charge; repeated/already-watered/empty/untilled/failed work consumes none. Refill fills the current capacity through a trusted low-level domain primitive, without exposing any player-facing refill action yet.
+- Numbers live in a new WateringCanConfig Resource. No per-frame/day timer or automatic sleep refill. Rain/DaySimulator/direct farm bulk watering remain outside manual-can consumption and are unchanged.
+
+Approved TASK / responsibilities:
+1. WateringCanConfig Resource exports base_capacity:int, upgrade_capacity:int and upgrade_price:int. Shipped data/watering_can_config.tres owns20/40/200. Pure Resource validation checks positive integer capacities, strictly increasing target, positive price and JSON-safe integral bounds. DataValidator delegates directly to it; tools/validate_data.gd checks the shipped Resource. Do not repeat the prior autoload-dependent --script validator coupling.
+2. WateringCanState (pure RefCounted, sole new standalone water owner): configure(config), is_ready_for(config), get_capacity(), get_charges(), try_consume_one(expected_charges), refund_one(), refill(), try_upgrade(expected_capacity,target_capacity), serialize(), deserialize(data). State primitives are synchronous and invoke no external callbacks. Invalid/unconfigured state fails closed. Serialize only capacity/charges integers; return detached data. Configure creates fresh full base20. Deserialize validates known base/upgraded capacity and finite integral JSON values, clamps remaining charges to0..capacity and rejects unknown tiers; absent/corrupt charge fields restore conservatively to0. Runtime old-save/new-game initialization is explicitly deferred, not guessed in this slice.
+3. WateringService (pure stateless adapter over config/state/actual FarmGridState): read-only can_water(cell) and water(cell) results. Match actual farm semantics: tilled existing crop, not already watered, valid can and positive charges. Reserve one charge before the actual farm command; on rejection restore only that charge (capped at current capacity), never deserialize the whole can/farm over legitimate callback changes. Protect same-service callback reentry while FarmGridState emits its existing events. Actual successful watering keeps the farm's current wither/dry-streak recovery behavior. Low-level refill is not a source/reach authorization API.
+4. WateringCanUpgradeService (pure stateless adapter over config/state/actual WalletState): read-only can_purchase(expected_capacity), purchase(expected_capacity). Revalidate actual first tier/current price/state/config, debit once using buy_watering_upgrade, grant capacity once without changing charges; rejected/stale grant refunds only its own debit using buy_watering_upgrade_rollback. Guard reentry and preserve legitimate independent callback watering/refill/wallet/context changes. Capture transaction-local owner references. No new coin owner, persistent upgrade flag, autoload or event-bus signal.
+5. New focused domain tests use real farm/wallet owners and actual JSON round trips: shipped/invalid data; fresh/empty/refill/known upgrade state; no charge on empty/already-watered/failed cells; exactly one per valid crop; dry/wither recovery; unchanged free rain/bulk watering; failed farm command refund; insufficient/stale/duplicate/reentrant/mutated-price/reconfigured-owner upgrade; preservation of remaining water and independent callback effects. Every stateful domain class has serialization from first implementation. New scripts aim <=250 lines each; do not change prior tests to accommodate new logic.
+6. Record D71/data/API/architecture/ROADMAP/current memory before code and deliver exact diff/logs/audit. Back up/hash pending work first. Run focused tests plus unchanged standalone data/parse/headless/full graphics/Main gate under the existing180s bound, sequentially with F5 stopped. Preserve old sources/P1 coverage/36 captures and all failure logs. Domain-only slice needs no new artwork/screenshot/editor wiring; do not claim player-visible charges/refill/upgrade or save-v10 integration.
+
+Approved ALLOW_LIST — existing files:
+~~~text
+scripts/core/data_validator.gd
+tools/validate_data.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+scripts/data/watering_can_config.gd
+data/watering_can_config.tres
+scripts/domain/watering_can_state.gd
+scripts/domain/watering_service.gd
+scripts/domain/watering_can_upgrade_service.gd
+tests/unit/test_watering_can_state.gd
+tests/unit/test_watering_service.gd
+tests/unit/test_watering_can_upgrade.gd
+~~~
+
+DO NOT TOUCH: everything else, especially current FarmGridState/ToolAction/tool controller/drag/inspector, Main/world/Player/NPC/UiCoordinator/HUD/UI/scenes, watering interaction/input/visuals, WalletState/ledger/bag/land/machine owners and data, all old tests/P1/goldens, SaveService/version9, localization/art/Theme/fonts, project.godot/InputMap/GUT/runners/bounds, PROJECT_RULES, prior backup artifacts and pre-existing deletion. No runtime source placement/reach, new key, auto-refill, watering80 tier, house/animals/fertilizer/calendar, commit/push/stage/reset/install.
+
+ACCEPTANCE:
+- Config validates and its20/40/200 values remain Resource-owned. Malformed/unsafe terms cannot create free/negative/unknown upgrades. Fresh state20/20; consume/refill clamp safely; upgrade20 ->40 for one200 debit preserves current charges and is not repeatable. Zero/invalid state fails closed.
+- Preview/serialize/draw-free tests never mutate farm/wallet/can/time. A newly watered real crop consumes exactly one; already-watered/empty/untilled/failed work consumes none. Failed command refunds only its reservation; callback reentry cannot double-consume, double-pay or overwrite valid independent changes. Rain/bulk watering and day order remain unchanged.
+- Real JSON round trips keep legitimate capacity/remaining water; malformed/non-integral/unknown tier/negative/over-capacity values are handled without crash or invented upgraded rights. Missing/corrupt charge fields become0, while fresh configure remains full20.
+- Actual runtime stays as before: no can instance in Main, no limitation on existing player watering yet, no refill/upgrade UI, no new game-save field/version. Next integration must connect reachable source/feedback/HUD/save together before enabling consumption. All prior tests, scenes/assets/gameplay/save-v9 goldens remain byte-identical.
+- Protected-file/hash/index/HEAD audit passes and actual focused/official outputs are recorded. Existing renderer limit180s is unchanged despite the current170.227s baseline; keep new pure tests small. Parent original6.5 stays[~]; human F5/commit remain separate. Suggested later commit: feat: add watering can state and upgrade domain.
+
+Planning history: previous PROGRESS copied under D:/godot/game-godot-backups/phase-65h1-plan-20261105. No gameplay/data/test/scene changes in this continuation. AGENTS.md sections2.1 and3 require approval of this new domain ALLOW_LIST; section5 requires clarification of the ambiguous price mapping, covered by the explicit20 ->40/200 proposal above. Earlier completed bag work remains below.
+
+### Phase6.5h1 approval / backup
+
+Owner approved the price mapping and ALLOW_LIST through the session question. Before code, copied/SHA256-verified1188 pending files and recorded one pre-existing deletion under D:/godot/game-godot-backups/phase-65h1-20261105-013706; HEAD/index unchanged. D71 records the foundation/runtime boundary. No current-player can limit/refill/UI/save integration is authorized in this slice.
+
+### Phase6.5h1 implementation / focused verification
+
+Implemented pure Resource validation and standalone can/manual-water/upgrade adapters, plus three new domain test files. Runtime/Main/tools/farm/wallet/ledger/bag/land/machines/UI/scenes/InputMap/save-v9/old goldens/previous tests/P1 remain untouched. Resource values are20/40/200, fresh20/20; upgrade preserves charges. Missing/corrupt charge restore is0; unknown tiers cannot grant upgraded capacity.
+
+For callback correctness, the state also tracks an unsaved refill replacement revision; the service uses it when refunding a rejected water command. An independent refill/load/reset subsumes the pending debit, so a later water use cannot be accidentally refunded away. State primitives remain synchronous without external callbacks; no gameplay clock/event/autoload or saved field was added. New actual tests cover this case and preserved independent upgrade/consumption.
+
+Standalone data validator PASS with no compile/errors. Focused headless13/13,357 assertions,0.468s across4 state/4 manual-water/5 upgrade cases; all passed on the first focused run. Expected malformed-state warnings are retained. Official unmodified parse/data/headless/full-renderer/Main gate subsequently passed; exact output follows.
+
+### Phase6.5h1 implementation handoff - final official PASS
+
+Approved foundation delivered: Resource-owned20 base /40 first target /200 price, pure standalone can state/serialization, manual watering command adapter and guarded wallet upgrade adapter. Fresh configure20/20; empty/malformed saved charges restore0; unknown tiers cannot grant upgraded capacity. Upgrade costs one actual200 debit and preserves current remaining water, including0. No automatic refill,80 tier/later price, gameplay clock, signal bus or persistent upgrade flag.
+
+Watering readiness is read-only and follows actual farm semantics. Each successful new dry-crop watering consumes one; empty/untilled/already-watered/failed commands consume none. Actual dry/wither recovery and farm events are retained. Failed commands refund only their own reservation; a transient refill replacement revision prevents an older failed command credit from erasing consumption after an independent refill/load/reset. Independent water use/upgrade and captured-owner reconfiguration are preserved; state primitives invoke no external callbacks. Low-level refill/refund are trusted domain operations, not player/source authorization.
+
+Upgrade revalidates current expected capacity/config/price, guards reentry and captures original state/wallet references. Rejected grant refunds only its debit; independent successful facade purchase, manual watering/refill or context changes are not rolled back by whole-state deserialize. Wallet reasons are buy_watering_upgrade/buy_watering_upgrade_rollback. No Main wallet/purchase/ledger route uses this adapter yet.
+
+Exact changed files (23:8 existing /15 new, including7 generated UIDs):
+~~~text
+data/watering_can_config.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+scripts/core/data_validator.gd
+scripts/data/watering_can_config.gd
+scripts/data/watering_can_config.gd.uid
+scripts/domain/watering_can_state.gd
+scripts/domain/watering_can_state.gd.uid
+scripts/domain/watering_can_upgrade_service.gd
+scripts/domain/watering_can_upgrade_service.gd.uid
+scripts/domain/watering_service.gd
+scripts/domain/watering_service.gd.uid
+tests/unit/test_watering_can_state.gd
+tests/unit/test_watering_can_state.gd.uid
+tests/unit/test_watering_can_upgrade.gd
+tests/unit/test_watering_can_upgrade.gd.uid
+tests/unit/test_watering_service.gd
+tests/unit/test_watering_service.gd.uid
+tools/validate_data.gd
+~~~
+
+Complete clear diff/full before-after text: D:/godot/game-godot-backups/phase-65h1-20261105-013706/verification/phase65h1.patch and before/after directories. changed-files.txt is the exact manifest; audit.py reproduces hashes/scope/diff checks. Initial1188 pending files were copied/SHA256-verified and the pre-existing deletion recorded before code. Final scope-audit.txt:1181 protected pending entries unchanged; outside-ALLOW_LIST changes0; runtime/Main/UI/farm/wallet/bag/land/machines/save-v9/old tests/P1/goldens preserved; added-line whitespace0; HEAD/index unchanged; deletion still absent. Reverse patch check passes. No staging/commit/push/install.
+
+New scripts are19/97/53/55 lines; new tests99/135/150, all below250. Core DataValidator changes only the new Resource-validation header/helper; tools gate adds only that config check. State/service compile successfully in the pinned Godot4.7.2; no guessed scene/input/API path. No scene/editor setup or new artwork/screenshot is needed for this domain-only slice.
+
+Actual focused command (isolated user:// through the existing bounded runner):
+~~~text
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/run_godot_bounded.ps1 -Godot D:/godot/Godot_v4.7.2-stable_win64.exe -Arguments "--headless --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_watering_can_state.gd,res://tests/unit/test_watering_service.gd,res://tests/unit/test_watering_can_upgrade.gd -gexit" -OutputPath "$env:TEMP/the_life_65h1_focused.log"
+~~~
+Focused13/13,357 assertions,0.468s; first focused run passed. Tests cover shipped/invalid/JSON-safe data; fresh/consume/capacity/refill/stale replacement token; exact upgrade preserving empty/partial/full charges; real JSON detachment and malformed finite/nonintegral/unknown input;21 real crops against20-charge boundary; repeated/no-crop/empty can; actual wither recovery/free bulk/DaySimulator; rejected-farm refunds and callback refill/upgrade/consumption; actual farm-signal reentry/reconfiguration; actual wallet spending/refunds/stale/insufficient/config identity; duplicate/reentry/independent facade purchase; mutable price and original-owner preservation. All prior test sources remain unchanged.
+
+Actual official command: cmd /c tools\run_tests.bat. Output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              4.995s
+---- All tests passed! ----
+Scripts             107
+Tests               407
+Passing Tests       407
+Asserts           20297
+Time              167.665s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+No gameplay/test/data source changed after that run; only documentation/artifact review followed. Existing180s graphics bound/runners/GUT/coverage/P1 captures stay unchanged. Official parse/data/headless/graphics/Main error/leak scan matches0, including the data log. Expected malformed-water-state warnings and existing crop-placeholder/invalid-slot/suite warnings are kept in logs; no failing test, script/parse/shader/material error, orphan or resource leak is hidden. Import retains known duplicate-asset UID warnings without source-asset changes. Full logs/focused/import validation outputs are in verification/logs; final-error-scan.txt records0 matches.
+
+Manual editor steps: none for this standalone foundation. Existing F5 farming/bag/land/machine actions should remain as previously delivered; this slice exposes no new player can limit/refill/upgrade or UI. Automated complete-suite/Main checks are the evidence here; prior human editor acceptance remains pending. To inspect the new behavior, run the focused domain command above; do not look for an unimplemented in-game can counter or refill source.
+
+Assumptions/limits and next integration boundary: Main still has no WateringCanState; ToolAction/drag/inspector/rain/day order and all world/UI/source/reach code remain unchanged. SaveService staysv9, with no watering field/migration/golden. Standalone JSON round trips are not game-save integration. A future separately approved slice must specify reachable refill-source data/interaction, visible remaining-water feedback, all manual entry points, Main ownership/transaction/lifecycle and versioned old-save/new-game initialization together before enabling consumption. No source coordinate/hotkey/refill rule is silently invented. Parent original6.5 remains[~];80/later prices/house/animals/fertilizer/calendar remain deferred. Suggested commit (not executed): feat: add watering can state and upgrade domain.
+
+## Phase6.5g — first bag upgrade, modular confirmation and existing-v9 persistence (automation delivered; human F5/commit pending, 2026-11-05)
+
+MILESTONE: ROADMAP Phase6, the original task6.5 Upgrades: inventory/watering can (distinct from the machine-presentation rows also numbered6.5). This slice implements only the first bag upgrade. Previous Phase6.4b is delivered in automation384/384,19338 assertions,163.514s; human F5/explicit commit remain pending. Owner approved Phase6.5g; implementation and official394/394 automated verification are delivered below. No commit is requested or authorized.
+
+READ-ONLY: laws/API/architecture/schema/decisions/patterns; actual InventoryState/InventoryConfig and inventory scene contract; current grid/filter/sort/discard/toolbar adapters; Main save/load/new-game and land transaction guard; UiCoordinator; ledger/presenter; DataValidator/localization gates; tests/goldens/P1 fixture; master-plan progression section and original task6.5. The old MASTER_PROMPT's24-slot/3D assumptions do not replace the newer owner-approved40-slot/2D decisions or the current owner-supplied AGENTS approval requirement.
+
+Data basis and explicit proposed decision:
+- Keep D40 default40 slots,8 columns,5 visible rows. Do not reset the project to the historical24-slot example.
+- Master plan progression stage1 specifies a bag increase of12 slots for300 coins. Proposed first current-game upgrade therefore targets52 slots (40+12) for300, with both additional_slots and purchase_price in a new Resource referring to the actual InventoryConfig. No invented later prices/tiers. The owner approves this adaptation through this plan.
+- Current inventory already serializes capacity; no separate purchased flag is needed. Capacity >=52 means this first tier is complete and cannot charge again. Preserve larger legacy bags. A legitimate intermediate legacy capacity is raised to the configured52 target for the shown300 price; UI must show the actual before/after capacities, not promise another12. Never shrink a bag or truncate its stacks.
+- Watering-can charges/refill/upgrades remain deferred. The master plan lists20 ->40 ->80 alongside three prices200/600/1800, which does not uniquely map prices to transitions. This slice avoids changing watering behavior or guessing that mapping.
+
+Approved TASK / plan:
+1. Add BagUpgradeConfig Resource (base:InventoryConfig, additional_slots:int, purchase_price:int) and data/bag_upgrade_config.tres with actual base reference/12/300. Validator checks valid base dimensions, positive integer increment/price and safe target within inventory integrity bounds; localization gate includes new vi/en keys. Keep inventory_config.tres unchanged.
+2. Add InventoryState.try_expand_capacity(expected_capacity:int, target_capacity:int) -> bool: reject stale/nonpositive/unsafe/non-expanding requests; preserve every item/index/order; successful expansion changes capacity once and emits the existing revision/inventory notification. Existing clear(), constructors, serialization, sorting and discard APIs retain their meanings. No new inventory owner.
+3. Add pure InventoryUpgradeService command adapter configured with config, actual InventoryState and WalletState. Read-only preview reports current/target capacity, actual price/funds and reason. Command revalidates the expected starting capacity/current config, debits actual wallet once, then invokes the guarded expansion. Reject duplicates/reentry/already-complete/invalid/insufficient/stale requests without payment; rejected grant refunds only its own debit. Keep independent callback item/wallet changes; never restore whole snapshots over them. Use explicit buy_bag_upgrade / buy_bag_upgrade_rollback reasons. No new persistent state or autoload.
+4. Main wires the service and a small BagUpgradeFlow Node before UiCoordinator. The flow owns transient UI selection/result/busy only, delegates domain commands, marks autosave dirty on success and closes stale views on load/new-game/title. Extend current Main safe-point checks to reject save/load/new-game/title requests during a bag transaction, preserving existing land/NPC/sleep/day guards. Land and bag commands must reject cross-transaction reentry. New Game explicitly restores base40/empty inventory rather than retaining a bought capacity through clear(); ordinary clear() does not revoke an upgrade. Load retains legitimate serialized capacity/items, including larger legacy bags.
+5. Add an upgrade Button/request to the existing inventory capacity footer, enabled only when attached to the actual Main game and safe active inventory. Controller defers opening after native GUI callbacks, retaining current filter/selection/sort/discard/toolbar behavior. No new key, shop/NPC role, world interaction or old scene edit. Existing item_grid already renders the actual capacity in a ScrollContainer; preserve it byte-identically and verify access to slots41-52 by native scroll/focus/selection.
+6. Add ui/bag_upgrade three small scene/script pairs (screen/summary/footer), separate snapshot/presenter and BagUpgradeFlow. Shared existing Theme/fonts, wrapped vi/en text, actual before/after capacity, price/wallet and clear confirmation/cancel/results. Lazy contents and coalesced geometry like the established modular panels. UiCoordinator stays sole modal/clock/Player owner. Explicit Back returns to the bag when safe; generic lifecycle close never reopens a bag behind title/load/another modal. Confirmation remains open with the actual completed state and cannot purchase twice. No fake future tier or asset generation.
+7. Keep save schema v9 and all historical goldens unchanged: only existing inventory.capacity changes. Test actual Main save/load, retained east-land rights/crops/machines/wallet and purchased capacity, duplicate prevention after load, and New Game reset40. No SaveService source or current-version test changes. Add new pure/flow/native tests rather than modifying or weakening previous tests/P1 coverage.
+8. Add narrowly scoped ledger display/refund handling for the new reasons. Successful payment contributes300 expense; a rejected/refunded transaction contributes zero earnings/expense/profit. No other economy balancing or machine/land behavior change.
+9. Record D70/data/API/contracts/ROADMAP status and exact file diff/logs/screenshots/scope audit. Back up/hash pending work before coding. Run focused tests and the unmodified sequential parse/data/headless/full-renderer/Main gate within existing180s; preserve failures and all previous tests/36 inventory captures. New classes target <=250 lines. Human F5 remains separate from automated acceptance.
+
+Approved ALLOW_LIST — existing source/localization:
+~~~text
+scripts/domain/inventory_state.gd
+scripts/domain/economy/day_ledger_state.gd
+scripts/core/data_validator.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/land_runtime.gd
+ui/inventory/capacity_footer.gd
+ui/inventory/inventory_controller.gd
+ui/day_end/day_end_presenter.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tools/validate_data.gd
+~~~
+
+Approved ALLOW_LIST — documentation:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/inventory.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/land_expansion.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+scripts/data/bag_upgrade_config.gd
+data/bag_upgrade_config.tres
+scripts/domain/inventory_upgrade_service.gd
+scripts/view/bag_upgrade_flow.gd
+ui/bag_upgrade/bag_upgrade_screen.gd
+ui/bag_upgrade/bag_upgrade_screen.tscn
+ui/bag_upgrade/bag_upgrade_summary.gd
+ui/bag_upgrade/bag_upgrade_summary.tscn
+ui/bag_upgrade/bag_upgrade_footer.gd
+ui/bag_upgrade/bag_upgrade_footer.tscn
+ui/bag_upgrade/bag_upgrade_snapshot.gd
+ui/bag_upgrade/bag_upgrade_presenter.gd
+tests/unit/test_bag_upgrade.gd
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_bag_upgrade_screen.gd
+docs/SCENE_CONTRACTS/bag_upgrade.md
+~~~
+
+DO NOT TOUCH: everything else, especially previous tests/P1 fixture, all historical goldens, SaveService/version9, inventory grid/slot/screen/filter/discard/toolbar source, inventory_config.tres, old scenes, Player/world/scenery/crops/farming/watering/NPC/machine/land domain/data/art/Theme/fonts, WalletState, project.godot/InputMap/GUT/runners/bounds, PROJECT_RULES, existing deletion and prior backup artifacts. No future bag tier, watering charges, house/fertilizer/animals/calendar, new hotkey/autoload, automatic commit/push/stage/reset/install.
+
+ACCEPTANCE:
+- Actual base40 bag becomes52 for one300 debit with stack bytes/indices/order unchanged. Additional slots accept real items, remain scrollable/selectable/sortable/discardable, and existing quick-select/toolbar routing remains correct. Full bag contents are never lost. Preview/render/cancel does not mutate funds/items/capacity/time.
+- Insufficient/stale/duplicate/hidden/already-complete/reentrant/config-invalid requests cannot charge twice or shrink capacity. Real failed expansion refunds only this debit; callbacks cannot save/load/reset half a purchase or bypass land/bag transaction guards. Preserve legitimate independent callback item/wallet changes and ledger totals.
+- Main v9 save/load retains52 and previous land/crop/machine data; larger legacy bags stay larger and cannot buy this tier. New Game returns to40 with an empty/starter-seed bag. Existing clear() retains capacity. No schema bump, old golden/test edits or ownership flag.
+- Native footer entry/Back/confirm/cancel/Escape/mouse/Space/focus works with UiCoordinator locks. vi/en at1152x648/1280x720/1600x900 show actual affordability/complete states without clipping; capture and inspect images and slots41-52. Existing reference06 inventory layout remains the base; UI components remain small.
+- All previous test sources and protected files byte-identical; final scope/hash/index/HEAD audit passes. Focused plus unchanged official gate passes under180s with actual pasted output/error scan. No claim of implementation/tests for this proposal. Suggested later commit: feat: add first bag capacity upgrade.
+
+Planning history: previous PROGRESS was copied under D:/godot/game-godot-backups/phase-65g-plan-20261105 before insertion. No code/data/test/scene changes in this continuation. AGENTS.md sections2.1 and3 require approval of this new ALLOW_LIST before implementation. Earlier Phase6.4b delivery remains below.
+
+### Phase6.5g approval and working record
+
+Owner explicitly approved Phase6.5g in this session. Backed up/SHA256-verified1157 pending files and recorded the existing deletion under D:/godot/game-godot-backups/phase-65g-20261105-005519 before code. Resource/command/API, Main lifecycle/shared transaction checks, footer entry and lazy three-part modal are implemented. SaveService/version9, historical goldens, previous tests/P1 fixture and existing grid/slots/Theme/art/InputMap/runners remain unchanged.
+
+New tests cover actual full bags, real wallet/capacity/stack notifications, invalid/stale/duplicate/insufficient/legacy bags, rejected-grant refund/ledger and independent callback preservation/reconfiguration; Main v9 land/crop/machine/job/item roundtrip and New Game reset; half-save/title/reset and cross-modal callback safety; native Back/Space/Escape and slot52/F/Z/discard; vi/en/three sizes/24 captures. First fixtures were corrected to use each item's own max_stack and complete wheel press/release events; all assertions/coverage were kept. Pointer/focus animation is allowed to settle for unclipped screenshots. New native fixture uses bounded actual queue/geometry convergence instead of fixed sleeps; focused10/10,587 assertions,8.808s (same587 assertions as the earlier16.063s pass).
+
+First official attempt exposed standalone --script validator compiling autoload-dependent service owners; aborted only the task's GUT child and preserved logs. Validation now lives on pure BagUpgradeConfig; unchanged4096 external-save integrity bound is shared by the codec via its existing public constant alias. A method-extraction/header mistake while moving code was corrected before rerun. Standalone data gate then PASS with no script errors. Final official parse/data/headless/graphics/Main gate subsequently passed; exact output follows.
+
+### Phase6.5g implementation handoff - final official PASS
+
+Acceptance delivered in automation: the first Resource-backed40->52 upgrade costs300 actual coins once; a full bag keeps every stack/index/order and gains usable slots. Hidden/stale/insufficient/duplicate/reentrant/config-invalid requests cannot pay twice or shrink. A failed grant refunds only its debit, with zero false ledger income/expense; callback item changes/independent purchase/context reconfiguration remain intact. Main save/load/new-game/title and land/bag cross-modal requests cannot mutate/persist half a transaction. Larger legitimate legacy bags stay larger and cannot buy this first tier. Ordinary clear() keeps capacity; New Game resets40 before starter seeds.
+
+Existing save-v9 inventory.capacity is the sole persistent capacity; no new flag/schema/version/golden change. Real Main round-trip tests retain purchased capacity and existing land/crop/machine placement/job/items/wallet. Existing grid/slots/filter/discard/screen/toolbar/P1/old test sources are untouched. Actual native input buys once, Back returns safely, Escape restores world ownership, wheel reaches slot52, F selects it on the toolbar, Z remaps selection and discard removes exactly one actual item. Three new scenes plus snapshot/presenter/flow are small and lazy, use the existing shared Theme/fonts and add17 validated vi/en keys.
+
+Exact modified/created files (50:23 existing /27 new, including11 generated UIDs):
+~~~text
+data/bag_upgrade_config.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/bag_upgrade.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/inventory.md
+docs/SCENE_CONTRACTS/land_expansion.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/data_validator.gd
+scripts/data/bag_upgrade_config.gd
+scripts/data/bag_upgrade_config.gd.uid
+scripts/domain/economy/day_ledger_state.gd
+scripts/domain/inventory_state.gd
+scripts/domain/inventory_upgrade_service.gd
+scripts/domain/inventory_upgrade_service.gd.uid
+scripts/view/bag_upgrade_flow.gd
+scripts/view/bag_upgrade_flow.gd.uid
+scripts/view/land_runtime.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+tests/unit/test_bag_upgrade.gd
+tests/unit/test_bag_upgrade.gd.uid
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_bag_upgrade_flow.gd.uid
+tests/unit/test_bag_upgrade_screen.gd
+tests/unit/test_bag_upgrade_screen.gd.uid
+tools/validate_data.gd
+ui/bag_upgrade/bag_upgrade_footer.gd
+ui/bag_upgrade/bag_upgrade_footer.gd.uid
+ui/bag_upgrade/bag_upgrade_footer.tscn
+ui/bag_upgrade/bag_upgrade_presenter.gd
+ui/bag_upgrade/bag_upgrade_presenter.gd.uid
+ui/bag_upgrade/bag_upgrade_screen.gd
+ui/bag_upgrade/bag_upgrade_screen.gd.uid
+ui/bag_upgrade/bag_upgrade_screen.tscn
+ui/bag_upgrade/bag_upgrade_snapshot.gd
+ui/bag_upgrade/bag_upgrade_snapshot.gd.uid
+ui/bag_upgrade/bag_upgrade_summary.gd
+ui/bag_upgrade/bag_upgrade_summary.gd.uid
+ui/bag_upgrade/bag_upgrade_summary.tscn
+ui/day_end/day_end_presenter.gd
+ui/inventory/capacity_footer.gd
+ui/inventory/inventory_controller.gd
+~~~
+
+Review artifacts: D:/godot/game-godot-backups/phase-65g-20261105-005519/verification/phase65g.patch is the complete clear diff, with full normalized before/after text, changed-files.txt and reproducible audit.py. Initial1157 pending files were copied/SHA256-verified and the pre-existing deletion recorded. Clean tracked files use unchanged initial HEAD as their exact baseline. Final scope-audit.txt:1139 protected pending entries unchanged; outside-ALLOW_LIST changes0; all previous tests/P1/goldens preserved; added-line whitespace0; HEAD/index unchanged; existing deletion still absent. Reverse patch check passes. No staging/commit/push/install.
+
+New script sizes: config28, service66, flow110; UI screen41/summary23/footer30/snapshot8/presenter20; tests157/158/209. All new scripts remain <=250 lines. Validation is pure Resource code; MAX_CAPACITY4096 is a technical external-input bound, shared as InventoryState.MAX_SAVED_SLOTS with unchanged value. DataValidator's standalone mode does not load command owners/autoload dependencies.
+
+Actual final command: cmd /c tools\run_tests.bat. No gameplay/test/data/scene source changed after this full run; only documentation/artifact review followed. Output:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              4.965s
+---- All tests passed! ----
+Scripts             104
+Tests               394
+Passing Tests       394
+Asserts           19940
+Time              170.227s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Official final error/leak scan matches0 across parse/data/headless/graphics/Main, including the data gate even when exit0. Existing intentional malformed-state/invalid-slot/crop-placeholder and suite warnings are retained; no new script/error/orphan/resource-leak/shader/material error is hidden. Renderer bound remains180s, coverage/runners/GUT unchanged, only the user's editor was running (F5 stayed stopped). Focused pre-validation-move10/10,587 assertions,8.808s is an earlier PASS; final full includes the two added integrity-bound assertions. Earlier failed fixtures, standalone compile/method-extraction diagnostics and the aborted first official attempt remain under verification/logs and official_attempt1_validator_compile; they are not acceptance results.
+
+Visual review:24 fresh renderer screenshots cover vi/en x1152x648/1280x720/1600x900 xinsufficient/available/complete/selected-slot52. Inspected smallest vi full modal/bag, smallest en completed modal and both all-state contact sheets: diacritics/readability, contained commands/footer/grid, actual before/after price/funds, disabled completed Confirm, native selected last stack. Files are verification/screenshots/phase65g_*.png plus contact_vi.png/contact_en.png. Source icons/Theme/art were not edited. Native fixture waits for real deferred/layout convergence and hover/focus settling, renders only captures; all assertions/coverage retained.
+
+Manual editor setup: none. F5 start/continue, prepare300 coins, press B -> Nang tui footer (localized in game). Check actual40->52/300/current wallet; insufficient balance disables Confirm. Back returns to bag; Escape/Close changes nothing and restores Player/prior clock hold. Confirm once ->52 and300 expense; repeat activation does not charge. Fill/use added rows, wheel down, select item/F, reopen/Z sort/discard, verify toolbar/quantity. Save/load retains52 and land/crop/machine progress; New Game returns40/starter seeds. Larger legacy bag stays unchanged. Check vi/en/three sizes and existing land purchase/placement/move. Human editor playtest remains pending and is separate from automation.
+
+Assumptions/known limits: one bag tier only; later tiers and watering/refill/house/animals stay deferred. An intermediate legacy capacity raises to the actual shown52 target for the actual shown300 price; larger bags are grandfathered. Save remainsv9 and no purchased flag is fabricated. Full renderer remains near its180s budget; future tasks must preserve coverage and profile added fixture costs. Parent original6.5 stays[~] because watering/future tiers/human F5/commit are not delivered. Suggested commit (not executed): feat: add first bag capacity upgrade.
+
+## Phase6.4b usable land expansion / modular purchase UI / save v9 (automation delivered; human F5 pending, 2026-11-05)
+
+MILESTONE: continue ROADMAP Phase6 task6.4 Land expansion by parcel from the delivered D68 foundation. Latest official baseline: parse/data PASS, headless63/63 (880 assertions), full renderer377/377 (18683 assertions,154.692s), Main smoke PASS after the owner stopped F5. Owner approved Phase6.4b. Runtime/UI/save integration is implemented and official automation384/384 is delivered below. No commit is authorized. Parent6.4 remains[~] until implementation/verification and human acceptance.
+
+READ-ONLY: PROJECT_RULES, API_INDEX, ARCHITECTURE, DECISIONS, DATA_SCHEMA, CODE_PATTERNS, STYLE_GUIDE, INPUT_MAP, ROADMAP; existing world/build/shop/day-end scene contracts; D68 config/domain/tests; Main initialization/reset/load/save and UiCoordinator; farming/drag/build request paths; WorldPresentation generated scenery; actual NPC locations/routes; machine screen/controller; SaveService and all historical goldens. Previous owner changes, restored Player, crops/machines/art and pre-existing the_life_prompt.md deletion are preserved.
+
+TASK: connect the existing single LandOwnershipState and LandExpansionService to Main, tool/build permissions, generated scenery and actual save/load. Expose the first real purchase through a small modular land panel reached from a new shop-header button in the current machine shop. Use the existing shared wood/paper Theme and real domain values. The current shop access remains debug Ctrl+M; do not invent F1, a merchant role, a new InputMap action or normal-game shop access. New APIs/scenes below are proposed additions, not claims about existing runtime.
+
+Approved plan and boundaries:
+1. Add optional display_name_key to ExpansionParcelData and the translated east-parcel name to first_east.tres. Keep farm_east_1, Rect2i(6,0,6,6), initial6x6, first price500 and all D68 pricing/validation/transaction rules unchanged. Add get_owned_regions() -> Array[Rect2i] to LandOwnershipState, returning detached validated geometry for presentation; no alternate ownership state or new catalogue parcel.
+2. Add a small LandRuntime Node adapter owned by Main. Main owns/configures the actual state/service before presentation, supplies the same state to tool/build requests, resets/deserializes it on New Game/load and marks successful ownership changes dirty. The adapter owns only transient UI/command guards and delegates payment/grant to the existing service. During a purchase callback stack, reject nested purchase/reset/load/save attempts before mutation so a wallet debit cannot be persisted without its matching grant. Revalidate expected parcel ID/current funds/order at confirmation. Keep lower-level domain callback behavior intact.
+3. Add optional ownership dependency to MachinePlacementRequest.configure, preserving its old standalone fixed-region behavior when omitted. Main always supplies the real state. New placements/moves require owned cells; invalid configured ownership fails closed. Preserve D67 source-in-place idle rotation, unchanged-source cancellation, stock/job safeguards and legacy machines. No changes to MachineBuildService, jobs, recipes, occupancy ownership or input actions.
+4. Gate new hoe/seed work on unowned empty cells through the existing request/controller path, with a specific translated locked-land reason. Previously tilled plots from v1-v8 saves remain usable for planting/care/harvest/shovel without granting an entire parcel; existing placed machines remain operable. This explicit compatibility rule preserves progress. Raw FarmGridState serialization and ToolAction APIs stay unchanged. Placement captions show actual owned area rather than claiming the fixed6x6 limit after purchase.
+5. WorldPresentation receives a detached owned-region snapshot. Rebuild only its generated passive trees/rocks/grass, deterministically excluding owned cells, including removal of generated rock colliders. Detach old generated children before queued deletion. Rebuild after purchase/reset/load, without deleting source art or touching crops, machines, anchors, NPCs, homes, weather or Player. Do not change world/player bounds, camera/projection, map/NPC resources or routes. Existing linh_stream at logical(7,4) remains a valid visit point: farm ownership permits work and does not make an exclusive NPC navigation wall. Test reset/load restoring the appropriate scenery and collision.
+6. New ui/land screen/summary/footer scenes and small typed scripts use shared Theme, wrapped text, actual coins/price/cell count/parcel name and service reasons. Add separate snapshot/presenter helpers; no currency/ownership in the view. Build lazily on first open to limit Main-fixture cost. Add a shop-only header button and controller action to transition via the existing UiCoordinator; retain all three existing shop tabs. Purchase/cancel/close/insufficient/already-owned/no-next/stale states use actual data. No unimplemented map, fake NPC dialogue, invented future parcel, price estimate or simulation. Only new scenes are editable; existing .tscn stay unchanged.
+7. SaveService advances v8 -> v9, persists land_ownership owned_parcels and migrates v1-v8 with an empty purchased list (base stays owned). Keep historical crop/inventory/machine/wallet/profile/quest/weather/ledger payloads. Validate malformed ownership through the domain, with guarded Dictionary extraction. Add a v9 golden; v1-v8 goldens remain byte-identical. Reset/load must close transient land UI and update permissions/scenery immediately. No JSON node trees or pixel positions.
+8. Add buy_land and buy_land_rollback display reasons to the day-end presenter. Classify only the new land rollback as a refund in DayLedgerState so a failed purchase has zero net income/expense. Keep existing machine/economy behavior unchanged; add an explicit ledger regression test in the new land tests.
+9. Save-version assertions in the sixteen existing tests listed below change only current-version expectations/messages from8 to9; historical input fixtures and all behavioral assertions remain. New tests cover the actual runtime/UI/save paths. Preserve all prior tests, six inventory cases/36 captures, GUT and180-second renderer bound. Update contracts/APIs/schema/D69/roadmap and record exact diff/test artifacts. Aim for <=250 lines per new class; Main changes are dependency/lifecycle hooks only.
+
+Approved ALLOW_LIST — existing source/data/localization files:
+~~~text
+scripts/data/expansion_parcel_data.gd
+data/land_expansion/first_east.tres
+scripts/domain/building/land_ownership_state.gd
+scripts/domain/building/machine_placement_request.gd
+scripts/domain/economy/day_ledger_state.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/tool_action_controller.gd
+scripts/view/world_presentation.gd
+scripts/view/machine_placement_flow.gd
+ui/machine/machine_screen.gd
+ui/machine/machine_controller.gd
+ui/day_end/day_end_presenter.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tools/validate_data.gd
+~~~
+
+Approved ALLOW_LIST — existing tests, current-save-version expectations/messages ONLY:
+~~~text
+tests/unit/test_character_screen.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_save_service.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_weather.gd
+~~~
+
+Approved ALLOW_LIST — documentation:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/INPUT_MAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/machine_shop.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/day_end.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+scripts/view/land_runtime.gd
+ui/land/land_screen.gd
+ui/land/land_screen.tscn
+ui/land/land_summary.gd
+ui/land/land_summary.tscn
+ui/land/land_footer.gd
+ui/land/land_footer.tscn
+ui/land/land_snapshot.gd
+ui/land/land_presenter.gd
+tests/unit/test_land_runtime.gd
+tests/unit/test_land_screen.gd
+tests/unit/test_land_save.gd
+tests/golden_saves/save_v9.json
+docs/SCENE_CONTRACTS/land_expansion.md
+~~~
+
+DO NOT TOUCH: everything else, including old scenes, Player/restoration, art/Theme/fonts/assets, project.godot/InputMap, raw farm/crop/tool domain, machine build/jobs/stock/recipes/shop service, WalletState, D68 pricing/config/rules/service, legacy land locks, world/NPC configs/routes, historical goldens, other test sources, P1 fixture, GUT/runners/bounds, PROJECT_RULES and previous backup artifacts. No future house/fertilizer/animals/calendar, new hotkey/autoload, terrain editor, sell/buyback, commit/push/stage/reset/package install.
+
+ACCEPTANCE:
+- At runtime base36 cells work, east36 cells deny new work/place before purchase. One successful actual500-coin purchase grants exactly east36 and usable72 total, clearing generated passive blockers there. Duplicate/stale/insufficient/reentrant/invalid attempts cannot charge twice or grant extra cells. Domain preview and drawing never mutate coins/ownership/time.
+- Legacy out-of-base tilled crops and machines survive migration/reset/load rules with care/collection intact; new empty unowned cells remain locked. Existing placement/move/cancel/job guarantees pass unchanged. Player movement and NPC route source data remain unchanged.
+- Shop header opens the lazy modular land modal; native mouse/keyboard confirmation/Escape/focus, active-modal/clock/Player locks and hidden/stale controls behave correctly. Actual affordability/result updates, no-next purchased state, vi/en and1152x648/1280x720/1600x900 layouts are captured and visually inspected. Shared Theme retained; no existing scene edit/manual node wiring required.
+- v9 round-trip preserves ownership, funds, crops and machines. All v1-v8 migrations retain progress and grant no purchased parcels. Malformed ownership cannot unlock unknown/outside cells. Callback-triggered save/load/reset cannot snapshot a half-purchase. New Game resets to base and restores passive scenery; loading purchased data clears it again without duplicate colliders/objects.
+- Ledger purchase shows actual land expense; rejected/refunded purchase adds no false earnings. Actual source and behavior tests cover these paths, not only helper calls. Old test changes are audited to version expectations/messages only; old goldens byte-identical.
+- Back up/hash all pending files before code, preserve existing deletion, audit task/protected diffs and index/HEAD. Run focused new tests, unmodified parse/data/headless/full-renderer/Main gate sequentially under the existing180s bound; paste actual output. Preserve any failure logs and separate automated verification from pending human F5 acceptance. No claim of tests run for this proposal.
+
+Risks/assumptions: natural scenery in east currently includes generated blockers; ownership must refresh collision as well as appearance. Linh may still visit the stream within the new farm; this preserves established NPC behavior. The purchase entry currently inherits debug-only machine-shop access. Save-v9 requires legitimate version-only updates across sixteen existing tests. Runtime/UI tests may increase renderer time; use lazy construction and explicit capture redraw without reducing coverage or changing the180s limit. D68 standalone APIs/callback tests remain intact. If implementation needs another file or incompatible behavior, stop and request an exact scope extension.
+
+Review/approval history: this plan was inserted into PROGRESS only; its previous content is copied under D:/godot/game-godot-backups/phase-64a-20261104-222812/verification/before_phase64b_plan/PROGRESS.md. No gameplay/test/data/scene source changed for this proposal. AGENTS.md sections2.1 and3 require the owner's approval of this new multi-file/domain ALLOW_LIST before coding. Suggested future commit after delivery: feat: connect usable land expansion and save v9.
+
+### Phase6.4b approval / working record
+
+Owner explicitly approved the Phase6.4b question in this session. Before code, copied/SHA256-verified1119 pending files and recorded the existing deletion in D:/godot/game-godot-backups/phase-64b-20261105-002604; HEAD/index untouched. Three new small scenes and snapshot/presenter/runtime are implemented, with actual Main permissions/scenery/save-v9/ledger wiring. The sixteen existing tests changed only current-version expectations/messages. No existing scene, historical golden, asset/Theme, wallet/service/pricing, NPC/world data, InputMap or test runner edit.
+
+First focused pass exposed initial lazy-layout minimum-size growth and queued-deletion orphan timing in synchronous fixtures. Fixed with coalesced minimum-size layout and identical-region scenery no-op; new tests await queued deletion before teardown. Parse header insertion mistake was corrected before verification; native vi/en text encoding was corrected and reimported. Earlier logs retained. Focused D68+new tests15/15,937 assertions,7.565s; no script errors/orphans/leaks. Eighteen native-render states cover vi/en/three sizes/insufficient/available/owned; actual visual review started. The final official gate subsequently passed; see the handoff below.
+
+### Phase6.4b implementation handoff - final official PASS
+
+Acceptance delivered in automation: authoritative Main ownership/service; base36 -> east36 -> usable72 for one actual500-coin payment; real locked-land farming/build/move gates with established-plot/legacy-machine compatibility; generated passive scenery/collider refresh after purchase/reset/load; unchanged Linh stream route; lazy three-part shared-Theme land panel through the current shop header; callback safe points; save-v9 migration/golden; actual ledger purchase/refund reasons. No new normal-game merchant access, future parcel, InputMap action, source art or existing scene edit.
+
+New scripts are <=150 lines (LandRuntime100; screen40; summary33; footer30; snapshot26; presenter20; tests141/61/150). Main hooks keep a single land owner and preserve existing farm/machine/wallet authority. Identical-region scenery snapshots skip rebuilds; changed snapshots detach generated blockers immediately and queue deletion. Actual callback tests reject save/load/new-game/reset during payment, retain one grant/debit, and verify a rejected grant refunds with zero false journal income/expense. Historical goldens remain unchanged, and sixteen prior test diffs are verified current-version expectations/messages only.
+
+Exact modified/created files (68 total:45 existing /23 new, including9 generated UIDs):
+~~~text
+data/land_expansion/first_east.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/day_end.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/land_expansion.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/machine_shop.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/save_service.gd
+scripts/data/expansion_parcel_data.gd
+scripts/domain/building/land_ownership_state.gd
+scripts/domain/building/machine_placement_request.gd
+scripts/domain/economy/day_ledger_state.gd
+scripts/view/land_runtime.gd
+scripts/view/land_runtime.gd.uid
+scripts/view/machine_placement_flow.gd
+scripts/view/main.gd
+scripts/view/tool_action_controller.gd
+scripts/view/ui_coordinator.gd
+scripts/view/world_presentation.gd
+tests/golden_saves/save_v9.json
+tests/unit/test_character_screen.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_runtime.gd
+tests/unit/test_land_runtime.gd.uid
+tests/unit/test_land_save.gd
+tests/unit/test_land_save.gd.uid
+tests/unit/test_land_screen.gd
+tests/unit/test_land_screen.gd.uid
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_save_service.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_weather.gd
+tools/validate_data.gd
+ui/day_end/day_end_presenter.gd
+ui/land/land_footer.gd
+ui/land/land_footer.gd.uid
+ui/land/land_footer.tscn
+ui/land/land_presenter.gd
+ui/land/land_presenter.gd.uid
+ui/land/land_screen.gd
+ui/land/land_screen.gd.uid
+ui/land/land_screen.tscn
+ui/land/land_snapshot.gd
+ui/land/land_snapshot.gd.uid
+ui/land/land_summary.gd
+ui/land/land_summary.gd.uid
+ui/land/land_summary.tscn
+ui/machine/machine_controller.gd
+ui/machine/machine_screen.gd
+~~~
+
+Complete clear diff/full before-after text: D:/godot/game-godot-backups/phase-64b-20261105-002604/verification/phase64b.patch and before/after directories. changed-files.txt is the exact manifest; audit.py reproduces the scope/diff/test-expectation checks. Clean tracked files use the unchanged initial HEAD as their exact baseline, while1119 pending files were copied/hash-verified before coding. scope-audit.txt:1090 protected pending entries unchanged, outside-ALLOW_LIST changes0, all16 version-only checks PASS, HEAD/index unchanged, pre-existing deletion preserved. No staging/commit/push.
+
+Actual official command: cmd /c tools\run_tests.bat. Final source was not changed after this run; only documentation/artifact review followed. Captured outputs:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.464s
+---- All tests passed! ----
+Scripts             101
+Tests               384
+Passing Tests       384
+Asserts           19338
+Time              163.514s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Existing180s graphics bound/coverage/runners/GUT unchanged; user F5 remained stopped (only the editor process was present). Official log error/leak scan0: no SCRIPT ERROR/Parse Error/ERROR/failing-test/orphan/ObjectDB/resource-leak matches. Deliberate malformed-data and invalid-slot warnings, known unavailable crop placeholder and existing suite warnings remain explicit test output, not hidden failures. Focused earlier15/15,937 assertions,7.565s covered D68 plus seven new tests. Final full asserts include the final complete-state caption visibility polish.
+
+Native input and18 renderer screenshots cover vi/en at1152x648/1280x720/1600x900, each insufficient/available/owned. Inspected smallest vi/en full-size frames and all18 via contact sheets: readable diacritics, real affordability/results, visible enabled/disabled native controls, contained layout, no duplicate complete-state caption. Screenshots and contact_vi.png/contact_en.png are in verification/screenshots; all focused/import/diagnostic/final official logs in verification/logs, including failed initial attempts. final-error-scan.txt records the0 official matches. Godot editor imports retain known pre-existing duplicate-asset UID warnings; no source asset/import changes in scope audit.
+
+Manual editor steps: none. F5 start/continue; prepare >=500 coins; current debug Ctrl+M -> Mo rong dat header (translated in game). Check36 owned / east36 / actual500 price / wallet; Escape/cancel changes nothing and restores Player/prior clock hold. Confirm once ->72 cells and500 debit; walk nearby east x6..11/y0..5, try hoe/seed and placement/move on empty valid cells, check passive blockers are absent. Old tilled plots/machines still work. Save/load retains purchase; New Game restores36 and scenery. Check Linh's stream visit, vi/en, focus and different viewports. Human playtest remains pending; automation is not human acceptance.
+
+Assumptions/limits: purchase entry still uses the debug-only machine shop; only the first parcel exists. Ownership is work permission, not NPC exclusivity; Linh's existing(7,4) visit remains. Legacy tilled plots keep access without surrounding land grants; invalid/unknown ownership cannot grant new rights. Exact integer pricing and low-level service callbacks are unchanged from D68. No subsequent milestone implemented. Suggested commit (not executed): feat: connect usable land expansion and save v9.
+
+## Approved continuation — Phase6.4a land-expansion data/domain foundation (automation delivered; runtime integration deferred, 2026-11-04)
+
+MILESTONE: existing ROADMAP Phase6 task6.4 Land expansion by parcel (the row after the production6.5f slices, distinct from the earlier machine-shop row also numbered6.4). Owner explicitly approved Phase6.4a. Standalone data/domain foundation is implemented and the final official377/377,18683 assertions,154.692s, parse/data/headless/Main PASS is recorded below. Parent runtime/UI/save integration, previous human F5 acceptance and explicit commit remain pending.
+
+Why split: the current LandParcelData is only a static machine-placement lock list at(12,12),(12,13),(13,12),(13,13). Those cells are outside current IsometricWorldConfig.player_region (-10..11). Reusing them as a purchasable working farm would be misleading. Current scenery reserves only the original6x6 farm; a real runtime expansion also needs scenery/collision/tool/build/save/UI integration. Propose first implementing tested Resource-backed ownership/pricing/purchase logic, then a separately approved runtime/save/UI slice. Do not sell or expose unusable land in this step.
+
+READ-ONLY: laws/API/architecture/decisions/schema/patterns/roadmap, existing land_parcel_data.gd/land_parcels.tres, actual WorldLocations solids in data/npcs/phase8_world.tres, world/player/map config, WorldPresentation scenery/tree/rock rules, WalletState and MachineShopService transaction pattern, farm/tool/build/save/ledger owners, prior tests/goldens/backup. No new scene/API/path is claimed to exist; all additions below are proposals.
+
+Proposed first data:
+- Initial owned region Rect2i(0,0,6,6), matching the current farm.
+- First expansion ID farm_east_1, region Rect2i(6,0,6,6):36 cells immediately east, x6–11/y0–5. It fits current player/map bounds and does not intersect the current WorldLocations solid_rects. Natural scenery/tree/NPC presentation has NOT been cleared or fully certified there; runtime integration must audit/handle it before access/sale is exposed.
+- Pricing comes from DATA_SCHEMA Progression & sinks, not invented prices: round_to_50(500 ×2.2^(n−1)), giving500/1100/2400/5300/11700. New Resource stores base_cost500, growth_numerator11, growth_denominator5 and rounding_step50; all coin/cost arithmetic stays integer with explicit overflow/invalid-input rejection. Current runtime catalogue registers only the first parcel; formula tests can exercise later indices without registering future parcels.
+- Existing legacy LandParcelData and machine lock cells remain untouched. Use separate ExpansionParcelData/LandExpansionConfig Resources for purchasable land, avoiding silent reinterpretation of existing machine-lock data. The new Resource is not wired into Main/DataRegistry/player-facing UI in this slice.
+
+TASK / concrete responsibilities:
+- ExpansionParcelData Resource: parcel_id:StringName and region:Rect2i. LandExpansionConfig Resource: initial_region, ordered parcels:Array[ExpansionParcelData] and integer pricing fields. Simple .tres files below own all coordinates/balance values.
+- LandExpansionRules (pure RefCounted/static helpers): validate catalog IDs, positive regions, no duplicates/overlap, world/player bounds and existing static-solid exclusion; calculate positive integer quotes exactly and reject overflow. New DataValidator method delegates structural/bounds/static validation and the normal tools/validate_data.gd gate loads/checks the proposed config. No existing crop/machine balance or generic validator behavior changes.
+- LandOwnershipState (pure RefCounted, sole new persistent owner): configure(config), can_use_cell(cell), get_owned_ids(), next_parcel_id(), grant_next(parcel_id), serialize() and deserialize(data) from its first implementation. Base region is owned; future parcel cells remain locked until their exact ordered grant. Return detached data; validate JSON types/known IDs/duplicates/order and fail closed on malformed/unconfigured data. Never unlock unknown/negative/outside cells.
+- LandExpansionService (pure command adapter over config/state/actual WalletState): read-only can_purchase(parcel_id) quote and purchase(parcel_id) with expected next ID. Validate actual funds/config/order again; charge only through existing wallet.remove_coins with an explicit land reason, grant once, and refund that debit through wallet.add_coins if the grant rejects. Do not overwrite the entire wallet or ownership snapshot over legitimate callback changes. Add a transient same-service reentry guard; duplicate/stale/unknown/non-next requests never charge. No new money owner, global signal/autoload or node dependency.
+- Domain serialization/JSON round trips are tested standalone. Main/SaveService/world payload staysv8 because no new runtime state is owned/saved there yet; do NOT claim a game-save migration or player-visible expansion. A later approved runtime slice must add ownership to Main/save with migration/goldens and connect all relevant tool/build/scenery gates together.
+- Record D68/contracts/APIs/data/schema/roadmap status before code, then exact diff/logs/manifest/manual notes. No scene contract change because no scene is touched. New scripts target250 lines or less.
+
+Approved ALLOW_LIST — existing files:
+~~~text
+scripts/core/data_validator.gd
+tools/validate_data.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+scripts/data/expansion_parcel_data.gd
+scripts/data/land_expansion_config.gd
+data/land_expansion/first_east.tres
+data/land_expansion_config.tres
+scripts/domain/building/land_expansion_rules.gd
+scripts/domain/building/land_ownership_state.gd
+scripts/domain/building/land_expansion_service.gd
+tests/unit/test_land_expansion.gd
+~~~
+
+DO NOT TOUCH: everything else, especially legacy LandParcelData/land_parcels.tres, WalletState/ledger/economy sources, Main/world/Player/camera/presentation/farm/tools/build/machines/NPC/UI/UiCoordinator/DataRegistry/SaveService, old tests/P1 fixture, all existing .tscn/.tres, assets/Theme/fonts/localization/project.godot/InputMap/GUT/runner/bounds and v1-v8 goldens. No sell/buyback/new shop/NPC role/input, terrain clearing, new runtime save field/version, house/chicken/calendar or automatic commit/push/stage/reset/install.
+
+ACCEPTANCE:
+- Actual new config validates; first parcel/base do not overlap and fit world/player/static-solid constraints. Invalid/empty IDs, duplicate/overlapping/out-of-bounds/zero-area regions and invalid integer pricing fail validation. No assertion that passive scenery has been cleared.
+- Quotes are read-only, match the documented first five prices and use no float coins, global randomness or frame/day progression. Invalid index/denominator/growth/rounding/overflow cannot create a free/negative/wrapped purchase.
+- Initial6x6 cells owned, first-east cells locked; exactly one500-coin purchase unlocks the36 configured cells in the standalone state. Funds cannot go negative. Duplicate, insufficient funds, wrong/unknown/stale order, invalid config, reentry and injected grant rejection preserve ownership/funds except a valid independent callback transaction; rejected grants refund only this transaction's debit.
+- serialize/deserialize and real JSON round trips preserve legitimate IDs/ownership, drop malformed/unknown/duplicate/non-prefix grants safely and cannot unlock cells outside configured regions. Price/state preview never grants or emits a spend.
+- Existing gameplay/save-v8/old test sources remain byte-identical. New class ownership is not connected to gameplay, so no new UI/manual editor setup or screenshot is claimed. Human F5 acceptance of earlier slices remains pending.
+- Back up/hash the whole current pending tree and its existing deletion before coding; audit protected hashes/status, no staging/commit. Run focused domain/data checks plus the unmodified parse/data/headless/complete renderer/Main gate under180s. Record actual output and timing; preserve all gates/coverage and stop after three unsuccessful fixes.
+- Full roadmap6.4 remains[~], not complete: this is the foundation only. Proposed future commit: feat: add land ownership and expansion purchase domain.
+
+Owner explicitly approved “Duyệt Phase6.4a, bắt đầu triển khai”. Before implementation backed up/SHA256-verified1105 pending files and recorded one existing deletion in D:/godot/game-godot-backups/phase-64a-20261104-222812 (working-tree/files.csv/missing-files.txt/HEAD/status/binary diff). Existing Phase6.5f/P1 artifacts stay intact. No staging/commit/push. New config will reference existing world/NPC-world Resources for shared full validation; the east area includes the existing linh_stream waypoint, another reason to defer runtime/UI integration.
+
+### Phase6.4a implementation handoff — earlier timeout history; final PASS below
+
+Implemented the approved standalone foundation: two small data classes, two Resources, exact integer rules, ownership state and wallet purchase facade. New scripts are5/11/120/83/61 lines and the test250. No runtime land purchase/access/UI/save field is wired. Config references existing world/NPC-world Resources for shared full validation; farm_east_1 is the approved36-cell Rect2i(6,0,6,6), base area remains6x6, first price500 and formula parameters11/5/50. Current game state/Main/SaveService stayv8; the legacy machine lock list is untouched.
+
+Rules reject malformed/duplicate/non-snake-case IDs, invalid/overlapping/out-of-bounds/static-solid regions, invalid positive integer parameters/order and arithmetic/rounding overflow. Nonpositive rectangles are rejected before engine geometry calls. Exact rational/GCD pricing uses no float coins and matches500/1100/2400/5300/11700; unsafe intermediate representation rejects rather than approximates. State serializes a detached ordered prefix of known string IDs, validates JSON fields and ignores unknown/duplicate/non-next grants with warnings. Base and owned configured regions alone answer can_use_cell.
+
+Service preview is read-only. Purchase validates actual next ID/price/funds, debits through WalletState with buy_land and grants once. Same-facade callbacks return purchase_busy. If the context/quote/order changes or a grant rejects after the debit, only this debit is refunded with buy_land_rollback. Independent successful callback purchases are preserved. Transaction-local config/state/wallet references prevent reconfiguration callbacks from redirecting money to another wallet/context. No new autoload/global event or alternative coin owner.
+
+Exact modified existing files (9):
+~~~text
+scripts/core/data_validator.gd
+tools/validate_data.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+~~~
+
+Exact created files (6 scripts/6 generated UIDs/2 Resources):
+~~~text
+scripts/data/expansion_parcel_data.gd
+scripts/data/expansion_parcel_data.gd.uid
+scripts/data/land_expansion_config.gd
+scripts/data/land_expansion_config.gd.uid
+data/land_expansion/first_east.tres
+data/land_expansion_config.tres
+scripts/domain/building/land_expansion_rules.gd
+scripts/domain/building/land_expansion_rules.gd.uid
+scripts/domain/building/land_ownership_state.gd
+scripts/domain/building/land_ownership_state.gd.uid
+scripts/domain/building/land_expansion_service.gd
+scripts/domain/building/land_expansion_service.gd.uid
+tests/unit/test_land_expansion.gd
+tests/unit/test_land_expansion.gd.uid
+~~~
+
+Review: D:/godot/game-godot-backups/phase-64a-20261104-222812/verification/phase64a.patch is the complete23-file clear diff; before/after/changed-files.txt/scope-audit.txt/build_review.ps1 provide exact content and audit. Backup retains1105 copied/hash-verified pending files and the one pre-existing deletion. Audit:1096 protected pending files byte-identical, outside-ALLOW_LIST hash/status changes0, deletion still absent, HEAD unchanged/index clean, reverse patch/whitespace checks PASS. Core DataValidator differs only by the new static method/header; tool validator only adds the new config check. All prior tests/P1, WalletState/ledger/legacy land locks, Main/world/Player/UI/farm/build/machines/save-v8/goldens/scenes/assets/InputMap/GUT/runner/bound remain unchanged.
+
+Eight tests exercise shipped validation, five documented integer prices/tie rounding/huge-order/overflow rejection, malformed geometry/IDs/config, exact36-cell ownership and one500 debit, read-only queries, detached IDs, insufficient/stale/wrong-order/duplicate purchases, real current-price revalidation, rejection/refund/retry, callback reentry, independent facade purchase preservation, callback config/context changes, actual JSON round trips and malformed/non-prefix grant filtering. Final isolated result is8/8,288 assertions,0.452s.
+
+Real verification so far (ANSI omitted):
+~~~text
+Final land focused headless:
+Scripts               1
+Tests                 8
+Passing Tests         8
+Asserts             288
+Time              0.452s
+---- All tests passed! ----
+
+Latest official batch:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              6.694s
+---- All tests passed! ----
+Final graphics: helper180000ms timeout; wrapper exit1
+Stopped in test_ui_layout; no final summary
+[run_tests] FAILED
+
+Separate final Main --headless --quit-after120: exit0
+Bounded editor import: exit0
+~~~
+
+The earlier whole-suite run before adding the final snake_case-ID regression passed377/377,18668 assertions,165.446s and Main; archived as before_id_check_*. It is historical evidence, NOT a final-source PASS. After adding those15 assertions, final focused code passes8/288, but two whole-renderer attempts reached the fixed180s bound in test_ui_layout (final_timeout1/2.*). Neither timeout log contains a script/parse/assertion-failure/error-text match; no complete final377-test summary exists yet. Do not mark this slice accepted/complete or claim the final full suite passed. No bound/gate/test was skipped or relaxed.
+
+An active game launched by the human's editor was identified during the retries: Godot child25080, parent editor18788, --editor-pid18788/--scene res://scenes/main/main.tscn. It is not an owned test process, so the agent did not terminate it. Concurrent rendering could affect timing, but causality is not established. Next verification step is to ask the owner to save progress/stop F5 (F8) and then rerun the unmodified official gate; do not close the live session or silently loosen timing. Do not start a different milestone while final gate remains pending.
+
+Failure history preserved: initial_land.* recorded fixture isolation failures and RefCounted callback cycles; explicit parcel-row copies now isolate test data, shared world Resources stay read-only and every test signal callback is disconnected in after_each. negative_rect_before_fix.* recorded engine errors from intersecting negative rectangles; production validator now checks dimensions before geometry calls, and the original negative case remains. Final names/schema validation adds empty/space/hyphen/digit-leading ID cases without removing prior assertions. These corrections are documented, not hidden/waived tests. Final focused logs have no script/parse/error/leak matches. Expected malformed-state warnings and existing full-suite Float/Int/malformed-save/backend/missing-art warnings remain; editor import has existing duplicate-source-asset UID warnings.
+
+No visual/editor setup is needed in this slice: no scene/UI/assets changed and no screenshot/new in-game land action is claimed. Run tools/run_tests.bat for official gates, or use the existing bounded runner with --headless --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_land_expansion.gd -gexit for the new tests. Keep isolated TEMP APPDATA and do not run test processes concurrently. Optional manual editor smoke is unchanged previous farming/machine behavior; previous human F5 acceptance still pending.
+
+Known integration work: east area still contains passive scenery and the existing linh_stream waypoint. Its domain rights must not be presented as cleared playable land. A later approved scope must connect ownership to Main, farm/tools/build/terrain/UI and save migration/goldens together. No such world/purchase/save integration or household/animal feature is implemented here.
+
+Suggested future commit after final acceptance: feat: add land ownership and expansion purchase domain. No staging/commit/push/reset/install executed.
+
+### Phase6.4a final verification after owner stopped F5 — PASS
+
+Owner confirmed “Đã dừng F5, chạy lại kiểm thử”. Process inspection confirmed the editor remained and its embedded-game child was absent before the retry. No runtime/data/test/runner source changed during this verification continuation. Only the status/reporting in PROGRESS/API_INDEX/DECISIONS/ROADMAP changes. Earlier failure/timeout logs and the complete23-file implementation diff remain preserved.
+
+The unmodified official tools/run_tests.bat returned0 on the final source, including the stricter snake_case-ID cases. Real output (ANSI omitted):
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.212s
+---- All tests passed! ----
+Complete graphics:
+Scripts              98
+Tests               377
+Passing Tests       377
+Asserts           18683
+Time            154.692s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+This final377/377 result supersedes the pending-gate status in the earlier handoff above. It includes the eight new land tests and all prior tests. Final completed batch logs are copied into verification/after_f5_stop/the_life_parse/validate/headless/gut/main.log.stdout/.stderr, alongside official_batch.stdout/.stderr. Their error/failed-summary/orphan/leak scan has0 matches. Expected malformed land-save fixture warnings and the prior Float/Int/malformed-save/backend/missing-art warnings remain; none was waived. Final focused land results remain8/8,288 assertions,0.452s.
+
+The passing retry after stopping the concurrent F5 session supports resource contention as a possible timing factor, but does not establish the sole cause or guarantee timings on other hardware/load. The180000ms bound, renderer, all assertion/error gates and source are unchanged. No further rerun is needed for this unchanged implementation after the official PASS.
+
+Scope remains9 modified existing files and14 new scripts/UIDs/Resources (23 total), exactly listed above. Final audit still verifies1096 protected pending files byte-identical, one pre-existing deletion absent, outside-ALLOW_LIST hash/status changes0, HEAD unchanged/index clean and reverse-patch/whitespace checks PASS. phase64a.patch/before/after/changed-files.txt/scope-audit.txt are refreshed to include this report; prior Phase6.5f/P1 artifacts remain untouched.
+
+Phase6.4a standalone data/domain automated acceptance is delivered. Main/world/UI/runtime land ownership and game-save integration remain deliberately deferred, so the parent land-expansion roadmap task is not complete. No editor/Inspector setup/new visible land button or screenshot is claimed; previous human F5 acceptance and a future explicit commit remain pending. Suggested commit: feat: add land ownership and expansion purchase domain. No stage/commit/push performed.
+
+## Approved continuation — Phase6.5f nearby idle-machine move UI (automation delivered; human F5/commit pending, 2026-11-04)
+
+MILESTONE: continue the existing Phase6 production/building6.3–6.5 loop. Owner explicitly approved Phase6.5f and its ALLOW_LIST after Phase6.5e/P1 acceptance. The existing job-safe move command is now exposed through the small placement components. Latest official369/369,18395 assertions,155.38s, parse/data/headless/Main PASS; human F5/explicit commit pending. No new land/house/economy system.
+
+READ-ONLY CONTEXT: PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/INPUT_MAP; SCENE_CONTRACTS/machine_build.md, machine_shop.md and gray_box_world.md; actual MachinePlacementState in scripts/domain/production/, OccupancyMap, D63–D65 operation/collection/build contracts, current request/flow/footer/controller/snapshot/presenter, existing SaveService/goldens and tests. Existing1x1 footprint and low-level same-cell rotate behavior are confirmed in source; actual input/grid/manifest paths already exist. New APIs below are proposals, not claims of existing methods.
+
+TASK / behavior:
+- Add a native “Dời máy” action to the existing operation footer, with actual nearby-idle readiness and localized disabled reason. Defer opening after the Button event. It does not buy, return to storage or require spare owned stock.
+- Reuse MachinePlacementFlow, its existing modal overlay/ghost/status and current mouse/Space, R/Q, RMB/Escape routing. Capture the actual source placement as a detached transient dictionary (machine_id/cell/rotation). Keep the real source machine/occupancy/job in place throughout preview; no remove-then-place trick or stock reservation.
+- Different-cell confirmation requires the source still match that snapshot and be nearby/fully idle/empty under D65; the destination must pass existing registration/rotation/job/occupancy/locked checks and D66 region/reach/Player/tilled/crop restrictions. Confirmation repeats all checks, then invokes the connected facade move exactly once. Machine stock, bag, wallet and crop state are unchanged; only actual placement/occupancy and valid empty idle-job cleanup change.
+- Same-cell confirmation uses the existing rotate-in-place semantics, restricted to an idle source for this UI. It may retain a legacy crop/placement outside the new6x6 region because no cell is newly occupied; do not grandfather a different destination. Valid rotation is saved metadata only; supplied sprites keep their direction. A same-cell/no-angle-change confirmation is harmless and never grants anything. Existing non-UI facade callers retain D65's active in-place rotation semantics.
+- Old placements outside the current reserved6x6 region can move inward when source/destination are within actual reach. No expansion/unlock or wider scenery placement. Moving away leaves a legacy source crop intact; existing care/harvest permissions still work. No physical collider, Player/camera change or new projection formula.
+- Cancel, stale/hidden/double input and load/new-game/title/sleep/day-end/another modal preserve the source and clear transient move context. Failed confirm shows actual reason without relocating anything. Success refreshes the existing MachinePresentation, dirty tracking and localized result; the shared UiCoordinator remains the only modal/clock/Player authority.
+- Footer/status stay small modular components using the existing Theme/reference10 vocabulary. Show source/target cell and actual saved angle; operation actions must fit1152x648. No new scene or asset. Existing Place/Return/Buy/Start/Collect behavior stays.
+
+Proposed typed additions / bounded implementation:
+- MachineBuildService.can_move(cell: Vector2i, target_cell: Vector2i, rotation: int) -> Dictionary: read-only shared preflight, including real source occupancy and current registered1x1 footprint. Different-cell target can be checked without releasing the source because1x1 distinct footprints do not overlap. Same-cell checks must preserve existing rotate semantics. Existing move may reuse this preflight while preserving D65 rollback/cleanup/collection behavior and all current public results.
+- MachinePlacementRequest.can_begin_move(cell: Vector2i, player_cell: Vector2i) -> Dictionary; preview_move(source: Dictionary, target_cell: Vector2i, rotation: int, player_cell: Vector2i) -> Dictionary; move(source: Dictionary, target_cell: Vector2i, rotation: int, player_cell: Vector2i) -> Dictionary. Validate snapshot types/expected machine/cell/rotation against actual current placement, source/destination reach and idle guard; reject changed/missing sources. No persistent revision/ID or save field is invented. Byte-identical replacement of fungible same-ID equipment cannot be distinguished by an unsaved placement instance ID that does not exist; no such guarantee is claimed.
+- Extend the existing flow with begin_move(cell: Vector2i) -> void and transient source context; reuse current begin/place mode and lifecycle cleanup. Existing Main wiring already provides the request/flow; no Main/tool/UiCoordinator change is proposed.
+- Add a focused move display method to build_status rather than replacing existing display callers; snapshot/controller/footer add only the move action/readiness, presenter/localization add actual move/rotation/stale-source captions. tools/validate_data.gd changes only its required translation-key list. No new balance/config value or trade price.
+- Keep modified small scripts below250 lines where practical and add two separate small test files. Preserve existing test bodies/assertions and the delivered P1 fixture; no test-runner edits or unrelated cleanup.
+
+Approved ALLOW_LIST — existing files:
+~~~text
+scripts/domain/building/machine_build_service.gd
+scripts/domain/building/machine_placement_request.gd
+scripts/view/machine_placement_flow.gd
+ui/machine/build_status.gd
+ui/machine/machine_controller.gd
+ui/machine/machine_snapshot.gd
+ui/machine/machine_footer.gd
+ui/machine/machine_presenter.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tools/validate_data.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+Approved new files (matching generated .gd.uid permitted):
+~~~text
+tests/unit/test_machine_move_request.gd
+tests/unit/test_machine_move_ui.gd
+~~~
+
+DO NOT TOUCH: everything else, particularly MachinePlacementState/OccupancyMap/MachineOperationService/MachineState/InventoryState/FarmGridState/SaveService, Main/Player/camera/world/presentation/ToolController/UiCoordinator, all .tscn/.tres, old tests and delivered P1 fixture, assets/Theme/fonts, existing resource/balance data, project.godot/InputMap/GUT/runner/timeout and all v1-v8 goldens. No commit/push/stage/reset/install, save migration, batch/direct-drag building, selling, house/land/animal feature, automatic orphan repair or generated artwork.
+
+ACCEPTANCE / verification:
+- Read-only preview and native E/catalogue -> Dời máy -> target/R-Q -> LMB/Space move/rotation, with0 spare machine stock; idle source remains during preview and cancellation. New target receives exactly one placement; old occupancy/valid empty job clears only after successful different-cell move. No coin/item/day/crop/stock changes or replay.
+- Same-cell idle rotation/no-op retains jobs/counts; busy/ready UI rejects even though existing domain in-place rotation remains compatible. Orphan/corrupt/collection-reentry guards, cleanup rollback and old save behavior stay. Invalid/occupied/locked/Player/tilled/cropped/outside/far targets, stale/missing/rotated/replaced-different-ID source and source becoming busy all reject atomically.
+- Save/load before/after, source legacy crop/outer-region cases, double/held native input and lifecycle/modal interrupts. New source snapshot is never serialized. Existing prior tests remain unchanged; new pure/native tests exercise these outcomes with actual owners.
+- Vi/en ×1152x648/1280x720/1920x1080 native layout/captures, enabled/disabled action reasons, target/failure/status text, footer fit/focus and no click-through; actual camera zoom/grid APIs remain reused. Use render-once fixtures and bounded layout waits to avoid unnecessary test cost.
+- Backup/hash current pending tree before implementation, including its existing deletion; audit exact protected hashes/status afterward. Record D67/contracts/public APIs before code, then exact diff/manifest/manual F5/logs after checks.
+- Run new focused tests and the unmodified official parse/data/headless/complete renderer/Main gate under180s; preserve every existing assertion/error gate. The170.057s GUT baseline still has limited startup margin. Optimize only the new in-scope fixtures if necessary; do not silently expand scope, skip coverage or increase the bound. Stop after three failed fix attempts.
+- No Inspector/Project Settings setup expected. Human F5 and explicit commit remain separate. Suggested future commit: feat: move idle machines with a preview.
+
+Owner explicitly approved “Duyệt Phase6.5f, bắt đầu triển khai”. Backed up/copied/SHA256-verified1101 pending files plus one pre-existing deletion before implementation to D:/godot/game-godot-backups/phase-65f-20261104-214654 (working-tree/files.csv/missing-files.txt/HEAD/status/binary diff). No staging/commit/push. D67/API/contract targets are recorded before implementation.
+
+### Phase6.5f delivery / verification
+
+Implemented the approved Move/idle-rotation UI using the existing small components, with no new scene or persistent owner. MachineBuildService is113 lines, MachinePlacementRequest101, MachinePlacementFlow161, controller147, new pure test197 and new native test244. Shared can_move checks actual source/target/jobs/occupancy and valid rotation without releasing the source; existing move uses it before D65 commit/cleanup/rollback. Request validates typed detached source fields against the current placement, requires nearby idle/empty source and rechecks actual Player/target context. No spare stock is needed. Different destinations use the existing Resource-owned6x6/no-Player/no-plot/reach policy; same-cell idle rotation/no-op preserves existing jobs and legacy footprint/crop, including outside the new region.
+
+The operation footer adds a native Move button with actual eligibility/reason. Deferred begin_move rechecks active operation cell/selected ID, retains the original source machine in the world and owns transient source snapshot only. It reuses the existing overlay/ghost/status/input/clock/Player lock. Status adds a small move display method; Place retains its original API. Success caches localized feedback before hiding clears source context, refreshes actual machine presentation and marks save dirty. Cancel/failure/stale/busy/interruptions never remove the source or change stock/bag/wallet/crops. Main/Player/camera/world/presentation/tool/UiCoordinator sources, old scenes/config/data/physics/save-v8 and existing tests/P1 fixture are unchanged. The11 new vi/en keys are included in the existing data validator's required-key list.
+
+Exact files modified (20 existing):
+~~~text
+scripts/domain/building/machine_build_service.gd
+scripts/domain/building/machine_placement_request.gd
+scripts/view/machine_placement_flow.gd
+ui/machine/build_status.gd
+ui/machine/machine_controller.gd
+ui/machine/machine_snapshot.gd
+ui/machine/machine_footer.gd
+ui/machine/machine_presenter.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tools/validate_data.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/machine_build.md
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+Created (two scripts and their Godot-imported UIDs):
+~~~text
+tests/unit/test_machine_move_request.gd
+tests/unit/test_machine_move_request.gd.uid
+tests/unit/test_machine_move_ui.gd
+tests/unit/test_machine_move_ui.gd.uid
+~~~
+
+Review artifacts: D:/godot/game-godot-backups/phase-65f-20261104-214654/verification. phase65f.patch is the clear complete24-file task diff; changed-files.txt/before/after are the exact manifest/text. scope-audit.txt/build_review.ps1 verify1081 protected pending files byte-identical, the pre-existing deletion still absent, outside-ALLOW_LIST hash/status changes0, unchanged HEAD/clean index and git apply --reverse --check/git diff --check PASS. Original1101-file backup/status/HEAD/binary diff remains intact. No owner cleanup/staging/commit/push/reset/install.
+
+Acceptance evidence:
+- Seven pure tests cover source-preserving read-only preview, detached snapshot, zero-spare-stock move/rotation, duplicate rejection, source/destination empty-job cleanup, occupancy, malformed/changed/rotated/missing/different-ID source, invalid rotation/Player/locked/occupied/outside/far/tilled/cropped targets, busy/ready source, reserved-collection callback reentry, orphan/dirty target preservation, legacy crop/outer-region inward move/in-place no-op, and rollback after partial cleanup rejection.
+- Three native tests cover actual footer mouse activation, R/Q and mouse/Space confirmation, held-confirm farming suppression on the newly freed source, real pre/post SaveService save/load, stale/busy feedback/disabled action, source cleanup on load/RMB/Esc/Bag/day-end/title/sleep/new-game, vi/en/three sizes, actual supported camera zoom, correct ghost projection, footer/status fit, native Tab precedence and in-place idle rotation.
+- Existing D65 lifecycle and D66 placement-request checks remain byte-identical and pass in the focused run; all old tests run again in the complete suite. The complete count increases from359 to369 tests,97 scripts and18395 assertions.
+
+Real final output (ANSI omitted; Godot4.7.2/GUT9.7.1, sequential isolated TEMP APPDATA; commands exited0):
+~~~text
+Focused move/policy/lifecycle/placement headless:
+Scripts               4
+Tests                24
+Passing Tests        24
+Asserts             540
+Time              2.663s
+---- All tests passed! ----
+
+Clean native renderer move + machine screen/shop:
+Scripts               3
+Tests                13
+Passing Tests        13
+Asserts            1088
+Time              9.295s
+---- All tests passed! ----
+
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              4.944s
+---- All tests passed! ----
+Complete graphics:
+Scripts              97
+Tests               369
+Passing Tests       369
+Asserts           18395
+Time             155.38s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+
+Bounded editor import: exit0
+~~~
+
+Final focused/native/parse/data/headless/complete/Main/import logs contain0 script/parse/failed-load/ERROR/failing-summary/orphan/leak matches. Keep the earlier the_life_phase65f_domain.log as failed fixture history, excluded from final-success scans: the initial new dirty-job fixture set only output_quantity without an item ID, and MachineState.deserialize correctly normalized that quantity to0. The corrected fixture uses a nonempty idle recipe, which survives the existing codec and exercises the intended dirty-job rejection. All rejection/no-mutation assertions remain; no save/domain normalization was changed and no test was weakened. The final focused run passes7/7 pure tests. Earlier mistyped local parse-helper invocation did not execute Godot; the actual check_parse.bat and official batch passed. Existing two Float/Int comparisons, malformed-save/backend/missing legacy-art fixture warnings and editor duplicate source-asset UID warnings remain. No bound, gate or old test changed.
+
+Visual review:10 clean new screenshots were copied before the full GUT run could overwrite them. Six move views cover vi/en ×1152x648/1280x720/1920x1080 at actual zoom0.5/0.75/1.0. Two1152 operation-footer and two invalid-target captures cover both locales. contact_vi.png/contact_en.png show the complete matrix. Inspected both contact sheets and full-size vi1152 footer/move: original machine stays visible, separate green/red ghost projects correctly, source/target/angle and validity are localized, invalid confirm is disabled, and the fifth operation action fits the smallest size. Existing clean shop/working/collection/bag captures are also preserved. These are automated renderer reviews, not human F5 acceptance.
+
+Manual editor setup: none; no scene/Inspector/Project Settings change. Reproduce official checks with tools/run_tests.bat. Dedicated new tests are res://tests/unit/test_machine_move_request.gd and test_machine_move_ui.gd through tools/run_godot_bounded.ps1/GUT; --headless for policy/native logic, real renderer/-gopacity=0 for clean captures. Do not run test processes concurrently or use real player APPDATA.
+
+Manual F5: buy/place a machine, stand nearby and choose it with E (or its placed row from Ctrl+M catalogue). Dời máy works with no spare machine. Hover a valid new farm cell, R/Q, LMB/Space: one machine relocates and stock/coins/bag/crops stay unchanged. Hover Player/tilled/cropped/occupied/outside/far cells: actual reason/disabled confirm. RMB/Esc/Cancel keeps original; holding confirm must not till the freed source. Start/complete a recipe: Move disabled until output is collected; full bag keeps ready buffer and Move blocked. Check same-cell idle rotation, legacy source crop remains when moving away, save/load before/after and during preview, other modal/day-end/sleep/title/new-game, Player/clock restoration, vi/en/three sizes/zoom, and original Place/Return/Buy/Start/Collect.
+
+Known limits: current footprint remains1x1 and supplied art has one direction, so angle is saved metadata; no physical collision/new land/direct-drag building. In-place grandfathering applies only to the already occupied source. Identical fungible same-ID/same-rotation replacement cannot be identified by a placement-instance ID that does not exist; no persistent revision is introduced. The full renderer passed the unchanged180s helper on its first Phase6.5f run at155.38s GUT time, which still excludes startup; do not extrapolate guaranteed timings to other load/hardware. Human F5 and explicit commit remain pending.
+
+Phase6.5f automated acceptance delivered. No further test repetition is needed for this unchanged source after the official PASS. Suggested future commit: feat: move idle machines with a preview.
+
+## Approved continuation — Phase6.5e-P1 inventory test-fixture timing (automation delivered; commit pending, 2026-11-04)
+
+MILESTONE: current Phase6.5e verification, not a new gameplay feature. Owner explicitly approved the fixture-only follow-up and its four-file ALLOW_LIST after the official359/359 PASS and timing investigation. Implementation changes only inventory-test scheduling; the fixed180000ms renderer bound and gameplay remain unchanged.
+
+READ-ONLY CONTEXT: PROJECT_RULES/PROGRESS/API_INDEX/ARCHITECTURE/ROADMAP; SCENE_CONTRACTS/inventory.md and machine_build.md; current test_inventory_screen.gd, LifeInventoryController.queue_render/_render and its actual _queued field, UiCoordinator layout queue/reflow, native item grid/buttons; existing runner/goldens/art/Theme and profile-continuation/full.xml/events.csv/scripts.csv. No new API/node/action/path is assumed.
+
+Measured baseline: complete official suite359/359,18056 assertions,173.546s GUT (helper also includes startup). Profiled Inventory screen6/6,406 renderer assertions,29.800001s, largest group. New read-only standalone headless run6/6,370 assertions,22.15s, exit0; raw log/JUnit at the existing verification/profile-continuation/inventory_before_headless.*. Its _settle currently waits10 process frames plus a fixed0.18s after many individual actions/states; the native SubViewport renders continuously. The substantial headless cost confirms repeated fixed waits contribute even without drawing; it does not identify every source of full-run variability.
+
+TASK / proposed implementation:
+- Back up/hash the current pending tree and keep the completed Phase6.5e artifacts/logs intact before changing the fixture.
+- Only test_inventory_screen.gd changes behavior: keep actual Main, owners, native pushed mouse/keyboard input and every six test bodies/assertions/locale/size/mode loop. Replace unconditional10-frame+180ms waiting with bounded observation of the already-existing deferred inventory refresh/layout queues and stable visible-Control geometry across consecutive process frames. Add a clear test failure if convergence does not occur within the bound; do not just proceed on timeout or change gameplay timing.
+- Switch this test SubViewport to UPDATE_DISABLED between captures and UPDATE_ONCE immediately before its existing frame_post_draw/get_image/save_png path. All36 current image names/states/dimensions remain; never replace rendered captures with stale images or headless-only checks.
+- Preserve clock/locale/viewport teardown and every assertion in native selection/F, Bag-Character-Quest keys/forced summary, rapid close click, discard cancel/confirm/stale guards/hotbar remap, vi/en ×three sizes ×five Bag states plus Quest, and larger legacy bag. No runtime caching/refactor or functional change.
+- Update only the three documentation files below with exact diff, before/after timings, raw outputs, screenshot review, scope audit and no-public-API-change note.
+
+Approved ALLOW_LIST (existing files only; no new source/UID/scene):
+~~~text
+tests/unit/test_inventory_screen.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+~~~
+
+DO NOT TOUCH: everything else, particularly all runtime/domain/core/UI scripts, all .tscn/.tres, owner pending crops/machines/Player, assets/Theme/fonts/localization/project.godot/save goldens, addons/GUT and all runner/timeout/error gates. No commit/push/stage/reset/package installation. The original Phase6.5e implementation remains delivered and human F5/explicit commit pending.
+
+ACCEPTANCE:
+- All original6 tests and370 headless/406 renderer assertions retained verbatim except fixture/helper wiring; extra convergence assertions may increase counts. All36 PNGs are freshly rendered with the existing vi/en/size/state coverage and visually reviewed. No skipped test, removed loop or weakened assertion.
+- The bounded wait demonstrably settles actual native layout/input; timeout is an explicit failing assertion. No arbitrary wall-clock delay is needed for current UI refresh, which uses deferred rendering/layout, not a gameplay timer.
+- Run headless6-test regression and three sequential real-renderer fixture runs; retain per-run timing/summary and inspect clean captures. Target the renderer fixture below20s versus29.8s baseline, reporting actual variance; do not claim the target if not reached.
+- Run the unmodified official parse/data/headless/complete graphics/Main gate under180s; all359 tests must pass, with before/after time recorded. No new gameplay tests needed because this only changes fixture scheduling; the existing native/owner assertions are the evidence.
+- Audit protected hashes/status and preserve the original pending tree; clear diff/manifest plus API_INDEX/PROGRESS updates. Stop after three unsuccessful fix attempts per AGENTS §5.
+- Human F5 remains pending; no editor/Inspector/InputMap setup changes. Suggested future commit: test: reduce inventory UI fixture wait time.
+
+Owner explicitly approved “Duyệt Phase6.5e-P1, bắt đầu triển khai”, including the four-file ALLOW_LIST above. Backed up/hash-verified1100 pending files and recorded one pre-existing deletion in D:/godot/game-godot-backups/phase-65e-p1-20261104-200042 before implementation (HEAD/status/binary diff/files.csv/missing-files.txt). The first backup attempt stopped on that existing missing file; its partial folder is retained, and the verified backup correctly preserves the deletion rather than restoring/deleting owner files. No commit/push/staging.
+
+### Phase6.5e-P1 delivery / real verification
+
+Implemented the approved fixture-only change on the first source attempt. test_inventory_screen.gd is240 lines. _settle observes the real LifeInventoryController._queued and UiCoordinator._layout_queued flags and snapshots visible Control rectangles in Main. It returns only after queues are clear and geometry matches across two consecutive comparisons; after120 process frames it emits an explicit failing assertion. It no longer waits10 frames plus0.18s unconditionally. Native process/layout/input still run while the SubViewport's continuous drawing is disabled; every original _capture explicitly requests UPDATE_ONCE, awaits frame_post_draw and reads/saves the fresh texture.
+
+Acceptance evidence: all six original test bodies, assertions and locale/size/mode loops are byte-identical after line-ending normalization, verified by the review script against clean HEAD. _key/_click and after_each are also unchanged; before_each differs only in the viewport update mode, and _capture differs only by its UPDATE_ONCE line. The only added function is the geometry snapshot helper. Headless remains exactly370 assertions; each native renderer run remains exactly406. No artificial successful convergence assertions inflate counts; a timeout would fail explicitly. No original test/input/capture is skipped, and no runtime/GUT behavior, schema or timeout changes.
+
+Before/after measurements, Godot4.7.2/GUT9.7.1:
+
+| Check | Before | After |
+|---|---:|---:|
+| Inventory6 tests, headless | 22.15s | 6.789s |
+| Inventory6 tests, renderer | 29.800001s (profile baseline) | 9.97s /9.69s /9.907s (three sequential runs) |
+| Inventory assertions | 370 headless /406 renderer | 370 headless /406 renderer |
+| Complete official359-test renderer | 173.546s | 170.057s |
+| Complete renderer assertions | 18056 | 18056 |
+
+All three native fixture runs meet the approved below20s target; mean9.856s is about67% below the29.8s baseline. The observed complete-suite delta is only3.489s, about2%, and must not be described as a20-second full-suite gain. These are separate process samples; no post-change whole-suite per-group profile establishes how the other groups' costs varied. The180s bound includes startup, so a170.057s GUT time still leaves limited wall-time margin. Do not claim timeout recurrence is impossible, or extrapolate these timings to other hardware. Existing rendering/startup variability remains a known risk.
+
+Exact repository files modified (4 existing, no new source/UID/scene):
+~~~text
+tests/unit/test_inventory_screen.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+~~~
+
+Complete clear diff: D:/godot/game-godot-backups/phase-65e-p1-20261104-200042/verification/phase65ep1.patch. That folder also contains before/after normalized text, changed-files.txt, scope-audit.txt and reproducible build_review.ps1. Original pending backup retains1100 copied/SHA256-verified files, HEAD/status/binary diff and the one pre-existing deletion. The previously clean test is retained separately under head-baseline from the unchanged HEAD. Final audit:1097 protected pending files byte-identical, existing deletion still absent, outside-ALLOW_LIST hash/status changes0, HEAD unchanged/index clean, reverse-patch check and whitespace check PASS. The review script verifies every original test/native-input/teardown function, allowing only the approved scheduling substitutions. No owner-file cleanup, commit/push/staging/reset/install.
+
+Real output (ANSI omitted; each test command exited0):
+
+~~~text
+Inventory headless:
+Scripts               1
+Tests                 6
+Passing Tests         6
+Asserts             370
+Time              6.789s
+---- All tests passed! ----
+
+Inventory graphics, run1 / run2 / run3:
+Scripts               1 /1 /1
+Tests                 6 /6 /6
+Passing Tests         6 /6 /6
+Asserts             406 /406 /406
+Time              9.97s /9.69s /9.907s
+---- All tests passed! ---- (each run)
+
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.644s
+---- All tests passed! ----
+Complete graphics:
+Scripts              95
+Tests               359
+Passing Tests       359
+Asserts           18056
+Time            170.057s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Raw logs/JUnit: inventory_headless.log/.xml, inventory_renderer_1/2/3.log/.xml and final the_life_parse/validate/headless/gut/main logs; official_batch.stdout/.stderr preserves the observed batch console. Error-text scan across all task logs:0 script/parse/failed-load/ERROR/failing-summary/orphan/leak matches. Isolated inventory runs have no new warnings; full-suite existing two Float/Int comparisons and deliberate malformed-save/backend-rejection/missing legacy-art fixture warnings remain. No test/error gate changed or was weakened.
+
+Captures: each of the three runs generated all36 original PNG names after its own recorded start, copied before another run could overwrite them. renderer_1/2/3/images.csv records SHA256, length and UTC write time (108 fresh PNGs total). capture-dimensions.csv verifies the latest36 dimensions; all six contact_vi/en_1152/1280/1920.png sheets were visually inspected, plus full-size vi1152 full/discard and en1920 Quest. Empty/partial/full/filter/discard/Quest states are distinct and freshly drawn, with expected selection, quantities, localization, controls and footer layout; no stale/blank capture or clipping was observed in this review. This is automated capture review, not new human F5 acceptance.
+
+How to run: tools/run_tests.bat reproduces the unmodified official gate. For the fixture use tools/run_godot_bounded.ps1 with --headless --path . --script addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_inventory_screen.gd -gexit; omit --headless for graphics and add -gopacity=0 for clean captures. Continue using the bounded runner/isolated TEMP APPDATA; do not run Godot test processes concurrently.
+
+Manual editor/Inspector/Project Settings steps: none; all runtime/scenes/assets/gameplay are unchanged. Optional F5 regression: B opens Bag; filter/select/F, Q/E Bag-Character-Quest, discard cancel/confirm, and Escape/rapid close still behave as before. Prior gameplay UI human acceptance remains pending. The fixture assumes current UI refresh/layout is deferred; future intentional geometry animation may require a different bounded convergence condition. No such runtime API was added here.
+
+Phase6.5e-P1 automated acceptance is delivered. No further test repetition is required for this unchanged source after the passing official batch. Suggested future commit: test: reduce inventory UI fixture wait time.
+
+## Approved continuation — Phase6.5e mouse placement and idle-machine return (automation delivered; human F5 pending, 2026-11-04)
+
+Owner explicitly approved “Duyệt Phase6.5e, bắt đầu triển khai”. Replace automatic test-row placement with a small modal mouse preview and nearby idle return, preserving D63–D65 safety. Backed up/hash-verified1075 pending files before implementation to D:/godot/game-godot-backups/phase-65e-20261104-174001 (working-tree, files.csv, HEAD/status/binary patch). No commit/push. Human F5 acceptance of prior slices remains pending.
+
+### MILESTONE / TASK / concrete choices for approval
+
+Phase6.5e extends the existing6.3–6.5 production loop. Replace the automatic test-placement action with selecting an owned machine, showing a ghost at the mouse-picked logical cell and confirming exactly one placement. Preview/confirmation must use a stateless DOMAIN request adapter over the D65 facade, actual farm/ownership/occupancy and a small Resource config, never UI-owned grants or duplicated isometric projection. Use GrayBoxWorld.pick_cell/IsometricGrid.cell_to_screen and the current manifest artwork/Theme. Add a Cất máy/Return to storage command for a nearby idle placed machine through the same domain boundary; busy/ready machines still need to finish/collect first. No direct drag-move UI in this slice.
+
+Proposed conservative placement region is Rect2i(0,0,6,6), cells0–5 in each axis, stored in data/machine_build_config.tres rather than scripts. This matches the current farm footprint explicitly reserved from passive scenery in WorldPresentation and skipped by the world obstacle builder; current house/shop/bin/static prop rectangles lie outside it. This does not expand/unlock land. Keep existing placements outside that region when loading, and allow eligible nearby idle returns there; constrain only new mouse placements. Wider terrain placement needs its own static/scenery audit later. New config/data validation checks positive bounds within the current map; current supplied Resource must use this reserved6x6 region.
+
+Eligibility: owned registered machine, current1x1 footprint and valid saved rotation, free/unlocked cell and D65 job checks, no tilled plot or crop, not the Player's current cell, within the existing IsometricWorldConfig.interaction_reach (current2.5 logical cells). Read actual Player cell at confirm; preview is not authority. No deletion/conversion of farm plots, no money charge/refund for placement/return, no automatic purchase. Confirm revalidates everything before consuming one owned machine. Reject/hide/cancel/duplicate/stale input leaves state unchanged; only a successful placement updates occupancy/ownership/world presentation.
+
+Placement overlay is a registered UiCoordinator modal: the shared owner preserves/restores prior pause, locks Player/camera like other modals and handles interruption priority. Header/status/confirm/cancel controls stay fixed; world click plane receives only GUI events that did not hit those controls, so no click-through. Actual existing use_tool=Space, rotate_cw=R, rotate_ccw=Q and cancel/pause=Escape are reused; left/right mouse are native GUI gestures, with native navigation/accept precedence and no new binding. The initial proposal's mouse InputMap aliases were historical documentation rather than actual bindings; see INPUT_MAP clarification. open_build stays unbound. Begin is deferred after the shop Button callback, so the opening click cannot also place. Cancel leaves no machine reservation. Success exits placement, rebuilds actual machine presentation and reports the actual result through the existing feedback path. New Game/load/title/sleep/forced day-end/other modal cancels pending placement and removes its ghost without saving UI state.
+
+The ghost is a small UI projection component positioned through existing grid/canvas APIs, scaled with actual camera zoom and manifest pivot, colored using existing Theme valid/invalid tokens. Rotation shows the actual saved0/90/180/270 metadata; supplied sprites keep their single direction. No new physical machine collision, Player movement rule, generated art or model direction is introduced; existing machine physics behavior stays. During placement the farm hover/stroke is suspended and ended cleanly. Outside placement, a domain tool-permission query blocks new hoe/seed actions on occupied machine cells. Preserve water/harvest/shovel for existing legacy crops already under machines, so old saves do not lose care/harvest access. Current plot/day/wither/sale rules remain untouched.
+
+### Proposed APIs / architecture boundaries
+
+- MachineBuildService.can_place(machine_id: StringName, cell: Vector2i, rotation: int) -> Dictionary: read-only shared stock/rotation/occupancy/locked-cell/D65-job preflight; place reuses it before the existing mutation/cleanup path. No D65 safety is bypassed.
+- MachineBuildConfig (Resource) owns allowed_region. New MachinePlacementRequest is a stateless RefCounted command adapter configured with the real build/farm/config/map-region/reach context, not Nodes. Proposed preview/place arguments are machine_id/cell/rotation/current player_cell; can_return/return_to_storage take cell/player_cell; can_use_farm_tool takes cell/action_id. Results use ok/reason; exact typed headers/contracts are recorded before implementation after approval. No new persistent domain state/serialization/schema.
+- Main wires the request adapter and MachinePlacementFlow, resets transient placement during game lifecycle and connects typed request/outcome signals. The current modular shop delegates Place/Return to these requests, updates selection/results correctly and preserves buy/start/collect behavior. Remove the old automatic test-row search; keep existing localization IDs rather than deleting/renaming them.
+- New flow owns only transient selected machine/rotation/cell/result. New full-viewport build_overlay and build_status components own display/native buttons; separate placement_preview draws the ghost. UiCoordinator remains the only pause/modal/Player authority. ToolActionController only delegates new permission/active-mode gates; ToolDragStroke gains an explicit cancel() over its current private _end(), without changing ordinary farming behavior.
+
+### ACCEPTANCE / risks
+
+- Native select-owned-machine -> Place -> mouse hover -> rotate -> confirm places one machine at the chosen valid cell; return adds one stored machine, drops only its valid empty idle job and never refunds coins. Existing registered prices/unlocks/recipes/processing/Collect/save-v8 remain unchanged. Shop access is still debug-only/exact Ctrl+M/nearby E, current house-level1 remains explicit; no export-access change.
+- Preview/reject/cancel/holding a button/double click/stale UI/interruptions never till, seed, spend, advance days, duplicate machines or consume stock early. No world tool/NPC/shop action leaks through the overlay. Failed requests show actual localized reasons and retain enough selection to retry; hidden or invalid selection cannot submit.
+- D65 busy/orphan/collection-reentry guards survive the shared placement preflight. Old placements/crops and v1-v8 goldens are retained. Legacy crop care/harvest remains accessible; new hoe/seed actions cannot create overlaps. Return obeys real reach and idle checks, including when opened through the catalogue.
+- Vi/en,1152x648/1280x720/1920x1080, supported camera zoom levels, negative/outside/locked/occupied/tilled/cropped/Player/too-far cells, no stock, valid confirmation, cancel/rotation, save/load/new-game/sleep/day-end/modal switches and native focus/scroll/input have meaningful tests. Reuse existing fixtures/capture sparingly to keep runtime cost bounded; preserve/adapt old transaction assertions to the intentional change from auto-place to explicit confirm.
+- Run parse/data/focused/headless/complete graphics/main with current180s bound/error gates and inspect clean representative captures. Prior complete351-test run172.566s leaves little budget; optimize actual fixture/render cost if needed, never skip/weaken tests or extend the bound silently. Human F5 acceptance remains separate.
+- Backup pending tree and audit all protected hashes/status before/after. New config/model/data/domain/UI files below are proposals, not claims of existing APIs. New scripts target250 lines or less; keep legacy Main/ToolActionController edits to required hooks, no broad refactor. No package install/stage/commit/push/reset/owner-file cleanup.
+
+### Approved Phase6.5e ALLOW_LIST
+
+Existing files (modify only where required):
+
+~~~text
+scripts/domain/building/machine_build_service.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+scripts/view/tool_action_controller.gd
+scripts/view/tool_drag_stroke.gd
+scripts/core/data_validator.gd
+tools/validate_data.gd
+ui/machine/machine_controller.gd
+ui/machine/machine_snapshot.gd
+ui/machine/machine_footer.gd
+ui/machine/machine_presenter.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_machine_screen.gd
+tests/unit/test_machine_shop.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_ui_layout.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/INPUT_MAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/machine_shop.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+~~~
+
+New files (named .gd permits matching generated .gd.uid):
+
+~~~text
+scripts/data/machine_build_config.gd
+data/machine_build_config.tres
+scripts/domain/building/machine_placement_request.gd
+scripts/view/machine_placement_flow.gd
+scripts/view/machine_placement_preview.gd
+ui/machine/build_overlay.gd
+ui/machine/build_overlay.tscn
+ui/machine/build_status.gd
+ui/machine/build_status.tscn
+tests/unit/test_machine_placement_request.gd
+tests/unit/test_machine_placement_ui.gd
+docs/SCENE_CONTRACTS/machine_build.md
+~~~
+
+READ-ONLY: current laws/API/architecture/decisions/schema/patterns/style/input contracts, actual grid/player/world/UiCoordinator/farm/tool/stroke/presentation APIs, current modular machine UI and D63–D65 transactions, world/parcel/NPC-map/manifest/Theme Resources, tests/goldens and previous backup/diff. Document exact new scene trees/signals/typed APIs after approval before coding.
+
+DO NOT TOUCH: everything else, particularly MachineOperationService/MachineState/MachinePlacementState/OccupancyMap/FarmGridState/ToolAction/InventoryState/SaveService, existing .tscn, Player/camera/world/presentation/NPC scripts, existing machine/crop/recipe/parcel/world data, assets/shared Theme/fonts, project.godot, golden saves and runner/bounds. No new action IDs/bindings, no land/house/animal/economy/batch/selling/direct-move UI, no automatic orphan repair. INPUT_MAP changes clarify usage only; CREDITS describes reuse without a new asset/license claim. Any additional file needs an exact extension.
+
+Order after approval: backup; D66/roadmap/contracts/API targets; config/validation and shared pure preflight/request policy; modal flow/ghost/small UI components and Place/Return wiring/tool gates; preserve/adapt meaningful native regressions; focused/full checks/visual review; exact diff/log/manual handoff. No commit/push included. Proposed commit for later review: feat: place owned machines with a mouse preview.
+
+### Phase6.5e earlier implementation handoff — timeout history; latest PASS recorded below
+
+Earlier handoff: implementation was reviewable, but the official complete graphics gate exceeded its unchanged180-second limit in three runs. The agent stopped further fixes under AGENTS.md §5 and proposed profiling before changing broader fixtures/runner scope. The owner then authorized continuation; the official PASS in the verification continuation below supersedes this gate block. Keep this history/logs, the same bound/assertions/historical3D coverage and the distinction between automated and human F5 acceptance. No commit/push/staging or next gameplay milestone.
+
+Acceptance implemented: selecting an owned machine opens a deferred modal preview; actual mouse-picked cell/rotation is revalidated at confirmation; a successful confirm consumes exactly one stored machine. Invalid/cancel/stale/held input cannot place, till, seed, charge or reserve stock. Nearby idle Return returns one stored machine through D65 and removes only a valid empty idle job; busy/ready machines require collection first. D63 buffer/reentry safety, save-v8/old placements/crops and existing purchase/process/Collect remain. New hoe/seed is blocked at machine cells, legacy crop care/harvest remains accessible. New Game/load/title/sleep/day-end/other modal discards the transient preview. This describes implemented behavior backed by the checks below, not a passed complete gate or human acceptance.
+
+UI is split into MachinePlacementFlow129 lines, MachinePlacementPreview44, build_overlay64 and build_status47; config8 and pure request66 lines. New policy test121 lines, native test250, existing lifecycle test250 after held-confirm regression. Two new minimal scene roots compose native Controls with the existing shared Theme/art. The overlay builds its controls lazily once, caches the immutable manifest pivot and coalesces layout. Ghost uses existing grid conversion and actual camera zoom; R/Q changes saved rotation metadata while the supplied art keeps its single direction. No extra physical collision or direct move UI is introduced.
+
+Input evidence: project.godot actually registers use_tool=Space and cancel=Escape. Existing farming already handles native mouse buttons. Overlay handles native left/right mouse events without changing InputMap; focused native Buttons/navigation take precedence. ToolController gates held confirmation until Space/LMB releases. INPUT_MAP now explicitly clarifies those two actual bindings. The native matrix originally assigned camera.zoom directly, which CameraRig correctly overwrote; the final test selects actual supported CameraRig indices and asserts each resulting Resource zoom before capture.
+
+Exact task delta relative to the1075-file pre-task pending backup:27 modified existing files and20 created files (47 total). ALLOW_LIST test_machine_shop.gd remains byte-identical; its original transactions/collection/native checks still run. No original assertion was dropped: test_machine_screen intentionally replaces automatic placement with opening/confirming the new overlay before continuing its original transaction/process/save/collection assertions. test_ui_layout keeps every layout/native assertion and all54 screenshots, using a SubViewport that renders once per capture instead of continuously between captures.
+
+Modified existing files:
+
+~~~text
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/CREDITS.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/machine_shop.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/data_validator.gd
+scripts/domain/building/machine_build_service.gd
+scripts/view/main.gd
+scripts/view/tool_action_controller.gd
+scripts/view/tool_drag_stroke.gd
+scripts/view/ui_coordinator.gd
+scripts/view/ui_layout.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_screen.gd
+tests/unit/test_ui_layout.gd
+tools/validate_data.gd
+ui/machine/machine_controller.gd
+ui/machine/machine_footer.gd
+ui/machine/machine_presenter.gd
+ui/machine/machine_snapshot.gd
+~~~
+
+Created files:
+
+~~~text
+data/machine_build_config.tres
+docs/SCENE_CONTRACTS/machine_build.md
+scripts/data/machine_build_config.gd
+scripts/data/machine_build_config.gd.uid
+scripts/domain/building/machine_placement_request.gd
+scripts/domain/building/machine_placement_request.gd.uid
+scripts/view/machine_placement_flow.gd
+scripts/view/machine_placement_flow.gd.uid
+scripts/view/machine_placement_preview.gd
+scripts/view/machine_placement_preview.gd.uid
+tests/unit/test_machine_placement_request.gd
+tests/unit/test_machine_placement_request.gd.uid
+tests/unit/test_machine_placement_ui.gd
+tests/unit/test_machine_placement_ui.gd.uid
+ui/machine/build_overlay.gd
+ui/machine/build_overlay.gd.uid
+ui/machine/build_overlay.tscn
+ui/machine/build_status.gd
+ui/machine/build_status.gd.uid
+ui/machine/build_status.tscn
+~~~
+
+Review artifacts: D:/godot/game-godot-backups/phase-65e-20261104-174001/verification. phase65e.patch is the clear complete task diff; changed-files.txt and before/after text are the exact manifest/content. scope-audit.txt records1043 protected pending files byte-identical, outside-ALLOW_LIST hash/status changes0, staged changes0 and git apply --reverse --check PASS. Original backup bytes/HEAD/status remain intact; clean tracked baselines are separately stored in head-baseline. Protected world/Player/camera/presentation/NPC sources, state/operation/inventory/SaveService owners, old scenes/data/assets/Theme/project.godot/goldens/runner are unchanged.
+
+Final real output (ANSI omitted; Godot4.7.2/GUT9.7.1, sequential isolated TEMP APPDATA):
+
+~~~text
+tools/run_tests.bat, third run:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.094s
+---- All tests passed! ----
+Complete graphics:
+180000ms bound reached; helper exit124, wrapper exit1
+353 tests in93 completed scripts reported passing
+Stopped inside test_world_presentation; no final summary
+test_world_review_layout not reached
+[run_tests] FAILED
+
+Final focused headless Player/camera/machine/crop/save/layout:
+Scripts              14
+Tests                79
+Passing Tests        79
+Asserts            3182
+Time             12.018s
+---- All tests passed! ----
+
+Final clean native renderer layout + placement + machine UI:
+Scripts               4
+Tests                16
+Passing Tests        16
+Asserts            2674
+Time             18.293s
+---- All tests passed! ----
+
+Held-input/request/lifecycle/drag focused:
+Scripts               4
+Tests                18
+Passing Tests        18
+Asserts             433
+Time              3.511s
+---- All tests passed! ----
+
+Separate current Main --headless --quit-after120: exit0
+~~~
+
+All archived task logs have0 script/parse/failed-load/ERROR/failing-summary/orphan/leak matches. This does NOT make a timed-out run pass. Existing Float/Int JSON comparisons, intentionally malformed-save/backend-rejection and missing legacy turnip visual warnings remain. The fixture uses that legacy crop deliberately to verify continued care/harvest under an older machine. No assertion/test/error gate was skipped or weakened.
+
+Timeout investigation: the prior351-test renderer baseline took172.566s, leaving a small margin before these8 new tests. Run1 stopped near the final world-presentation tests. Lazy construction/cache/layout optimization preserved all behavior but run2 timed out during ui_layout. Run3, after render-once UI-layout capture optimization (all checks/54 images retained), again reached the last world-presentation test before timeout. The observed failure is the total graphics wall-time bound, not an assertion/script failure; the exact dominant cost/environment variation is not established. Do not claim a functional cause or a successful complete359-test run. Keep initial_full.stdout/.stderr, second_full.stdout/.stderr and third_full.stdout/.stderr for profiling; no fourth fix attempt is made in this scope.
+
+Visual review:12 placement PNGs cover vi/en ×1152x648,1280x720,1920x1080 ×valid/invalid, with actual supported zoom0.5/0.75/1.0 respectively. placement-contact-sheet.png shows the complete matrix. Inspected full-size vi1152/1280 and en1920 plus the native machine-shop capture: green/red footprint/art, proper localized reason, disabled invalid confirm, fixed controls within the viewport. Latest clean captures were copied before the official GUT overlay could overwrite them. Existing shop/operation/collection and54 ui_repair captures are included. These are automated renderer reviews, not human F5 acceptance.
+
+Manual editor setup: none. The two authorized new .tscn roots compose controls in code; no old scene, Inspector or Project Settings edit is needed. F5/New Game or Continue, walk near the farm, Ctrl+M -> buy/select owned machine -> Đặt máy. Hover a free cell in the6x6 region within reach, use R/Q, then LMB or Space; stock decreases once and the machine appears. Verify Player/tilled/cropped/occupied/outside/far cells reject with feedback; RMB/Esc/Cancel leaves stock unchanged. Keep Space held after confirming: no hoe/seed action leaks. Reopen E on a nearby idle machine and Cất máy once; start a real recipe, finish actual days, verify Return disabled while busy/ready, collect then return. Fill the bag and verify Collect preserves output/Return remains blocked. During preview test other modal/load/new-game/title/sleep/day-end cancellation, Player/clock restoration, locales/sizes/zoom and save/load before/after successful placement/return.
+
+Reproduce the official gate with tools/run_tests.bat (earlier timeout history above; latest official PASS below). Dedicated policy/native tests are res://tests/unit/test_machine_placement_request.gd and test_machine_placement_ui.gd through the existing bounded GUT runner. Raw focused/native/Main/parse/data/headless logs are copied into verification. Human acceptance and a future explicit commit remain outstanding. Suggested commit after review: feat: place owned machines with a mouse preview.
+
+### Phase6.5e verification continuation — official gate PASS (2026-11-04)
+
+Owner replied “oke tiếp tuc” to the proposed timing investigation. This continuation measured existing tests without modifying any runtime/test/runner/config/scene/asset file. It supersedes the earlier full-gate block above; the three timeout logs remain preserved. The only repository edits in this continuation are docs/PROGRESS.md, docs/API_INDEX.md, docs/DECISIONS.md and docs/ROADMAP.md. No new gameplay milestone, commit/push/staging or package installation.
+
+Read-only diagnostic method: run the existing six world/review tests with GUT's existing JUnit exporter; then run all95 scripts/359 tests under the unchanged180000ms helper, polling complete stdout lines every100ms from an external PowerShell monitor. The monitor, events.csv, scripts.csv and JUnit XML are outside the repository in verification/profile-continuation. Finally run the unmodified official tools/run_tests.bat to verify the actual parse/data/headless/graphics/Main gate, rather than treating a profiling run as the official batch.
+
+Measured evidence:
+
+| Existing group | GUT time |
+|---|---:|
+| World presentation + historical review, standalone6/6 | 1.895s |
+| Inventory screen,6 tests | 29.800001s |
+| Crop repeat-harvest UI,4 tests | 11.362929s |
+| Isometric HUD,5 tests | 10.813311s |
+| Title layout,3 tests | 9.874854s |
+| Placement UI,3 tests | 5.076748s |
+| Complete profile run,359/359 | 172.945s |
+| Complete official run,359/359 | 173.546s |
+
+The profiling helper/monitor wall time was179.4s including startup, versus172.945s reported by GUT. The previous log stopping at world presentation did not demonstrate a world-test hang: all six remaining world/review checks pass separately, and all359 tests passed in each of the two complete continuation runs. Total accumulated graphics/fixture/capture cost leaves little margin against180s. Inventory is the largest measured group; its helper currently waits10 frames plus0.18s repeatedly and renders continuously. This identifies a potential future fixture optimization, not permission to edit that out-of-ALLOW_LIST test or proof that it explains all timing variation.
+
+No source fix was applied in this continuation, and no timeout/assertion/error gate changed. Two passing runs on the unchanged code establish that the gate can complete; they do not establish stable performance across machines/load. A future optimization of inventory/other fixtures needs a separate concrete scope preserving all native assertions/captures. Do not describe the timeout as permanently fixed or increase the bound. No further reruns are needed for this unchanged implementation after the official PASS.
+
+Real final official output (ANSI omitted, observed process exit0):
+
+~~~text
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.026s
+---- All tests passed! ----
+Complete graphics:
+Scripts              95
+Tests               359
+Passing Tests       359
+Asserts           18056
+Time            173.546s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Profile run also returned0 with95 scripts/359 passing tests/18056 assertions/172.945s. Standalone world/review returned0 with2 scripts/6 passing tests/629 assertions/1.895s. Final parse/data/headless/graphics/Main/profile logs have0 script/parse/failed-load/ERROR/failing-summary/orphan/leak matches; existing two Float/Int warnings and deliberate malformed-save/backend/missing legacy-art fixture warnings remain.
+
+Artifacts: D:/godot/game-godot-backups/phase-65e-20261104-174001/verification/profile-continuation contains world.xml, full.xml, timestamped events.csv, scripts.csv, the external profile_full.ps1, raw profiling logs and final official the_life_parse/validate/headless/gut/main logs. continuation-before preserves the four docs before this report; the parent verification/phase65e.patch remains the complete47-file Phase6.5e delta, with changed-files.txt/before/after/scope-audit.txt. Final scope audit still verifies1043 protected pending files byte-identical, outside-ALLOW_LIST hash/status changes0 and index clean. The approved47-file implementation and earlier clean screenshot matrix/manual instructions above are unchanged.
+
+Automation for Phase6.5e is now delivered. Human F5 acceptance and an explicitly requested future commit remain pending, so ROADMAP stays[~]. No editor/Inspector/Project Settings action is required beyond the F5 cases above. Suggested commit remains: feat: place owned machines with a mouse preview.
+
+## Approved continuation — Phase6.5d safe machine placement/job lifecycle (automation delivered; human F5 pending, 2026-11-04)
+
+Owner explicitly approved “Duyệt Phase6.5d, bắt đầu triển khai”. Source inspection found build commands delegated to placement state without consulting jobs keyed by cell. This slice connects those owners before exposing build UI. Backed up/hash-verified1073 pending files to D:/godot/game-godot-backups/phase-65d-20261104-153431 before implementation (working-tree, files.csv, HEAD/status/binary patch). Phase6.5c automation342/342 remains delivered, human F5 pending; no commit/push authorized.
+
+### MILESTONE / TASK
+
+Phase6.5d is a safety subtask of the existing6.3–6.5 production loop. Connect the build-command facade to the existing operation owner. Proposed rule: a machine with working progress or buffered output cannot be moved or returned to storage; collect its output first. A valid idle machine may move/return normally; successful edits remove only its empty idle job row so old cells cannot later expose stale processing state. Rotation remains the existing saved logical metadata and may preserve an active job in place; it must not change its recipe/days/buffer. No directional artwork is implied. New placement may not silently attach an orphan active/buffered job at its target cell.
+
+Extend the existing MachineBuildService.configure contract to accept the actual MachineOperationService dependency and wire it in Main after both owners exist. Keep method names/place/rotate/move/remove result shape, and update every known internal configure call (Main and test_machine_placement fixture). An unconfigured facade must fail closed; do not retain a silent runtime path that bypasses job checks. Add narrowly named operation preview/empty-idle-job cleanup methods, documenting their exact public signatures before implementation. Existing low-level MachinePlacementState primitives remain unchanged for codec/unit use; runtime VIEW commands must use the connected facade.
+
+Proposed explicit APIs: MachineBuildService.configure(state: MachinePlacementState, operations: MachineOperationService) -> void; MachineOperationService.can_edit_placement(cell: Vector2i, require_idle: bool = true) -> Dictionary (read-only identity/job/collection-guard preview); forget_idle_job(cell: Vector2i) -> Dictionary (only a valid empty idle row, guarded, never active output). These are approved-target additions/signature changes only after owner approval, not claims about current APIs. The facade checks source/target before mutation and invokes cleanup only after a successful edit; no deletion is allowed as a failed-edit side effect.
+
+### ACCEPTANCE / assumptions / risks
+
+- Working/blocked/buffered source move/remove returns an explicit existing busy/invalid-state reason and preserves placement/occupancy/owned machine count, job data, bag, wallet and day. No refund/reward/input return/automatic collection.
+- Idle move/return uses existing placement rules and counts. Clear an empty idle job only after successful placement mutation; failed locked/occupied/invalid target/rotation or missing ownership preserves all existing job and placement state. Same-cell move has an explicit tested outcome under existing placement semantics.
+- Rotation changes only saved rotation, preserving active progress/output exactly; all current sprites keep their supplied direction. No new footprint/balance data.
+- Target cells with orphan active/buffered/corrupt jobs are rejected without erasing/reassigning those jobs. Valid empty idle rows may be cleaned only on a successful edit. No opportunistic save-load repair or deletion of old production output.
+- Respect the existing transient collection guard even while collection has reserved/cleared its buffer. A build request reentered from inventory callbacks must not mutate placements mid-transfer. Duplicate remove never returns a second owned machine; re-placement at an old cell cannot replay a prior job/payout.
+- Preserve MachineState/job/placement/inventory payload shapes, version8 and v1-v8 goldens. Save/load before and after valid edits retains actual rotation/cell/ownership and no stale empty job; active jobs remain unchanged. No migration/new save field or new persistent owner.
+- Main change is initializer wiring only. Keep Player/camera/reach/modal/sleep/day simulation, machine UI/public adapter/debug-only access/exact Ctrl+M/E and all crop/machine/recipe/resource values unchanged. Existing safe Collect still transfers once and the current test-placement UI continues using the connected facade.
+- Preserve all existing placement/operation/collection/purchase/Player assertions, adapting only the placement fixture to the explicit dependency contract. New tests cover idle/working/ready, blocked/invalid target, same-cell move, rotation, removal/re-placement, save/load, orphan buffers, collection callback reentry and actual Main wiring. Run parse/data/focused/headless/full renderer/main with current180s bound/error gates; report real output. Latest complete renderer baseline171.685s; do not skip/relax tests or increase bounds.
+- Backup current pending tree before implementation and audit protected hashes/status afterward. The large uncommitted owner tree must not be reset/staged/committed by this scope. Human F5 acceptance is still separate. No source changes have been authorized merely by writing this proposal.
+
+### Approved Phase6.5d ALLOW_LIST
+
+Existing files:
+
+~~~text
+scripts/domain/building/machine_build_service.gd
+scripts/domain/production/machine_operation_service.gd
+scripts/view/main.gd
+tests/unit/test_machine_placement.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+New files (named .gd permits its generated .gd.uid):
+
+~~~text
+tests/unit/test_machine_build_lifecycle.gd
+~~~
+
+READ-ONLY CONTEXT: AGENTS/PROJECT_RULES/PROGRESS/ROADMAP/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/CODE_PATTERNS; existing machine_shop/gray_box_world/player contracts; machine inventory/placement/build/operation/state/collection APIs and fixtures; Main initializer/save/load/day wiring; actual current UI and all golden saves. Credits/assets are unchanged because this domain slice adds no asset or new visual usage.
+
+DO NOT TOUCH: everything else, especially MachinePlacementState/OccupancyMap/MachineState/InventoryState/SaveService, other core/domain sources, all existing and new .tscn, Player/camera/world/UI scripts/resources, assets/Theme/fonts, machine/crop/recipe/parcel data, InputMap/project.godot/goldens/tools. No move/remove/ghost/new placement UI, parcel expansion, house/economy/balance system or new input action. Mouse placement/build UI remains a later separately approved slice after this safety boundary.
+
+After approval: backup/hash pending files; record D65/roadmap/API contract; implement connected facade and guarded idle-job lifecycle; wire Main and adapt placement fixture; add meaningful regressions; run/render required gates sequentially; update memory with exact files/diff/logs/manual checks. No commit/push included. Proposed commit for later review: fix: protect machine jobs during placement changes.
+
+### Phase6.5d delivery / verification
+
+Implemented the approved domain safety boundary. MachineBuildService is70 lines, MachineOperationService187 lines and the new lifecycle test240 lines. Build now requires the operation dependency and Main configures it after the operation owner exists. Runtime place/move/remove preview before editing, reject active/buffered/orphan/corrupt jobs and clean only validated empty idle rows after successful edits. A cleanup rejection restores placement, stock and job snapshots; failure never grants/refunds coins or items. Rotation and same-cell move preserve the complete job, including active progress/output. Collection guard rejects all edits/cleanup in the reserved-idle callback interval.
+
+Same-cell move intentionally retains existing rotate-in-place semantics; it does not relocate a machine. Valid empty destination rows can belong to old equipment, so cleanup validates emptiness independently of the already-updated placement identity. Active/orphan/buffered rows are never adopted or deleted. No new UI action/control, scene, footprint, price, recipe, data, day path, save field/version or persistent state owner. Low-level placement remains for codec/unit use; runtime requests use Main's connected facade.
+
+Exact files:11 modified existing files,2 created (13 total), compared with the pre-task pending tree:
+
+~~~text
+scripts/domain/building/machine_build_service.gd
+scripts/domain/production/machine_operation_service.gd
+scripts/view/main.gd
+tests/unit/test_machine_placement.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/machine_shop.md
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_build_lifecycle.gd.uid
+~~~
+
+Backup: D:/godot/game-godot-backups/phase-65d-20261104-153431 (1073 copied/SHA256-verified pending files, original HEAD/status/binary patch). Its verification/ folder contains phase65d.patch (clear full diff), changed-files.txt, scope-audit.txt, before/after normalized text, raw logs and verification.txt. Final audit:1062 protected pending files byte-identical, outside-ALLOW_LIST hash/status changes0, staged changes0; git apply --reverse --check passes. Main's entire text matches the original with only the approved initializer wiring substitution. The placement fixture differs only in the operation dependency setup; every original assertion is preserved. No reset/owner-file cleanup/commit/push.
+
+Acceptance evidence:9 new lifecycle tests cover unconfigured fail-closed services, read-only preview, idle source/destination cleanup, duplicate return/re-placement without replay, working/ready busy rejection, active/idle same-cell rotation semantics, locked/occupied/invalid targets and absent stock preserving all owners, orphan/dirty/unknown/mismatched jobs retained, cleanup rollback after both stock changes and partial row cleanup, six build/cleanup requests reentered during reserved collection, real SaveService v8 round trips and real Main wiring alongside Player. Original placement/collection/UI/Player/crop/save assertions remain; full suite adds9 tests/170 assertions to the prior342/17608.
+
+Real final output (ANSI omitted; Godot4.7.2/GUT9.7.1, sequential isolated TEMP APPDATA):
+
+~~~text
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.043s
+---- All tests passed! ----
+Complete graphics suite:
+Scripts              93
+Tests               351
+Passing Tests       351
+Asserts           17778
+Time              172.566s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+
+Focused lifecycle/placement/collection/operation/UI/Player/camera/crop/isometric/save:
+Scripts              12
+Tests                71
+Passing Tests        71
+Asserts            2916
+Time              9.262s
+---- All tests passed! ----
+
+Initial lifecycle + placement + collection:
+Scripts               3
+Tests                28
+Passing Tests        28
+Asserts             348
+Time              1.117s
+---- All tests passed! ----
+~~~
+
+Final parse/data/headless/graphics/main/focused/import logs have no script/parse/failed-load/ERROR/failing-summary or orphan/leak warning matches. Orphan warning scans distinguish warning/summary fields from the new test name test_orphan_and_corrupt_target_jobs_are_preserved_not_adopted. Existing two Float/Int JSON warnings and deliberately malformed-save/missing-art/backend-rejection fixture warnings remain. Editor import returned0 and generated the test UID, with the existing duplicate source-asset UID warnings only. No test was skipped/weakened; no timeout/error gate changed. The full351-test suite passed within the existing180s bound on the first6.5d run.
+
+Manual editor steps: none (no scene/Inspector/InputMap changes). Run .\tools\run_tests.bat to reproduce the full checks. The new specific suite is res://tests/unit/test_machine_build_lifecycle.gd via the existing bounded GUT runner; it exercises domain move/return/rotation because those controls remain outside the current UI. F5/New Game or Continue: confirm Player movement/modal locks, existing Ctrl+M/E machine shop, purchase/test placement, real Start/completed-day/Collect and save/load still work. No new move/remove/build buttons are claimed. Human F5 acceptance stays pending.
+
+Known limits/assumptions: this is a domain boundary, not completion of mouse/ghost/build UI. Production callers must supply the actual operation owner and use the facade; codec/unit primitives intentionally do not enforce job rules. Current source/target edits use existing1x1 footprint/locked-cell/rotation rules and the current parcel Resource. Logical rotation does not introduce new sprite directions. Busy machines must finish and be collected before a different-cell move/return; legacy orphan/corrupt output remains retained for explicit future recovery rather than automatic repair. No balance/save-format/Player/UI rollback occurred.
+
+Proposed commit (not executed): fix: protect machine jobs during placement changes
+
+## Approved continuation — Phase6.5c modular machine UI from reference10 (automation/render review delivered; human F5 pending, 2026-11-04)
+
+Owner explicitly approved “Duyệt Phase6.5c, bắt đầu triển khai”. Read the current rules/APIs/architecture, machine-shop contract and supplied reference10-cua-hang.png. Phase6.5b's domain transfer is verified; this slice completes the existing machine presentation before opening another production system. Backed up/hash-verified1047 pending files to D:/godot/game-godot-backups/phase-65c-20261104-143953 before implementation (working-tree, files.csv, HEAD/status/binary patch). No commit/push is authorized.
+
+### MILESTONE / TASK
+
+Phase6.5c, an additive presentation subtask under the existing6.4–6.5 production loop. Rebuild MachineShopPanel as a compatible adapter over small typed UI components, using reference10's banner, wood/paper frame, left preview, scrollable right catalogue and fixed wallet/result/action footer. Reuse the existing shared Theme and available machine artwork; do not use the mockup as a texture. This machine shop has no registered merchant profile, so show the selected machine and real recipe information in the left column rather than inventing Cô Hoa/friendship/dialogue. Existing seed shop is separate and unchanged.
+
+Shop mode lists the seven MachineShopData IDs with actual MachineData prices/house requirements, owned counts and registered recipe outputs. Select a row, purchase one machine through the unchanged MachineShopService and retain the existing clearly labelled test-placement command. Operation mode preserves open_machine(cell), shows the selected placement's real job/remaining days/buffer, actual recipe inputs/output/duration, Start and the Phase6.5b safe Collect request. Only existing supported requests are wired. Selling/buyback, house upgrades, batch cart/discounts and ghost/move/rotate/remove UI remain unavailable; no speculative values or bindings from the mockup.
+
+Add vi/en values for the seven already-existing MACHINE_*_NAME keys (proposed names: Bếp/Stove, Cối xay/Mill, Máy ép/Press, Thùng muối/Pickling barrel, Lò nướng/Oven, Máy sấy/Dryer, Máy rang/Roaster), plus UI labels/reasons. Purchase/Start/Collect must show actual service outcomes, including insufficient funds, house requirement, missing input, busy job and full bag. Use the existing test UI's house_level1 explicitly; there is no implemented house-level owner to substitute. Refresh the existing world machine view after successful Start/Collect via its documented refresh() API.
+
+### ACCEPTANCE / assumptions / risks
+
+- Small scripts/scenes with one responsibility, typed references/signals and a target of250 lines/script. Public configure(main), open(), open_machine(cell), close() and Main's machine_shop_panel stay compatible. Snapshot/presenter/controller own only transient selection/mode/focus/formatting; existing domain owners keep every transaction/job.
+- Reference10 structure is recognizable: centered wide frame, banner/close, left selected-machine preview, right scroll list, clear selection/locked/disabled states and fixed footer. Use actual manifest artwork or the existing placeholder, never an invented art path or mockup texture. Preserve real labels and readable Vietnamese; long names/results wrap without pushing actions offscreen.
+- Exact seven machine IDs, prices, house requirements, recipes, inputs/outputs/durations, processed-item values and save-v8 payloads stay unchanged. Buy one per request, place through the existing test command, Start through MachineOperationService, Collect through collect_output_to_inventory only. A failed request preserves all owners and displays its actual reason; UI cannot grant items/coins, simulate days or pretend unavailable features work.
+- Keep debug-only construction/exact Ctrl+M, existing nearby shop E and placed-machine selection/E, Player reach and modal/sleep/day-end priority. UiCoordinator remains the only modal/clock authority. No InputMap/new shortcuts; native mouse, focus navigation/accept and Escape operate the real Controls before world input. Do not bind the mockup's Tab/WASD quantity controls.
+- Deferred/coalesced owner/locale refresh retains valid selected ID/cell/scroll/focus; new-game/load/close cannot retain an invalid operation selection. No row recreation inside its native emitting callback. Repeated/hidden/stale actions cannot double-grant or bypass domain validation. Original purchase/collection/Player regression assertions remain meaningful when adapted to the new view structure.
+- Verify shop/operation, purchase rejection/success, idle/working/ready, full bag/free-space/one-time collection, locale changes and long text at1152x648,1280x720,1920x1080. Preserve Player/camera/crop/machine/save regressions. Run parse/data/focused/headless/complete renderer/main with current180s bound/error gates, inspect clean captures, report actual output. Do not skip/relax tests or silently extend the bound; final6.5b renderer time was172.151s, so fixture/render cost is a material risk.
+- Save all existing pending work before implementation and audit protected files afterward. The repository contains substantial owner work; this scope does not authorize staging/committing/resetting that work. Human editor acceptance of6.5b is still pending; “continue” is not evidence of an F5 playtest. No new dependencies, Theme assets/fonts or scene edits outside the list below.
+
+### Approved Phase6.5c ALLOW_LIST
+
+Existing files to modify only as needed:
+
+~~~text
+scripts/view/machine_shop_panel.gd
+scripts/view/ui_layout.gd
+scripts/view/ui_coordinator.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_machine_shop.gd
+tests/unit/test_player_restoration.gd
+tests/unit/test_ui_layout.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+New files (each named .gd permits its generated .gd.uid):
+
+~~~text
+ui/machine/machine_screen.gd
+ui/machine/machine_screen.tscn
+ui/machine/machine_catalog.gd
+ui/machine/machine_catalog.tscn
+ui/machine/machine_card.gd
+ui/machine/machine_card.tscn
+ui/machine/machine_details.gd
+ui/machine/machine_details.tscn
+ui/machine/machine_footer.gd
+ui/machine/machine_footer.tscn
+ui/machine/machine_snapshot.gd
+ui/machine/machine_presenter.gd
+ui/machine/machine_controller.gd
+tests/unit/test_machine_screen.gd
+~~~
+
+READ-ONLY CONTEXT: AGENTS/PROJECT_RULES/API_INDEX/ARCHITECTURE/PROGRESS/ROADMAP/DECISIONS/DATA_SCHEMA/CODE_PATTERNS/STYLE_GUIDE/INPUT_MAP; SCENE_CONTRACTS/{machine_shop,gray_box_world,player,ui_components}; reference10; existing shared Theme/components and analogous modular inventory/quest/pause views; MachineShopData/MachineData/RecipeData/registry, machine inventory/placement/build/operation/shop service APIs, actual manifest/art, Main/UiCoordinator lifecycle and existing tests. Main has no standalone main.md contract; its unchanged machine adapter/parent boundary is documented in the existing machine_shop contract, which this scope extends. New scene trees/typed contracts will be documented before implementation after approval; any names above are proposed new files, not claims of existing APIs. Credits updates may clarify reuse in existing asset rows only; no new outside asset/license claim is authorized.
+
+DO NOT TOUCH: everything else, including all existing .tscn, Player/camera/world/Main/domain/core/data/save/goldens, machine/crop/recipe Resources, assets, shared Theme/fonts, project.godot/InputMap and tools/test bounds. No registry/data-schema change is required. If an additional file is needed, stop for an exact extension.
+
+Order after approval: backup pending tree; record D64/roadmap subtask and detailed scene contract; build the small Theme-based components and read-only snapshot/presenter; wire existing requests through the controller/compatible adapter and centered modal/native-input handling; preserve/adapt integration assertions; run focused and full checks/capture review; update docs with exact files/diff/logs/manual steps. No commit/push included. Proposed implementation commit for later review: feat: add modular machine shop and operation UI.
+
+### Phase6.5c delivery / verification
+
+Implemented the approved modular VIEW slice. Existing MachineShopPanel is now a56-line compatible adapter; eight new UI scripts are32–144 lines each, with five minimal script-root scenes. Public Main/world calls remain unchanged. The reference10 composition uses the common Theme, red banner, left actual machine/recipe preview, selectable right catalogue with independent scrolling and fixed wallet/result/actions. No fictitious merchant/cart/discount/house data was added. Seven existing machine-name keys resolve in vi/en. Buy/Start/Collect/explicit test placement reflect real requirements and outcomes; Sell/Buyback stay unavailable.
+
+Controller selection/result/mode are transient. Owner/locale changes queue display after native callbacks, catalogue rows are reused, valid scroll/focus remain, disabled focus falls back to Close. Hidden/inactive/mismatched/reentrant/wrong-mode requests do nothing. A fresh Start preview blocks known missing-input/house/busy failures without creating an empty low-level job; actual starts remain authorized by the unchanged service. Successful Start/Collect/place refresh the existing world machine sprites. Actual wallet load/new-game resets/closes transient operation mode; invalid placements close it too. UiLayout centers the machine panel in the existing wide bounds and excludes it from legacy restyling; UiCoordinator permits native Tab/Space/Enter/navigation before overlapping world actions and keeps modal/clock/Player/day-end/sleep authority.
+
+Exact changed files:14 existing modified,23 new (37 total), relative to the pre-task working tree. Three previously clean tracked files (ui_layout.gd, test_ui_layout.gd, docs/CREDITS.md) use their HEAD contents as review baselines; the other11 existing changes are compared with original pending bytes. Existing test_machine_shop assertions remain and now additionally check the real buffered output above the fold; test_player_restoration.gd was permitted but left byte-identical.
+
+~~~text
+scripts/view/machine_shop_panel.gd
+scripts/view/ui_layout.gd
+scripts/view/ui_coordinator.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_ui_layout.gd
+tests/unit/test_machine_shop.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+docs/CREDITS.md
+docs/SCENE_CONTRACTS/machine_shop.md
+ui/machine/machine_screen.gd
+ui/machine/machine_screen.gd.uid
+ui/machine/machine_screen.tscn
+ui/machine/machine_catalog.gd
+ui/machine/machine_catalog.gd.uid
+ui/machine/machine_catalog.tscn
+ui/machine/machine_card.gd
+ui/machine/machine_card.gd.uid
+ui/machine/machine_card.tscn
+ui/machine/machine_details.gd
+ui/machine/machine_details.gd.uid
+ui/machine/machine_details.tscn
+ui/machine/machine_footer.gd
+ui/machine/machine_footer.gd.uid
+ui/machine/machine_footer.tscn
+ui/machine/machine_snapshot.gd
+ui/machine/machine_snapshot.gd.uid
+ui/machine/machine_presenter.gd
+ui/machine/machine_presenter.gd.uid
+ui/machine/machine_controller.gd
+ui/machine/machine_controller.gd.uid
+tests/unit/test_machine_screen.gd
+tests/unit/test_machine_screen.gd.uid
+~~~
+
+Acceptance evidence: native mouse/Space/Enter select, buy one despite wallet callback reentry, place through the existing test command, open the placed cell, reject missing inputs without any owner mutation, start using actual inputs/duration, display actual working sprite, save/load/reset UI, collect once and display idle sprite. Existing collection integration still covers full bag/free-space/duplicate/feedback and bag metadata across vi/en/three sizes. New read-only layout tests cover all seven rows, locked/owned/affordable states, real artwork, scroll/focus retention, locale, long text, Tab precedence and preserved day/coins/items/farm/jobs. The existing all-modal test now includes this machine panel without weakening prior assertions.
+
+Clean renderer produced34 screenshots (15 new shop/locked/long/working and19 existing collection/bag regression captures), copied before the full suite could overwrite user:// images. Review artefacts: D:/godot/game-godot-backups/phase-65c-20261104-143953/verification, including phase65c.patch, changed-files.txt, scope-audit.txt, before/after snapshots, clean PNGs/contact sheets and raw logs/verification.txt. Original backup has1047 pending files, original status/HEAD/binary patch and SHA256 manifest. Final protected audit:1035 pending files outside ALLOW_LIST are byte-identical; outside-scope hash/status changes0; index unstaged. Existing .tscn/Player/camera/world/Main/domain/core/data/assets/Theme/InputMap/SaveService/goldens/tools are unchanged. Reverse patch validation passes. No commit/push/reset/cleanup of owner files.
+
+Real final output (ANSI omitted; Godot4.7.2/GUT9.7.1, sequential tests, isolated TEMP APPDATA):
+
+~~~text
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.138s
+---- All tests passed! ----
+Complete graphics suite:
+Scripts              92
+Tests               342
+Passing Tests       342
+Asserts           17608
+Time              171.685s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+
+Focused machine/UI/Player/camera/collection/placement/crop-care/isometric/save:
+Scripts              11
+Tests                62
+Passing Tests        62
+Asserts            2746
+Time              9.163s
+---- All tests passed! ----
+
+Clean machine UI renderer:
+Scripts               2
+Tests                10
+Passing Tests        10
+Asserts             830
+Time              6.119s
+---- All tests passed! ----
+~~~
+
+Final parse/data/headless/graphics/main/focused/UI/import logs have no SCRIPT ERROR/Parse Error/failed-load/ERROR/failing-summary/orphan/leak matches. Existing Float/Int JSON comparison and malformed-save/missing-art/backend-rejection fixture warnings remain; headless editor import reports existing duplicate source-asset UIDs. The first import caught a new TextureRect variable colliding with native Button.icon; renamed that new component field to image before testing. Screenshot review caught literal escaped recipe line breaks and insufficient wallet contrast; normalized display line breaks and reused the existing caption plate. The first complete run passed342/342 in171.397s (preserved as first_full_pass.stdout/.stderr). Final image review then moved the actual buffered output above long detail text at1152x648 and added a bounds assertion to the preserved collection test. The final complete run passed342/342 in171.685s under the same180s bound. No domain fix, skipped test, relaxed assertion, new timeout or gate change was needed.
+
+Manual editor steps: none; the five approved new scenes are instantiated by the existing adapter. Let Godot rescan/import, then F5/New Game or Continue. At the existing machine-shop marker press E, or use exact Ctrl+M in the debug build. Select all seven machines, check names/prices/owned/house-level1 lock reasons, buy an affordable machine and use clearly labelled test placement. Select its world cell and E (or its placed entry in the shop), inspect real recipe inputs/output/days, Start and wait the actual completed game days. Collect, fill/free the bag, retry, inspect Bag and save/load before/after. Check native Tab/Space/Enter/Escape, Player lock/release, vi/en and three viewport sizes. Run .\tools\run_tests.bat sequentially to reproduce automation.
+
+Known limits/assumptions: the existing debug-only test shop/access and test house_level1 are retained; higher-house machines remain locked, purchase is one unit and placement uses the existing test area. Sell/Buyback/upgrade/batch/ghost/move/rotate/remove controls are not implemented. Left preview uses actual equipment rather than a nonexistent merchant. Small viewports intentionally scroll long detail/catalogue content while actions remain fixed. Final product icons/prices remain D63 placeholders. Automated/render acceptance is delivered; human F5 acceptance remains pending and no milestone is marked fully done on the owner's behalf.
+
+Proposed commit (not executed): feat: add modular machine shop and operation UI
+
+## Approved continuation — Phase 6.5b safe machine-output collection (automation/render review delivered; human F5 pending, 2026-11-04)
+
+Owner approved “Duyệt Phase 6.5b, bắt đầu triển khai”. Continue the existing6.4–6.5 machine loop with Player retained. Inspection found MachineShopPanel._collect discards raw take_output's result while clearing the buffer, and seven existing recipe outputs are unregistered ItemData. The scope below fixes that gap; no commit/push is authorized. Pending work was copied/hash-verified before edits; backup location is recorded in the handoff. D62 Player/crop/machine restoration remains in force; human F5 acceptance pending.
+
+### MILESTONE / TASK / ACCEPTANCE
+
+Approved Phase6.5b — complete safe pickup into the existing bag before opening another production system. D63, the roadmap subtask and machine-shop scene contract record this scope; keep Player/D62, crop/machine data, camera, all existing scenes and current debug-shop access.
+
+- Register seven ItemData Resources using the EXACT output IDs already referenced by the existing recipes: temp_carrot_meal, temp_wheat_flour, temp_roasted_coffee, temp_corn_bread, temp_dried_chili, temp_pickled_cabbage, temp_orange_juice. No ID/recipe/input/duration/output-quantity rename/change. Proposed visible labels: Món cà rốt/Bột mì/Cà phê rang/Bánh ngô/Ớt khô/Bắp cải muối/Nước cam, with vi/en keys and a shared processed-item description. Keep the existing ItemData defaults max_stack99, category other, buy_price0/sell_price0; these temporary internal IDs remain stable for save compatibility. No economy/reward/XP/stamina/edibility claim or trade prices. Use existing generic icon fallback while final product art is unavailable, no new art/path invention.
+- Add a domain-owned collect_output_to_inventory(cell) request to MachineOperationService. Validate actual placement/job/output, registered item and exact inventory capacity; add the entire buffered quantity once and clear the machine output only as part of a successful transfer. Unknown item/full bag/no output/invalid machine returns an explicit localized reason and preserves inventory, machine state and coins. Prevent duplicate/reentrant collection through a transient guard, including callbacks emitted during inventory changes; keep serialize/deserialize and all existing public start/advance_day/take_output APIs compatible.
+- Route the existing UI Thu button through that request, inspect actual results and show localized success/failure. Queue UI refresh after emitting Button callbacks; retain focus/selection/operation mode where valid. No UI-owned grants or new collection gameplay numbers. The current bag/detail/icon/category presentation should display the registered processed output through existing APIs.
+- Keep current machine shop purchase/test placement/recipe start/day progression and Player movement/modal/reach/save behavior. Show real buffered output/quantity/readiness; disabled Start/Collect reflect existing job state and current capacity. No lost output or false success when the bag is full; after space is freed the same output can be collected once.
+- Preserve existing machine/inventory/save payload shape/version8 and v1-v8 goldens; registering existing output IDs must allow bag contents and buffered jobs to survive save/load without reroll/payout replay. No new house level, cheat, input action, release-access change, shop price, ghost/build UI, parcel/animal/calendar or unrelated feature. Existing nearby machine selection/E and exact Ctrl+M debug access stay.
+- Add domain and native UI integration checks: successful all-or-nothing pickup, full bag/unknown item/no job/no output, duplicate/reentrant attempts, unchanged wallet, save/load before and after pickup, no extra day, current crop/machine/Player regressions. Verify all seven recipe outputs resolve to registered items and locale keys; keep existing tests/assertions intact. Parse/data/focused/full suite with existing180s bound/error gates; report actual output. Human playtest remains separate.
+
+### Approved Phase6.5b ALLOW_LIST
+
+Existing files:
+~~~text
+scripts/domain/production/machine_operation_service.gd
+scripts/core/data_registry.gd
+scripts/view/machine_shop_panel.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_machine_operation.gd
+tests/unit/test_machine_shop.gd
+tests/unit/test_player_restoration.gd
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/ROADMAP.md
+~~~
+
+New files (named .gd also permits matching .gd.uid):
+~~~text
+data/items/temp_carrot_meal.tres
+data/items/temp_wheat_flour.tres
+data/items/temp_roasted_coffee.tres
+data/items/temp_corn_bread.tres
+data/items/temp_dried_chili.tres
+data/items/temp_pickled_cabbage.tres
+data/items/temp_orange_juice.tres
+tests/unit/test_machine_collection.gd
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+READ-ONLY: AGENTS/PROJECT_RULES/API_INDEX/ARCHITECTURE/DECISIONS/DATA_SCHEMA/PROGRESS/ROADMAP; current inventory/ItemData/MachineState/recipe/save APIs and tests; D62 backup/Player/world contracts. Everything else is read-only, especially machine/crop/recipe Resources and domains, all .tscn, Player/camera/tool logic, art/Theme, InputMap/project.godot, SaveService/goldens and tools/gates. Ask for an exact extension if another file is required.
+
+Order: after approval, snapshot current pending work (do not reset/stage/commit), record contract/decision/subtask; add existing-ID item Resources/registry and atomic service request; wire actual UI results/deferred refresh; run meaningful tests/render verification; update APIs/memory with exact diff/logs/manual steps. No commit/push is included in this continuation authorization; propose a message after delivery.
+
+Risks: current raw take_output is a destructive low-level extraction used by existing tests/callers, so preserve its public behavior while moving the UI onto the safe transfer request. Inventory addition emits callbacks, requiring duplicate/reentry protection and no intermediate observable repeated reward. Unregistered temp outputs cannot be collected until the proposed ItemData exist. Proposed labels/zero trade values are interim presentation/data choices for owner approval, not final production economy. Full suite currently takes169.825s; keep bound/gates unchanged and do not skip tests to pass.
+
+### Phase6.5b delivery / review
+
+Implemented safe full-quantity transfer through MachineOperationService; the UI no longer discards raw extraction. Preview validates placement/job identity, ready state, registered item, exact recipe output and bag capacity. The command reserves the buffer before item callbacks, guards nested collect/start/raw extraction/day advancement and restores both snapshots on a rejected addition. Full/unknown/invalid/no-output failures preserve the output. Coins and save version8 remain unchanged. All seven real recipe outputs are registered/localized; current bag/detail/icon fallback displays them without new gameplay effects or trade prices.
+
+MachineShopPanel shows actual buffered item/count and success/failure, disables Collect with its real reason, refreshes when bag space changes and coalesces deferred rebuilds after native callbacks. Mode/cell remain stable; valid action focus survives, otherwise Close receives focus. No existing scene, Player/camera, crop/machine/recipe terms or other system was changed.
+
+Before editing, copied/hash-verified1037 pending files to `D:/godot/game-godot-backups/phase-65b-20261104-140747` (working-tree, files.csv, HEAD/status/binary patch). Review artifacts in its `verification/`: `phase65b.patch` (clear diff relative to the owner's pre-task tree), `changed-files.txt`, `scope-audit.txt`, before/after text snapshots, actual logs,19 clean PNGs and contact sheet. No staging/commit/push. Final reverse patch check passed;1023 protected pending files are byte-identical, outside-ALLOW_LIST hashes/status unchanged, index unstaged. Original .tscn/Player/camera/crops/machines/recipes/art/SaveService/goldens/tools remain untouched.
+
+Exact files relative to that backup:12 modified,10 created (22 total):
+
+~~~text
+scripts/core/data_registry.gd
+scripts/domain/production/machine_operation_service.gd
+scripts/view/machine_shop_panel.gd
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_machine_shop.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_machine_collection.gd.uid
+data/items/temp_carrot_meal.tres
+data/items/temp_wheat_flour.tres
+data/items/temp_roasted_coffee.tres
+data/items/temp_corn_bread.tres
+data/items/temp_dried_chili.tres
+data/items/temp_pickled_cabbage.tres
+data/items/temp_orange_juice.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/machine_shop.md
+~~~
+
+Acceptance coverage: all seven registered outputs collect using unchanged actual recipes; exact stack-capacity reuse; full bag/unknown item/corrupt quantity/mismatched machine/no job/missing placement preserve state; success and repeated/reentrant requests pay exactly once; rejected addition restores both snapshots; save/load before and after pickup does not replay. Native mouse integration covers vi/en at1152x648,1280x720,1920x1080, capacity feedback, freeing space, focus/cell retention, bag metadata, unchanged coins/day and Player locks. Original purchase/save tests remain intact. Clean renderer test passed8/8,375 assertions,3.292s; screenshots were inspected before the full run could overwrite user:// captures.
+
+First official run hit the unchanged180s renderer bound after individual script pass output, before the final summary: NOT counted as a pass. Preserved its logs as initial_full_timeout.stdout/.stderr. Optimized only the new integration fixture to draw its SubViewport on requested captures and wait two normal frames instead of four; all cases/assertions/captures remain, and renderer time dropped4.393s to3.292s. Second official run also timed out (second_full_timeout.stdout/.stderr), without assertion/script-error output. Inspection found stale headless GUT processes11616 (chibi_art_foundation,09:07) and30072 (entire graphics-dependent suite,06:41) waiting for rendering for hours. Verified exact headless GUT command lines/age and stopped only those test processes; the open Godot Editor18788 remains. No test skipped/weakened or timeout/error gate changed. The final official run passed within the same180s bound (172.151s GUT time); do not infer that process cleanup alone guarantees future timing.
+
+Real final output (ANSI omitted, Godot4.7.2/GUT9.7.1, isolated TEMP APPDATA):
+
+~~~text
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time              5.351s
+---- All tests passed! ----
+Complete graphics suite:
+Scripts              91
+Tests               340
+Passing Tests       340
+Asserts           16955
+Time              172.151s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+
+Final focused Player/camera/machine/shop/placement/crop-care/isometric/save:
+Scripts               9
+Tests                57
+Passing Tests        57
+Asserts             734
+Time              3.853s
+---- All tests passed! ----
+Clean UI renderer:
+Scripts               1
+Tests                 8
+Passing Tests         8
+Asserts             375
+Time              3.292s
+---- All tests passed! ----
+~~~
+
+Final parse/data/headless/graphics/main/focused/UI logs have no SCRIPT ERROR/Parse Error/failed-load/ERROR/failing-summary/orphan/leak matches. Two existing GUT Float/Int warnings come from machine inventory/placement JSON assertions; malformed-save, missing-art and deliberate backend-rejection warnings remain expected fixtures. Headless editor import returned0, generated the new test UID and reported existing duplicate imported-asset UIDs, without script errors. Logs/verification summary are preserved beside the patch.
+
+Manual editor steps: none (script-built existing panel, no .tscn/Inspector/InputMap changes). Run `.\tools\run_tests.bat` sequentially. In F5/New Game or Continue, use existing Ctrl+M or nearby marker/E, buy/place/start a machine with its actual required inputs and wait its real game days. Select the placed cell and E: check buffered name/count, collect, inspect Bag and try again. Fill the bag and verify output remains ready; free space then collect once. Save/load before and after, compare inventory/buffer/coins/day/Player cell; verify modal lock/release and both locales at the three sizes. Human F5 acceptance remains pending.
+
+Known limits: existing debug shop/house-level1 test placement access remains; this is safe collection, not a redesigned production/build/house system. Interim output IDs stay stable, product art uses existing icon fallback and prices stay zero. Existing machine Resources reference missing MACHINE_*_NAME translations (visible as raw machine-name keys in screenshots); that pre-existing naming gap is retained, while all new product/result keys resolve. Existing duplicate asset UID import warnings and fixture warnings are recorded with tests; source assets are preserved.
+
+Proposed commit (not executed): `fix: collect machine output into inventory exactly once`
+
+## Approved repair — restore Player, retain new crops and machines (2026-11-04)
+
+Owner explicitly chose: “Chỉ khôi phục nhân vật, giữ cây trồng và máy móc mới”. This supersedes the player-removal part of the manager-farm redesign below. Restore the prior HEAD Player scene/scripts/config/camera following, profile/appearance/Character tab and reach/modal/sleep/save-position wiring. Merge mixed files so the new crop data/art/shovel, machine inventory/build/operations/shop/presentation and save payload fields remain. No reset/clean/commit/push or unrelated rollback.
+
+Before editing, copied and SHA256-verified1048 changed/untracked existing files (3716871 bytes), saved HEAD/status/binary diff to D:/godot/game-godot-backups/restore-player-20261104-133043. Deleted paths remain recorded in status/diff; original bytes are recoverable from HEAD e713660. All supplied crop/machine assets and new domain/data files are protected by this backup manifest.
+
+Plan/ALLOW_LIST for this repair: docs/PROGRESS.md, docs/API_INDEX.md, docs/ARCHITECTURE.md, docs/DECISIONS.md, docs/SCENE_CONTRACTS/player.md, docs/SCENE_CONTRACTS/gray_box_world.md; scenes/player/player.tscn, scenes/world/gray_box_world.tscn; scripts/player/player.gd(.uid), scripts/player/player_config.gd(.uid); data/isometric_world_config.tres, scripts/data/isometric_world_config.gd, scripts/core/data_validator.gd (camera validator only); scripts/view/{main,gray_box_world,camera_rig,tool_action_controller,debug_menu,inventory_panel,tutorial_panel,seed_shop_panel,shipping_bin_panel,pause_menu,ui_coordinator,ui_layout,world_presentation,npc_system,machine_interaction_controller}.gd; ui/inventory/inventory_controller.gd; tests/unit/test_camera_rig.gd and new tests/unit/test_player_restoration.gd(.uid). All other current files remain read-only. Existing camera tests target the withdrawn manager behavior and will migrate to restored follow/zoom behavior without weakening crop/machine assertions.
+
+Acceptance: Player/appearance/movement/collision/child Camera2D and prior tool/NPC/shop/bed reach work; overlays/sleep lock and restore input; saved player cell/profile restore alongside unchanged machine fields; machine buy/place/start/collect and supplied crop rules/assets remain. Run parse/data, focused player/camera/crop/machine/UI/save integration and official suite where applicable; report actual output and pre-existing failures honestly. Human editor playtest stays pending. New owner request is approval for this concrete repair; do not ask again to undo the already-revoked removal.
+
+### D62 delivery / verification
+
+Implemented the approved selective restoration.34 files differ from the pre-repair tree:26 existing files changed,6 deleted Player files restored,2 regression-test files added. Exact files: data/isometric_world_config.tres; docs/{API_INDEX,ARCHITECTURE,DECISIONS,PROGRESS}.md; docs/SCENE_CONTRACTS/{gray_box_world,player}.md; scenes/{player/player,world/gray_box_world}.tscn; scripts/core/data_validator.gd (camera method only); scripts/data/isometric_world_config.gd; scripts/player/{player,player_config}.gd and matching .uid; scripts/view/{camera_rig,debug_menu,gray_box_world,inventory_panel,machine_interaction_controller,main,npc_system,pause_menu,seed_shop_panel,shipping_bin_panel,tool_action_controller,tutorial_panel,ui_coordinator,ui_layout,world_presentation}.gd; ui/inventory/inventory_controller.gd; tests/unit/test_camera_rig.gd; tests/unit/test_player_restoration.gd and matching .uid. This list is relative to the owner's pre-repair working tree, not a rollback of all changes from HEAD.
+
+Player appearance/Character tab/collision/movement/child-camera follow, reach and safe legacy position save/load work alongside machine ownership/placement/processing save data. Restore also retains the new machine shop's exact Ctrl+M routing/modal lock and gates machine interactions during sleep/overlays. Machine/seed-shop interaction radii overlap; choose the new machine shop only when it is closer, preserving both E interactions. Regression tests verify physical movement/locks, both shop markers, machine purchase/placement/recipe/save round trip and new perennial/shovel data.
+
+Verified988 crop/machine-related asset/data/domain/service files byte-identical to the backup; all non-camera DataValidator text also matches the pre-repair version after line-ending normalization. No crop/machine balance, state, recipe, shop, save-service or registry changes were undone. No reset/clean/commit/push; index remains unstaged. Full repair diff/manifest/logs/screenshot are in D:/godot/game-godot-backups/restore-player-20261104-133043/verification; original pending work is under its working-tree folder, with files.csv, working.patch and HEAD.txt.
+
+Real final output (ANSI omitted; Godot4.7.2/GUT9.7.1, isolated TEMP APPDATA):
+
+~~~text
+Focused Player/camera/machine/shop/placement/crop-care/isometric/save:
+Scripts               8
+Tests                47
+Passing Tests        47
+Asserts             260
+Time               2.932s
+---- All tests passed! ----
+
+tools/run_tests.bat:
+[check_parse] OK
+[validate_data] PASS
+Headless:
+Scripts              16
+Tests                63
+Passing Tests        63
+Asserts             880
+Time               5.32s
+---- All tests passed! ----
+Complete renderer suite:
+Scripts              90
+Tests               330
+Passing Tests       330
+Asserts           16462
+Time             169.825s
+---- All tests passed! ----
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Final focused/full/main logs have no SCRIPT ERROR/Parse Error/ERROR/failing-summary/orphan/leak matches; two existing GUT Float/Int warnings come from machine JSON assertions, plus expected malformed-save/missing-art warnings. Editor import reports existing duplicate asset UIDs between assets/tiles and supplied assets/the_life_assets/tiles; these source files are preserved. Early integration caught a restored appearance constant missing from mixed Main and an over-broad camera-validator extraction; fixed by restoring the actual constant and replacing the precisely anchored camera method from the backup. No tests/gates were suppressed or weakened. Retired manager-drag tests were replaced by three follow/zoom/lock/canvas tests for the explicitly restored camera contract.
+
+Manual: F5/New Game (or Continue), move with WASD/Shift, verify character appearance/Character tab, use tools near crops, and open seed shop/machine shop at their respective markers with E. Ctrl+M still opens the machine shop; buy/place/start/advance/collect through existing machine UI, then save/load and compare Player cell plus machine state. Confirm all modal/sleep movement locks. No extra Inspector/scene setup is required because the original Player scene was restored. Human editor playtest remains pending. Rerun with .\tools\run_tests.bat; run test processes sequentially to preserve isolated test saves.
+
+Proposed commit (not executed): fix: restore player while retaining crops and machines
+
+Last updated: 2026-11-04 (Player selectively restored under D62; new crop/machine work retained)
+
+Camera follow/zoom restoration: `tests/unit/test_camera_rig.gd` now checks the restored Player's child Camera2D, data bounds/offset, overlay zoom lock and actual world-canvas movement. The prior manager-drag test contract has been withdrawn by the owner.
+
+## Historical ISO-17 manager-farm redesign — superseded by D62
+
+Historical record only: owner explicitly revoked player removal; the selective Player restoration above is current. Crop and machine implementation records below remain applicable.
+
+Approved scope is now being implemented: player movement, player collision and character creation are removed; stamina remains a future data/domain contract. The manager camera uses bounded drag and Resource-owned zoom limits, and world actions select logical cells directly. Legacy save payloads may still contain `player`, but loading ignores that field.
+
+Implemented in this pass: player scene/scripts/contract removal, camera rig rewrite, direct tool/machine/NPC selection, debug-only exact Ctrl+M machine-shop opening, overlay camera lock, and documentation updates. Main scene headless startup and Godot parse validation pass. Full GUT migration is still pending because older player-authority tests must be removed or rewritten.
+
+## Proposed task — Phase 6.4 machine shop and operation UI
+
+The owner requested a playable test for buying machines and operating them. The current project has a dynamic script-built seed-shop panel and an `interact` route, but no machine-shop scene contract, machine marker, or machine renderer. The proposed implementation keeps the approved DATA → DOMAIN → VIEW boundary and does not edit `.tscn` files.
+
+### Phase 6.4 ALLOW_LIST
+
+~~~text
+scripts/view/machine_shop_panel.gd
+scripts/view/gray_box_world.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/domain/production/machine_operation_service.gd
+scripts/core/data_registry.gd
+scripts/core/save_service.gd
+scripts/domain/production/machine_placement_state.gd
+tests/unit/test_machine_operation.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Phase 6.4 acceptance
+
+- A player can open a machine shop through the existing `interact` path without a new input action.
+- The shop lists all seven existing machine resources, uses their data-owned price and house unlock level, and delegates purchases to `MachineShopService`.
+- Purchase failures show explicit localized feedback and do not mutate coins or inventory.
+- A purchased machine can be selected from machine inventory and placed through the existing build-domain commands; no machine, price or recipe data is added.
+- A placed machine can be interacted with using `interact`, start an existing compatible recipe only when inputs and house level are valid, advance by completed game days, and collect the buffered output.
+- UI remains view-only; `MachineState`, `MachineInventory`, `MachinePlacementState` and existing save flow remain authoritative.
+- No `.tscn` edit, new input binding, ghost preview, directional sprite or final processed-item data is added.
+
+### Open implementation assumption
+
+Because no machine shop or machine scene contract exists, this first playable test uses a script-built Control panel and a marker created by `GrayBoxWorld`. A dedicated scene and polished machine rendering remain a later approved task.
+
+### Phase 6.4 verification record
+
+- Machine operation suite: **3/3 tests, 12 asserts, PASS**.
+- Machine Shop + Machine State + Placement regression: **24/24 tests, 120 asserts, PASS**.
+- Parse check: **PASS**.
+- Data validator: **PASS**.
+- Main headless startup: **PASS**.
+- `git diff --check`: **PASS**.
+- The first UI exposes shop purchase, test placement, recipe start and output collection in one script-built panel. A dedicated world machine marker/interaction flow and rendered machine sprites remain deferred; no claim is made that those are complete.
+
+## Phase 6.5 approved plan — direct machine interaction and presentation
+
+The owner approved direct mouse-cell machine selection and manifest-driven machine sprites. The implementation will add a view controller that converts the existing world mouse picking to a logical cell, a machine presentation that reads the supplied machine manifest/pivot, and a focused operation panel opened with the existing `interact` action. Domain ownership remains in `MachinePlacementState` and `MachineOperationService`; no new input action or `.tscn` edit is allowed.
+
+### Phase 6.5 ALLOW_LIST
+
+~~~text
+scripts/view/machine_interaction_controller.gd
+scripts/view/machine_presentation.gd
+scripts/view/gray_box_world.gd
+scripts/view/main.gd
+scripts/view/ui_coordinator.gd
+scripts/view/machine_shop_panel.gd
+tests/unit/test_machine_presentation.gd
+tests/unit/test_machine_interaction.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Phase 6.5 acceptance
+
+- Mouse cell picking selects only an existing placed machine; no pixel position becomes domain state.
+- Pressing existing `interact` opens operation controls for the selected machine; no new input action is added.
+- Machine sprites use the supplied manifest file and pivot/canvas data; missing art remains non-fatal.
+- Start/collect delegates to `MachineOperationService`; UI owns no machine state.
+- Existing shop purchase, placement, save/load and machine tests remain passing.
+- No `.tscn`, recipe, price, machine, ghost-preview or directional-rotation changes are added.
+
+### Phase 6.5 verification record
+
+- Machine manifest/presentation suite: **2/2 tests, PASS**.
+- Focused machine operation/shop/state/placement suite: **29/29 tests, 167 asserts, PASS**.
+- Parse and data validation: **PASS**.
+- Manual editor playtest remains required: buy a machine, place it, move the mouse over its cell, press E, start a recipe, advance a day, and collect output.
+
+Phase 6.5 implementation is complete for automated acceptance; its manual editor playtest remains pending. No new machine work will be started while the approved architecture redesign below is awaiting approval.
+
+## Proposed architecture redesign — manager-style farming and camera (planning only)
+
+The owner requested a direction change from a player-controlled farming game to a manager-style farm view. This section is intentionally planning-only: no code, scene, InputMap, roadmap, decision or API file has been changed for the redesign. The existing player-based runtime remains unchanged until this plan is approved and the current Phase 6.5 manual playtest is accepted or explicitly waived.
+
+### Proposed milestone sequence
+
+1. **DESIGN-1 — Remove player authority and migrate direct-cell interactions**
+   - Remove the active player node/scripts and player movement/collision/WASD/Shift paths.
+   - Keep old save payloads readable by ignoring the legacy `player` field during load.
+   - Replace reach/player-dependent interaction with mouse/touch cell/object selection.
+   - Replace `[E]` prompts with click/tap guidance.
+   - Remove the character-creation flow and update the Character screen contract after the owner answers the two open questions below.
+2. **DESIGN-2 — Manager camera**
+   - Add Resource-owned camera limits and zoom values: proposed min `0.35`, max `1.0`, default `0.5`.
+   - Add mouse/touch drag with a minimum drag threshold, bounded map clamping, smoothing and cursor-cell preservation during zoom.
+   - Add wheel and pinch zoom; optionally support WASD/arrow camera movement only after the owner confirms the proposal.
+   - Block camera drag/zoom while an overlay is active.
+3. **DESIGN-3 — Debug-only Ctrl+M machine shop**
+   - Add an exact-match Ctrl+M debug action distinct from plain M.
+   - Add a debug-only machine shop panel with the seven existing machines, real prices/house requirements/inventory counts and real `MachineShopService` purchase calls.
+   - Add debug-only +1000 coins and house-level 1/2/3 controls; no release node or shortcut.
+4. **DESIGN-4 — Verification and documentation**
+   - Add GUT coverage for camera bounds/zoom/drag threshold, direct-cell interactions, exact Ctrl+M matching and legacy player-save loading.
+   - Update architecture, decisions, roadmap and API documentation only after implementation scope is approved.
+
+### Proposed redesign ALLOW_LIST — waiting for approval
+
+~~~text
+scripts/player/player.gd                         # delete
+scripts/player/player_config.gd                   # delete
+scripts/player/player.gd.uid                      # delete
+scripts/player/player_config.gd.uid               # delete
+scenes/player/player.tscn                         # delete
+docs/SCENE_CONTRACTS/player.md                   # delete or archive per owner decision
+data/player_2d_config.tres                        # remove only if no remaining runtime consumer
+scripts/data/isometric_world_config.gd             # camera Resource fields
+data/isometric_world_config.tres                   # camera limits/zoom data
+scripts/view/camera_rig.gd                         # manager camera drag/zoom/clamp
+scripts/view/gray_box_world.gd                     # direct-cell/object interactions
+scripts/view/main.gd                               # remove player wiring and character-flow calls
+scripts/view/ui_coordinator.gd                     # overlay camera lock
+scripts/view/tool_action_controller.gd              # click/tap tool actions
+scripts/view/npc_system.gd                          # direct NPC click interaction
+scripts/view/seed_shop_panel.gd                     # direct shop interaction compatibility
+scripts/view/shipping_bin_panel.gd                  # direct bin interaction compatibility
+scripts/view/debug_menu.gd                          # remove player dependency
+scripts/view/machine_shop_panel.gd                  # debug-only Ctrl+M panel
+scripts/view/machine_interaction_controller.gd      # direct-cell machine interaction
+scripts/view/chibi_ui_motion.gd                     # remove player references if required
+scripts/view/world_presentation.gd                  # remove player avatar placement
+scripts/view/chibi_avatar.gd                        # remove only player-avatar path if unused
+scripts/domain/*                                    # only files proven to own player reach/interaction
+scripts/core/save_service.gd                        # ignore legacy player field explicitly
+project.godot                                       # exact Ctrl+M action and player input cleanup
+localization/strings_en.csv                         # click/tap/debug strings
+localization/strings_vi.csv                         # click/tap/debug strings
+tests/unit/test_move_dir.gd                         # delete/update
+tests/unit/test_interaction_range.gd                # replace with direct-cell tests
+tests/unit/test_profile_creation.gd                 # delete/update with no character creation
+tests/unit/test_profile_preview.gd                  # delete/update
+tests/unit/test_character_layout.gd                 # update/remove player portrait assumptions
+tests/unit/test_character_review_layout.gd          # update/remove player portrait assumptions
+tests/unit/test_character_screen.gd                 # update per stamina/character decision
+tests/unit/test_chibi_characters.gd                 # update/remove player-avatar assumptions
+tests/unit/test_isometric_migration.gd              # update camera/player assertions
+tests/unit/test_project_config.gd                   # exact Ctrl+M and removed player actions
+tests/unit/test_ui_layout.gd                        # remove creation/player assumptions
+tests/unit/test_ui_mouse.gd                         # direct click/tap interactions
+tests/unit/test_save_service.gd                     # legacy player-field migration
+tests/unit/test_npc_ui.gd                           # direct NPC click interaction
+tests/unit/test_seed_shop.gd                        # direct shop click interaction
+tests/unit/test_shipping_bin.gd                     # direct bin click interaction
+tests/unit/test_machine_shop.gd                     # debug panel purchase paths
+tests/unit/test_machine_operation.gd                # preserve operation regression
+tests/unit/test_machine_placement.gd                # preserve placement regression
+docs/ARCHITECTURE.md                                # manager camera/player removal boundary
+docs/DECISIONS.md                                   # superseding redesign decisions
+docs/ROADMAP.md                                     # remove reference 02 and add redesign milestones
+docs/API_INDEX.md                                   # new camera/direct-cell/debug APIs
+docs/DATA_SCHEMA.md                                 # legacy player field note and camera Resource schema
+docs/PROGRESS.md                                    # this plan and later verification
+~~~
+
+### Files/resources explicitly not in scope
+
+- No supplied assets or asset manifests.
+- No machine prices, recipes, processed-item IDs or crop balance values.
+- No polished shop mockup 10 UI.
+- No ghost placement system.
+- No unrelated NPC, quest, economy or crop redesign.
+
+### Approval blockers
+
+- Stamina: owner must choose **keep** or **remove**. The current project has no implemented stamina authority; keeping it would require a separately defined data/domain contract.
+- Character screen mockup 07: owner must choose whether to **keep skills/relationships but remove the player portrait**, or remove the Character screen entirely. Skills are currently unavailable in the implemented API, so “keep skills” would require a separate scope rather than fabricated values.
+- Camera keyboard movement: AI proposal is **allow WASD/arrows to pan the camera**, with mouse/touch drag as primary input; this must be confirmed before adding bindings.
+
+### Redesign approval record — 2026-11-04
+
+- ALLOW_LIST approved by owner.
+- Stamina: **keep**, with a separately specified DATA/DOMAIN contract before implementation.
+- Character screen: **remove the entire screen**; no portrait, skills or relationship screen is included in this redesign.
+- Camera keyboard movement: **not allowed**; use mouse/touch drag and zoom only.
+- Legacy player contract: **delete** `player.tscn`, player scripts and `docs/SCENE_CONTRACTS/player.md` as listed, subject to the normal scoped migration implementation.
+- Implementation remains blocked until the current Phase 6.5 manual editor playtest is accepted or explicitly waived.
+
+## Approved task — Phase 6.3 logical build-mode domain
+
+Phase 6.3 adds the approved logical build commands only. `MachineBuildService` delegates to the existing serializable placement state; all seven machines remain `1x1`, rotation is saved metadata, and removal returns the machine to its separate inventory. UI, input bindings, scenes and ghost previews remain deferred.
+
+### Phase 6.3 ALLOW_LIST
+
+~~~text
+scripts/domain/production/machine_placement_state.gd
+scripts/domain/building/machine_build_service.gd
+tests/unit/test_machine_placement.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Phase 6.3 acceptance
+
+- Place, rotate, move and remove commands return explicit success/reason dictionaries.
+- Rotation accepts only 0/90/180/270 and does not change current sprite presentation.
+- Move and rotate reject locked or occupied cells without losing the original placement or ownership.
+- Removing a placement returns exactly one machine to `MachineInventory`; no coin refund, new machine, price or recipe is added.
+- Existing placement save/load remains compatible and preserves cell plus rotation.
+- No UI, input action, scene, ghost preview or rendering change is added.
+
+### Phase 6.3 verification record
+
+- Added focused placement/build tests for rotation, successful move and failed atomic move restoration.
+- Focused placement/build suite: **10/10 tests, 38 asserts, PASS**.
+- Full GUT suite: **318/318 tests, PASS**.
+- Parse check: **PASS**.
+- Data validator: **PASS**.
+- Main headless startup: **PASS**.
+- `git diff --check`: **PASS**.
+
+## Approved task — Phase 6.2 occupancy and machine placement domain
+
+Phase 6.2 adds logical occupancy and machine placement only. All seven supplied machines use a data-owned `1x1` footprint. Rotation is saved as `0`, `90`, `180` or `270` degrees for future directional sprites, while the current view remains unchanged. UI, ghost previews, scenes and effects remain deferred.
+
+### Phase 6.2 ALLOW_LIST
+
+~~~text
+scripts/data/land_parcel_data.gd
+scripts/domain/building/occupancy_map.gd
+scripts/domain/production/machine_placement_state.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+data/land_parcels.tres
+data/machines/**
+tests/unit/test_machine_placement.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Phase 6.2 acceptance
+
+- Locked cells come from `data/land_parcels.tres`; no locked-land coordinates are hardcoded in domain code.
+- A machine can be placed only when its machine inventory count is positive, its footprint is fully unlocked and every cell is unoccupied.
+- Placement consumes one machine; removal releases one machine. Occupancy and machine placement remain separate from item inventory.
+- All seven machines use a `1x1` footprint. Rotation accepts only 0/90/180/270 degrees, is serialized, and does not alter current sprite presentation.
+- Valid placement, locked/occupied rejection, removal and save/load of cell plus rotation are covered by GUT.
+- No UI, scene, ghost preview, directional sprite or machine effect is added.
+
+### Phase 6.2 verification record
+
+- Placement suite: **7/7 tests, 23 asserts, PASS**.
+- Combined machine state/shop/placement suites: **20/20 tests, PASS**.
+- Data validator: **PASS**.
+- Main headless startup: **PASS**.
+- `git diff --check`: **PASS**.
+- Current save version remains 8; legacy saves default `machine_placements` to empty.
+
+## Approved task — Machine Shop domain/data
+
+Machine Shop is a separate approved milestone after Phase 6.1. It sells the seven supplied machine IDs through a domain purchase service, charges `WalletState`, and stores unlimited owned counts in a separate `MachineInventory`. There is no shop UI, placement, machine scene or resale in this scope.
+
+### Machine Shop ALLOW_LIST
+
+~~~text
+scripts/data/machine_data.gd
+scripts/data/machine_shop_data.gd
+scripts/domain/production/machine_inventory.gd
+scripts/domain/production/machine_shop_service.gd
+scripts/core/save_service.gd
+scripts/view/main.gd
+data/machines/**
+data/machine_shop.tres
+tests/unit/test_machine_shop.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Machine Shop acceptance
+
+- Seven machine IDs are purchasable through Resource-owned price and house-level data: stove 250/1, mill 350/1, press 450/2, barrel 500/2, oven 600/2, dryer 700/2, roaster 900/3.
+- A purchase removes exactly one price through `WalletState`; insufficient coins or house level return an explicit reason and mutate neither owner.
+- Machine counts are unlimited, keyed by machine ID, separate from `InventoryState`, and serialize/deserialize correctly.
+- Machine ownership is included in the existing save payload without changing the save version; old saves load with an empty machine inventory.
+- No UI, placement, resale/refund or final processed-item data is added.
+
+### Machine Shop verification record
+
+- Machine Shop focused suite: **7/7 tests, 22 asserts, PASS**.
+- Parse and DataValidator: **PASS**.
+- SaveService payload round-trip includes `machine_inventory`; legacy payloads default to an empty machine inventory.
+
+## Approved task — Phase 6.1 machine processing domain/data
+
+The approved scope adds data-only machine and recipe definitions plus a serializable machine job state. It does not add scenes, UI, placement, effects, audio, shop flow or final processed-item ItemData.
+
+### Phase 6.1 ALLOW_LIST
+
+~~~text
+scripts/data/machine_data.gd
+scripts/data/recipe_data.gd
+scripts/domain/production/machine_state.gd
+data/machines/**
+data/recipes/**
+assets/machines/**
+tests/unit/test_machine_state.gd
+tests/unit/test_character_screen.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+~~~
+
+### Phase 6.1 acceptance
+
+- Seven supplied machine IDs have data resources and manifest-backed idle/work_a/work_b asset paths.
+- Recipe inputs/outputs, machine allow-lists, house unlock level and day duration are Resource data; no balance values are hardcoded in domain code.
+- Starting a job atomically removes all inputs, rejects missing inputs, wrong machines, locked recipes and occupied output buffers without mutation.
+- Each completed game day advances a working job by one day; completion stores the output in the machine buffer, and a full buffer changes the machine to `blocked` without losing items.
+- Taking the output returns the machine to `idle`; serialize/deserialize restores cell, recipe, remaining days, status and output buffer.
+- Temporary processed-item IDs are used only in recipe/output-buffer data until the owner approves final names and ItemData entries.
+- Machine assets are placeholders for later VIEW use; missing textures must remain non-fatal.
+- Focused machine tests, parse, data validation and full GUT pass.
+
+### Phase 6.1 verification record
+
+- Supplied machine bundle copied to `assets/machines/`; manifest contains all seven machine IDs and idle/work_a/work_b files.
+- Focused machine suite: **7/7 tests, 60 asserts, PASS**.
+- Expanded regression suite (`test_character_screen.gd` + `test_machine_state.gd`): **12/12 tests, PASS**.
+- Parse check with Godot 4.7.2: **PASS**.
+- Data validator: **PASS**.
+- The expanded verification scope includes `test_character_screen.gd` to isolate its persistent tutorial-setting fixture. The test now restores the user's setting after each case instead of inheriting prior test order.
+- Full GUT was re-attempted; it reached `test_chibi_art_foundation.gd` but did not complete within the attached run window. Main headless startup: **PASS**. Phase 6.1 remains `[~]` until the full suite completes.
+
+## Approved task — ISO-18 crop assets, soil atlas and withered-plant cleanup (accepted)
+
+Owner reported three playtest gaps: tilled/wet soil is visually too faint, supplied crop stage/seed assets are not registered as playable data, and withered crops have no dedicated removal tool. The approved scope is to correct the 128x64 atlas row mapping, register all supplied crop data/items, apply manifest stage/wilted textures, add a separate placeholder-backed shovel action, and implement the supplied crop rules without inventing additional balance values.
+
+### ISO-18 approved behavior
+
+- Tilled dry and tilled wet cells use the supplied atlas row-2 variants; water state remains logical `FarmGridState` data.
+- All supplied crop IDs become registered data: annual crops use four stages and clear the cell after harvest; tomato repeats after two days. Perennial crops occupy one logical cell, render with manifest pivots/y-sort, reach fruit at stage 4, return to stage 3 after harvest and regrow using their configured days.
+- A crop that is not watered on a stage-transition day withers at its current stage and does not advance. Watering a withered crop restores it; two consecutive dry days kills it. Rain counts as watering for the day.
+- Crop totals, seasons, planting-item costs/types, sell prices, yields and regrow days are stored in CropData/ItemData resources from the owner-provided table.
+- A separate shovel tool clears withered/dead crop plots only. Its icon is a replaceable generated placeholder until a supplied shovel PNG exists.
+- No new save schema is introduced; legacy plots without the new fields retain existing defaults.
+
+### ISO-18 ALLOW_LIST
+
+~~~text
+scripts/data/crop_data.gd
+scripts/data/item_data.gd
+scripts/data/tool_data.gd
+scripts/core/data_registry.gd
+scripts/domain/crop_cycle_rules.gd
+scripts/domain/day_simulator.gd
+scripts/domain/farm_grid_state.gd
+scripts/domain/tool_action.gd
+scripts/view/farm_view.gd
+scripts/view/soil_presentation.gd
+scripts/view/crop_presentation.gd
+scripts/view/tool_action_controller.gd
+scripts/view/ui_icons.gd
+data/crops/**
+data/items/**
+data/tools/**
+localization/strings_vi.csv
+localization/strings_en.csv
+tests/unit/test_crop_*.gd
+tests/unit/test_farm_grid_state.gd
+tests/unit/test_tool_action.gd
+tests/unit/test_farm_view.gd
+docs/PROGRESS.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/API_INDEX.md
+docs/DATA_SCHEMA.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+~~~
+
+### ISO-18 acceptance record
+
+- Corrected FarmView atlas coordinates to use supplied row-2 tilled dry/wet variants; the logical plot remains the source of truth.
+- Registered the 16 supplied crop IDs and generated their planting/produce ItemData entries from the catalog. Existing CropPresentation manifest loading now has registered gameplay data to consume.
+- Added `withered_days` compatibility state, watering/rain recovery, second-day crop removal and a dedicated shovel tool/icon. Legacy save payloads continue to load with zero missing counters.
+- Updated focused care/save/tool/visual coverage and aligned existing regression expectations to the approved supplied-crop rules.
+- `godot --headless --path . --editor --quit`: PASS.
+- `tools/validate_data.gd`: PASS.
+- Main scene headless startup: PASS.
+- Full GUT unit suite: 294/294 tests, 16,253 asserts, PASS.
+- Human editor playtest accepted by owner: dry/wet soil contrast, supplied crop stage/wilted sprites, seed icons and shovel interaction were reviewed.
 
 ## Approved task — ISO-17 data-driven planting-item shop (automated acceptance delivered)
 

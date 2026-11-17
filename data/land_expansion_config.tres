@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LandExpansionConfig" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/land_expansion_config.gd" id="1"]
+[ext_resource type="Resource" path="res://data/land_expansion/first_east.tres" id="2"]
+[ext_resource type="Resource" path="res://data/isometric_world_config.tres" id="3"]
+[ext_resource type="Resource" path="res://data/npcs/phase8_world.tres" id="4"]
+[ext_resource type="Script" path="res://scripts/data/expansion_parcel_data.gd" id="5"]
+
+[resource]
+script = ExtResource("1")
+initial_region = Rect2i(0, 0, 6, 6)
+parcels = Array[ExtResource("5")]([ExtResource("2")])
+base_cost = 500
+growth_numerator = 11
+growth_denominator = 5
+rounding_step = 50
+world = ExtResource("3")
+npc_world = ExtResource("4")

@@ -1,8 +1,227 @@
 # DECISIONS — THE LIFE
 
+### D89 — compact machine header and measured useful area (2026-11-18) — LOCKED by approved AUDIT-F3; automation 607/607 delivered
+
+Measured before changing: 2 and 30 frames have identical bad header geometry; a wrapping land Button shrinks to 28 px then wraps each letter, raising the whole row to 250/276 px. Extract a small header, use natural non-wrapping native button minimum widths and keep aliases/signals. Existing title/font/red banner/Theme remain; normal header becomes 92 px and body 332 px at1152×648. Catalogue gets existing themed inset room for motion-scaled cards; no shared animation/theme changes. Validate useful area and bounded convergence, not just enclosing the modal. Keep all old test bodies/assertions/captures, add a real-owner locale/size/status/long-text/native matrix. This is machine presentation, not the full Cô Hoa shop/cart/Sell/Buyback/house/NPC domain. Human/commit separate.
+
+### D88 — exact Ctrl+M and one debug policy across routes (2026-11-18) — LOCKED by approved AUDIT-F2; automation 603/603 delivered
+
+Use the existing toggle_debug_menu InputMap binding with exact modifiers and no echo/release, gated by OS.is_debug_build at each caller through one stateless policy. Native world and modal routing must agree; plainM stays distinct from the future map. Keep explicit logical InputEventAction compatibility for internal debug requests/tests, never permit them with false buildflag. Main's world route checks lifecycle/busy/sleep/day-end/title too, rather than relying on an active modal to supply that protection. No normal E-shop/gameplay/menu redesign, new input binding or debug console recovery. A simulated false buildflag proves the policy guard, not a complete release export; local export templates are absent. Human/commit separate.
+
+### D87 — shared four-stage care/art boundaries and retained repeat plant (2026-11-18) — LOCKED by approved AUDIT-F1; automation596/596 delivered
+
+Owner approved all three AUDIT-F1/F2/F3 scopes together. This decision implements only F1 before running its full gate. Keep stage_count4/repeat_stage3 in CropStageConfig. First growth uses quarter boundaries; stage4 can show fruit before ripeness, but mature/harvest remains tied to100% actual owner progress. Every regrowing crop, including both tomato IDs, displays stage3 until it is ripe again. Withered art uses that same current stage. No resetting saved growth or new save flag.
+
+Farm care uses the same rational boundaries instead of modulo ceil(target/4), retaining current_days>0 grace and the existing dry-limit override/death/recovery path. Thus an unwatered target5 crop atgrowth2 now withers at the real next-stage boundary, without gaining a growth day. This deliberately fixes the recorded mismatch; it is not a new growth/price/yield/season tune. No duplicate simulation path or per-frame growth. D49/D56 retain all other terms. Human editor acceptance/commit remain separate from automation.
+
+### D86 — Day-locked weather runtime, tagged draws and save v12 (2026-11-17) — Status: LOCKED by approved Phase7.1b; automation583/583 verified2026-11-18; human review separate
+
+Owner approved56 paths and the exact old-test version/legacy-roundtrip patch, then explicitly approved five additional full-envelope expectations at D:/godot/game-godot-backups/phase71b-20261117/proposed-weather-migration-test-compatibility.patch. Retain every assertion/old test/golden/runner/bound; only expected weather gains day from original saved clock and canonical integer seed. No other data/balance change.
+
+On2026-11-18 owner additionally approved the exact real-transition fixture in tests/unit/test_day_simulator.gd, expanding scope to57 paths. Retain original water-drain assertion; use actual sleep_to_morning/explicit sunny pre-roll/clock cleanup and add2 growth/day assertions. Final unchanged parse/data/headless63/63/graphics583/583/Main PASS; all557 old cases retained,26 additive. Exact evidence/manual acceptance in PROGRESS.
+
+Keep WeatherState as single weather owner. DATA declares initial sunny/horizon3, existing ordered55/25/15/5 weights/effects unchanged. New rolls use existing DetRandom.make_rng with reserved weather tag1; merchant tag8 and mixer unchanged. This intentionally migrates future RNG only: never reroll valid saved today/seed/three forecasts, including known zero-weight choices. Consume saved head and append only needed absolute future day; valid reload needs no draw. Genuine4.7.2 captured golden pins signed/large-seed vectors and merchant independence.
+
+Persist day_index in save12. Legacy valid3 binds to saved clock; current4 must match it. Pure codecs do no RNG. Empty/malformed component remains/normalizes{} with other progress intact; trusted Main explicitly initializes deterministic seed0/declared current initial and future weather at actual loaded day. Ordinary invalid deserialize retains prior state/emits nothing. No partial coercion or gameplay inference. Reserved token captures next terms before farm callbacks, exact-next-day preflight rejects duplicates/reentry/skips/overflow, source busy includes notifications and Main lifecycle guard. Views receive detached forecast arrays. Public debug fields remain compatible; production writes use guarded commands.
+
+Main keeps established farm->animal->machine daily orchestrator and one-argument farm delegate, outgoing rain before care/new rain after weather, ledger/autosave/bulletin safe points. No additional clock/listener/offline progress/UI scene/Events/autoload. Water introduction10, coop11, every gameplay number and all inherited work remain. D85 standalone codec API remains valid; its runtime-gap status is superseded by this authorized integration. No broad PROJECT_RULES change, commit permission or human acceptance is inferred.
+
+
+### D85 — Validated weather profile and standalone snapshot decoder (2026-11-17) — Status: LOCKED by approved Phase7.1a; full557/557 verified; standalone foundation only
+
+Owner approved16 paths for DATA horizon3/strict profile validation and independent current-wire decoder. Preserve all weather entries/probabilities/order/flags, all535 old tests/goldens/runners, current forecast/RNG/savev11/runtime/UI. Pure canonical three-field codec validates complete signed JSON-safe seed/known IDs/exact horizon and returns detached result or explicit errors, without mutation/randomness/events/fallback. Current save_v11 weather component is the new codec fixture; not a new weather RNG golden.
+Existing official path validator delegates strict WeatherProfile checks, with missing/unloadable/wrong Resource handling. No new tool/scene/input/state owner/save schema. The new codec is intentionally unconnected. Existing WeatherState's custom arithmetic and unsafe raw restore/no day-token are recorded legacy gaps; no DetRandom rule is waived. Actual runtime wiring/RNG/tag/day/migration work requires a separately approved7.1b plan. Prior D19 weather/day-night/season features remain in use, no competing WeatherService.
+Focused42/42 passed before full verification. Exact later acceptance/limits in PROGRESS; no automatic commit or new human/visual acceptance claim.
+
+
+### D84 — Integer recipe caps and actual catalog validation (2026-11-16) — Status: LOCKED by approved Phase6.7; full535/535 verified; handoff2026-11-17
+
+Owner approved all24 paths, explicit recipe.unlock_house_level mapping1->15/2->40/3->120 per game hour,24 hours per existing duration_day, current crop80 and unpriced output0/savev11 preservation. Mapping is a validator policy, not a new runtime stage/house system or recipe repricing.
+Pure stateless catalog/economy rules validate actual registered Resources, reciprocal references, runtime single output/slot limits and exact opportunity-value inequality with checked int64 arithmetic. Keep every prior validator gate; defer standalone initialization to read real autoload catalog and append recipe gate. New detached recipe/machine readers do not rewrite registration. Standalone negative fixtures clone in memory and must fail with actual exit1; never modify shipped data or registry.
+No UI/scene/input/production/save/crop/coop change, old tests/goldens/runners/bounds retained. OS.execute test subprocesses reuse hidden isolated bounded helper, not player save directories. Targeted28/28 and explicit CLI normal0/negative1 checks passed before complete gate. Final evidence/status in PROGRESS; no commit or human acceptance claim.
+
+
+### D83 — Playable fixed-site coop, modular operations and save v11 (2026-11-16) — Status: LOCKED by owner-approved Phase6.6d; full516/516 verified; human acceptance separate
+
+Owner explicitly approved96 paths and the700-for4 bundle, fixed south-house site, existing E operation UI, daily/save integration and exact compatibility patch. Resource owns site geometry/pricing; existing item prices20/30 and crop/machine balance stay. New/legacy games remain unowned0 without free food. Small screen/summary/controls scenes plus snapshot/presenter/runtime/flow/site-view responsibilities preserve DATA->DOMAIN->VIEW.
+One source lock spans purchases/feed/collection/completed-day reservations; opaque tokens and captured refs/terms protect synchronous callbacks. Debit then grant, exact rejected-debit refund, preserve independent bag/wallet changes; unexpected nonstandard added counts fail closed. Main/UI/day-end lifecycle safe points prevent half-state persistence. DaySimulator implements farm->animals->machines and removes Main's separate machine listener; source reserves captured production before farm notifications. No load/render progression.
+Only owned site adds collision/dynamic NPC solids; clear/rebuild stale grid flags and recompute same-target routes, clear derived obstacle before NPC restore. Deny occupied site instead of deleting actor/crop/machine progress. Code-native site illustration matches current palette; no replacement assets/new input/autoload/event/old scene edits.
+V11 adds validated purchased daily state and golden; v1-v10 defaults only new coop unowned0. Preserve prior fields and water format introduction10. Exactly27 output-version assertions plus2 absent-coop expectations change in23 old tests according to preapproved patch; no old fixture/golden/runner/name/assertion-count weakening. Evidence/current verification history in PROGRESS. No automatic commit/human F5 acceptance claim.
+
+
+### D82 — Separate feed buy20 and guarded real bag debit (2026-11-09) — Status: LOCKED by owner-approved Phase6.6c; full492/492 verified, animal runtime deferred
+
+Owner first chose “Thức ăn riêng: mua 20 xu; giữ trứng 30 xu”, then approved exact20-path domain/multi-file plan. Register chicken_feed/material/99 stack/buy20/resale0/current fallback and bind config feed_item_id; retain egg30 and autumn_wheat42. Old wheat20 table no longer determines this feeding identity. Current seed shop stays unchanged; no food purchase availability/UI is claimed.
+
+Reserve requested hens on the same coop owner before actual InventoryState debit. Shared owner guard covers feeding and collection across facades/raw methods; collection_busy remains compatible, feeding_busy is explicit. Whole debit completes before notifications, then captured hen authorization commits. False debit grants none and unlocks; mutable config/future facade refs cannot redirect/strand current paid terms. Preserve independent bag callbacks; no snapshot rollback or another item/wallet owner.
+
+Tokens are opaque/transient, matching operation only; old four-field codec andv10 bag schema remain. Main/animal world/day simulation/feed UI/purchase/coop-save wiring is deferred. Preserve all479 old cases/goldens/runners/bounds and18 art checks. Exact acceptance/history in PROGRESS; no commit/stage/push requested.
+
+
+### D81 — Registered eggs and owner-shared guarded collection (2026-11-08) — Status: LOCKED by owner-approved Phase6.6b; full479/479 verified, animal runtime deferred
+
+Owner approved18 paths: register documented egg/30 and existing99 stack/produce, buy0 and generic icon fallback; add collection into real InventoryState without animal Main/day/UI/save wiring. Defer actual feed mapping and wheat42 versus historical20 economics. No new balance guess or asset.
+
+Source reservation must live in the coop owner, not one facade, so second facades and raw feed/day/take/reset/restore cannot replay/mutate the buffer during item signals. Opaque token and valid remaining amount authorize settlement; serialization remains four fields and future runtime must guard busy saves. Captured original refs retain command context after facade reconfiguration; config invalidation cannot strand a valid remaining output settlement.
+
+Normal real InventoryState whole-capacity preflight blocks full bags unchanged; source is reserved before one full add, then cleared on success. Rejecting0 restores all; valid partial-added-count fault restores only remainder and reports partial_transfer. Independent legitimate bag callbacks are retained without whole-owner rollback. This defensive fault path is not partial-full-bag gameplay. Truthful added-count owner contract remains required; invalid settlement fails closed.
+
+Old18 C2 visual asset checks keep identical members; newly registered egg receives logical/translation checks and approved existing fallback instead of a forced historical3D model. All466 old tests/goldens/runners/bounds and current savev10 remain. No stage/commit/push authorization. Exact verification and history in PROGRESS.
+
+
+### D80 — Standalone daily chicken-coop state before inventory/runtime integration (2026-11-08) — Status: LOCKED by owner-approved Phase6.6a; full466/466 verified, runtime integration deferred
+
+Owner approved the exact14-path plan after h3. Implement documented4-hen capacity,1 feed/hen/day,1 egg/fed hen/day through Resource data. Explicit standalone initialization only; no free runtime herd. Approve partial feeding by counts and retention/accumulation of uncollected eggs, with no invented small gameplay buffer cap. Unfed hens produce nothing and never die.
+
+Require exact current completed day for one advancement; old/duplicate/skipped days fail atomically, no automatic catch-up. JSON precision bounds protect full-herd product/output/day arithmetic. Trusted raw feed/take primitives are not authorized inventory commands and must remain inaccessible to player input until a separate atomic transaction layer is approved. No actual feed mapping/registry/price/art/placement/purchase/UI/day-path/save integration in this foundation.
+
+State serializes four integer fields from its first implementation. Require prior valid config and complete valid known fields; accept integral JSON floats, ignore extra keys, reject malformed/missing/overfed snapshot as a whole with warning while retaining previous state. Preserve pending eggs; no partial clamping into new production. Existing runtime savev10,457 tests/goldens and runner bounds remain unchanged. Current wheat42 versus historical20/egg30 economics are not silently reconciled. Human acceptance/commit separate; no commit requested.
+
+
+### D79 — First watering-can upgrade through modular Bag confirmation (2026-11-08) — Status: LOCKED by owner-approved Phase6.5h3; full457/457 verified, human F5 pending
+
+Owner explicitly approved the42-path plan after finite watering/refill/HUD/savev10 handoff. Reuse existing first20→40/200 Resource and WateringCanUpgradeService over actual Main can/wallet. Upgrade preserves remaining water, including empty; no refill grant or later tier/price. Existing savev10 already persists this state and stays unchanged.
+
+Add a separate Bag footer entry and three small lazy shared-theme scene/script pairs with snapshot/presenter. Actual current/target/price/remaining/wallet remain visible with insufficient funds. Revalidate displayed terms and existing domain command; shared busy protects safe points and cross purchases. UiCoordinator remains sole modal/pause/input-lock authority; native GUI gets focus/accept, Escape closes, explicit Back returns safely. Lifecycle generic close never reopens Bag.
+
+Classify existing watering rollback as reduced expense and localize both actual ledger reasons; preserve raw rows/independent callbacks/save schema. Add new tests only; retain all446 old tests/assertions/goldens and unchanged runner bounds. No additional balance/source/map/Theme/InputMap/domain-service changes or commit authorization. Human editor acceptance remains separate.
+
+
+### D78 — One runtime can, explicit dry-bank refill and game save v10 (2026-11-08) — Status: LOCKED by owner-approved Phase6.5h2b; full446/446 verified, human F5 pending
+
+Owner explicitly approved the54-path plan,20-use activation/all-manual-path routing, three existing source banks/E when can selected, small HUD meter and versioned persistence. Exactly23 old current-version expectations in19 named test files may change9->10; assertions/gameplay/input goldens/runners remain. All other scope is preserved.
+
+Reuse D71 WateringCanState/WateringService unchanged; Main alone owns actual state. New Runtime validates real Player/context/reach/permission and prevents reentry/half-debit saves. New stateless refill service (class WaterRefillService) authorizes existing shared dry-bank geometry, no cost/time or UI-supplied source. Existing wither recovery is retained; no crop-policy change. Water notification is local after completed commands, not a new global event/autoload.
+
+Selected water tool + valid dry bank makes existing E refill before the nearby bin; other tool contexts retain original bin/shop/bed/NPC semantics. This is the approved resolution of well/bin overlapping reach. Full-can context gives full feedback without mutation/sale. GUI/menu E remains exclusive. No new InputMap binding or water-on-source mouse command.
+
+Display actual water alongside existing toolbar caption in a separate small Theme component. Retain eight slots/caption/selection/right cards/overall HUD bounds, native wheel behavior and scenes. No Theme/font/asset substitute.
+
+Savev10 adds capacity/charges. Oldv1..9 intentionally get data-owned full base because no prior can state existed; any forged old field is overwritten. Current corruptv10 stays conservative/empty rather than getting a fresh grant. New game alone resets full; repeated load/Continue/overnight/rain preserve actual charges. Known40 capacity loads, but first40/200 purchase UI/later tiers remain deferred. Old goldens stay, new v10 sample added. Human F5/commit remain separate from automation.
+
+### D77 — Expanded source world before runtime watering (2026-11-07) — Status: LOCKED by owner-approved Phase6.5h2a; full430/430 verified on2026-11-08; human F5 pending
+
+Owner requested well beside the house, stream and pond, plus a larger map, and approved the concrete map-first scope. Ground85×85/player39×39/scenery43×43 and camera center/pan extents are Resource-owned. Existing farm/east parcel/anchors, NPC targets and save-v9 rights/progress stay; a larger walking region grants no farmland.
+
+WaterSourceData/Config owns stable IDs home_well/forest_stream/east_pond, rectangles, name keys, label cells and orthogonal dry approach waypoints. WaterSourceRules is stateless and Node-free: lookup, shore/access/reservation geometry and overlap validation. Shared WorldLocations.get_solid_regions deduplicates source footprints with original solids; exact old well prop reuse is permitted. Player physics, NPC AStar (clipped to unchanged nav region) and parcel exclusion use this shared geometry. No cyclic Resources or second state owner.
+
+WorldPresentation generates WaterSources under the actual Ground parent WorldCanvas, above Ground and below Farmland. Sharing this CanvasLayer is essential: a child of GrayBoxWorld's default canvas drifts from the WorldCanvas camera transform. Well art alone joins existing Objects y-sort. New WaterSourceView uses actual grid conversion, localized plain labels and paused cosmetic ripples; no interaction binding/prompt. Passive scenery is bounded and avoids routes/banks.
+
+This slice does not activate can consumption/refill/HUD/upgrades or save-v10. Existing unlimited manual watering is preserved deliberately until every manual path, real source/reach feedback, water counter and versioned persistence can be integrated together under a later plan. No swimming/fishing/bridges/new story destination/parcel or bitmap replacement.
+
+### D76 - Live world labels and transient feedback on locale switch (2026-11-07) - Status: LOCKED by owner-approved D72-C4; full automation421/421 verified; human F5 pending
+
+Owner explicitly approved updating existing player/shop/bin/NPC-home labels when switching vi/en and dismissing old-language transient toasts. WorldPresentation keeps references to its created anchor art; current player name/existing translation keys refresh only labels and queue_redraw, including while paused. NpcSystem refreshes its existing home map from actual NpcData. No world rebuild, movement/collision/appearance/domain/quest/schedule/save-v9 change; user names are preserved.
+
+Toast API already receives formatted strings: clear old messages on an actual locale change, retain them on same-locale apply, never infer translation keys or replay events. Translation notification traverses the tree, so hide old cards immediately and defer freeing their captured instance IDs; normal show_message flushes those old IDs first, preserving same-turn new feedback. Timer callbacks bind IDs rather than freed Node references. Max-two/three-second real-time view lifetime and public clear/show_message stay unchanged. No persistent field/new caller metadata.
+
+First new focused run exposed busy-parent/free-during-notification errors and an engine crash; preserve its logs/source in the C4 backup focused-attempt1. Fixed the view lifecycle rather than suppressing errors. Updated only the new test's immediate assertions to require synchronous hiding followed by deferred removal, and cleared the fixture's prior Apply-result toast before same-locale identity checks. All old tests remain untouched. Focused second run9/9,144 assertions/3.88s passes. First unchanged full C2 gate PASS parse/data/headless63/63/graphics421/421 (21249 assertions)/Main; group GUT75.899s/101.033s, combined graphics wall187.949s with unchanged180s per child. Five same-Main captures inspected; old C1-C3/P1 captures/tests preserved. Exact reproduction before/after and11-file scope/diff/raw evidence in PROGRESS. No commit/human F5 acceptance implied.
+
+### D75 - Toolbar selection and four-item pages (2026-11-05) - Status: LOCKED by owner-approved D72-C3; full automation418/418 verified; human F5 pending
+
+Owner explicitly approved correcting the remaining inherited highlight/caption defect and moving private item pages from5 to the actual four displayed item buttons. Keep eight slots: hoe/shovel/watering/harvest then four item requests. Display derives item highlight from TOOLS.size() and only a valid populated visible index, resets stale caption and uses existing localized item titles/icons/quantities. No inventory/domain/gameplay/save/InputMap/scene/Theme change.
+
+HotbarPanel derives private page size from the actual toolbar button count minus tools in select/remap. Bag index8 remains legacy key9's selected item, now visible first on page8-11 (active_index4). Wheel stays page-local with existing camera/GUI ownership and skips absent slots. Public APIs/signals/real item IDs stay unchanged; no hidden fifth item slot.
+
+Explicitly approve correcting the obsolete test_isometric_hud key9 offset expectation6 ->4 plus real identity/title/style/icon assertions, and C1 camera test's obsolete hidden-index4 case ->visible second-page advancement. Preserve all test functions and other assertions; add separate actual native/render/remap coverage. First focused11/11,1296 assertions/17.426s PASS; first unchanged C2 official batch PASS parse/data/headless63/63/graphics418/418 (21153 assertions)/Main. Group GUT99.924s/101.975s, combined graphics wall216.068s;180s per child unchanged. All8 C3 screenshots inspected and20 C1/36 P1 captures retained. Exact11-file diff/scope/logs and preserved old method/assertion coverage are in PROGRESS; no commit or human F5 acceptance is implied.
+
+### D74 - Complete graphics suite in two sequential bounded processes (2026-11-05) - Status: LOCKED by owner-approved D72-C2; full automation415/415 delivered
+
+Owner approved the concrete C2 plan after C1 hit the same180s process bound three times. Replace only graphics orchestration: discover all root tests/unit/test_*.gd in ordinal order, alternate into two groups, run sequentially with existing graphics arguments/-gtest CSV and unchanged180000ms bounded wrapper per child. No test declaration/assertion/capture is removed or weakened; parse/data/headless/Main gates, C1 game/data/art/save-v9 and GUT stay unchanged. Total two-child wall time may exceed180s; report it honestly.
+
+Fail closed on missing/duplicate/extra script coverage, declared test-count or summary mismatch, missing complete success marker, child failure/timeout, error/failing/pending/orphan/leak output or test-source change. Keep separate logs plus discovery/hash manifest and combined totals. Current inventory110 scripts/415 tests partitions55+55 scripts and210+205 tests; nonstandard future test declarations require explicit runner-contract review. C1 baseline/timeouts/diff remain preserved; full measured result and scope evidence go in PROGRESS. No commit/human editor acceptance is implied.
+
+D74 measured result: official first C2 run PASS parse/data/headless63/63/graphics415/415 (20556 assertions)/Main. Group GUT times90.167s/121.726s; combined graphics GUT211.893s/wall225.897s. All test/GUT/bounded-helper/C1 source bytes stay unchanged;47 validator +6 shadow orchestration probes and actual missing-executable rejection pass. External Editor rewrite of project.godot during the interrupted session is preserved and separately hashed/diffed, not included in C2 scope. Exact logs/audit/limits in PROGRESS. Human F5/commit pending.
+
+### D73 - D72 camera/visual handoff completion (2026-11-05) - Status: LOCKED by owner-approved D72-C1; full automation verified through D74
+
+Owner confirmed the other agent stopped, requested its graphics slice be finished, then explicitly approved D72-C1/ALLOW_LIST in PROGRESS. Preserve inherited D72 art/cosmetics/five zoom levels and all prior gameplay/save-v9/domain/old tests. Separate the inherited28-file delta from our completion diff; backup/SHA256 evidence and native baseline probes are recorded in PROGRESS. No commit is authorized.
+
+Native input proved Shift/toolbar wheel was consumed by camera before hotbar; fix routing so plain map wheel zooms and Shift/toolbar wheel cycles exactly once, with existing GUI/modal/placement ownership. Camera pan bounds move to data with the inherited defaults; projection/movement/collision/InputMap stay unchanged. Ready machine jobs must leave working animation, including paused model refresh, without advancing/collecting/mutating jobs from presentation.
+
+Keep active procedural avatar/world/frame renderers and appearance customization. Generated PNGs remain draft/offline outputs; document their actual role rather than claiming runtime references. Finish safe deterministic asset generation and pure file/dimension validation using isolated output roots; source PNG/imports stay protected. Add separate native/animation/visual tests, retain old tests/P1 and180s bound, inspect actual render captures, and distinguish automation from human F5 acceptance.
+
+D73 measured handoff: focused7/7,253 assertions and20 reviewed captures pass; three unchanged full runs time out at180s before a complete summary. Full completion PASS is not claimed. Scope/hash/diff evidence and proposed separately approved D72-C2 runner split are in PROGRESS. At that handoff the protected runner and old tests remained unchanged. Subsequently owner-approved D74 changes runner orchestration only and certifies all415 tests with old test/C1 source bytes unchanged.
+
+### D71 - Standalone watering-can foundation and first price mapping (2026-11-05) - Status: LOCKED by owner-approved Phase6.5h1; foundation automation delivered, runtime deferred
+
+Owner explicitly approved "Phase6.5h1:20->40 at200" in the session. This resolves only the first transition of the ambiguous20/40/80 versus200/600/1800 table: fresh capacity20, first upgrade target40/price200, remaining water preserved. No80 tier, later price assignment or automatic refill. All terms live in a Resource. Invalid/missing charge data restores conservatively to0; fresh configure starts full base20.
+
+Implement pure Resource validation and standalone state/manual-watering/upgrade domain adapters only. WateringCanState serializes capacity/charges from first implementation; atomic primitives emit no external callbacks. WateringService reserves one for actual successful crop watering, rejects redundant/invalid work and refunds only its reservation on failed command. Upgrade uses actual WalletState with explicit spend/refund reasons, guards reentry and preserves independent callback changes. No economy refactor, new autoload/global signal or parallel simulation path.
+
+A transient refill replacement revision is an implementation safeguard within D71: refill/load/reset subsumes an older water debit, so its rejected-command refund must not erase later independent consumption. No persistent field or additional gameplay tier is introduced.
+
+Runtime/Main/tools/UI/refill source/scene/input/save-v9/goldens/old tests/P1 stay unchanged. No player-visible charge limit until a separately approved coherent refill/HUD/save integration exists. Low-level refill is trusted domain functionality, not source/reach authorization. Rain/bulk/day simulation remains outside manual-can consumption. Existing game-save version stays9; standalone JSON is not a save migration. Actual verification/audit and pending human/commit status will be recorded in PROGRESS. No commit is authorized.
+
+### D70 - First bag upgrade and existing-v9 persistence (2026-11-05) - Status: LOCKED by owner-approved Phase6.5g; human F5 pending
+
+Owner explicitly approved Phase6.5g and its exact ALLOW_LIST in PROGRESS. Preserve D40's40-slot base; adapt the master-plan stage1 +12 slots/300 coins to a single52-slot target. Keep later tiers and the ambiguous watering20/40/80 versus three-price mapping deferred. A legacy bag already at/above52 is complete without another charge or shrink; intermediate capacities show their actual before/after target. No new gameplay values in scripts: Resource owns12/300 and references the actual base.
+
+Use existing WalletState/InventoryState owners, no economy/inventory service refactor or extra saved upgrade flag. Guard expected-capacity expansion; pay once, refund only its debit on rejected grant, preserve legitimate callback changes. Main shares land/bag transaction safe points for save/load/reset/title and rejects cross-modal callback reentry. New Game resets the purchased capacity to base40; ordinary clear() preserves it. Existing-v9 capacity serialization covers the upgrade, so SaveService/goldens and all prior tests stay unchanged.
+
+Footer entry and lazy three-part confirmation reuse the shared Theme/native GUI/UiCoordinator. Existing grid/slot/filter/discard/toolbar code is preserved and tested through slot52. No key/NPC/shop role or old scene edit. Validation lives in pure Resource data so the --script data gate does not compile autoload-dependent command owners. Shared4096 integrity value is unchanged. Test/log/scope evidence and remaining manual acceptance are recorded in PROGRESS; no commit is authorized.
+
+### D69 - Usable land expansion, modular shop entry and save v9 (2026-11-05) - Status: LOCKED by approved Phase6.4b; human F5 pending
+
+Owner explicitly approved "Duyet Phase6.4b, bat dau trien khai" through the approval question recorded in the session. Exact approved scope is in PROGRESS. Integrate D68 state/service with Main tools/build/scenery/save and expose actual first-east purchase through a small modular shared-Theme panel. No new parcel/price/key/merchant/normal-game shop access: existing debug Ctrl+M shop header is the entry. No commit is authorized.
+
+Ownership grants work permission, not exclusive NPC navigation. Keep Linh stream waypoint/routes and world/player bounds unchanged. Clear generated passive scenery and collision only for owned regions; reset/load restore deterministically. Existing tilled plots outside base remain usable for old-save progress without granting surrounding land; legacy machines remain operable and in-place idle rotation stays compatible. New empty work/placement/move targets require ownership.
+
+Main keeps a single persistent land state and service; LandRuntime owns transient request/view guards. Reject callback-triggered Main save/load/new-game/title requests during payment/grant. Low-level D68 callback semantics stay unchanged. Save v9 adds purchased parcel IDs, old migrations start with none, old goldens stay intact. Only current-version expectations/messages change in sixteen prior tests. buy_land_rollback is a ledger refund, never false income. UiCoordinator keeps modal/clock/Player authority, contents are lazy to preserve test/startup costs, and the180s official bound is unchanged. See PROGRESS for actual tests and protected-tree audit.
+
 Format of every entry: **ID — Decision — Why — Consequence — Changeable until — Status.**
 Rule: never edit an old decision in place. To change one, add a new entry "Dxx supersedes Dyy" and mark the old one `Superseded`.
 Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` once YOU have read it and agree (tick the box). Date written: 2026-10-24.
+
+### D68 — Land-expansion domain foundation (2026-11-04) — Status: LOCKED by approved Phase6.4a; standalone automated acceptance delivered
+- Owner approved standalone Resource/data/domain work and the proposed farm_east_1 parcel Rect2i(6,0,6,6), base region Rect2i(0,0,6,6), first500-coin price and documented2.2/round-to50 formula. Pricing parameters are integer Resource fields500/11/5/50; no float coins.
+- LandExpansionConfig references the existing IsometricWorldConfig and NpcWorldData Resources so all new domain entry points can use the same bounds/static-solid validation. Legacy LandParcelData/locks stay. East parcel fits bounds/solid rectangles; natural scenery and the existing linh_stream waypoint in that area still require a later integration decision. Do not expose a purchasable/usable runtime lot yet.
+- LandOwnershipState is the only new persistent domain owner and has serialize/deserialize immediately; it stores a validated ordered prefix of known IDs, not Nodes/pixels. Stateless service uses actual WalletState, validates next ID/price/funds, guards reentry, grants once and refunds only its debit if grant fails. No whole-wallet/state rollback over independent callback transactions.
+- This slice does not wire Main/SaveService/UI/world; game saves stayv8. Later integration needs its own coherent scene/scenery/tool/build/save migration scope. Existing scenes/assets/goldens/runtime/old tests/runner stay protected; no commit/push.
+- Earlier final-renderer attempts timed out twice at180s with a human F5 session active. After owner confirmed it stopped, unchanged final source passed official377/377,18683 assertions,154.692s plus parse/data/headless63/63/Main; focused8/288 also pass. Keep the timeout history and avoid attributing all variation to a single proven cause. No bound/gate/source/runtime-integration change or commit/push.
+
+### D67 — Previewed nearby idle-machine relocation (2026-11-04) — Status: LOCKED by approved Phase6.5f; automation delivered, human F5 pending
+- Owner approved the exact20-existing/two-new-script scope. Reuse current modal/ghost/components and the job-safe facade; retain source placement/occupancy/job during preview. No stock reservation, remove/re-place, purchase/refund, new balance/data/schema/input/scene/asset or physics rule.
+- Move UI requires an actual nearby fully idle source matching a detached machine_id/cell/rotation snapshot. Different targets obey D66's reserved-region/reach/Player/plot rules and D65 source/target/collection guards. Confirm revalidates before the existing atomic move/cleanup/rollback path.
+- Idle in-place rotation/no-op preserves existing occupancy/jobs, including legacy source crop/outside-region cases because no new cell is occupied. Other facade callers retain D65 active in-place rotation semantics; this UI does not expose that exception for busy machines. Identical fungible same-ID replacement has no persistent instance identity; do not invent one.
+- Extend the existing flow/status/footer/controller/snapshot/presenter only; Main/Player/world/tools/UiCoordinator stay. Existing R/Q, LMB/Space, RMB/Esc and native GUI precedence remain. Lifecycle interruption clears transient source context. Focused24/24, clean renderer13/13 and official369/369 at155.38s plus parse/data/headless/Main PASS; human F5 pending, no commit/push.
+
+### D66 — Mouse placement and nearby idle return (2026-11-04) — Status: LOCKED by approved Phase6.5e; automation delivered, human F5 pending
+- Owner approved the exact Phase6.5e scope. New Resource-owned6x6 region matches the current reserved farm footprint; new placement obeys existing reach/stock/occupancy/D65 job checks and cannot overwrite tilled/cropped/Player cells. Old placements remain loadable; no land/house/physics/save schema change.
+- A stateless domain request adapter revalidates actual context at confirmation/return. Build gets shared read-only can_place/can_remove previews. Nearby idle return uses D65, no refund/early output collection. Hoe/seed are blocked on machine cells; existing legacy crop water/harvest/shovel stay supported.
+- Shared UiCoordinator owns the full-viewport modal/clock/Player lock; small overlay/status/flow/projected-ghost components own transient UI only. Existing grid APIs, manifest art, Theme and input actions are reused; open_build stays unbound. Confirm places one, cancel reserves nothing, lifecycle/modal interruption discards pending UI, and native controls cannot click through.
+- Keep debug-only shop/exact Ctrl+M/E/house-level1 and original transactions. No direct move UI, new sprite directions, collision, generated art or package. Current180s test bound/error gates remain; no commit/push.
+- Earlier verification: focused79/79 and clean native16/16 passed; official complete graphics timed out in three runs. The agent stopped fixes under AGENTS §5 and preserved logs/diff for profiling. Lazy controls/cache/coalesced layout and render-once UI-layout capture retain all assertions/images; no runner/bound/error-gate change.
+- Owner-authorized profiling continuation: no source/test/runner change. World/review6/6 pass; full profile359/359 at172.945s, then unmodified official batch PASS with renderer359/359 at173.546s plus parse/data/headless63/63/Main. Total render/fixture cost is close to180s; inventory is the largest measured group29.8s, not an established sole cause of variance. Record the remaining timing risk rather than claiming a permanent performance fix. Human F5/commit pending.
+
+### D65 — Job-safe machine placement commands (2026-11-04) — Status: LOCKED by approved Phase6.5d; automation delivered, human F5 acceptance pending
+- Owner approved Phase6.5d's exact source scope. MachineBuildService.configure(state, operations) now requires the actual operation owner; Main initializes/wires both and the placement fixture follows the explicit contract. Missing dependencies fail closed.
+- Operation preview validates job identity/empty-idle state and honors the collection guard. Different-cell move/remove reject working/buffered/corrupt/orphan jobs; successful place/move/remove clean only valid empty idle rows after placement success. Failed placement does not delete jobs. Cleanup rejection restores build-owned snapshots.
+- Rotation preserves job bytes; same-cell move retains the existing rotate-in-place semantics, including active jobs. Current sprites stay single-direction. Reentrant build/cleanup during reserved collection is rejected even when the job temporarily looks idle.
+- No UI/build mode/scene/art/data/balance/InputMap/day simulation/save-v8 field or version change. Low-level placement primitives remain codec/unit operations; runtime VIEW commands must use the connected facade. No silent orphan-output repair, refund or duplicate return. No commit/push; human F5 remains pending.
+
+### D64 — Modular machine shop and operation presentation (2026-11-04) — Status: LOCKED by approved Phase6.5c; automation/render review delivered, human acceptance pending
+- Owner approved the exact Phase6.5c ALLOW_LIST. Five new scene/script components under ui/machine plus read-only snapshot/presenter and transient controller compose reference10 using the existing shared Theme and machine manifest art. Existing MachineShopPanel/public Main boundary stays compatible; no old .tscn edit.
+- Show real machine/recipe/price/owned/job/buffer data, actual service results and explicit test house-level1/access. No merchant profile, selling/buyback/batch/discount/house/build-ghost system is invented. Current test placement remains labelled as such.
+- UiCoordinator keeps modal/clock/Player/sleep authority; centered wide layout and native GUI precedence extend only the machine panel. Rebuild after callbacks, preserve valid selection/focus/scroll and invalidate stale operation selections on reset/load. Domain/core/data/assets/Theme/InputMap/save-v8 remain unchanged; safe collection stays under D63.
+- Add translations for the existing seven machine-name keys. Update credits only for reused asset usage; no new outside art/license claim. No commit/push; current180s graphics bound and all gates remain.
+
+### D63 — Safe machine output into inventory (2026-11-04) — Status: LOCKED by approved Phase6.5b; implementation delivered, human acceptance pending
+- Owner approved the Phase6.5b plan/ALLOW_LIST. Keep D62 Player/crop/machine behavior; no commit/push.
+- Register the seven already-referenced temp_* outputs as ItemData (other, default stack99, zero buy/sell) with approved localized labels. No output-ID/recipe/machine/crop balance or save-shape change; final trade values/art remain deferred.
+- MachineOperationService owns capacity/identity/ready checks and all-or-nothing collection, with transient reentry guard and snapshots. Preserve raw take_output for existing low-level callers; UI uses safe collection only and reports actual outcomes.
+- UI rebuilds after callbacks and preserves valid operation/focus; no UI item grants, false success, duplicate payout or cleared output on a full/unknown-item failure. No new house/input/scene/production system.
+
+### D62 — Restore Player while retaining new crops/machines (2026-11-04) — Status: LOCKED by explicit owner request
+- Owner chose “Chỉ khôi phục nhân vật, giữ cây trồng và máy móc mới”. Supersedes only the manager-removal D50 entry immediately below (the separate imported-ground D50 is not revoked).
+- Restore HEAD's Player/child Camera2D, movement/collision/reach, customization/Character UI, modal/sleep gates and legacy saved logical position. Merge mixed Main/world/UI files rather than resetting all pending work.
+- Retain supplied crop data/assets/care rules/shovel, machine inventory/shop/build/operation/presentation and their save fields. Keep exact Ctrl+M machine shop with Player locked behind its overlay; new machine cell selection remains available.
+- Backup all pending existing files before restoration and verify protected bytes afterward. No reset/clean/commit/push; report tests and any remaining pre-existing failures honestly. Camera manager-drag tests migrate to restored follow/zoom/lock semantics.
+
+### D50 — Manager farm camera and legacy player removal — keep stamina, remove avatar and character screen — Status: Superseded by D62 (2026-11-04)
+- The active game has no player node or movement authority. Legacy save `player` payloads are ignored during load.
+- Camera input is bounded mouse/touch drag and wheel/pinch zoom. Zoom defaults to 0.5 and is clamped to 0.35–1.0 through `IsometricWorldConfig`; keyboard camera movement is not used.
+- Direct cell/object selection replaces player distance checks. Ctrl+M remains an exact debug-only action for the machine shop.
 
 ---
 
@@ -318,3 +537,51 @@ Status `DEFAULT` = a recommended default chosen for you. Change it to `LOCKED` o
 - Why: the current runtime already provides truthful season filtering, reach/prompt, affordability, capacity and purchase behavior; adding unregistered crop/item data would invent gameplay values prohibited by the milestone scope.
 - Consequence: ISO-17 is accepted through focused and full automated verification without runtime rewrites. Additional house/NPC/dialogue/calendar/event screens remain deferred until their domain systems and data exist; human editor/render acceptance remains separate.
 - Changeable until: before a future approved data task adds new planting-item categories or remaining screen domains.
+
+### D56 — ISO-18 supplied crop gameplay data and care rules (2026-11-03) — Status: LOCKED by owner approval
+- Register every crop present in the supplied manifest using the owner's balance table; planting item type, prices, stages, perennial behavior and regrow days remain Resource data rather than script constants.
+- Missed watering at a stage transition withers the crop without advancing it; watering or rain restores it; a second consecutive withered day removes the crop. A shovel clears a withered crop while preserving its tilled plot.
+- Why: the playtest identified missing supplied-crop integration and no dedicated cleanup path. This preserves the DATA → DOMAIN → VIEW boundary and keeps legacy saves readable.
+- Changeable until: before a separately approved balance or crop-care redesign.
+
+### D57 — Phase 6.1 machine domain boundary and temporary processed-item IDs (2026-11-04) — Status: LOCKED by owner approval
+- Implement `MachineData`, `RecipeData` and serializable `MachineState` only. Jobs advance by completed game days, consume inputs atomically, buffer one completed output, and become `blocked` rather than losing output when the buffer is unavailable.
+- Keep supplied machine art as manifest-backed asset paths for the later VIEW milestone. Do not add machine scenes, UI, placement, effects, audio, shop flow or final processed-item `ItemData` until those scopes are approved.
+- Use `temp_*` output IDs in recipe resources and machine buffers until the owner confirms the final Vietnamese/English item names and icons.
+- Why: this delivers the production domain contract without inventing player-facing item content or coupling state to nodes.
+- Consequence: recipes can be tested and saved now, but processed outputs are not yet valid inventory items and cannot be shown in UI.
+- Changeable until: before the processed-item content/data milestone.
+
+### D58 — Machine Shop domain-only ownership (2026-11-04) — Status: LOCKED by owner approval
+- Sell stove, mill, press, barrel, oven, dryer and roaster through a future separate shop UI, using the approved temporary prices and house unlock levels in `MachineData`. Each confirmed purchase removes one price through `WalletState` and adds one count to a separate unlimited `MachineInventory`.
+- Save machine ownership under `machine_inventory` in the existing payload; old saves default to empty ownership and save version remains unchanged.
+- Why: machine ownership must exist before Phase 6.3 placement, while UI and placement are separate milestones.
+- Consequence: purchased machines cannot yet be placed or displayed in a shop; no resale/refund exists.
+- Changeable until: before Machine Shop UI or placement work.
+
+### D59 — Phase 6.2 machine placement footprint and rotation (2026-11-04) — Status: LOCKED by owner approval
+- All seven supplied machines occupy one logical cell. Placement rejects locked parcel cells and any occupied footprint, consumes one machine from `MachineInventory`, and removal returns one machine.
+- Save `rotation` as one of `0`, `90`, `180` or `270` degrees. Current machine sprites remain in their supplied single direction; future directional art may change VIEW only.
+- Why: establish safe logical placement before UI/build mode, while preserving the asset limitation and DATA → DOMAIN → VIEW boundary.
+- Consequence: placement has no scene, preview, directional rendering or effect yet.
+- Changeable until: before Phase 6.3 build mode.
+
+### D60 — Phase 6.3 logical build commands (2026-11-04) — Status: LOCKED by owner approval
+- Build mode exposes domain commands for place, rotate, move and remove through `MachineBuildService`; all seven machines remain `1x1`, rotation remains saved metadata, and UI/ghost presentation is deferred.
+- A placement consumes one machine, a successful removal returns one machine to `MachineInventory`, and move/rotate failures restore the original occupancy and placement.
+- Why: deliver the approved build-mode logic without inventing input bindings, scenes, previews, prices or additional machine content.
+- Consequence: no visible build mode exists yet; the future UI must call these commands and render their explicit results.
+- Changeable until: before Phase 6.3 UI/ghost implementation.
+
+### D61 — Phase 6.4 script-built machine test UI (2026-11-04) — Status: LOCKED by owner approval
+- Use the existing `interact` action and a `GrayBoxWorld` marker created in code for the first machine-shop test. Build the shop and operation controls as script-created UI; do not edit `.tscn` or add an input binding.
+- `MachineOperationService` owns serialized machine jobs. The view delegates purchase, test placement, recipe start, day progression and output collection to existing data/domain services.
+- Why: provide a playable test path without inventing a scene contract or replacing the existing seed-shop interaction.
+- Consequence: the first UI uses a temporary test-placement button and supplied machine data; dedicated machine scenes, ghost previews and final product icons remain deferred.
+- Changeable until: before dedicated machine presentation work.
+
+### D72 — 2D Isometric Camera Pan/Zoom & Cozy Visual Polish (2026-11-05) — Status: LOCKED by owner approval
+- Camera zoom levels in `data/isometric_world_config.tres` expand to `PackedFloat32Array(0.35, 0.5, 0.75, 1.0, 1.25)` with default `zoom_index = 1` (`0.5`), allowing wide map overview (`0.35`) and close-up (`1.25`).
+- Mouse Wheel over the map zooms `CameraRig`; `HotbarPanel` only consumes Mouse Wheel (`tool_next` / `tool_prev`) when hovering the hotbar or holding `Shift`.
+- Right/Middle Mouse drag pans `CameraRig` (`_pan_offset` clamped to `Vector2(-1400, -800)..Vector2(1400, 800)` scaled by zoom) without interfering with Left Mouse tile hover/farming; moving the player or double-right-clicking smoothly resets pan to `Vector2.ZERO`.
+- 2D isometric character (`PlaceholderAvatar2D`, `AvatarHair2D`), buildings/trees (`PlaceholderWorld2D`), crops (`FarmView`), working machines (`MachinePresentation`), and wood UI frames (`LifeHudFrame`, `LifePanelWood`) render detailed 2D isometric art and live animations when `not GameClock.paused` while remaining deterministic when paused for snapshot tests; PNG sprite sheets/buildings are generated by `tools/build_isometric_2d_assets.gd` under `assets/buildings/`, `assets/characters/`, and `assets/ui/`.

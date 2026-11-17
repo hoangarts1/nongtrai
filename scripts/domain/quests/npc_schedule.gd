@@ -2,19 +2,31 @@
 ## API:
 ##   func destination(npc: NpcData, day: int, minute: int, season: StringName, rainy: bool) -> StringName
 ##   func route(from_cell: Vector2i, to_cell: Vector2i) -> Array[Vector2i]
+##   func set_dynamic_obstacles(regions: Array[Rect2i]) -> void
 class_name NpcSchedule
 extends RefCounted
 
 var content: NpcWorldData
 var _grid: AStarGrid2D = AStarGrid2D.new()
+var _dynamic: Array[Rect2i] = []
 
 func configure(data: NpcWorldData) -> void:
 	content = data
 	_grid.region = data.locations.nav_region
 	_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	_grid.update()
-	for blocked: Rect2i in data.locations.solid_rects:
-		_grid.fill_solid_region(blocked, true)
+	_grid.fill_solid_region(_grid.region,false)
+	var regions: Array[Rect2i] = data.locations.get_solid_regions()
+	regions.append_array(_dynamic)
+	for blocked: Rect2i in regions:
+		var clipped: Rect2i = blocked.intersection(_grid.region)
+		if clipped.has_area():
+			_grid.fill_solid_region(clipped, true)
+
+func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
+	_dynamic.assign(regions)
+	if content!=null:
+		configure(content)
 
 func destination(npc: NpcData, day: int, minute: int, season: StringName, rainy: bool) -> StringName:
 	var light: Dictionary = content.day_night_profile.sample(minute)

@@ -4,6 +4,7 @@
 ##   func remove_item(item_id: StringName, quantity: int) -> bool
 ##   func has_item(item_id: StringName, quantity: int = 1) -> bool
 ##   func get_quantity(item_id: StringName) -> int
+##   func try_expand_capacity(expected_capacity: int, target_capacity: int) -> bool
 ##   func clear() -> void
 ##   func serialize() -> Dictionary
 ##   func deserialize(data: Dictionary) -> void
@@ -21,11 +22,18 @@ var revision: int = 0
 var _slots: Array[Dictionary] = []
 const CONFIG: InventoryConfig = preload("res://data/inventory_config.tres")
 # External-data integrity bounds, not gameplay stack/capacity upgrades.
-const MAX_SAVED_SLOTS: int = 4096
+const MAX_SAVED_SLOTS: int = BagUpgradeConfig.MAX_CAPACITY
 const MAX_JSON_INTEGER: int = 9007199254740991
 
 func _init(max_slots: int = -1) -> void:
 	capacity = maxi(1, CONFIG.default_capacity if max_slots < 0 else max_slots)
+
+func try_expand_capacity(expected_capacity: int, target_capacity: int) -> bool:
+	if capacity!=expected_capacity or capacity<=0 or capacity<_slots.size() or target_capacity<=capacity or target_capacity>MAX_SAVED_SLOTS:
+		return false
+	capacity = target_capacity
+	_emit_changed()
+	return true
 
 func add_item(item_id: StringName, quantity: int) -> int:
 	if quantity <= 0 or DataRegistry.get_item(item_id) == null:

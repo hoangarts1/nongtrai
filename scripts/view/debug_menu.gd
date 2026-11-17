@@ -26,12 +26,10 @@ func _ready() -> void:
 	_register_default_actions()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not OS.is_debug_build() or not event.is_action_pressed("toggle_debug_menu"):
+	if not MachineShopShortcut.matches(event, OS.is_debug_build()):
 		return
-	visible = not visible
-	if _player != null:
-		_player.movement_enabled = not visible and not GameClock.is_sleeping()
-	get_viewport().set_input_as_handled()
+	# Main/UiCoordinator keep the new machine-shop shortcut authoritative.
+	return
 
 func _process(_delta: float) -> void:
 	if not visible:

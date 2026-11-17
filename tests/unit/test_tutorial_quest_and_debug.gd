@@ -53,7 +53,7 @@ func test_debug_menu_add_coins_and_add_all_seeds() -> void:
 	var debug_menu: DebugMenu = DebugMenu.new()
 	add_child_autofree(debug_menu)
 	var wallet: WalletState = WalletState.new(100)
-	var inventory: InventoryState = InventoryState.new(24)
+	var inventory: InventoryState = InventoryState.new(40)
 	
 	debug_menu.configure_inventory(inventory)
 	debug_menu.configure_wallet(wallet)

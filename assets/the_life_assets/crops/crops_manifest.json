@@ -1,0 +1,218 @@
+{
+ "items_note": "Mỗi cây có <crop>_seed.png (64x64, 1x/ = 32x32) là vật phẩm dùng để trồng. planting_item: seed=hạt, cutting=cành giâm, sapling=cây giống, sucker=chồi.",
+ "crops": {
+  "strawberry": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "strawberry_seed.png"
+  },
+  "eggplant": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "eggplant_seed.png"
+  },
+  "chili": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "chili_seed.png"
+  },
+  "cabbage": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "cabbage_seed.png"
+  },
+  "rice": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "rice_seed.png"
+  },
+  "sunflower": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "sunflower_seed.png"
+  },
+  "coffee": {
+   "type": "perennial",
+   "canvas": [
+    160,
+    176
+   ],
+   "pivot": [
+    80,
+    148
+   ],
+   "stage_note": "stage3 = trưởng thành chưa quả; stage4 = có quả (thu hoạch xong quay về stage3)",
+   "planting_item": "seed",
+   "planting_item_file": "coffee_seed.png"
+  },
+  "pepper": {
+   "type": "perennial",
+   "canvas": [
+    160,
+    176
+   ],
+   "pivot": [
+    80,
+    148
+   ],
+   "stage_note": "stage3 = trưởng thành chưa quả; stage4 = có quả (thu hoạch xong quay về stage3)",
+   "planting_item": "cutting",
+   "planting_item_file": "pepper_seed.png"
+  },
+  "orange": {
+   "type": "perennial",
+   "canvas": [
+    160,
+    176
+   ],
+   "pivot": [
+    80,
+    148
+   ],
+   "stage_note": "stage3 = trưởng thành chưa quả; stage4 = có quả (thu hoạch xong quay về stage3)",
+   "planting_item": "sapling",
+   "planting_item_file": "orange_seed.png"
+  },
+  "apple": {
+   "type": "perennial",
+   "canvas": [
+    160,
+    176
+   ],
+   "pivot": [
+    80,
+    148
+   ],
+   "stage_note": "stage3 = trưởng thành chưa quả; stage4 = có quả (thu hoạch xong quay về stage3)",
+   "planting_item": "sapling",
+   "planting_item_file": "apple_seed.png"
+  },
+  "banana": {
+   "type": "perennial",
+   "canvas": [
+    160,
+    176
+   ],
+   "pivot": [
+    80,
+    148
+   ],
+   "stage_note": "stage3 = trưởng thành chưa quả; stage4 = có quả (thu hoạch xong quay về stage3)",
+   "planting_item": "sucker",
+   "planting_item_file": "banana_seed.png"
+  },
+  "carrot": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "carrot_seed.png"
+  },
+  "tomato": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "tomato_seed.png"
+  },
+  "radish": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "radish_seed.png"
+  },
+  "corn": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "corn_seed.png"
+  },
+  "pumpkin": {
+   "type": "annual",
+   "canvas": [
+    128,
+    128
+   ],
+   "pivot": [
+    64,
+    100
+   ],
+   "planting_item": "seed",
+   "planting_item_file": "pumpkin_seed.png"
+  }
+ }
+}

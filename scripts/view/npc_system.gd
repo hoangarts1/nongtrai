@@ -4,6 +4,7 @@
 ##   func open_journal() -> void
 ##   func open_dialogue(npc_id: StringName) -> void
 ##   func close_panels() -> void
+##   func set_dynamic_obstacles(regions: Array[Rect2i]) -> void
 ##   func restore(data: Dictionary) -> void
 class_name NpcSystem
 extends Node
@@ -19,6 +20,17 @@ var _main: Node
 var _current_npc: StringName = &""
 var _previous_pause: bool = false
 var _hud_visibility: Dictionary = {}
+
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_TRANSLATION_CHANGED:
+		return
+	for id: StringName in homes:
+		var home: PlaceholderWorld2D = homes[id] as PlaceholderWorld2D
+		var npc: NpcData = state.get_npc(id)
+		if not is_instance_valid(home) or not is_instance_valid(home.label) or npc == null:
+			continue
+		home.label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
+		home.queue_redraw()
 
 func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) -> void:
 	_main = main
@@ -69,7 +81,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause") or event.is_action_pressed("cancel") or event.is_action_pressed("open_journal"):
 		close_panels()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("use_tool") or event.is_action_pressed("interact") or event.is_action_pressed("open_inventory") or event.is_action_pressed("open_help") or event.is_action_pressed("toggle_debug_menu"):
+	elif event.is_action_pressed("use_tool") or event.is_action_pressed("interact") or event.is_action_pressed("open_inventory") or event.is_action_pressed("open_help") or MachineShopShortcut.matches(event, OS.is_debug_build()):
 		get_viewport().set_input_as_handled()
 	else:
 		for slot: int in range(1, 10):
@@ -219,6 +231,10 @@ func _weather_changed(_id: StringName) -> void:
 func _refresh_schedule() -> void:
 	if _main != null:
 		state.update_schedule(GameClock.day_index, GameClock.minute, GameClock.season, bool(_main.weather_state.call("is_rainy")))
+
+func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
+	state.scheduler.set_dynamic_obstacles(regions)
+	state.refresh_routes()
 
 func restore(data: Dictionary) -> void:
 	close_panels()

@@ -19,3 +19,7 @@ Shared stateless VIEW helper AvatarHair2D.draw_back(canvas: CanvasItem, style: S
 TitlePresenter submission checks visible profile mode and begin_submission before its original appearance signal/two-string callback. Opening profile resets latch; Back/reopen retains names/choices. Locale refresh does not rebuild emitting controls or clear drafts. UiLayout uses the existing wide bounds for profile/settings; old title remains left-card layout.
 
 Manual: F5/New Game; all six hair/skin/hair-color/outfit choices, native keyboard/mouse, arrow wrapping, names/defaults/long captions, Back/reopen, one Start, actual game/saved-profile parity, vi/en/three sizes. No Inspector/scene/project setting steps. Shared Theme/title illustration retained; body artwork remains replaceable. Renderer suite alone gets180s bound, with all checks unchanged.
+
+## D72-C1 inherited appearance review (D73)
+
+Form/choices/scene/domain/save are unchanged. Active inherited PlaceholderAvatar2D/AvatarHair2D remain procedural renderers; generated farmer_sheet_2x is a draft/offline output and does not replace their six hair/skin/hair-color/outfit choices. New render review checks all six styles, resolved actual colors and unchanged Main profile/inventory/wallet/jobs while previewing. Existing native profile tests remain byte-identical.

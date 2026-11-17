@@ -1,0 +1,250 @@
+[gd_resource type="Resource" script_class="CropCatalogData" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/crop_catalog_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/crop_data.gd" id="2"]
+
+[sub_resource type="Resource" id="Crop_carrot"]
+script = ExtResource("2")
+crop_id = &"carrot"
+display_name_key = &"CROP_CARROT"
+seed_item = &"carrot_seed"
+product_item = &"carrot"
+yield_qty = 1
+growth_days = 3
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "autumn")
+perennial = false
+planting_item = &"seed"
+planting_item_buy_price = 20
+produce_sell_price = 35
+
+[sub_resource type="Resource" id="Crop_radish"]
+script = ExtResource("2")
+crop_id = &"radish"
+display_name_key = &"CROP_RADISH"
+seed_item = &"radish_seed"
+product_item = &"radish"
+growth_days = 4
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "autumn")
+planting_item = &"seed"
+planting_item_buy_price = 25
+produce_sell_price = 45
+
+[sub_resource type="Resource" id="Crop_cabbage"]
+script = ExtResource("2")
+crop_id = &"cabbage"
+display_name_key = &"CROP_CABBAGE"
+seed_item = &"cabbage_seed"
+product_item = &"cabbage"
+growth_days = 5
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring")
+planting_item = &"seed"
+planting_item_buy_price = 30
+produce_sell_price = 55
+
+[sub_resource type="Resource" id="Crop_tomato"]
+script = ExtResource("2")
+crop_id = &"tomato"
+display_name_key = &"CROP_TOMATO"
+seed_item = &"tomato_seed"
+product_item = &"tomato"
+growth_days = 5
+regrow_days = 2
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer")
+perennial = true
+planting_item = &"seed"
+planting_item_buy_price = 35
+produce_sell_price = 60
+
+[sub_resource type="Resource" id="Crop_chili"]
+script = ExtResource("2")
+crop_id = &"chili"
+display_name_key = &"CROP_CHILI"
+seed_item = &"chili_seed"
+product_item = &"chili"
+growth_days = 5
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("summer")
+planting_item = &"seed"
+planting_item_buy_price = 30
+produce_sell_price = 50
+
+[sub_resource type="Resource" id="Crop_strawberry"]
+script = ExtResource("2")
+crop_id = &"strawberry"
+display_name_key = &"CROP_STRAWBERRY"
+seed_item = &"strawberry_seed"
+product_item = &"strawberry"
+growth_days = 6
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring")
+planting_item = &"seed"
+planting_item_buy_price = 40
+produce_sell_price = 70
+
+[sub_resource type="Resource" id="Crop_eggplant"]
+script = ExtResource("2")
+crop_id = &"eggplant"
+display_name_key = &"CROP_EGGPLANT"
+seed_item = &"eggplant_seed"
+product_item = &"eggplant"
+growth_days = 6
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("summer")
+planting_item = &"seed"
+planting_item_buy_price = 40
+produce_sell_price = 65
+
+[sub_resource type="Resource" id="Crop_rice"]
+script = ExtResource("2")
+crop_id = &"rice"
+display_name_key = &"CROP_RICE"
+seed_item = &"rice_seed"
+product_item = &"rice"
+growth_days = 6
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("summer", "autumn")
+planting_item = &"seed"
+planting_item_buy_price = 30
+produce_sell_price = 55
+
+[sub_resource type="Resource" id="Crop_corn"]
+script = ExtResource("2")
+crop_id = &"corn"
+display_name_key = &"CROP_CORN"
+seed_item = &"corn_seed"
+product_item = &"corn"
+growth_days = 7
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("summer", "autumn")
+planting_item = &"seed"
+planting_item_buy_price = 60
+produce_sell_price = 120
+
+[sub_resource type="Resource" id="Crop_sunflower"]
+script = ExtResource("2")
+crop_id = &"sunflower"
+display_name_key = &"CROP_SUNFLOWER"
+seed_item = &"sunflower_seed"
+product_item = &"sunflower"
+growth_days = 7
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("summer")
+planting_item = &"seed"
+planting_item_buy_price = 45
+produce_sell_price = 80
+
+[sub_resource type="Resource" id="Crop_pumpkin"]
+script = ExtResource("2")
+crop_id = &"pumpkin"
+display_name_key = &"CROP_PUMPKIN"
+seed_item = &"pumpkin_seed"
+product_item = &"pumpkin"
+growth_days = 8
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("autumn")
+planting_item = &"seed"
+planting_item_buy_price = 50
+produce_sell_price = 90
+
+[sub_resource type="Resource" id="Crop_coffee"]
+script = ExtResource("2")
+crop_id = &"coffee"
+display_name_key = &"CROP_COFFEE"
+seed_item = &"coffee_seed"
+product_item = &"coffee"
+yield_qty = 1
+growth_days = 14
+regrow_days = 4
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer", "autumn")
+perennial = true
+planting_item = &"seed"
+planting_item_buy_price = 120
+produce_sell_price = 90
+
+[sub_resource type="Resource" id="Crop_pepper"]
+script = ExtResource("2")
+crop_id = &"pepper"
+display_name_key = &"CROP_PEPPER"
+seed_item = &"pepper_seed"
+product_item = &"pepper"
+growth_days = 12
+regrow_days = 3
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer", "autumn")
+perennial = true
+planting_item = &"cutting"
+planting_item_buy_price = 150
+produce_sell_price = 70
+
+[sub_resource type="Resource" id="Crop_orange"]
+script = ExtResource("2")
+crop_id = &"orange"
+display_name_key = &"CROP_ORANGE"
+seed_item = &"orange_seed"
+product_item = &"orange"
+yield_qty = 3
+growth_days = 16
+regrow_days = 4
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer", "autumn")
+perennial = true
+planting_item = &"sapling"
+planting_item_buy_price = 250
+produce_sell_price = 60
+
+[sub_resource type="Resource" id="Crop_apple"]
+script = ExtResource("2")
+crop_id = &"apple"
+display_name_key = &"CROP_APPLE"
+seed_item = &"apple_seed"
+product_item = &"apple"
+yield_qty = 3
+growth_days = 14
+regrow_days = 4
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer", "autumn")
+perennial = true
+planting_item = &"sapling"
+planting_item_buy_price = 220
+produce_sell_price = 55
+
+[sub_resource type="Resource" id="Crop_banana"]
+script = ExtResource("2")
+crop_id = &"banana"
+display_name_key = &"CROP_BANANA"
+seed_item = &"banana_seed"
+product_item = &"banana"
+yield_qty = 4
+growth_days = 12
+regrow_days = 3
+water_need = 1
+max_consecutive_dry_days = 2
+seasons = PackedStringArray("spring", "summer", "autumn")
+perennial = true
+planting_item = &"sucker"
+planting_item_buy_price = 180
+produce_sell_price = 45
+
+[resource]
+script = ExtResource("1")
+crops = Array[ExtResource("2")]([SubResource("Crop_carrot"), SubResource("Crop_radish"), SubResource("Crop_cabbage"), SubResource("Crop_tomato"), SubResource("Crop_chili"), SubResource("Crop_strawberry"), SubResource("Crop_eggplant"), SubResource("Crop_rice"), SubResource("Crop_corn"), SubResource("Crop_sunflower"), SubResource("Crop_pumpkin"), SubResource("Crop_coffee"), SubResource("Crop_pepper"), SubResource("Crop_orange"), SubResource("Crop_apple"), SubResource("Crop_banana")])

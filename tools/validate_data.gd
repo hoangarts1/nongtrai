@@ -2,6 +2,9 @@ extends SceneTree
 
 const VALIDATOR_SCRIPT: Script = preload("res://scripts/core/data_validator.gd")
 const REQUIRED_KEYS: PackedStringArray = [
+	"COOP_TITLE", "COOP_SITE", "COOP_OWNED", "COOP_DAY", "COOP_COUNTS", "COOP_STOCK", "COOP_CARE", "COOP_BUNDLE", "COOP_BUY", "COOP_FOOD_QUANTITY", "COOP_HENS_QUANTITY", "COOP_BUY_FEED", "COOP_FEED", "COOP_COLLECT", "COOP_BAG", "COOP_READY", "COOP_PURCHASED", "COOP_FED", "COOP_COLLECTED", "COOP_NO_COINS", "COOP_FULL", "COOP_NO_FEED", "COOP_OCCUPIED", "COOP_CHANGED", "COOP_PROMPT", "COOP_LEDGER", "COOP_FOOD_LEDGER",
+	"ITEM_CHICKEN_FEED_NAME", "ITEM_CHICKEN_FEED_DESCRIPTION",
+	"ITEM_EGG_NAME", "ITEM_EGG_DESCRIPTION",
 	"UI_INVENTORY_TITLE",
 	"UI_INVENTORY_EMPTY",
 	"UI_HOTBAR_EMPTY",
@@ -98,9 +101,13 @@ const REQUIRED_KEYS: PackedStringArray = [
 	,"UI_BACK", "UI_APPEARANCE_HAIR_STYLE", "UI_APPEARANCE_SKIN_TONE", "UI_APPEARANCE_HAIR_COLOR", "UI_APPEARANCE_OUTFIT_COLOR", "UI_APPEARANCE_OPTION_NUMBER"
 	,"UI_APPEARANCE_HAIR_ROUND_BOB", "UI_APPEARANCE_HAIR_SOFT_BANGS", "UI_APPEARANCE_HAIR_LEAF_BRAID", "UI_APPEARANCE_HAIR_SIDE_SWOOP", "UI_APPEARANCE_HAIR_SHORT_PEAK", "UI_APPEARANCE_HAIR_TWIN_PUFFS"
 	,"NPC_AN_NAME", "NPC_LAM_NAME", "PET_DOG_NAME"
+	,"WATER_SOURCE_WELL", "WATER_CAN_COUNT", "WATER_CAN_EMPTY", "WATER_REFILL_HINT", "WATER_REFILLED", "WATER_CAN_FULL", "WATER_REFILL_UNAVAILABLE", "WATER_SOURCE_STREAM", "WATER_SOURCE_POND"
 ]
 
 func _init() -> void:
+	call_deferred("_run")
+
+func _run() -> void:
 	var item_paths: Array[String] = [
 		"res://data/items/turnip_seed.tres",
 		"res://data/items/turnip.tres",
@@ -121,6 +128,10 @@ func _init() -> void:
 		"res://data/items/winter_cabbage_seed.tres",
 		"res://data/items/winter_cabbage.tres"
 	]
+	# Keep the complete historical C2 art set; egg/feed use the approved generic fallback.
+	var visual_item_paths: Array[String] = item_paths.duplicate()
+	item_paths.append("res://data/items/egg.tres")
+	item_paths.append("res://data/items/chicken_feed.tres")
 	var crop_paths: Array[String] = [
 		"res://data/crops/turnip.tres",
 		"res://data/crops/spring_carrot.tres",
@@ -136,10 +147,35 @@ func _init() -> void:
 		"res://data/quests/quest_turnip_delivery.tres"
 	]
 	var errors: PackedStringArray = VALIDATOR_SCRIPT.validate_item_paths(item_paths)
+	errors.append_array((preload("res://data/chicken_coop_site.tres") as ChickenCoopSiteConfig).validation_errors())
+	if errors.is_empty():
+		var coop_config: ChickenCoopConfig = preload("res://data/chicken_coop_config.tres")
+		errors = coop_config.validation_errors()
+		if errors.is_empty():
+			var known_feed: bool = false
+			for item_path: String in item_paths:
+				var item: ItemData = load(item_path) as ItemData
+				if item!=null and item.item_id==coop_config.feed_item_id:
+					known_feed = true
+					break
+			if not known_feed:
+				errors.append("chicken coop feed is not in the logical item registry")
 	if errors.is_empty():
 		errors = VALIDATOR_SCRIPT.validate_inventory_config(preload("res://data/inventory_config.tres"))
 	if errors.is_empty():
 		errors = VALIDATOR_SCRIPT.validate_isometric_world_config(preload("res://data/isometric_world_config.tres"))
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_isometric_2d_assets()
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_machine_build_config(preload("res://data/machine_build_config.tres"), preload("res://data/isometric_world_config.tres"))
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_watering_can_config(preload("res://data/watering_can_config.tres"))
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_bag_upgrade_config(preload("res://data/bag_upgrade_config.tres"))
+	if errors.size() == 0:
+		errors = VALIDATOR_SCRIPT.validate_land_expansion_config(preload("res://data/land_expansion_config.tres"))
+	if errors.is_empty():
+		errors = VALIDATOR_SCRIPT.validate_water_source_config(preload("res://data/water_sources.tres"),(preload("res://data/npcs/phase8_world.tres") as NpcWorldData).locations,preload("res://data/land_expansion_config.tres"))
 	if errors.size() == 0:
 		errors = VALIDATOR_SCRIPT.validate_item_paths(crop_paths)
 	if errors.size() == 0:
@@ -168,7 +204,7 @@ func _init() -> void:
 		errors = VALIDATOR_SCRIPT.validate_world_art_catalog_path("res://data/art/world/chibi_world_catalog.tres")
 	if errors.size() == 0:
 		var visual_items: Array[Resource] = []
-		for item_path: String in item_paths:
+		for item_path: String in visual_item_paths:
 			visual_items.append(load(item_path) as Resource)
 		errors = VALIDATOR_SCRIPT.validate_item_visual_assets(visual_items)
 	if errors.size() > 0:
@@ -181,7 +217,12 @@ func _init() -> void:
 		"res://localization/strings_en.csv"
 	]
 	var inventory_keys: PackedStringArray = REQUIRED_KEYS.duplicate()
+	inventory_keys.append_array(PackedStringArray(["PLC_PLACE","PLC_RETURN","PLC_RETURNED","PLC_TITLE","PLC_CELL","PLC_PICK","PLC_VALID","PLC_HINTS","PLC_LEFT","PLC_RIGHT","PLC_CANCEL","PLC_CONFIRM","PLC_REGION","PLC_PLAYER","PLC_FAR","PLC_PLOT","PLC_MACHINE_CELL","PLC_INVALID"]))
+	inventory_keys.append_array(PackedStringArray(["LAND_TITLE", "LAND_EAST_NAME", "LAND_DESCRIPTION", "LAND_OWNED", "LAND_EXTRA", "LAND_PRICE", "LAND_WALLET", "LAND_BUY", "LAND_AVAILABLE", "LAND_COMPLETE", "LAND_NO_COINS", "LAND_PURCHASED", "LAND_BUSY", "LAND_STALE", "LAND_REJECTED", "LAND_INVALID", "LAND_LOCKED", "LAND_PLACEMENT", "LAND_LEDGER"]))
+	inventory_keys.append_array(PackedStringArray(["WATER_UP_ACTION", "WATER_UP_TITLE", "WATER_UP_DESCRIPTION", "WATER_UP_CAPACITY", "WATER_UP_PRICE", "WATER_UP_WALLET", "WATER_UP_BACK", "WATER_UP_CONFIRM", "WATER_UP_AVAILABLE", "WATER_UP_SUCCESS", "WATER_UP_COMPLETE", "WATER_UP_NO_COINS", "WATER_UP_STALE", "WATER_UP_BUSY", "WATER_UP_REFUND", "WATER_UP_INVALID", "WATER_UP_LEDGER", "WATER_UP_REMAINING"]))
+	inventory_keys.append_array(PackedStringArray(["BAG_UP_ACTION", "BAG_UP_TITLE", "BAG_UP_DESCRIPTION", "BAG_UP_CAPACITY", "BAG_UP_PRICE", "BAG_UP_WALLET", "BAG_UP_BACK", "BAG_UP_CONFIRM", "BAG_UP_AVAILABLE", "BAG_UP_SUCCESS", "BAG_UP_COMPLETE", "BAG_UP_NO_COINS", "BAG_UP_STALE", "BAG_UP_BUSY", "BAG_UP_REFUND", "BAG_UP_INVALID", "BAG_UP_LEDGER"]))
 	inventory_keys.append("UI_CROP_REGROW_NOTE")
+	inventory_keys.append_array(PackedStringArray(["PLC_MOVE","PLC_MOVE_TITLE","PLC_MOVE_CELL","PLC_MOVE_PICK","PLC_MOVE_VALID","PLC_MOVE_HINTS","PLC_MOVE_CONFIRM","PLC_MOVE_CANCEL","PLC_MOVED","PLC_ROTATED","PLC_MOVE_STALE"]))
 	for item_path: String in item_paths:
 		var item: ItemData = load(item_path) as ItemData
 		if not item.description_key.is_empty():
@@ -203,6 +244,23 @@ func _init() -> void:
 	if errors.size() > 0:
 		for error_message: String in errors:
 			push_error(error_message)
+		quit(1)
+		return
+	var registry: Node = root.get_node_or_null("DataRegistry")
+	if registry==null:
+		push_error("recipe validation registry unavailable")
+		quit(1)
+		return
+	var recipe_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_recipe_economy(preload("res://data/recipe_economy_config.tres"),registry.call("get_all_recipes"),registry.call("get_all_machines"),registry.call("get_all_items"))
+	if not recipe_errors.is_empty():
+		for message: String in recipe_errors:
+			push_error(message)
+		quit(1)
+		return
+	var stage_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_crop_stage_config(preload("res://data/crop_stage_config.tres"))
+	if not stage_errors.is_empty():
+		for message: String in stage_errors:
+			push_error(message)
 		quit(1)
 		return
 	print("[validate_data] PASS")

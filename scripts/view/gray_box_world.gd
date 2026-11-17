@@ -1,5 +1,7 @@
 ## GrayBoxWorld — 2D isometric world; gameplay state stays in existing domain services.
 ## API:
+##   func configure_water_refill(query: Callable, request: Callable) -> void
+##   func configure_chicken_coop(query: Callable, request: Callable) -> void
 ##   func pick_cell(screen_position: Vector2) -> Variant
 ##   func cell_to_global(cell: Vector2i) -> Vector2
 ##   func get_player_cell() -> Vector2i
@@ -11,6 +13,7 @@ const CONFIG: IsometricWorldConfig = preload("res://data/isometric_world_config.
 const GROUND_TILE_SET: TileSet = preload("res://assets/tiles/tileset/ground_tileset_128x64.tres")
 signal shipping_bin_interacted()
 signal seed_shop_interacted()
+signal machine_shop_interacted()
 signal bed_requested()
 
 @onready var ground: TileMapLayer = %Ground
@@ -21,6 +24,7 @@ signal bed_requested()
 @onready var bed_marker: Marker2D = %BedMarker
 @onready var shipping_bin_marker: Marker2D = %ShippingBinMarker
 @onready var seed_shop_marker: Marker2D = %SeedShopMarker
+var machine_shop_marker: Marker2D
 @onready var interaction_prompt: InteractionPrompt = $InteractionLayer/InteractionPrompt
 @onready var world_tint: CanvasModulate = %WorldTint
 @onready var house_light: PointLight2D = %HouseLight
@@ -28,6 +32,29 @@ var camera: Camera2D
 var grid: IsometricGrid
 var _day_night_profile: Resource = preload("res://data/day_night_profile.tres")
 var _weather_darkness: float = 0.0
+var _water_query: Callable
+var _water_request: Callable
+var _coop_query: Callable
+var _coop_request: Callable
+
+func configure_chicken_coop(query: Callable, request: Callable) -> void:
+	_coop_query = query
+	_coop_request = request
+
+func _coop_context() -> Dictionary:
+	if not _coop_query.is_valid() or not _coop_request.is_valid():
+		return {}
+	return _coop_query.call()
+
+func configure_water_refill(query: Callable, request: Callable) -> void:
+	_water_query = query
+	_water_request = request
+
+func _water_context() -> Dictionary:
+	if not _water_query.is_valid() or not _water_request.is_valid():
+		return {}
+	var result: Variant = _water_query.call()
+	return result if result is Dictionary and result.has("source_id") else {}
 
 func _ready() -> void:
 	_build_tiles()
@@ -41,6 +68,10 @@ func _ready() -> void:
 	_place_marker(bed_marker, CONFIG.house_cell)
 	_place_marker(shipping_bin_marker, CONFIG.shipping_bin_cell)
 	_place_marker(seed_shop_marker, CONFIG.shop_cell)
+	machine_shop_marker = Marker2D.new()
+	machine_shop_marker.name = "MachineShopMarker"
+	add_child(machine_shop_marker)
+	_place_marker(machine_shop_marker, CONFIG.shop_cell + Vector2i(2, 0))
 	%PlayerSpawn.global_position = cell_to_global(CONFIG.spawn_cell)
 	_build_obstacles()
 	GameClock.sleep_started.connect(_on_sleep_started)
@@ -68,8 +99,9 @@ func _ground_variant(cell: Vector2i) -> Vector2i:
 
 func _build_obstacles() -> void:
 	var locations: WorldLocations = (preload("res://data/npcs/phase8_world.tres") as NpcWorldData).locations
-	for index: int in range(locations.solid_rects.size()):
-		var region: Rect2i = locations.solid_rects[index]
+	var solids: Array[Rect2i] = locations.get_solid_regions()
+	for index: int in range(solids.size()):
+		var region: Rect2i = solids[index]
 		# The farm is a navigation exclusion for NPCs, not a player collision wall.
 		if region == Rect2i(0, 0, 6, 6):
 			continue
@@ -107,14 +139,29 @@ func _process(_delta: float) -> void:
 func _near(marker: Marker2D) -> bool:
 	return grid != null and is_player_near_interactable(Vector2(get_player_cell()), Vector2(marker.get_meta("cell", Vector2i.ZERO)), CONFIG.interaction_reach)
 
+func _near_machine_shop() -> bool:
+	if not _near(machine_shop_marker):
+		return false
+	var point: Vector2 = Vector2(get_player_cell())
+	return point.distance_squared_to(Vector2(machine_shop_marker.get_meta("cell"))) < point.distance_squared_to(Vector2(seed_shop_marker.get_meta("cell")))
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("interact") or GameClock.is_sleeping() or not player.movement_enabled:
 		return
-	if _near(shipping_bin_marker):
+	if not _water_context().is_empty():
+		_water_request.call()
+		get_viewport().set_input_as_handled()
+	elif not _coop_context().is_empty():
+		_coop_request.call()
+		get_viewport().set_input_as_handled()
+	elif _near(shipping_bin_marker):
 		shipping_bin_interacted.emit()
 		get_viewport().set_input_as_handled()
-	elif _near(seed_shop_marker):
+	elif _near(seed_shop_marker) and not _near_machine_shop():
 		seed_shop_interacted.emit()
+		get_viewport().set_input_as_handled()
+	elif _near(machine_shop_marker):
+		machine_shop_interacted.emit()
 		get_viewport().set_input_as_handled()
 	elif GameClock.can_sleep() and _near(bed_marker):
 		if bed_requested.get_connections().size() > 0:
@@ -128,10 +175,17 @@ func _update_interaction_prompt() -> void:
 		return
 	if GameClock.is_sleeping():
 		interaction_prompt.show_prompt(tr("UI_SLEEP_PENDING"))
+	elif not _water_context().is_empty():
+		var context: Dictionary = _water_context()
+		interaction_prompt.show_prompt(tr("WATER_REFILL_HINT" if bool(context.get("ok",false)) else "WATER_CAN_FULL"))
+	elif not _coop_context().is_empty():
+		interaction_prompt.show_prompt(tr("COOP_PROMPT"))
 	elif _near(shipping_bin_marker):
 		interaction_prompt.show_prompt(tr("UI_PROMPT_SELL"))
-	elif _near(seed_shop_marker):
+	elif _near(seed_shop_marker) and not _near_machine_shop():
 		interaction_prompt.show_prompt(tr("UI_PROMPT_SHOP"))
+	elif _near(machine_shop_marker):
+		interaction_prompt.show_prompt(tr("UI_PROMPT_MACHINE_SHOP"))
 	elif GameClock.can_sleep() and _near(bed_marker):
 		interaction_prompt.show_prompt(tr("UI_SLEEP_HINT"))
 	else:
