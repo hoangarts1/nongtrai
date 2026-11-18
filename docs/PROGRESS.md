@@ -1,5 +1,308 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3c automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 170scripts/722/722/87936assert; groups121.473/111.554/123.526s<180, GUT356.553s/wall375.162s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2387, prior test/fixture verification359, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3c-190210/full-attempt1. No skipped/removed cases or timeout extension.
+
+Owner approved all10plans7.3c->7.4c and exact per-step ALLOW_LIST: “Duyệt cả 10, triển khai và commit/push từng mốc”. No repeated scope/commit permission required within those lists. Current step1/10 creates only stateless EcologyLifecycle and additive8case test plus shared docs. Candidate validation before silent owner restore; baseline current owned farm/actual clock day, no historical simulation/crossings/rewards, unmeasured water from configured initial. Valid saved metrics/history remain exact; daily helper uses one adjacent-day sample/ease, no runtime hook yet. Focused1 headless8/8/94assert/0.404s PASS; pure and full PASS. Checkpoint D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3c-190210/. Save12/Player/scenes/InputMap and all714oldcases stay unchanged. Two prompt changes remain outside every commit.
+
+## NEXT10 ecology batch — APPROVED, execute sequentially (2026-11-18)
+
+User approved the next10plans in sequence, full gate and commit/push each milestone. Planning baseline HEAD010eefe4e887e3be422b0c30fdc3a49d0da4e765 (7.3b delivered, full169scripts/714tests/87842assert PASS). Planning changed only PROGRESS; execution status/checkpoints now appear above. Two existing prompt changes remain untouched and excluded.
+
+### Decisions bundled for approval
+
+- Baseline for NewGame/legacy/corrupt ecology: calibrate tree/species to the current normalized owned farm at the actual loaded clock day; no past-day simulation, historical crossing or reward. Water uses configured initial value only as an unavailable placeholder, never a measured score. Valid existing ecology metrics/history remain exact.8trees/8species, sixaliases, ease10 and existing thresholds stay.
+- Save13 adds ecology{day_index,metrics,triggered}; full-precision JSON writes protect threshold sides; no unrelated schema/value change. v1-v12 goldens stay byte-identical. Attached old-test patch is exactly40changed lines/32files:36current-version expectations,3future-version fixture corrections and1expanded version loop. It preserves all test names/assertions and explicit generic envelope12/13 tests. No old-test blanket permission.
+- UI entry: Ecology button inside existing J Quest book, with Back; keep3common tabs and4quest filters unchanged. Shared small scenes and theme, actual values only. Morning strip reads the same committed ecology, water is unmeasured. No InputMap/project/autoload change.
+- Visual prototype: native2D silhouettes, max8butterflies+6birds,14critters total. Data-owned cosmetic values, active thresholds from actual metrics; no3Dasset reuse or final sprite/art claim. No clear-water/fish until a real measured source is authorized.
+- Proposed execution is one milestone at a time in dependency order, each focused/pure/CLI/parse/full/Main gate before its own commit/push to origin/master. Never force-push. User approval of this batch authorizes its explicit scopes/decisions and commit/push per milestone; unapproved exceptions still require a concrete patch/scope request.
+
+### Shared rules and gates for every step
+
+READ-ONLY CONTEXT: AGENTS.md, PROJECT_RULES, ROADMAP, PROGRESS, API_INDEX, ARCHITECTURE, DECISIONS, DATA_SCHEMA, CODE_PATTERNS, STYLE_GUIDE; masterS13 and roadmap7.3/7.4; existing ecology/crop/land/weather/coop/day/save/UI APIs and scene contracts referenced per step; mockup05/08/shared theme. At implementation, read each touched-scene contract fully before code. Existing main scene contract is gray_box_world.md; new ecology.md will document new typed APIs/nodes before wiring. New paths below are proposed, not existing API claims.
+
+DO NOT TOUCH: everything outside each step ALLOW_LIST; especially project.godot/InputMap/old .tscn/assets/audio/Player/appearance/gameplay prices/recipes/weather forecasts/animals and existing goldens except expressly authorized new save_v13. Existing test files only get the exact40-line compatibility patch in7.3e; any additional fixture/assertion change needs separate review. No locked PROJECT_RULES edit, Director/events/economy/social/new cleanup gameplay, no forced close of user F5.
+
+Every step: checkpoint before code; source/test/golden/real-save hashes; exact scope diff; preserve all714baseline test cases and every added case from earlier steps. Run focused and necessary domain/no-autoload or native UI tests, positive/negative CLI when adding data gates; then original tools/run_tests.bat with pinned4.7.2 and fixed180s per graphics child group. No skip, weakened assertions, golden rewrite or timeout extension. Archive raw outputs/manifests, update current docs, exact-scope commit/push and verify remote. Failure stops downstream work until fixed within scope; three failed fixes trigger the project stop rule. Human F5/manual art acceptance remains separate from automation.
+
+Shared ALLOW_LIST files (included in EACH plan, plus that plan exact additions below):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+
+| Order | Milestone | Proposed work | Dependency |
+|---|---|---|---|
+| 1 | Phase7.3c | Ecology lifecycle and baseline library | Phase7.3b |
+| 2 | Phase7.3d | Ecology save component and canonical legacy context | Phase7.3c |
+| 3 | Phase7.3e | Main-owned ecology and save v13 | Phase7.3d |
+| 4 | Phase7.3f | Ecology once per completed day | Phase7.3e |
+| 5 | Phase7.3g | Read-only ecology explanations and presentation data | Phase7.3f |
+| 6 | Phase7.3h | Modular ecology journal inside existing J book | Phase7.3g |
+| 7 | Phase7.3i | Morning ecology strip from committed state | Phase7.3h |
+| 8 | Phase7.4a | Bounded2D ecology feedback data and selector | Phase7.3i |
+| 9 | Phase7.4b | Live butterflies and birds with lifecycle cleanup | Phase7.4a |
+| 10 | Phase7.4c | Ecology simulation and end-to-end verification harness | Phase7.4b |
+
+### 1. Phase7.3c - Ecology lifecycle and baseline library
+
+TASK: Add a pure lifecycle facade around existing EcologyState/Sampler. New game and legacy/malformed ecology calibrate tree_cover/biodiversity to valid owned-farm targets at the loaded clock day; water starts at the configured profile initial value but remains unavailable. Initial threshold history is empty and loading emits nothing. Valid saved metrics/history are retained. No historical days or rewards are replayed. Explicit new-game reconfiguration and next-adjacent-day update use current validated snapshots, retaining existing goals8/8, aliases, ease10 and thresholds. No Main/save/runtime wiring in this step.
+
+ACCEPTANCE: Pure no-autoload lifecycle tests; empty and populated farms, maturity/regrow/wither/ownership; silent baseline, invalid snapshot atomic refusal, valid restore exact, no retroactive crossing/rewards, adjacent/duplicate/skipped-day guards and detached reads. All714baseline cases unchanged; full launcher PASS.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/domain/ecology/ecology_lifecycle.gd`
+- `scripts/domain/ecology/ecology_lifecycle.gd.uid`
+- `tests/unit/test_ecology_lifecycle.gd`
+- `tests/unit/test_ecology_lifecycle.gd.uid`
+
+Proposed commit: `feat: define ecology lifecycle and snapshot-based baseline`.
+
+### 2. Phase7.3d - Ecology save component and canonical legacy context
+
+TASK: Prepare pure EcologySaveCodec and EcologySaveContext libraries. Ecology component uses existing {day_index,metrics,triggered} wire, clock-day match required; no stored node/count/availability/UI data. Normalize legacy farm with existing FarmSaveCodec and explicit CropData/migration Resources; derive owned regions with existing land config/state without altering source payload. Missing/corrupt/day-mismatched component produces explicit diagnostic and calibrated current-day baseline from7.3c. No version bump or live SaveService/Main change yet.
+
+ACCEPTANCE: All v1-v12 golden inputs remain byte-identical; adapter output matches actual FarmGridState/LandOwnership restore, malformed component fallback is explicit, saved valid history/metrics survive, no replay/signal, complete failure if sampling context invalid. JSON full-precision boundary and fuzz cases. Additive tests plus full PASS; SaveService stays12 in this step.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/domain/ecology/ecology_save_codec.gd`
+- `scripts/domain/ecology/ecology_save_codec.gd.uid`
+- `scripts/domain/ecology/ecology_save_context.gd`
+- `scripts/domain/ecology/ecology_save_context.gd.uid`
+- `tests/unit/test_ecology_save_codec.gd`
+- `tests/unit/test_ecology_save_codec.gd.uid`
+
+Proposed commit: `feat: validate ecology save components and legacy farm context`.
+
+### 3. Phase7.3e - Main-owned ecology and save v13
+
+TASK: Compose one EcologyState owner in Main with a small view-side EcologyRuntime adapter. New game/load/title lifecycle uses7.3c/d and restores only after actual farm/land/clock. SaveService moves12->13, appends migrate_12_to_13 and canonical ecology component, preserving every existing field and backups/recovery guarantees. Write JSON full_precision=true to keep threshold-side floats exact. Add golden save_v13, retain all v1-v12 bytes. Apply only the attached 40-line/32-file compatibility patch:36 expected current-version outputs,3 future-version fixtures and1 expanded version loop; generic envelope tests with explicit12/13 contracts remain unchanged. No daily ecology advance yet;7.3f wires the single day path next.
+
+ACCEPTANCE: Fresh/legacy/current13/corrupt ecology/day mismatch/NewGame/title/Continue/slot/autosave round-trip; no crop/item/coin/water/forecast/Player drift, no callback reentry/half-restore, exact below/equal thresholds survive native disk JSON. Backup recovery/future-version rejection still pass; no golden overwritten. Full baseline cases retained with only approved compatibility changes, new tests added; parse/data/headless/full/Main PASS before commit.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/core/save_service.gd`
+- `scripts/view/main.gd`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `tests/golden_saves/save_v13.json`
+- `scripts/view/ecology_runtime.gd`
+- `scripts/view/ecology_runtime.gd.uid`
+- `tests/unit/test_ecology_runtime_save.gd`
+- `tests/unit/test_ecology_runtime_save.gd.uid`
+- `tests/unit/test_ambient_audio_runtime.gd`
+- `tests/unit/test_bag_upgrade_flow.gd`
+- `tests/unit/test_character_screen.gd`
+- `tests/unit/test_chicken_coop_collection.gd`
+- `tests/unit/test_chicken_coop_feeding.gd`
+- `tests/unit/test_chicken_coop_runtime_save.gd`
+- `tests/unit/test_crop_care_save.gd`
+- `tests/unit/test_crop_regrow_save.gd`
+- `tests/unit/test_crop_stage_runtime.gd`
+- `tests/unit/test_day_end_flow.gd`
+- `tests/unit/test_day_end_save.gd`
+- `tests/unit/test_inventory_actions.gd`
+- `tests/unit/test_land_save.gd`
+- `tests/unit/test_machine_build_lifecycle.gd`
+- `tests/unit/test_machine_collection.gd`
+- `tests/unit/test_morning_flow.gd`
+- `tests/unit/test_npc_social_save.gd`
+- `tests/unit/test_pause_settings.gd`
+- `tests/unit/test_profile_creation.gd`
+- `tests/unit/test_quest_book.gd`
+- `tests/unit/test_recipe_economy.gd`
+- `tests/unit/test_save_backup_recovery.gd`
+- `tests/unit/test_save_recovery_ui.gd`
+- `tests/unit/test_save_service.gd`
+- `tests/unit/test_supplied_decor_runtime.gd`
+- `tests/unit/test_supplied_objects_runtime.gd`
+- `tests/unit/test_title_flow.gd`
+- `tests/unit/test_water_source_world.gd`
+- `tests/unit/test_watering_runtime_save.gd`
+- `tests/unit/test_watering_upgrade_flow.gd`
+- `tests/unit/test_weather.gd`
+- `tests/unit/test_weather_runtime_save.gd`
+
+Proposed commit: `feat: persist Main-owned ecology with save v13`.
+
+### 4. Phase7.3f - Ecology once per completed day
+
+TASK: Extend DaySimulator with an optional final ecology callback, keeping existing positional callers valid. Main preflights/reserves ecology readiness inside existing weather/coop rollover guard; run farm->animals->machines->ecology before weather completion/morning ledger/autosave/bulletin. Resolve season withering before ecology sampling so dead out-of-season plants are excluded; move the existing call into the documented farm-step boundary if necessary, never run it twice. Hold lifecycle/save/load/title/sleep mutations through publication. Keep ordinary plot/land changes from eagerly easing metrics; read-only counts may refresh. Save13 unchanged. Add explicit transient day reservation APIs to EcologyState (proposed day_quote/begin_day/finish_day/abort_day, documented before use). A reservation blocks configure/deserialize/direct advance through farm/animal/machine callbacks; finish validates full targets before atomic commit, abort retains old ecology, notifications stay guarded. Keep all existing unreserved APIs/serialization semantics and wire fields compatible.
+
+ACCEPTANCE: Native sleep and02:00 each advance ecology once; duplicate/stale/skipped signals and callback reentry cannot advance any owner twice or save mid-transition. Farm/animal/machine/ecology order asserted; outgoing rain, new-season withering, mature/regrow/wither sampling, loaded-day alignment and explicit failure diagnostics checked. No partial success/bulletin on invalid preflight. Compare repeated daily simulation with actual sleep fixtures. Old tests untouched beyond prior approved patch; full PASS.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/domain/day_simulator.gd`
+- `scripts/view/main.gd`
+- `scripts/view/ecology_runtime.gd`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `tests/unit/test_ecology_rollover.gd`
+- `tests/unit/test_ecology_rollover.gd.uid`
+- `tests/unit/test_ecology_day_simulation.gd`
+- `tests/unit/test_ecology_day_simulation.gd.uid`
+
+- `scripts/domain/ecology/ecology_state.gd`
+- `tests/unit/test_ecology_reservation.gd`
+- `tests/unit/test_ecology_reservation.gd.uid`
+
+Proposed commit: `feat: advance ecology once in the completed-day pipeline`.
+
+### 5. Phase7.3g - Read-only ecology explanations and presentation data
+
+TASK: Add presentation Resource with translation keys for three metric labels, source counts, next threshold, gentle actionable hints and unmeasured-water explanation. EcologySnapshot captures actual owner values plus current sampler counts/targets/availability; Ecological presentation formatter produces detached UI data without simulation/transactions. Explain canopy as owned-farm crop proxy, current metric versus target/ease, and current live counts; do not fabricate historical reasons, cleanup progress, flowers or rewards. Validator and CLI append new Resource/key checks. No visible panel yet.
+
+ACCEPTANCE: Positive/negative Resource/key validation; vi/en complete; healthy/regrow/wither/alias/unowned actual counts; finite invalid snapshots fail explicitly; water has no numeric bar/cleanliness claim, only unmeasured text; below/equal/above threshold hints derive actual profile. Readout leaves clock/farm/land/state/inventory/wallet/RNG unchanged. Additive tests and full PASS.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/data/ecology_journal_config.gd`
+- `scripts/data/ecology_journal_config.gd.uid`
+- `data/ecology_journal_config.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `ui/ecology/ecology_snapshot.gd`
+- `ui/ecology/ecology_snapshot.gd.uid`
+- `ui/ecology/ecology_presenter.gd`
+- `ui/ecology/ecology_presenter.gd.uid`
+- `tests/unit/test_ecology_journal_config.gd`
+- `tests/unit/test_ecology_journal_config.gd.uid`
+- `tests/unit/test_ecology_snapshot.gd`
+- `tests/unit/test_ecology_snapshot.gd.uid`
+
+Proposed commit: `feat: expose localized ecology readouts from actual state`.
+
+### 6. Phase7.3h - Modular ecology journal inside existing J book
+
+TASK: Add an Ecology entry button to existing Quest book and a Back button to restore its quest content; keep the3existing Bag/Character/Quest tabs and all4quest filters/indices unchanged. Mount small ecology_sheet/metric_row/source_summary scenes and transient controller inside the existing journal modal, using shared wood/paper theme. No new InputMap, raw key, autoload or independent state owner. Existing J opens the same book; native mouse/Tab/Enter activates Ecology, Esc closes via existing modal. Deferred refresh and locale change show real7.3g readouts. Main resets/load/title continue through existing book_controller reset.
+
+ACCEPTANCE: vi/en at3supported sizes, long text, all metric/availability/threshold states, overflow/scroll/focus/back/Esc/QE/tab routes, modal/pause/day-end priority, NewGame/load/title and repeated open/free leave no leaks or saved UI flags. Existing quest accept/deliver/reward routes unchanged; zero gameplay mutation from view. Fresh screenshots and new native tests; all old tests retained, full PASS. Human F5 acceptance remains separate.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `ui/ecology/ecology_sheet.gd`
+- `ui/ecology/ecology_sheet.gd.uid`
+- `ui/ecology/ecology_sheet.tscn`
+- `ui/ecology/metric_row.gd`
+- `ui/ecology/metric_row.gd.uid`
+- `ui/ecology/metric_row.tscn`
+- `ui/ecology/source_summary.gd`
+- `ui/ecology/source_summary.gd.uid`
+- `ui/ecology/source_summary.tscn`
+- `ui/ecology/ecology_controller.gd`
+- `ui/ecology/ecology_controller.gd.uid`
+- `ui/quests/quest_book.gd`
+- `ui/quests/book_controller.gd`
+- `scripts/view/npc_panel.gd`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/quest_book.md`
+- `tests/unit/test_ecology_journal.gd`
+- `tests/unit/test_ecology_journal.gd.uid`
+
+Proposed commit: `feat: add modular ecology pages to the existing journal`.
+
+### 7. Phase7.3i - Morning ecology strip from committed state
+
+TASK: Add a separate compact Ecology strip component to current reference05 morning sheet. Extend its read-only snapshot/presenter with actual committed metrics/targets and current garden counts; reuse7.3g localization/data. Show water unmeasured; no fabricated yesterday delta/event/history. Queue remains existing after-save completed-morning flow; load/Continue alone shows no bulletin. Preserve weather/prices/garden/tasks and dismissal at3sizes.
+
+ACCEPTANCE: One actual strip after successful sleep/02:00, zero duplicate after reentry/load; readouts match ecology save/owner, weather forecasts and market values unchanged. Native vi/en/3size fresh screenshots/focus/dismissal/long text and owner SHA immutability; no simulation from opening or translating. Existing morning tests unchanged; additive tests and full PASS.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `ui/morning/morning_snapshot.gd`
+- `ui/morning/morning_presenter.gd`
+- `ui/morning/morning_sheet.gd`
+- `docs/SCENE_CONTRACTS/morning_bulletin.md`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `ui/morning/ecology_strip.gd`
+- `ui/morning/ecology_strip.gd.uid`
+- `ui/morning/ecology_strip.tscn`
+- `tests/unit/test_morning_ecology.gd`
+- `tests/unit/test_morning_ecology.gd.uid`
+
+Proposed commit: `feat: show committed ecology readouts in morning bulletin`.
+
+### 8. Phase7.4a - Bounded2D ecology feedback data and selector
+
+TASK: Define presentation-only EcologyFeedbackProfile and a pure selector reading actual ecology metric availability and configured thresholds. Birds use tree_cover/birds; butterflies use biodiversity/butterflies. Plan caps8butterflies+6birds,14critters total; colors/geometry anchors/speeds/refresh timing live in Resource. Existing bird/butterfly assets found are3D historical scenes: retain them, do not load into2D. Prepare simple native2D silhouettes as provisional presentation, not final sprite/art acceptance. Water/fish/clear-water effects remain off because water is unmeasured. No world runtime yet.
+
+ACCEPTANCE: Profile validates caps, geometry, finite bounds and known metric/threshold references. Selector below/equal/above/up/down/load and unavailable values derives only from actual state, no history-as-current confusion. Deterministic presentation selection, no gameplay RNG/Node/side effects. Validator/CLI positive-negative and new tests; full PASS.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/data/ecology_feedback_profile.gd`
+- `scripts/data/ecology_feedback_profile.gd.uid`
+- `data/ecology_feedback_profile.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/isometric_visuals.md`
+- `scripts/domain/ecology/ecology_feedback_selector.gd`
+- `scripts/domain/ecology/ecology_feedback_selector.gd.uid`
+- `tests/unit/test_ecology_feedback_profile.gd`
+- `tests/unit/test_ecology_feedback_profile.gd.uid`
+- `tests/unit/test_ecology_feedback_selector.gd`
+- `tests/unit/test_ecology_feedback_selector.gd.uid`
+
+Proposed commit: `feat: configure bounded2D feedback for ecology thresholds`.
+
+### 9. Phase7.4b - Live butterflies and birds with lifecycle cleanup
+
+TASK: Add small EcologyEffectsFlow and EcologyCritter2D view scripts; compose from Main using existing world.objects and world.grid APIs documented in gray_box_world. Derive positions from actual owned-region cells via the shared IsometricGrid adapter, never duplicate projection. Deterministic bounded cosmetic animation only; no per-crop day/delta logic, gameplay RNG/collision/input. Refresh on committed values and lifecycle/ownership changes; load/NewGame/title/free and downward thresholds hide/reconcile existing nodes without leaks. Honor pause and existing day/night/rain presentation. Max14critters, no3D/PNG/art/scene replacement; save13 unchanged.
+
+ACCEPTANCE: Threshold crossings and silent load show/hide correct effects exactly once; below-threshold reload cannot retain birds/butterflies from past triggered history. Native pan/zoom/owned-expansion/locale/pause/title/reset/free and node-cap/repeated-cycle leak checks; underlying plots/machines/player/NPC paths/input unchanged. vi/en/new state screenshots, no state/save mutation. New native tests and full PASS; art/listening/human F5 acceptance not fabricated.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `scripts/view/ecology_effects_flow.gd`
+- `scripts/view/ecology_effects_flow.gd.uid`
+- `scripts/view/ecology_critter_2d.gd`
+- `scripts/view/ecology_critter_2d.gd.uid`
+- `scripts/view/main.gd`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `docs/SCENE_CONTRACTS/isometric_visuals.md`
+- `tests/unit/test_ecology_effects.gd`
+- `tests/unit/test_ecology_effects.gd.uid`
+
+Proposed commit: `feat: render bounded ecology birds and butterflies in2D`.
+
+### 10. Phase7.4c - Ecology simulation and end-to-end verification harness
+
+TASK: Add a headless sim_ecology tool and additive regression suites. Simulate1000days with explicit deterministic farm/land/season/care scenarios using actual lifecycle/sampler/DaySimulator; compare batched daily transitions with individual transitions, save/full-precision restore continuations and threshold history invariants. Native shorter sleep/review/autosave/bulletin/journal/feedback sequences capture actual states, both languages and3sizes. Preserve fixed launcher180s child groups/all original cases and golden bytes; no runner rewrite, benchmark weakening or retrospective human acceptance.
+
+ACCEPTANCE: 1000day deterministic metric bounds/hold-water/no-double-day/no-fake-history/round-trip invariants; same inputs yield same final snapshots. Native lifecycle/memory/nodecap/read-only UI/input regression checks pass with fresh captures; pure and CLI/full gates archived, protected real-save SHA unchanged. Final matrix distinguishes automated delivery from human F5/art acceptance;7.4 clear-water remains deferred. Commit/push final scope and verify remote.
+
+ALLOW_LIST: shared6files above plus EXACT following paths:
+
+- `tools/sim_ecology.gd`
+- `tools/sim_ecology.gd.uid`
+- `tests/unit/test_ecology_simulation.gd`
+- `tests/unit/test_ecology_simulation.gd.uid`
+- `tests/unit/test_ecology_end_to_end.gd`
+- `tests/unit/test_ecology_end_to_end.gd.uid`
+- `docs/SCENE_CONTRACTS/ecology.md`
+
+Proposed commit: `test: verify ecology simulation and full lifecycle end to end`.
+
+### Manual acceptance, limits and proposal evidence
+
+No editor work in7.3c/d/g/7.4a; libraries/config only. Runtime7.3e/f: save/load/Continue/new game/title/sleep/02:00 with actual gardens. UI7.3h/i: J->Ecology->Back, Escape/QE/modal/focus/scroll; morning after completed rollover, both languages/3sizes.7.4b/c: plant/live/wither counts, rise/fall thresholds, load active/inactive states, pan/zoom/pause/title/repeatfree; no changes to coins/items/crops/jobs from presentation. No scene-tree/Inspector changes required for the script-built simple new scenes; tree/typed fields must be added to ecology.md before use. Human manual completion is never inferred from screenshot tests.
+
+Risks: calibration could be mistaken for historical smoothing (UI must call it an estimate/current garden); day guards span existing weather/coop callbacks; season withering order; valid state day alignment and atomic restore; JSON float thresholds; availability false must never be rendered as clean water; native UI sizing and node leaks; fixed180s groups retain limited headroom. Parent7.3/7.4 remain partial wherever human acceptance or unmeasured-water features are missing.7.5Director and7.6negative-event forecasting are outside this batch.
+
+Proposal/backup, machine-readable10plans, 40-line patch with original line numbers/hashes and pre-proposal workspace/save SHA: `D:/godot/game-godot-backups/next10-ecology-proposal-20261118-182602`. Execution/commit/push are NOT yet performed.
+
 ## Phase7.3b hoàn tất tự động — commit/push được duyệt (2026-11-18)
 
 Owner trả lời “Duyệt 8 cây/8 loài và phạm vi 7.3b”, gồm commit/push sau gate. Triển khai trong đúng19path bên dưới: config goals8/8/fruitIDs/sixaliases; pure stateless sampler strict farm wire/ownership/current metrics; validator facade và CLI gate; ba script20case mới. Không có runtime Main/day/UI/save hook. Parent7.3 partial, Save12/Player/audio/scenes/InputMap giữ nguyên, nước chưa đo.

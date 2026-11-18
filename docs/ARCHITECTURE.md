@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3c pure lifecycle library (D108)
+
+EcologyLifecycle is a stateless DOMAIN facade over existing state/sampler, supplied profile/config/catalog/farm/ownership/day explicitly. Temporary candidate validation precedes silent replacement of caller-owned state. Current-garden calibration seeds actual tree/species targets at loaded day with empty history; valid matching-day state is restored unchanged. Unmeasured water retains configured initial or saved value with availability=false. Adjacent-day helper samples then delegates existing guarded easing. No Node/autoload/registry/clock/global event/filesystem, no second owner or retained state. Existing runtime/Main/DaySimulator/Save12 remain untouched until later approved substeps; ten-step approval is sequential, not a claim that those systems already exist.
+
 ## Phase7.3b farm snapshot sampler only (D107)
 
 DATA EcologySamplingConfig -> DOMAIN EcologySampler consumes explicit CropData catalog + FarmGridState.serialize() + LandOwnershipState.get_owned_regions() + current metrics. Stateless sample validates before returning detached counts/targets/availability; no dependency on registry/clock/Events/Nodes/filesystem and no automatic EcologyState update. Test bridge alone passes returned targets into an independent EcologyState for one adjacent day. Counts derive from owned healthy crops, frozen first-cycle maturity, persistent regrow trees and species aliases; data goals8/8 normalize targets. This is farmland canopy/diversity, not all forest/scenery. Water has no cleanup measurement and holds current with available=false. Existing live composition, DaySimulator order, initial/new-game/legacy baseline, UI and Save12 are unchanged. Future integration must define ownership/baseline/day-order/migration and unavailable-water presentation explicitly before wiring this library.

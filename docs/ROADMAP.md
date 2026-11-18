@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3c automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 170scripts/722/722/87936assert; groups121.473/111.554/123.526s<180, GUT356.553s/wall375.162s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2387, prior test/fixture verification359, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3c-190210/full-attempt1. No skipped/removed cases or timeout extension.
+
+Owner approved7.3c->7.4c and full-test/commit/push per milestone. Step1 adds pure current-garden calibration, silent exact valid restore, atomic candidate refusal and sampled adjacent-day update; no Main/save/day wiring. Focused8/8/94assert PASS; pure and full PASS. Baseline714cases preserved. Exact remaining scopes/dependencies/decisions in PROGRESS. Parent7.3 remains partial until runtime/UI and separate human acceptance; water unmeasured.
+
 ## Phase7.3b farm sampler automation delivered (2026-11-18)
 
 Owner approved8trees/8species and19paths. Resource/config, pure strict sampler, validator CLI gate and20new cases implemented; focused20/20/436assert and independent1000valid+1000duplicate-rejection/noautoload probe PASS. CLIpositive0/negative-goal0 exit1, config restored exactly. Full original launcher exit0:714/714/87842assert/169scripts, parse/data/headless63/Main PASS, groups122.766/123.400/116.595s<180. Source2385/test-fixture353/real-save20 SHA verified unchanged after full. Commit/push authorized after this gate; exact hash proof in delivery/commit-result.json. Parent7.3 remains partial: no runtime/legacy baseline/day order/UI/save integration, water stays unmeasured. Details and approved scope in PROGRESS/D107.
@@ -382,6 +388,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.3 | `EcologyState` (read-only) | 7.3a DATA/state/codec delivered; 7.3b owned-farm count sampler automation delivered; baseline/runtime/UI/save integration deferred, water unmeasured | [~] |
 | 7.3a | Independent ecology DATA/domain/codec (D106; automation delivered) | Three configured metrics0..100/initial0/thresholds25-30-50, immutable snapshots, adjacent-day updates, crossing history and silent JSON restore; focused18/18, pure1000days, CLI0/1, full694/694/87406assert/parse/data/headless/Main PASS; no live ecology yet | [~] |
 | 7.3b | Farm snapshot counts and targets (D107; automation delivered) | Goals8trees/8species, six legacy aliases, regrow maturity, owned healthy crops only; strict atomic validation and unavailable water; focused20/20, pure1000+1000, CLI0/1 and full714/714 PASS | [~] |
+| 7.3c | Current-garden lifecycle library (D108; automation delivered) | Silent current-day calibration/exact saved restore, empty initial history/unmeasured water, atomic rejection and sampled adjacent-day helper; focused8/8 PASS, full722/722 PASS | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |

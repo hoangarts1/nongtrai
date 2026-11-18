@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.3c baseline policy (D108)
+
+No new Resource or wire field. EcologyLifecycle calibration uses actual validated owned farm at the supplied day: metrics.tree_cover/biodiversity equal sampler targets, water_clarity equals configured profile initial, triggered empty. Water is always unavailable, including a nonzero saved/configured placeholder. Valid saved component with matching day preserves values/history; missing/malformed/day-mismatched component yields explicit calibration reason, never elapsed-day replay or reward. Invalid context/profile/day yields failure and keeps existing owner. Snapshot/sample results are detached; daily helper delegates existing adjacent-day easing. Game save remains12 until7.3e, no current runtime consumer.
+
 ## Phase7.3b farm sampling contract (D107)
 
 data/ecology_sampling_config.tres: EcologySamplingConfig with mature_tree_goal:int=8, species_goal:int=8 (positive int32); fruit_tree_ids=orange/apple/banana, each a known perennial repeat crop; species_aliases maps spring_carrot->carrot, summer_tomato->tomato, summer_corn->corn, autumn_pumpkin->pumpkin, winter_radish->radish, winter_cabbage->cabbage. Both source and terminal target must be known crop IDs. No identity/chain/cycle; other crop IDs retain distinct identities. Catalog is explicit Array[Resource] of unique valid CropData with positive int32 growth_days and nonnegative int32 regrow_days. Existing crop/item/save IDs are unchanged.

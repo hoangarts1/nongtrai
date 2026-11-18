@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D108 — approved current-garden ecology baseline and sequential ten-step batch (2026-11-18)
+
+Owner approved7.3c->7.4c scopes, one milestone at a time, full gate then commit/push per milestone. First7.3c is only lifecycle library: current normalized owned-farm targets calibrate tree/species on NewGame/legacy/corrupt ecology at loaded clock day; no invented past updates, threshold history or rewards. Water takes profile initial only as an unavailable placeholder, not measured cleanliness. Valid matching-day state retains exact values/history; load is silent. Validate full context/candidate before changing existing owner. Later approved steps alone introduce save13/runtime/day reservation/UI/bounded2D feedback; they are not implemented by this decision. All existing goals8/8/aliases/ease10/thresholds remain. Existing user prompt deletion/untracked addition are excluded from commits. No locked rule change, Director/cleanup gameplay or permission to weaken old tests.
+
 ### D107 — approved farm ecology sampling, with water explicitly unmeasured (2026-11-18)
 
 Owner approved Phase7.3b/19 paths, targets of 8 healthy mature fruit trees and 8 distinct healthy species, and commit/push after verification. Resource data/ecology_sampling_config.tres owns goals, fruit IDs orange/apple/banana and six legacy species aliases. Canopy is a farm proxy on owned logical cells, not a measurement of all forest/decor. First-cycle maturity uses the frozen plot growth_target; regrowing fruit trees remain mature after harvest. Withered plants contribute neither tree nor species; living immature plants contribute species. Coffee/pepper are not canopy trees. Six equivalent legacy IDs collapse only for counting, without renaming data/save IDs. Targets are count/goal*100, capped100.
