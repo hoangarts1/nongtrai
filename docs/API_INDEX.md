@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F7 engine gate (D93)
+
+tools/engine_pin.ps1 exposes Test-PinnedEngineVersion(Version)->bool and Assert-PinnedGodotEngine(Godot,OutputPrefix,TimeoutMs=10000)->string (throws on failure). The bounded launcher checks the pinned stable version using a hidden bounded --version process before any requested target, including direct invocations. Probe stdout/stderr are retained at OutputPath.pin.*. GODOT may select another executable only if it satisfies the pin. check_parse.bat aborts at a failed version gate. Native test command: powershell -NoProfile -ExecutionPolicy Bypass -File tools/tests/test_engine_pin.ps1. No game API/input/state/save change.
+
 ## AUDIT-F6 supplied tall objects (D92; automation 625/625 verified)
 
 SuppliedSceneryView.create_tall(entry:Dictionary,cell:Vector2i,index:int)->Node2D is the view factory for the preserved compatible Tree_i adapter with Visual child; returnsnull if texture configuration fails. WorldPresentation remains the coordinator (244lines), helper owns construction.

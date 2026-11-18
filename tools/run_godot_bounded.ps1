@@ -11,6 +11,8 @@ $originalAppData = $env:APPDATA
 try {
 	# Every invocation uses an isolated user:// so test saves/settings cannot alter the player's.
 	$env:APPDATA = Join-Path $env:TEMP 'the_life_test_appdata'
+	. (Join-Path $PSScriptRoot 'engine_pin.ps1')
+	$null = Assert-PinnedGodotEngine -Godot $Godot -OutputPrefix "$OutputPath.pin"
 	$process = Start-Process -WindowStyle Hidden -FilePath $Godot -ArgumentList $Arguments -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath -PassThru
 	# Retain the native handle before waiting; otherwise Windows PowerShell can lose ExitCode.
 	$null = $process.Handle
@@ -29,6 +31,9 @@ try {
 		exit 1
 	}
 	exit $exitCode
+} catch {
+	[Console]::Error.WriteLine('[bounded] '+$_.Exception.Message)
+	exit 1
 } finally {
 	$env:APPDATA = $originalAppData
 }

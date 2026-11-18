@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F7 automation delivered (2026-11-18)
+
+Pinned engine gate now covers direct bounded calls and parse startup. Native/process/parser probes20checks PASS; full parse/data/headless63/graphics625/625 (84296assert)/Main PASS; groups131.450/167.171s under180s. All625cases/goldens unchanged. Exact8path evidence in PROGRESS. F8 may begin after this gate; remainingF9–F16 are approved but unimplemented at this point.
+
+## Approved AUDIT-F7 → F16 continuation (2026-11-18)
+
+Owner approved all ten exact plans/ALLOW_LIST in PROGRESS and commit/push after each full gate. F7 starts engine-pin enforcement; F8 will partition graphics into3 sequential groups at180s each with unchanged full coverage. Then envelope/recovery/write safety, truthful UI/settings/SFX and modular dialogue. No save12/gameplay/balance/Player removal change. F4–F6 are now committed/pushed29b2ab0; older uncommitted statements below are historical. No new gate result until recorded in PROGRESS.
+
 ## AUDIT-F4/F5/F6 automation delivered, uncommitted (2026-11-18)
 
 Approved18/14/13path scopes completed sequentially, actual union30paths (19new/11modified). F4full616/616, F5full621/621, F6full625/625 with84296assert; parse/data/headless63/Main PASS each. All607baseline cases/old assertions/goldens/runner unchanged,18additive.29canonical PNGcatalogue,9small runtime decor,2tall object visuals delivered; legacy C3type/color adapter preserved while own drawing disabled. Source PNG/scenes/InputMap/save12/gameplay owners untouched. Full1C3compatibility failure/fix/full2PASS documented honestly. Default12of18legacyvariants/diagonal bands retained; no all29-in-map claim. Current stage ends here, human F5 and new commit/push separate. Snapshot c81adfd already pushed before these changes. Evidence/diffs/captures/manuals in PROGRESS/DELIVERY.

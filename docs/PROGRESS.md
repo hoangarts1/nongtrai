@@ -1,5 +1,329 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F7 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Đúng8path ALLOW_LIST:4docs và4tool/test, không sửa GUT/test gameplay/golden/scene/InputMap/asset/save12. API pin theoD93; direct bounded/check_parse đều fail trước target nếu version sai. Focused lần cuối20check PASS; lần đầu test PowerShell bị NativeCommandError do stderr negative fixture và ErrorAction Stop, đã sửa harness dùng hidden Start-Process/exit code, không sửa gate để bỏ lỗi. Hai log được giữ.
+
+Full thực tế cmd /c tools\run_tests.bat, exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 152 scripts, 625/625 tests, 84296 assertions; GUT 298.621s, wall 311.7341934s
+[run_tests] PASS
+~~~
+Nhóm131.450/167.171s, cùng180s. Main PASS; không error/leak/pending do strict runner. Snapshot manifest/test hashes và frozen tool source giữ nguyên. Backup/before-after/diff/exact changed list/full log/archive: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f7-085253/. Không Inspector/scene/settings; manual dùng GODOT sai phải dừng, engine đúng chạy đầy đủ. Human F5/export vẫn chưa xác nhận. Commit: fix: enforce pinned Godot before bounded test runs. Sau fullPASS được chuyểnF8, hash/push sẽ ghi ở checkpoint kế.
+
+## Batch10 được duyệt — F7 đang triển khai (2026-11-18)
+
+User: “Duyệt cả10, triển khai và commit/push từng mốc”. Đây là phê duyệt cho F7→F16/ALLOW_LIST cụ thể bên dưới; trạng thái chờ duyệt trong khối đề xuất là lịch sử. Thực hiện tuần tự, full gate rồi commit/push từng mốc, không xin lại quyền đã cấp. Baseline29b2ab0 đã push; F7backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f7-085253. Hai prompt ngoài scope giữ riêng. F7 parser/process probe và direct helper guard đang kiểm; chưa ghi full PASS. Không có bước Inspector/scene/project settings. Native manual: dùng engine đúng chạy launcher; GODOT sai phiên bản phải dừng trước parse/test.
+
+## Batch10 AUDIT-F7 → F16 — đề xuất cụ thể chờ duyệt (2026-11-18)
+
+### Checkpoint đã commit và push
+
+F4–F6 đã commit **29b2ab0326395a98b58188b60e5d88be1376fafd** (`feat: integrate supplied scenery catalog and passive world assets`), đúng30path,1249insertions/34deletions. Push `origin/master` thành công; `git ls-remote origin refs/heads/master` xác nhận cùng hash. Backup/staged.patch/commit.log/push.log ở `D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/`. Fresh DataValidator PASS; source khớp full625/625 đã chạy ởF6, không gọi đó là một lượt full mới. Hai prompt vẫn riêng: `D the_life_prompt.md`, `?? the_life_master_prompt.md`; không stage/restore/delete. Khối “chưa commit” bên dưới giữ làm lịch sử trước checkpoint, đã được trạng thái mới này thay thế.
+
+### Phạm vi, thứ tự và cách duyệt
+
+Yêu cầu mới của user là làm10plan liên tiếp, commit và up Git. Đây là10lát sửa thiếu sót có bằng chứng trong audit/roadmap, không tự tuyên bố hoàn tất10Phase lớn. Sau một lần duyệt cả kế hoạch/ALLOW_LIST dưới đây sẽ thực hiện đúng F7→F16; mỗi mốc backup/implement/focused/full gate, ghi chứng cứ, commit riêng và push fast-forward rồi sang mốc kế. Lệnh commit/push đã được user cho phép; không xin lại cùng quyền. Chưa có implementation F7–F16 tại thời điểm lập kế hoạch này.
+
+AGENTS.md §3 yêu cầu: “For any task that touches more than one file or any domain system: **plan first** ... **wait for approval before coding**.” Lượt trước chỉ duyệt F4–F6; vì vậy cần duyệt một lần cho10phạm vi mới, không suy ra ALLOW_LIST từ lệnh chung. PROJECT_RULES §15 vẫn được áp dụng theo từng mốc tuần tự; không triển khai đồng thời10mốc. User đã cho phép commit/push nên không bị câu lịch sử “human commits” ngăn thao tác Git đã được chỉ định.
+
+READ-ONLY chung: AGENTS.md, PROJECT_RULES, API_INDEX, ARCHITECTURE, DATA_SCHEMA, CODE_PATTERNS, DECISIONS, ROADMAP, AUDIT_REPORT §9/§10/E15; master save/error/settings/dialogue; contracts start_menu/pause_menu/npc_navigation/ui_components; mockup01/12/14/15. Đã kiểm source launcher, Settings, AudioService, SaveService, title/pause presenter, Main load/Continue và NpcPanel/NpcSystem/UiLayout; bốn SFX và portrait NPC có thật. Contract dialogue chưa tồn tại, F15 được phép tạo rõ ở dưới; không bịa node paths sẵn có.
+
+DO NOT TOUCH chung: mọi file ngoài ALLOW_LIST của mốc đang chạy; mọi .tscn hiện hữu, project.godot/InputMap, PNG/audio/fonts/Theme/import metadata, sourcebundle/UIDtrùng, Player/creation/Character/world/scenery/crops/machines/land/water/coop/weather/coin/inventory/day owner và hai prompt. Trừ các file core/view nêu đích danh, không sửa source lan sang hệ khác. Giữ save12, toàn bộ migration/golden/test baseline625case và mọi assertion/capture cũ; chỉ thêm test riêng. Không sửa AUDIT_REPORT lịch sử. Translation .value.translation chỉ được đổi khi compiler sinh từ CSV được duyệt của chính mốc đó. UID chỉ cho script mới nêu đích danh. Không cài package, không force/reset/clean, không đóng Editor/F5 hoặc viết vào save thật.
+
+Nghiệm thu chung mỗi mốc: lập baseline HEAD/index/source/save thật, exact changed-file manifest và clear diff ở backup ngoài repo; API được khai báo trước caller, typed GDScript/typed signals và layers hiện hữu. Chạy focused phù hợp, parse/data/headless63, full `cmd /c tools\run_tests.bat`, Main headless. F7 giữ runner2nhóm; từ F8 là3nhóm tuần tự, cùng180000ms mỗi nhóm, đủ discovery mọi old/newtest. Không tăng timeout, skip test, đổi golden hay giảm assertion. Archive stdout/stderr/manifest/summary, strictscan error/parse/leak/pending/count, ghi cả failed attempts. Full PASS mới commit đúng allow-list và push; lỗi ngoài scope thì báo và xin bổ sung cụ thể, không lách gate. Kiểm local/remote hash sau mỗi push. Test chia sẻ TEMP nên không chạy song song. Save thật và hai prompt phải giữ SHA/status. Đầu ra mỗi mốc gồm exact files/diff, log thật, assumptions, manual cases và hash; không coi automation là human F5/export acceptance.
+
+Không có giá mới hoặc schema mới trong batch. Không tự làm manager/removePlayer/stamina/house/fertilizer/laterupgrade/ecology/music: các phần đó cần input riêng. Ranh giới backup được chọn rõ để có thể duyệt trọn batch: chỉ tự fallback khi primary còn tồn tại mà hỏng; slot đã xóa/primary thiếu không được tự sống lại; primary version tương lai không tự hạ phiên bản. Xử lý power-loss xuyên nhiều file và xác nhận nghe/cleanPC vẫn là giới hạn phải báo thật.
+
+### AUDIT-F7 — Khóa phiên bản engine ở mọi lần chạy bounded
+
+Nguồn: PROJECT_RULES §1; audit §10.6; Phase0 tooling.
+
+TASK: Thêm gate phiên bản dùng chung trước khi chạy Godot; chấp nhận đúng 4.7.2.stable (binary hiện tại trả 4.7.2.stable.official.ed1daf0bf), từ chối engine khác/không chạy được/version output mơ hồ với exit khác0. GODOT override vẫn dùng được nếu đúng phiên bản. check_parse phải dừng ngay khi gate version thất bại; direct bounded invocation cũng kiểm pin. Không thay renderer, cài hay tải engine.
+
+ACCEPTANCE: Native version thật PASS; probe wrong version/missing binary/malformed output/nonzero exit/timeout đều fail đúng, không chạy target tiếp; parser không nhầm 4.7.20 hay 4.7.2.dev thành stable. Giữ hidden child, APPDATA cô lập, output/exit và timeout đang có. Full launcher PASS.
+
+Giả định/rủi ro: Thêm version probe có chi phí khởi động; test helper bằng process stub ngoài userdata thật, không sửa binary hay PATH hệ thống.
+
+ALLOW_LIST AUDIT-F7 — 8path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+tools/check_parse.bat
+tools/run_godot_bounded.ps1
+tools/engine_pin.ps1
+tools/tests/test_engine_pin.ps1
+~~~
+
+### AUDIT-F8 — Chia full graphics thành ba nhóm tuần tự và kiểm harness
+
+Nguồn: D72-C2; audit §10.5; F6 group2 165.857/180s.
+
+TASK: Đổi hai nhóm round-robin thành ba nhóm deterministic theo toàn inventory test_*.gd, chạy tuần tự cùng renderer. Mỗi nhóm vẫn180000ms; ghi manifest/summary đủ ba nhóm và aggregate, fail-fast thật. Giữ full discovery, strict error/leak/pending/count/source-hash gate và toàn bộ capture/assertion; không rút đợi trong test hoặc bỏ archive3D.
+
+ACCEPTANCE: So tập case/script trước-sau: đủ baseline152script/625case cùng case mới của các mốc sau, mỗi script đúng một nhóm; oracle partition ổn định, không trùng/thiếu. Synthetic log thiếu summary, parseerror, failing/pending/leak, sai count/hash và child exit124 đều bị từ chối. Chạy full ba nhóm PASS dưới180s mỗi nhóm.
+
+Giả định/rủi ro: Số nhóm tăng không bảo đảm hiệu năng trên mọi máy. Chỉ một launcher hoạt động; chưa tuyên bố runner hỗ trợ concurrent shared TEMP.
+
+ALLOW_LIST AUDIT-F8 — 6path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+tools/run_graphics_tests.ps1
+tools/tests/test_graphics_runner.ps1
+~~~
+
+### AUDIT-F9 — Codec kiểm envelope save độc lập
+
+Nguồn: Phase4.6; PROJECT_RULES §10; audit E15/MASTER-SAVE-RECOVERY.
+
+TASK: Tạo codec stateless RefCounted: kiểm root/meta/version và trả kết quả có mã lỗi/dữ liệu detached; chưa nối SaveService. Version hợp lệ là int hoặc JSON float hữu hạn nguyên từ0 đến current_version truyền vào; phân biệt unsupported_future với corrupt. Giữ quy ước legacy thiếu meta/version thành0, không đặt thêm yêu cầu field khiến golden v1–12 hợp lệ bị loại. Component codec/migration hiện tại vẫn chịu trách nhiệm field riêng.
+
+ACCEPTANCE: Toàn bộ golden v1–12 được nhận đúng version, legacy0 vẫn được nhận; input bool/string/fraction/NaN/Inf/âm/overflow/root lạ và meta lạ bị chặn theo contract. Version tương lai báo đúng mã; không mutate input hoặc làm mất unknown component; round-trip detached. Full launcher PASS, runtime/save bytes không đổi.
+
+Giả định/rủi ro: Không gọi mọi Dictionary parse được là save hoàn chỉnh; việc repair field thuộc codec hiện có. Không sửa golden để làm khớp validator mới.
+
+ALLOW_LIST AUDIT-F9 — 10path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/DATA_SCHEMA.md
+docs/ARCHITECTURE.md
+scripts/domain/save_envelope_codec.gd
+scripts/domain/save_envelope_codec.gd.uid
+tests/unit/test_save_envelope_codec.gd
+tests/unit/test_save_envelope_codec.gd.uid
+~~~
+
+### AUDIT-F10 — Khôi phục đọc từ ba backup có báo nguồn
+
+Nguồn: MASTER-SAVE-RECOVERY; Phase4.6; audit §10.9.
+
+TASK: Nối envelope codec vào facade, giữ load_game()->Dictionary và save12/migration0–12. Khi primary tồn tại nhưng đọc/parse/envelope hỏng, thử bak1→bak2→bak3 theo cùng validator/migration. Primary version tương lai chặn fallback trong slot đó để tránh hạ phiên bản âm thầm. Primary không tồn tại trả rỗng, KHÔNG tự hồi backup: giữ nghĩa delete_save hiện tại. Fallback chỉ đọc, không sửa/xóa/ghi primary hoặc backup. Thêm API report transient detached theo slot và inspect latest để summary/has_save không ghi đè report của thao tác load thật; load_latest giữ quy tắc chọn slot0/1 hiện có.
+
+ACCEPTANCE: Fixtures primary hợp lệ/corrupt/unreadable, backup1hỏng→2tốt, cả3hỏng, futureprimary và missingprimary. Xác minh chọn thứ tự, nguồn và mã lỗi đúng; load_latest/summary thật, unknown components/forecast không reroll, mọi golden cũ và625test giữ nguyên. SHA fixture/save thật trước-sau load giống; full gate PASS.
+
+Giả định/rủi ro: Đề xuất rõ ranh giới: không tự phục hồi slot đã xóa hoặc missingprimary. Recovery load chưa đồng nghĩa tự sửa file; UI cảnh báo ởF12. Report không trở thành owner persistent mới.
+
+ALLOW_LIST AUDIT-F10 — 11path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/DATA_SCHEMA.md
+docs/ARCHITECTURE.md
+scripts/core/save_service.gd
+scripts/core/save_load_resolver.gd
+scripts/core/save_load_resolver.gd.uid
+tests/unit/test_save_backup_recovery.gd
+tests/unit/test_save_backup_recovery.gd.uid
+~~~
+
+### AUDIT-F11 — Giao dịch ghi save an toàn khi lỗi I/O
+
+Nguồn: PROJECT_RULES §10; MASTER save atomic/3backups; audit §10.9.
+
+TASK: Tách adapter filesystem và giao dịch ghi khỏi facade; chuẩn bị tmp và các bản staged của chuỗi backup trước bước công bố primary. Kiểm từng open/store/flush/close/rename/remove có thể quan sát lỗi; khi thất bại trước commit giữ nguyên primary, ba backup trước đó và trả false; khi rollback cũng lỗi giữ bản phục hồi/staged có đường dẫn báo rõ, không xóa mất bản tốt. Primary mới chỉ được coi committed khi rename/swap đã thành công; giữ đúng ba backup hữu ích ở trạng thái thành công. Không đổi payload/version hoặc delete_save. Trạng thái I/O transient thuộc core, không Node/domain state mới.
+
+ACCEPTANCE: Fault injection có thứ tự cho từng giai đoạn write/backup staging/rename/publish/rollback; kết quả không báo success giả. Thành công save→load→save đúng dữ liệu và backup1/2/3 đúng thứ tự; Windows rename thật ở test userdir. Mọi oldtest/golden nguyên; hash save thật không đổi; full gate PASS.
+
+Giả định/rủi ro: Không thể hứa atomic xuyên nhiều file trước mất điện. Báo riêng guarantee process-level và những điểm crash-window chưa kiểm bằng cắt điện; không bịa đã thử disk-full thật. Dùng adapter nhỏ để test fault mà không tác động file người dùng.
+
+ALLOW_LIST AUDIT-F11 — 13path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+scripts/core/save_service.gd
+scripts/core/save_file_store.gd
+scripts/core/save_file_store.gd.uid
+scripts/core/save_write_transaction.gd
+scripts/core/save_write_transaction.gd.uid
+tests/unit/test_save_write_transaction.gd
+tests/unit/test_save_write_transaction.gd.uid
+~~~
+
+### AUDIT-F12 — Thông báo lưu lỗi và tải backup đúng sự thật
+
+Nguồn: ISO-8a/ISO-7; mockup01/14; MASTER error/recovery.
+
+TASK: Thêm component thông báo nhỏ dùng Theme hiện có vào title và status pause; hiển thị primary/backup được chọn, cảnh báo recovery hoặc unsupported future bằng vi/en. Main chỉ báo recovered sau _load_payload thành công; capture report trước refresh summary. Continue phải revalidate và không gọi resume khi không có payload hợp lệ. Save thất bại không báo đã lưu hoặc rời title thành công. Không popup lặp từ has_save/refresh hay lộ đường dẫn nội bộ trong flow người chơi.
+
+ACCEPTANCE: Native Continue/load ở primary tốt, backup2, hết backup, primaryfuture; báo đúng một lần/đúng slot và không false-success. Draft/settings/modal/pause/focus cũ giữ; vi/en ở1152×648,1280×720,1920×1080, văn bản dài và viewport resize không che action. Captures thật với GUTopacity0; full gate PASS.
+
+Giả định/rủi ro: Các private Main callback chỉ được sửa phần save/load/report; không đổi owner restore order/day simulation. Component mới có contract, không sửa main.tscn.
+
+ALLOW_LIST AUDIT-F12 — 19path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/SCENE_CONTRACTS/start_menu.md
+docs/SCENE_CONTRACTS/pause_menu.md
+localization/strings_vi.csv
+localization/strings_en.csv
+localization/strings_vi.value.translation
+localization/strings_en.value.translation
+scripts/view/main.gd
+ui/title/title_presenter.gd
+ui/title/title_screen.gd
+ui/pause/pause_presenter.gd
+ui/components/save_notice.gd
+ui/components/save_notice.gd.uid
+ui/components/save_notice.tscn
+tests/unit/test_save_recovery_ui.gd
+tests/unit/test_save_recovery_ui.gd.uid
+~~~
+
+### AUDIT-F13 — Cài đặt được kiểm tra và Apply có kết quả nguyên tử
+
+Nguồn: Phase9.4; ISO-7/8a; PROJECT_RULES validate external input.
+
+TASK: Codec stateless chuẩn hóa supported settings: volume finite0..1, localevi/en, tutorialbool; fallback đúng default hiện có cho file hỏng. Thêm apply_preferences có kết quả một lần persist cho supported draft, publish accepted values/locale và typed changed signal chỉ khi lưu thành công; lỗi giữ accepted snapshot trước, UI báo chưa áp dụng. Giữ API setter void cũ dưới dạng wrapper, unknown config keys/sections được giữ. Persist qua tmp/adapter fault-injectable, không ghi savegame.
+
+ACCEPTANCE: Malformed cfg/nonfinite/wrongtype/unknown locale, defaults, unchanged value, apply success và write/rename fault; file/accepted runtime/TranslationServer đồng nhất, không partial apply hay signal giả. Title/pause cancel vẫn chỉ draft. Existing pause locale/audio assertions giữ nguyên; full gate PASS.
+
+Giả định/rủi ro: Settings không phải WorldState hay autoload mới. Reload phải chuẩn hóa dữ liệu hỏng nhưng không tự ghi đè file lúc đọc. Không thêm thiết lập đồ họa/weather chưa có owner.
+
+ALLOW_LIST AUDIT-F13 — 20path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+docs/SCENE_CONTRACTS/start_menu.md
+docs/SCENE_CONTRACTS/pause_menu.md
+localization/strings_vi.csv
+localization/strings_en.csv
+localization/strings_vi.value.translation
+localization/strings_en.value.translation
+scripts/core/settings.gd
+scripts/domain/settings_codec.gd
+scripts/domain/settings_codec.gd.uid
+scripts/core/settings_file_store.gd
+scripts/core/settings_file_store.gd.uid
+ui/pause/pause_presenter.gd
+ui/title/title_settings.gd
+tests/unit/test_settings_persistence.gd
+tests/unit/test_settings_persistence.gd.uid
+~~~
+
+### AUDIT-F14 — Âm lượng SFX cập nhật trực tiếp và tắt tiếng hoàn toàn
+
+Nguồn: Phase7.2 phần SFX hiện hữu; Phase9.4; mockup14.
+
+TASK: AudioService lắng nghe changed signal từ Settings đã có ởF13, áp effects volume đã được chấp nhận cho player đang phát và player mới. Mức0 thực sự mute, không nâng lên0.001 như hiện tại; dùng API đã kiểm trong engine pin. Giữ đúng bốn hoe/seed/water/harvest asset, finished cleanup và caller hiện tại. Không thêm music/ambience track/bus/autoload mới; music note chưa có track vẫn trung thực.
+
+ACCEPTANCE: Test actual AudioStreamPlayer hiện hữu qua1→0.5→0→1, failed Apply không đổi sound, cancel không đổi; player mới nhận cùng gain và signal không nối lặp qua lifecycle. Không tạo progression/tool action thêm, không mutate owner/save. Native engine property và cleanup kiểm thật; full gate PASS.
+
+Giả định/rủi ro: Test gain/stream/player trong engine là bằng chứng kỹ thuật, chưa thay xác nhận nghe trên thiết bị. Không tuyên bố hoàn tất toàn bộ7.2 ambience/music.
+
+ALLOW_LIST AUDIT-F14 — 8path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+scripts/core/audio_service.gd
+tests/unit/test_audio_settings_live.gd
+tests/unit/test_audio_settings_live.gd.uid
+~~~
+
+### AUDIT-F15 — Các lớp hội thoại nhỏ theo ảnh12, chưa nối runtime
+
+Nguồn: ISO UI12; Phase8.1; audit §9 ưu tiên6.
+
+TASK: Tạo snapshot/presentation stateless và bốn component nhỏ: chân dung/tên, khung lời dưới, cột lựa chọn, screen ghép. Bố cục theo12-hoi-thoai đã xem: portrait trái, lựa chọn phải, lời thoại và friendship bên dưới; dùng Theme và LifeCharacterPortrait.display_npc hiện có, không tạo ảnh portrait mới. Snapshot chỉ đọc DialogueData/NpcData/social/quest/inventory/offer thực, giữ action id/enabled; không sở hữu quest/wallet hay callback thực thi. Chưa đổi Main/NpcSystem/NpcPanel trong mốc này.
+
+ACCEPTANCE: Fixture từ Resource/owner thật, Minh/Linh/merchant/quest active/full delivery; friendship thể hiện exact actual/max, không bịa role/hearts/đổi thưởng. Native UI standalone vi/en ba size, longtext/scroll/focus/reduced-space, ảnh thật opacity0, buttons phát typed request không thực thi domain. Detached snapshot không mutate owner; full gate PASS.
+
+Giả định/rủi ro: Chưa có portrait minh họa lớn giống hệt mockup; dùng renderer NPC thật và ghi rõ giới hạn art. Không tạo fake ba câu trả lời cho đủ hình; chỉ các action thật và đóng.
+
+ALLOW_LIST AUDIT-F15 — 25path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/SCENE_CONTRACTS/dialogue.md
+localization/strings_vi.csv
+localization/strings_en.csv
+localization/strings_vi.value.translation
+localization/strings_en.value.translation
+ui/dialogue/dialogue_snapshot.gd
+ui/dialogue/dialogue_snapshot.gd.uid
+ui/dialogue/dialogue_screen.gd
+ui/dialogue/dialogue_screen.gd.uid
+ui/dialogue/dialogue_screen.tscn
+ui/dialogue/dialogue_speaker.gd
+ui/dialogue/dialogue_speaker.gd.uid
+ui/dialogue/dialogue_speaker.tscn
+ui/dialogue/dialogue_body.gd
+ui/dialogue/dialogue_body.gd.uid
+ui/dialogue/dialogue_body.tscn
+ui/dialogue/dialogue_choices.gd
+ui/dialogue/dialogue_choices.gd.uid
+ui/dialogue/dialogue_choices.tscn
+tests/unit/test_dialogue_components.gd
+tests/unit/test_dialogue_components.gd.uid
+~~~
+
+### AUDIT-F16 — Nối hội thoại modular vào NPC, giữ sổ nhiệm vụ
+
+Nguồn: ISO UI12; Phase8.1/9.5; SCENE_CONTRACTS dialogue/npc_navigation.
+
+TASK: Bật component cho nhánh dialogue của NpcPanel; journal/quest-book không đổi. NpcSystem tiếp tục làm transaction/router thật; presentation snapshot củaF15 thay phần dựng nội dung legacy. Giữ show_content/column/title_label/close_button/close_requested cho consumer/test cũ; aliases chỉ vào control thật, action ids AcceptQuest/DeliverQuest/ConfirmOffer giữ. Bố cục rộng theo mockup bằng UiLayout riêng nhánh dialogue, nằm trong viewport; modal owner/pause/lock vẫn UiCoordinator. Native action revalidate current visible NPC/context trước callback, chặn callback stale/reentry, không tự nhận/giao/đổi reward khi render.
+
+ACCEPTANCE: Toàn bộ test_npc_ui và625case baseline nguyên byte. E→NPC, mouse/Tab/Enter/Space, Esc/đổi modal/language/resize, hidden stale action, double request, accept/deliver/trade trả đúng kết quả và ledger/item/coin thay đúng một lần; disable khi thiếu đồ. Journal/quest-book/title/dayend/save/load/NewGame không regression. Native captures Minh/Linh/offer/task vi/en ba size, GUTopacity0; full gate PASS trước commit cuối.
+
+Giả định/rủi ro: Không đổi NpcSocialState/QuestManager/MerchantService/DialogueData hay game numbers; không thêm hotkey raw1–3 (tránh hotbar) hoặc giả branch story. Human dialogue playtest còn riêng.
+
+ALLOW_LIST AUDIT-F16 — 22path (file chưa tồn tại là được tạo, UID mới tùy engine sinh):
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+docs/SCENE_CONTRACTS/dialogue.md
+docs/SCENE_CONTRACTS/npc_navigation.md
+localization/strings_vi.csv
+localization/strings_en.csv
+localization/strings_vi.value.translation
+localization/strings_en.value.translation
+scripts/view/npc_panel.gd
+scripts/view/npc_system.gd
+scripts/view/ui_layout.gd
+scripts/view/ui_coordinator.gd
+ui/dialogue/dialogue_snapshot.gd
+ui/dialogue/dialogue_screen.gd
+ui/dialogue/dialogue_choices.gd
+ui/dialogue/dialogue_controller.gd
+ui/dialogue/dialogue_controller.gd.uid
+tests/unit/test_dialogue_runtime.gd
+tests/unit/test_dialogue_runtime.gd.uid
+~~~
+
+**Trạng thái hiện tại: F7–F16 chỉ có kế hoạch, CHƯA được duyệt/CHƯA triển khai.** Không gán DONE từ việc đã viết kế hoạch. Có thể duyệt một lần cả10mốc theo thứ tự và phạm vi này.
+
+
+
 ## Checkpoint commit F4–F6 và chuẩn bị batch10 theo lệnh mới (2026-11-18)
 
 User yêu cầu “tiếp tục10plan liên tiếp comit và up git đi”. Trước batch mới, commit/push đúng30path F4–F6 đã bàn giao; source khớp final manifest/full625/625,84296assert/parse/data/headless63/Main PASS, freshDataValidator PASS. Backup/status/index/staged manifest/log ở D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/. Hai tệp prompt vẫn giữ riêng, không stage/restore/delete. Remote trước commit không ahead/behind local. Đây là authorization mới cho commit/push; không force/reset/clean. Hash và remote verification ghi sau khi thực hiện.

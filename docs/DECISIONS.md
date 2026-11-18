@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D93 — enforce the existing stable engine pin before bounded runs (2026-11-18)
+
+Approved AUDIT-F7 keeps PROJECT_RULES4.7.2-stable. Accept the exact stable version or its official build suffix (including mono official), reject other channels/versions, nonzero/missing/ambiguous output and version-probe timeout. Probe limit10s is separate from the existing target timeout; no target starts after a rejected probe. APPDATA isolation/hidden children/target exit propagation remain. This enforces the current rule, without downloading, selecting, or upgrading an engine.
+
 ### D92 — supplied tall-object visuals on preserved decorative anchors (2026-11-18) — LOCKED by approved AUDIT-F6, automation 625/625 verified
 
 Render bush/tree_fruit in existing eligible env_round_tree placements, alternating catalogue order. Preserve Tree_i/cell/root-count with the existing PlaceholderWorld2D adapter and child shared passive scenery view. This retains separation between explicitly placed tall objects and scattered rock/grass/decor consumers, so existing tests/metadata consumers need no adaptation. Zero new collision/input/harvest/ecology/gameplay, no crop replacement or art rewrite. Occupied legacy plot/placement/actor/route hides only the art, preserves the same root, and existing coalesced refresh restores it. Static owned/source/coop exclusions still remove ineligible generated decorative roots during normal land rebuild. Keep native object colors and global time/weather tint; do not recolor imported shared textures by season. Full/human/commit evidence is separate.

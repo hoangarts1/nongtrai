@@ -8,6 +8,10 @@ if "%GODOT%"=="" set GODOT=godot
 cd /d "%~dp0\.."
 echo [check_parse] using: %GODOT%
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "--version" -OutputPath "%TEMP%\the_life_version.log"
+if errorlevel 1 (
+  echo [check_parse] ENGINE PIN FAILED
+  exit /b 1
+)
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_godot_bounded.ps1 -Godot "%GODOT%" -Arguments "--headless --path . --quit" -OutputPath "%TEMP%\the_life_parse.log"
 if errorlevel 1 (
   echo [check_parse] FAILED
