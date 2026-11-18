@@ -1,5 +1,17 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F10 final source verified (2026-11-18)
+
+After removing2blank EOF lines caught by precommit whitespace check, full4PASS636/636/84696assert, parse/data/headless63/Main; groups89.408/114.682/103.529s. Final source/manifest hashes match. No additional semantic change or old test assertion edit. Full3PASS remains historical; current final evidence isfull4 in PROGRESS.
+
+## AUDIT-F10 automation delivered (2026-11-18)
+
+Read-only ordered backup resolution and transient inspection/actual-load reports delivered. Focused26/26/1171assert; full3PASS636/636 (84696assert/154scripts), parse/data/headless63/Main PASS, groups89.046/114.493/103.614s<180s. All630previous test functions/assertions remain; three explicitly approved fixture-only backup isolation changes resolve full1/title_flow and full2/title_layout failures. Exact14path evidence/limits/approvals in PROGRESS. Save12/migrations/owners unchanged; no write-transaction or recoveryUI completion claim. F11 is next approved scope.
+
+## AUDIT-F10 in progress (2026-11-18)
+
+F9 committed/pushed4221e22 after full630/630. F10 ordered read-only backup resolver and actual-load/inspection report APIs delivered; focused13/13,284assert includes6newcases and old save/land fixtures. Future primary/missing primary block downgrade/resurrection, actual forecasts/unknown data/file hashes preserved. Full gate pending; no safe-write transaction or recoveryUI completion claim.
+
 ## AUDIT-F9 automation delivered (2026-11-18)
 
 Standalone envelope codec added5cases, focused5/5/188assert. Full first run PASS630/630 (84484assert/153scripts), parse/data/headless63/Main PASS. All625oldcase/golden/runtime bytes unchanged. Exact10paths/proof/limits in PROGRESS. No full component-fuzz or recovery completion claim; F10runtime resolution is next approved scope.

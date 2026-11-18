@@ -1,5 +1,7 @@
 extends GutTest
 
+var _backup_snapshots: Dictionary = {}
+
 const SIZES: Array[Vector2i] = [Vector2i(1152,648),Vector2i(1280,720),Vector2i(1920,1080)]
 var _main: Node
 var _viewport: SubViewport
@@ -12,6 +14,7 @@ var _exit_requests: int = 0
 var _continue_requests: int = 0
 
 func before_each() -> void:
+	_isolate_backups()
 	_clock = GameClock.serialize()
 	_paused = GameClock.paused
 	_locale = TranslationServer.get_locale()
@@ -27,6 +30,7 @@ func before_each() -> void:
 	add_child(_viewport)
 
 func after_each() -> void:
+	_restore_backups()
 	_viewport.free()
 	GameClock.deserialize(_clock)
 	GameClock.paused = _paused
@@ -195,3 +199,24 @@ func _continued() -> void:
 
 func _exited() -> void:
 	_exit_requests += 1
+
+# Corruption without a usable backup must not inherit another test's recovery files.
+func _isolate_backups() -> void:
+	for slot: int in [0, 1]:
+		for index: int in range(1, SaveService.MAX_BACKUPS + 1):
+			var path: String = "%s/slot_%d.json.bak%d" % [SaveService.SAVE_DIRECTORY, slot, index]
+			_backup_snapshots[path] = FileAccess.get_file_as_bytes(path) if FileAccess.file_exists(path) else null
+			if FileAccess.file_exists(path):
+				assert_eq(DirAccess.remove_absolute(ProjectSettings.globalize_path(path)), OK)
+
+func _restore_backups() -> void:
+	for path: String in _backup_snapshots:
+		if FileAccess.file_exists(path):
+			assert_eq(DirAccess.remove_absolute(ProjectSettings.globalize_path(path)), OK)
+		var bytes: Variant = _backup_snapshots[path]
+		if bytes is PackedByteArray:
+			var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+			assert_not_null(file)
+			file.store_buffer(bytes)
+			file.close()
+	_backup_snapshots.clear()

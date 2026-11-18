@@ -3,6 +3,9 @@
 ##   func save_game(payload: Dictionary, slot: int = 1) -> bool
 ##   func load_game(slot: int = 1) -> Dictionary
 ##   func delete_save(slot: int = 1) -> void
+##   func inspect_slot(slot: int = 1) -> Dictionary
+##   func inspect_latest() -> Dictionary
+##   func get_load_report(slot: int = -1) -> Dictionary
 ##   func migrate_5_to_6(data: Dictionary) -> Dictionary
 ##   func migrate_6_to_7(data: Dictionary) -> Dictionary
 ##   func migrate_7_to_8(data: Dictionary) -> Dictionary
@@ -19,6 +22,8 @@ const COOP_CONFIG: ChickenCoopConfig = preload("res://data/chicken_coop_config.t
 const WATERING_CONFIG: WateringCanConfig = preload("res://data/watering_can_config.tres")
 const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
+var _load_reports: Dictionary = {}
+var _last_load_report: Dictionary = {}
 
 func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if slot < 0:
@@ -70,41 +75,42 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	return true
 
 func load_game(slot: int = 1) -> Dictionary:
-	if slot < 0:
-		return {}
-	var file: FileAccess = FileAccess.open(_save_path(slot), FileAccess.READ)
-	if file == null:
-		return {}
-	var parser: JSON = JSON.new()
-	if parser.parse(file.get_as_text()) != OK:
-		return {}
-	var parsed: Variant = parser.data
-	if not parsed is Dictionary:
-		return {}
-	var data: Dictionary = parsed
-	var raw_meta: Variant = data.get("meta", {})
-	if not raw_meta is Dictionary:
-		return {}
-	var raw_version: Variant = raw_meta.get("save_version", 0)
-	if not raw_version is int and not raw_version is float:
-		return {}
-	var version: int = int(raw_version)
-	if version < 0:
-		return {}
-	if version > CURRENT_VERSION:
-		return {}
-	return _migrate(data, version)
+	var result: Dictionary = inspect_slot(slot)
+	_publish_load_report(result.report)
+	return result.payload
+
+func inspect_slot(slot: int = 1) -> Dictionary:
+	var result: Dictionary = {"payload": {}, "report": {"status": &"error", "error": &"invalid_slot", "source_index": -1, "attempts": []}}
+	if slot >= 0:
+		result = SaveLoadResolver.resolve(_save_path(slot), CURRENT_VERSION, _migrate, MAX_BACKUPS)
+	result.report["slot"] = slot
+	return result
+
+func get_load_report(slot: int = -1) -> Dictionary:
+	return (_last_load_report if slot < 0 else _load_reports.get(slot, {})).duplicate(true)
+
+func _publish_load_report(report: Dictionary) -> void:
+	_last_load_report = report.duplicate(true)
+	_load_reports[int(report.slot)] = report.duplicate(true)
 
 func has_save(slot: int = 1) -> bool:
-	return not load_game(slot).is_empty()
+	return not inspect_slot(slot).payload.is_empty()
 
 func load_latest() -> Dictionary:
-	var latest: Dictionary = {}
+	var result: Dictionary = inspect_latest()
+	_publish_load_report(result.report)
+	return result.payload
+
+func inspect_latest() -> Dictionary:
+	var latest: Dictionary = {"payload": {}, "report": {"slot": -1, "status": &"missing", "error": &"missing", "source_index": -1, "attempts": []}}
 	var latest_time: float = -1.0
 	var latest_day: int = -1
 	for slot: int in [0, 1]:
-		var payload: Dictionary = load_game(slot)
+		var result: Dictionary = inspect_slot(slot)
+		var payload: Dictionary = result.payload
 		if payload.is_empty():
+			if latest.payload.is_empty() and (result.report.error == &"unsupported_future" or latest.report.status == &"missing"):
+				latest = result
 			continue
 		var metadata: Dictionary = payload.get("meta", {})
 		var raw_utc: Variant = metadata.get("saved_utc",0)
@@ -118,11 +124,11 @@ func load_latest() -> Dictionary:
 		if saved_utc > latest_time or (saved_utc == latest_time and day >= latest_day):
 			latest_time = saved_utc
 			latest_day = day
-			latest = payload
+			latest = result
 	return latest
 
 func get_latest_summary() -> Dictionary:
-	var payload: Dictionary = load_latest()
+	var payload: Dictionary = inspect_latest().payload
 	if payload.is_empty():
 		return {}
 	var metadata: Dictionary = payload.get("meta", {})

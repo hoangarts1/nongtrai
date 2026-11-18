@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D96 — conservative automatic backup reads with transient reports (2026-11-18)
+
+ApprovedF10 wires the strict envelope through a core read resolver. Only an existing damaged/unreadable primary enables backup1→2→3. Missing/deleted primary stays missing; delete_save continues removing only the primary. A supported-shape future-version primary blocks automatic downgrade within that slot. Loading never repairs or overwrites files. Reports are transient detached core metadata, not saved state; inspect/has_save/summary cannot replace a report from a real load. Latest selects actual migrated payloads using the existing timestamp/day rule. Component normalization is still the existing migration/codec behavior; this does not claim complete arbitrary-component fuzz safety.
+
 ### D95 — standalone strict save-envelope codec (2026-11-18)
 
 ApprovedF9 introduces stateless boundary validation before future file-resolution wiring. Do not truncate fractional, nonfinite or unsafe JSON versions. Keep historical missing meta/version as0, including empty legacy dictionaries accepted by the old envelope. Unknown fields are deep-copied unchanged, not proof of valid component state. Component codecs/migrations remain authoritative for their own fields. No version bump/runtime/save change inF9. Future primary downgrade policy is reserved for approvedF10.

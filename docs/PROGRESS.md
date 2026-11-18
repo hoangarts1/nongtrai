@@ -1,5 +1,59 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## F10 full cuối khớp source đã format — sẵn sàng commit/push (2026-11-18)
+
+Full4 nguyên launcher exit0: parse/data/headless63/Main PASS; graphics154script,636/636test,84696assert,GUT307.619s,wall325.3951375s; ba nhóm89.408/114.682/103.529s, cùng180s. source-freeze4 và manifest/testhash khớp source cuối, strictgate không error/pending/leak; git diff --check nay sạch. Chỉ2EOFblankline bị dọn saufull3, không sửa logic test/production; full4 chứng nhận byte sẽcommit. Archivefull-attempt4 cùngdiff/baseline/approval/failedlogs giữ ởf10-092135. Scope vẫn14file,20save thật nguyênhash; hai prompt ngoài phạm vi. F11 chưa bắt đầu trước checkpoint này. Commit: feat: recover supported saves from ordered backups without writes.
+
+## F10 full3PASS, kiểm commit phát hiện EOF format — đang chốt hash cuối (2026-11-18)
+
+Scope audit14file/outside0/20save thật giữhash đãPASS. Commit helper dừng trướcstage vì git diff --check thấyblankline mới tạiEOF của2fixture bổ sung (pause_menu/title_layout). Chưa commit/push F10, HEAD vẫn4221e22; index chưa thay đổi. Đã bỏ đúngblankEOF, không đổi testfunction/assertion/logic/helper, lưu source đãtest ởfull-attempt3/tested-sources. Vì cần fullmanifest khớp byte cuối trước commit, chạyfull4 nguyên suite sau format; không gọi full3 là kết quả của byte đãformat. Full3PASS vẫn là chứng cứ thật, không che hoặc gán thànhfail production.
+
+## AUDIT-F10 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Thực hiện đúng14path sau hai bổ sung fixture đã được user duyệt:6docs, SaveService, resolver/test mới+2UID và3fixture title_flow/title_layout/pause_menu.6case mới; toàn bộ630case trước giữ nguyên test function/assertion gốc; chỉ setup/cleanup của3file cũ thêm snapshot/dọn/restorebackup. fixture-body-audit.json xác minh13function trong3file nguyên nội dung; không xóa/skip/cắt ảnh hay giảm assertion. Runtime/core source giữa full1→3 không đổi; hai fullfail do backup fixture, không vô hiệu hóa recovery production để ép pass.
+
+Focused cuối renderer26/26,1171assert,14.146s; trướcđó headless19/19,454assert. Full3 nguyên launcher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 154 scripts, 636/636 tests, 84696 assertions; GUT 307.153s, wall 324.2725357s
+[run_tests] PASS
+~~~
+Ba nhóm89.046/114.493/103.614s, cùng180s. Main PASS, strictgate không error/pending/leak; sourcefreeze3 và154testhash khớp. Recovery chỉ đọc, đúngbackuporder/primaryfuture/missing semantics; existing migration/forecast/unknown fields giữ nhưđãkiểm. Report transient, has_save/summary không ghi đè load thật. Chưa có transactionwrite/an toàn cắtđiện/UI recovery, không hoàn tất mọi arbitrary-component fuzz.
+
+Backup/before-after/exact changed list/clear implementation.patch/focused/import/failedfull1/2/full3/archive/manifest/summary/fixtureapprovalpatch: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f10-092135/.20save thật vàngoài scope/HEAD/index kiểm trước commit. Không Inspector/scene/settings. Manual chỉ dùng bản sao/test userdata: corrupt primary tảibackup1..3; primaryfuture báo không tải, xóaprimary không hồi; không xóa/sửa save thật để thử. Commit: feat: recover supported saves from ordered backups without writes. F11 bắt đầu sau PASS này; hash/push ghi checkpoint kế.
+
+## F10 full2 và hai ngoại lệ fixture tiếp theo đã duyệt (2026-11-18)
+
+User: “Duyệt hai fixture, tiếp tục batch”. ALLOW_LIST F10 tăng12→14path, thêm đúng tests/unit/test_pause_menu.gd vàtests/unit/test_title_layout.gd theo proposed-extra-backup-isolation.patch; chỉ hook/helper snapshot/dọn/khôi phụcbackup, mọi test_*/assertion/capture cũ giữ nguyên. Đã backup/hash vàáp dụng diff sau khi full2 kết thúc, không source drift giữa run.
+
+Full2 thực tế exit1: parse/data/headless63PASS; group1 209/209,20914assert,89.700s (title_flow nayPASS). Group2 216/217,10105/10111assert,114.770s; fail duy nhất test_title_layout.test_reference01_layout_with_long_empty_corrupt_profile_settings_at_three_sizes tại64 cả6vi/en-size, đúng backup còn sót đã rà. Fail-fast: group3/Main không chạy. Không có timeout hoặc3fix fail cùng productionbug; đây là ba fixture legacy cần cô lậpbackup theo semantics mới, không chặn recovery thật. Archivefull-attempt2-failed giữchỉgroup1/2 hiện tại, không mượn group3log cũ. Focused4 renderer đang kiểm6suite gồm3fixture; chỉ fullPASS mớicommitF10/chuyểnF11.
+
+## F10 rà toàn bộ corrupt-save fixture sau lần sửa được duyệt (2026-11-18)
+
+Focused sau áp dụng title_flow đãPASS19/19,454assert,2.023s. Full2 đang chạy, group1PASS vàgroup2 tiếp; không đổi source giữa lượt. Read-only scan mọitest_*.gd thấy thêm test_pause_menu.test_save_service_round_trips_profile_and_corrupt_save_is_empty vàtest_title_layout.test_reference01_layout_with_long_empty_corrupt_profile_settings_at_three_sizes cùng giả định backup không tồn tại, nhưng setup/cleanup chỉxóa primary. test_save_service dùng riêngslot97 và không tự tạo backup trongcase; không thấy writerkhác cho97 ởphạm vi hiện tại.
+
+Đã chuẩn bị proposed-extra-backup-isolation.patch vàproposed-extra-fixtures/ dưới f10-092135 cho đúng tests/unit/test_pause_menu.gd vàtests/unit/test_title_layout.gd: snapshot/remove/restore6backup cùng cách đã duyệt, mọi test_*/assertion/capture cũ nguyên. Đang xin bổ sung2path trước khi áp dụng; chưa sửa hai file, chưa gán lỗi full2 khi chưa có kết quả. Không chạyfocused song song vớiGPU/full và không dùng việc clearTEMP để che fixture thiếu cô lập.
+
+## F10 bổ sung fixture đã được duyệt và áp dụng (2026-11-18)
+
+User: “Duyệt sửa fixture, tiếp tục cả batch”. ALLOW_LIST F10 tăng11→12path, bổ sung đúng tests/unit/test_title_flow.gd; ngoại lệ so với điều kiện giữ byte625test chỉ cho setup/cleanup backup theo proposed-title-backup-isolation.patch. Đã backup/hash-before, áp dụng đúng diff: field snapshot, haihook và helper, không sửa function test_*/assertion/input/capture cũ. Snapshot backup0/1bak1..3 trước case, dọn bản test và khôi phục bytes sau case; chạy trong APPDATA test. Không đổi delete_save hay chặn recovery production để ép pass. Active plan.json có authorization/12path. Chạy focused save/land/title rồi full2 nguyên launcher; chưa coi F10PASS/chưa bắt đầuF11.
+
+## F10 full1 phát hiện fixture không cô lập backup — cần bổ sung phạm vi (2026-11-18)
+
+Full launcher F10full1 exit1: parse/data/headless63PASS; group1 52script209case,208/209,20849/20851assert,88.718s; fail duy nhất test_title_flow.test_empty_corrupt_and_deleted_save_do_not_enter_game tại80/82. Không timeout; fail-fast nên group2/3 vàMain chưa chạy, không dùng log cũ làm kết quả. Failed archive: f10-092135/full-attempt1-failed dưới batchbackup.
+
+Nguyên nhân: before_each/after_each test_title_flow chỉ gọi delete_save(0/1), giữ đúng backup cũ. Case corrupt primary kỳ vọng Continue không vào game nhưng backup hợp lệ từ case/lượt khác còn lại; recovery F10 đúng thiết kế nhận backup đó. Không sửa production để vô hiệu hóa recovery hoặc xóa backup của người dùng. Cần cô lập đúng fixture “hỏng và không có backup dùng được”.
+
+Đã chuẩn bị diff reviewable ngoài repo: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f10-092135/proposed-title-backup-isolation.patch vàproposed-title-fixture.gd. Chỉ thêm backup snapshot/remove/restore cho6file bak1..3của2slot trong before_each/after_each, giữ toàn bộ test functions/assertion/input/capture đang có. Backup trước test được khôi phục sau test; không đụng save thật vì chạy launcher APPDATA cô lập. Chưa áp dụng file test vì ngoài ALLOW_LIST và batch trước yêu cầu giữ nguyên625test. Đang xin ngoại lệ fixture-only cho đúng tests/unit/test_title_flow.gd theoAGENTS§2.1/§3. Chưa commit F10/chưa bắt đầuF11. F7/F8/F9 đã push; các kế hoạch còn lại vẫn được duyệt, không yêu cầu duyệt lại.
+
+## F9 đã push; AUDIT-F10 đang triển khai (2026-11-18)
+
+F9 commit4221e22318fa107bb6788ceedac3aec184e752b8 đã pushorigin/master, remotehash khớp; exact10file/outside0/20save thật giữhash. F9fullgroup99.927/109.339/97.659s. F10backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f10-092135. Resolver read-only và facade inspection/actual report API theoD96; backupcount dofacade truyền, không circular autoload dependency. Mọi migration/save12/restore order giữ nguyên; không tự sửa file recovery.
+
+Focused cuối13/13,284assert,0.533s PASS gồm6case mới +7case save/land cũ. Lượt đầu11/13 do fixture mới giữ int trướcJSON rồi so nguyên Dictionary với float đã parse; đã sửa exact expected wire bằng JSON parse, giữ assertion/test cũ và rebased coop fixture hợp lệ theo ngày. Logfailed/success giữ riêng. Xác minh backup2/3, unreadable injected, primaryfuture/missing, latest tie, detached report/unknown fields/forecast và fileSHA unchanged. Chưa sửa transactionwrite hay UI, chưa nói full componentfuzz hoàn tất. Không Inspector/manual scene bước này; manual hỏng bản sao primary ở userdata test thì tải backup đúng thứ tự, xóa primary không tự hồi. Full đang chờ; commit dự kiến: feat: recover supported saves from ordered backups without writes.
+
 ## AUDIT-F9 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Đúng10path ALLOW_LIST:6docs, codec/test và2UID mới.5case mới/188assert focused PASS lần đầu; tất cả625case/golden/tool/scene/asset/runtime/SaveService cũ giữ nguyên byte. Full nguyên launcher lần1 exit0:

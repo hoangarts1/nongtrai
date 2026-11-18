@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## AUDIT-F10 read recovery, unchanged wire12 (D96)
+
+Primary slot_N.json and existing .bak1/.bak2/.bak3 use the same JSON envelope/migration0–12. No new serialized field, report, token or backup format. Automatic read fallback is permitted only when primary exists and fails read/JSON/envelope; future primary blocks downgrade, missing primary blocks resurrection. A valid envelope still delegates field normalization to the existing component codecs. Unknown components are retained through read/migration as before. No file is rewritten by recovery; source index/status/error are detached transient reports only.
+
 ## AUDIT-F9 envelope validation foundation (D95)
 
 The save wire remainsv12. SaveEnvelopeCodec.decode(raw,current_version) is standalone: root/meta Dictionaries, missing meta/save_version→0, version exact nonnegative JSON integer within9007199254740991. A supported-shape version above the supplied current version is unsupported_future; bad numeric/type values are invalid_version. Preserve all raw component/unknown fields in a detached copy, without normalization or migration. Empty legacy dictionaries retain the former envelope behavior. No new persistent fields or golden changes; valid envelope is not a guarantee that every component is valid.

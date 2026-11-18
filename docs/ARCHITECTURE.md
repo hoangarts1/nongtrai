@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F10 core read resolution (D96)
+
+SaveService facade supplies current version/backup count/migration to core SaveLoadResolver; resolver uses DOMAIN SaveEnvelopeCodec and FileAccess or an injected reader. It owns no world state and depends on no autoload. Actual-load reports live transiently in the facade; inspection is read-only and cannot replace them. Main restore order, weather RNG, state-owner instances and one-day path stay unchanged. No automatic repair/write or load-time simulation is added; UI recovery presentation is deferred toF12.
+
 ## AUDIT-F9 independent save boundary (D95)
 
 SaveEnvelopeCodec is a stateless DOMAIN RefCounted with no Node/FileAccess/clock/registry/RNG references. Caller supplies current version; it returns explicit detached data/error/version. It neither owns gameplay state nor migrates components. Core SaveService remains unchanged untilF10, so this foundation changes no runtime/save behavior. Existing state owners and one-day simulation remain.

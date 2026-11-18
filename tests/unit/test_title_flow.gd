@@ -9,8 +9,10 @@ var _music: float
 var _effects: float
 var _preference_locale: String
 var _continue_requests: int = 0
+var _backup_snapshots: Dictionary = {}
 
 func before_each() -> void:
+	_isolate_backups()
 	_clock = GameClock.serialize()
 	_paused = GameClock.paused
 	_locale = TranslationServer.get_locale()
@@ -27,6 +29,7 @@ func before_each() -> void:
 	_viewport.add_child(_main)
 
 func after_each() -> void:
+	_restore_backups()
 	_viewport.free()
 	GameClock.deserialize(_clock)
 	GameClock.paused = _paused
@@ -175,6 +178,27 @@ func test_title_settings_cancel_default_apply_reload_without_entering_game() -> 
 	assert_false(bool(_main.get("_game_started")))
 	assert_eq(_main.ui_coordinator.get_active_panel(),menu)
 	assert_false(_main.world.player.movement_enabled)
+
+# Corruption without a usable backup must not inherit another test's recovery files.
+func _isolate_backups() -> void:
+	for slot: int in [0, 1]:
+		for index: int in range(1, SaveService.MAX_BACKUPS + 1):
+			var path: String = "%s/slot_%d.json.bak%d" % [SaveService.SAVE_DIRECTORY, slot, index]
+			_backup_snapshots[path] = FileAccess.get_file_as_bytes(path) if FileAccess.file_exists(path) else null
+			if FileAccess.file_exists(path):
+				assert_eq(DirAccess.remove_absolute(ProjectSettings.globalize_path(path)), OK)
+
+func _restore_backups() -> void:
+	for path: String in _backup_snapshots:
+		if FileAccess.file_exists(path):
+			assert_eq(DirAccess.remove_absolute(ProjectSettings.globalize_path(path)), OK)
+		var bytes: Variant = _backup_snapshots[path]
+		if bytes is PackedByteArray:
+			var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+			assert_not_null(file)
+			file.store_buffer(bytes)
+			file.close()
+	_backup_snapshots.clear()
 
 func _continued() -> void:
 	_continue_requests += 1
