@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D101 — passive modular dialogue components using actual data and portraits (2026-11-18)
+
+ApprovedF15 builds mockup12composition independently before runtime wiring: actual NPC renderer/name, read-only localized line/quest/offer values, exact friendship counts and only real enabled choices plus Close. No illustrated portrait asset/role/hearts/story/keyboard binding is fabricated. Views emit requests, own no domain state. Stable close and revision guards support existing consumers and future safe routing. Body scroll/minimum-driven reflow fixes observed655px stale body height after wide-long→small-locale resize; preserve all strict bounds/test waits. Current NPC/full-body art and existing world backdrop differ from the illustration/blur in the mockup; that art gap is explicit. Existing NPC runtime/questbook/save12/owners are untouched untilF16.
+
 ### D100 — accepted effects volume updates active and future players (2026-11-18)
 
 ApprovedF14 consumes theF13typed accepted-preferences event. Apply actual effects volume through native AudioStreamPlayer.volume_linear to active children and newly created players;0is exact mute. Ignore mutable event arguments in favor of accepted Settings. Preserve one listener, original sounds/callers/cleanup and all game state. No new audio tracks/bus/autoload or claim that music/ambience7.2is complete. Native properties/lifecycle were tested, human listening/device acceptance remains separate.

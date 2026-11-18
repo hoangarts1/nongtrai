@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F15 automation delivered (2026-11-18)
+
+Standalone passive snapshot/fourdialoguecomponents added4cases; nativefocused8/8/698assert and36frames reviewed, small800×420bounds retained. First fullPASS658/658/86114assert/159scripts, parse/data/headless63/Main, groups111.441/105.456/108.716s<180s. All654prior case/fixture/golden/runtime bytes unchanged; actual21allowedpaths. Newfixture returntype correction and actual minimum-size resize defect/fix logged in PROGRESS. Native portrait/blur differences from illustration are explicit; no runtime integration untilF16 and no fake choices/values. F16 is last approved batch milestone.
+
+## AUDIT-F15 in progress (2026-11-18)
+
+F14 committed/pushed79fafc1 after full654/654. New independent dialogue snapshot/fourcomponents/contract and4additive cases delivered. Finalnativefocused8/8/698assert PASS with old NPCUI suite unchanged;36frames reviewed and800×420 bounds checked. Newfixture add_item expectedbool instead of quantity corrected; actual stale minimum-layout defect measured and fixed in production screen. Full gate pending; runtime/dialogue integration onlyF16. No new illustration/blur/fakeactions or complete15mockup claim.
+
 ## AUDIT-F14 automation delivered (2026-11-18)
 
 Live accepted SFX gain added3cases; firstfocused9/9/121assert andfirstfull654/654/85552assert/158scripts PASS, parse/data/headless63/Main, groups101.672/101.036/117.277s<180s. All651prior case/fixture/golden/asset bytes unchanged; exact8paths andnativegain/lifecycle proofs in PROGRESS. No newtracks/bus/autoload or human listening claim; F15 standalone dialogue components next.

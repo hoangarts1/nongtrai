@@ -1,5 +1,27 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F15 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Actual21/25path ALLOW_LIST:4docs+contract,5component/snapshotGD+5UID+4newscene, test+UID;4localizationpath không cầnđổi vìreuseexistingkeys.4case mới, all654oldcase/fixture/golden/runner/runtime/scene/art bytes unchanged. Finalnativefocused8/8,698assert,8.931sPASS; fixture-return fix vàproduction-minimum-layout fix đượcghi đầyđủ ởdưới.36finalframes+800×420bounds andactualNPCResource terms/portraits/friendship/readonlyowners verified. No Main/NpcSystem/NpcPanel/runtime integration untilF16; illustration/blur artgap explicit.
+
+Full1 nguyênlauncher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 159 scripts, 658/658 tests, 86114 assertions; GUT 325.613s, wall 343.40819s
+[run_tests] PASS
+~~~
+Nhóm111.441/105.456/108.716s<180s, MainPASS; strictgate khôngerror/pending/leak. Fullmanifest159testhash khớp. LệnhPS nối2JSONfreeze arrays báofalseSourceDrift doarraylồng; đãkiểm riêng10record bằngPython SHA, actualdrift0/freeze-verification.json. Không cósource thayđổi trongfull vàkhôngchạy lại đểche lỗihelper. NoInspector/manualwiring; humanF5/export chưaaccept. Backup/before-after/exactlist/implementation.patch/captures/focused/geometryprobe/import/full/archive/manifest/summary: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f15-112601/.20save thật/outside/HEAD/index tree checkedbeforecommit;2prompt excluded. Commit: feat: add passive modular dialogue views from actual NPC data. F16đượcbắtđầu sauPASS; hash/push checkpoint kế.
+
+## F14 đã push; AUDIT-F15 đang triển khai (2026-11-18)
+
+F14 commit79fafc1597f83d8fb75c523dfb8947a208d7a488 đã pushorigin/master, remotehash khớp; exact8file/outside0/20save thật nguyênhash. Fullgroups101.672/101.036/117.277s. F15backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f15-112601. Contract/D101 khai báo trướccaller cho LifeDialogueSnapshot +Screen/Speaker/Body/Choices4scene mới; mới4case. Không nối Main/NpcSystem/NpcPanel/runtime trongF15, noowner/schema12/oldscene/InputMap/art changes. Snapshot đọcactualdata, no talk/transaction/owner mutation/callbacks; exactfriendship andrealactions, no fakehearts/role/XP/numbered-shortcuts. Portrait reuseactualNPC full-body recipe, không giảảnhillustratedface giốnghệtmockup; không thêmblurshader.
+
+Focused1native6/8 vìnewfixture dùngassert_true choInventory.add_item trảint3; sửaexpectedexactquantity, không sửaAPI/oldtest. Focused2 7/8, phát hiệnboundsvi intro sauenlong1920resize. geometry_probe1 đoRoot24,24/1104×600 nhưngbody24,414/1104×655 trongkhi min73×104: independentControl giữsizebịclamp từminimum cũ, Rootchỉrelayout khiownsizechanged. ProductionScreen nay lắngnghebody/choices minimumchanged deferred và dùngactualminheight. Giữmọiassertion/chỉ2framewait, thêm800×420reducedboundscase. Finalfocused3native8/8,698assert,8.931sPASS gồm4new+4NPCUIold (runtimeoldvẫnkhôngđổi). Không có3fixfail cùngbug; probe làđo trướcfixlayoutduynhất rồiPASS.
+
+36finalframes:6states intro/blocked/ready/completed/Linh/long ×vi/en×1152/1280/1920, GUTopacity0; captures/ vàcomponents-contact-final.png, native1152Minhready/Linhđãxem. Body/details scroll, friendshipvisible, stableClose/requestguards/focus/portraitidentity/realResource terms andowner snapshots verified; oldactions IDs/enabled retained. Snapshots/noCommands standalone, actorstats0/37 làactualtestownerfixture chứkhôngfakeproduction. No runtime/humanacceptanceclaim. Full đangchờsourcefreeze/whitespacecheck. No Inspector/manualwiring; manual mốcprototype chưađổiruntime, F16mớinối. Commit dựkiến: feat: add passive modular dialogue views from actual NPC data.
+
 ## AUDIT-F14 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Đúng8path ALLOW_LIST:5docs, AudioService, test+UID.3case mới; all651oldcase/fixture/golden/asset/scene bytes giữnguyên. Nativefocused9/9,121assert,0.820s PASS lầnđầu, no failedattempt. Full1 nguyênlauncher exit0:
