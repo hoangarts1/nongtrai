@@ -1,5 +1,11 @@
 # Ecology runtime and presentation contract
 
+## Phase7.4b live native2D feedback (D116)
+
+No .tscn/Inspector/InputMap edit. Main dynamically adds LifeEcologyEffectsFlow; it adds up to14 childless LifeEcologyCritter2D roots directly under existing world.objects. Metadata cell/effect_id; position=objects.to_local(world.grid.cell_to_global(cell)). Same y-sort/tint/camera, no layer/group/collision/input/3D. Bounded stable effect:index keys reuse identities; downward/ineligible/title/exit removes roots synchronously. Flow snapshots dirty actual owner/farm, checks silent state/ownership at Resource interval; no garden scan per frame. Main successful load/NewGame/title calls refresh. Pause/sleep/day-end hold freeze animation; actual night/rain dims by profile, historical history never keeps old critters active.
+
+Manual F5: compare healthy tree/diversity thresholds, J/morning readouts versus current effects, sleep and downward change; save/load below thresholds with past history, NewGame/title, farm expansion, RMB/MMB pan/zoom, pause and night/rain, both locales. No extra wiring. Native captures and node/read-only tests are automation; these silhouettes are provisional art, water feedback and human acceptance remain deferred.
+
 ## Phase7.4a feedback definitions only (D115)
 
 No scene/tree/Inspector change. data/ecology_feedback_profile.tres owns provisional2D polygons and bounded8butterfly/6bird definitions plus cosmetic animation/refresh/lighting. EcologyFeedbackSelector uses current actual metrics/availability and profile threshold equality, never history; water effects unsupported. No world nodes until7.4b. Existing3D env_bird/env_butterfly remain historical, not dependencies. Manual profile edits require validator; final art/human F5 separate.

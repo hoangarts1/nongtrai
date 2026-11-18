@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.4b view composition and bounded lifecycle (D116)
+
+Main child LifeEcologyEffectsFlow owns only transient presentation references. Existing world.objects parents up to14 childless LifeEcologyCritter2D roots; shared IsometricGrid provides global anchor then Objects converts local. Per-frame flow advances only cosmetic phases; dirty signals/context interval invoke snapshot/sampler only when actual inputs change. Existing ecology owner/domain/day path remains sole simulation. Main calls refresh after successful load/NewGame/title, and timer observes silent state/land changes. Busy/stale/title hides/removes effects; upward/downward current thresholds reconcile reused keys, exit frees all roots. Pause/time/weather/locale/input do not mutate owners. Save13 no presentation fields.
+
 ## Phase7.4a DATA-to-DOMAIN feedback selection (D115)
 
 EcologyFeedbackProfile is presentation-only DATA; pure EcologyFeedbackSelector consumes explicit metrics/availability and EcologyProfile thresholds, produces detached effect definitions. No VIEW/autoload/world/owner dependency and no randomness/history lookup. DataValidator/CLI append profile gate. No runtime child or rendering yet. Historical3D art remains unused; live provisional2D flow is7.4b. Save13 unchanged.

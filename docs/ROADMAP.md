@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.4b automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 182scripts/777/777/89448assert; groups125.527/140.599/118.504s<180, GUT384.630s/wall404.065s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2420, prior test/fixture verification384, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4b-212905/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step9/10 adds actual bounded2D birds/butterflies at owned shared-grid anchors. Cosmetic phases freeze on pause; current levels/silent lifecycle/ownership reconcile, title/reset/free clean up, world lighting/rain honored. Native15/15/276assert including old camera/rollover PASS after correcting new test's rain ID.12fresh locale/size/day-night-rain captures,10load cleanup cycles/read-only proofs. Full777/777 PASS; no oldtest/scene/art/InputMap/save13 change. Parent7.4 water feedback/final art/human playtest deferred.
+
 ## Phase7.4a automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 181scripts/772/772/89239assert; groups148.655/114.142/113.724s<180, GUT376.521s/wall395.117s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2417, prior test/fixture verification380, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4a-211800/full-attempt1. No skipped/removed cases or timeout extension.

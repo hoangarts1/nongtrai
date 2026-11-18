@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## Phase7.4b cosmetic ecology roots (D116)
+
+Existing Objects:Node2D gains dynamic childless LifeEcologyCritter2D instances owned by Main.ecology_effects_flow. No scene/grid/Player/camera/collider/ground/input change. Owned cell metadata and shared world.grid.cell_to_global -> Objects.to_local projection; default max8butterflies+6birds. Same world tint/y-sort follows camera automatically; no input hit area. Flow handles stable reconciliation/title/load/reset/free/pause; APIs/manual checks in ecology.md. No Inspector setup and no saved nodes.
+
 ## Phase7.3f ecology after completed farm/animal/machine work (D111)
 
 No world scene/node/geometry/Player/Inspector change. Main reserves ecology with weather, freezes sampling inputs, keeps existing farm callback and appends ecology after animals/machines. Existing mark_out_of_season now runs once at farm-step end before ecology sampling; new-morning rain remains after weather finish. Guarded matching-day ecology commits before ledger/save/bulletin. Runtime/state reservations are transient and never touch world picking/collision/input. APIs and manual day/reentry/season checks in ecology.md; save13 wire unchanged.

@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D116 ? bounded reused2D ecology objects and lifecycle cleanup (2026-11-18)
+
+Approved7.4b adds only two small VIEW scripts and Main composition. Native silhouettes are provisional; retain existing grid/Objects/y-sort/CanvasModulate. Root anchors derive actual owned regions through shared grid adapter; expansion redistributes stable effect:index instances rather than duplicating nodes. Current levels/availability only, not historical triggered. Pause/sleep/day-end holds freeze cosmetic phases, existing lighting plus Resource opacity handles night/rain. State/farm signals dirty the view; bounded context poll covers silent restores and non-signaling land ownership without garden scan each frame. Explicit Main lifecycle refresh ensures title/reset/load cleanup. Flow owns/free roots even though parented under Objects; no collisions/input/state/save13 side effects. Final art/human F5 and water system remain deferred.
+
 ### D115 ? provisional bounded native2D ecology feedback definitions (2026-11-18)
 
 Approved7.4a Resource owns8butterflies/6birds,max14, polygon geometry/colors/motion/normalized anchors and refresh/lighting. Reuse actual ecology thresholds/availability; current level alone decides visibility, historical triggered never means current activity. No measured water/fish/clear effects. Pure selector returns detached definitions without side effects/RNG/Nodes. Existing available bird/butterfly assets are3D historical material and remain untouched/unloaded. Native2D silhouettes are approved prototypes, not completed final art. This step adds data/pure selection/validator only; live objects next7.4b. No gameplay/save13/input/Player change.

@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.4b live bounded2D ecology flow (D116)
+
+Main.ecology_effects_flow:LifeEcologyEffectsFlow is a child Node outside world, configure(main:Node,source:EcologyFeedbackProfile=PROFILE)->bool deep-freezes validated profile. refresh()->void captures actual current EcologySnapshot then pure selector, maps normalized anchors to deduplicated owned cells clipped to existing map, uses world.grid.cell_to_global and objects.to_local. Stable effect:index keys preserve roots; no-op refresh retains instance/phase. clear()->void frees owned roots; _exit_tree calls clear. get_presentation_snapshot()->Array[Dictionary] returns detached {key,id,cell,instance_id,global_position,phase:Vector2,opacity}. Dirty state/farm notifications coalesce next process; Resource refresh interval checks state/day/ownership for silent changes, no per-frame sampler. Unavailable/busy/title clears; Main successful restore/NewGame/title explicitly refresh. Existing clock/weather update cosmetic opacity only.
+
+LifeEcologyCritter2D extends Node2D, configure(definition:Dictionary,start_phase:float)->void, advance(delta:float)->void, get_phase()->Vector2. Root has cell/effect_id metadata, no children/collision/input/own processing. Native _draw polygons/flight offset only, bounded wrapped phases; flow freezes on pause/sleep/held day-end. It inherits world tint; profile night/rain multipliers affect self_modulate alpha. Neither class serializes presentation or changes owners/RNG. Scene contracts document placement/cleanup/manual checks.
+
 ## Phase7.4a bounded ecology feedback data (D115)
 
 EcologyFeedbackProfile(Resource): total_cap:int, refresh_seconds/night_sun_energy/night_opacity/rain_opacity:float, effects:Array[Dictionary]; validation_errors(ecology:EcologyProfile)->PackedStringArray. Bindings only butterflies->biodiversity/butterflies and birds->tree_cover/birds. Native polygon/motion/anchors definitions and bounds in DATA_SCHEMA. DataValidator.validate_ecology_feedback(config,profile) is null-safe, appended CLI gate preserves all prior validators.

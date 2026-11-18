@@ -50,6 +50,7 @@ var chicken_coop_flow: ChickenCoopFlow
 var farm_state: FarmGridState
 var ecology_state: EcologyState = EcologyState.new()
 var ecology_runtime: LifeEcologyRuntime
+var ecology_effects_flow: LifeEcologyEffectsFlow
 var day_simulator: Object
 var quest_state: Variant
 var wallet: WalletState
@@ -276,6 +277,9 @@ func _ready() -> void:
 	presentation = WorldPresentation.new()
 	add_child(presentation)
 	presentation.configure(self)
+	ecology_effects_flow = LifeEcologyEffectsFlow.new()
+	add_child(ecology_effects_flow)
+	ecology_effects_flow.configure(self)
 	_apply_player_appearance()
 	machine_presentation = preload("res://scripts/view/machine_presentation.gd").new()
 	add_child(machine_presentation)
@@ -448,6 +452,7 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	watering_runtime.refresh()
 	if not ecology_runtime.finish_restore(GameClock.day_index, farm_state, land_ownership):
 		return
+	ecology_effects_flow.refresh()
 	_save_game_to_slot(1)
 	if not Settings.is_tutorial_dismissed():
 		tutorial_panel.open_help()
@@ -486,6 +491,7 @@ func _return_to_start_menu() -> bool:
 	start_menu.refresh_continue()
 	start_menu.visible = true
 	world.player.movement_enabled = false
+	ecology_effects_flow.refresh()
 	return true
 
 func _load_payload(payload: Dictionary) -> bool:
@@ -547,7 +553,10 @@ func _load_payload(payload: Dictionary) -> bool:
 	watering_runtime.restore(payload)
 	watering_runtime.busy = false
 	watering_runtime.refresh()
-	return ecology_runtime.finish_restore(GameClock.day_index, farm_state, land_ownership)
+	var ecology_restored: bool = ecology_runtime.finish_restore(GameClock.day_index, farm_state, land_ownership)
+	if ecology_restored:
+		ecology_effects_flow.refresh()
+	return ecology_restored
 
 func _restore_land_for_lifecycle(data: Dictionary) -> void:
 	# LandRuntime.restore intentionally rejects global busy; this lifecycle owns that lock.

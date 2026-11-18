@@ -1,5 +1,9 @@
 # Inherited D72 visuals and C1 completion (D73)
 
+## Phase7.4b provisional live silhouettes (D116)
+
+Two native VIEW scripts draw data-owned polygon bodies/flapping wings with small cosmetic offsets at actual owned grid-cell anchors under Objects. Max14 roots, no child/physics/input/globalRNG; stable key reuse and synchronous cleanup. Existing world lighting/camera/y-sort apply; profile night/rain opacity and pause freezes honor current presentation. Main lifecycle refresh and bounded context poll handle silent loads/land without extra simulation. Native12day/night-rain both-locale3size captures/read-only/nodecap tests in PROGRESS. Historical3D art retained, no PNG/scene replacement; human art/F5 acceptance separate.
+
 ## Phase7.4a provisional ecology silhouette DATA (D115)
 
 No renderer/world/art/scene replacement yet. New profile stores simple native2D body/wing polygons/colors/motion and caps8butterflies+6birds,14total. Current thresholds/availability select detached definitions; water/fish never selected. Historical3D bird/butterfly scenes retained and unused. These shapes are prototypes pending human art review; runtime follows in7.4b.

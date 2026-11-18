@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.4b transient critter presentation (D116)
+
+No persistent schema/Resource/value change. Flow deep-freezes7.4a profile; transient map key effect:index -> native2D root with cell/effect_id metadata, cosmetic flight/flap phases and opacity only. Owned regions deduplicate/intersect actual map; normalized fractions choose ordered region row-major cells, shared grid handles projection. Detached diagnostic rows expose coordinates/instance/phase, not save data. Resource refresh interval checks silent ownership/state changes; no gameplay/random numbers or farmer state added. Max14 default silhouettes are prototypes, water never creates an effect.
+
 ## Phase7.4a presentation-only feedback profile (D115)
 
 Resource total_cap14; refresh_seconds0.5, night_sun_energy0.3/night_opacity0.25/rain_opacity0.45 are cosmetic. effects rows {id,metric_id,threshold_id,count:int,anchors:PackedFloat32Array,body/wing:PackedVector2Array,body_color/wing_color:Color,speed/flap_speed/altitude/scale:float,span:Vector2}. Two exact known bindings: butterflies8/biodiversity/butterflies, birds6/tree_cover/birds. Anchors are unique finite unit fractions, one per critter, interpreted by next flow over actual owned cells. Polygons3..64vertices/nonzero finite area; colors unit RGBA, count sum<=cap, finite positive speeds/altitude/scale, finite nonnegative span. Cap positive with technical allocation guard64. No gameplay parameters/paths/3D assets/water definition. Selector accepts complete known finite bounded metrics and bool availability with waterfalse. Output definitions deep-detached; no saved fields/version changes.

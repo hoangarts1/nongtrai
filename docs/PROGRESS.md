@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.4b automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 182scripts/777/777/89448assert; groups125.527/140.599/118.504s<180, GUT384.630s/wall404.065s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2420, prior test/fixture verification384, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4b-212905/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step9/10 after7.4a pushedb2958be/full772/772/89239assert. Main composes small LifeEcologyEffectsFlow; direct LifeEcologyCritter2D roots under existing world.objects use actual owned cells and world.grid.cell_to_global plus objects.to_local, no duplicate projection/collision/input/3D. Stable keys reuse max14 nodes, removed synchronously before completion; animation phases only cosmetic, pause/sleep/day-end held freeze. Actual world tint applies naturally, Resource night/rain opacity honors existing world lighting/weather. State/farm signals mark dirty, bounded Resource0.5s context check detects silent load/ownership changes without per-frame garden sampling; Main lifecycle refreshes after successful restore/NewGame/title. Flow exit frees remaining roots. Save13 unchanged.
+
+Native1 8/9 PASS: new rain fixture used nonexistent rainy ID and therefore never entered rain. Corrected only new fixture to existing rain and asserted is_rainy. Native2 final3scripts/15/15/276assert/7.743s PASS including5new cases + unchanged camera/rollover tests. Exact/downward/history/load/14cap/idempotent identities, owned expansion/coordinate adapter, pause phases/read-only owners/save bytes, native pan/zoom,10load cycles/title/NewGame/free all pass.12fresh vi/en3size active/night-rain captures archived native2-captures, visually inspected1152activevi and ennight-rain. No SCRIPT ERROR/leak/orphan; expected negative-preflight warning retained. Full777/777 PASS. Checkpoint phase7.4b-212905 under batch root. Shapes remain provisional native2D, final art/human F5/water measurement deferred.
+
 ## Phase7.4a automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 181scripts/772/772/89239assert; groups148.655/114.142/113.724s<180, GUT376.521s/wall395.117s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2417, prior test/fixture verification380, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4a-211800/full-attempt1. No skipped/removed cases or timeout extension.
