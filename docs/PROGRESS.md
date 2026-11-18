@@ -1,5 +1,21 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F9 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Đúng10path ALLOW_LIST:6docs, codec/test và2UID mới.5case mới/188assert focused PASS lần đầu; tất cả625case/golden/tool/scene/asset/runtime/SaveService cũ giữ nguyên byte. Full nguyên launcher lần1 exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 153 scripts, 630/630 tests, 84484 assertions; GUT 306.925s, wall 324.5017413s
+[run_tests] PASS
+~~~
+Đủ full discovery153script/630case, Main PASS; strictgate sạch error/pending/leak. Sourcefreeze/testhash unchanged. Import UIDduplicate warning kế thừa được giữ, không phải parse failure. Envelope chỉ xác minh root/meta/version; không nói mọi component hợp lệ hoặc full fuzz/recovery đã xong. Không runtime/save12/owner/input/art change, không Inspector/manual wiring. Backup/before-after/exactlist/diff/focused/import/full/archive/manifest/summary: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f9-091334/.20save thật/HEAD/index/outside checked trước commit. Commit: feat: validate save envelopes without coercing versions. F10 bắt đầu sau PASS này; hash/push ghi checkpoint kế.
+
+## F8 đã push; AUDIT-F9 đang triển khai (2026-11-18)
+
+F8 commit6e9d6f7b73656554dd6268eb5a1da76e40748d1f đã pushorigin/master, remotehash khớp; exact6file/outside0/20save thật giữhash. Ba fullgroup98.711/110.124/109.036s. F9backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f9-091334. Codec stateless kiểm riêng root/meta/version, chưa nối runtime;5case thêm focused5/5,188assert,0.457s PASS lần đầu. Giữ legacy0, float nguyên, toàn bộgolden1–12, unknown fields detached; không sửa SaveService/scene/owner/test cũ. Import có warning UIDtrùng kế thừa; strictscan sẽ kiểm parse/script/error riêng. Không khẳng định envelope hợp lệ là mọi component hợp lệ. Không Inspector/settings/manual wiring; manual mốc foundation không đổi game. Full đang chờ; commit dự kiến: feat: validate save envelopes without coercing versions.
+
 ## AUDIT-F8 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Đúng6path ALLOW_LIST (4docs, runner, native harness); không đổi test GUT/golden/timeout/renderer/save12.193focused checks PASS; F7 pin vẫn áp dụng mọi child. Full lần2 nguyên launcher exit0:

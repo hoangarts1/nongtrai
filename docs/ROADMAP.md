@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F9 automation delivered (2026-11-18)
+
+Standalone envelope codec added5cases, focused5/5/188assert. Full first run PASS630/630 (84484assert/153scripts), parse/data/headless63/Main PASS. All625oldcase/golden/runtime bytes unchanged. Exact10paths/proof/limits in PROGRESS. No full component-fuzz or recovery completion claim; F10runtime resolution is next approved scope.
+
+## AUDIT-F9 in progress (2026-11-18)
+
+F8 committed/pushed6e9d6f7 after full625/625. Standalone strict SaveEnvelopeCodec and5additive cases delivered; focused5/5,188assert PASS. All12old savegoldens accepted, bad numeric/type boundaries rejected, unknown nested data detached. No runtime wiring/version change; full gate pending. This is part of4.6 robustness, not proof of complete save fuzz/recovery.
+
 ## AUDIT-F8 automation delivered (2026-11-18)
 
 193native harness probes PASS; complete official gate PASS625/625,84296assert/152scripts with3sequential groups199/206/220cases at180s each. Parse/data/headless63/Main PASS, all oldtest/golden bytes preserved. First full session incomplete, second complete PASS; exact logs/diff/limits in PROGRESS. This proves complete partition/strict failure handling, not improved total benchmark or concurrent execution safety. F9 may now begin.

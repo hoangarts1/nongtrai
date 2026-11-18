@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F9 SaveEnvelopeCodec (D95; standalone)
+
+scripts/domain/save_envelope_codec.gd: stateless RefCounted. static decode(raw:Variant,current_version:int)->Dictionary returns {ok:bool,error:StringName,version:int,data:Dictionary}. Success data is a deep copy without migration/component repair. Missing meta/version means legacy0. Accept only nonnegative exact JSON integers (int or finite integral float), at most9007199254740991. Invalid root/meta/version/current boundary have distinct invalid_* codes; supported-shape future versions return unsupported_future and their version. Failure data is{}. This validates only the envelope, not every gameplay component. No runtime caller untilF10; all old migrations/goldens stay unchanged.
+
 ## AUDIT-F8 three sequential graphics groups (D94)
 
 run_graphics_tests.ps1 retains Get-GraphicsInventory/Assert-GraphicsCoverage/Read-GraphicsSummary and adds Get-GraphicsGroups(Inventory)->three nested arrays. Sorted inventory is assigned round-robin index%3, with no empty group. Normal invocation always runs all three groups sequentially,180000ms each; manifest keeps all inventory hashes and nested groups, summary aggregates exact script/test/assert counts. Error/count/pending/leak/source-hash gates remain. tools/tests/test_graphics_runner.ps1 loads real function ASTs and exercises disposable-replica orchestration; no production bypass/test-mode switch is added.

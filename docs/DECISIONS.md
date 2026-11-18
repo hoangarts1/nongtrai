@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D95 — standalone strict save-envelope codec (2026-11-18)
+
+ApprovedF9 introduces stateless boundary validation before future file-resolution wiring. Do not truncate fractional, nonfinite or unsafe JSON versions. Keep historical missing meta/version as0, including empty legacy dictionaries accepted by the old envelope. Unknown fields are deep-copied unchanged, not proof of valid component state. Component codecs/migrations remain authoritative for their own fields. No version bump/runtime/save change inF9. Future primary downgrade policy is reserved for approvedF10.
+
 ### D94 — three sequential complete graphics groups (2026-11-18)
 
 ApprovedF8 replaces only two-way partitioning by sorted index%3. Keep all discovered test scripts/cases/assertions/captures, Forward+ renderer and180000ms per child. Keep strict summary/hash/coverage/fail-fast behavior; do not reduce tests or claim concurrent TEMP safety. Native PowerShell harness tests cover partition, malformed success output, timeout124, parse failure and source drift through a disposable replica. No GUT implementation or old test changes.

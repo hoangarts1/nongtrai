@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F9 independent save boundary (D95)
+
+SaveEnvelopeCodec is a stateless DOMAIN RefCounted with no Node/FileAccess/clock/registry/RNG references. Caller supplies current version; it returns explicit detached data/error/version. It neither owns gameplay state nor migrates components. Core SaveService remains unchanged untilF10, so this foundation changes no runtime/save behavior. Existing state owners and one-day simulation remain.
+
 ## AUDIT-F4 scenery selection boundary (D90)
 
 DATA SceneryArtCatalog -> DOMAIN stateless SceneryPlacementRules -> later VIEW SuppliedSceneryView/WorldPresentation. Pure rules compile one detached validated lookup and select cosmetic entries by stable cell hash, with no Node/clock/DetRandom/state ownership. All scatter parameters live in the Resource; DataValidator facade alone checks actual textures/imports. No serializable state is needed for a pure derived layout. F4 adds no runtime caller or save wire. Existing render/collision/world owners remain until F5/F6 gates pass.

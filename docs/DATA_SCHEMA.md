@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## AUDIT-F9 envelope validation foundation (D95)
+
+The save wire remainsv12. SaveEnvelopeCodec.decode(raw,current_version) is standalone: root/meta Dictionaries, missing meta/save_version→0, version exact nonnegative JSON integer within9007199254740991. A supported-shape version above the supplied current version is unsupported_future; bad numeric/type values are invalid_version. Preserve all raw component/unknown fields in a detached copy, without normalization or migration. Empty legacy dictionaries retain the former envelope behavior. No new persistent fields or golden changes; valid envelope is not a guarantee that every component is valid.
+
 ## AUDIT-F4 scenery presentation Resource (D90)
 
 SceneryArtCatalog has entries:Array[Dictionary] for29canonical PNG IDs and bands:Array[Dictionary] in order rock/grass_clump/flower/pebble/tuft, plus bucket_count100, hash_multipliers(92837111,689287499), bias314159,size_offset(41,11), sizes[small,medium,large],tall_ids[bush,tree_fruit]. Band ends7/18/22/25/30 and variant offsets are view distribution data, not gameplay probabilities. Entry keys/types in API_INDEX. Only rock_large_* blocks; existing collider geometry remains outside this data migration. Positive finite scale, canvas-bounded finite pivot and exact supplied ID/path metadata required. Facade verifies measured image dimensions against imports. Dictionaries returned to callers are detached. No saved fields/version or registry authority added. F4 does not bind this to the world.
