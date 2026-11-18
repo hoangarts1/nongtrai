@@ -1,5 +1,11 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3d automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 171scripts/728/728/88133assert; groups135.884/114.292/119.191s<180, GUT369.367s/wall387.636s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2390, prior test/fixture verification361, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3d-191223/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step2/10 after7.3c pushed174fd62d21ffe7025d559bb058c43ba9ceb5f322 (full722/722/87936assert). New pure EcologySaveContext normalizes actual legacy farm and owned regions via existing codecs/Resources; validates catalog/migration/land and guards unsafe withered counter casts. EcologySaveCodec returns exact matching-day component or explicit calibrated fallback; invalid context has no partial snapshot. Focused1 sixcases/196assert PASS, then strengthened final fixture to pin historical12 and require current schema's own golden rather than permanently pinning current version12 (future approved13 must remain valid); no production fix or oldtest edits. Final focused/pure/full recorded in logs. Pure1 standalone25production dependencies/noautoload/worldnodes:1000context+fullprecision roundtrips/ownership/currentday/no replay PASS. SaveService/Main/save12 unchanged. Checkpoint D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3d-191223/. Source/test/golden/save proof before full; full728/728 PASS.
+
 ## Phase7.3c automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 170scripts/722/722/87936assert; groups121.473/111.554/123.526s<180, GUT356.553s/wall375.162s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2387, prior test/fixture verification359, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3c-190210/full-attempt1. No skipped/removed cases or timeout extension.

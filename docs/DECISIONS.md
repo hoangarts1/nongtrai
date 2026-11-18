@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D109 — canonical legacy ecology context before live save13 integration (2026-11-18)
+
+Step7.3d implements only pure context/component libraries under approved12paths. Reuse existing FarmSaveCodec and LandOwnershipState so legacy aliases/frozen growth/ownership match real restoration, without rewriting source farm/land or goldens. Validate explicit Resources/catalog and direct-cast safety first. Valid ecology with matching clock day stays exact, including history and below-threshold floats; malformed/missing/mismatched state returns explicit current-garden calibration, never replay. Invalid sampling context fails completely; do not fabricate a partial component. Existing envelope/storage/weather/crop/water/animal/Player APIs and save12 remain unchanged until approved7.3e. Independent no-autoload probe verifies transitive pure Resource/domain dependencies.
+
 ### D108 — approved current-garden ecology baseline and sequential ten-step batch (2026-11-18)
 
 Owner approved7.3c->7.4c scopes, one milestone at a time, full gate then commit/push per milestone. First7.3c is only lifecycle library: current normalized owned-farm targets calibrate tree/species on NewGame/legacy/corrupt ecology at loaded clock day; no invented past updates, threshold history or rewards. Water takes profile initial only as an unavailable placeholder, not measured cleanliness. Valid matching-day state retains exact values/history; load is silent. Validate full context/candidate before changing existing owner. Later approved steps alone introduce save13/runtime/day reservation/UI/bounded2D feedback; they are not implemented by this decision. All existing goals8/8/aliases/ease10/thresholds remain. Existing user prompt deletion/untracked addition are excluded from commits. No locked rule change, Director/cleanup gameplay or permission to weaken old tests.

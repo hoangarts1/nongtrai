@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3d pure save-context boundary (D109)
+
+EcologySaveContext reads explicit legacy payload/catalog/land/migration Resources and builds detached canonical farm/owned regions using existing domain codecs. A temporary land owner exists only to apply existing ownership rules, never becomes a second runtime owner. EcologySaveCodec validates context shape and delegates lifecycle resolution for exact matching-day load or explicit calibrated fallback. Inputs and unrelated payload fields stay untouched; no Node/autoload/clock/filesystem/RNG/global event. Existing game composition and Save12 still unchanged. Save13 integration is the next approved step, not an implemented field at this stage.
+
 ## Phase7.3c pure lifecycle library (D108)
 
 EcologyLifecycle is a stateless DOMAIN facade over existing state/sampler, supplied profile/config/catalog/farm/ownership/day explicitly. Temporary candidate validation precedes silent replacement of caller-owned state. Current-garden calibration seeds actual tree/species targets at loaded day with empty history; valid matching-day state is restored unchanged. Unmeasured water retains configured initial or saved value with availability=false. Adjacent-day helper samples then delegates existing guarded easing. No Node/autoload/registry/clock/global event/filesystem, no second owner or retained state. Existing runtime/Main/DaySimulator/Save12 remain untouched until later approved substeps; ten-step approval is sequential, not a claim that those systems already exist.
