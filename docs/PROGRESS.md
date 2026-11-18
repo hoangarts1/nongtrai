@@ -1,5 +1,31 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F13 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Thêm5case, giữ toàn bộ646case/fixture/golden cũ nguyênbyte. Actual18/20path ALLOW_LIST (generatedtranslation2path khôngtrackedchange, khôngforce-add). Headlessfocused17/17,305assert; rendererfocused21/21,743assert,13.371s; cảhaiPASS lầnđầu. NativeCFGbadsyntaxprobe fallbackdefaults+unchangedfileSHA/exit0, expectednativeparserdiagnostic giữriêng, cfgTEMP đãrestore. NativeAPIreflection đãxácminhmethod/property trước dùng.
+
+Full1 nguyên launcher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 157 scripts, 651/651 tests, 85519 assertions; GUT 318.986s, wall 336.4841437s
+[run_tests] PASS
+~~~
+MainPASS, mọi nhóm<180s; sourcefreeze1 và157testhash khớp, strictfullgate khôngerror/pending/leak. Apply mộtlầnpersist trướcpublish, failedIO giữaccepted/locale/file nếurollbackthànhcông; typed signaldetached/onchange/reentry, unknownvalidcfg preserved. No save12/owner/autoload/InputMap/scene/asset/newsettings change. Inherits writerfailedrollback/powercut limits; badCFGnativeparserlog làexpectedfixture, không nói mọiinput parse sạch. No Inspector/manualwiring; humanF5/export pending.
+
+Backup/before-after/exactlist/implementation.patch/focused/import/nativeprobes/full/archive/manifest/summary: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f13-103134/.20save thật/outside/HEAD/index tree checkedbeforecommit;2prompt ngoài scope. Commit: fix: persist validated preferences before applying UI settings. F14 đượcphép bắtđầu sauPASS; hash/push ghicheckpointkế.
+
+## F12 đã push; AUDIT-F13 đang triển khai (2026-11-18)
+
+F12 commite5f4e01a3b7a2d7ff4f9744ea599480cdbf7fa2c đã pushorigin/master, remotehash khớp; exact17file/outside0/20save thật nguyênhash. Rawindex metadatahash đổi nhưng semantic tree đượcđối chiếu từngmode/oid/path/stage vớiHEAD; exactstaged17path verified, không resetindex. F12fullgroups109.942/110.082/99.682s. F13backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f13-103134. D99 SettingsCodec/FileStore/acceptedConfigFile apply giữschema12/owners/scene/InputMap/oldtests; ConfigFile one source, unknownvalidkeys preserved, no overwrite onread. One persisted patch then acceptedvalues/explicitlocale/signal; failed apply preserves old, reentryguard active. Legacy setter signatures/clamp stay, volume-only doesnot switchtemporarylocale. UI title/pause onlysuccessshowsApplied.
+
+Native reflection verifiedConfigFile.parse/encode_to_text andAudioStreamPlayer.volume_linear. Five newcases: firstheadless17/17,305assert,4.093s; renderer21/21,743assert,13.371s includingoldpause/title/recovery PASS, nooldtest edits. Faultwrite/rename actualcheckedwriter rollback keepsoldfileSHA/runtime/locale, accepted signaldetached/onchangeonly, reentryreject, validunknownsection/keys preserved, retry UI honest.
+
+Malformed CFG verification separate native process: wrote '[broken' ONLY in isolated TEMP testuserdata after backup, startup returneddefaultssupported andunchangedbadfileSHA, exit0, restoredprevious cfg bytes in finally. Godot logs native 'ConfigFile parse error' for intentional syntax fixture; retained in malformed_settings.log.stderr, not mislabeled clean parsing/fullfailure or suppressed. Decoder wrongtype/NAN/INF/locale tests areinGUT. Other native parser-only probe alsoexpecteddiagnostic. No concurrentfull/focused; no writes/save realuserdata. Single-file writer stillinherits rollback/power-cut limits, not universalatomicity.
+
+No Inspector/settings/manualwiring. Manual: editdraft/cancel, Apply failure keepsoldvalues/language andshowsretrymessage, retry succeeds; onlytestcopies forbadcfg. Full đang chờ after sourcefreeze/whitespacecheck; commit dự kiến: fix: persist validated preferences before applying UI settings.
+
 ## F12 Git index raw hash khác nhưng không có staged change (2026-11-18)
 
 Scope helper trướccommit dừng tại rawindexSHA, chưastage/commit/push. git diff --cached --exit-code trả0, HEAD vẫn d47eae7, stagedstat rỗng. Không có bản binaryindex-before (chỉhash) nên không khẳngđịnh từngbyte khác làstatcache; metadatarefresh phùhợp nhưng nguyênnhânbyte không xácđịnhđược. Đã thay riêng diagnostichelper ngoài repo để đối chiếu mọi indexentry mode/oid/path/stage0 với git ls-tree HEAD, giữ gate chặnmọi semanticstage khác, báo riêng index_bytes_unchanged=false. Sau stagingcủamình còn kiểm exactstagedpaths trướccommit. Không reset/restore index, không đụng source/test/AL; full646PASS/frozenbytes vẫn hiệu lực. Kiểm rawhash quá chặt không được báo nhầm thành stagedcode đã đổi.

@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F13 automation delivered (2026-11-18)
+
+Five preference cases added; headlessfocused17/17/305assert and renderer21/21/743assert PASS. First fullPASS651/651 (85519assert/157scripts), parse/data/headless63/Main PASS, eachgroup<180s. All646prior case/fixture/golden bytes unchanged. Actual18allowedpaths. Native malformedcfg fallback/no-overwrite and expectedengineparserdiagnostic recorded separately; no error suppression. API/unknownkey/IOrollback/locale/signal guarantee limits in PROGRESS. F14 live accepted SFX volume next; no newsettings/worldsave/powercut acceptance.
+
+## AUDIT-F13 in progress (2026-11-18)
+
+F12 committed/pushede5f4e01 after full646/646. Supported preference codec/checked store/apply and5additive cases delivered; focused headless17/17/305assert and renderer21/21/743assert PASS first attempts. Write/rename fault rollback, unknown keys, detached signal/reentry/no-change, truthful title/pause retry checked. Separate native malformed-CFG probe confirms defaults and unchanged fileSHA, while retaining expected engine parser diagnostic. Full gate pending. No SFX live binding untilF14, new settings/features/save fields or power-cut acceptance.
+
 ## AUDIT-F12 automation delivered (2026-11-18)
 
 Shared localized source/error notice and completed-load feedback added4cases; finalnativefocused16/16/668assert and36frames reviewed. First fullPASS646/646 (85444assert/156scripts), parse/data/headless63/Main PASS, groups109.942/110.082/99.682s<180s. All642previous case/fixture/golden bytes unchanged. Actual17allowedpaths; optional generated translations unchanged/ignored, no force-add. Exactdiff/output/visual/fixture history in PROGRESS. F13transactional settings next, no human F5/export or full final-art acceptance claim.

@@ -1,5 +1,9 @@
 # ISO-7 Pause/settings contract (D43)
 
+## F13 supported draft persistence
+
+PausePresenter.apply submits one supported music/effects/locale patch. It reports PAUSE_APPLIED only after actual persistence success, otherwise PREFERENCES_APPLY_FAILED; existing show_result clears recovery notice and restores the generic status region. Failed Apply keeps accepted values/locale and retryable drafts. Default/cancel/close behavior remains; no scene/layout/input changes or new settings options.
+
 ## F12 truthful recovery feedback (D98)
 
 Presenter.notice:LifeSaveNotice is a new runtime component beside the existing status Label in its documented parent column. Recovered/error messages hide the generic Label and show this component; generic show_result clears its report and restores the Label. Its own translation notification re-renders the detached report, so language changes do not revive a stale generic status. Title uses presentation_enabled to keep the same component hidden in profile/settings even across translation changes. No existing .tscn edits.

@@ -1,5 +1,9 @@
 # ISO-8a StartMenu contract (D44)
 
+## F13 supported draft persistence
+
+LifeTitleSettings.apply sends music/effects/locale together to Settings.apply_preferences once. Actual failure shows localized PREFERENCES_APPLY_FAILED and retains controls as retryable drafts, accepted values/locale untouched. Success alone shows PAUSE_APPLIED. Default/cancel semantics and mode/focus remain; no scene/Inspector change.
+
 ## F12 save-source presentation extension (D98)
 
 LifeTitleScreen.notice:LifeSaveNotice is instantiated from new ui/components/save_notice.tscn beside latest/actions, uses the existing shared Theme and no input handling. display_save_report(report:Dictionary)->void keeps a detached transient report, shown only in TITLE mode. LifeSaveNotice.display(report) and static message(report,include_primary=false)->String translate source/recovery/future/corrupt status, without file paths. Primary is a short source label; errors/recovery explain only actual report values. Translation change re-renders the detached report, not filesystem reads. TitlePresenter.refresh uses inspect_latest, never publishing a load report or mutating world state. Continue still revalidates before callback. Main.get_load_feedback()->Dictionary is a detached transient result of its actual load callback; no schema/state owner. Main shows the recovered Continue toast only after the restore returns success. No existing scene path changes or Inspector steps.

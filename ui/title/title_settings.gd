@@ -26,10 +26,8 @@ func begin() -> void:
 	panel.show_status(&"PAUSE_DRAFT_NOTE")
 
 func apply() -> void:
-	Settings.set_music_volume(panel.audio.music.value)
-	Settings.set_effects_volume(panel.audio.effects.value)
-	Settings.set_locale(panel.game.get_locale())
-	panel.show_status(&"PAUSE_APPLIED")
+	var result: Dictionary = Settings.apply_preferences({"music_volume": panel.audio.music.value, "effects_volume": panel.audio.effects.value, "locale": panel.game.get_locale()})
+	panel.show_status(&"PAUSE_APPLIED" if result.ok else &"PREFERENCES_APPLY_FAILED")
 
 func defaults() -> void:
 	panel.audio.set_values(1.0,1.0)

@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D99 — validate accepted preferences and persist before publication (2026-11-18)
+
+ApprovedF13 keeps ConfigFile as the single accepted preference source and preserves valid unknown keys/sections through clone/serialization. Normalize supported fields on read in memory only; malformed CFG falls back without rewriting it. Apply validates a merged supported patch, persists one staged replacement, then publishes accepted config/explicit locale and one typed change event if values changed. Failed persistence leaves runtime/locale untouched; report retains any I/O rollback limits. Do not introduce unsupported settings or savegame fields. Legacy finite volume clamps stay; non-locale setters must not unexpectedly switch a temporary UI locale. Native malformed-file verification runs separately because ConfigFile logs a parser diagnostic for invalid syntax; no error suppression or GUT weakening.
+
 ### D98 — present actual completed load results (2026-11-18)
 
 ApprovedF12 separates title inspection from actual load notification. A small shared notice renders detached source/error reports with vi/en keys and no filesystem paths; title hides it outside TITLE, including live translation. Main exposes transient request feedback cleared before busy/error guards; recovered success requires the restore routine to finish. Pause captures this feedback from its callback owner before refreshing summaries and uses the existing status area, not another toast/modal. Continue alone shows one recovered toast after entering the restored world. Save failure remains bool-based. Gameplay restore order, owners, save12 and all old scene/InputMap/assets remain unchanged.

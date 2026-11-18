@@ -30,10 +30,8 @@ func begin() -> void:
 	refresh_summary()
 
 func apply() -> void:
-	Settings.set_music_volume(_shell.settings.audio.music.value)
-	Settings.set_effects_volume(_shell.settings.audio.effects.value)
-	Settings.set_locale(_shell.settings.game.get_locale())
-	show_result(&"PAUSE_APPLIED")
+	var result: Dictionary = Settings.apply_preferences({"music_volume": _shell.settings.audio.music.value, "effects_volume": _shell.settings.audio.effects.value, "locale": _shell.settings.game.get_locale()})
+	show_result(&"PAUSE_APPLIED" if result.ok else &"PREFERENCES_APPLY_FAILED")
 	refresh_summary()
 
 func defaults() -> void:

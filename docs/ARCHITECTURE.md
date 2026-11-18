@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F13 preference boundary (D99)
+
+DOMAIN SettingsCodec is pure stateless validation. Existing core Settings owns one accepted ConfigFile, plus a transient apply guard and replaceable RefCounted file-store adapter; no Node references/new autoload/world owner. SettingsFileStore reuses checked single-file writer count0, preserving valid unknown config data. UI title/pause keep drafts, call apply once, and branch on actual result. Accepted values/explicit locale publish after persistence, then detached typed change signal; reentry is rejected during publication. Startup normalizes memory without file writes. No save12/schema/day simulation change, no power-cut guarantee beyondF11.
+
 ## AUDIT-F11 core write transaction (D97)
 
 SaveService keeps payload wrapping and reports, calls stateless SaveWriteTransaction with SaveFileStore adapter. These core helpers own transient I/O only, no world/Node state, simulation, RNG, or new autoload. Staged bytes/restorable originals precede publication; rollback covers touched family paths. Failed rollback keeps recoverable copies. Synchronous publication plus facade busy guard does not make multiple files power-loss atomic or support concurrent game instances. Load/inspection resolver and Main restore order remainF10.
