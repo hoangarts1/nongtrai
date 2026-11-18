@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3h automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 178scripts/763/763/89059assert; groups134.813/128.806/118.302s<180, GUT381.921s/wall400.035s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2409, prior test/fixture verification376, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3h-201521/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step6/10 after7.3g pushed65749f73fa8de642febfcf21097d17bf4c22e194/full759/759/88757assert. Existing J book adds an Ecology entry alongside original tabs; new small sheet/metric/source-summary scene pairs and transient controller use actual7.3g data. Lazy create on explicit entry, immediate detach/queue_free on Back/reset/close means ordinary quest mode still has zero ProgressBar descendants (old no-fake-XP test unchanged). Same3enabled tab indices/4quest filters, nativeJ/mouse/Enter/Back/QE/Esc, modal/pause/day-end ownership, reset/load/title and live vi/en refresh retained. Busy waiting page also localizes title/back. Native Range step0 shows actual float values; water bar hidden/no numeric source fields. No domain/Main/InputMap/old .tscn/theme/art/save13 change.
+
+Focused1 headless9/9/327assert/7.475s PASS with old quest functional tests. Native1 renderer3scripts/12/12/1160assert/22.818s PASS including all old quest layouts and36fresh ecology captures (2locales*3sizes*3actual owner states*2scroll positions). Visual review found entry button taking half header because factory expands it; corrected horizontal shrink in approved book script and added proportional-space assertion. Native2 final2scripts/7/7/1092assert/18.618s PASS, same36fresh captures plus allold quest layout cases. Visually inspected final1152vi top/water states: readable native Vietnamese/shared wood-paper theme, current/target/count distinction and unmeasured water, fixed Back/Close/scroll. No assertions/cases skipped or oldtests changed. Full763/763 PASS. Checkpoint D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3h-201521/. Human F5/tone acceptance remains separate.
+
 ## Phase7.3g automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 177scripts/759/759/88757assert; groups148.871/125.224/125.811s<180, GUT399.906s/wall422.394s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2401, prior test/fixture verification372, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3g-195748/full-attempt1. No skipped/removed cases or timeout extension.

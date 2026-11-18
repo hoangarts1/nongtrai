@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.3h transient UI only (D113)
+
+No DATA/wire/version change. Journal page/controller/scroll/focus/selection are transient view state, never saved. Controls consume7.3g model; native float bar min/max/value reflect current metrics with continuous step0, no integer truncation or owner writeback. Water generic bar stays hidden and no numeric fields are read. Quest mode lazily omits/destroys ecology controls to preserve original no-progress invariant. Resource keys and both locales unchanged; native captures and human tone review are separate acceptance.
+
 ## Phase7.3g ecology readout definitions (D112)
 
 data/ecology_journal_config.tres has texts mapping required title/entry/back/scope/unmeasured/water_note/current/target/ease/next/active/below/waiting/news_title/news_summary to UPPER_SNAKE keys, and three rows{id,label_key,hint_key,threshold_id,threshold_key,count_key,count_text_key}. Metrics bind tree_cover->mature_fruit_trees/birds, biodiversity->species/butterflies, water_clarity->emptycount/clear_water (unavailable). Translation keys must exist in bothvi/en; no gameplay values in this Resource. Additional25draft strings are localized and format existing Resource goals/ranges/ease/thresholds.

@@ -1,5 +1,18 @@
 # Ecology runtime and presentation contract
 
+## Phase7.3h journal controls (D113)
+
+Existing Main/NpcJournal modal and3common tabs/4quest filters remain. LifeQuestBook exposes navigation:HBoxContainer (Ecology entry button followed by existing tabs so Close stays far right), paper:VBoxContainer, body:HBoxContainer, ecology_button:Button and nullable ecology_sheet:LifeEcologySheet. Original tabs/filters/list/people/detail/hint fields remain. No new input action or external path. Quest mode has no ProgressBar descendants: sheet is instantiated lazily on explicit entry and detached/queue_freed on Back/reset/close, preserving old no-fake-XP contract.
+
+New simple scene pairs under ui/ecology:
+- ecology_sheet / LifeEcologySheet, VBoxContainer: title/scope/waiting Labels, scroll:ScrollContainer, rows_column:VBoxContainer, metric_rows:Array[LifeEcologyMetricRow], back_button:Button; back_requested(); display(model:Dictionary).
+- metric_row / LifeEcologyMetricRow, VBoxContainer: title/value Label, bar:LifeProgressBar, summary:LifeEcologySourceSummary; display(row:Dictionary). Native Range step0 permits actual float display; min/max/value come from validated model, water bar hidden with no numeric reads.
+- source_summary / LifeEcologySourceSummary, VBoxContainer: labels:Dictionary of target/source/ease/threshold/status/hint Labels; display(row:Dictionary) clears/hides absent values.
+
+LifeEcologyController (Node child of existing book_controller) configure(panel:NpcPanel,main:Node), open(), close(), reset(), queue_render(), is_open()->bool. Owns only transient view mode/queue; no save/domain state. Open requires actual visible active journal/started idle game. Entry/Back are native Buttons; Esc and Q/E use existing journal/modal routes. Uses existing theme/fonts, no per-node StyleBox overrides. Deferred state/farm/wallet/locale refresh captures7.3g actual data; hidden/reset/free drops stale work. Existing book_controller.reset and NpcPanel.show_quest_book reset ecology view, preserving quest selection/filter semantics and close/load/title behavior. No Main/UiCoordinator/InputMap/old .tscn changes.
+
+Manual J->Ecology->Back/Esc/QE; verify actual counts/targets/eased values, water unmeasured/no bar, native focus/scroll, live locale,3sizes/long text, NewGame/load/title and day-end precedence. No Inspector/tree setup; new scene children are script-built. Human tone/art/playtest acceptance remains separate.
+
 ## Phase7.3f daily reservation adapter (D111)
 
 No scene/tree/Inspector change. Main._on_day_started validates ecology adjacent-day quote along existing weather/coop guards, reserves weather then runtime.begin_day(day,farm,land). Runtime freezes config/catalog/regions and reserves sole EcologyState before farm callbacks. Existing DaySimulator accepts optional final zero-argument ecology callback; Main binds actual day. Farm callback applies outgoing rain/growth and existing season withering; then animals/machines/ecology finish. Main verifies both completed days before weather/new rain/ledger/autosave/bulletin. Empty/unchanged ecology still commits day once. Runtime begin/finish/abort APIs and state token methods in API_INDEX; no token/copy saved. Invalid preflight gives explicit warning/no simulation/save; existing clock-first index policy remains. Late inconsistency stays locked without claiming completion. User lifecycle commands are guarded through callbacks; no new global clock API or alternative simulation path.

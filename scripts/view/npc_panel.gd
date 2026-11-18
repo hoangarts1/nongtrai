@@ -106,6 +106,7 @@ func enable_quest_book(main: Node) -> void:
 	book_controller.configure(self,main)
 
 func show_quest_book() -> void:
+	book_controller.ecology_controller.reset()
 	title_label.text = tr("UI_NPC_JOURNAL")
 	show()
 	book_controller.queue_render()

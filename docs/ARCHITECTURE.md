@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3h existing journal modal, lazy ecology controls (D113)
+
+Existing NpcJournal/NpcPanel remains the sole modal owner. LifeQuestBook header contains Ecology entry and unchanged tabs; original quest body remains intact. LifeQuestBookController owns transient LifeEcologyController Node; explicit entry creates small LifeEcologySheet under book.paper, hides quest body, renders actual snapshot/presenter model. Back/reset/close removes sheet from tree immediately then queue_frees it; ordinary quest mode has no ProgressBar descendants and all original APIs/transactions stay. State/farm/wallet/locale changes coalesce deferred read-only refresh. Busy/stale view shows waiting with current locale. NewGame/load/title use existing controller reset; hidden stale reset/focus work is guarded. No Main/domain/UiCoordinator/InputMap/autoload/save13 changes. New simple scenes/scripts and typed fields are documented in scene contracts; no editor setup.
+
 ## Phase7.3g read-only presentation boundary (D112)
 
 DATA EcologyJournalConfig maps existing metric/count/threshold identities to text keys. VIEW EcologySnapshot captures actual Main owner plus live sampler counts/targets/goals only when idle and clock-aligned; no new state owner. VIEW EcologyPresenter builds primitive localized UI models and performs no simulation/action/save. Invalid/busy/stale state produces explicit waiting/failure. Water is structurally nonnumeric in the formatted model because measurement is unavailable, even when its saved placeholder is nonzero. Actual eased value, current garden target/count, data ease and threshold hint stay distinct. No visible Control/scene or new event/input in this milestone. Journal7.3h/morning7.3i consume this boundary next; Save13/current pipeline unchanged.

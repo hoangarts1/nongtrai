@@ -8,17 +8,28 @@ var list: LifeQuestList
 var people: Label
 var detail: LifeQuestDetail
 var hint: Label
+var navigation: HBoxContainer
+var paper: VBoxContainer
+var body: HBoxContainer
+var ecology_button: Button
+var ecology_sheet: LifeEcologySheet
 
 func _ready() -> void:
 	LifeTheme.bind(self,&"LifeInvColumn")
+	navigation = HBoxContainer.new()
+	add_child(navigation)
+	ecology_button = LifeTitleParts.button(navigation, &"ECO_ENTRY", &"LifeSecondary")
+	ecology_button.custom_minimum_size = Vector2(118, 42)
+	ecology_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tabs = preload("res://ui/inventory/common_tabs.tscn").instantiate() as LifeInventoryTabs
-	add_child(tabs)
+	tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	navigation.add_child(tabs)
 	tabs.set_active(2)
 	var frame: LifeHudFrame = LifeHudFrame.new()
 	frame.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(frame)
-	var paper: VBoxContainer = LifePauseParts.paper(frame)
-	var body: HBoxContainer = HBoxContainer.new()
+	paper = LifePauseParts.paper(frame)
+	body = HBoxContainer.new()
 	body.theme_type_variation = &"LifeInvColumns"
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	paper.add_child(body)

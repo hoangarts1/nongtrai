@@ -7,10 +7,14 @@ var active_filter: StringName = &"all"
 var _panel: NpcPanel
 var _main: Node
 var _queued: bool = false
+var ecology_controller: LifeEcologyController
 
 func configure(owner_panel: NpcPanel, main: Node) -> void:
 	_panel = owner_panel
 	_main = main
+	ecology_controller = LifeEcologyController.new()
+	add_child(ecology_controller)
+	ecology_controller.configure(owner_panel, main)
 	_panel.book.filters.filter_requested.connect(filter)
 	_panel.book.list.selected.connect(select)
 	_panel.visibility_changed.connect(queue_render)
@@ -19,6 +23,8 @@ func configure(owner_panel: NpcPanel, main: Node) -> void:
 	main.quest_state.step_changed.connect(_step_changed)
 
 func reset() -> void:
+	if ecology_controller != null:
+		ecology_controller.reset()
 	selected_key = ""
 	active_filter = &"all"
 	_panel.book.detail.scroll.scroll_vertical = 0

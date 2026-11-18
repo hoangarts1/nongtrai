@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## Phase7.3h native ecology journal controls (D113)
+
+LifeQuestBook adds navigation:HBoxContainer, paper:VBoxContainer, body:HBoxContainer, ecology_button:Button and nullable ecology_sheet:LifeEcologySheet. Original tabs/filters/list/people/detail/hint APIs remain. Existing3enabled common-tab indices/4quest filters and journal modal unchanged. Ecology entry does not expand across header; tabs/Close retain space. No new input action.
+
+LifeEcologySheet (ui/ecology/ecology_sheet.tscn/.gd, VBoxContainer) back_requested(); display(model:Dictionary); fields title/scope/waiting:Label, scroll:ScrollContainer, rows_column:VBoxContainer, metric_rows:Array[LifeEcologyMetricRow], back_button:Button. LifeEcologyMetricRow (metric_row scene pair, VBoxContainer) display(row:Dictionary), title/value:Label, bar:LifeProgressBar, summary:LifeEcologySourceSummary. Uses inherited native Range min/max/value with step0 for actual floats; generic set_displayed_value(int,int) remains unchanged. Unmeasured water bar hidden without numeric reads. LifeEcologySourceSummary (source_summary scene pair, VBoxContainer) labels:Dictionary, display(row)->void clears/hides absent source/target/ease/threshold/status/hint lines. All shared Theme, no per-node StyleBox overrides or gameplay ownership.
+
+LifeEcologyController (Node) configure(panel:NpcPanel,main:Node), open/close/reset/queue_render()->void, is_open()->bool. Owned by existing LifeQuestBookController.ecology_controller. Explicit entry lazily creates sheet; Back/reset/close immediately detaches then queue_frees it, preserving no ProgressBar descendants in quest mode. Requires visible active journal/started idle game; deferred real state/farm/wallet/locale refresh, guarded focus and stale-hidden reset. No saved mode, global signals, world actions or polling simulation. Existing book_controller.reset/NpcPanel.show_quest_book reset transient ecology pane. Esc/QE/J/native button routing uses existing modal. Exact tree/manual checks in SCENE_CONTRACTS/ecology.md/quest_book.md; human acceptance separate.
+
 ## Phase7.3g read-only ecology presentation data (D112)
 
 EcologyJournalConfig Resource exports texts:Dictionary and rows:Array[Dictionary]; validation_errors(profile:EcologyProfile)->PackedStringArray validates complete text set, unique known three metrics, exact count bindings and owned threshold references; get_translation_keys()->PackedStringArray detached. Shipped data/ecology_journal_config.tres maps actual metrics/counts/thresholds to localization keys, no gameplay numbers or state. DataValidator.validate_ecology_journal(config,profile,locales:Array[String])->PackedStringArray null-safe combines schema and translation key checks; CLI appends after all prior gates.

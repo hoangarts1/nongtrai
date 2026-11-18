@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3h automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 178scripts/763/763/89059assert; groups134.813/128.806/118.302s<180, GUT381.921s/wall400.035s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2409, prior test/fixture verification376, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3h-201521/full-attempt1. No skipped/removed cases or timeout extension.
+
+7.3g pushed65749f7/full759/759. Step6/10 adds lazy Ecology page in existing J book with3small shared-theme scenes/controller, real metrics/targets/hints, unmeasured water and nativeBack/QE/Esc/locale/lifecycle guards. Original3enabled tabs/4filters/quest transactions and no-progress quest-mode invariant preserved, oldtests unchanged. Headless9/9, native12/12 then final7/7/1092assert with36fresh captures and oldquest layouts PASS; visual header-width correction verified. Full763/763 PASS; human F5/tone acceptance separate. Save13/Player/InputMap/domain/art unchanged.
+
 ## Phase7.3g automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 177scripts/759/759/88757assert; groups148.871/125.224/125.811s<180, GUT399.906s/wall422.394s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2401, prior test/fixture verification372, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3g-195748/full-attempt1. No skipped/removed cases or timeout extension.
@@ -417,6 +423,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.3e | Main-owned ecology/save13 (D110; automation delivered) | Stable owner, silent guarded restore/current-garden fallback, full-precision wire and additive13golden; oldgoldens/40line compatibility exact, focused29/29 PASS, full734/734 PASS | [~] |
 | 7.3f | Reserved daily ecology (D111; automation delivered) | Single farm/animal/machine/ecology order, frozen sampling/token guards,17newcases/focused30/30/pure1000days PASS; source numeric limit documented, full751/751 PASS | [~] |
 | 7.3g | Actual localized readouts (D112; automation delivered) | Resource bindings, detached actual metrics/targets/counts, unmeasured water omitted numeric fields,25vi/en keys/validator; focused8/8/CLI0-1 PASS, full759/759 PASS | [~] |
+| 7.3h | Lazy modular ecology journal (D113; automation delivered) | Existing J/modal/3enabled tabs/4filters; actual float bars and unmeasured water, native/language/lifecycle/36captures PASS; no oldtest changes, full763/763 PASS | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
