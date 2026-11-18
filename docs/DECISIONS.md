@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D100 — accepted effects volume updates active and future players (2026-11-18)
+
+ApprovedF14 consumes theF13typed accepted-preferences event. Apply actual effects volume through native AudioStreamPlayer.volume_linear to active children and newly created players;0is exact mute. Ignore mutable event arguments in favor of accepted Settings. Preserve one listener, original sounds/callers/cleanup and all game state. No new audio tracks/bus/autoload or claim that music/ambience7.2is complete. Native properties/lifecycle were tested, human listening/device acceptance remains separate.
+
 ### D99 — validate accepted preferences and persist before publication (2026-11-18)
 
 ApprovedF13 keeps ConfigFile as the single accepted preference source and preserves valid unknown keys/sections through clone/serialization. Normalize supported fields on read in memory only; malformed CFG falls back without rewriting it. Apply validates a merged supported patch, persists one staged replacement, then publishes accepted config/explicit locale and one typed change event if values changed. Failed persistence leaves runtime/locale untouched; report retains any I/O rollback limits. Do not introduce unsupported settings or savegame fields. Legacy finite volume clamps stay; non-locale setters must not unexpectedly switch a temporary UI locale. Native malformed-file verification runs separately because ConfigFile logs a parser diagnostic for invalid syntax; no error suppression or GUT weakening.

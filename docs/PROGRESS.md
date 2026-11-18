@@ -1,5 +1,23 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F14 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Đúng8path ALLOW_LIST:5docs, AudioService, test+UID.3case mới; all651oldcase/fixture/golden/asset/scene bytes giữnguyên. Nativefocused9/9,121assert,0.820s PASS lầnđầu, no failedattempt. Full1 nguyênlauncher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 158 scripts, 654/654 tests, 85552 assertions; GUT 319.985s, wall 337.8087071s
+[run_tests] PASS
+~~~
+Nhóm101.672/101.036/117.277s<180s, MainPASS; sourcefreeze1 và158testhash khớp, strictgate khôngerror/pending/leak. Gain1/.5/0/1 nativeexact, active/new streamsconsistent, failedApply/draft unchanged, receivercleanup tested; khônghumanlistening/devicecert/music/ambience claim. Save12/owners/inputs/oldscenes/fourwav unchanged, noInspector/manualwiring. Backup/before-after/exactlist/implementation.patch/focused/import/full/archive/manifest/summary: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f14-111630/.20save thật/outside/HEAD/index tree checkedbeforecommit;2prompt excluded. Commit: fix: apply accepted effects volume to active and new sounds. F15 đượcphép bắtđầu sauPASS; hash/push checkpoint kế.
+
+## F13 đã push; AUDIT-F14 đang triển khai (2026-11-18)
+
+F13 commit058091b323b3725a7c5f08ef6cb01fcef3ccb216 đã pushorigin/master, remotehash khớp; exact18file/outside0/20save thật nguyênhash. Fullgroups99.572/116.547/102.867s. F14backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f14-111630. AudioService theoD100 giữ4originalwav/caller/cleanup, kết nối typed accepted event mộtlần, cập nhậtactive/new volume_linear exact0. Handler đọcacceptedSettings đểkhôngtin eventargument cóthểbịmutate. NoNodeowner/autoload/bus/music/asset/input/scene/save12/gameplay changes.
+
+Nativefocused lầnđầu9/9,121assert,0.820s PASS gồm3case mới+oldaudio1+prefs5. Actual enginegain1/.5/0/1 checked forfourplayingstreams/futureplayers; failedpersist/draft changes no gain, spoofed eventargs ignored, ready2calls oneconnection, finished/playerfree cleanup vàfreedlistener verified. Nativeproperty existence already verified atF13. Không tuyên bố nghe bằngtai/thiếtbị củauser hoặc hoàn tất toàn7.2ambience/music. Full đang chờ. No Inspector/scene/settingswiring; manualF5dùng4tools, changeeffectsApply/mute/unmute, canceldraft vàretryfailedApply. Commit dự kiến: fix: apply accepted effects volume to active and new sounds.
+
 ## AUDIT-F13 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Thêm5case, giữ toàn bộ646case/fixture/golden cũ nguyênbyte. Actual18/20path ALLOW_LIST (generatedtranslation2path khôngtrackedchange, khôngforce-add). Headlessfocused17/17,305assert; rendererfocused21/21,743assert,13.371s; cảhaiPASS lầnđầu. NativeCFGbadsyntaxprobe fallbackdefaults+unchangedfileSHA/exit0, expectednativeparserdiagnostic giữriêng, cfgTEMP đãrestore. NativeAPIreflection đãxácminhmethod/property trước dùng.

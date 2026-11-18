@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F14 presentation-only sound gain (D100)
+
+Existing Main-owned AudioService observes accepted Settings values through the typed preference event; no persistent or world owner changes. It updates its own transient AudioStreamPlayer children and reads the accepted gain for future effects. No per-frame gameplay polling, audio bus mutation, new autoload, asset changes or simulation progress. Settings remains authority; rejected Apply/drafts do not produce accepted-change events.
+
 ## AUDIT-F13 preference boundary (D99)
 
 DOMAIN SettingsCodec is pure stateless validation. Existing core Settings owns one accepted ConfigFile, plus a transient apply guard and replaceable RefCounted file-store adapter; no Node references/new autoload/world owner. SettingsFileStore reuses checked single-file writer count0, preserving valid unknown config data. UI title/pause keep drafts, call apply once, and branch on actual result. Accepted values/explicit locale publish after persistence, then detached typed change signal; reentry is rejected during publication. Startup normalizes memory without file writes. No save12/schema/day simulation change, no power-cut guarantee beyondF11.

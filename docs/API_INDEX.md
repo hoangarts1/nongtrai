@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F14 live accepted SFX gain (D100)
+
+AudioService keeps play_sound/get_sound_path and the same four hoe/seed/water/harvest assets. _ready connects Settings.preferences_changed once; accepted changes update all current AudioStreamPlayer children through volume_linear. New players read the same accepted effects volume. Zero reaches exact mute instead of the old0.001 floor. The handler reads Settings, not a potentially modified detached signal argument. Finished-player cleanup is unchanged, freed receiver connections are automatically removed. No music/ambience/bus/autoload/asset/gameplay additions; volume_linear was verified on the pinned engine before implementation.
+
 ## AUDIT-F13 accepted preferences and transactional Apply (D99)
 
 Settings keeps its existing getters/void setters, adds get_preferences()->Dictionary (fresh supported values), apply_preferences(patch:Dictionary)->Dictionary and typed preferences_changed(values:Dictionary). Result {ok,error}, plus accepted values/write_report on success or write_report on persistence failure. Unknown patch keys, bad types/nonfinite/out-ofrange values, unsupported locale and reentry are rejected before publication. Supported values: music_volume/effects_volume finite0..1, locale vi/en, tutorial_dismissed bool. A successful apply clones valid config, persists once, replaces accepted _config, publishes requested locale, then emits detached values only if supported values changed. Failure leaves accepted runtime/locale unchanged; the write report carries storage rollback/recovery details. Explicit unchanged Apply still persists but emits no value-change event. Legacy finite volume setters retain clamping; volume/tutorial-only patches do not switch the current TranslationServer locale. Full title/pause drafts include locale and use one apply result; failed apply shows PREFERENCES_APPLY_FAILED.

@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F14 automation delivered (2026-11-18)
+
+Live accepted SFX gain added3cases; firstfocused9/9/121assert andfirstfull654/654/85552assert/158scripts PASS, parse/data/headless63/Main, groups101.672/101.036/117.277s<180s. All651prior case/fixture/golden/asset bytes unchanged; exact8paths andnativegain/lifecycle proofs in PROGRESS. No newtracks/bus/autoload or human listening claim; F15 standalone dialogue components next.
+
+## AUDIT-F14 in progress (2026-11-18)
+
+F13 committed/pushed058091b after full651/651. F14 live accepted SFX volume and3additive cases delivered; firstnativefocused9/9/121assert PASS including old audio and preference tests. Actual1/.5/0/1gain for active/new players, failedApply/draft isolation, listener idempotence/freed cleanup verified. Full gate pending; no music/ambience/bus/newasset or human listening claim.
+
 ## AUDIT-F13 automation delivered (2026-11-18)
 
 Five preference cases added; headlessfocused17/17/305assert and renderer21/21/743assert PASS. First fullPASS651/651 (85519assert/157scripts), parse/data/headless63/Main PASS, eachgroup<180s. All646prior case/fixture/golden bytes unchanged. Actual18allowedpaths. Native malformedcfg fallback/no-overwrite and expectedengineparserdiagnostic recorded separately; no error suppression. API/unknownkey/IOrollback/locale/signal guarantee limits in PROGRESS. F14 live accepted SFX volume next; no newsettings/worldsave/powercut acceptance.
