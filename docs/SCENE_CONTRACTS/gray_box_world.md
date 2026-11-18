@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## Phase7.3f ecology after completed farm/animal/machine work (D111)
+
+No world scene/node/geometry/Player/Inspector change. Main reserves ecology with weather, freezes sampling inputs, keeps existing farm callback and appends ecology after animals/machines. Existing mark_out_of_season now runs once at farm-step end before ecology sampling; new-morning rain remains after weather finish. Guarded matching-day ecology commits before ledger/save/bulletin. Runtime/state reservations are transient and never touch world picking/collision/input. APIs and manual day/reentry/season checks in ecology.md; save13 wire unchanged.
+
 ## Phase7.3e ecology owner (D110)
 
 No scene/tree/Player/grid/collision/geometry/Inspector edit. Main adds ecology_state and RefCounted ecology_runtime, not a world child. NewGame/load preflight ecology before mutation; lifecycle busy guards Main commands through callbacks. Main applies the same public land-close/ownership-deserialize/presentation-refresh steps under its lock because external LandRuntime.restore rejects global busy. Farm/land/clock remain their existing owners. Save13 adds ecology only, exact format/lifecycle APIs in ecology.md. Daily ecology callback is next7.3f; existing simulation order remains current until then.

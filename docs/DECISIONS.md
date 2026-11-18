@@ -1,5 +1,11 @@
 # DECISIONS — THE LIFE
 
+### D111 — ecology reservations in the single completed-day pipeline (2026-11-18)
+
+Approved7.3f adds transient EcologyState reservation APIs and optional final DaySimulator callback, preserving original callers/metrics/ease/wire. Main validates and reserves under existing weather/coop guards, freezes sampling inputs before farm callbacks, resolves season withering at farm-step end, then farm->animals->machines->ecology before weather/new rain/ledger/save/bulletin. No eager easing on UI/plot/ownership changes. Reserved state rejects reconfiguration/load/direct advance through callbacks, reads old committed snapshot until atomic finish and guarded signals; wrong token/invalid target never silently commits. Invalid preflight aborts weather without simulating/saving; existing clock-first adapter is not rewritten. Late inconsistency remains locked/no success/autosave rather than concealing partial completion. Save13 and all prior tests/goldens remain unchanged.
+
+Native pinned JSON full_precision still rounds some arbitrary doubles by1ULP (observed29.299488111481594->29.29948811148159); codec preserves decoded values, not an impossible guarantee about native parser bit identity. Same-input reserved/direct paths match exactly;1000day probe found147scalar rounding occurrences/max1ULP and no threshold-side flips. Added nearest below/equal/above tests at25/30/50 retain classification and no load notifications/history. No quantization/gameplay number/schema change is introduced to hide this native numeric limit.
+
 ### D110 — Main ecology owner, lifecycle guard and save13 (2026-11-18)
 
 Approved7.3e composes one stable Main ecology owner plus RefCounted lifecycle adapter. Preflight canonical context before live mutation, hold busy through synchronous restoration so Main save/load/NewGame/title routes cannot reenter. Main's land lifecycle internal steps reuse documented public close/deserialize/refresh_land, preserving LandRuntime's external busy rejection without editing it. Existing state/codec/sampler libraries remain unchanged.

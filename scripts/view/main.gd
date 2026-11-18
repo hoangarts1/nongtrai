@@ -294,20 +294,30 @@ func _ready() -> void:
 		call_deferred("_capture_chibi_ui")
 
 func _on_day_started(_day_index: int) -> void:
-	if _day_index!=GameClock.day_index or chicken_coop_runtime.busy or not bool(chicken_coop.coop.day_quote(_day_index-1).ok) or not bool(weather_state.call("day_quote",_day_index).ok):
+	if _day_index!=GameClock.day_index or ecology_runtime.busy or not ecology_state.day_quote(_day_index).ok or chicken_coop_runtime.busy or not bool(chicken_coop.coop.day_quote(_day_index-1).ok) or not bool(weather_state.call("day_quote",_day_index).ok):
 		return
 	var weather_day: Dictionary = weather_state.call("begin_day",_day_index)
 	if not bool(weather_day.ok):
 		return
+	var ecology_day: Dictionary = ecology_runtime.begin_day(_day_index, farm_state, land_ownership)
+	if not ecology_day.ok:
+		weather_state.call("abort_day", weather_day.token)
+		push_warning("Main: ecology preflight rejected: " + String(ecology_day.reason))
+		return
 	chicken_coop_runtime.busy = true
-	chicken_coop_runtime.simulator.simulate_day(farm_state,chicken_coop.coop,machine_operations,_day_index-1,_simulate_farm_day)
+	chicken_coop_runtime.simulator.simulate_day(farm_state,chicken_coop.coop,machine_operations,_day_index-1,_simulate_farm_day,_simulate_ecology_day.bind(_day_index))
 	if int(chicken_coop.coop.serialize().current_day)!=_day_index:
+		if not ecology_runtime.abort_day():
+			push_warning("Main: inconsistent completed owners; lifecycle remains locked")
+			return
 		weather_state.call("abort_day",weather_day.token)
 		chicken_coop_runtime.busy = false
 		push_warning("Main: daily simulation did not complete; weather retained")
 		return
+	if ecology_state.get_day_index() != _day_index:
+		push_warning("Main: ecology did not complete; lifecycle remains locked")
+		return
 	chicken_coop_runtime.refresh_site()
-	farm_state.mark_out_of_season()
 	if not bool(weather_state.call("finish_day",weather_day.token)):
 		push_warning("Main: weather reservation failed after simulation; lifecycle remains locked")
 		return
@@ -325,6 +335,12 @@ func _simulate_farm_day(farm: FarmGridState) -> void:
 	if bool(weather_state.call("is_rainy")):
 		farm.water_all_crops()
 	day_simulator.call("simulate_day",farm)
+	farm.mark_out_of_season()
+
+func _simulate_ecology_day(day: int) -> void:
+	var result: Dictionary = ecology_runtime.finish_day(day, farm_state)
+	if not result.ok:
+		push_warning("Main: ecology daily update rejected: " + String(result.reason))
 
 func _on_season_changed(season: StringName) -> void:
 	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))

@@ -1,10 +1,16 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3f automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 175scripts/751/751/88677assert; groups125.39/123.827/120.542s<180, GUT369.759s/wall388.349s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2395, prior test/fixture verification366, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3f-193526/full-attempt1. No skipped/removed cases or timeout extension.
+
+7.3e committed/pusheda98b815/full734/734. Step4/10 adds transient state reservations, frozen runtime sampling and optional final ecology simulator callback, season withering before counts, once-day commit before weather/ledger/save/bulletin. Focused final30/30/509assert PASS with17newcases; initial incomplete23test run rejected despiteexit0 and fixture parse corrected. Pure1000day same-input pipelines/noautoload PASS, nativeJSON1ULP limit exposed/documented without production rounding changes; nearest threshold sides tested. Full751/751 PASS. Save13/Player/InputMap/oldtests/goldens remain; UI/VFX next approved steps.
+
 ## Phase7.3e automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 172scripts/734/734/88351assert; groups127.462/125.136/117.535s<180, GUT370.133s/wall389.659s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2392, prior test/fixture verification363, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3e-192325/full-attempt1. No skipped/removed cases or timeout extension.
 
-7.3d committed/pushed3eeb79d after full728/728. Step3/10 composes stable Main ecology state/lifecycle guard and save13 full-precision component/migration, preserves oldgoldens and adds actual-codec golden13. Exact40line/32file compatibility patch only. Focused29/29/753assert PASS after one new-fixture float/int expectation correction; outside-repo golden helper autoload lookup corrected, all logs retained. Full pending. Daily ecology callback remains next7.3f, no UI/VFX/cleanup yet. Parent7.3 remains partial.
+7.3d committed/pushed3eeb79d after full728/728. Step3/10 composes stable Main ecology state/lifecycle guard and save13 full-precision component/migration, preserves oldgoldens and adds actual-codec golden13. Exact40line/32file compatibility patch only. Focused29/29/753assert PASS after one new-fixture float/int expectation correction; outside-repo golden helper autoload lookup corrected, all logs retained. Full734/734 PASS. Daily ecology callback remains next7.3f, no UI/VFX/cleanup yet. Parent7.3 remains partial.
 
 ## Phase7.3d automation delivered (2026-11-18)
 
@@ -403,6 +409,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.3c | Current-garden lifecycle library (D108; automation delivered) | Silent current-day calibration/exact saved restore, empty initial history/unmeasured water, atomic rejection and sampled adjacent-day helper; focused8/8 PASS, full722/722 PASS | [~] |
 | 7.3d | Canonical context/component libraries (D109; automation delivered) | Existing farm/land rules, exact matching-day ecology or explicit current-garden fallback; pure1000roundtrips/6newcases, save12 unchanged, full728/728 PASS | [~] |
 | 7.3e | Main-owned ecology/save13 (D110; automation delivered) | Stable owner, silent guarded restore/current-garden fallback, full-precision wire and additive13golden; oldgoldens/40line compatibility exact, focused29/29 PASS, full734/734 PASS | [~] |
+| 7.3f | Reserved daily ecology (D111; automation delivered) | Single farm/animal/machine/ecology order, frozen sampling/token guards,17newcases/focused30/30/pure1000days PASS; source numeric limit documented, full751/751 PASS | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
