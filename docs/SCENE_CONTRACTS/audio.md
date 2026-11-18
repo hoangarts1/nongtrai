@@ -1,5 +1,13 @@
 # Audio presentation contract — Phase7.2 (D103)
 
+## Phase7.2b original loop assets/profile (D104)
+
+AmbientAudioProfile (Resource) exports mix_rate:int, fade_seconds:float, day_start/afternoon_start/night_start:int, tracks:Array[Dictionary], zones:Array[Dictionary], day_by_zone:Dictionary, night_track/rain_track/morning_music/afternoon_music:StringName. Track fields id:StringName, path:String, bus:StringName, gain:float, seconds:float. Zone fields zone:StringName, region:Rect2i; order wins on overlap, default isfarm. These are cosmetic listening regions, not terrain/ownership/ecology. API validation_errors()->PackedStringArray checks numeric/type/ID/reference/route/range invariants; get_track(id:StringName)->Dictionary returns a detached row. Actual file/PCM checks live in the additive asset test, not a new registry owner.
+
+Eight original mono16bit/22050Hz WAVs are offline placeholders, replaceable at their data-owned paths: amb_farm_day, amb_forest_day, amb_village_day, amb_water_day, amb_night, amb_rain, mus_farm_morning, mus_farm_afternoon. Ambient loops12s, music16s; authored synthesis is not a field recording/final soundtrack. WAV instead of targetOGG is explicitly approved; no codec installation/download. Native imported WAVs use uncompressed PCM and keep loop disabled; runtime7.2c must clone streams before changing loop properties. No shared imported Resource mutation.
+
+Builder: pinned Godot --headless --path . --script res://tools/build_ambient_audio.gd -- --output=res://assets/audio . --output is required, only these eight track IDs are written, errors exit1; probe output must be outside project assets. It reads profile, generates deterministic bytes and checks write/flush errors. No four existing tool WAVs or their import settings are changed. No Node/Inspector/runtime playback is added in7.2b.
+
 ## Phase7.2a bus routing
 
 No existing scene, node path, autoload, InputMap or save change. Godot loads default_bus_layout.tres: exactly Master, Music, SFX, Ambience, UI; all children send directly to Master. Initial gains are unity; no bus effects. LifeAudioBusRouter is transient core RefCounted, not a scene/autoload/state owner. API: is_layout_ready()->bool (static), apply_accepted()->bool. It validates every required bus/send before modifying gains, reads accepted Settings and sets Music=music_volume, Ambience/UI=effects_volume, SFX=1. Master is not changed. Invalid layout returnsfalse without partial mutation; the router never silently rebuilds another layout.

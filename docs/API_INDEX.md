@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase7.2b original loop profile (D104)
+
+AmbientAudioProfile (scripts/data/ambient_audio_profile.gd; data/ambient_audio_profile.tres) exposes validation_errors()->PackedStringArray and get_track(id:StringName)->Dictionary (detached). Tracks contain id/path/bus/gain/seconds, zones contain zone/region; day_by_zone plus night/rain/morning/afternoon references define actual audio selection inputs for7.2c. mix_rate/fade_seconds/day_start/afternoon_start/night_start are presentation data. Eight WAV placeholders generated offline by tools/build_ambient_audio.gd (--output required); no runtime loader/caller until7.2c. PCM/import/determinism checks in test_ambient_audio_assets; no DataRegistry/state/save ownership. Full fields, bounds and manual command in SCENE_CONTRACTS/audio.md.
+
 ## Phase7.2a audio routing (D103)
 
 LifeAudioBusRouter (scripts/core/audio_bus_router.gd), transient core RefCounted: static is_layout_ready()->bool validates Master at0 and required child sends toMaster; apply_accepted()->bool reads accepted Settings, validates first, sets Music music gain, Ambience/UI effects gain and SFX unity, leaves Master unchanged. Missing/misrouted bus returnsfalse without gain writes. AudioService retains one listener and existing API/child-player behavior, owns a router and routes effects toSFX (fallbackMaster if unavailable). Active/new effects still use their own accepted effects_volume exactly once. default_bus_layout.tres is the native five-bus resource. Contract: SCENE_CONTRACTS/audio.md. No music/ambience playback until7.2c.

@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.2b audio DATA boundary (D104)
+
+AmbientAudioProfile is project-authored presentation Resource data, not persistent gameplay state. Pure field validation/detached lookup has no clock/autoload/Node dependency. Offline builder reads this Resource and writes only eight original loop WAVs to the explicit output directory; tests verify PCM/import/byte determinism. Audio assets and listening regions do not change WorldLocations, navigation, ecology, prices or save12. No runtime loop caller until7.2c and no scene/autoload changes.
+
 ## Phase7.2a audio bus boundary (D103)
 
 Existing Main-owned AudioService connects accepted Settings events; its core RefCounted router reads those accepted values and updates native Music/Ambience/UI gains. No Node/state/autoload/event/schema owner is added. SFX players keep their accepted local gain, SFX bus remains unity, Master stays unchanged. Validate the complete five-bus route before mutation; invalid layouts are not automatically replaced. Engine default bus Resource is presentation-only and outside save12. Other two approved audio steps are not enabled yet.

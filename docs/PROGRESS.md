@@ -1,5 +1,31 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.2b hoàn tất tự động — commit/push (2026-11-18)
+
+Đúng30path ALLOW_LIST: common6docs/contract+CREDITS; profileGD+UID+tres; offlinebuilderGD+UID; testGD+UID;8WAV+8imports.4case mới, mọi666oldcase/343file test/fixture/golden cũ, fouroriginalWAV/import vàruntime bytes giữ nguyên. Native focused12/12/345assert/17.607s PASS lầnđầu; builder/API/import/positive-negative CLI/PCM/determinism đãghi checkpoint dưới. Full1 nguyênlauncher exit0:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 162 scripts, 670/670 tests, 86883 assertions; GUT 352.868s, wall 370.4627902s
+[run_tests] PASS
+~~~
+
+Nhóm132.046/114.626/106.196s<180s; strictgate khôngerror/pending/leak. Freeze2368file khớp và20save thật nguyênSHA;4originalWAV/import nguyênhash. Tám loop cófile/data thật, read-only profile và reproduciblebuilder; chưa bật playback/Main đến7.2c. NoInspectorsteps; WAV placeholder theo phêduyệt, không finalOGG/fieldrecording/humanlistening claim. Full diff/before-after/exactlist/qualitystats/CLIlogs/import/focused/full/archive/manifest/summary/scopeproof: D:/godot/game-godot-backups/phase72-20261118-122731/phase7.2b-123812/. Commit: feat: add reproducible original ambience and music loop assets. Sau commit/push remotehash khớp mới bước7.2c, không mở phạmvi mới.
+
+## Phase7.2b focused/asset gate PASS — full đang chờ (2026-11-18)
+
+Pinned native focused1 PASS12/12,345assert,17.607s:4newprofile/PCM/buildercases +8old audio/bus cases. Không failedattempt. Tám WAV mono16bit/22050Hz:6ambience12s +2music16s; native imports PCM16/loopdisabled. Eight generated imports chỉ đổi compress/mode2→0 cho uncompressedPCM; fouroriginal WAV/import SHA nguyên. Pure profile malformed gain/type/nonfinite/path/duplicate/reference/route/zone/time checks và detachedlookup PASS. Native PCM signal/headroom/DC/samplejump/first-last0/duration/import/format kiểm đủ8.
+
+Nested pinned bounded CLI: hai lần build ra user://probe cho exactbyte bằng asset source, cố ý corrupt probe rồi build lại khớp; missingoutput và blockedfile trả1 với đúng reason, không SCRIPTERROR/ERROR giả. Không nới runner180s hoặc child30s; all4case/assertion giữ. Native script builder1 đã viết8clip thật; PCM APIprobe encode/decode/enum PASS. Raw child logs copied focused-cli-logs/, audio-quality.json ghi peak/RMS/DC/seam/hash từng clip. Không tuyên bố nghe qua tai, tự nhiên hay finalOGG; no runtimeuntil7.2c.
+
+Không Inspector bước bắt buộc. Preview có thể mở WAV từ assets/audio; sinh lại bằng pinned --headless --path . --script res://tools/build_ambient_audio.gd -- --output=res://assets/audio. Commit dự kiến: feat: add reproducible original ambience and music loop assets. Full nguyênlauncher sau freeze phải PASS rồi commit/push, sau đó mới nối runtime7.2c.
+
+## Phase7.2a đã push; triển khai7.2b (2026-11-18)
+
+7.2a commit457ce6c991d10440a13866cfcdcb13ba1d08c11e đã pushorigin/master, remotehash khớp, exact12path/outside0/20save thật nguyênSHA. Full666/666/86641assert; groups112.712/103.639/115.064s. Bắt đầu7.2b đúng30path được duyệt, backup D:/godot/game-godot-backups/phase72-20261118-122731/phase7.2b-123812. Contract/profile/buildAPI khai báo trước caller. Native PCM probe xác minh encode/decode_s16 và WAV format/loop enum trên pinned engine. Chưa sửa runtime/Main/Settings/bus/oldtests/goldens/fouroriginalWAV; chỉ asset/profile/offlinebuilder/additive tests và docs của7.2b.
+
 ## Phase7.2a hoàn tất tự động — commit/push (2026-11-18)
 
 Đúng12path ALLOW_LIST: sáu docs/contract, default_bus_layout.tres, AudioService, router+UID và test+UID.4case mới, toàn341file test/fixture/golden cũ và bốn WAV gốc nguyênbyte. Native focused8/8/103assert/0.586s và boot tự nạp5bus PASS; không có failed attempt. Full1 nguyênlauncher exit0:

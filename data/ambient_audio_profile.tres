@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AmbientAudioProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/ambient_audio_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mix_rate = 22050
+fade_seconds = 0.8
+day_start = 360
+afternoon_start = 720
+night_start = 1200
+tracks = Array[Dictionary]([
+{"id": &"amb_farm_day", "path": "res://assets/audio/amb_farm_day.wav", "bus": &"Ambience", "gain": 0.55, "seconds": 12.0},
+{"id": &"amb_forest_day", "path": "res://assets/audio/amb_forest_day.wav", "bus": &"Ambience", "gain": 0.55, "seconds": 12.0},
+{"id": &"amb_village_day", "path": "res://assets/audio/amb_village_day.wav", "bus": &"Ambience", "gain": 0.45, "seconds": 12.0},
+{"id": &"amb_water_day", "path": "res://assets/audio/amb_water_day.wav", "bus": &"Ambience", "gain": 0.5, "seconds": 12.0},
+{"id": &"amb_night", "path": "res://assets/audio/amb_night.wav", "bus": &"Ambience", "gain": 0.45, "seconds": 12.0},
+{"id": &"amb_rain", "path": "res://assets/audio/amb_rain.wav", "bus": &"Ambience", "gain": 0.5, "seconds": 12.0},
+{"id": &"mus_farm_morning", "path": "res://assets/audio/mus_farm_morning.wav", "bus": &"Music", "gain": 0.35, "seconds": 16.0},
+{"id": &"mus_farm_afternoon", "path": "res://assets/audio/mus_farm_afternoon.wav", "bus": &"Music", "gain": 0.35, "seconds": 16.0}
+])
+zones = Array[Dictionary]([
+{"zone": &"water", "region": Rect2i(-18, -8, 6, 16)},
+{"zone": &"water", "region": Rect2i(14, 6, 8, 8)},
+{"zone": &"village", "region": Rect2i(-8, 6, 9, 7)},
+{"zone": &"forest", "region": Rect2i(-19, -19, 39, 10)},
+{"zone": &"forest", "region": Rect2i(-19, -9, 7, 28)}
+])
+day_by_zone = {"farm": &"amb_farm_day", "forest": &"amb_forest_day", "village": &"amb_village_day", "water": &"amb_water_day"}
+night_track = &"amb_night"
+rain_track = &"amb_rain"
+morning_music = &"mus_farm_morning"
+afternoon_music = &"mus_farm_afternoon"

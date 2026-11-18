@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D104 — original replaceable PCM ambience placeholders (2026-11-18)
+
+Approved7.2b uses original offline synthesis for eight tracks; no external sound/license/package dependency. PCM WAV instead of finalOGG is explicitly approved for this placeholder slice. Do not describe it as a field recording or final content/listening acceptance. Profile Resource owns track paths/gains/durations, cosmetic listening regions and fade/time bands, with pure validation/detached lookup. Four original SFX remain byte-identical. Native WAV imports use uncompressedPCM; shared imports stay loop-disabled so7.2c clones before enabling loops. Fixed generator noise seed is cosmetic, never gameplay RNG; finite synthesis is deterministic. No runtime playback, geography/gameplay/owner/save changes in7.2b.
+
 ### D103 — five audio buses with one accepted gain per path (2026-11-18)
 
 Owner approved all Phase7.2a–c and per-step commit/push. For7.2a add default Master/Music/SFX/Ambience/UI layout; existing Settings accepted values remain the only preference owner. Keep original SFX player.volume_linear for public/tests compatibility and SFX bus unity, while Music uses music_volume and Ambience/UI use effects_volume. Master stays user/device-independent unity by default. Validate bus names/sends before any write; no partial rebuild/mutation on missing layout. Router is core RefCounted with no Node references, not another autoload. Four original WAV/API/cleanup/scene/inputs/save12 and all old tests remain. Native APIs are verified before use. No loop playback until7.2c; audio asset WAV placeholder exception is explicitly approved for7.2b, not a final OGG/content acceptance.

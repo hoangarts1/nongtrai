@@ -1,5 +1,9 @@
 # CREDITS & LICENSES
 
+## Phase7.2b original ambience/music placeholders (D104)
+
+Eight project-authored procedural PCM loops: amb_farm_day, amb_forest_day, amb_village_day, amb_water_day, amb_night, amb_rain, mus_farm_morning, mus_farm_afternoon under assets/audio/. Generated reproducibly by tools/build_ambient_audio.gd using elementary oscillators, fixed-seed smoothed noise and authored note/envelope patterns. No outside recording, sample pack, model, license, codec package or download. Not field recordings or final soundtrack. WAV placeholder delivery instead of targetOGG is explicitly owner-approved; future content may replace paths via data/ambient_audio_profile.tres. Existing four hoe/seed/water/harvest sources/imports remain unchanged. Native playback/automated PCM checks do not certify human listening quality.
+
 ## D72 inherited 2D visual work and C1 completion
 
 Inherited avatar/hair/world/crop/machine/frame drawing and five draft PNGs are project-authored procedural work from the other coding agent's D72 slice. tools/build_isometric_2d_assets.gd reproducibly generates cottage160x140, market140x128, bin96x88, farmer sheet256x64 and wood frame96x96 under existing assets folders. They remain offline/draft outputs; active runtime components still draw their procedural visuals and use existing supplied crops/machine textures/shared Theme/fonts.

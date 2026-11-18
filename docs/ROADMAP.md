@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase7.2b automation delivered (2026-11-18)
+
+Eight actual original PCM WAV placeholders/profile/offlinebuilder and4additive cases delivered. First full670/670/86883assert/162scripts PASS; parse/data/headless63/Main PASS, groups132.046/114.626/106.196s<180. Focused12/12/345assert, exact repeatedbuild/errorcodes/PCM/import checks PASS; all666prior cases/fourtoolWAVs unchanged. Runtime7.2c remains next approved scope; human listening and finalOGG/content acceptance not claimed. Evidence in PROGRESS.
+
+## Phase7.2b original loop foundation (2026-11-18)
+
+7.2a committed/pushed457ce6c. Eight original WAV placeholders/profile/offlinebuilder delivered under approved7.2b; native focused12/12/345assert PASS, exact rebuild/error-exit/PCM/import checks. Fouroriginaleffects/imports and all666oldcases remain unchanged. Full pending; no loop runtime until7.2c and human listening/finalOGG acceptance remains separate.
+
 ## Phase7.2a automation delivered (2026-11-18)
 
 Five native buses/default auto-load and accepted single-gain routing delivered; focused8/8/103assert and first full666/666/86641assert/161scripts PASS, parse/data/headless63/Main PASS. Groups112.712/103.639/115.064s<180. All662prior cases/341testfiles/fouroriginalWAV unchanged. Human listening separate;7.2b/c remain approved next steps, not enabled in this snapshot. Exact scope/evidence in PROGRESS.
