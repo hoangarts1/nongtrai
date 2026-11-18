@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5d automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 194scripts/823/823/96826assert; groups110.069/132.245/118.1s<180, GUT360.414s/wall377.130s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2449, prior test/fixture verification404, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5d-234446/full-attempt1. No skip/weakening/timeout extension.
+
+Step3/10 after7.5c pushed77150bf/full813. Pure DirectorCandidateRules filters actual observations, proposed-start cooldown/grace/season quota/spacing/mutex and scores only supported active-day affinities. Positive pity selects a positive pool only when genuinely eligible, otherwise explicitly waits. EventDirector adds no owner/runtime; tagged RNG2 preserves weather1/merchant8 mixer/streams. Captures detached terms and lossless RNG text; force bypasses lottery only and retains telegraph/constraints.
+
+Focused1 3scripts/10/10/249assert/1.379s PASS. Golden28 seed/day vectors captured from pinned native4.7.2; old goldens unchanged. Pure1 isolated project1000 synthetic observed-day pairs/determinism/read-only inputs/captured bounds/lossless RNG PASS, exit0/no SCRIPT ERROR/leak. Import1/2 clean. Pre-full protection found actual slot1+bak1..3 changed23:52 during phase (cause not determined; bounded probes isolate APPDATA). No F5 at recheck; actual saves retained, original hashes archived in saves-at-phase-start.json/external-save-drift.json, protection baseline refreshed before full1. Full823/823 PASS. Save13/Main/Player/InputMap/scenes/assets/oldtests unchanged. No runtime feature claim.
+
 ## Phase7.5c automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 191scripts/813/813/96577assert; groups125.637/144.766/131.696s<180, GUT402.099s/wall422.184s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2444, prior test/fixture verification400, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5c-232544/full-attempt1. No skip/weakening/timeout extension.

@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5d automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 194scripts/823/823/96826assert; groups110.069/132.245/118.1s<180, GUT360.414s/wall377.130s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2449, prior test/fixture verification404, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5d-234446/full-attempt1. No skip/weakening/timeout extension.
+
+Step3/10 seeded candidate scoring/trace implemented; focused10/10/249assert and isolated pure1000pairs PASS. New native4.7.2 golden28vectors, old streams/fixtures unchanged. Full823/823 PASS. No live Director/state/save change; human playtest remains separate.
+
 ## Phase7.5c automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 191scripts/813/813/96577assert; groups125.637/144.766/131.696s<180, GUT402.099s/wall422.184s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2444, prior test/fixture verification400, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5c-232544/full-attempt1. No skip/weakening/timeout extension.

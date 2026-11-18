@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5d transient decision and policy context (D121)
+
+Context exactly{enabled_day,last_positive_day:null|int,last_negative_start:null|int,cooldowns:{event:day},season_usage:{canonical_season_start:count},event_usage:{event:{season_start:count}},scheduled:[{event_id,start_day,end_day,is_negative,mutex_group}]}. Dates/counters JSON-safe; canonical actual Resource season-start keys; known IDs and bounded counts/arrays. Decision{ok,day_index,event_id,reason,seed_used:null|int,rng_state:String,event:Dictionary,trace:Dictionary}. Captured event terms{event_id,decision_day,start_day,end_day,is_negative,mutex_group,cooldown_until,title_key,explanation_key,counter_hint_key,effect:primitive terms}. New fixture director_rng_v0.json records engine and28 seed/day outcomes from native pinned4.7.2. This is no game-save wire; version13 unchanged, full lossless persistence added later.
+
 ## Phase7.5c transient Director observation DTO (D120)
 
 No game-save/version/Resource change. DirectorSnapshot input sources: actual4field clock; ecology{state:EcologyState wire,available:complete known bool map(waterfalse)}; existing5field activity wire; current4field weather; gates{enabled,story_unlocked,debug_preview,busy}:bools. All owner days equal clock, calendar season/year matches Resource cycle; metric/range/forecast/seed/coverage/count validation reuses existing codecs. Unknown/missing wrapper/gate fields and malformed NPC schedule context refused. Exact integer calendar arithmetic prevents huge-day float rounding; captured calendar/forecast need JSON-safe headroom.

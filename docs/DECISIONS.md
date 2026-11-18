@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D121 - seeded choice before persistent scheduling (2026-11-19)
+
+Approved7.5d chooses with explicit no-event weight and deterministic dedicated tag2, preserving existing stream tags/mixer. Quotas apply to actual proposed start season and count pending reservations; cooldown/grace/negative spacing/mutex all filter before drawing. Supported active-day affinity bonus is bounded by DATA, never quantity/style punishment. Pity waits for an eligible positive instead of inventing one. Force retains all constraints/telegraph and bypasses lottery only. Capture actual terms/seed/lossless RNG state/trace; never use history as current ecology. No live owner/save/runtime until following steps.
+
 ### D120 - explicit Director observations before scoring (2026-11-18)
 
 Approved7.5c keeps snapshot/condition libraries pure and detached. Require actual day-aligned clock/ecology/activity/weather and explicit bool availability/gates; partial windows cannot become scored zeros, water stays unavailable, story unlock is never inferred. Use active-day frequencies over complete closed window so one-day quantity spikes do not gain more affinity; open day excluded. Predicate min/below uses exact current threshold side, ignores historical triggered, and reads saved weather at proposed effect start rather than rerolling or guessing. Market-extra eligibility uses actual current schedule weekdays. JSON reads integers as doubles: recursive exact-value normalization accepts only equivalent integral representation, no tolerance around gameplay values. Invalid/forged/unknown/busy/stale context fails explicitly, no owner/clock/RNG/save changes. Selection/state/runtime remain later approved steps.

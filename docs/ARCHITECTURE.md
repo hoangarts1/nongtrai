@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5d pure decision boundary (D121)
+
+DirectorCandidateRules consumes validated detached snapshots and explicit policy context; EventDirector consumes its eligible scored pool and uses DetRandom tag2 once. Both are pure RefCounted with no WorldState ownership, Node/autoload/clock/world mutation. Context counters/pending metadata are caller inputs, not a second owner. Outcome captures immutable primitive terms and trace; disabled/unavailable contexts never draw. Persistent schedules/atomic day reservation are next7.5e, actual effects/runtime/save later.
+
 ## Phase7.5c pure Director snapshot boundary (D120)
 
 Explicit primitive inputs -> existing strict ecology/activity/weather codecs -> DirectorSnapshot canonical detached DTO -> DirectorConditionRules. Actual Resource calendar and NPC schedule metadata supply season/normal-visit context; no Nodes/autoloads/registries/singletons. DTO stores canonical source for independent validity checks, with exact value comparison across JSON integer representations. Partial/disabled/locked readyfalse differs from malformed/busy failure; unknown metric availability never equals zero. Source activity current open day is retained only in source validation and excluded from completed totals/frequencies. Current threshold and saved start-day weather drive predicates, no history-as-current or RNG draw. No Main/DaySimulator/save13/UI changes.

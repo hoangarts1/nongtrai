@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.5d seeded chooser (D121)
+
+DirectorCandidateRules(RefCounted stateless): fresh_context(enabled_day:int)->Dictionary; valid_context(profile,day,raw)->bool; evaluate(profile,snapshot,context)->Dictionary. Context exactly enabled_day,last_positive_day,last_negative_start,cooldowns,season_usage,event_usage,scheduled. Scheduled rows exactly event_id,start_day,end_day,is_negative,mutex_group. Per-candidate actual exclusion reason/checks/conditions/base_weight/activity_bonus/score/start/end/target season. Partial/off DTO yields no score/draw; malformed ready context rejected. Positive pity removes negative pool and zeroes no-event weight only when positive eligible; otherwise waits.
+
+EventDirector(RefCounted stateless): decide(profile:DirectorProfile,snapshot:Dictionary,context:Variant,force_id:StringName=&"")->Dictionary; event_terms(event,decision_day)->Dictionary. Result contains actual seed_used (or null), lossless signed-int64 rng_state string, chosen ID or empty, captured terms and detached trace. Force requires eligible ID, bypasses lottery only. No state/Node/clock/global RNG mutation. DetRandom.TAG_DIRECTOR=2; old mixer/TAG_WEATHER1/TAG_MERCHANT8 unchanged.
+
 ## Phase7.5c Director observations and conditions (D120)
 
 DirectorSnapshot(RefCounted stateless), static capture(profile:DirectorProfile,clock:Variant,ecology:Variant,activity:Variant,weather:Variant,gates:Variant)->Dictionary. ACTIVITY preloads the actual director_activity_config.tres. Clock exactly4fields(day_index/minute/season/year), ecology exactly{state,available}, activity exact5field owner wire, weather current4field codec, gates exactly4bools{enabled,story_unlocked,debug_preview,busy}. Failure {ok:false,reason:StringName}; success carries ready/reason/day_index/world_seed/clock/calendar/metrics/available/activity/weather/merchant_regular and detached canonical source{clock,ecology,activity,weather,gates}. Partial activity is valid but readyfalse with no totals/frequencies; disabled/locked explicit. No real story flag is granted. valid(profile,snapshot)->bool rebuilds canonical source and compares exact values, tolerating only JSON integer/double and string/name representations, never bool/fraction/epsilon or forged derived fields.

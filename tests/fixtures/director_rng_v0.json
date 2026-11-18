@@ -1,0 +1,201 @@
+{
+	"engine": "4.7.2-stable (official)",
+	"vectors": [
+		{
+			"day": 7,
+			"event_id": "",
+			"rng_state": "-7590032508066127758",
+			"seed_used": 541611078,
+			"world_seed": 0
+		},
+		{
+			"day": 27,
+			"event_id": "merchant_visit",
+			"rng_state": "7778396915399293016",
+			"seed_used": 1137079508,
+			"world_seed": 0
+		},
+		{
+			"day": 28,
+			"event_id": "gentle_dust",
+			"rng_state": "-3719378090652158050",
+			"seed_used": 93111106,
+			"world_seed": 0
+		},
+		{
+			"day": 112,
+			"event_id": "gentle_dust",
+			"rng_state": "1246818793405016921",
+			"seed_used": 446594865,
+			"world_seed": 0
+		},
+		{
+			"day": 7,
+			"event_id": "merchant_visit",
+			"rng_state": "8278246420409342265",
+			"seed_used": 79137169,
+			"world_seed": 1
+		},
+		{
+			"day": 27,
+			"event_id": "butterfly_bloom",
+			"rng_state": "5199931770165211423",
+			"seed_used": 674605599,
+			"world_seed": 1
+		},
+		{
+			"day": 28,
+			"event_id": "gentle_dust",
+			"rng_state": "1632480052224608112",
+			"seed_used": 1778120844,
+			"world_seed": 1
+		},
+		{
+			"day": 112,
+			"event_id": "merchant_visit",
+			"rng_state": "6598676936281783083",
+			"seed_used": 2131604603,
+			"world_seed": 1
+		},
+		{
+			"day": 7,
+			"event_id": "butterfly_bloom",
+			"rng_state": "-5011567362832046165",
+			"seed_used": 1004084987,
+			"world_seed": -1
+		},
+		{
+			"day": 27,
+			"event_id": "butterfly_bloom",
+			"rng_state": "-8089882013076177007",
+			"seed_used": 1599553417,
+			"world_seed": -1
+		},
+		{
+			"day": 28,
+			"event_id": "gentle_dust",
+			"rng_state": "-1140912945418076457",
+			"seed_used": 555585015,
+			"world_seed": -1
+		},
+		{
+			"day": 112,
+			"event_id": "",
+			"rng_state": "3825283938639098514",
+			"seed_used": 909068774,
+			"world_seed": -1
+		},
+		{
+			"day": 7,
+			"event_id": "",
+			"rng_state": "-7619170867480821637",
+			"seed_used": 445059723,
+			"world_seed": 42
+		},
+		{
+			"day": 27,
+			"event_id": "",
+			"rng_state": "7749258555984599137",
+			"seed_used": 1040528153,
+			"world_seed": 42
+		},
+		{
+			"day": 28,
+			"event_id": "gentle_dust",
+			"rng_state": "4181806838043995826",
+			"seed_used": 2144043398,
+			"world_seed": 42
+		},
+		{
+			"day": 112,
+			"event_id": "merchant_visit",
+			"rng_state": "1217680433990323042",
+			"seed_used": 350043510,
+			"world_seed": 42
+		},
+		{
+			"day": 7,
+			"event_id": "",
+			"rng_state": "-7560894148651433879",
+			"seed_used": 638162433,
+			"world_seed": -42
+		},
+		{
+			"day": 27,
+			"event_id": "butterfly_bloom",
+			"rng_state": "7807535274813986895",
+			"seed_used": 1233630863,
+			"world_seed": -42
+		},
+		{
+			"day": 28,
+			"event_id": "merchant_visit",
+			"rng_state": "-3690239731237464171",
+			"seed_used": 189662461,
+			"world_seed": -42
+		},
+		{
+			"day": 112,
+			"event_id": "gentle_dust",
+			"rng_state": "1275957152819710800",
+			"seed_used": 543146220,
+			"world_seed": -42
+		},
+		{
+			"day": 7,
+			"event_id": "gentle_dust",
+			"rng_state": "5618644666856167170",
+			"seed_used": 244012694,
+			"world_seed": 9007199254740991
+		},
+		{
+			"day": 27,
+			"event_id": "merchant_visit",
+			"rng_state": "2540330016612036328",
+			"seed_used": 839481124,
+			"world_seed": 9007199254740991
+		},
+		{
+			"day": 28,
+			"event_id": "butterfly_bloom",
+			"rng_state": "-1027121701328566983",
+			"seed_used": 1942996369,
+			"world_seed": 9007199254740991
+		},
+		{
+			"day": 112,
+			"event_id": "merchant_visit",
+			"rng_state": "-3991248105382239767",
+			"seed_used": 148996481,
+			"world_seed": 9007199254740991
+		},
+		{
+			"day": 7,
+			"event_id": "butterfly_bloom",
+			"rng_state": "-2351965609278871070",
+			"seed_used": 839209462,
+			"world_seed": -9007199254740991
+		},
+		{
+			"day": 27,
+			"event_id": "butterfly_bloom",
+			"rng_state": "-5430280259523001912",
+			"seed_used": 1434677892,
+			"world_seed": -9007199254740991
+		},
+		{
+			"day": 28,
+			"event_id": "merchant_visit",
+			"rng_state": "1518688808135098638",
+			"seed_used": 390709490,
+			"world_seed": -9007199254740991
+		},
+		{
+			"day": 112,
+			"event_id": "gentle_dust",
+			"rng_state": "6484885692192273609",
+			"seed_used": 744193249,
+			"world_seed": -9007199254740991
+		}
+	]
+}
