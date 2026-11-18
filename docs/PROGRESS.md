@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5c automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 191scripts/813/813/96577assert; groups125.637/144.766/131.696s<180, GUT402.099s/wall422.184s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2444, prior test/fixture verification400, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5c-232544/full-attempt1. No skip/weakening/timeout extension.
+
+Step2/10 after7.5b pushed5ca491b/full804/804/96478assert. Adds stateless DirectorSnapshot/DirectorConditionRules only. Explicit clock/ecology+availability/activity/weather/gates normalized through existing codecs, actual ordered calendar and current normal Minh weekdays; no Node/autoload/owner/RNG/clock access. Full7closed complete activity days produce totals/active-day frequencies; partial observations produce readyfalse with empty totals/frequencies, not fake zeros. Quantity spikes and open day do not inflate frequency. Gate is explicit enabled&&(realstory||debugpreview), no invented M2.4 flag. Current measured threshold sides, actual saved proposed-start weather (telegraph index) and ordinary merchant weekdays drive conditions; triggered history/water placeholder never substitute for availability/current levels.
+
+Focused1 8/9 failed new JSON snapshot validity test. External diagnostic identified exact int-vs-double Dictionary comparison (7 versus7.0), not a changed frequency/threshold. Added recursive exact-value comparison for canonical ints/JSON-integral floats and StringName/String; bool/fraction/extra keys/changed values still fail, no epsilon. Focused2 9/9/96assert PASS. Added bool/fraction/invalidNPC checks and calendar JSON headroom, final focused3 9/9/99assert/0.508s PASS, oldtests unchanged. Pure1 independent47dependency project1000adjacent days/coverage/calendar/nativeJSON/threshold/saved-future-weather PASS with no autoload/world nodes. Inherited NPC extUID text-path warnings remain in isolated logs; no SCRIPT ERROR/leak. Import1/2 parse clean. Full813/813 PASS. Checkpoint D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5c-232544. Save13/Main/Player/InputMap/scenes/assets/oldtests unchanged; no selector/runtime yet.
+
 ## Phase7.5b automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 189scripts/804/804/96478assert; groups137.494/110.633/155.242s<180, GUT403.369s/wall422.600s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2440, prior test/fixture verification396, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5b-230647/full-attempt1. No skip/weakening/timeout extension.

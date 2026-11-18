@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5c pure Director snapshot boundary (D120)
+
+Explicit primitive inputs -> existing strict ecology/activity/weather codecs -> DirectorSnapshot canonical detached DTO -> DirectorConditionRules. Actual Resource calendar and NPC schedule metadata supply season/normal-visit context; no Nodes/autoloads/registries/singletons. DTO stores canonical source for independent validity checks, with exact value comparison across JSON integer representations. Partial/disabled/locked readyfalse differs from malformed/busy failure; unknown metric availability never equals zero. Source activity current open day is retained only in source validation and excluded from completed totals/frequencies. Current threshold and saved start-day weather drive predicates, no history-as-current or RNG draw. No Main/DaySimulator/save13/UI changes.
+
 ## Phase7.5b DATA-only Director definitions (D119)
 
 DirectorProfile references existing ecology/weather/NPC/season Resources plus typed event/condition/effect Resources. DATA knows no DOMAIN/Node/autoload; validation and explicit frozen_copy are pure DATA operations. No runtime owner, clock listener, event executor or save13 component. DataValidator/CLI append structural+translation checks without removing any prior gate. Profile/metadata is copied before future owners consume it; current gameplay/visual/source assets remain unchanged. Three definitions are prototypes, not live events yet.

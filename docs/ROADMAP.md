@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5c automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 191scripts/813/813/96577assert; groups125.637/144.766/131.696s<180, GUT402.099s/wall422.184s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2444, prior test/fixture verification400, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5c-232544/full-attempt1. No skip/weakening/timeout extension.
+
+Step2/10 pure actual observation DTO/condition rules implemented, source day/calendar/availability and7day coverage explicit; no one-day quantity scoring/history-as-current/water measurement. Current metric threshold, saved start-day weather and existing normal Minh weekdays only. Final focused9/9/99assert plus isolated1000days PASS after fixing JSON int/double representation comparison without epsilon/test weakening; diagnostic/failure logs archived. Full813/813 PASS; no runtime/save13/oldtest change. Remaining d-k execute after this full gate/commit.
+
 ## Phase7.5b automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 189scripts/804/804/96478assert; groups137.494/110.633/155.242s<180, GUT403.369s/wall422.600s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2440, prior test/fixture verification396, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5b-230647/full-attempt1. No skip/weakening/timeout extension.
