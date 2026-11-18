@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F8 automation delivered (2026-11-18)
+
+193native harness probes PASS; complete official gate PASS625/625,84296assert/152scripts with3sequential groups199/206/220cases at180s each. Parse/data/headless63/Main PASS, all oldtest/golden bytes preserved. First full session incomplete, second complete PASS; exact logs/diff/limits in PROGRESS. This proves complete partition/strict failure handling, not improved total benchmark or concurrent execution safety. F9 may now begin.
+
+## AUDIT-F8 in progress (2026-11-18)
+
+F7 committed/pushed69ea922 after full625/625. F8 three-way complete graphics partition and193 native harness checks delivered; full gate pending. No old GUT file/golden or timeout change. This is runner stabilization, not a new gameplay milestone or performance acceptance.
+
 ## AUDIT-F7 automation delivered (2026-11-18)
 
 Pinned engine gate now covers direct bounded calls and parse startup. Native/process/parser probes20checks PASS; full parse/data/headless63/graphics625/625 (84296assert)/Main PASS; groups131.450/167.171s under180s. All625cases/goldens unchanged. Exact8path evidence in PROGRESS. F8 may begin after this gate; remainingF9–F16 are approved but unimplemented at this point.

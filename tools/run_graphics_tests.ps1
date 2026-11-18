@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 function Get-GraphicsInventory([string]$RepoRoot) {
 	[string[]]$names = @(Get-ChildItem -LiteralPath (Join-Path $RepoRoot 'tests/unit') -Filter 'test_*.gd' -File | ForEach-Object { $_.Name })
 	[Array]::Sort($names, [StringComparer]::Ordinal)
-	if ($names.Count -lt 2) { throw 'Graphics discovery requires at least two test scripts.' }
+	if ($names.Count -lt 3) { throw 'Graphics discovery requires at least three test scripts.' }
 	foreach ($name in $names) {
 		if ($name -cnotmatch '^test_[a-z0-9_]+\.gd$') { throw "Unsupported test filename: $name" }
 		$path = Join-Path $RepoRoot "tests/unit/$name"
@@ -28,6 +28,13 @@ function Assert-GraphicsCoverage([string[]]$Expected, [string[]]$Actual) {
 		if ($index -gt 0 -and ($left[$index] -ceq $left[$index-1] -or $right[$index] -ceq $right[$index-1])) { throw 'Duplicate graphics script coverage.' }
 		if ($left[$index] -cne $right[$index]) { throw "Graphics script coverage mismatch: $($right[$index])" }
 	}
+}
+
+function Get-GraphicsGroups([object[]]$Inventory) {
+	if ($Inventory.Count -lt 3) { throw 'Three graphics groups require at least three scripts.' }
+	$groups = @(@(), @(), @())
+	for ($index = 0; $index -lt $Inventory.Count; $index++) { $groups[$index % 3] += $Inventory[$index] }
+	return ,$groups
 }
 
 function Read-GraphicsSummary([string]$StdoutPath, [string]$StderrPath, [string[]]$ExpectedPaths, [int]$ExpectedTests) {
@@ -58,21 +65,20 @@ try {
 	$repoRoot = Split-Path -Parent $PSScriptRoot
 	Set-Location -LiteralPath $repoRoot
 	$inventory = @(Get-GraphicsInventory $repoRoot)
-	$groups = @(@(), @())
-	for ($index = 0; $index -lt $inventory.Count; $index++) { $groups[$index % 2] += $inventory[$index] }
-	Assert-GraphicsCoverage @($inventory.Path) @(@($groups[0].Path) + @($groups[1].Path))
+	$groups = Get-GraphicsGroups $inventory
+	Assert-GraphicsCoverage @($inventory.Path) @($groups | ForEach-Object { $_.Path })
 	$parent = Split-Path -Parent ([IO.Path]::GetFullPath($OutputPrefix))
 	$null = New-Item -ItemType Directory -Force -Path $parent
 	@{ Status = 'running' } | ConvertTo-Json | Set-Content -LiteralPath "$OutputPrefix.summary.json" -Encoding UTF8
 	@{ TimeoutMsPerProcess = 180000; Inventory = $inventory; Groups = $groups } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath "$OutputPrefix.manifest.json" -Encoding UTF8
 	$watch = [Diagnostics.Stopwatch]::StartNew()
 	$results = @()
-	for ($index = 0; $index -lt 2; $index++) {
+	for ($index = 0; $index -lt $groups.Count; $index++) {
 		$number = $index+1
 		$paths = @($groups[$index].Path)
 		$expectedTests = ($groups[$index] | Measure-Object -Property Tests -Sum).Sum
 		$logPath = "${OutputPrefix}_${number}.log"
-		Write-Host "[graphics_tests] group $number/2: $($paths.Count) scripts, $expectedTests tests; timeout 180s"
+		Write-Host "[graphics_tests] group $number/$($groups.Count): $($paths.Count) scripts, $expectedTests tests; timeout 180s"
 		$arguments = '-s --path . addons/gut/gut_cmdln.gd -gtest='+($paths -join ',')+' -gexit'
 		& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'run_godot_bounded.ps1') -Godot $Godot -Arguments $arguments -OutputPath $logPath -TimeoutMs 180000
 		if ($LASTEXITCODE -ne 0) { throw "Graphics group $number exited $LASTEXITCODE (124 means timeout)." }

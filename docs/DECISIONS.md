@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D94 — three sequential complete graphics groups (2026-11-18)
+
+ApprovedF8 replaces only two-way partitioning by sorted index%3. Keep all discovered test scripts/cases/assertions/captures, Forward+ renderer and180000ms per child. Keep strict summary/hash/coverage/fail-fast behavior; do not reduce tests or claim concurrent TEMP safety. Native PowerShell harness tests cover partition, malformed success output, timeout124, parse failure and source drift through a disposable replica. No GUT implementation or old test changes.
+
 ### D93 — enforce the existing stable engine pin before bounded runs (2026-11-18)
 
 Approved AUDIT-F7 keeps PROJECT_RULES4.7.2-stable. Accept the exact stable version or its official build suffix (including mono official), reject other channels/versions, nonzero/missing/ambiguous output and version-probe timeout. Probe limit10s is separate from the existing target timeout; no target starts after a rejected probe. APPDATA isolation/hidden children/target exit propagation remain. This enforces the current rule, without downloading, selecting, or upgrading an engine.

@@ -1,5 +1,23 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F8 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Đúng6path ALLOW_LIST (4docs, runner, native harness); không đổi test GUT/golden/timeout/renderer/save12.193focused checks PASS; F7 pin vẫn áp dụng mọi child. Full lần2 nguyên launcher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 152 scripts, 625/625 tests, 84296 assertions; GUT 317.871s, wall 336.0382878s
+[run_tests] PASS
+~~~
+Đủ625case/84296assert như F7,152script mỗi script đúng một nhóm;3nhóm199/206/220case,180s mỗi child. Sourcefreeze/testhash unchanged. Main PASS, strictgate không error/pending/leak. Full1 bị mất phiên tool, không còn child/exitfile/summary cuối; nguyên nhân không xác định được, log giữ ởfull-attempt1-incomplete và không gọi PASS/timeout. Không giảm test để chữa lượt chưa hoàn tất; full2 chạy lại toàn bộ.
+
+Backup/before-after/exactfiles/implementation.patch/focused/full2/archive/manifest/summary tại D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f8-090204/.20save thật/ngoài scope/HEAD/index được kiểm trước commit. Không Inspector/scene/settings. Manual chạy launcher thấy3group và aggregate đủ số. Không tuyên bố full nhanh hơn (tổngwall có overhead) hoặc concurrent runner an toàn. Commit: test: partition complete graphics suite into three groups. F9 được phép bắt đầu sau PASS này.
+
+## F7 đã push; AUDIT-F8 đang triển khai (2026-11-18)
+
+F7 commit69ea922ab404d8e666716712089456ad76fcee5f đã pushorigin/master và remotehash khớp; exact8file/outside0/20save thật giữhash. F8backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f8-090204. Đã chia3nhóm tuần tự index%3, đủ152script/625case hiện có; giữ180000ms và strictgate. Focused native193check PASS lần đầu gồm parser/coverage/partition, replica success/timeout124/parseerror/hashdrift và fail-fast. Không thêm production testmode/bypass, không đổi một byte test GUT/golden cũ. Full đang chờ chạy; không Inspector/scene/settings. Manual chạy nguyên launcher, xác nhận3group/summary đủ case. Commit dự kiến: test: partition complete graphics suite into three groups.
+
 ## AUDIT-F7 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Đúng8path ALLOW_LIST:4docs và4tool/test, không sửa GUT/test gameplay/golden/scene/InputMap/asset/save12. API pin theoD93; direct bounded/check_parse đều fail trước target nếu version sai. Focused lần cuối20check PASS; lần đầu test PowerShell bị NativeCommandError do stderr negative fixture và ErrorAction Stop, đã sửa harness dùng hidden Start-Process/exit code, không sửa gate để bỏ lỗi. Hai log được giữ.

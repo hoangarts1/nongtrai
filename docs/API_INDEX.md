@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F8 three sequential graphics groups (D94)
+
+run_graphics_tests.ps1 retains Get-GraphicsInventory/Assert-GraphicsCoverage/Read-GraphicsSummary and adds Get-GraphicsGroups(Inventory)->three nested arrays. Sorted inventory is assigned round-robin index%3, with no empty group. Normal invocation always runs all three groups sequentially,180000ms each; manifest keeps all inventory hashes and nested groups, summary aggregates exact script/test/assert counts. Error/count/pending/leak/source-hash gates remain. tools/tests/test_graphics_runner.ps1 loads real function ASTs and exercises disposable-replica orchestration; no production bypass/test-mode switch is added.
+
 ## AUDIT-F7 engine gate (D93)
 
 tools/engine_pin.ps1 exposes Test-PinnedEngineVersion(Version)->bool and Assert-PinnedGodotEngine(Godot,OutputPrefix,TimeoutMs=10000)->string (throws on failure). The bounded launcher checks the pinned stable version using a hidden bounded --version process before any requested target, including direct invocations. Probe stdout/stderr are retained at OutputPath.pin.*. GODOT may select another executable only if it satisfies the pin. check_parse.bat aborts at a failed version gate. Native test command: powershell -NoProfile -ExecutionPolicy Bypass -File tools/tests/test_engine_pin.ps1. No game API/input/state/save change.
