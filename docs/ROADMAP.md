@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase7.2a–c automated delivery complete (2026-11-18)
+
+Owner-approved three-step audio continuation is implemented and gated independently:7.2a pushed457ce6c (666/666),7.2b pushed53604f3 (670/670),7.2c included in this snapshot after first full676/676/87050assert/163scripts PASS. Parse/data/headless63/Main PASS; groups121.048/123.581/116.167s<180s. Final native20/20/736assert verifies actual loops/context/crossfades/GUI settings/lifecycle/readonly owners; all662prebatch cases and fouroriginalWAVs unchanged. Eight original WAV placeholders remain replaceable and explicitly provisional instead of finalOGG/field recordings. Human F5/listening/export/device acceptance is separate, so parent7.2 is[~], not an invented human tick. Player/save12/InputMap/scenes/owners preserved. Exactdiff/log/commit/saveproof and manual checklist in PROGRESS and external DELIVERY.md. No later ecology/director/story/social scope is opened by this delivery.
+
+## Phase7.2c runtime focused delivered (2026-11-18)
+
+7.2b committed/pushed53604f3. Main-owned bounded4-player crossfades, pure real-context selector, accepted gainthrough existingbuses, title/exit silence andpausepreview delivered. Finalnative20/20/736assert includes6newcases plusoldbus/pause/dialogue; firstfixture timingfailure explainedinPROGRESS, productionunchanged. Fullpending, no humanlistening/art/OGG/fullroadmapcompletionclaim. Main changesonlyfield+4wiringlines; Player/save12/all670oldcases retained.
+
 ## Phase7.2b automation delivered (2026-11-18)
 
 Eight actual original PCM WAV placeholders/profile/offlinebuilder and4additive cases delivered. First full670/670/86883assert/162scripts PASS; parse/data/headless63/Main PASS, groups132.046/114.626/106.196s<180. Focused12/12/345assert, exact repeatedbuild/errorcodes/PCM/import checks PASS; all666prior cases/fourtoolWAVs unchanged. Runtime7.2c remains next approved scope; human listening and finalOGG/content acceptance not claimed. Evidence in PROGRESS.
@@ -358,7 +366,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | ID | Task | Acceptance | Status |
 |---|---|---|---|
 | 7.1 | Seeded weather + saved forecast | D86 tagged RNG/day reservations/save12 preserve saved forecasts; actual RNG golden/1000-day invariants/full583/583 verified; all557 previous cases retained; human editor acceptance/commit separate, evidence in PROGRESS | [~] |
-| 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | smooth transitions; no logic in views | [ ] |
+| 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | Existing daynight/rain retained; D103–D105 five buses/eight original WAV placeholders/context loops delivered; full676/676, native20/20, parse/data/headless/Main PASS; no view simulation; human F5/listening/finalOGG acceptance pending | [~] |
 | 7.3 | `EcologyState` (read-only) | metrics respond to actions; eased; thresholds fire once | [ ] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |

@@ -1,5 +1,50 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.2a–c hoàn tất tự động — commit/push mốc cuối (2026-11-18)
+
+Đã triển khai đủ ba bước theo duyệt của người dùng, full test sau từng bước. 7.2a bus đã push457ce6c991d10440a13866cfcdcb13ba1d08c11e;7.2b asset/profile đã push53604f3244a7850d4e3da7d29e755345bfaee059. Snapshot này hoàn tất7.2c runtime; hash commit/push cuối ghi ở commit-result.json và DELIVERY.md ngoài repo sau push, không tạo commit riêng để tự ghi hash chính nó.
+
+| Mốc | Kết quả | Full GUT PASS |
+|---|---|---|
+| 7.2a | Năm bus, accepted gain đúng một lần; SFX cũ giữ API/gain/cleanup | 666/666;86641assert |
+| 7.2b | Tám loop PCM gốc, profile DATA, offlinebuilder và native PCM/determinism/error checks | 670/670;86883assert |
+| 7.2c | Nhạc/ambience chạy thật theo cell/giờ/thời tiết; crossfade4slot, lifecycle và setting GUI | 676/676;87050assert |
+
+Full1 cuối bằng nguyên launcher exit0:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 163 scripts, 676/676 tests, 87050 assertions; GUT 360.796s, wall 378.8339893s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Ba nhóm 121.048/123.581/116.167s dưới180s/nhóm; strict gate không SCRIPTERROR/ERROR/failure/pending/leak. Expected malformed/guard fixture warnings và inheritedduplicateUID giữ nguyên. Manifest163script và freeze2371file khớp, drift0. Toàn345file test/fixture/golden trước7.2c và tất cả662test gốc/341file từ đầu đợt giữ nguyên byte, chỉ14case mới được thêm (4+4+6). Bốn WAV công cụ/import và20save thật nguyênSHA suốt cả ba bước; Player/input/scenes/simulation/restore/schema12 không đổi.
+
+Final native focused20/20/736assert13.843s gồm6new+oldbus/pause/dialogue. Lần đầu15/16 do newfixture muteGUI trướclayout sauclose/reopen; thêm2frame settle, giữ mọiassertion/production; focused2 PASS16/16 rồi thêm overlap/request assertions vàdialogueregression, focused3 PASS20/20. Chi tiết các lần/log lỗi giữ ở checkpoint dưới. Native trace7snapshot chứng minh actualplayers/zone/crossfade/mutedbuses, không fake hearing.
+
+C sửa16/17path: common docs/PROGRESS, API_INDEX, ROADMAP, DECISIONS, ARCHITECTURE, SCENE_CONTRACTS/audio; thêm3contract gray_box_world/start_menu/pause_menu; Main chỉ1field+4readywiringlines;2newVIEWGD+UID (ambient_audio_context/ambient_audio_flow); test_ambient_audio_runtime+UID. Profiletres optional không cần đổi. Không sửa AudioService/router/profileGD/builder/audioassets/oldtests/scene/InputMap trongC. Scope finalize yêu cầu outside0, HEAD/index tree nguyên trước stage và đúng16path được commit.
+
+Bằng chứng C: D:/godot/game-godot-backups/phase72-20261118-122731/phase7.2c-125413/ gồm before-after, implementation.patch, exactfilelist, native/focused/runtime-trace, full/archive/manifest/summary/freeze/scope/save proof. Cả ba mốc và checklist/diff/filelist/commit/log: D:/godot/game-godot-backups/phase72-20261118-122731/DELIVERY.md (sinh sau push); baseline-preservation.json ghi nguồn test662case/save20/fourWAV/import. Hai file prompt ngoài phạm vi vẫn giữ nguyên và không đưa vào commit: D the_life_prompt.md; ?? the_life_master_prompt.md.
+
+Manual editor: không cần thêm node/Inspector/InputMap. F5New/Continue, đi qua ruộng/(−5,6)làng/(−14,6)suối/(15,9)ao/(−12,−12)vùngcây; đổi8h/13h/21h và mưa/nắng qua debug hiện có. Pause giữ loop để nghe Apply/cancel/failedApply/mute/unmute, title im gameplay loop, Continue/load/NewGame không chồng bản phát. Preview tám WAV dưới assets/audio; dữ liệu gain/time/fade/zone ở data/ambient_audio_profile.tres. Vùng nghe chỉcosmetic, không mở thêm gameplay làng/rừng. Âm tổng hợp WAV là placeholder đãduyệt; chưa finalOGG/fieldrecording/humanlistening/export/deviceacceptance. Roadmap7.2 đánh[~] vì human acceptance còn riêng; không đánh toàn bộ roadmap/15mockup/GateA/B đãxong. Commit cuối: feat: play bounded ambience and music from live world context.
+
+## Phase7.2c final native focused PASS — full đang chờ (2026-11-18)
+
+Finalfocused3 native20/20,736assert,13.843s PASS:6newruntime +4bus +6oldpausesettings +4olddialogueruntime. Native graph4player cốđịnh, actualMusic/Ambience slots/bus/loop/fadegiữa2stream, clock/weather/5listeningpositions/daynight/rain+sunny, acceptedGUIApply/draft/failedI/O/exactmute/unmute, title→nativeContinue/load/NewGame/freedreceiver/invalidprofile/read-only owner snapshots vàsharedimport0 đãchạy. Samecontext giữstreamid/playbackposition; rapidzonechanges nodeIDs khôngđổi và tốiđa4voices, completedfade giữ2loop rồi releaseold. runtime-trace.json tríchactualplayer snapshots/crossfade/mutedbus từstdout, khôngfakeplayingstate hoặcclaimhearing.
+
+Focused1 trước15/16: muteGUI sauclose+reopenpause khôngpublish vìnewfixture click trướcdeferredlayout. Giữ5muteassert thấtbại ởlog; chỉthêm2frame _settle saureopen nhưcácopen khác, khôngđổi production/oldcase/assertion. Focused2 16/16,262assert/8.509s PASS. Sauđó bổsung5mid-fadechecks và5nativeApply request/status checks, thêm4dialoguecases regression →focused3 PASS nhưtrên. Khôngcó3fixfail; productionchưacầnfix. import1 shell exit1 do rg-no-match cuốicommand, actualstderrkhôngerror; finalimport2 capture actualexit0, khôngcoi shellrgstatus làcompilerfailure. Alllogs giữnguyên.
+
+ActualCscope16/17path: common6docs +3contracts +Main +2viewGD/UID +testGD/UID; profiletres khôngcầnđổi. Main diff chỉ1field+4readywiringlines, noexistinglogic edits; no AudioService/router/profileGD/asset/builder/oldtest/scene/input/schema12 changes. 6additivecases, all670oldcase/345testfiles/fourSFX+eightnewloops unchanged. Manual khôngInspectorsteps: F5New/Continue, đi tới(-5,6)làng,(-14,6)suối,(15,9)ao,(-12,-12)vùngcây/ruộng; debugđổi8h/13h/21h/mưa; pauseApply/cancel/mute vàtitleContinue/load/NewGame. Vùngâmthanhlàcosmetic, khôngkhẳngđịnh thêmforest/villagegameplay. ProfilePCM/WAVprovisional vàhumanlistening/finalOGG vẫnchờreview. Commit dựkiến: feat: play bounded ambience and music from live world context.
+
+## Phase7.2b đã push; triển khai7.2c mốc cuối (2026-11-18)
+
+7.2b commit53604f3244a7850d4e3da7d29e755345bfaee059 đã pushorigin/master, remotehash khớp; exact30path/outside0/20save thật nguyênSHA, full670/670/86883assert groups132.046/114.626/106.196s. 7.2c dùng đúng17path đã duyệt (profiletres chỉ sửa nếu cần), backup D:/godot/game-godot-backups/phase72-20261118-122731/phase7.2c-125413. D105/contract/API được ghi trước caller.
+
+Runtime chỉ thêm Main-owned flow4player cố định, clonedWAVloop và selector VIEW đọc data/context. Không sửa AudioService/router/assets/profileGD/builder/oldtests/InputMap/scenes/owner/simulation/restore/save12. Return-title giữ gameflag ở codehiện tại nên phải check start_menu.visible để imloop. Pause vẫn phát để nghe preview setting, delta chỉ fade. Chưa có test/PASS cho mã7.2c; baseline thật vẫn670case của7.2b. Không claim humanhearing hoặc hoàn tất toànroadmap.
+
 ## Phase7.2b hoàn tất tự động — commit/push (2026-11-18)
 
 Đúng30path ALLOW_LIST: common6docs/contract+CREDITS; profileGD+UID+tres; offlinebuilderGD+UID; testGD+UID;8WAV+8imports.4case mới, mọi666oldcase/343file test/fixture/golden cũ, fouroriginalWAV/import vàruntime bytes giữ nguyên. Native focused12/12/345assert/17.607s PASS lầnđầu; builder/API/import/positive-negative CLI/PCM/determinism đãghi checkpoint dưới. Full1 nguyênlauncher exit0:

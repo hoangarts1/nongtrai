@@ -62,6 +62,7 @@ var hud_presenter: LifeHudPresenter
 var day_end_flow: LifeDayEndFlow
 var morning_flow: LifeMorningFlow
 var character_flow: LifeCharacterFlow
+var ambient_audio_flow: LifeAmbientAudioFlow
 var chibi_ui_motion: ChibiUiMotion
 var _initial_wallet: Dictionary
 var _spawn_position: Vector2
@@ -275,6 +276,10 @@ func _ready() -> void:
 	machine_presentation = preload("res://scripts/view/machine_presentation.gd").new()
 	add_child(machine_presentation)
 	machine_presentation.configure(self)
+	ambient_audio_flow = LifeAmbientAudioFlow.new()
+	ambient_audio_flow.name = "AmbientAudioFlow"
+	add_child(ambient_audio_flow)
+	ambient_audio_flow.configure(self)
 	if OS.get_cmdline_user_args().has("--capture-chibi-characters"):
 		call_deferred("_capture_chibi_characters")
 	elif OS.get_cmdline_user_args().has("--capture-chibi-farming"):

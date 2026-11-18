@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.2c signal-driven audio VIEW (D105)
+
+Main owns one LifeAmbientAudioFlow Node with fixed four native players; pure AmbientAudioContext reads validated presentation data and actual logical context. Profile clone and playback/fade/dirty flags are transient VIEW state only. Coalesced clock/weather signals plus logicalcell/title/gameflag polling choose actual file IDs; no view changes GameClock/weather/farm/ledger or serializes state. Pause leaves audio for settings, title/exit stop loops. Two slots perMusic/Ambience layer handle crossfades/reentry without accumulation; native WAV clones isolate loop metadata. Existing AudioService/router own accepted bus preferences and SFX; no new event/autoload/scene/schema/asset changes.
+
 ## Phase7.2b audio DATA boundary (D104)
 
 AmbientAudioProfile is project-authored presentation Resource data, not persistent gameplay state. Pure field validation/detached lookup has no clock/autoload/Node dependency. Offline builder reads this Resource and writes only eight original loop WAVs to the explicit output directory; tests verify PCM/import/byte determinism. Audio assets and listening regions do not change WorldLocations, navigation, ecology, prices or save12. No runtime loop caller until7.2c and no scene/autoload changes.

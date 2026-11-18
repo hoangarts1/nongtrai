@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D105 — context-driven loops stay in transient presentation (2026-11-18)
+
+Approved7.2c wires Main-owned four-slot loop flow and pure cosmetic context selector. Profile controls listening regions/time/fade; no geometry/land/ecology authority. Typed clock/weather markdirty; reconcile nextprocess and actual Player cell/title/gameflag avoid observing half a restore. Delta only fades local profile gain. Rain>night>regionalday; morning/afternoon music quiet atnight. Pause keeps loops so sliders preview actual accepted audio; title silences even when existing Main gameflag remains true. Clone WAV before enabling loops, never edit shared imports. Fixed two slots per layer bound rapid context changes/load/NewGame; same context does not restart. Existing bus router alone applies accepted gains, preventing squared volume. All state/simulation/save12/input/scene/audio asset/bus/source bytes outside this scope remain. Human listening/final content still pending.
+
 ### D104 — original replaceable PCM ambience placeholders (2026-11-18)
 
 Approved7.2b uses original offline synthesis for eight tracks; no external sound/license/package dependency. PCM WAV instead of finalOGG is explicitly approved for this placeholder slice. Do not describe it as a field recording or final content/listening acceptance. Profile Resource owns track paths/gains/durations, cosmetic listening regions and fade/time bands, with pure validation/detached lookup. Four original SFX remain byte-identical. Native WAV imports use uncompressedPCM; shared imports stay loop-disabled so7.2c clones before enabling loops. Fixed generator noise seed is cosmetic, never gameplay RNG; finite synthesis is deterministic. No runtime playback, geography/gameplay/owner/save changes in7.2b.

@@ -1,5 +1,9 @@
 # ISO-7 Pause/settings contract (D43)
 
+## Phase7.2c actual music/ambience preview
+
+Existing music/effects draft controls and Apply API remain unchanged. Music accepted gain now reaches native Music loop players through its bus; effects reaches Ambience/UI buses and existing locally-gained SFX once. Pause keeps ambience/music playing so accepted Apply/mute/unmute can be heard. Cancel/failedApply leave accepted gains; no extra slider, tree/scene/style/input change. Four-slot Main-owned loop lifecycle/diagnostics are documented in audio.md; no human listening certificate.
+
 ## F13 supported draft persistence
 
 PausePresenter.apply submits one supported music/effects/locale patch. It reports PAUSE_APPLIED only after actual persistence success, otherwise PREFERENCES_APPLY_FAILED; existing show_result clears recovery notice and restores the generic status region. Failed Apply keeps accepted values/locale and retryable drafts. Default/cancel/close behavior remains; no scene/layout/input changes or new settings options.

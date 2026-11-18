@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.2c actual ambient/music runtime (D105)
+
+AmbientAudioContext (scripts/view/ambient_audio_context.gd) static select(profile:AmbientAudioProfile,cell:Vector2i,minute:int,rainy:bool)->Dictionary yields detached zone/ambience/music; validates data, chooses rain>night>regionalday, morning/afternoon music or empty atnight. Cosmetic only, no clock/Node/autoload dependency.
+
+LifeAmbientAudioFlow (scripts/view/ambient_audio_flow.gd) Node API configure(main:Node,source:AmbientAudioProfile=DEFAULT_PROFILE)->bool; get_playback_snapshot()->Dictionary. Main.ambient_audio_flow owns it; contract defines fixed four AudioStreamPlayer children. Deep-copied profile, one typed clock/weather listener, coalesced context and logicalcell polling, bounded per-layer crossfade, cloned loop WAVs and title/exit silence. Local gains contain only profile/fade; accepted gains stay in existing bus router. Pause audio continues for settings preview. Snapshot is detached native diagnostics, not game/save/UI state. Main adds only field/creation/configure; all transaction/simulation/restore logic remains. See SCENE_CONTRACTS/audio.md and PROGRESS.
+
 ## Phase7.2b original loop profile (D104)
 
 AmbientAudioProfile (scripts/data/ambient_audio_profile.gd; data/ambient_audio_profile.tres) exposes validation_errors()->PackedStringArray and get_track(id:StringName)->Dictionary (detached). Tracks contain id/path/bus/gain/seconds, zones contain zone/region; day_by_zone plus night/rain/morning/afternoon references define actual audio selection inputs for7.2c. mix_rate/fade_seconds/day_start/afternoon_start/night_start are presentation data. Eight WAV placeholders generated offline by tools/build_ambient_audio.gd (--output required); no runtime loader/caller until7.2c. PCM/import/determinism checks in test_ambient_audio_assets; no DataRegistry/state/save ownership. Full fields, bounds and manual command in SCENE_CONTRACTS/audio.md.

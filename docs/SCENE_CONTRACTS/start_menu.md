@@ -1,5 +1,9 @@
 # ISO-8a StartMenu contract (D44)
 
+## Phase7.2c gameplay audio lifecycle
+
+Main-owned AmbientAudioFlow watches existing start_menu.visible as well as _game_started: return-to-title currently retains the gameflag, so visibility is authoritative for silence. Title/profile/settings do not play gameplay ambience/music; Continue/NewGame resume context on next frame using fixed slots. This adds no menu node, callback, preference or save changes. WAV placeholders/final listening limits in audio.md.
+
 ## F13 supported draft persistence
 
 LifeTitleSettings.apply sends music/effects/locale together to Settings.apply_preferences once. Actual failure shows localized PREFERENCES_APPLY_FAILED and retains controls as retryable drafts, accepted values/locale untouched. Success alone shows PAUSE_APPLIED. Default/cancel semantics and mode/focus remain; no scene/Inspector change.

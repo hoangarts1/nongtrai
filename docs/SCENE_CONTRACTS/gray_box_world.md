@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## Phase7.2c listening context (D105)
+
+No world node/terrain/camera/player/physics/InputMap edits. Main.ambient_audio_flow reads existing world.get_player_cell() for cosmetic profile zones; camera pan does not move the audio listener's logical cell. Clock/weather signals select loops and fade only, never advance simulation. The flow and its four native players are Main siblings, outside world y-sort and save ownership. Contract/API in audio.md. No Inspector wiring. Human F5 listening remains separate.
+
 ## AUDIT-F6 supplied decorative tree wrappers (D92)
 
 WorldArt2D retains old Tree_i ground-level PlaceholderWorld2D adapters/count/cells for eligible C3tree placements, replacing only their visual child with Visual:SuppliedSceneryView -> Sprite2D. No physics/body/process or new layer/group/scene/editor wiring. Objects and WorldArt2D y-sort keep Player/crop/machine/tall origins in the same 2D ordering. Actual transient occupation can hide art, not delete saved content. Existing farm/land/load/appearance refresh drives visibility, no per-frame gameplay scan. Native color plus existing global time/weather lighting, safe locale/season callbacks; no change to actual weather/season simulation. Other anchor art and labels keep existing APIs. Exact tests/captures/manual limitations in PROGRESS.
