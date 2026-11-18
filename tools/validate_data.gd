@@ -275,5 +275,11 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
+	var sampling_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_ecology_sampling(preload("res://data/ecology_sampling_config.tres"), registry.call("get_all_crops"))
+	if not sampling_errors.is_empty():
+		for message: String in sampling_errors:
+			push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

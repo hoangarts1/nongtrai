@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EcologySamplingConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/ecology_sampling_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mature_tree_goal = 8
+species_goal = 8
+fruit_tree_ids = PackedStringArray("orange", "apple", "banana")
+species_aliases = {
+"spring_carrot": "carrot",
+"summer_tomato": "tomato",
+"summer_corn": "corn",
+"autumn_pumpkin": "pumpkin",
+"winter_radish": "radish",
+"winter_cabbage": "cabbage"
+}

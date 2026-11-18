@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3b farm snapshot sampler only (D107)
+
+DATA EcologySamplingConfig -> DOMAIN EcologySampler consumes explicit CropData catalog + FarmGridState.serialize() + LandOwnershipState.get_owned_regions() + current metrics. Stateless sample validates before returning detached counts/targets/availability; no dependency on registry/clock/Events/Nodes/filesystem and no automatic EcologyState update. Test bridge alone passes returned targets into an independent EcologyState for one adjacent day. Counts derive from owned healthy crops, frozen first-cycle maturity, persistent regrow trees and species aliases; data goals8/8 normalize targets. This is farmland canopy/diversity, not all forest/scenery. Water has no cleanup measurement and holds current with available=false. Existing live composition, DaySimulator order, initial/new-game/legacy baseline, UI and Save12 are unchanged. Future integration must define ownership/baseline/day-order/migration and unavailable-water presentation explicitly before wiring this library.
+
 ## Phase7.3a ecology foundation only (D106)
 
 EcologyMetricData/EcologyProfile are DATA; EcologyState and EcologySnapshotCodec are pure DOMAIN RefCounted with no Node/clock/registry/Event/UI/filesystem/RNG dependency. State owns a deep-copied profile and metrics/day/triggered; snapshots are primitive detached dictionaries. Advance validates every target/day before commit, then publishes local typed signals under a busy guard. Read-only getters are safe inside publication; mutations are denied. Codec load is silent and never advances a day or grants an unlock. DataValidator/CLI validate shipped profile without creating a runtime owner. Existing Main/DaySimulator composition, global event catalog and Save12 remain current; Ecology.update(counts) in the future sketch below remains a target until count rules/runtime/migration are approved. No ecology UI/VFX/director or live initial0 is implied.

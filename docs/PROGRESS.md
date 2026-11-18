@@ -1,5 +1,70 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3b hoàn tất tự động — commit/push được duyệt (2026-11-18)
+
+Owner trả lời “Duyệt 8 cây/8 loài và phạm vi 7.3b”, gồm commit/push sau gate. Triển khai trong đúng19path bên dưới: config goals8/8/fruitIDs/sixaliases; pure stateless sampler strict farm wire/ownership/current metrics; validator facade và CLI gate; ba script20case mới. Không có runtime Main/day/UI/save hook. Parent7.3 partial, Save12/Player/audio/scenes/InputMap giữ nguyên, nước chưa đo.
+
+Focused1 headless PASS3scripts/20/20/436assert/0.472s, đủ config5/sampler12/integration3, không SCRIPT ERROR/leak/orphan. Independent project probe dùng bản sao production scripts/resources, không autoload/world nodes:1000valid snapshots và1000duplicate-cell rejections PASS, targets/counts/water/detachment đúng. CLIpositive exit0; negative có chủ đích mature_tree_goal=0 exit1 với “ecology sampling goals must be positive int32 quantities”; config phục hồi đúngbyte trước freeze. Full1 nguyên tools/run_tests.bat exit0: pinned Godot4.7.2, parse/data/headless63/Main PASS; complete discovery169scripts/714/714/87842assert, groups122.766/123.400/116.595s đều<180s, GUT362.761s/wall381.2056184s. Không skip/nới timeout/đổi test cũ/golden. Archive full-attempt1 chứa manifest SHA, summary và mọi stdout/stderr. Verify sau full:2385source files,353old test/fixture files,20real-save files SHA giữ nguyên.
+
+Checkpoint/backup/log/probe: D:/godot/game-godot-backups/phase73b-20261118-180241/phase7.3b-180253/. Lỗi bootstrap backup đầu do JSON BOM đã sửa ở helper ngoài repo trước code; import1 exit0 có cảnh báo asset UID trùng đã tồn tại giữa assets/tiles và assets/the_life_assets/tiles, không sửa asset. Wrapper import stdout/stderr là .stdout/.stderr; lệnh đọc nhầm tên .log sau import được sửa, không coi là parse/full thất bại. Không thay/ẩn cảnh báo.
+
+Bàn giao đủ acceptance của scope sampler: config/validator, malformed atomic rejection, count/maturity/regrow/alias/ownership, water metadata, pure probe và farm/land bridge qua EcologyState. Không có editor/Inspector/scene steps hoặc ecology UI mới; chạy tools/run_tests.bat để lặp kiểm tra. Diff/file list/real output/manual cases/known limits tại D:/godot/game-godot-backups/phase73b-20261118-180241/DELIVERY.md; backup trước/sau, implementation.patch và commit.patch trong checkpoint. Commit message được duyệt: feat: derive ecology targets from validated farm snapshots; hash/remote proof tại commit-result.json và git log. Hai prompt ngoài scope giữ nguyên, không stage. Next7.3c cần scope riêng chốt runtime/new-game/legacy baseline/day order/UI/save migration; không tự coi initial0 hoặc nước chưa đo là môi trường game hiện tại. Helper chốt tài liệu ngoài repo gặp encoding khi qua pipe PowerShell, dừng trước khi ghi file; cập nhật tài liệu bằng UTF8 patch trực tiếp sau đó.
+
+## Kế hoạch Phase7.3b đã được duyệt (2026-11-18)
+
+MILESTONE: ROADMAP7.3, nối tiếp7.3a d8f93fb1e40e3c54db641748bb35b181733b6508 đã commit/push. Baseline full166script/694/694/87406assert, parse/data/headless63/Main PASS. Kế hoạch được owner duyệt trước code, trạng thái triển khai/kết quả hiện tại ghi ở trên. Không coi standalone initial0 là môi trường hiện tại của game.
+
+READ-ONLY CONTEXT: AGENTS/PROJECT_RULES; API_INDEX và ARCHITECTURE D106; DATA_SCHEMA/CODE_PATTERNS/DECISIONS; master S13; CropData, supplied catalog và9legacy CropData; FarmGridState/FarmSaveCodec/CropCycleRules; LandOwnershipState/land config; water_sources.tres. Quét runtime xác nhận chưa có owner dọn nước hay water_clarity source. Không có scene cần chạm.
+
+Thông số/chính sách đã được owner duyệt:
+
+- tree_cover target = min(100,100×healthy_mature_fruit_tree_count/8). Chỉ cam/táo/chuối (orange/apple/banana) trên đất sở hữu; không đếm coffee/pepper như cây tán cao, không đếm decor/PNG/Node. Đây là proxy cây trong khu vườn, không tự khẳng định đã đo toàn rừng/thung lũng.
+- Cây héo không góp tree/species. Cây ăn quả đã thu và regrowing vẫn tính trưởng thành vì cây còn; first-cycle chỉ tính tree khi growth_days>=growth_target frozen của plot. Cây chưa trưởng thành vẫn góp loài nếu đang sống.
+- biodiversity target = min(100,100×distinct_healthy_species/8). Một loài chỉ tính một lần, không phụ thuộc số ô; chưa thêm trọng số hoa hoặc giả hệ sinh thái chưa có.
+- Gộp6ID cũ tương đương để không đếm trùng: spring_carrot→carrot, summer_tomato→tomato, summer_corn→corn, autumn_pumpkin→pumpkin, winter_radish→radish, winter_cabbage→cabbage. ID khác giữ nhóm riêng hiện tại. Không đổi ID crop/item/save; mapping chỉ dùng phép đếm.
+- water_clarity: chưa có dọn nước, nên target giữ giá trị đã có trong current_metrics, available=false. Không tự gán điểm sạch0/100, không suy từ màu PNG, mưa hay nạp bình; consumer UI tương lai phải hiện chưa đo/không hiển thị điểm nước.
+- Hai mục tiêu8 và8 cùng danh sách/mapping ở Resource mới, không hardcode trong script. Đây là quyết định mới D107 đã được owner duyệt, không suy ra từ master.
+
+TASK: thêm config DATA có validation và sampler domain thuần, nhận FarmGridState.serialize() dạng {plots:Array[Dictionary]}, catalog CropData và owned_regions do caller cung cấp. Không gọi DataRegistry/GameClock/Events/Nodes bên trong sampler. Trả targets/counts/available detached; tree/biodiversity có nguồn thật, nước rõ unavailable. Không có phương thức ghi vào farm/land/ecology hoặc tự advance ngày. Bước này chốt phép đếm trước để scope Main/day/save kế tiếp không xây trên số liệu chưa được duyệt.
+
+ALLOW_LIST — đúng19 đường dẫn đã duyệt:
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/data/ecology_sampling_config.gd`
+- `scripts/data/ecology_sampling_config.gd.uid`
+- `data/ecology_sampling_config.tres`
+- `scripts/domain/ecology/ecology_sampler.gd`
+- `scripts/domain/ecology/ecology_sampler.gd.uid`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `tests/unit/test_ecology_sampling_config.gd`
+- `tests/unit/test_ecology_sampling_config.gd.uid`
+- `tests/unit/test_ecology_sampler.gd`
+- `tests/unit/test_ecology_sampler.gd.uid`
+- `tests/unit/test_ecology_sampling_integration.gd`
+- `tests/unit/test_ecology_sampling_integration.gd.uid`
+
+ACCEPTANCE:
+
+1. Config thật hợp lệ; mục tiêu không phải int dương/ID cây lạ/catalog sai/alias thiếu nguồn-đích hoặc vòng/lỗi shape bị từ chối có reason. DataValidator thêm facade và CLI thêm gate, giữ mọi gate trước.
+2. Đếm đúng cây sống trưởng thành/first-cycle/regrowing/cây héo/crop rỗng/species trùng và alias. Chỉ tính đất sở hữu, không đếm trùng khi owned-region chồng nhau; plot trùng cell/cell sai kiểu hoặc overflow/crop không biết/growth sai/shape malformed fail atomically, không trả nửa targets. Không sửa hoặc xóa nội dung ngoài quyền sở hữu.
+3. Mục tiêu chuẩn hóa0–100 theo8/8, over-goal clamp100. Water giữ current hợp lệ và available=false; invalid current metric không tự lấy fallback sạch. Caller config/catalog/plots/regions/current metrics và output tách biệt, sửa output không ảnh hưởng owner.
+4. Probe thuần không autoload/Node; test tích hợp dùng serialize thật của FarmGridState và LandOwnershipState, có sample sau trồng/thu/tái sinh/héo, truyền targets vào EcologyState độc lập đúng một ngày. Đây là test bridge, không đăng ký runtime trong Main hoặc tạo số UI.
+5. Mọi694test cũ/fixture/golden, Main/DaySimulator/SaveService/EcologyState/codec7.3a, audio/Player/scenes/InputMap và game save12 giữ nguyên. Focused/headless/pure/CLI positive-negative/full discovery nguyênlauncher đềuPASS; giữ180s mỗi nhóm, không skip/nới/đổi golden. Commit/push đúng19file sau gate và verify remote, real-save SHA giữ nguyên.
+
+DO NOT TOUCH: ngoài danh sách, đặc biệt Main, day simulation, SaveService, Events/registry, FarmGridState/land/crop data cũ, state/codec7.3a, mọi UI/scene/asset/input/autoload/audio/test/golden hiện có. Hai prompt ngoài phạm vi D the_life_prompt.md và ?? the_life_master_prompt.md giữ nguyên, không stage/restore/xóa.
+
+Giả định/rủi ro: maturity phải giữ hình cây sau thu; alias không được làm mất dữ liệu cũ; malformed/unowned rows và vùng chồng nhau dễ tạo count giả. Nước unavailable phải đi cùng metadata rõ, không được consumer sau này hiển thị như số đo. Chưa có source hoa/soil/cleanup/forest sống nên không bịa chúng. Parent7.3 vẫn partial; scope7.3c sau này mới nối runtime/NewGame/legacy baseline/day order/UI/save migration, phải duyệt riêng và định nghĩa fallback trước. Không thay save hoặc chạy ngầm ecology trong bước sampler.
+
+Manual editor: không thêm node/Inspector; bước này chưa có màn mới để F5. Chạy tools/run_tests.bat hoặc ba test mới; snapshot bridge chỉ dùng trạng thái thật trong fixture. Đọc metadata available=false cho nước trong test, không dùng như số đo UI. Commit đã được ủy quyền sau gate: feat: derive ecology targets from validated farm snapshots.
+
+Bản đề xuất JSON, PROGRESS trước đề xuất và HEAD/status: D:/godot/game-godot-backups/phase73b-proposal-20261118-175700/. Checkpoint thực thi ghi ở trên; hai prompt ngoài scope không stage/restore.
+
 ## Phase7.3a hoàn tất tự động — commit/push (2026-11-18)
 
 Đã triển khai đúng nền DATA/domain/codec theo23path được duyệt. Ba metric normalized0..100/initial0/ease10 trong Resource; adjacent-day atomic update, immutable owner snapshots, crossing lên/xuống đúng một lần, lịch sử upward, silent load và guards đã kiểm. Không có runtime Main/DaySimulator, UI/VFX, world count goals/weights/clean-water actions hay save component/migration mới. SaveService vẫn v12, Player/audio/scenes/InputMap/owners hiện tại giữ nguyên.

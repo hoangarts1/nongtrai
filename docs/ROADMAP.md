@@ -1,5 +1,9 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3b farm sampler automation delivered (2026-11-18)
+
+Owner approved8trees/8species and19paths. Resource/config, pure strict sampler, validator CLI gate and20new cases implemented; focused20/20/436assert and independent1000valid+1000duplicate-rejection/noautoload probe PASS. CLIpositive0/negative-goal0 exit1, config restored exactly. Full original launcher exit0:714/714/87842assert/169scripts, parse/data/headless63/Main PASS, groups122.766/123.400/116.595s<180. Source2385/test-fixture353/real-save20 SHA verified unchanged after full. Commit/push authorized after this gate; exact hash proof in delivery/commit-result.json. Parent7.3 remains partial: no runtime/legacy baseline/day order/UI/save integration, water stays unmeasured. Details and approved scope in PROGRESS/D107.
+
 ## Phase7.3a independent foundation delivered (2026-11-18)
 
 Owner-approved23path scope implemented; first complete full694/694/87406assert/166scripts PASS, parse/data/headless63/Main PASS, groups121.286/123.322/116.256s<180. Focused18/18/356assert plus independent1000day/150crossing/noautoload/worldNode probe and CLIpositive0/negative1 PASS. Earlier incomplete9test run due newfixture type-check parse was rejected despiteexit0; corrected without removing assertion, logs retained. All676oldcases/goldens unchanged; state/codec owns independent serialized metrics/day/history, no live game caller/save12/Player/audio/UI/input/scene change. Parent7.3 ispartial: world counts/weights/baseline and runtime/migration remain a later approved scope. Full diff/log/scope/saveproof/commit in PROGRESS/external DELIVERY.md.
@@ -375,8 +379,9 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 |---|---|---|---|
 | 7.1 | Seeded weather + saved forecast | D86 tagged RNG/day reservations/save12 preserve saved forecasts; actual RNG golden/1000-day invariants/full583/583 verified; all557 previous cases retained; human editor acceptance/commit separate, evidence in PROGRESS | [~] |
 | 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | Existing daynight/rain retained; D103–D105 five buses/eight original WAV placeholders/context loops delivered; full676/676, native20/20, parse/data/headless/Main PASS; no view simulation; human F5/listening/finalOGG acceptance pending | [~] |
-| 7.3 | `EcologyState` (read-only) | 7.3a standalone DATA/state/codec delivered; normalized targets/ease10/crossings/guard/silent load verified; world count/baseline/runtime/save integration deferred | [~] |
+| 7.3 | `EcologyState` (read-only) | 7.3a DATA/state/codec delivered; 7.3b owned-farm count sampler automation delivered; baseline/runtime/UI/save integration deferred, water unmeasured | [~] |
 | 7.3a | Independent ecology DATA/domain/codec (D106; automation delivered) | Three configured metrics0..100/initial0/thresholds25-30-50, immutable snapshots, adjacent-day updates, crossing history and silent JSON restore; focused18/18, pure1000days, CLI0/1, full694/694/87406assert/parse/data/headless/Main PASS; no live ecology yet | [~] |
+| 7.3b | Farm snapshot counts and targets (D107; automation delivered) | Goals8trees/8species, six legacy aliases, regrow maturity, owned healthy crops only; strict atomic validation and unavailable water; focused20/20, pure1000+1000, CLI0/1 and full714/714 PASS | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
