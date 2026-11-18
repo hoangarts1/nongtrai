@@ -27,7 +27,7 @@ static func apply(main: Node) -> void:
 static func _style_children(node: Node) -> void:
 	if node is LifeMachineBuildOverlay:
 		return
-	if node is MachineShopPanel or node is LifeCharacterSheet or node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and node.tabs!=null):
+	if node is MachineShopPanel or node is LifeCharacterSheet or node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and (node.tabs!=null or node.dialogue_screen!=null)):
 		return
 	if node is Label:
 		var label: Label = node as Label
@@ -65,6 +65,9 @@ static func reflow(main: Node) -> void:
 	_rect(main.inventory_panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.pause_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.npc_system.journal,(viewport-summary_size)*0.5,summary_size)
+	if main.npc_system.dialogue.dialogue_screen != null:
+		var dialogue_size: Vector2 = viewport - Vector2(48,48)
+		_rect(main.npc_system.dialogue,Vector2(24,24),dialogue_size)
 	if main.machine_shop_panel!=null:
 		_rect(main.machine_shop_panel,(viewport-summary_size)*0.5,summary_size)
 	LifeHudRegions.apply(main)

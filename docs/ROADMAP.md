@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F7–F16 batch đã qua toàn bộ kiểm thử tự động (2026-11-18)
+
+Đủ10kế hoạch được duyệt đã triển khai tuần tự, full gate sau từng mốc. F7–F15 đã commit/push69ea922/6e9d6f7/4221e22/fcd608d/d47eae7/e5f4e01/058091b/79fafc1/de5c16b; F16 thuộc snapshot này và chỉ push sau full PASS662/662,86584assert,160script. Parse/data/headless63/Main đều PASS; ba nhóm104.261/117.294/114.577s dưới180s. Các hash/log/exactdiff và save proof ở PROGRESS/BATCH_DELIVERY.625hàm test baseline giữ nguyên, chỉ3fixtureF10 đã được duyệt bổ sung. F16 thêm4case và nối dialogue thật, giữ owner/save12/Player/InputMap/scene/art hiện tại. Human F5/export/audio/art acceptance và các mục roadmap ngoài batch vẫn pending; không tự mở scope tiếp theo.
+
+## AUDIT-F16 runtime integration — final approved batch milestone (2026-11-18)
+
+F15 committed/pushed de5c16b54b87aa655920cc9e414a4a04e62714d7. F16 wires actual modular dialogue through existing NPC handlers and modal owner, preserves aliases/book/legacy panel, validates context and rejects stale/reentrant GUI requests. Four additive runtime cases plus all old NPC/book/component cases are retained unchanged. Focused native results,30 runtime captures and final full gate are recorded in PROGRESS. Final batch is F7–F16 only; remaining broader roadmap systems and human editor/art acceptance are separate, not silently marked complete.
+
 ## AUDIT-F15 automation delivered (2026-11-18)
 
 Standalone passive snapshot/fourdialoguecomponents added4cases; nativefocused8/8/698assert and36frames reviewed, small800×420bounds retained. First fullPASS658/658/86114assert/159scripts, parse/data/headless63/Main, groups111.441/105.456/108.716s<180s. All654prior case/fixture/golden/runtime bytes unchanged; actual21allowedpaths. Newfixture returntype correction and actual minimum-size resize defect/fix logged in PROGRESS. Native portrait/blur differences from illustration are explicit; no runtime integration untilF16 and no fake choices/values. F16 is last approved batch milestone.

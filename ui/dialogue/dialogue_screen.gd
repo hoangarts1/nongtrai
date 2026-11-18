@@ -38,7 +38,8 @@ func display(snapshot: Dictionary) -> void:
 
 func _layout() -> void:
 	var body_height: float = maxf(clampf(size.y * 0.35, 180.0, 280.0), body.get_combined_minimum_size().y)
-	var upper: float = maxf(0.0, size.y - body_height - 16.0)
+	# Keep a pixel of breathing room at the modal edge during scaled transitions.
+	var upper: float = maxf(0.0, size.y - body_height - 17.0)
 	speaker.position = Vector2(16.0, 0.0)
 	speaker.size = Vector2(size.x * 0.34, upper)
 	body.position = Vector2(0.0, upper + 16.0)

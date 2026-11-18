@@ -6,6 +6,12 @@
 ##   func close_panels() -> void
 ##   func set_dynamic_obstacles(regions: Array[Rect2i]) -> void
 ##   func restore(data: Dictionary) -> void
+##   func get_dialogue_snapshot() -> Dictionary
+##   func refresh_dialogue() -> void
+##   func is_dialogue_context_valid() -> bool
+##   func is_dialogue_busy() -> bool
+##   func request_dialogue_action(id: StringName) -> bool
+##   func execute_dialogue_action(id: StringName, quest_id: StringName) -> void
 class_name NpcSystem
 extends Node
 
@@ -20,6 +26,7 @@ var _main: Node
 var _current_npc: StringName = &""
 var _previous_pause: bool = false
 var _hud_visibility: Dictionary = {}
+var _routing_dialogue: bool = false
 
 func _notification(what: int) -> void:
 	if what != NOTIFICATION_TRANSLATION_CHANGED:
@@ -31,6 +38,8 @@ func _notification(what: int) -> void:
 			continue
 		home.label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
 		home.queue_redraw()
+	if dialogue != null and dialogue.dialogue_controller != null:
+		dialogue.dialogue_controller.queue_render()
 
 func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) -> void:
 	_main = main
@@ -38,6 +47,7 @@ func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) ->
 	journal = journal_panel
 	state.configure(content)
 	state.changed.connect(_state_changed)
+	dialogue.enable_dialogue(main, self)
 	dialogue.close_requested.connect(close_panels)
 	journal.close_requested.connect(close_panels)
 	for resource: Resource in content.npcs:
@@ -67,6 +77,9 @@ func _process(_delta: float) -> void:
 			actor.name_label.text += "\n" + tr("UI_NPC_TALK_HINT")
 
 func _input(event: InputEvent) -> void:
+	if is_dialogue_busy():
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventMouse:
 		return
 	if not is_open():
@@ -132,7 +145,7 @@ func _lock() -> void:
 		control.hide()
 
 func close_panels() -> void:
-	if not is_open():
+	if is_dialogue_busy() or not is_open():
 		return
 	dialogue.hide()
 	journal.hide()
@@ -175,32 +188,42 @@ func open_dialogue(npc_id: StringName) -> void:
 		actor.play_talk()
 		actor.show_emotion(&"music")
 	_lock()
+	dialogue.show()
 	_render_dialogue()
 
 func _render_dialogue() -> void:
-	var line: DialogueData = state.get_dialogue(_current_npc, GameClock.season)
-	var npc: NpcData = state.get_npc(_current_npc)
-	if line == null or npc == null:
+	if is_dialogue_busy() or not dialogue.visible:
+		return
+	var snapshot: Dictionary = get_dialogue_snapshot()
+	if snapshot.is_empty():
 		close_panels()
 		return
-	var body: String = tr(String(line.text_key)) + "\n" + tr("UI_NPC_FRIENDSHIP") % [tr(String(npc.display_name_key)), int(state.friendship[npc.npc_id]), npc.friendship_max]
-	var actions: Array[Dictionary] = []
-	var quest: QuestData = state.quests.get_quest(line.quest_id)
-	if quest != null:
-		if line.start_quest:
-			actions.append({"id": "AcceptQuest", "text": tr("UI_NPC_ACCEPT_QUEST"), "callback": _accept_quest.bind(quest.quest_id)})
-		if state.quests.is_quest_active(quest.quest_id):
-			body += "\n" + tr("UI_QUEST_REQUIREMENT") % [_item_name(quest.required_item_id), quest.required_item_quantity, _main.inventory.get_quantity(quest.required_item_id)]
-			body += "\n" + tr("UI_QUEST_REWARD") % [quest.reward_coins, _item_name(quest.reward_item_id), quest.reward_item_quantity]
-			if not state.quests.can_deliver(quest.quest_id, _main.inventory):
-				body += "\n" + tr("UI_NPC_DELIVERY_BLOCKED")
-			actions.append({"id": "DeliverQuest", "text": tr("UI_CONFIRM_DELIVERY"), "enabled": state.quests.can_deliver(quest.quest_id, _main.inventory), "callback": _deliver.bind(quest.quest_id)})
-	if npc.is_merchant:
-		var offer: MerchantOfferData = state.merchant.get_offer(GameClock.day_index, GameClock.season)
-		if offer != null:
-			body += "\n\n" + tr("UI_NPC_OFFER_" + offer.kind.to_upper()) % [_item_name(offer.item_id), offer.quantity, offer.unit_price * offer.quantity]
-			actions.append({"id": "ConfirmOffer", "text": tr("UI_NPC_CONFIRM_TRADE"), "enabled": not state.merchant.is_consumed(GameClock.day_index), "callback": _trade})
-	dialogue.show_content(tr(String(npc.display_name_key)), body, actions)
+	dialogue.show_dialogue(snapshot)
+
+func get_dialogue_snapshot() -> Dictionary:
+	return LifeDialogueSnapshot.build(state, _main.inventory, _current_npc, GameClock.day_index, GameClock.season)
+
+func refresh_dialogue() -> void:
+	_render_dialogue()
+
+func is_dialogue_busy() -> bool:
+	return dialogue != null and dialogue.dialogue_controller != null and dialogue.dialogue_controller.is_busy()
+
+func is_dialogue_context_valid() -> bool:
+	return is_instance_valid(_main) and not _main.is_queued_for_deletion() and dialogue.visible and dialogue.dialogue_screen.visible and not journal.visible and bool(_main.get("_game_started")) and not _main.start_menu.visible and not GameClock.is_sleeping() and not GameClock.is_day_end_held() and not bool(_main.call("_purchase_in_progress")) and _main.ui_coordinator.get_active_panel() == dialogue and not _current_npc.is_empty() and not state.is_indoors(_current_npc) and _nearest_npc() == _current_npc
+
+func request_dialogue_action(id: StringName) -> bool:
+	return dialogue.dialogue_controller.request(id)
+
+func execute_dialogue_action(id: StringName, quest_id: StringName) -> void:
+	if _routing_dialogue or not is_dialogue_busy() or not is_dialogue_context_valid():
+		return
+	_routing_dialogue = true
+	match id:
+		&"AcceptQuest": _accept_quest(quest_id)
+		&"DeliverQuest": _deliver(quest_id)
+		&"ConfirmOffer": _trade()
+	_routing_dialogue = false
 
 func _item_name(id: StringName) -> String:
 	var item: Resource = DataRegistry.get_item(id)
@@ -231,6 +254,8 @@ func _weather_changed(_id: StringName) -> void:
 func _refresh_schedule() -> void:
 	if _main != null:
 		state.update_schedule(GameClock.day_index, GameClock.minute, GameClock.season, bool(_main.weather_state.call("is_rainy")))
+		if dialogue != null and dialogue.dialogue_controller != null:
+			dialogue.dialogue_controller.queue_render()
 
 func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
 	state.scheduler.set_dynamic_obstacles(regions)
@@ -246,6 +271,8 @@ func restore(data: Dictionary) -> void:
 func _state_changed() -> void:
 	if _main != null:
 		_main.call("_mark_save_dirty")
+		if dialogue != null and dialogue.dialogue_controller != null:
+			dialogue.dialogue_controller.queue_render()
 
 func debug_visit() -> void:
 	if not bool(_main.get("_game_started")) or GameClock.is_sleeping():

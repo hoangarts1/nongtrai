@@ -1,5 +1,59 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F7–F16 hoàn tất tự động — commit/push mốc cuối (2026-11-18)
+
+Đã triển khai tuần tự đủ 10 kế hoạch được duyệt. F7–F15 đã commit/push riêng và xác minh remote; snapshot này hoàn tất F16. Hash F16 sau commit/push được ghi trong commit-result.json và BATCH_DELIVERY.md ngoài repo để không tạo commit chỉ nhằm tự ghi hash của chính nó. Không triển khai thêm milestone tương lai.
+
+| Mốc | Commit đã push | Full GUT PASS |
+|---|---|---|
+| F7 | 69ea922 | 625/625 |
+| F8 | 6e9d6f7 | 625/625 |
+| F9 | 4221e22 | 630/630 |
+| F10 | fcd608d | 636/636 |
+| F11 | d47eae7 | 642/642 |
+| F12 | e5f4e01 | 646/646 |
+| F13 | 058091b | 651/651 |
+| F14 | 79fafc1 | 654/654 |
+| F15 | de5c16b | 658/658 |
+| F16 | snapshot này; hash ở bàn giao sau push | 662/662 |
+
+F16 final focused5 native PASS17/17,1254assert,18.645s. Full1 bằng launcher nguyên bản, exit0:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 160 scripts, 662/662 tests, 86584 assertions; GUT 336.132s, wall 354.6548834s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Ba nhóm 104.261/117.294/114.577 giây, mỗi nhóm dưới180 giây; không đổi runner, giới hạn, oldtest/assertion/golden trong F16. Strict gate không SCRIPT ERROR/ERROR/failure/pending/leak; các warning malformed-save/legacy/guard chủ động vẫn giữ trong log. Manifest160script khớp mã băm. Freeze1334file code/scene/data/localization/runner khớp trước–sau full, drift0; toàn339file test/fixture/golden trước F16 nguyên byte. Đối chiếu toàn batch từ29b2ab:625hàm test gốc giữ nguyên nội dung, chỉ3fixture setup/cleanup backup-isolation củaF10 đã được duyệt bổ sung; 20save thật nguyên SHA từ đầu F7.
+
+F16 sửa đúng16/22path ALLOW_LIST: docs/PROGRESS.md, API_INDEX.md, ROADMAP.md, DECISIONS.md, ARCHITECTURE.md, SCENE_CONTRACTS/dialogue.md, SCENE_CONTRACTS/npc_navigation.md; scripts/view/npc_panel.gd, npc_system.gd, ui_layout.gd, ui_coordinator.gd; ui/dialogue/dialogue_screen.gd, dialogue_controller.gd và UID mới; tests/unit/test_dialogue_runtime.gd và UID mới. Bốn localizationpath, snapshot vàchoices không cần đổi. Không sửa existing .tscn/Main/domain/data/InputMap/art/schema12. 4case mới, mọi658case trước đó giữ nguyên. Acceptance về aliases/action IDs/native input/transactions once-only/live refresh/stale lifecycle/book đã qua focused và full;30ảnh runtime thật vi/en×3size×5state đã xem. Không cần thao tác node/Inspector; checklist F5 và các lần lỗi/fix giữ đầy đủ ở checkpoint dưới.
+
+Bằng chứng/diff đầy đủ/bản trước-sau/exactfilelist/import/focused/30captures/contact/full logs/manifest/summary/scope/save audit: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f16-114805/. Bàn giao cả10mốc: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/BATCH_DELIVERY.md; baseline-preservation.json xác minh test gốc/save thật. Scope finalize phải xác minh outside0, HEAD/index tree nguyên trước stage; chỉ16path được stage. Hai thay đổi prompt ngoài phạm vi được giữ nguyên và loại khỏi commit: D the_life_prompt.md, ?? the_life_master_prompt.md.
+
+Giới hạn còn lại: human F5/export/listening chưa xác nhận; portrait NPC toàn thân hiện có và nền không blur chưa giống illustration mockup tuyệt đối. Save staging/rollback ở mức process, chưa bảo đảm atomic khi mất điện xuyên nhiều file. Shared TEMP runner chưa hỗ trợ launcher đồng thời. Không đánh dấu hoàn tất toàn bộ15mockup hoặc roadmap từ kết quả batch này. Commit cuối: feat: integrate guarded modular NPC dialogue into runtime.
+
+## AUDIT-F16 final focused/capture gate PASS — full đang chạy (2026-11-18)
+
+Final focused5 native:17/17,1254assert,18.645s PASS gồm4newruntime+4oldNPCUI+5oldquestbook+4oldcomponents. Strict log scan không SCRIPT ERROR/ERROR/failure/pending/orphan/leak.30finalruntimeframes ởcaptures/ vàruntime-contact-final.png đượcxem cảcontact/native1152Minhready/Linh; actual HudRoot.toasts naynằm dưới body, noảnh/values giả. focused4 cũ cótestPASSnhưngảnh cònchetext dođụngnhầm legacytoast, giữevidence vàsửađúngactualstack trongfocused5. Body mép dưới chừa1px, strictboundsgiữ. Native mouse/SpaceDeliver/EnterClose/Tab/E/Esc, reward vàtrade exactoncecoins/items/ledger, thiếuđồdisable/liveinventoryrefresh, hidden/wrongNPC/load/NewGame stale callbacks, legacyshow_content/book vàreadonlyrefresh đềuđượcchạy.
+
+Toàn339filetests/fixture/golden cũ khớpSHA vớiF16baseline; chỉ4case additive mới. Freeze1 giữ1334file code/scene/data/localization/runner trướcfull; docs cóthểcậpnhậtkếtquả, khôngđổi runtime trongfull. Lệnh tools/run_tests.bat nguyênlauncher đangchạyfull1, khôngnới180s/nhóm, khôngbỏcase hoặcđổigolden. NoInspectorsteps; chưahumanF5/export/audio-deviceacceptance. F7–F15 đãcommit/push riêng, F16 chỉcommit/pushsaufullPASSvàscope/saveaudit.
+
+## F15 đã push; AUDIT-F16 triển khai mốc cuối batch đã duyệt (2026-11-18)
+
+F15 commit de5c16b54b87aa655920cc9e414a4a04e62714d7 đã push origin/master, remote hash khớp; exact21path/outside0/20save thật nguyên hash. F16 backup: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f16-114805/. Kế hoạch/ALLOW_LIST F7→F16 và quyền commit/push từng mốc đã được duyệt; không xin duyệt lại. F16 là mốc cuối, chưa triển khai roadmap tương lai.
+
+Acceptance: nối mockup12 qua các component nhỏ vào hội thoại thật, giữ public aliases/action IDs/quest-book/legacy show_content; request revalidate NPC/context và enabled action, chặn stale/reentry; nhận/giao/giao dịch chỉ đổi item/coin/ledger một lần, thiếu đồ bị disable; native E/mouse/Tab/Enter/Space/Esc, locale/resize/load/NewGame; vi/en×3size×Minh/Linh/5state; full launcher PASS trước commit/push. Giữ nguyên Main/domain/data/scene/InputMap/art/owners/save12, mọi658case/fixture/golden cũ.
+
+Thay đổi: NpcPanel tạo Screen/Controller và giữ legacy aliases; NpcSystem render snapshot, route original handlers và queue locale/inventory/social/schedule refresh. Controller là VIEW RefCounted transient, không owner/save mới; fresh identity/context/enabled và busy/route/epoch guards. UiLayout chỉ mở rộng dialogue, UiCoordinator giữ modal/pause/lock/input và actual HUD toast z-order dưới body. Screen chừa1px mép dưới khi modal scale phân số. Chỉ thêm test_dialogue_runtime4case, không sửa oldtest/runner.
+
+Các lần kiểm tra được giữ nguyên log: compatibility1 PASS13/13/790assert; focused1 12/13 với2strict bounds failure, focused2 probe3/4 đo sai số mép Body nhỏ hơn0.001px trong scaled transition. Chưa có fix layout trước probe; production reserve1px rồi focused3 PASS17/17/1223assert. Detached buttons queue_free chưa flush khi teardown tạo2orphan ở2case đầu; after_each mới flush2frame trước free, không đổi oldcase/assertion/waits. Focused4 PASS17/17/1254assert nhưng native ảnh cho thấy z-order sửa nhầm legacy Main.toast, chưa sửa actual HudRoot.toasts; đã đổi đúng actual stack, giữ log/ảnh trước. Không che lỗi hoặc tuyên bố ảnh đẹp chỉ dựa test. Final focused/full/capture kết quả được ghi ở checkpoint kế.
+
+Manual editor steps: không thêm node/Inspector/InputMap, runtime tự nối code. Chạy tools/run_tests.bat bằng pinned4.7.2-stable; F5 gặp Minh/Linh→E, nhận/giao khi đủ/thiếu đồ, xác nhận offer, dùng Tab/Enter/Space/Esc/mouse; thử đổi modal/ngôn ngữ/resize, lưu/tải/NewGame rồi bấm callback cũ; kiểm đồ/coin/ledger không lặp, journal vẫn book. Native automation không thay human F5/export/listening acceptance. Actual NPC full-body portrait/không blur chưa giống illustration mockup tuyệt đối; không thêm art/story/số liệu giả. Process-level save recovery không phải power-cut atomic guarantee. Commit dự kiến: feat: integrate guarded modular NPC dialogue into runtime.
+
 ## AUDIT-F15 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Actual21/25path ALLOW_LIST:4docs+contract,5component/snapshotGD+5UID+4newscene, test+UID;4localizationpath không cầnđổi vìreuseexistingkeys.4case mới, all654oldcase/fixture/golden/runner/runtime/scene/art bytes unchanged. Finalnativefocused8/8,698assert,8.931sPASS; fixture-return fix vàproduction-minimum-layout fix đượcghi đầyđủ ởdưới.36finalframes+800×420bounds andactualNPCResource terms/portraits/friendship/readonlyowners verified. No Main/NpcSystem/NpcPanel/runtime integration untilF16; illustration/blur artgap explicit.

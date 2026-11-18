@@ -1,5 +1,11 @@
 # DECISIONS — THE LIFE
 
+### D102 — wire modular dialogue through existing owners with guarded requests (2026-11-18)
+
+ApprovedF16 reuses F15 views in existing NpcPanel/NpcSystem, retaining column/title_label/close_button aliases to actual controls and legacy show_content/book behavior. A transient VIEW controller checks fresh identity, enabled action, nearby visible NPC and modal/game/clock context before routing original handlers. Its synchronous busy guard rejects stale/reentrant GUI requests and close/shortcut callbacks while existing domain transactions execute; a separate route guard prevents recursive execution. No world/schema12/owner/transaction arithmetic changes. Coalesced inventory/social/schedule/locale refreshes read state only and hidden lifecycle changes invalidate displayed identities.
+
+Native geometry probes found only floating-point edge rounding during scaled modal transitions (less than0.001px); reserve1px bottom breathing room rather than relaxing strict bounds. Final capture review also exposed actual HUD toasts covering the wide dialogue body: UiCoordinator places root.toasts below the dialogue, restores its original order elsewhere. The legacy Main.toast is not the live stack; the first attempted z-order target was corrected after native capture review. No new portrait/blur art, story/actions/hotkeys or claim of human acceptance. Existing illustrations mismatch and process-level save/power-loss limits from earlier milestones remain explicit.
+
 ### D101 — passive modular dialogue components using actual data and portraits (2026-11-18)
 
 ApprovedF15 builds mockup12composition independently before runtime wiring: actual NPC renderer/name, read-only localized line/quest/offer values, exact friendship counts and only real enabled choices plus Close. No illustrated portrait asset/role/hearts/story/keyboard binding is fabricated. Views emit requests, own no domain state. Stable close and revision guards support existing consumers and future safe routing. Body scroll/minimum-driven reflow fixes observed655px stale body height after wide-long→small-locale resize; preserve all strict bounds/test waits. Current NPC/full-body art and existing world backdrop differ from the illustration/blur in the mockup; that art gap is explicit. Existing NPC runtime/questbook/save12/owners are untouched untilF16.

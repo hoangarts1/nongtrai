@@ -154,6 +154,8 @@ func _sync() -> void:
 	_main.quest_panel.visible = not modal and not _main.quest_state.is_complete()
 	_main.get_node("StatusCard").hide()
 	_main.hud_presenter.sync(modal,_main.start_menu.visible)
+	# Item notices must not cover the wide dialogue text; other screens keep their order.
+	_main.hud_presenter.root.toasts.z_index = 80 if _active == _main.npc_system.dialogue and modal else 82
 	if modal:
 		_main.world.interaction_prompt.hide()
 		_main.crop_inspector.hide()
@@ -173,7 +175,7 @@ func _sync() -> void:
 func _input(event: InputEvent) -> void:
 	if _active == null or event.is_echo():
 		return
-	if bool(_main.call("_purchase_in_progress")):
+	if bool(_main.call("_purchase_in_progress")) or _main.npc_system.is_dialogue_busy():
 		get_viewport().set_input_as_handled()
 		return
 	# Let GUI buttons/scrollbars receive mouse events before gameplay filtering.

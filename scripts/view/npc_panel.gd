@@ -9,8 +9,13 @@ var close_button: Button
 var tabs: LifeInventoryTabs
 var book: LifeQuestBook
 var book_controller: LifeQuestBookController
+var dialogue_screen: LifeDialogueScreen
+var dialogue_controller: LifeDialogueController
 var _outer: VBoxContainer
 var _legacy_margin: MarginContainer
+var _legacy_column: VBoxContainer
+var _legacy_title: Label
+var _legacy_close: Button
 
 func _ready() -> void:
 	visible = false
@@ -44,6 +49,35 @@ func _ready() -> void:
 	close_button.text = tr("UI_NPC_CLOSE")
 	close_button.pressed.connect(func() -> void: close_requested.emit())
 	outer.add_child(close_button)
+	_legacy_column = column
+	_legacy_title = title_label
+	_legacy_close = close_button
+
+func enable_dialogue(main: Node, system: NpcSystem) -> void:
+	if dialogue_screen != null:
+		return
+	dialogue_screen = preload("res://ui/dialogue/dialogue_screen.tscn").instantiate() as LifeDialogueScreen
+	add_child(dialogue_screen)
+	dialogue_controller = LifeDialogueController.new()
+	dialogue_controller.configure(main, system, self)
+	dialogue_screen.closed.connect(_dialogue_close)
+	_legacy_margin.hide()
+	LifeTheme.bind(self, &"LifeHudClearPanel")
+
+func show_dialogue(snapshot: Dictionary) -> void:
+	_legacy_margin.hide()
+	dialogue_screen.show()
+	column = dialogue_screen.choices
+	title_label = dialogue_screen.speaker.name_label
+	close_button = dialogue_screen.close_button
+	dialogue_controller.displayed(snapshot)
+	dialogue_screen.display(snapshot)
+	show()
+	close_button.grab_focus()
+
+func _dialogue_close() -> void:
+	if visible and (dialogue_controller == null or not dialogue_controller.is_busy()):
+		close_requested.emit()
 
 func enable_tabs() -> void:
 	if tabs!=null:
@@ -78,6 +112,12 @@ func show_quest_book() -> void:
 	tabs.buttons[2].call_deferred("grab_focus")
 
 func show_content(title: String, body: String, actions: Array[Dictionary] = []) -> void:
+	if dialogue_screen != null:
+		dialogue_screen.hide()
+		_legacy_margin.show()
+		column = _legacy_column
+		title_label = _legacy_title
+		close_button = _legacy_close
 	title_label.text = title
 	for child: Node in column.get_children():
 		column.remove_child(child)

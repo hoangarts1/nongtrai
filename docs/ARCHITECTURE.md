@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F16 dialogue request boundary (D102)
+
+Main keeps the same NpcSystem, NpcPanel roots, domain states and save12 restore order. NpcPanel owns transient Screen/Controller references; Controller is VIEW RefCounted, not a new persistent state owner. Detached snapshot identity and current context gate requests to existing NpcSystem handlers, while QuestManager/MerchantService/Wallet/Inventory and the existing ledger keep all transaction ownership. Busy and route guards cover synchronous GUI reentry; they do not claim to make arbitrary direct private API calls transactional. Inventory/social/schedule/translation signals queue read-only refresh, hidden epoch invalidation rejects stale callbacks. UiCoordinator remains the single modal/pause/input authority; journal and standalone legacy panel retain their contracts. No new autoload, simulation path, input action, scene root, asset or schema.
+
 ## AUDIT-F14 presentation-only sound gain (D100)
 
 Existing Main-owned AudioService observes accepted Settings values through the typed preference event; no persistent or world owner changes. It updates its own transient AudioStreamPlayer children and reads the accepted gain for future effects. No per-frame gameplay polling, audio bus mutation, new autoload, asset changes or simulation progress. Settings remains authority; rejected Apply/drafts do not produce accepted-change events.
