@@ -1,5 +1,15 @@
 # DATA SCHEMA — THE LIFE
 
+### Full-precision standalone JSON writers
+
+EcologySnapshotCodec preserves the numeric values it receives. A standalone writer should use JSON.stringify(snapshot,"",true,true) (full_precision=true) so a value one floating-point step below25/30/50 is not rounded across a threshold by JSON formatting. Native pinned reflection verified this argument and the additive boundary test proves below/equal classification after full-precision round-trip. No existing SaveService serializer is changed, because ecology is not in game saves yet.
+
+## Phase7.3a ecology DATA and independent wire (D106)
+
+EcologyMetricData exports metric_id,minimum,maximum,initial_value,ease_percent,thresholds[{id,value}]. EcologyProfile.metrics is a nonempty Array[Resource] of distinct valid EcologyMetricData; threshold IDs are unique across the profile. IDs are ASCII snake_case. Finite normalized bounds0<=minimum<maximum<=100, initial within bounds, ease_percent in(0,100], threshold numeric values within metric bounds; booleans and nonnumeric nested values reject. All shipped gameplay numbers are in data/ecology_profile.tres: tree_cover/water_clarity/biodiversity bounds0..100/initial0/ease10, birds30/clear_water50/butterflies25. Sources/weights/world count goals and actual new-game baseline remain deferred.
+
+Standalone snapshot: {day_index:int,metrics:{metric_id:float,...},triggered:Array[String]}. Day accepts int or finite integral JSON float0..9007199254740991, canonical int; metrics must contain exactly configured IDs with finite nonboolean numbers in their configured range. Triggered entries must be unique known string IDs, canonical profile order; may remain when current metrics drop. Unknown top-level metadata drops, unknown/missing metric/threshold IDs reject. No past activity is inferred from loaded levels; load never emits or rewards. Returned numbers/arrays/dictionaries are detached. Initial configure history is empty; it does not fabricate historical crossing for an already-high custom initial value. Active side is derived independently from current value>=threshold. This is standalone codec/state wire only: no SaveService version bump/component/migration/golden or runtime ecology field in7.3a.
+
 ## AUDIT-F11 storage transaction, unchanged save12 (D97)
 
 JSON wrapper/migrations/goldens remain unchanged. Success publishes primary and up to3ordered historical copies, using existing history in primary/bak1..3 order (compact holes). Temporary .txn_<monotonic>.oldN/.newN.tmp/.movedN names hold exact bytes, not a new save schema. Existing staging names cause failure rather than overwrite. Normal success/rollback removes own redundant staging files; failed rollback retains them and exposes recovery_paths in a transient write report. A completed family with cleanup failure stays a committed success plus cleanup_pending. No automatic loading of staging files or missing-primary power-cut recovery is added.

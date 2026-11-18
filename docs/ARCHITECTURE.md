@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3a ecology foundation only (D106)
+
+EcologyMetricData/EcologyProfile are DATA; EcologyState and EcologySnapshotCodec are pure DOMAIN RefCounted with no Node/clock/registry/Event/UI/filesystem/RNG dependency. State owns a deep-copied profile and metrics/day/triggered; snapshots are primitive detached dictionaries. Advance validates every target/day before commit, then publishes local typed signals under a busy guard. Read-only getters are safe inside publication; mutations are denied. Codec load is silent and never advances a day or grants an unlock. DataValidator/CLI validate shipped profile without creating a runtime owner. Existing Main/DaySimulator composition, global event catalog and Save12 remain current; Ecology.update(counts) in the future sketch below remains a target until count rules/runtime/migration are approved. No ecology UI/VFX/director or live initial0 is implied.
+
 ## Phase7.2c signal-driven audio VIEW (D105)
 
 Main owns one LifeAmbientAudioFlow Node with fixed four native players; pure AmbientAudioContext reads validated presentation data and actual logical context. Profile clone and playback/fade/dirty flags are transient VIEW state only. Coalesced clock/weather signals plus logicalcell/title/gameflag polling choose actual file IDs; no view changes GameClock/weather/farm/ledger or serializes state. Pause leaves audio for settings, title/exit stop loops. Two slots perMusic/Ambience layer handle crossfades/reentry without accumulation; native WAV clones isolate loop metadata. Existing AudioService/router own accepted bus preferences and SFX; no new event/autoload/scene/schema/asset changes.

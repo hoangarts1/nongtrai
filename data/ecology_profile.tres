@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EcologyProfile" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/ecology_profile.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/ecology_metric_data.gd" id="2"]
+
+[sub_resource type="Resource" id="tree"]
+script = ExtResource("2")
+metric_id = &"tree_cover"
+minimum = 0.0
+maximum = 100.0
+initial_value = 0.0
+ease_percent = 10.0
+thresholds = Array[Dictionary]([{"id": &"birds", "value": 30.0}])
+
+[sub_resource type="Resource" id="water"]
+script = ExtResource("2")
+metric_id = &"water_clarity"
+minimum = 0.0
+maximum = 100.0
+initial_value = 0.0
+ease_percent = 10.0
+thresholds = Array[Dictionary]([{"id": &"clear_water", "value": 50.0}])
+
+[sub_resource type="Resource" id="biodiversity"]
+script = ExtResource("2")
+metric_id = &"biodiversity"
+minimum = 0.0
+maximum = 100.0
+initial_value = 0.0
+ease_percent = 10.0
+thresholds = Array[Dictionary]([{"id": &"butterflies", "value": 25.0}])
+
+[resource]
+script = ExtResource("1")
+metrics = Array[Resource]([SubResource("tree"), SubResource("water"), SubResource("biodiversity")])

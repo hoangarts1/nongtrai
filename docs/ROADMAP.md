@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3a independent foundation delivered (2026-11-18)
+
+Owner-approved23path scope implemented; first complete full694/694/87406assert/166scripts PASS, parse/data/headless63/Main PASS, groups121.286/123.322/116.256s<180. Focused18/18/356assert plus independent1000day/150crossing/noautoload/worldNode probe and CLIpositive0/negative1 PASS. Earlier incomplete9test run due newfixture type-check parse was rejected despiteexit0; corrected without removing assertion, logs retained. All676oldcases/goldens unchanged; state/codec owns independent serialized metrics/day/history, no live game caller/save12/Player/audio/UI/input/scene change. Parent7.3 ispartial: world counts/weights/baseline and runtime/migration remain a later approved scope. Full diff/log/scope/saveproof/commit in PROGRESS/external DELIVERY.md.
+
+## Phase7.3a approved foundation under verification (2026-11-18)
+
+Owner approved exact23paths and commit/push for DATA/domain/codec only. Three normalized metrics0..100/initial0/ease10/thresholds25-30-50, immutable owner snapshots, guarded adjacent-day updates/local crossings and silent restore implemented. Finalheadless18/18/356assert, pure project1000days/150crossings/noautoload/worldNodes, CLIpositive0/negative1 and byte restore PASS. Firstnewtest parse failure was caught despiteGUTexit0 and corrected without dropping assertion; details inPROGRESS. Fullpending; live count/weight/baseline/runtime/save integration still deferred, so parent7.3 ispartial rather than complete.
+
 ## Phase7.2a–c automated delivery complete (2026-11-18)
 
 Owner-approved three-step audio continuation is implemented and gated independently:7.2a pushed457ce6c (666/666),7.2b pushed53604f3 (670/670),7.2c included in this snapshot after first full676/676/87050assert/163scripts PASS. Parse/data/headless63/Main PASS; groups121.048/123.581/116.167s<180s. Final native20/20/736assert verifies actual loops/context/crossfades/GUI settings/lifecycle/readonly owners; all662prebatch cases and fouroriginalWAVs unchanged. Eight original WAV placeholders remain replaceable and explicitly provisional instead of finalOGG/field recordings. Human F5/listening/export/device acceptance is separate, so parent7.2 is[~], not an invented human tick. Player/save12/InputMap/scenes/owners preserved. Exactdiff/log/commit/saveproof and manual checklist in PROGRESS and external DELIVERY.md. No later ecology/director/story/social scope is opened by this delivery.
@@ -367,7 +375,8 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 |---|---|---|---|
 | 7.1 | Seeded weather + saved forecast | D86 tagged RNG/day reservations/save12 preserve saved forecasts; actual RNG golden/1000-day invariants/full583/583 verified; all557 previous cases retained; human editor acceptance/commit separate, evidence in PROGRESS | [~] |
 | 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | Existing daynight/rain retained; D103–D105 five buses/eight original WAV placeholders/context loops delivered; full676/676, native20/20, parse/data/headless/Main PASS; no view simulation; human F5/listening/finalOGG acceptance pending | [~] |
-| 7.3 | `EcologyState` (read-only) | metrics respond to actions; eased; thresholds fire once | [ ] |
+| 7.3 | `EcologyState` (read-only) | 7.3a standalone DATA/state/codec delivered; normalized targets/ease10/crossings/guard/silent load verified; world count/baseline/runtime/save integration deferred | [~] |
+| 7.3a | Independent ecology DATA/domain/codec (D106; automation delivered) | Three configured metrics0..100/initial0/thresholds25-30-50, immutable snapshots, adjacent-day updates, crossing history and silent JSON restore; focused18/18, pure1000days, CLI0/1, full694/694/87406assert/parse/data/headless/Main PASS; no live ecology yet | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |

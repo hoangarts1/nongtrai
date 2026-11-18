@@ -1,5 +1,102 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3a hoàn tất tự động — commit/push (2026-11-18)
+
+Đã triển khai đúng nền DATA/domain/codec theo23path được duyệt. Ba metric normalized0..100/initial0/ease10 trong Resource; adjacent-day atomic update, immutable owner snapshots, crossing lên/xuống đúng một lần, lịch sử upward, silent load và guards đã kiểm. Không có runtime Main/DaySimulator, UI/VFX, world count goals/weights/clean-water actions hay save component/migration mới. SaveService vẫn v12, Player/audio/scenes/InputMap/owners hiện tại giữ nguyên.
+
+Final focused headless18/18,356assert,0.464s PASS; pure standalone project1000days/150crossings/noautoload/worldnodes, duplicate/reentry/JSONfullprecision PASS. CLI positive exit0 và deliberateease0 negative exit1 với đúngreason; Resource phục hồi đúngbyte trước freeze. Firstfocused tool/GUT exit0/PASS9 là INCOMPLETE do newtest parse on statically impossible type check, không được tínhPASS; sửa Object-typed check giữassertion, focused2 đủ17PASS rồi thêmprecisioncase thành18PASS. Toàn bộ lỗi/log/probe giữ ở checkpoint dưới.
+
+Full1 cuối dùng nguyên launcher exit0:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 166 scripts, 694/694 tests, 87406 assertions; GUT 360.864s, wall 378.9736333s
+[run_tests] starting main scene headless
+[run_tests] PASS
+~~~
+
+Ba nhóm 121.286/123.322/116.256s dưới180s/nhóm. Strict gate không SCRIPTERROR/ERROR/failure/pending/leak; expected malformed/guard warnings và inheritedduplicateUID giữ nguyên. Manifest166script và freeze2379file khớp, drift0. Toàn676case/347test-fixture-golden file cũ nguyênbyte; chỉ18case mới (data4/codec6/state8).20save thật nguyênSHA và stage/index/HEAD sẽ được kiểm lại trước commit. Không sửa runner/GUT/golden/hạn180s, không bỏcase.
+
+Exact23path: sáu docs PROGRESS/API_INDEX/ROADMAP/DECISIONS/ARCHITECTURE/DATA_SCHEMA; EcologyMetricData+UID, EcologyProfile+UID, ecology_profile.tres; EcologyState+UID, EcologySnapshotCodec+UID; DataValidator và tools/validate_data.gd;3newtests+UID. DataValidator chỉ thêm facade/header4lines, CLI thêm6lines gate ởcuối, mọi gate cũ giữ nguyên. Diff/fullcontents before-after/exactlist/import/API/focused/pureproject/nativeprobe/negativeCLI/sourceproof/full/archive/manifest/summary/scope/saveaudit tại D:/godot/game-godot-backups/phase73a-20261118-133557/phase7.3a-133558/. Bàn giao cóhashpush cuối sinh tại D:/godot/game-godot-backups/phase73a-20261118-133557/DELIVERY.md saucommit để không tự ghi hash vào chínhcommit này.
+
+Manual editor: không cần thêm node/Inspector/scene; không có tính nănghiểnthịmới đểF5 ởbước nền. Chạy cmd /c tools\run_tests.bat; directfocused ba file test_ecology_data/test_ecology_state/test_ecology_snapshot_codec. Pure-probe artifact chứng minh độc lập khỏiGameClock/Registry/Events/Settings; không dùng synthetic target0/100 làm dữ liệu môitrường thật. Writer snapshot độc lập dùng JSON.stringify(snapshot,"",true,true) để tránh rounding qua ngưỡng sátbiên; API đã kiểm pin. Parent7.3 chỉ[~] vì world inputs/runtime/save cònchờ7.3b; không tự đánh toàn7.3/7.4/GateA/B đãxong. Không chạm hai prompt ngoài scope: D the_life_prompt.md; ?? the_life_master_prompt.md. Commit: feat: add standalone validated ecology state and snapshots.
+
+## Phase7.3a focused/purity/CLI gates PASS — full đang chờ (2026-11-18)
+
+Final focused3 headless18/18,356assert,0.464s PASS (data4/codec6/state8). Focused1 tool returned0 and GUT printed9/9 but newstate test failed parse on static EcologyState-is-Node assertion; this was INCOMPLETE/NOTPASS, stderr retained. Changed only newtest to check an Object-typed reference, retaining nonNode assertion; focused2 all17/17/345assert0.430s PASS. Added one full-precision JSON threshold-boundary case, Native JSON.stringify fourth argument confirmed by reflection; focused3 all18PASS, no script/parse/error/orphan/leak/pending. No production failure/fix cycle or oldtest change.
+
+Standalone pure-project contains byte-identical fourproductionGD+profiletres, no autoloads and no gameplayNodes: pure1 exit0,1000adjacentupdates/150crossings, guarded reentry, exact full-precision JSON roundtrip and duplicate-day rejection PASS. It has no DataRegistry/GameClock/Events/Settings/UI/SFX dependencies. This checks source purity separately from GUT with normal project autoloads; normalized0/100 counts in probe are synthetic inputs only, not live metrics. Native and import/API/probe logs/source verification retained.
+
+CLI validate1 exit0/[validate_data]PASS. Deliberate ease10→0 Resource probe then validate-negative1 exit1 with identified ecology error and noPASS; exact original Resourcebytes restored via finally and SHA checked. ExpectedERROR kept in separate negative log, not suppressed in full. AllpreviousCLIgate bodies remain, new check appended only at end. Code/source are now frozen before unchanged full launcher; no runtime/Main/scene/InputMap/audio/Save12/oldtest/golden edits. Commit proposal: feat: add standalone validated ecology state and snapshots.
+
+## Phase7.3a đã duyệt — triển khai nền domain (2026-11-18)
+
+Owner: “Duyệt Phase7.3a, triển khai và commit/push”. Exact23path đã duyệt ở kế hoạch dưới; không xin lại. Backup/scope before/HEAD/index/status/20save thật SHA: D:/godot/game-godot-backups/phase73a-20261118-133557/phase7.3a-133558. Baseline bd3b466 và full676/676/87050assert là kết quả cũ, chưa có PASS cho mã mới.
+
+D106/API/schema/architecture khai báo trước caller: normalized targets từ caller, Resource0..100/initial0/ease10, thresholds25/30/50; không tự tạo world counts. State deep-copy config, commit toàn bộ trước signal, busy guard và deserialize silent. Không Main/DaySimulator/GlobalEvents/runtime/UI/migration/save12/Player/audio/scene/InputMap/oldtest thay đổi. Hai prompt ngoài scope giữ nguyên. Thực hiện DATA→codec/state→additive tests→CLI/full gate, chỉ commit/push sau PASS.
+
+## ĐỀ XUẤT Phase7.3a — nền sinh thái độc lập, CHỜ DUYỆT (2026-11-18)
+
+MILESTONE: ROADMAP7.3 / master S13, sau Phase7.2a–c đã commit/push đủ. HEAD và origin/master hiện bd3b466a9d9cf26f6b9468c5103732c16089390c. Kết quả đã chạy gần nhất: parse/data/headless63/Main PASS, full163script/676/676/87050assert. Lượt này chỉ đọc và lập kế hoạch; chưa viết mã hay chạy test mới, không lấy PASS cũ cho implementation chưa có.
+
+READ-ONLY CONTEXT: AGENTS.md; PROJECT_RULES; API_INDEX; ARCHITECTURE composition/event/day-order/save target; DATA_SCHEMA outline EcologyMetricData; CODE_PATTERNS typed signals/state; DECISIONS D17/D105; ROADMAP7.3–7.6; master S13 và thứ tự mô phỏng ngày. Đã quét tên file scripts/data, scripts/domain, data, tests: chưa có EcologyState/EcologyMetricData/codec runtime. Không coi bảng target trong tài liệu là code đã tồn tại. Không có scene nào cần chạm trong bước này.
+
+TASK: tạo DATA và domain độc lập cho ba chỉ số tree_cover, water_clarity, biodiversity (0–100), update có kiểm tra ngày, làm mượt, ngưỡng và codec JSON. Mọi thông số ở Resource; domain thuần RefCounted, không gọi Node/clock/registry/UI/Event autoload, RNG hoặc FileAccess. Có serialize/deserialize ngay lần triển khai đầu. Chưa tạo instance trong Main, chưa gắn DaySimulator, không bật UI/VFX/Director/cá/bướm/chim, không thay save v12.
+
+Thông số đề xuất cần duyệt cùng kế hoạch:
+
+- Miền0–100 và ngưỡng biodiversity25/tree_cover30/water_clarity50 lấy trực tiếp master S13.
+- Làm mượt10%/ngày: new = old + (target - old) ×0.10; đề xuất chốt một giá trị trong ví dụ5–10% của master, không coi đó là quyết định đã có.
+- Initial0 nằm trong Resource để khởi tạo state độc lập. Chưa dùng làm giá trị môi trường thật khi NewGame/load; bước tích hợp phải định nghĩa baseline/số đếm thế giới trước.
+- Mỗi update nhận đầy đủ targets chuẩn hóa0–100 từ caller. Không tự đặt mục tiêu số cây, trọng số hoa/loài, số ô nước đã dọn; các cơ chế/count này chưa đủ dữ liệu. Các bộ đếm giả chỉ xuất hiện trong test, không đưa vào game.
+- threshold_crossed(threshold_id) local phát một lần khi băng qua ngưỡng lên hoặc xuống; đọc trạng thái hiện tại để biết phía ngưỡng. triggered lưu lịch sử đã vượt lên; không tự cấp unlock/reward. Tải snapshot không phát lại signal/cấp lại.
+
+ALLOW_LIST — đúng23 đường dẫn được tạo/sửa sau khi duyệt:
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/data/ecology_metric_data.gd`
+- `scripts/data/ecology_metric_data.gd.uid`
+- `scripts/data/ecology_profile.gd`
+- `scripts/data/ecology_profile.gd.uid`
+- `data/ecology_profile.tres`
+- `scripts/domain/ecology/ecology_state.gd`
+- `scripts/domain/ecology/ecology_state.gd.uid`
+- `scripts/domain/ecology/ecology_snapshot_codec.gd`
+- `scripts/domain/ecology/ecology_snapshot_codec.gd.uid`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `tests/unit/test_ecology_data.gd`
+- `tests/unit/test_ecology_data.gd.uid`
+- `tests/unit/test_ecology_state.gd`
+- `tests/unit/test_ecology_state.gd.uid`
+- `tests/unit/test_ecology_snapshot_codec.gd`
+- `tests/unit/test_ecology_snapshot_codec.gd.uid`
+
+Phân công file: EcologyMetricData/EcologyProfile giữ ID/initial/min-max/ease/threshold và kiểm tra dữ liệu; ecology_profile.tres định nghĩa ba metric theo thông số được duyệt. EcologyState giữ metrics/day_index/triggered, trả bản sao chỉ đọc, thực hiện update nguyên tử và phát signal sau commit. EcologySnapshotCodec kiểm snapshot độc lập, không sở hữu state. DataValidator thêm facade null-safe và tools/validate_data.gd nối kiểm profile sau các gate cũ. Ba file test mới chia data/state/codec, không chỉnh test cũ. Sáu tài liệu cập nhật contract, API, wire độc lập và kết quả thật.
+
+ACCEPTANCE:
+
+1. Resource rỗng/ID trùng/sai loại/số không hữu hạn/miền/ease/ngưỡng sai đều bị từ chối có lỗi; profile thật hợp lệ, CLI validate_data vẫn giữ tất cả gate trước.
+2. Domain không Node/autoload/RNG/filesystem. Hai instance dùng chung Resource nhưng state độc lập, caller/snapshot/signal dictionary không sửa được state. Mỗi ngày chỉ update một lần liền kề; duplicate/skipped/negative ngày, targets thiếu/sai loại/nonfinite/ngoài miền không làm thay đổi state.
+3. Giảm khoảng cách tới target đúng10% mỗi ngày; kiểm tăng/giảm, chính xác ranh giới ngưỡng, không spam khi còn cùng phía. Crossing lên/xuống/tái vượt phát đúng một lần mỗi lần; triggered nhớ lịch sử vượt lên. Guard chặn update/restore/configure lặp trong callback và không công bố nửa state.
+4. serialize/deserialize/JSON round-trip giữ metrics/day/triggered. Codec chặn bool/string/fraction ngày/overflow/nonfinite metric/ID lạ hoặc thiếu/trigger lạ; lỗi giữ nguyên state đã commit. Deserialize hợp lệ không phát lại signal hay mô phỏng ngày. Wire chỉ độc lập, chưa có migration/game-save field mới.
+5. Toàn676 case cũ/fixtures/goldens, Player/audio/scenes/InputMap/domain đang chạy và save12 giữ nguyên. Chạy focused+headless/pure mới, parse/data/full discovery với launcher đã pin; giữ180s mỗi graphics group, không skip/nới/đổi golden. Chỉ commit/push đúng scope sau full PASS, có diff/log/manifest/SHA save thật và remote hash.
+
+DO NOT TOUCH: mọi thứ ngoài danh sách; đặc biệt Main/DaySimulator/SaveService/Events/Settings/DataRegistry, UI/scene/asset/input/autoload/âm thanh/cây/máy/đất/chuồng/bình/giá và mọi test/golden hiện có. Hai thay đổi prompt ngoài scope giữ nguyên: D the_life_prompt.md; ?? the_life_master_prompt.md. Không xóa/restore/stage chúng. Không sửa các điều luật đã khóa.
+
+Giả định/rủi ro: đây chỉ là nền7.3a, không đánh dấu toàn7.3 đã xong. Caller runtime và công thức số đếm/nguồn nước/baseline còn chờ phạm vi7.3b; không dựng metric hiển thị giả. Float metric được phép, coin/qty vẫn int. Ngưỡng dễ phát trùng khi callback reentry hoặc load, nên commit state trước signal và giữ guard suốt thông báo. GateA/B/human playtest còn riêng; không bật Director/social trước điều kiện đã chốt.
+
+Manual editor: không thêm node/Inspector/scene trong7.3a. Test bằng launcher hiện có; không có gameplay mới để human F5 nghiệm thu ở bước nền. Commit đề xuất sau PASS: feat: add standalone validated ecology state and snapshots. Chờ owner duyệt trước mã và commit/push; chỉ PROGRESS được sửa để chuẩn bị kế hoạch.
+
+Bản kế hoạch JSON, PROGRESS trước thay đổi, HEAD/status và SHA save tại thời điểm lập kế hoạch: D:/godot/game-godot-backups/phase73a-proposal-20261118-132806/.
+
 ## Phase7.2a–c hoàn tất tự động — commit/push mốc cuối (2026-11-18)
 
 Đã triển khai đủ ba bước theo duyệt của người dùng, full test sau từng bước. 7.2a bus đã push457ce6c991d10440a13866cfcdcb13ba1d08c11e;7.2b asset/profile đã push53604f3244a7850d4e3da7d29e755345bfaee059. Snapshot này hoàn tất7.2c runtime; hash commit/push cuối ghi ở commit-result.json và DELIVERY.md ngoài repo sau push, không tạo commit riêng để tự ghi hash chính nó.
