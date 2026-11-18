@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F11 core write transaction (D97)
+
+SaveService keeps payload wrapping and reports, calls stateless SaveWriteTransaction with SaveFileStore adapter. These core helpers own transient I/O only, no world/Node state, simulation, RNG, or new autoload. Staged bytes/restorable originals precede publication; rollback covers touched family paths. Failed rollback keeps recoverable copies. Synchronous publication plus facade busy guard does not make multiple files power-loss atomic or support concurrent game instances. Load/inspection resolver and Main restore order remainF10.
+
 ## AUDIT-F10 core read resolution (D96)
 
 SaveService facade supplies current version/backup count/migration to core SaveLoadResolver; resolver uses DOMAIN SaveEnvelopeCodec and FileAccess or an injected reader. It owns no world state and depends on no autoload. Actual-load reports live transiently in the facade; inspection is read-only and cannot replace them. Main restore order, weather RNG, state-owner instances and one-day path stay unchanged. No automatic repair/write or load-time simulation is added; UI recovery presentation is deferred toF12.

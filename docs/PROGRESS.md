@@ -1,5 +1,25 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## AUDIT-F11 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Đúng13path ALLOW_LIST:6docs, SaveService,2corehelper+2UID, test+UID.6case mới; toàn bộ636case/testfixture/golden cũ giữ nguyên byte. Focused cuối17/17,366assert,0.505s; lỗi nestedArray của fixture mới trong focused1 đã ghi và sửa rõ ở dưới. Full1 nguyên launcher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 155 scripts, 642/642 tests, 85006 assertions; GUT 309.801s, wall 327.5824212s
+[run_tests] PASS
+~~~
+Main PASS, mọi nhóm dưới180s; strictgate không error/pending/leak. Sourcefreeze1 và155testhash khớp. Native write/flush/readback/rename vàba backup có thật; single I/O-fault positions+rollbackrename/remove failure giữoldbytes được kiểm. No power-cut/actual disk-full/atomic-manyfiles claim; cleanup pending postcommit báo đúngcommitted, failedrollback giữrecovery_paths. Schema12/wrapper/migrations/loadresolver/owners/input/scenes/assets và3fixtureF10khôngđổi. Không Inspector/settings/manual wiring; manual bình thườngsave/load trongtestuserdata, không thửmấtđiệnsave thật.
+
+Backup/before-after/exactlist/implementation.patch/focused/import/full/manifest/summary/faulttestsource tại D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f11-095231/.20save thật/HEAD/index/outside kiểm trướccommit;2prompt ngoài phạmvi. Commit: fix: retain save originals through checked publication and rollback. F12 được bắt đầu sau PASS này; hash/push ghi checkpoint kế.
+
+## F10 đã push; AUDIT-F11 đang triển khai (2026-11-18)
+
+F10 commitfcd608d91b689277dc589a7045a5f719ab34c7b5 đã pushorigin/master, remotehash khớp; exact14file/outside0/20save thật nguyênhash. F11backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f11-095231. Core FileStore/WriteTransaction theoD97, giữ wrapper/version12/load resolver/migrations/owners; không sửa test cũ hoặc3fixture đã duyệt. Staged originals/newfamily precede publish; observed failure rollback, failedrollback giữcopies, commitcleanupfail báo pending; backupholes compact existing order. get_write_report detached; no newautoload/Nodeowner.
+
+Focused cuối17/17,366assert,0.505s PASS gồm6case mới +11case save/recovery. Lượt đầu16/17 do Array[int]loop nhận nestedArray chưa typed; sửa duy nhất kiểu/assign của fixture mới rồiPASS. All single traced I/O faults, rename/remove rollback failures, retained exact oldbytes, stagingcollision, fresh/holes/0backup và realWindows save→rotate3→readback được kiểm. Store/flush kiểm observable errors, close không có returnerror nênreadbackxácminh; không bịa disk-full/power-cut thực. Sau focused thêmwarning cho committed cleanup_pending (không đổi IOlogic), sẽ fulltest source cuối. Không Inspector/scene/settings. Manual dùngtestuserdata, không xóa/mất điện save thật; game save/load bình thường vàbackup đúng thứtự. Full đang chờ; commit dự kiến: fix: retain save originals through checked publication and rollback.
+
 ## F10 full cuối khớp source đã format — sẵn sàng commit/push (2026-11-18)
 
 Full4 nguyên launcher exit0: parse/data/headless63/Main PASS; graphics154script,636/636test,84696assert,GUT307.619s,wall325.3951375s; ba nhóm89.408/114.682/103.529s, cùng180s. source-freeze4 và manifest/testhash khớp source cuối, strictgate không error/pending/leak; git diff --check nay sạch. Chỉ2EOFblankline bị dọn saufull3, không sửa logic test/production; full4 chứng nhận byte sẽcommit. Archivefull-attempt4 cùngdiff/baseline/approval/failedlogs giữ ởf10-092135. Scope vẫn14file,20save thật nguyênhash; hai prompt ngoài phạm vi. F11 chưa bắt đầu trước checkpoint này. Commit: feat: recover supported saves from ordered backups without writes.

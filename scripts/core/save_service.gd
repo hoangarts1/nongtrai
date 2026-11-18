@@ -6,6 +6,7 @@
 ##   func inspect_slot(slot: int = 1) -> Dictionary
 ##   func inspect_latest() -> Dictionary
 ##   func get_load_report(slot: int = -1) -> Dictionary
+##   func get_write_report() -> Dictionary
 ##   func migrate_5_to_6(data: Dictionary) -> Dictionary
 ##   func migrate_6_to_7(data: Dictionary) -> Dictionary
 ##   func migrate_7_to_8(data: Dictionary) -> Dictionary
@@ -24,9 +25,14 @@ const SAVE_DIRECTORY: String = "user://saves"
 const MAX_BACKUPS: int = 3
 var _load_reports: Dictionary = {}
 var _last_load_report: Dictionary = {}
+var _last_write_report: Dictionary = {}
+var _write_in_progress: bool = false
 
 func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if slot < 0:
+		_last_write_report = {"ok": false, "error": &"invalid_slot", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
+		return false
+	if _write_in_progress:
 		return false
 	var wrapped: Dictionary = {
 		"meta": {
@@ -53,26 +59,17 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"day_ledger": payload.get("day_ledger", {}),
 		"day_end": payload.get("day_end", {})
 	}
-	var directory_path: String = ProjectSettings.globalize_path(SAVE_DIRECTORY)
-	if DirAccess.make_dir_recursive_absolute(directory_path) != OK:
-		push_error("SaveService: could not create save directory")
-		return false
-	var save_path: String = _save_path(slot)
-	var temporary_path: String = "%s.tmp" % save_path
-	var file: FileAccess = FileAccess.open(temporary_path, FileAccess.WRITE)
-	if file == null:
-		push_error("SaveService: could not open temporary save")
-		return false
-	file.store_string(JSON.stringify(wrapped, "\t"))
-	file.close()
-	_rotate_backups(save_path)
-	if DirAccess.rename_absolute(
-		ProjectSettings.globalize_path(temporary_path),
-		ProjectSettings.globalize_path(save_path)
-	) != OK:
-		push_error("SaveService: could not replace save file")
-		return false
-	return true
+	_write_in_progress = true
+	_last_write_report = SaveWriteTransaction.write(SaveFileStore.new(), _save_path(slot), JSON.stringify(wrapped, "\t").to_utf8_buffer(), MAX_BACKUPS)
+	_write_in_progress = false
+	if not _last_write_report.ok:
+		push_warning("SaveService: write failed (%s), recovery copies: %s" % [_last_write_report.error, _last_write_report.recovery_paths])
+	elif _last_write_report.cleanup_pending:
+		push_warning("SaveService: saved with retained recovery copies: %s" % _last_write_report.recovery_paths)
+	return bool(_last_write_report.ok)
+
+func get_write_report() -> Dictionary:
+	return _last_write_report.duplicate(true)
 
 func load_game(slot: int = 1) -> Dictionary:
 	var result: Dictionary = inspect_slot(slot)
@@ -258,18 +255,6 @@ func migrate_8_to_9(data: Dictionary) -> Dictionary:
 	# No historical proof of purchase; preserve all old plots/machines separately.
 	migrated["land_ownership"] = {"owned_parcels":[]}
 	return migrated
-
-func _rotate_backups(save_path: String) -> void:
-	for index: int in range(MAX_BACKUPS, 0, -1):
-		var source: String = "%s.bak%d" % [save_path, index - 1] if index > 1 else save_path
-		var target: String = "%s.bak%d" % [save_path, index]
-		if FileAccess.file_exists(source):
-			if FileAccess.file_exists(target):
-				DirAccess.remove_absolute(ProjectSettings.globalize_path(target))
-			DirAccess.rename_absolute(
-				ProjectSettings.globalize_path(source),
-				ProjectSettings.globalize_path(target)
-			)
 
 func migrate_9_to_10(data: Dictionary) -> Dictionary:
 	var migrated: Dictionary = data.duplicate(true)

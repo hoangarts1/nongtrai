@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D97 — staged save publication and observable rollback (2026-11-18)
+
+ApprovedF11 replaces unchecked destructive rotation with a core adapter/transaction. Read originals, stage their copies and all desired new bytes, then move/publish with retained copies. Backup history is existing primary then backups in order, truncated to3, compacting holes without discarding history merely because primary is absent. No new persistent owner/schema. An observed precommit failure returns false and restores originals when rollback I/O succeeds. If rollback also fails, retain copies and report their paths; never silently destroy the last previous bytes. Once the complete family commits, cleanup failure is reported as committed cleanup_pending, not a false failed save. Tests inject I/O errors and exercise Windows rename; no claim of atomicity across power cuts or actual disk-full testing.
+
 ### D96 — conservative automatic backup reads with transient reports (2026-11-18)
 
 ApprovedF10 wires the strict envelope through a core read resolver. Only an existing damaged/unreadable primary enables backup1→2→3. Missing/deleted primary stays missing; delete_save continues removing only the primary. A supported-shape future-version primary blocks automatic downgrade within that slot. Loading never repairs or overwrites files. Reports are transient detached core metadata, not saved state; inspect/has_save/summary cannot replace a report from a real load. Latest selects actual migrated payloads using the existing timestamp/day rule. Component normalization is still the existing migration/codec behavior; this does not claim complete arbitrary-component fuzz safety.

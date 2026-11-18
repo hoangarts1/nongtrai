@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## AUDIT-F11 storage transaction, unchanged save12 (D97)
+
+JSON wrapper/migrations/goldens remain unchanged. Success publishes primary and up to3ordered historical copies, using existing history in primary/bak1..3 order (compact holes). Temporary .txn_<monotonic>.oldN/.newN.tmp/.movedN names hold exact bytes, not a new save schema. Existing staging names cause failure rather than overwrite. Normal success/rollback removes own redundant staging files; failed rollback retains them and exposes recovery_paths in a transient write report. A completed family with cleanup failure stays a committed success plus cleanup_pending. No automatic loading of staging files or missing-primary power-cut recovery is added.
+
 ## AUDIT-F10 read recovery, unchanged wire12 (D96)
 
 Primary slot_N.json and existing .bak1/.bak2/.bak3 use the same JSON envelope/migration0–12. No new serialized field, report, token or backup format. Automatic read fallback is permitted only when primary exists and fails read/JSON/envelope; future primary blocks downgrade, missing primary blocks resurrection. A valid envelope still delegates field normalization to the existing component codecs. Unknown components are retained through read/migration as before. No file is rewritten by recovery; source index/status/error are detached transient reports only.

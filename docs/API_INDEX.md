@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F11 checked save publication (D97)
+
+SaveService.save_game(payload,slot)->bool keeps its wrapper/schema and safe caller API, now delegates bytes to SaveWriteTransaction. get_write_report()->Dictionary returns a deep copy of {ok,error,committed,rollback_ok,cleanup_pending,recovery_paths}. Invalid slot returns false/invalid_slot; concurrent reentry returns false without replacing an in-flight report. I/O failure warns with context; committed cleanup-pending also warns. No report is persisted.
+
+SaveFileStore (core RefCounted): ensure_parent(path:String)->bool, exists(path:String)->bool, read_bytes(path:String)->{ok,bytes}, write_bytes(path:String,bytes:PackedByteArray)->bool, rename_file(source:String,target:String)->bool, remove_file(path:String)->bool, staging_prefix(path:String)->String. Write checks position/error after store/flush; close has no error return, so reopen/readback compares bytes. Rename refuses to overwrite an existing target. Adapter can be replaced by a test store; no Node references.
+
+SaveWriteTransaction.static write(store:SaveFileStore,path:String,bytes:PackedByteArray,backup_count:int)->Dictionary stages restorable copies plus desired family before moving any original. Read history in primary/bak1..N order, keep the newest N existing entries as backup1..N (holes compacted; missing primary retains existing history). Unique-prefix .new*.tmp/.old*/.moved* files are checked for collisions, never overwritten. Publish via rename, retain original copies until all family paths commit. On failure roll touched paths back; rollback failure leaves recovery copies listed explicitly. Cleanup failures after commit return ok=true/committed=true/cleanup_pending=true; the new family is already published. rollback_ok=true means no rollback was needed or all touched paths restored. No multi-file power-loss guarantee.
+
 ## AUDIT-F10 read-only save resolution (D96)
 
 SaveService.load_game(slot=1)->Dictionary and load_latest()->Dictionary preserve their payload APIs, now publish transient detached load reports. inspect_slot(slot=1)->{payload,report} and inspect_latest()->{payload,report} do the same reads/validation/migrations without publishing; has_save/get_latest_summary use these inspection APIs. get_load_report(slot=-1)->Dictionary returns a deep copy of last actual load for negative/default, or the recorded actual load for the specified slot. Report fields: slot:int,status:StringName(primary/recovered/missing/error),error:StringName,source_index:int(0primary/1..3backup/-1none),attempts:Array[Dictionary] with source_index/error. Inspection never changes actual-load reports.
