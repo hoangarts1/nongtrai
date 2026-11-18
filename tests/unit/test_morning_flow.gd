@@ -144,7 +144,7 @@ func test_old_goldens_and_review_restore_do_not_auto_open_morning_or_change_sche
 		assert_false(_main.morning_flow.panel.visible,"No bulletin just from v%d restore" % version)
 		if _main.day_end_flow.panel.visible:
 			assert_eq(_main.ui_coordinator.get_active_panel(),_main.day_end_flow.panel)
-	assert_eq(SaveService.CURRENT_VERSION,12)
+	assert_eq(SaveService.CURRENT_VERSION,13)
 
 func test_snapshot_reads_actual_farm_prices_and_refresh_is_pure() -> void:
 	var target: int = int(DataRegistry.get_crop(&"turnip").growth_days)

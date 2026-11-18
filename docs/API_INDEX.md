@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.3e Main/save13 integration (D110)
+
+Main.ecology_state:EcologyState is the sole ecology owner; ecology_runtime:LifeEcologyRuntime is a small RefCounted view adapter (no new Node/autoload). LifeEcologyRuntime configure(state:EcologyState,day:int)->bool; prepare(payload:Dictionary)->Dictionary; begin_restore(payload)->Dictionary; finish_restore(day:int,farm:FarmGridState,land:LandOwnershipState)->bool; busy:bool and last_restore_reason:StringName are transient diagnostics/guard. Begin validates entire canonical context/candidate before live mutations and holds Main lifecycle commands through callbacks; finish uses actual restored clock/farm/land and silently restores the same state owner. Main private land lifecycle adapter reuses existing public close/deserialize/refresh_land under that lock. No direct saved runtime flags or UI.
+
+SaveService.CURRENT_VERSION=13; new migrate_12_to_13(data:Dictionary)->Dictionary calibrates legacy garden and discards unknown pre13 ecology history; migration input is detached. save_game adds canonical ecology and full_precision JSON; malformed context returnsfalse/invalid_ecology_context without writing. Current13 valid matching-day metrics/history retain exact values, corrupt/mismatched component explicitly calibrates; failed read context retains ecology{} as explicit runtime-fallback marker, rejected by Main preflight. Existing methods/slots/backup/recovery/weather/water/coop APIs remain. No daily ecology callback until7.3f. Exact wire/limits in DATA_SCHEMA/SCENE_CONTRACTS/ecology.md; old tests change only approved40line version patch.
+
 ## Phase7.3d independent ecology component codecs (D109)
 
 EcologySaveContext pure RefCounted static capture(payload:Variant,crops:Array[Resource],land:LandExpansionConfig,legacy:CropMigrationConfig)->Dictionary. Success {ok:true,reason:captured,farm:Dictionary,regions:Array[Rect2i]}; failure {ok:false,reason}. Validates catalog/land/migration before delegating FarmSaveCodec.decode/encode and temporary LandOwnershipState. Missing components normalize as existing owners do; malformed farm arrays/unsafe withered counter casts fail. Raw payload, goldens and existing owners are untouched. No Node/autoload/clock/RNG/filesystem.

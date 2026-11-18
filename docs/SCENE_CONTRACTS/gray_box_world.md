@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## Phase7.3e ecology owner (D110)
+
+No scene/tree/Player/grid/collision/geometry/Inspector edit. Main adds ecology_state and RefCounted ecology_runtime, not a world child. NewGame/load preflight ecology before mutation; lifecycle busy guards Main commands through callbacks. Main applies the same public land-close/ownership-deserialize/presentation-refresh steps under its lock because external LandRuntime.restore rejects global busy. Farm/land/clock remain their existing owners. Save13 adds ecology only, exact format/lifecycle APIs in ecology.md. Daily ecology callback is next7.3f; existing simulation order remains current until then.
+
 ## Phase7.2c listening context (D105)
 
 No world node/terrain/camera/player/physics/InputMap edits. Main.ambient_audio_flow reads existing world.get_player_cell() for cosmetic profile zones; camera pan does not move the audio listener's logical cell. Clock/weather signals select loops and fade only, never advance simulation. The flow and its four native players are Main siblings, outside world y-sort and save ownership. Contract/API in audio.md. No Inspector wiring. Human F5 listening remains separate.

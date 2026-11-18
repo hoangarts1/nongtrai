@@ -181,4 +181,4 @@ func test_save_load_buffer_and_collected_inventory_do_not_replay_payout() -> voi
 	_service.deserialize(payload.machine_operations)
 	assert_eq(_service.collect_output_to_inventory(CELL).reason,&"no_output")
 	assert_eq(_inventory.get_quantity(&"temp_carrot_meal"),1)
-	assert_eq(SaveService.CURRENT_VERSION,12)
+	assert_eq(SaveService.CURRENT_VERSION,13)

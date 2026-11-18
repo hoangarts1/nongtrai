@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3e automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 172scripts/734/734/88351assert; groups127.462/125.136/117.535s<180, GUT370.133s/wall389.659s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2392, prior test/fixture verification363, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3e-192325/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step3/10 after7.3d pushed3eeb79d9d3706e1be1a23b6af6e07526062b6b6d/full728/728/88133assert. Main owns one EcologyState and small RefCounted runtime adapter; candidate preflight before mutation, busy through restore callbacks, silent actual-owner restore, NewGame/reset/title/Continue and safe save. Land lifecycle uses existing close/deserialize/refresh_land under the owning lock because LandRuntime.restore rejects global busy; only Main changes. Save13 appends ecology wire/current-day normalization, blocks invalid write context, preserves valid values/history/full precision, ignores smuggled pre13 history. New golden13 generated from unchanged12 plus actual codec, old12goldens untouched. Exact approved40line/32old-test patch applied with original line endings and original-line checks; no other oldtest changes.
+
+Golden helper outside repo first failed compile on DataRegistry global name; fixed to existing root autoload lookup, second export PASS. Focused1 new6cases had5PASS/1fixture failure: rawJSON day30.0 compared with canonical int30. Fixed only new fixture through existing codec and added TYPE_INT assertion, no production fix/assertion removal. Focused2 five scripts29/29/753assert/5.889s PASS including all6newcases, existing codec/save/recovery/weather tests; no SCRIPT ERROR/leak/orphan. Existing turnip placeholder and explicit negative/fallback diagnostics retained. Checkpoint D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3e-192325/. Full pending. Daily ecology is deliberately not wired until next7.3f: changed-clock direct saves calibrate matching-day component without replay, not a claim of completed live daily ecology. Player/InputMap/assets/audio/oldgoldens/real saves remain protected.
+
 ## Phase7.3d automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 171scripts/728/728/88133assert; groups135.884/114.292/119.191s<180, GUT369.367s/wall387.636s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2390, prior test/fixture verification361, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3d-191223/full-attempt1. No skipped/removed cases or timeout extension.

@@ -14,9 +14,14 @@
 ##   func migrate_9_to_10(data: Dictionary) -> Dictionary
 ##   func migrate_10_to_11(data: Dictionary) -> Dictionary
 ##   func migrate_11_to_12(data: Dictionary) -> Dictionary
+##   func migrate_12_to_13(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 12
+const CURRENT_VERSION: int = 13
+const ECOLOGY_PROFILE: EcologyProfile = preload("res://data/ecology_profile.tres")
+const ECOLOGY_SAMPLING: EcologySamplingConfig = preload("res://data/ecology_sampling_config.tres")
+const ECOLOGY_LAND: LandExpansionConfig = preload("res://data/land_expansion_config.tres")
+const ECOLOGY_LEGACY: CropMigrationConfig = preload("res://data/crop_migration_v7.tres")
 const WEATHER_CONFIG: WeatherProfile = preload("res://data/weather_profile.tres")
 const WATERING_INTRODUCED_VERSION: int = 10
 const COOP_CONFIG: ChickenCoopConfig = preload("res://data/chicken_coop_config.tres")
@@ -33,6 +38,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		_last_write_report = {"ok": false, "error": &"invalid_slot", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
 		return false
 	if _write_in_progress:
+		return false
+	var ecology: Dictionary = _normalize_ecology(payload, payload.get("ecology"))
+	if not ecology.ok:
+		_last_write_report = {"ok": false, "error": &"invalid_ecology_context", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
 		return false
 	var wrapped: Dictionary = {
 		"meta": {
@@ -51,6 +60,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"watering_can": payload.get("watering_can", {}),
 		"chicken_coop": payload.get("chicken_coop", ChickenCoopSaveCodec.empty(_coop_day(payload))),
 		"farm": payload.get("farm", {}),
+		"ecology": ecology.snapshot,
 		"quests": payload.get("quests", {}),
 		"profile": payload.get("profile", {}),
 		"weather": WeatherSaveCodec.pack(WEATHER_CONFIG,payload.get("weather",{}),_coop_day(payload)),
@@ -60,7 +70,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"day_end": payload.get("day_end", {})
 	}
 	_write_in_progress = true
-	_last_write_report = SaveWriteTransaction.write(SaveFileStore.new(), _save_path(slot), JSON.stringify(wrapped, "\t").to_utf8_buffer(), MAX_BACKUPS)
+	_last_write_report = SaveWriteTransaction.write(SaveFileStore.new(), _save_path(slot), JSON.stringify(wrapped, "\t", true, true).to_utf8_buffer(), MAX_BACKUPS)
 	_write_in_progress = false
 	if not _last_write_report.ok:
 		push_warning("SaveService: write failed (%s), recovery copies: %s" % [_last_write_report.error, _last_write_report.recovery_paths])
@@ -171,6 +181,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_10_to_11(migrated)
 	if version<=11:
 		migrated = migrate_11_to_12(migrated)
+	if version<=12:
+		migrated = migrate_12_to_13(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -193,6 +205,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	migrated["watering_can"] = can.serialize()
 	migrated["chicken_coop"] = ChickenCoopSaveCodec.normalize(migrated.get("chicken_coop"),_coop_day(migrated),COOP_CONFIG)
 	migrated["weather"] = WeatherSaveCodec.normalize(WEATHER_CONFIG,migrated.get("weather",{}),_coop_day(migrated))
+	var ecology: Dictionary = _normalize_ecology(migrated, migrated.get("ecology"))
+	migrated["ecology"] = ecology.snapshot if ecology.ok else {}
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -277,3 +291,20 @@ func migrate_11_to_12(data: Dictionary) -> Dictionary:
 	var migrated: Dictionary = data.duplicate(true)
 	migrated["weather"] = WeatherSaveCodec.normalize(WEATHER_CONFIG,migrated.get("weather",{}),_coop_day(migrated),true)
 	return migrated
+
+func migrate_12_to_13(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# Pre-v13 unknown ecology fields are not trusted as saved history.
+	var ecology: Dictionary = _normalize_ecology(migrated, null)
+	migrated["ecology"] = ecology.snapshot if ecology.ok else {}
+	return migrated
+
+func _normalize_ecology(payload: Dictionary, raw: Variant) -> Dictionary:
+	var crops: Array[Resource] = DataRegistry.get_all_crops()
+	var context: Dictionary = EcologySaveContext.capture(payload, crops, ECOLOGY_LAND, ECOLOGY_LEGACY)
+	var result: Dictionary = EcologySaveCodec.normalize(ECOLOGY_PROFILE, ECOLOGY_SAMPLING, raw, _coop_day(payload), crops, context)
+	if not result.ok:
+		push_warning("SaveService: invalid ecology context; explicit runtime fallback required")
+	elif raw != null and result.reason != &"restored":
+		push_warning("SaveService: ecology " + String(result.reason))
+	return result

@@ -65,7 +65,7 @@ func _fixture(kind: String) -> void:
 		_write(1, 1, "{also broken")
 		_write(1, 2, good)
 	elif kind == "future":
-		_write(1, 0, '{"meta":{"save_version":13}}')
+		_write(1, 0, JSON.stringify({"meta":{"save_version":SaveService.CURRENT_VERSION+1}}))
 		_write(1, 1, good)
 	else:
 		_write(1, 0, "{broken")

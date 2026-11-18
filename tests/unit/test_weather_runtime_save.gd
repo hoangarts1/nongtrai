@@ -14,12 +14,12 @@ func after_each() -> void:
 	f.cleanup()
 
 func test_all_twelve_real_goldens_migrate_preserving_existing_prerolls_and_other_values() -> void:
-	for version: int in range(1,13):
+	for version: int in range(1,SaveService.CURRENT_VERSION+1):
 		var raw: Dictionary = _golden(version)
 		var original: Dictionary = raw.duplicate(true)
 		_write(raw)
 		var loaded: Dictionary = SaveService.load_game(98)
-		assert_eq(int(loaded.meta.save_version),12)
+		assert_eq(int(loaded.meta.save_version),13)
 		assert_eq(loaded.clock,raw.clock)
 		assert_eq(loaded.get("wallet",{}),raw.get("wallet",loaded.get("wallet",{})))
 		assert_eq(loaded.inventory.slots,raw.inventory.slots)
@@ -109,7 +109,7 @@ func test_current_requires_day_but_trusted_pack_and_legacy_migration_bind_clock(
 	raw.meta.save_version = 11
 	_write(raw)
 	assert_eq(SaveService.load_game(98).weather,expected)
-	raw.meta.save_version = 13
+	raw.meta.save_version = SaveService.CURRENT_VERSION+1
 	_write(raw)
 	assert_eq(SaveService.load_game(98),{})
 

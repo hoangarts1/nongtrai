@@ -151,7 +151,7 @@ func test_confirm_actual_player_and_saved_profile_match_preview() -> void:
 	assert_eq(_main.profile.appearance,selection)
 	assert_eq(_main.inventory.get_quantity(&"turnip_seed"),10)
 	assert_eq(_main.wallet.get_coins(),100)
-	assert_eq(int(SaveService.load_game(1).meta.save_version),12)
+	assert_eq(int(SaveService.load_game(1).meta.save_version),13)
 	assert_eq(JSON.parse_string(JSON.stringify(SaveService.load_game(1).profile.appearance)),JSON.parse_string(JSON.stringify(selection)))
 	assert_true(selection.skin_index is int)
 	assert_true(_main.call("_load_game"))

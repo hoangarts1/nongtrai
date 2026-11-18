@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.3e save13 wire (D110)
+
+Current actual save version13 adds ecology:{day_index:int,metrics:{tree_cover:float,water_clarity:float,biodiversity:float},triggered:Array[String]}. Existing standalone strict validation applies; day matches canonical saved clock. Counts/targets/availability/runtime/UI flags are derived transient values, never stored. Full-precision JSON writes preserve below/equal threshold floats and existing payload values. v1-v12 goldens remain byte-identical; additive save_v13 is derived from12 using real canonical context. Legacy <=12 ignores unknown ecology fields and seeds current-garden baseline/empty history at saved day; no catch-up/reward. Valid13 retains values/history; missing/corrupt/mismatched component explicitly calibrates, water remains unavailable even if placeholder value is nonzero. Invalid write context blocks transaction, bad read context yields ecology{} marker and Main rejects malformed context before changing live owners. No other schema change. Daily easing is next7.3f, not performed by serialization/loading.
+
 ## Phase7.3d component normalization boundary (D109)
 
 Independent EcologySaveCodec accepts existing {day_index,metrics,triggered}, requiring day_index equal to explicit loaded clock day. Valid numbers/history remain exact; use full_precision JSON for standalone writers. Missing/malformed/mismatched component gets explicit reason and current-garden calibrated snapshot; invalid context gives failure without snapshot. Context is transient {ok,reason,farm,regions}, never saved. FarmSaveCodec canonicalization and LandOwnershipState rules match actual legacy restoration; crop migration entries must be known IDs with positive integral int32 durations. Unsafe raw withered_days casts fail before delegation. No schema/version/golden edits in7.3d, SaveService remains12.

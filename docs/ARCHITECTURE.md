@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3e actual Main/save composition (D110)
+
+Main owns ecology_state with stable identity; RefCounted ecology_runtime references it solely for lifecycle adaptation. Candidate normalization precedes live restore; guard spans land/farm/clock/other callbacks, actual-owner silent finish releases it. A private Main land restore path applies existing public view/domain refresh steps because the external LandRuntime.restore rejects the global guard. No additional world/UI Node, autoload or signal bridge. Existing Main day pipeline is unchanged in this substep;7.3f adds reserved daily sampling. Save13 serializes canonical ecology with full-precision JSON; <=12 migrates to current-garden calibration without history/replay, current13 preserves valid metrics/history. Existing envelope/atomic backup transactions/weather/water/coop data remain. Bad write context refuses write; malformed read context retains an explicit empty ecology marker and Main refuses invalid context before owner mutation. Human F5 acceptance remains separate.
+
 ## Phase7.3d pure save-context boundary (D109)
 
 EcologySaveContext reads explicit legacy payload/catalog/land/migration Resources and builds detached canonical farm/owned regions using existing domain codecs. A temporary land owner exists only to apply existing ownership rules, never becomes a second runtime owner. EcologySaveCodec validates context shape and delegates lifecycle resolution for exact matching-day load or explicit calibrated fallback. Inputs and unrelated payload fields stay untouched; no Node/autoload/clock/filesystem/RNG/global event. Existing game composition and Save12 still unchanged. Save13 integration is the next approved step, not an implemented field at this stage.

@@ -1,5 +1,11 @@
 # DECISIONS — THE LIFE
 
+### D110 — Main ecology owner, lifecycle guard and save13 (2026-11-18)
+
+Approved7.3e composes one stable Main ecology owner plus RefCounted lifecycle adapter. Preflight canonical context before live mutation, hold busy through synchronous restoration so Main save/load/NewGame/title routes cannot reenter. Main's land lifecycle internal steps reuse documented public close/deserialize/refresh_land, preserving LandRuntime's external busy rejection without editing it. Existing state/codec/sampler libraries remain unchanged.
+
+Save13 adds only ecology{day_index,metrics,triggered}; full-precision JSON protects threshold side. Legacy <=12 calibrates actual owned garden and cannot smuggle unknown ecology history; valid13 preserves matching-day values/history. Corrupt/missing/mismatched component has explicit calibration reason; invalid write context preserves existing files. Failed read context exposes ecology{} for explicit runtime rejection/fallback, not false complete data. Alloldgoldens unchanged, additive13 generated from12+actual codec. Only exact approved40lines in32oldtests change; explicit envelope12/13 contracts remain. Step has no daily callback yet;7.3f is required before daily ecology integration is complete. No Player/InputMap/scene/audio/price/cleanup change.
+
 ### D109 — canonical legacy ecology context before live save13 integration (2026-11-18)
 
 Step7.3d implements only pure context/component libraries under approved12paths. Reuse existing FarmSaveCodec and LandOwnershipState so legacy aliases/frozen growth/ownership match real restoration, without rewriting source farm/land or goldens. Validate explicit Resources/catalog and direct-cast safety first. Valid ecology with matching clock day stays exact, including history and below-threshold floats; malformed/missing/mismatched state returns explicit current-garden calibration, never replay. Invalid sampling context fails completely; do not fabricate a partial component. Existing envelope/storage/weather/crop/water/animal/Player APIs and save12 remain unchanged until approved7.3e. Independent no-autoload probe verifies transitive pure Resource/domain dependencies.
