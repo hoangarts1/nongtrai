@@ -1,5 +1,11 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.3g ecology readout definitions (D112)
+
+data/ecology_journal_config.tres has texts mapping required title/entry/back/scope/unmeasured/water_note/current/target/ease/next/active/below/waiting/news_title/news_summary to UPPER_SNAKE keys, and three rows{id,label_key,hint_key,threshold_id,threshold_key,count_key,count_text_key}. Metrics bind tree_cover->mature_fruit_trees/birds, biodiversity->species/butterflies, water_clarity->emptycount/clear_water (unavailable). Translation keys must exist in bothvi/en; no gameplay values in this Resource. Additional25draft strings are localized and format existing Resource goals/ranges/ease/thresholds.
+
+Transient snapshot {ok,state,sample,goals} copies actual owner plus current sampler targets/counts/availability; state wire remains existing13component. Schema validates full metrics, integer counts/positive goals and water=false; no numeric fallback for busy/stale/invalid inputs. Formatted measured rows expose actual value/min/max plus distinct current-garden target/source/ease/threshold text. Unmeasured water deliberately omits numeric value/max/target/source/threshold/active fields. %.1f labels are display formatting only, never written back to owner. No save/schema/slot/owner/input change; UI controls are next7.3h.
+
 ## Phase7.3f transient reservations and native numeric precision (D111)
 
 Save13 wire unchanged. EcologyState day/token reservation and monotonic token counter are transient, excluded from serialize/deserialize; load never recreates a pending day. Wrong token/invalid target preserves reservation/committed values until valid retry or abort. Sampling config/catalog/regions are frozen per day without cloning textures; actual post-growth/season-withering farm is sampled once, then existing ease10 is applied. No UI/plot event advances ecology.

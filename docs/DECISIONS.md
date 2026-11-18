@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D112 — actual ecology readouts before journal controls (2026-11-18)
+
+Approved7.3g creates Resource-owned localized definitions and stateless VIEW snapshot/formatter. Current eased metric and current garden target/count are different values and displayed explicitly; only the daily simulator changes the former. Count aliases/healthy/regrow/ownership semantics stay in sampler, goals/ease/thresholds stay in existing DATA. Water is always unmeasured: formatter omits numeric value/bar/target/source/threshold fields instead of displaying a saved placeholder as cleanliness. Busy/stale/bad input gives waiting/failure, not invented zeros. Hints describe real planting/care/owned-garden actions, not imaginary cleanup/flowers/rewards/history. No Node/control/scene/clock/save/global event changes in this step;25vi/en draft keys and validator/CLI gate support the next journal/morning consumers. Human tone review remains separate from automated key/layout acceptance.
+
 ### D111 — ecology reservations in the single completed-day pipeline (2026-11-18)
 
 Approved7.3f adds transient EcologyState reservation APIs and optional final DaySimulator callback, preserving original callers/metrics/ease/wire. Main validates and reserves under existing weather/coop guards, freezes sampling inputs before farm callbacks, resolves season withering at farm-step end, then farm->animals->machines->ecology before weather/new rain/ledger/save/bulletin. No eager easing on UI/plot/ownership changes. Reserved state rejects reconfiguration/load/direct advance through callbacks, reads old committed snapshot until atomic finish and guarded signals; wrong token/invalid target never silently commits. Invalid preflight aborts weather without simulating/saving; existing clock-first adapter is not rewritten. Late inconsistency remains locked/no success/autosave rather than concealing partial completion. Save13 and all prior tests/goldens remain unchanged.

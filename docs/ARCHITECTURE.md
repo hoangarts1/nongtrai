@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3g read-only presentation boundary (D112)
+
+DATA EcologyJournalConfig maps existing metric/count/threshold identities to text keys. VIEW EcologySnapshot captures actual Main owner plus live sampler counts/targets/goals only when idle and clock-aligned; no new state owner. VIEW EcologyPresenter builds primitive localized UI models and performs no simulation/action/save. Invalid/busy/stale state produces explicit waiting/failure. Water is structurally nonnumeric in the formatted model because measurement is unavailable, even when its saved placeholder is nonzero. Actual eased value, current garden target/count, data ease and threshold hint stay distinct. No visible Control/scene or new event/input in this milestone. Journal7.3h/morning7.3i consume this boundary next; Save13/current pipeline unchanged.
+
 ## Phase7.3f actual reserved ecology day order (D111)
 
 Existing clock-first day_started adapter remains. Main preflights all current day guards, reserves weather then ecology, freezes sampling DATA/catalog/owned regions and keeps application busy. Existing outer DaySimulator runs farm callback (outgoing rain/growth followed by new-season withering), animals, machines, then optional ecology callback. Ecology samples the completed farm and commits exactly the next day, preserving unavailable water. Only after both animal/ecology days match does Main finish weather, apply new-morning rain, reconcile ledger/review, release guards, save and queue bulletin. Direct/duplicate/stale/skipped/reentrant day callbacks do not run a second simulation. Existing positional/no-ecology simulator callers remain valid. Failed preflight aborts weather before world work; late inconsistent completion stays locked with explicit warning/no success save. No new global signal/autoload/world node.

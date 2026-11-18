@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3g automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 177scripts/759/759/88757assert; groups148.871/125.224/125.811s<180, GUT399.906s/wall422.394s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2401, prior test/fixture verification372, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3g-195748/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step5/10 after7.3f pushed9b8aac510386a7a4c5f4797ffa32e34f81d05a53/full751/751/88677assert. EcologyJournalConfig Resource owns metric/threshold/count/text bindings; DataValidator/CLI append config+both-locale key gate without changing old gates. EcologySnapshot captures actual owner/current-garden targets/counts/goals detached, refuses busy/stale/invalid context. EcologyPresenter formats real estimates versus targets/counts/ease/threshold/action hints; water has only localized unmeasured note and no numeric/bar/target/source/active fields. Added25vi/en keys as reviewable draft text; no visible UI/control/scene/clock/save update in this step. Shared3tabs/4quest filters remain unchanged.
+
+First focused headless2scripts/8/8/80assert/2.022s PASS; actual garden/regrow/wither/legacyalias/unowned counts, both locales/threshold equality, refusal of fake water availability/busy/stale, detached result and exact owner/save-byte invariance. CLIpositive1 exit0; deliberate Resource label ECO_MISSING_TRANSLATION negative exit1 with identified missing key, exact original Resource bytes restored in finally. All earlier gates preserved. Import generated no outside-scope changes; preflight scope clean. Full759/759 PASS. Checkpoint D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3g-195748/. Save13/Player/InputMap/oldtests/goldens/real saves preserved. Journal panel is next7.3h, not claimed present here.
+
 ## Phase7.3f automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 175scripts/751/751/88677assert; groups125.39/123.827/120.542s<180, GUT369.759s/wall388.349s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2395, prior test/fixture verification366, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3f-193526/full-attempt1. No skipped/removed cases or timeout extension.

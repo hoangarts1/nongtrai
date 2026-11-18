@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EcologyJournalConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/ecology_journal_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+texts = {
+"title": "ECO_TITLE", "entry": "ECO_ENTRY", "back": "ECO_BACK",
+"scope": "ECO_SCOPE", "unmeasured": "ECO_UNMEASURED", "water_note": "ECO_WATER_NOTE",
+"current": "ECO_CURRENT", "target": "ECO_TARGET", "ease": "ECO_EASE",
+"next": "ECO_NEXT", "active": "ECO_ACTIVE", "below": "ECO_BELOW",
+"waiting": "ECO_WAITING", "news_title": "ECO_NEWS_TITLE", "news_summary": "ECO_NEWS_SUMMARY"
+}
+rows = Array[Dictionary]([
+{"id": "tree_cover", "label_key": "ECO_CANOPY", "hint_key": "ECO_HINT_TREES", "threshold_id": "birds", "threshold_key": "ECO_BIRDS", "count_key": "mature_fruit_trees", "count_text_key": "ECO_TREE_COUNT"},
+{"id": "biodiversity", "label_key": "ECO_DIVERSITY", "hint_key": "ECO_HINT_SPECIES", "threshold_id": "butterflies", "threshold_key": "ECO_BUTTERFLIES", "count_key": "species", "count_text_key": "ECO_SPECIES_COUNT"},
+{"id": "water_clarity", "label_key": "ECO_WATER", "hint_key": "ECO_WATER_NOTE", "threshold_id": "clear_water", "threshold_key": "ECO_CLEAR_WATER", "count_key": "", "count_text_key": ""}
+])

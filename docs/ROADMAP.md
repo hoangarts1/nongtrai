@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3g automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 177scripts/759/759/88757assert; groups148.871/125.224/125.811s<180, GUT399.906s/wall422.394s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2401, prior test/fixture verification372, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3g-195748/full-attempt1. No skipped/removed cases or timeout extension.
+
+7.3f pushed9b8aac5/full751/751. Step5/10 adds validated journal definitions, actual detached snapshots/localized formatter and25draftvi/en keys. Current eased values differ from live garden targets; water model has no numeric score/bar. Focused8/8/80assert and CLIpositive0/deliberate missingkey negative1 PASS, Resource restored; full759/759 PASS. No visible journal yet, no domain/save13/InputMap/Player changes. Oldtests/goldens preserved;7.3h is next approved UI step.
+
 ## Phase7.3f automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 175scripts/751/751/88677assert; groups125.39/123.827/120.542s<180, GUT369.759s/wall388.349s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2395, prior test/fixture verification366, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3f-193526/full-attempt1. No skipped/removed cases or timeout extension.
@@ -410,6 +416,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.3d | Canonical context/component libraries (D109; automation delivered) | Existing farm/land rules, exact matching-day ecology or explicit current-garden fallback; pure1000roundtrips/6newcases, save12 unchanged, full728/728 PASS | [~] |
 | 7.3e | Main-owned ecology/save13 (D110; automation delivered) | Stable owner, silent guarded restore/current-garden fallback, full-precision wire and additive13golden; oldgoldens/40line compatibility exact, focused29/29 PASS, full734/734 PASS | [~] |
 | 7.3f | Reserved daily ecology (D111; automation delivered) | Single farm/animal/machine/ecology order, frozen sampling/token guards,17newcases/focused30/30/pure1000days PASS; source numeric limit documented, full751/751 PASS | [~] |
+| 7.3g | Actual localized readouts (D112; automation delivered) | Resource bindings, detached actual metrics/targets/counts, unmeasured water omitted numeric fields,25vi/en keys/validator; focused8/8/CLI0-1 PASS, full759/759 PASS | [~] |
 | 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |

@@ -281,5 +281,11 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
+	var journal_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_ecology_journal(preload("res://data/ecology_journal_config.tres"), preload("res://data/ecology_profile.tres"), locale_paths)
+	if not journal_errors.is_empty():
+		for message: String in journal_errors:
+			push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

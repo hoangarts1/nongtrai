@@ -1,4 +1,29 @@
 key,value
+ECO_TITLE,Ecology journal
+ECO_ENTRY,Ecology
+ECO_BACK,Back to quests
+ECO_SCOPE,Crops on your owned garden land contribute to these estimates.
+ECO_UNMEASURED,Not measured
+ECO_WATER_NOTE,"Water has no measurements yet. The well, stream and pond refill your can."
+ECO_CURRENT,Current: %.1f / %.0f
+ECO_TARGET,Garden target: %.1f / %.0f
+ECO_EASE,Each day moves the estimate %.0f%% toward its target.
+ECO_NEXT,%s: %.0f
+ECO_ACTIVE,Threshold reached
+ECO_BELOW,Below threshold
+ECO_WAITING,Waiting for the garden to update.
+ECO_NEWS_TITLE,Your garden today
+ECO_NEWS_SUMMARY,Tree cover %.1f · Diversity %.1f
+ECO_CANOPY,Garden tree cover
+ECO_DIVERSITY,Crop diversity
+ECO_WATER,Water clarity
+ECO_HINT_TREES,"Grow orange, apple or banana trees and care for them each day."
+ECO_HINT_SPECIES,Keep a variety of living crops on your owned land.
+ECO_BIRDS,Birds return
+ECO_BUTTERFLIES,Butterflies return
+ECO_CLEAR_WATER,Clear water
+ECO_TREE_COUNT,%d / %d healthy mature fruit trees
+ECO_SPECIES_COUNT,%d / %d living crop species
 ITEM_TURNIP_SEED,Turnip seeds
 ITEM_TURNIP,Turnip
 ITEM_SPRING_CARROT_SEED,Spring carrot seeds

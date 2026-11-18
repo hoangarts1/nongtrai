@@ -1,4 +1,29 @@
 key,value
+ECO_TITLE,Nhật ký sinh thái
+ECO_ENTRY,Sinh thái
+ECO_BACK,Về nhiệm vụ
+ECO_SCOPE,Cây trồng trên đất của bạn góp vào các chỉ số này.
+ECO_UNMEASURED,Chưa đo
+ECO_WATER_NOTE,"Chưa có phép đo nước. Giếng, suối và ao dùng để nạp bình."
+ECO_CURRENT,Hiện tại: %.1f / %.0f
+ECO_TARGET,Mục tiêu từ vườn: %.1f / %.0f
+ECO_EASE,Mỗi ngày chỉ số tiến %.0f%% tới mục tiêu.
+ECO_NEXT,%s: %.0f
+ECO_ACTIVE,Đang đạt ngưỡng
+ECO_BELOW,Chưa đạt ngưỡng
+ECO_WAITING,Đang chờ vườn cập nhật.
+ECO_NEWS_TITLE,Khu vườn hôm nay
+ECO_NEWS_SUMMARY,Tán cây %.1f · Đa dạng %.1f
+ECO_CANOPY,Tán cây trong vườn
+ECO_DIVERSITY,Đa dạng cây trồng
+ECO_WATER,Độ trong của nước
+ECO_HINT_TREES,"Trồng cam, táo hoặc chuối và chăm cây khỏe qua ngày."
+ECO_HINT_SPECIES,Giữ nhiều loài cây sống trên đất của bạn.
+ECO_BIRDS,Chim trở về
+ECO_BUTTERFLIES,Bướm trở về
+ECO_CLEAR_WATER,Nước trong
+ECO_TREE_COUNT,%d / %d cây ăn quả trưởng thành khỏe
+ECO_SPECIES_COUNT,%d / %d loài cây đang sống
 ITEM_TURNIP_SEED,Hạt củ cải
 ITEM_TURNIP,Củ cải
 ITEM_SPRING_CARROT_SEED,Hạt cà rốt xuân
