@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase7.4c isolated verification entry point (D117)
+
+tools/sim_ecology.gd extends SceneTree; static run_scenario(days:int=1000,chunk_size:int=17)->Dictionary. Intended ONLY isolated CLI/GUT without a live Main. Temporarily snapshots/restores actual GameClock serialized state/pause; returns {ok,days,chunk_size,stats,crossings,snapshot,reference,farm,land,water_available:false} or {ok:false,reason:String}. Actual farm/simulator runtime Scripts load after autoload startup, avoiding pre-autoload Events compile errors. No save files/Main/world nodes/new owner/schema/RNG. CLI --days/--chunk positive ints, exit0 PASS/1 invalid or mismatch. Counters and invariants in DATA_SCHEMA; care/neglect/checkpoint grouping is verification input, not gameplay settings. New GUT test_ecology_simulation and test_ecology_end_to_end cover deterministic1000day and native complete lifecycle/read-only/modal/locale/capture paths. Existing public game APIs unchanged.
+
 ## Phase7.4b live bounded2D ecology flow (D116)
 
 Main.ecology_effects_flow:LifeEcologyEffectsFlow is a child Node outside world, configure(main:Node,source:EcologyFeedbackProfile=PROFILE)->bool deep-freezes validated profile. refresh()->void captures actual current EcologySnapshot then pure selector, maps normalized anchors to deduplicated owned cells clipped to existing map, uses world.grid.cell_to_global and objects.to_local. Stable effect:index keys preserve roots; no-op refresh retains instance/phase. clear()->void frees owned roots; _exit_tree calls clear. get_presentation_snapshot()->Array[Dictionary] returns detached {key,id,cell,instance_id,global_position,phase:Vector2,opacity}. Dirty state/farm notifications coalesce next process; Resource refresh interval checks state/day/ownership for silent changes, no per-frame sampler. Unavailable/busy/title clears; Main successful restore/NewGame/title explicitly refresh. Existing clock/weather update cosmetic opacity only.

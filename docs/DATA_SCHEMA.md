@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.4c harness reports, not save fields (D117)
+
+No Resource/gameplay/save13 schema change. Verification report stats={compared_days,duplicate_rejections,roundtrips,json_scalar_roundings,upward,downward,withered_observations,harvests,mature_tree_peak,species_peak,expanded}; crossings rows {day:int,id:String,active:bool}; final actual farm/land/ecology and independent reference snapshots. Positive1000days/chunk17 are benchmark inputs. Care/neglect alternates by actual Resource season length; fruit goals/species/catalog/growth/ownership use existing DATA. Explicit unavailable held-water midpoint is a test input, never cleanliness. NativeJSONfullprecision checkpoints canonicalize through current codec; decoded values/history must restore exactly and threshold sides remain. Scalar rounding counted separately; arbitrary never-decoded bit identity is not asserted. CLI writes no files, native test saves only isolated user directory. Human art/water/future event acceptance is separate.
+
 ## Phase7.4b transient critter presentation (D116)
 
 No persistent schema/Resource/value change. Flow deep-freezes7.4a profile; transient map key effect:index -> native2D root with cell/effect_id metadata, cosmetic flight/flap phases and opacity only. Owned regions deduplicate/intersect actual map; normalized fractions choose ordered region row-major cells, shared grid handles projection. Detached diagnostic rows expose coordinates/instance/phase, not save data. Resource refresh interval checks silent ownership/state changes; no gameplay/random numbers or farmer state added. Max14 default silhouettes are prototypes, water never creates an effect.

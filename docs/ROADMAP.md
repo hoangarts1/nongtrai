@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.4c automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 184scripts/782/782/89790assert; groups154.541/129.022/117.921s<180, GUT401.484s/wall421.661s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2423, prior test/fixture verification386, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4c-214139/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step10/10 verifies actual1000day farm/season/care/land path against individual transitions,35nativeJSONcontinuations,1000duplicate rejections and48threshold crossings; held unavailable water/no fakehistory. CLI2 and negative0day, isolated pure1000day probe PASS. Native final5/5/342assert/18freshcaptures PASS across2locales/3sizes with real sleep-review/autosave/morning/J/feedback/load/Continue. Initial bootstrap/new-fixture API failures preserved in logs; no gameplay/oldtest/golden/runner changes. Full782/782 PASS; final row commit/push only after full.One full-gated commit/push per milestone; exact hashes and final push proof in the batch delivery ledger. Parent7.3/7.4 are PARTIAL: measured-water/cleanup/clearwater feedback, final art and human editor/tone acceptance remain. Save13/Player/InputMap unchanged. Complete ledger in PROGRESS.
+
 ## Phase7.4b automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 182scripts/777/777/89448assert; groups125.527/140.599/118.504s<180, GUT384.630s/wall404.065s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2420, prior test/fixture verification384, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4b-212905/full-attempt1. No skipped/removed cases or timeout extension.
@@ -433,7 +439,7 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 |---|---|---|---|
 | 7.1 | Seeded weather + saved forecast | D86 tagged RNG/day reservations/save12 preserve saved forecasts; actual RNG golden/1000-day invariants/full583/583 verified; all557 previous cases retained; human editor acceptance/commit separate, evidence in PROGRESS | [~] |
 | 7.2 | Day/night lighting + rain VFX + ambience (views listen to signals) | Existing daynight/rain retained; D103–D105 five buses/eight original WAV placeholders/context loops delivered; full676/676, native20/20, parse/data/headless/Main PASS; no view simulation; human F5/listening/finalOGG acceptance pending | [~] |
-| 7.3 | `EcologyState` (read-only) | 7.3a DATA/state/codec delivered; 7.3b owned-farm count sampler automation delivered; baseline/runtime/UI/save integration deferred, water unmeasured | [~] |
+| 7.3 | `EcologyState` and actual readouts | D106-D117 DATA/domain/current-garden lifecycle/save13/reserved day/Main/J/morning automation delivered; full final gate in top status. Water measurement/cleanup and human F5/tone acceptance deferred | [~] |
 | 7.3a | Independent ecology DATA/domain/codec (D106; automation delivered) | Three configured metrics0..100/initial0/thresholds25-30-50, immutable snapshots, adjacent-day updates, crossing history and silent JSON restore; focused18/18, pure1000days, CLI0/1, full694/694/87406assert/parse/data/headless/Main PASS; no live ecology yet | [~] |
 | 7.3b | Farm snapshot counts and targets (D107; automation delivered) | Goals8trees/8species, six legacy aliases, regrow maturity, owned healthy crops only; strict atomic validation and unavailable water; focused20/20, pure1000+1000, CLI0/1 and full714/714 PASS | [~] |
 | 7.3c | Current-garden lifecycle library (D108; automation delivered) | Silent current-day calibration/exact saved restore, empty initial history/unmeasured water, atomic rejection and sampled adjacent-day helper; focused8/8 PASS, full722/722 PASS | [~] |
@@ -442,7 +448,11 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.3f | Reserved daily ecology (D111; automation delivered) | Single farm/animal/machine/ecology order, frozen sampling/token guards,17newcases/focused30/30/pure1000days PASS; source numeric limit documented, full751/751 PASS | [~] |
 | 7.3g | Actual localized readouts (D112; automation delivered) | Resource bindings, detached actual metrics/targets/counts, unmeasured water omitted numeric fields,25vi/en keys/validator; focused8/8/CLI0-1 PASS, full759/759 PASS | [~] |
 | 7.3h | Lazy modular ecology journal (D113; automation delivered) | Existing J/modal/3enabled tabs/4filters; actual float bars and unmeasured water, native/language/lifecycle/36captures PASS; no oldtest changes, full763/763 PASS | [~] |
-| 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | visible change at thresholds; no heavy loading | [ ] |
+| 7.3i | Compact actual morning ecology (D114; automation delivered) | Current estimates/counts/tooltips/unmeasured water; native12/12 and full766/766 PASS | [~] |
+| 7.4 | Visual ecology feedback (butterflies, birds, clearer water) | D115-D117 bounded native2D butterfly/bird prototypes and1000day/native lifecycle verification; water effects/final art/human F5 deferred | [~] |
+| 7.4a | Bounded feedback DATA/selector (D115; automation delivered) |8butterflies+6birds, current threshold/availability, strict validator/CLI/pure1000selections/new6cases/full772/772 PASS | [~] |
+| 7.4b | Live bounded2D feedback (D116; automation delivered) | Shared owned-grid anchors/reused max14 nodes/pause/night-rain/lifecycle cleanup; native15/15/12captures/full777/777 PASS | [~] |
+| 7.4c |1000day and native complete lifecycle (D117; automation delivered) | CLI1000days/35roundtrips/48crossings, pure1000days/native5cases/18captures PASS; full782/782 PASS | [~] |
 | 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
 

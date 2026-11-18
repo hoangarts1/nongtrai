@@ -1,5 +1,11 @@
 # Ecology runtime and presentation contract
 
+## Phase7.4c final verification and manual handoff (D117)
+
+No new scene/node/Inspector/InputMap configuration. Tool only runs isolated: pinned Godot --headless --path . --script tools/sim_ecology.gd -- --days=1000 --chunk=17 (exit0 PASS; invalid/mismatch1). Never attach/run its static scenarios beside a live Main because it temporarily uses actual GameClock. It writes no save files and restores previous serialized clock/pause. Native GUT final suite exercises actual sleep/review/forced-review restore/autosave/morning/J-Ecology/Back/Esc/load/Continue and bounded effects, two languages/three sizes with18fresh captures/read-only owner+save proofs.
+
+Manual F5: new/load, care owned mature fruit/variety, sleep-confirm, compare saved day/current estimates and targets/counts in morning/J, Back/Esc and native scroll; observe threshold rise/fall and low-level load with historical triggered; pan/zoom, expansion, pause/night/rain, title/reset/Continue. No extra scene work. Measured water/cleanup/clear-water visuals remain unavailable, silhouettes provisional; human tone/art/editor acceptance is pending. Existing turnip/pea placeholder warnings are retained, not fixed by this scope. Full raw evidence/diffs/files/manuals/commit/push ledger in PROGRESS and external batch DELIVERY.
+
 ## Phase7.4b live native2D feedback (D116)
 
 No .tscn/Inspector/InputMap edit. Main dynamically adds LifeEcologyEffectsFlow; it adds up to14 childless LifeEcologyCritter2D roots directly under existing world.objects. Metadata cell/effect_id; position=objects.to_local(world.grid.cell_to_global(cell)). Same y-sort/tint/camera, no layer/group/collision/input/3D. Bounded stable effect:index keys reuse identities; downward/ineligible/title/exit removes roots synchronously. Flow snapshots dirty actual owner/farm, checks silent state/ownership at Resource interval; no garden scan per frame. Main successful load/NewGame/title calls refresh. Pause/sleep/day-end hold freeze animation; actual night/rain dims by profile, historical history never keeps old critters active.

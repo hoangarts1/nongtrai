@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.4c verification boundary (D117)
+
+No live architecture change. Isolated SceneTree tool uses existing autoload clock/data only, deferred-loads runtime-dependent FarmGridState/DaySimulator, and verifies two separate farm/ecology owners as test references. Actual reserved simulator callback is compared daily with individual lifecycle path; fixed checkpoint positions nativeJSON-decode both before continuing. No world/Main/new game state/save storage or gameplay RNG. GUT native integration separately proves actual Main review/autosave/morning/journal/feedback/lifecycle ownership and immutable reads. Tool restores prior serialized clock/pause before return and never belongs in a live scene. Existing production dependency direction/wire unchanged.
+
 ## Phase7.4b view composition and bounded lifecycle (D116)
 
 Main child LifeEcologyEffectsFlow owns only transient presentation references. Existing world.objects parents up to14 childless LifeEcologyCritter2D roots; shared IsometricGrid provides global anchor then Objects converts local. Per-frame flow advances only cosmetic phases; dirty signals/context interval invoke snapshot/sampler only when actual inputs change. Existing ecology owner/domain/day path remains sole simulation. Main calls refresh after successful load/NewGame/title, and timer observes silent state/land changes. Busy/stale/title hides/removes effects; upward/downward current thresholds reconcile reused keys, exit frees all roots. Pause/time/weather/locale/input do not mutate owners. Save13 no presentation fields.
