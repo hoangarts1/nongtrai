@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.4a automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 181scripts/772/772/89239assert; groups148.655/114.142/113.724s<180, GUT376.521s/wall395.117s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2417, prior test/fixture verification380, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4a-211800/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step8/10 configures bounded provisional native2D bird/butterfly data and pure current-threshold selection. Default8+6=14, explicit availability, no history/fake-water effects/RNG/world wiring. New6/6/71assert PASS after new-test PackedArray syntax correction; CLI positive/negative cap and isolated1000selection pure probe PASS. Full772/772 PASS. Human art/water feature acceptance remains separate; live flow next7.4b.
+
 ## Phase7.3i automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 179scripts/766/766/89168assert; groups120.882/139.521/118.275s<180, GUT378.678s/wall397.286s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2412, prior test/fixture verification378, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3i-205442/full-attempt1. No skipped/removed cases or timeout extension.

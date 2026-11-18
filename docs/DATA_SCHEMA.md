@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.4a presentation-only feedback profile (D115)
+
+Resource total_cap14; refresh_seconds0.5, night_sun_energy0.3/night_opacity0.25/rain_opacity0.45 are cosmetic. effects rows {id,metric_id,threshold_id,count:int,anchors:PackedFloat32Array,body/wing:PackedVector2Array,body_color/wing_color:Color,speed/flap_speed/altitude/scale:float,span:Vector2}. Two exact known bindings: butterflies8/biodiversity/butterflies, birds6/tree_cover/birds. Anchors are unique finite unit fractions, one per critter, interpreted by next flow over actual owned cells. Polygons3..64vertices/nonzero finite area; colors unit RGBA, count sum<=cap, finite positive speeds/altitude/scale, finite nonnegative span. Cap positive with technical allocation guard64. No gameplay parameters/paths/3D assets/water definition. Selector accepts complete known finite bounded metrics and bool availability with waterfalse. Output definitions deep-detached; no saved fields/version changes.
+
 ## Phase7.3i transient morning readout (D114)
 
 No DATA/save13/schema change. Morning snapshot adds transient ecology readout using7.3g schema. Strip displays actual eased tree/species values and live counts; tooltips carry targets/ease/hints. Water label remains unmeasured regardless of saved placeholder. Busy/invalid model clears counts. No presentation fields persist or change owners.

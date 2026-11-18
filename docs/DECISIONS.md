@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D115 ? provisional bounded native2D ecology feedback definitions (2026-11-18)
+
+Approved7.4a Resource owns8butterflies/6birds,max14, polygon geometry/colors/motion/normalized anchors and refresh/lighting. Reuse actual ecology thresholds/availability; current level alone decides visibility, historical triggered never means current activity. No measured water/fish/clear effects. Pure selector returns detached definitions without side effects/RNG/Nodes. Existing available bird/butterfly assets are3D historical material and remain untouched/unloaded. Native2D silhouettes are approved prototypes, not completed final art. This step adds data/pure selection/validator only; live objects next7.4b. No gameplay/save13/input/Player change.
+
 ### D114 ? read-only morning ecology after committed day (2026-11-18)
 
 Approved7.3i consumes existing actual snapshot/presenter in a separate compact strip. No state mutation, forecast replay or fake measured water; actual current estimates/counts and target/ease/hints stay distinct. Invalid context is waiting. Short fixed labels must not word-wrap at shrink width; long summary/counts may wrap. Native both-locale/three-size fit and old price scroll/dismiss tests are required. Save13 and morning timing remain unchanged; human wording acceptance separate.

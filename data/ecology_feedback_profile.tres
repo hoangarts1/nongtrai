@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EcologyFeedbackProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/ecology_feedback_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+total_cap = 14
+refresh_seconds = 0.5
+night_sun_energy = 0.3
+night_opacity = 0.25
+rain_opacity = 0.45
+effects = Array[Dictionary]([
+{"id": "butterflies", "metric_id": "biodiversity", "threshold_id": "butterflies", "count": 8, "anchors": PackedFloat32Array(0.04, 0.17, 0.30, 0.43, 0.56, 0.69, 0.82, 0.95), "body": PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4), "wing": PackedVector2Array(0, 0, 7, -6, 10, -2, 6, 5), "body_color": Color(0.26, 0.18, 0.17, 1), "wing_color": Color(1, 0.68, 0.26, 1), "speed": 1.2, "flap_speed": 8.0, "altitude": 18.0, "scale": 0.8, "span": Vector2(10, 5)},
+{"id": "birds", "metric_id": "tree_cover", "threshold_id": "birds", "count": 6, "anchors": PackedFloat32Array(0.10, 0.26, 0.42, 0.58, 0.74, 0.90), "body": PackedVector2Array(-5, 0, 2, -3, 7, 0, 2, 3), "wing": PackedVector2Array(-2, 0, -9, -8, 4, -4, 5, 0), "body_color": Color(0.27, 0.36, 0.42, 1), "wing_color": Color(0.4, 0.55, 0.62, 1), "speed": 0.7, "flap_speed": 4.5, "altitude": 65.0, "scale": 1.2, "span": Vector2(18, 8)}
+])

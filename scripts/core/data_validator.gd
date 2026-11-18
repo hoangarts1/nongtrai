@@ -1,5 +1,6 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
+##   static func validate_ecology_feedback(config: EcologyFeedbackProfile, profile: EcologyProfile) -> PackedStringArray
 ##   static func validate_ecology_journal(config: EcologyJournalConfig, profile: EcologyProfile, locales: Array[String]) -> PackedStringArray
 ##   static func validate_ecology_sampling(config: EcologySamplingConfig, crops: Array[Resource]) -> PackedStringArray
 ##   static func validate_ecology_profile(profile: EcologyProfile) -> PackedStringArray
@@ -25,6 +26,9 @@
 ##   static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_ecology_feedback(config: EcologyFeedbackProfile, profile: EcologyProfile) -> PackedStringArray:
+	return config.validation_errors(profile) if config != null else PackedStringArray(["ecology feedback profile is required"])
 
 static func validate_ecology_journal(config: EcologyJournalConfig, profile: EcologyProfile, locales: Array[String]) -> PackedStringArray:
 	if config == null:

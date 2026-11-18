@@ -1,5 +1,9 @@
 # Inherited D72 visuals and C1 completion (D73)
 
+## Phase7.4a provisional ecology silhouette DATA (D115)
+
+No renderer/world/art/scene replacement yet. New profile stores simple native2D body/wing polygons/colors/motion and caps8butterflies+6birds,14total. Current thresholds/availability select detached definitions; water/fish never selected. Historical3D bird/butterfly scenes retained and unused. These shapes are prototypes pending human art review; runtime follows in7.4b.
+
 ## AUDIT-F6 active tall-object composition (D92; automation 625/625 verified)
 
 No existing scene/PNG/import edited. At each eligible old C3tree cell, Tree_i PlaceholderWorld2D adapter stays at the identical grid-projected foot and z0 under WorldArt2D y-sort. It has cell/passive_tree/asset_id metadata and a Visual:SuppliedSceneryView child atzero, containing nearest/native Sprite2D positioned by measured pivot. Scattered metadata remains on scattered roots only. Alternating catalogue.tall_ids selects bush/tree_fruit; these are decorative, no harvestable crop/state/collision/input. Occupied plot/machine/actor/route hides wrapper during existing coalesced refresh, roots/identity remain and recover when clear. Static owned-land/water/coop guards stay. Imported colors are unchanged, global WorldTint supplies day/night/rain; season/locale callback is safe but does not recolor object PNGs. Houses/shop/bin/Player/crop/machine views unchanged. Native capture covers30day zoom/locale/size states,12night/rain and2foreground/background poses; human F5 remains separate.

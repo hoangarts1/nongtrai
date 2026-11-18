@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.4a DATA-to-DOMAIN feedback selection (D115)
+
+EcologyFeedbackProfile is presentation-only DATA; pure EcologyFeedbackSelector consumes explicit metrics/availability and EcologyProfile thresholds, produces detached effect definitions. No VIEW/autoload/world/owner dependency and no randomness/history lookup. DataValidator/CLI append profile gate. No runtime child or rendering yet. Historical3D art remains unused; live provisional2D flow is7.4b. Save13 unchanged.
+
 ## Phase7.3i compact morning ecology (D114)
 
 MorningSnapshot appends actual EcologySnapshot; MorningPresenter passes it into new separate LifeMorningEcologyStrip under existing sheet after columns/before tasks. Strip uses shared read-only formatter/current localized keys. No extra owner/controller/day subscription and no new modal route. Existing MorningFlow decides when completed saved day can display; refresh/dismiss/load never simulate ecology. Missing/stale/busy waits, unmeasured water has no numeric score.

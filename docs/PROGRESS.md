@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.4a automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 181scripts/772/772/89239assert; groups148.655/114.142/113.724s<180, GUT376.521s/wall395.117s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2417, prior test/fixture verification380, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4a-211800/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step8/10 after7.3i pushed1fc7576/full766/766/89168assert. New presentation-only EcologyFeedbackProfile Resource owns caps14 total(8butterflies/6birds), normalized deterministic owned-cell anchors, polygon silhouettes/colors/motion, refresh/lighting opacity. Strict profile/data-validator/CLI gates check known tree/bird and diversity/butterfly bindings, count total, finite positive motion, nondegenerate finite bounded-vertex geometry, colors and unique unit anchors. Water effects forbidden. Pure selector uses only actual current metrics plus explicit availability and configured threshold equality; historical triggered never used. No world runtime/art/scene/Main/save13 change. Historical3D bird/butterfly assets retained, not loaded; silhouettes provisional.
+
+Focused1 rejected despite exit0: new profile test used Resource-text-style PackedArray constructors in GDScript and failed parse; only selector3cases ran. Corrected new test constructors, focused2 all2scripts/6/6/71assert/0.423s PASS, oldtests untouched. CLI positive0 / deliberate count9(total15>14) negative1, exact Resource bytes restored in finally. Isolated pure project with7production dependencies/noautoload:1000deterministic selections PASS. Full772/772 PASS. Checkpoint phase7.4a-211800 under batch root; no new editor setup. Runtime next7.4b, final art/human F5 and water measurement deferred.
+
 ## Phase7.3i automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 179scripts/766/766/89168assert; groups120.882/139.521/118.275s<180, GUT378.678s/wall397.286s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2412, prior test/fixture verification378, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3i-205442/full-attempt1. No skipped/removed cases or timeout extension.

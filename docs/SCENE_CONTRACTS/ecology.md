@@ -1,5 +1,9 @@
 # Ecology runtime and presentation contract
 
+## Phase7.4a feedback definitions only (D115)
+
+No scene/tree/Inspector change. data/ecology_feedback_profile.tres owns provisional2D polygons and bounded8butterfly/6bird definitions plus cosmetic animation/refresh/lighting. EcologyFeedbackSelector uses current actual metrics/availability and profile threshold equality, never history; water effects unsupported. No world nodes until7.4b. Existing3D env_bird/env_butterfly remain historical, not dependencies. Manual profile edits require validator; final art/human F5 separate.
+
 ## Phase7.3i morning consumer (D114)
 
 Existing morning sheet adds one separate LifeMorningEcologyStrip from ui/morning/ecology_strip.tscn/.gd. MorningSnapshot carries actual ecology snapshot after committed rollover; presenter displays current estimates, current garden counts/goals, target/ease/action tooltips and water unmeasured. Invalid/busy/stale view has waiting/empty counts. No fake yesterday delta/event/history, no render-time simulation/save. Existing morning queue/modal/dismissal/reset rules remain; exact fields in morning_bulletin.md.

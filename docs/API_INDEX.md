@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.4a bounded ecology feedback data (D115)
+
+EcologyFeedbackProfile(Resource): total_cap:int, refresh_seconds/night_sun_energy/night_opacity/rain_opacity:float, effects:Array[Dictionary]; validation_errors(ecology:EcologyProfile)->PackedStringArray. Bindings only butterflies->biodiversity/butterflies and birds->tree_cover/birds. Native polygon/motion/anchors definitions and bounds in DATA_SCHEMA. DataValidator.validate_ecology_feedback(config,profile) is null-safe, appended CLI gate preserves all prior validators.
+
+EcologyFeedbackSelector pure RefCounted: static select(profile:EcologyFeedbackProfile,ecology:EcologyProfile,metrics:Variant,available:Variant)->Dictionary. Success {ok:true,effects:Array[Dictionary],total:int}; failure {ok:false,reason:StringName}, no partial output. Validates complete metrics/availability (water must be false); available current values >= configured threshold select detached definitions in Resource order. No owner/history/Node/RNG/state retention, no serialize needed. Runtime/geometry drawing not introduced yet.
+
 ## Phase7.3i morning ecology component (D114)
 
 LifeMorningEcologyStrip extends PanelContainer, ecology_strip.tscn: display(snapshot:Dictionary)->void uses EcologyPresenter.describe. Typed heading/summary/water_label/water_value/counts/trees/species controls. Count tooltips show current garden target/ease/action hint. Invalid/busy/stale clears counts and shows waiting; water always unmeasured. MorningSnapshot.capture adds detached ecology field; MorningPresenter renders it and LifeMorningSheet owns strip between columns and tasks. Short labels use no-wrap/shrink to preserve native small-window fit. Existing APIs/flow/input/save unchanged.
