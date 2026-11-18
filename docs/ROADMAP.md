@@ -1,5 +1,29 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F4/F5/F6 automation delivered, uncommitted (2026-11-18)
+
+Approved18/14/13path scopes completed sequentially, actual union30paths (19new/11modified). F4full616/616, F5full621/621, F6full625/625 with84296assert; parse/data/headless63/Main PASS each. All607baseline cases/old assertions/goldens/runner unchanged,18additive.29canonical PNGcatalogue,9small runtime decor,2tall object visuals delivered; legacy C3type/color adapter preserved while own drawing disabled. Source PNG/scenes/InputMap/save12/gameplay owners untouched. Full1C3compatibility failure/fix/full2PASS documented honestly. Default12of18legacyvariants/diagonal bands retained; no all29-in-map claim. Current stage ends here, human F5 and new commit/push separate. Snapshot c81adfd already pushed before these changes. Evidence/diffs/captures/manuals in PROGRESS/DELIVERY.
+
+## AUDIT-F6 in progress (2026-11-18)
+
+F4full616/616 and F5full621/621 passed before F6. Tall supplied bush/tree_fruit now occupy preserved decorative anchors via shared view, no new physics/gameplay. Four new cases focus4/4 plus unchanged old compatibility9/9 pass; renderer/full pending. This finishes supplied11previously-unbound asset integration only after final gate; not all Phase9.3/art/ecology/manager/stamina goals.
+
+## AUDIT-F5 automation delivered (2026-11-18)
+
+Full621/621,83352assert/parse/data/headless63/Main PASS,groups134.059/158.409s. Five additive cases, previous616unchanged; small supplied decor/occupancy reconciliation/native matrix delivered. F6 now starts, already approved; no new commit/human acceptance.
+
+## AUDIT-F5 in progress (2026-11-18)
+
+F4full616/616 delivered. F5 binds9small supplied decor and keeps all old rock/grass/collider results; new passive sprite helper and coalesced occupancy view refresh, no owner/art/scene edits. Focused headless10/10; renderer/full pending. F6 remains unstarted until F5full PASS.
+
+## AUDIT-F4 automation delivered (2026-11-18)
+
+Full616/616,45010assert/parse/data/headless63/Main PASS. Nine additive cases, original607unchanged.29texture catalogue/strict gate/legacy selector delivered without runtime binding. F5 now starts under the already approved scope; F6 remains unstarted. No commit/human acceptance implied.
+
+## Approved AUDIT-F4 → F5 → F6 (2026-11-18)
+
+Owner approved all18/14/13path scopes (union30) in PROGRESS. F4 now implements scenery data/strict import gate and compatibility selector; focused9/9+CLI PASS, full pending. F5small decor/F6tall objects remain unstarted until prior unchanged full gate passes. Baseline607cases preserved; source assets/scene/input/save12/owners untouched. Snapshot c81adfd was pushed before this new work; no new commit/human acceptance implied.
+
 ## AUDIT-F1/F2/F3 automation delivered, uncommitted (2026-11-18)
 
 Sequential full gates passed: F1 596/596, F2 603/603, F3 607/607; final 36789 assertions, parse/data/headless63/Main PASS. Shared crop stage/care/repeat rules, exact/debug Ctrl+M and compact modular machine header/layout delivered. 24 additive cases; old cases/assertions/goldens/runner retained (test_machine_screen only adds geometry/convergence). Scope 44 files, outside approved union0; save12/InputMap/old scenes/art preserved. Detailed per-milestone evidence/diffs/manual limits at PROGRESS and DELIVERY.md in the F3 backup. Human F5/release export/commit remain separate. Other audit goals are not implicitly complete.

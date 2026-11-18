@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## AUDIT-F4 scenery selection boundary (D90)
+
+DATA SceneryArtCatalog -> DOMAIN stateless SceneryPlacementRules -> later VIEW SuppliedSceneryView/WorldPresentation. Pure rules compile one detached validated lookup and select cosmetic entries by stable cell hash, with no Node/clock/DetRandom/state ownership. All scatter parameters live in the Resource; DataValidator facade alone checks actual textures/imports. No serializable state is needed for a pure derived layout. F4 adds no runtime caller or save wire. Existing render/collision/world owners remain until F5/F6 gates pass.
+
 ## AUDIT-F2 debug action routing (D88)
 
 VIEW-only MachineShopShortcut owns a stateless exact-action predicate, not a modal/gameplay owner. Main, UiCoordinator, DebugMenu and NpcSystem pass OS.is_debug_build; modal/title/day-end filters no longer use nonexact debug matches. Main independently gates transaction/title/sleep/day-end before the world debug entry, including the no-active-modal case. The existing UiCoordinator alone still owns modal visibility/pause/player lock; service/state/one-day path remain untouched. No DOMAIN/DATA/autoload/scene/InputMap/save12 change. False-build tests and real release-export evidence are distinguished in PROGRESS.

@@ -1,5 +1,19 @@
 # Inherited D72 visuals and C1 completion (D73)
 
+## AUDIT-F6 active tall-object composition (D92; automation 625/625 verified)
+
+No existing scene/PNG/import edited. At each eligible old C3tree cell, Tree_i PlaceholderWorld2D adapter stays at the identical grid-projected foot and z0 under WorldArt2D y-sort. It has cell/passive_tree/asset_id metadata and a Visual:SuppliedSceneryView child atzero, containing nearest/native Sprite2D positioned by measured pivot. Scattered metadata remains on scattered roots only. Alternating catalogue.tall_ids selects bush/tree_fruit; these are decorative, no harvestable crop/state/collision/input. Occupied plot/machine/actor/route hides wrapper during existing coalesced refresh, roots/identity remain and recover when clear. Static owned-land/water/coop guards stay. Imported colors are unchanged, global WorldTint supplies day/night/rain; season/locale callback is safe but does not recolor object PNGs. Houses/shop/bin/Player/crop/machine views unchanged. Native capture covers30day zoom/locale/size states,12night/rain and2foreground/background poses; human F5 remains separate.
+
+Adapter keeps existing kind=tree/color season metadata. self_modulate alpha0 suppresses only the root procedural drawing; supplied Visual child remains fully visible. Processing is disabled. The unchanged C3test passed after this compatibility fix; no old test was modified.
+
+## AUDIT-F5 active small-decor view (D91; automation 621/621 verified)
+
+Existing scenes unchanged. WorldArt2D still a ground-level y-sort root under Objects. Each scattered SuppliedSceneryView child is Node2D at grid.cell_to_global(cell), with one Sprite2D child named Sprite2D; centered=false, position=-pivot*scale, nearest filter, imported canonical texture. Metadata cell plus asset_id/scenery_kind/scenery_size/variant. Old rock/grass match previous offsets/selection, only large rocks retain existing WorldStaticCollision. Flowers/pebbles/tufts have no collider/input/process and avoid actual work/actor cells plus current static reserves. Coalesced reconciliation updates only those new kinds after plot/lifecycle changes; stable no-op refresh retains roots. Tall trees/anchors remain old presentation until F6. All29entries can configure this passive helper; actual default scatter contains12legacyvariants+9small kinds because old hash is deliberately unchanged. Captures/tests/manual limits in PROGRESS.
+
+## AUDIT-F4 supplied scenery data foundation (D90; runtime not yet wired)
+
+No scene, image/import, existing sprite/collider/position or world class edited. Catalogue records29canonical textures, measured canvas and anchor/scale; pure rules exactly preserve existing rock/grass selection before optional small decor. Existing18sprite canvases keep64,128pivot and native scale; new small/object anchors use measured alpha end. Validation is in the ordinary data CLI. This section supplies data contract only; new view/tree integration is F5/F6, not already delivered. Ground-level node origins, y-sort, large rock collision and owner/save independence are required in those follow-ups. Source measurement/logs in PROGRESS.
+
 ## AUDIT-F1 crop rendering and care alignment (D87)
 
 No existing scene/PNG/font/Theme/camera edit. CropPresentation uses the new DATA stage config and pure stage rules. Normal first-growth art advances at quarters, while mature metadata and actual harvest wait for the full target. Repeat state from the existing plot keeps image3, including wilted variants, until image4 at actual readiness. Both tomato IDs and the five supplied perennials follow this rule. Texture basename/pivot/click root remain unchanged. FarmGridState uses the matching boundary predicate for care, preserving moisture/grace/dry-limit/death and existing day/save behavior. Current stage/ready flags are derived, never persisted. Test/capture results remain pending until recorded in PROGRESS.

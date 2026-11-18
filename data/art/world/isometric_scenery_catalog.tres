@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="SceneryArtCatalog" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/data/scenery_art_catalog.gd" id="1"]
+[resource]
+script = ExtResource("1")
+bucket_count = 100
+hash_multipliers = Vector2i(92837111, 689287499)
+hash_bias = 314159
+size_offset = Vector2i(41, 11)
+sizes = PackedStringArray("small", "medium", "large")
+tall_ids = PackedStringArray("bush", "tree_fruit")
+entries = Array[Dictionary]([
+{"id": &"rock_small_1", "kind": &"rock", "size": &"small", "variant": 0, "path": "res://assets/rocks/rock_small_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_small_2", "kind": &"rock", "size": &"small", "variant": 1, "path": "res://assets/rocks/rock_small_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_small_3", "kind": &"rock", "size": &"small", "variant": 2, "path": "res://assets/rocks/rock_small_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_medium_1", "kind": &"rock", "size": &"medium", "variant": 0, "path": "res://assets/rocks/rock_medium_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_medium_2", "kind": &"rock", "size": &"medium", "variant": 1, "path": "res://assets/rocks/rock_medium_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_medium_3", "kind": &"rock", "size": &"medium", "variant": 2, "path": "res://assets/rocks/rock_medium_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"rock_large_1", "kind": &"rock", "size": &"large", "variant": 0, "path": "res://assets/rocks/rock_large_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": true},
+{"id": &"rock_large_2", "kind": &"rock", "size": &"large", "variant": 1, "path": "res://assets/rocks/rock_large_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": true},
+{"id": &"rock_large_3", "kind": &"rock", "size": &"large", "variant": 2, "path": "res://assets/rocks/rock_large_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": true},
+{"id": &"grass_clump_small_1", "kind": &"grass_clump", "size": &"small", "variant": 0, "path": "res://assets/grass_clumps/grass_clump_small_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_small_2", "kind": &"grass_clump", "size": &"small", "variant": 1, "path": "res://assets/grass_clumps/grass_clump_small_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_small_3", "kind": &"grass_clump", "size": &"small", "variant": 2, "path": "res://assets/grass_clumps/grass_clump_small_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_medium_1", "kind": &"grass_clump", "size": &"medium", "variant": 0, "path": "res://assets/grass_clumps/grass_clump_medium_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_medium_2", "kind": &"grass_clump", "size": &"medium", "variant": 1, "path": "res://assets/grass_clumps/grass_clump_medium_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_medium_3", "kind": &"grass_clump", "size": &"medium", "variant": 2, "path": "res://assets/grass_clumps/grass_clump_medium_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_large_1", "kind": &"grass_clump", "size": &"large", "variant": 0, "path": "res://assets/grass_clumps/grass_clump_large_1.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_large_2", "kind": &"grass_clump", "size": &"large", "variant": 1, "path": "res://assets/grass_clumps/grass_clump_large_2.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"grass_clump_large_3", "kind": &"grass_clump", "size": &"large", "variant": 2, "path": "res://assets/grass_clumps/grass_clump_large_3.png", "image_size": Vector2i(128, 128), "pivot": Vector2(64, 128), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"flower_0", "kind": &"flower", "size": &"", "variant": 0, "path": "res://assets/decor/flower_0.png", "image_size": Vector2i(32, 40), "pivot": Vector2(16, 39), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"flower_1", "kind": &"flower", "size": &"", "variant": 1, "path": "res://assets/decor/flower_1.png", "image_size": Vector2i(32, 40), "pivot": Vector2(16, 39), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"flower_2", "kind": &"flower", "size": &"", "variant": 2, "path": "res://assets/decor/flower_2.png", "image_size": Vector2i(32, 40), "pivot": Vector2(16, 39), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"flower_3", "kind": &"flower", "size": &"", "variant": 3, "path": "res://assets/decor/flower_3.png", "image_size": Vector2i(32, 40), "pivot": Vector2(16, 39), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"pebble_0", "kind": &"pebble", "size": &"", "variant": 0, "path": "res://assets/decor/pebble_0.png", "image_size": Vector2i(32, 32), "pivot": Vector2(16, 29), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"pebble_1", "kind": &"pebble", "size": &"", "variant": 1, "path": "res://assets/decor/pebble_1.png", "image_size": Vector2i(32, 32), "pivot": Vector2(16, 29), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"tuft_0", "kind": &"tuft", "size": &"", "variant": 0, "path": "res://assets/decor/tuft_0.png", "image_size": Vector2i(32, 32), "pivot": Vector2(16, 31), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"tuft_1", "kind": &"tuft", "size": &"", "variant": 1, "path": "res://assets/decor/tuft_1.png", "image_size": Vector2i(32, 32), "pivot": Vector2(16, 31), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"tuft_2", "kind": &"tuft", "size": &"", "variant": 2, "path": "res://assets/decor/tuft_2.png", "image_size": Vector2i(32, 32), "pivot": Vector2(16, 31), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"bush", "kind": &"object", "size": &"", "variant": 0, "path": "res://assets/objects/bush.png", "image_size": Vector2i(96, 80), "pivot": Vector2(48, 80), "scale": Vector2(1, 1), "blocks": false},
+{"id": &"tree_fruit", "kind": &"object", "size": &"", "variant": 0, "path": "res://assets/objects/tree_fruit.png", "image_size": Vector2i(128, 176), "pivot": Vector2(64, 175), "scale": Vector2(1, 1), "blocks": false}
+])
+bands = Array[Dictionary]([
+{"kind": &"rock", "end": 7, "offset": Vector2i(17, 3)},
+{"kind": &"grass_clump", "end": 18, "offset": Vector2i(5, 29)},
+{"kind": &"flower", "end": 22, "offset": Vector2i(13, 7)},
+{"kind": &"pebble", "end": 25, "offset": Vector2i(19, 23)},
+{"kind": &"tuft", "end": 30, "offset": Vector2i(31, 47)}
+])

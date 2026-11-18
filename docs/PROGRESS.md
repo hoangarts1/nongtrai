@@ -1,5 +1,188 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Checkpoint commit F4–F6 và chuẩn bị batch10 theo lệnh mới (2026-11-18)
+
+User yêu cầu “tiếp tục10plan liên tiếp comit và up git đi”. Trước batch mới, commit/push đúng30path F4–F6 đã bàn giao; source khớp final manifest/full625/625,84296assert/parse/data/headless63/Main PASS, freshDataValidator PASS. Backup/status/index/staged manifest/log ở D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/. Hai tệp prompt vẫn giữ riêng, không stage/restore/delete. Remote trước commit không ahead/behind local. Đây là authorization mới cho commit/push; không force/reset/clean. Hash và remote verification ghi sau khi thực hiện.
+
+Sau checkpoint sẽ chuẩn bị10phạm vi cụ thể, làm tuần tự fullgate rồi commit/push từng mốc sau khi duyệt kế hoạch/ALLOW_LIST. Không suy Task chung thành quyền thay owner/giá/scene ngoài phạm vi. Các báo cáo phía dưới giữ nguyên như lịch sử trước commit.
+
+## AUDIT-F4 → F5 → F6 hoàn tất tự động, chưa commit mới (2026-11-18)
+
+Đã triển khai liên tiếp cả3kế hoạch được người dùng duyệt, mỗi full gate PASS trước mốc sau. Tổng30path trong union ALLOW_LIST30:19file mới/11file sửa, không ngoài phạm vi. Giữ toàn bộ607case baseline và assertion/golden/runner cũ; thêm18case,152scripts/625cases hiện tại. Source/assets/import/scene/InputMap/Player/camera/crop/machine/owner/save12 ngoài các view/data/validator được duyệt không thay đổi. Hai prompt giữ nguyên trạng thái riêng. c81adfd vẫn là HEAD đã push trước lượt này; không commit/push F4–F6.
+
+| Mốc | Full GUT | Assertion | Nhóm giây (180s mỗi nhóm) |
+|---|---:|---:|---|
+| F4 catalogue/strict gate/pure selector |616/616|45010|120.530 /140.739|
+| F5 small decor/runtime/reconciliation |621/621|83352|134.059 /158.409|
+| F6 objects/legacy adapter/visibility |625/625|84296|127.923 /165.857|
+
+Cả ba parse/data/headless63/Main PASS.29PNGcanonical được đo canvas/alpha,pivot/scale trong Resource;18rock/grass giữ nguyên hash/texture/offset/collider.9decor và2objects trước chưa bind hiện đã có consumer thật; current default map dùng12/18legacyvariants+9decor+2objects.6legacyvariants không sinh trong43square như baseline do hash tương quan, không tự đổi phân bố; các dải chéo cũ vẫn còn. Không gọi tất cả29variant là đang xuất hiện trên map.
+
+F6 giữ root Tree_i/cell/count và lớp PlaceholderWorld2D/kind/color theo mùa cho consumer C3; self_modulate alpha0 chỉ tắt nét procedural của root, process tắt, child Visual:SuppliedSceneryView/Sprite2D hiển thị ảnh gốc. Sprite màu native, chịu global WorldTint ngày/đêm/mưa, không nhuộm lại shared texture theo mùa. Cấu hình rỗng fail closed; actual plot/footprint/actor/route chỉ ẩn art, giữ root/owner và phục hồi cùng instance. Nhà/shop/bin/Player/crops nguyên trạng. Factory nhỏ giữ WorldPresentation dưới250dòng. Không thêm harvest/ecology/gameplay cho cây cảnh có quả.
+
+Focused: F4 cuối9/9,8221assert; F5 headless10/10,38554assert và renderer10/10,38584assert. F6 headless mới4/4,898assert; compatibility ban đầu9/9,11666assert; renderer13/13,12608assert; sau tách factory4/4,942assert; overlap probe1/1,839assert; sau giữ C3adapter/guard:6/6,1254assert,15.011s. Đã xem sheet29ảnh/pivot,30ảnh F5 và44ảnh F6 (4matrix và native day/night/rain/overlap). Không sửa .tscn/PNG/.import/font/Theme/InputMap hoặc các test cũ.
+
+Full cuối nguyên cmd /c tools\run_tests.bat, exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless:63/63
+[graphics_tests] PASS: 152 scripts, 625/625 tests, 84296 assertions; GUT 293.78s, wall 305.3095232s
+[run_tests] PASS
+~~~
+Nhóm1:76scripts316/316,30512assert,127.923s; nhóm2:76scripts309/309,53784assert,165.857s; totalwall 322.950727s. Giữ180s/nhóm/full discovery. Strictscan cuối không Script/Parse/ERROR/leak/pending; expected negative-fixture/placeholder/importUID warnings kế thừa vẫn được lưu. Hash ngoài scope/HEAD/index/toàn bộ20file save thật và AUDIT_REPORT được xác minh ở scope-audit-final.json/sequence-scope-audit.json. Sourcefreeze cuối không đổi trong full2.
+
+Lịch sử thật: F4focused đầu7/9 do fixture mới nhầm18variant xuất hiện thay vì baseline12; đã so exact oracle/9decor, không đổi layout để ép pass. F5 không có lượt fail. F6full1 fail test_chibi_world.test_c3_season_fx_observes_existing_clock_and_weather_within_cap: plain wrapper mất type/color C3; group1 315/316,exit1, không timeout, group2 không chạy. Đã sửa production adapter, giữ toàn bộ test cũ và chạy full2 PASS. Lệnh dừng probe/child thấy tiến trình đã kết thúc nên không dừng process nào/không đóng Editor. Các failedlog ở full1.log/full-attempt1/; không dùng group2log cũ của lượt trước làm chứng cứ cho full1.
+
+Bàn giao tổng: D:/godot/game-godot-backups/audit-f6-20261118-055953/DELIVERY.md, gồm exact30file, cumulative.patch, diff từng mốc, before/after, output/summary/manifests/hashes/captures. F4backup audit-f4-20261118-053124; F5 audit-f5-20261118-054506; F6 audit-f6-20261118-055953. F6thực tế12/13path (8sửa/4mới); catalogue không cần sửa lại ở F5/F6. Không có bước Inspector/Project Settings. Chạy lại cmd /c tools\run_tests.bat. Manual F5 còn chờ người dùng:5zoom/vi-en/3size, đi trước/sau cây; gieo/tưới/drag/thu/máy/NPC; mua đất, save-load/NewGame; plot cũ ở cell cây cảnh ẩn art/clear khôi phục; nguồn nước/coop/lối đi không bị decor mới chặn. Chưa chứng nhận human playtest/export/performance máy yếu.
+
+Chỉ hoàn tất phần supplied scenery được duyệt, không toàn bộ Phase9.3/art/UI/manager/stamina/audio/house. Không thêm mốc thứ tư. Commit đề xuất: feat: integrate supplied scenery catalog and passive world assets.
+
+Các khối cũ phía dưới là lịch sử; trạng thái mới nhất ở đầu này.
+
+## AUDIT-F5 hoàn tất tự động — chuyển tiếp F6 (2026-11-18)
+
+Đúng13path trong ALLOW_LIST14 (7sửa/6mới gồm3UID); Resource catalogue không cần sửa. Nối9small decor qua SuppliedSceneryView, giữ toàn bộ legacy selection/pivot/large-rock collision. Đã kiểm actual land purchase/load/NewGame, plot reconciliation không duplicate, NPC/Player/footprint/source/coop exclusions, native camera/picking5zoom và all29texture helper.616case trước giữ nguyên byte, không source/scene/art/input/owner/save12/runner ngoài scope. Backup/diff/list/hash/before/after/capture/log: D:/godot/game-godot-backups/audit-f5-20261118-054506/.
+
+Focused headless10/10,38554assert,7.256s; renderer10/10,38584assert,13.911s. Không lượt focused thất bại. Đã xem30capture thật qua2matrix và riêng ảnh tight/overview. Giữ kiểu các dải chéo của hash cũ, không tự đổi phân bố để gọi là ngẫu nhiên tự nhiên hơn.9decor mới có thực trong world;6trong18biến thể legacy không xuất hiện ở current43square như trước, không giấu hạn chế bằng thay hash.
+
+Full launcher nguyên trạng exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless:63/63
+[graphics_tests] PASS: 150 scripts, 621/621 tests, 83352 assertions; GUT 292.468s, wall 305.0674535s
+[run_tests] PASS
+~~~
+Nhóm134.059/158.409s dưới180s, totalwall 323.89355869999997s. Giữ full discovery/case/assertion/golden/timeout, strictscan không Script/Parse/ERROR/leak/pending; expected fixture/placeholder/importUID warnings được ghi. Source freeze và HEAD/index/20save thật/ngoài scope được đối chiếu ở scope-audit-final.json. Không commit/push; humanF5 còn chờ. Không có bước Inspector/scene/project setting; chạy lại cmd /c tools\run_tests.bat, manual kiểm9decor/5zoom/nhập chuột/mua đất/save-load/NewGame. Commit đề xuất: feat: render supplied small decor without changing farm behavior.
+
+F6 được phép bắt đầu sau PASS này. Các kế hoạch/checkpoint trước giữ lịch sử.
+
+## AUDIT-F4 hoàn tất tự động — chuyển sang F5 (2026-11-18)
+
+Cả3mốc F4/F5/F6 đã được duyệt. F4 thực hiện đúng18path (9file sửa/9file mới gồm4UID), không runtime caller, không sửa607case/golden/runner/scene/InputMap/PNG/import/save12/owners hoặc hai prompt. Backup/before-after/diff/log/measurement: D:/godot/game-godot-backups/audit-f4-20261118-053124/. Đã xem native-pivot-review.png gồm đủ29ảnh, so với kích thước/alpha bbox đo trong asset-measurements.json.
+
+Catalogue và compile/selector/validator đã bàn giao theo API_INDEX/D90. Per-cell oracle giữ chính xác hash/entry/pivot/large-rock classification ở1849ô, gồm đặc điểm baseline chỉ chọn12/18biến thể cũ;9decor mới đều chọn được. Focused9/9,8221assert,1.061s; CLI PASS. Lượt focused đầu7/9 do fixture mới nhầm số biến thể cũ xuất hiện, đã so exact tập ID với oracle và exact9decor thay vì ép đổi baseline;607case cũ không đổi.
+
+Full launcher nguyên trạng exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless:63/63
+[graphics_tests] PASS: 148 scripts, 616/616 tests, 45010 assertions; GUT 261.269s, wall 273.5520103s
+[run_tests] PASS
+~~~
+Nhóm120.530/140.739s, giữ180s/nhóm; totalwall 290.498434s. Strict error/leak/pending scan sạch, expected fixture/placeholder/duplicate UID warnings kế thừa được giữ. Source frozen trước full; outside-scope/HEAD/index/save hash kiểm trong scope-audit-final.json. Human F5 chưa xác nhận, không commit/push mới. Không bước Inspector/project setting/scene. Chạy lại cmd /c tools\run_tests.bat; manual catalogue-only không đổi hình world. Commit đề xuất: feat: validate supplied scenery catalogue and preserve legacy layout.
+
+F5 được phép bắt đầu sau PASS này; F6 chưa triển khai. Kế hoạch cũ dưới đây là lịch sử đã được duyệt, không phải xin lại.
+
+## Đã commit/push snapshot; đề xuất ba mốc tiếp theo AUDIT-F4 → F5 → F6 (2026-11-18, chờ duyệt phạm vi)
+
+User yêu cầu “comit up lên xong hãy tiếp tục 3 plan liên tiếp”. Đã commit c81adfd1c943946d945b701056f55500f0c5e921 (`feat: checkpoint farm systems, weather v12, and audit fixes`):1431file thay đổi,48161 dòng thêm/526 dòng bỏ; giữ đầy đủ dependency các mốc đã có. Git nhận thêm1path chỉ khác chuẩn hóa dòng là giống HEAD nên không tạo diff mã. Đã push origin/master thành công (415LFSobjects,2MB); `git ls-remote origin refs/heads/master` trả đúng hash c81adfd1c943946d945b701056f55500f0c5e921.20commit local trước đó cũng đã lên remote theo fast-forward, không force. Hai thay đổi prompt vẫn để riêng: D the_life_prompt.md; ?? the_life_master_prompt.md. Không khôi phục/xóa nội dung hai file.
+
+Source trước commit khớp hash của full607/607,36789assert/parse/data/headless63/Main PASS đã bàn giao; DataValidator chạy lại trước commit PASS. Không nhận thêm human F5/release acceptance. Nhật ký/index/status/manifest/staged.patch/commit.log/push.log ở D:/godot/game-godot-backups/commit-push-next-three-20261118-030029/. PowerShell ghi dòng stderr thông thường của git push dưới dạng NativeCommandError, nhưng exit thực0 và local/remote hash trùng; không nhầm dòng format đó là push thất bại.
+
+### Chọn phạm vi tiếp theo và điều kiện bắt đầu
+
+Ba mốc F1–F3 đã xử lý ba lỗi presentation ưu tiên2 của audit. Tiếp ưu tiên4 của AUDIT_REPORT §9: tích hợp art supplied đã nhập còn mồ côi; dùng file gốc hiện có, không tạo/bịa art mới và chưa đụng5PNGdraft D72. Chọn ba lát liên tiếp để có thể kiểm/rollback rõ: DATA catalogue -> small decor runtime -> tall objects runtime. Đây là phần còn thiếu của ISO-14/asset integration và Phase9.3, không tuyên bố hoàn tất toàn Phase9.3. Chưa chuyển sang ambience7.2 vì chưa có track ambience/music; chưa làm manager/stamina/house/fertilizer vì cần đặc tả riêng. Không hỏi lại có cần4stage/exactCtrlM/shoplayout đã được làm xong.
+
+Task hiện tại cho phép chuẩn bị các kế hoạch này; ALLOW_LIST của lượt trước chỉ áp dụng F1/F2/F3. Theo AGENTS.md §3: “plan first ... and wait for approval before coding” khi nhiều file/domain. Vì vậy khối này là đề xuất cụ thể để duyệt một lần cả ba; chưa sửa implementation/data/test mới F4/F5/F6. Sau duyệt sẽ làm tuần tự, mỗi mốc chạy full launcher nguyên trạng rồi mới sang mốc kế. Không cần xin lại giữa các mốc nếu không vượt phạm vi. Không auto commit/push các implementation mới chỉ từ lệnh commit snapshot vừa rồi; đề xuất commit khi bàn giao.
+
+READ-ONLY chung: AGENTS/PROJECT_RULES/API_INDEX/ARCHITECTURE/DATA_SCHEMA/CODE_PATTERNS/DECISIONS/ROADMAP; AUDIT_REPORT §6/§9 và C1; contract gray_box_world/isometric_visuals/player/npc_navigation/water_sources/chicken_coop/land_expansion; source WorldPresentation/PlaceholderWorld2D; assets/crops và assets/machines manifests; assets/decor,objects,rocks,grass_clumps (chỉ đọc). Nguồn9decor: flower_0..3,pebble_0..1,tuft_0..2;2objects:bush,tree_fruit; giữ18rock/grass hiện tại. Resource sở hữu path/pivot/scale/tham số rải; VIEW chỉ dựng hình, pure rules không Node/gameplay RNG.
+
+DO NOT TOUCH chung: mọi path ngoài ALLOW_LIST mốc đang chạy; đặc biệt tất cả .tscn/project.godot/InputMap/PNG/.import/fonts/Theme/Localization/Player/creation/Character/camera/crop/machine/tool/NPC/land/water/coop/weather/wallet/inventory owners/SaveService/save12/golden/runner/GUT/180s-limit, sourcebundle trùng UID và hai prompt. AUDIT_REPORT giữ nguyên snapshot lịch sử. Không đổi collision/layer/movement/reach/price/growth/yield/season/day order hoặc thêm gameplay cho decor. Không xóa tài sản/đồ/cây/máy/actor, không làm ecology hay cây thu hoạch giả.
+
+Nghiệm thu chung từng mốc: backup/hash/diff riêng ngoài repo; giữ toàn bộ607case và assertion/golden cũ; thêm suite riêng, không sửa fixture cũ để pass. Parse/CLI data/headless focused/native renderer phù hợp và nguyên cmd /c tools\run_tests.bat (pinned4.7.2), đủ discovery và180s/nhóm. Không chạy hai launcher cùng lúc, không đóng Editor/F5 của người dùng. Ảnh render thật và owner snapshots chứng minh view không mutate/simulate; vi/en1152×648,1280×720,1920×1080 và5zoom. Hash20save thật trước/sau mỗi mốc. API/PROGRESS và contract/decision cập nhật; clear diff + exact files + output thật + manual F5 + commit đề xuất. Nếu cần đổi test/file ngoài list phải đưa diff cụ thể để duyệt.
+
+### AUDIT-F4 — catalogue supplied scenery và quy tắc lựa chọn thuần dữ liệu (ISO-14/Phase9.3; đề xuất D90)
+
+TASK: tạo SceneryArtCatalog Resource cùng isometric_scenery_catalog.tres cho đúng29PNGcanonical đã có:18rock/grass hiện đang dùng và11decor/objects chưa dùng. Không liên kết runtime trong F4. Ghi ID/path/pivot tại chân/scale và nhóm view; không gọi tên một hình không tồn tại. Texture kích thước/pivot phải đo từ ảnh thật trước khi điền Resource; không sửa art/import. Validation báo thiếu/trùngID/path, nhóm lạ, pivot/scale không hữu hạn hoặc sai miền, thiếu member và cấu hình phân bố sai. DATA validation thuần trả lỗi; facade DataValidator kiểm import/path và được tools/validate_data.gd gọi thêm, giữ mọi gate trước.
+
+Thêm SceneryPlacementRules stateless RefCounted cho lựa chọn mỹ thuật theo cell, giữ nguyên mixer _scenery_hash và các offset/7%rock/11%grass/size3/variant3 hiện có khi dùng cấu hình cũ. Không dùng RNG gameplay hoặc đổi DetRandom. Giá trị phân bố chuyển vào Resource; đề xuất phần trống82% có thêm4%flower/3%pebble/5%tuft, còn70%trống; chưa bật cho world đến F5. Không tăng collider. Khai báo API mới trong doc/header trước caller: catalogue.validation_errors(), get_entry(id)->Dictionary/read-only copy; rules chọn entry từ config/cell, không state nên không codec mới.
+
+ACCEPTANCE: bảng29member/path/pivot/scale đúngPNGthật; mutation dữ liệu trả lỗi rõ, detached dictionaries; boundary bucket và số cell âm/lớn không overflow; chọn lặp lại ổn định, không đụng DetRandom. Golden so sánh toàn43×43 cell giữa selector compatibility và công thức cũ cho18asset/large-rock collider class (không đổi golden gameplay cũ). Validator thực tế PASS và negative fixture fails đúng; không một runtime/collision/saved owner nào thay đổi trong mốc DATA này. Full gate PASS trước F5.
+
+ALLOW_LIST F4 —18path, UID mới optional:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/DATA_SCHEMA.md
+docs/ARCHITECTURE.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+scripts/data/scenery_art_catalog.gd
+scripts/data/scenery_art_catalog.gd.uid
+data/art/world/isometric_scenery_catalog.tres
+scripts/domain/scenery_placement_rules.gd
+scripts/domain/scenery_placement_rules.gd.uid
+scripts/core/data_validator.gd
+tools/validate_data.gd
+tests/unit/test_scenery_art_catalog.gd
+tests/unit/test_scenery_art_catalog.gd.uid
+tests/unit/test_scenery_placement_rules.gd
+tests/unit/test_scenery_placement_rules.gd.uid
+~~~
+
+Rủi ro: PNGcanonical/1x có kích thước khác, không suy scale2 mặc định chỉ từ tên. Hash mỹ thuật hiện dùng abs phép nhân: giữ output trong bản đồ hiện tại và kiểm giới hạn input ngoài miền, không tự biến thành RNG gameplay. Không loại sourcebundle/UIDduplicate trong mốc này.
+
+### AUDIT-F5 — nối9decor nhỏ vào runtime và bảo vệ ô làm việc (ISO-14/Phase9.3; đề xuất D91)
+
+TASK: dùng catalogue/rules đã qua F4 cho hoa/sỏi nhỏ/tuft và18rock/grass; tách SuppliedSceneryView (Node2D) chỉ dựng Sprite2D từ entry thực. WorldPresentation vẫn là adapter build/refresh_land, giữ API get_world_art_root và metadata/collider cho đá lớn. Những cell trước đó có rock/grass giữ đúng entry/pivot/origin/collider; chỉ phần ô trống được chọn bằng tỷ lệ Resource đề xuất ở F4 mới có9decor. Không gọi sampler từ process hoặc sinh lại mỗi load/locale. Thay hardcode visual vào DATA đúng phạm vi, không refactor cây/anchor/NPC.
+
+Dùng cùng grid projection và ground-level y-sort. Decor mới hoàn toàn pass-through, không collider, không layer/input mới, không ăn click/drag. Giữ vùng cấm hiện tại quanh anchor/farm/đất đã mua/nguồn nước/coop và vai đường; thêm preflight tránh cell đã có crop/placement/actor qua dữ liệu thật nếu cell có thể rơi vào những vùng đó. Khi land purchase/load/new rebuild chỉ tháo decor sinh ra, không xóa owner/saved node. Cấu hình sai fail closed không phá world.
+
+ACCEPTANCE: cả9PNGdecor có consumer thực và xuất hiện trong bản đồ/current fixture;18asset cũ +large-rock physics giữ output/điểm neo. Không decor trên owned farm, giếng/suối/ao/bank, coop/site/access route/anchor; không chặn camera/picking/mouse stroke. Chụp matrix vi/en/3size/5zoom, kiểm root origins/sort và không viền ô. Rebuild/language/land/save-load không đổi owner/player/coins/water/crop/jobs/weather/ledger/save12; không tích lũy node/collision, repeat build giữ bộ cell. Cả607test cũ không sửa vẫn PASS, full gate trước F6.
+
+ALLOW_LIST F5 —14path:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+data/art/world/isometric_scenery_catalog.tres
+scripts/view/world_presentation.gd
+scripts/view/supplied_scenery_view.gd
+scripts/view/supplied_scenery_view.gd.uid
+tests/unit/test_supplied_decor_runtime.gd
+tests/unit/test_supplied_decor_runtime.gd.uid
+tests/unit/test_supplied_decor_layout.gd
+tests/unit/test_supplied_decor_layout.gd.uid
+~~~
+
+Rủi ro: thêm số sprite có thể ảnh hưởng frame budget; dùng phân bố thưa/bounded region hiện tại, không mở map thêm và không tăng vòng process. Nếu ảnh/test chỉ ra sai y-sort/pivot thì sửa dữ liệu/view trong list, không sửa camera/Theme để che lỗi.
+
+### AUDIT-F6 — objects supplied cho cây cảnh/bụi, giữ cây trồng và đường đi (ISO-14/Phase9.3; đề xuất D92)
+
+TASK: nối assets/objects/bush.png và tree_fruit.png vào SuppliedSceneryView đã có. Chỉ thay hình cây cảnh procedural trong các placement env_round_tree hiện có của C3 (chọn xen kẽ bằng thứ tự/cell đã có, thông số trong catalogue); giữ đúng số root/ô/anchor/y-sort và collision policy cũ. Không đặt thêm trên cell làm việc, không thay PlaceholderWorld2D cho nhà/shop/bin, không thay cây CropPresentation. Hai hình này là cảnh vật không tương tác giống cây cảnh cũ, không có sản lượng/tuổi/hành động giả; không tuyên bố ecology/fruit crop mới. Chốt pivot theo chân hình thực, texture nearest, không bitmap generate/resize.
+
+Áp dụng exclusion đất/nguồn nước/coop/NPC như F5 trước dựng cảnh. `_recolor` và season/locale handlers phải giữ an toàn cho class mới, không nhân node hoặc thay tint/shared texture. Việc New/Load/purchase đất chỉ làm mới view, không sửa nội dung save/máy/cây/NPC. Bản nguồn/1x/PNGdraft của Player/buildings/frame tiếp tục lưu nguyên, không tự thay appearance/scene.
+
+ACCEPTANCE: cả2object có reference runtime, đủ29catalogue art có consumer sauF6; bush/tree khác hình thật, chân chạm đúng projected cell, foreground/background y-sort đúng với Player/crops/machines ở5zoom. So owner/hash/collider/nav trước/sau và nhiều lần refresh/new/load/locale/season; owned land và route vẫn trống. Capture vi/en/3size/day-night/rain để kiểm đọc hình, không dùng mockup làm runtime asset. Giữ mọi case/assertion/golden cũ; full parse/data/headless/allgraphics/Main PASS; source audit/task diff kết thúc cả chuỗi. Không hoàn thành nhạc, house/stamina/manager/UI09/11 hoặc toàn bộ art chỉ từ hai hình cây.
+
+ALLOW_LIST F6 —13path:
+~~~text
+docs/PROGRESS.md
+docs/API_INDEX.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+docs/SCENE_CONTRACTS/isometric_visuals.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+data/art/world/isometric_scenery_catalog.tres
+scripts/view/world_presentation.gd
+scripts/view/supplied_scenery_view.gd
+tests/unit/test_supplied_objects_runtime.gd
+tests/unit/test_supplied_objects_runtime.gd.uid
+tests/unit/test_supplied_objects_layout.gd
+tests/unit/test_supplied_objects_layout.gd.uid
+~~~
+
+Rủi ro/giới hạn: tree_fruit là tên asset cảnh vật, không biến thành cây lâu năm có thể thu; nhà/shop/bin vẫn dùng art code hiện có và nhãn live locale. Các mục draft/building/avatar/icon/frame cần phạm vi riêng để giữ customization. Stamina/manager migration và giá nhà/thành phẩm không tự quyết trong ba mốc này.
+
+Các khối phía dưới là lịch sử của lượt commit và F1/F2/F3. Nội dung AUDIT_REPORT không sửa để che trạng thái audit cũ.
+
 ## Checkpoint commit/push do người dùng yêu cầu (2026-11-18)
 
 Người dùng yêu cầu “comit up lên xong hãy tiếp tục 3 plan liên tiếp”. Snapshot này gom code/data/art/test/docs phụ thuộc đã có từ các mốc6.x,7.1 và AUDIT-F1/F2/F3; không chỉ stage44file cuối vì thiếu các dependency chưa được commit sẽ làm checkout không chạy. Source hiện tại khớp hash của lượt full607/607 vừa bàn giao; DataValidator chạy lại trước commit PASS. Full cuối parse/data/headless63/graphics607/607(36789assert)/Main PASS; human F5/release export vẫn chưa xác nhận.

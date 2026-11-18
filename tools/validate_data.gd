@@ -263,5 +263,11 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
+	var scenery_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_scenery_catalog(preload("res://data/art/world/isometric_scenery_catalog.tres"))
+	if not scenery_errors.is_empty():
+		for message: String in scenery_errors:
+			push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

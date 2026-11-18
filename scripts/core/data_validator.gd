@@ -23,6 +23,22 @@
 class_name DataValidator
 extends RefCounted
 
+static func validate_scenery_catalog(catalog: SceneryArtCatalog) -> PackedStringArray:
+	if catalog == null:
+		return PackedStringArray(["scenery catalogue is required"])
+	var errors: PackedStringArray = catalog.validation_errors()
+	if not errors.is_empty():
+		return errors
+	for entry: Dictionary in catalog.entries:
+		var path: String = entry.path
+		if not ResourceLoader.exists(path):
+			errors.append("scenery PNG is missing: "+path)
+			continue
+		var texture: Texture2D = load(path) as Texture2D
+		if texture == null or Vector2i(texture.get_size()) != entry.image_size:
+			errors.append("scenery PNG dimensions/import do not match: "+path)
+	return errors
+
 static func validate_crop_stage_config(config: CropStageConfig) -> PackedStringArray:
 	return config.validation_errors() if config != null else PackedStringArray(["crop stage config is required"])
 

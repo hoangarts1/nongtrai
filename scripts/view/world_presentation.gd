@@ -11,8 +11,7 @@ extends Node
 const PALETTE: Resource = preload("res://data/art/palette/chibi_valley.tres")
 const CATALOG: Resource = preload("res://data/art/world/chibi_world_catalog.tres")
 const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_character_catalog.tres")
-const SCENERY_SIZES: Array[StringName] = [&"small", &"medium", &"large"]
-const SCENERY_VARIANTS: int = 3
+const SCENERY_CATALOG: SceneryArtCatalog = preload("res://data/art/world/isometric_scenery_catalog.tres")
 const COOP_SITE: ChickenCoopSiteConfig = preload("res://data/chicken_coop_site.tres")
 const WATER_CONFIG: WaterSourceConfig = preload("res://data/water_sources.tres")
 var _world: GrayBoxWorld
@@ -23,6 +22,8 @@ var _player_avatar: PlaceholderAvatar2D
 var _anchor_art: Dictionary = {}
 var _source_reserved: Dictionary = {}
 var _coop_reserved: Dictionary = COOP_SITE.reserved_cells()
+var _scenery_config: Dictionary = {}
+var _decor_queued: bool = false
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED:
@@ -42,13 +43,16 @@ func configure(main: Node) -> void:
 	_place_anchor("ShippingBin", _world.CONFIG.shipping_bin_cell, &"bin", tr("UI_PROMPT_SELL"))
 	_refresh_anchor_labels()
 	_source_reserved = WaterSourceRules.reserved_cells(WATER_CONFIG)
+	_scenery_config = SceneryPlacementRules.compile(SCENERY_CATALOG)
 	_build_water_sources()
 	refresh_land(main.land_ownership.get_owned_regions())
+	main.farm_state.plot_changed.connect(func(_cell: Vector2i) -> void: _queue_decor_refresh())
 	GameClock.season_changed.connect(_on_season_changed)
 	_on_season_changed(GameClock.season)
 
 func refresh_land(regions: Array[Rect2i]) -> void:
 	if regions==_owned_regions and _world_art.get_child_count()>0:
+		_queue_decor_refresh()
 		return
 	_owned_regions.assign(regions)
 	# Remove generated blockers immediately; queue_free alone leaves live collision.
@@ -65,6 +69,8 @@ func _owned_cell(cell: Vector2i) -> bool:
 	return false
 
 func _build_trees() -> void:
+	if _scenery_config.is_empty():
+		return
 	var tree_positions: Variant = CATALOG.call("get_placements", &"env_round_tree")
 	if tree_positions is Array:
 		var index: int = 0
@@ -74,12 +80,13 @@ func _build_trees() -> void:
 			var cell: Vector2i = GridMath.world_to_cell(legacy)
 			if _owned_cell(cell) or _source_reserved.has(cell) or _coop_reserved.has(cell):
 				continue
-			var tree: PlaceholderWorld2D = PlaceholderWorld2D.new()
-			tree.name = "Tree_%d" % index
-			tree.set_meta("cell", cell)
+			var entry: Dictionary = SCENERY_CATALOG.get_entry(StringName(SCENERY_CATALOG.tall_ids[index % SCENERY_CATALOG.tall_ids.size()]))
+			var tree: Node2D = SuppliedSceneryView.create_tall(entry, cell, index)
+			if tree == null:
+				continue
 			_world_art.add_child(tree)
 			tree.global_position = _world.cell_to_global(cell)
-			tree.configure(&"tree", "", PALETTE.call("get_color", &"foliage", GameClock.season))
+			tree.visible = not _decor_occupied(cell)
 			index += 1
 
 
@@ -91,13 +98,52 @@ func _build_natural_scenery() -> void:
 			var cell: Vector2i = Vector2i(x, y)
 			if _reserved_scenery_cell(cell):
 				continue
-			var bucket: int = _scenery_hash(cell) % 100
-			if bucket < 7:
-				_add_scenery_sprite(&"rock", cell, _scenery_hash(cell + Vector2i(17, 3)) % 3, placed)
+			var entry: Dictionary = SceneryPlacementRules.select(_scenery_config, cell, true)
+			if not entry.is_empty() and (entry.kind in [&"rock", &"grass_clump"] or not _decor_occupied(cell)):
+				_add_scenery_sprite(entry, cell, placed)
 				placed += 1
-			elif bucket < 18:
-				_add_scenery_sprite(&"grass_clump", cell, _scenery_hash(cell + Vector2i(5, 29)) % 3, placed)
-				placed += 1
+
+func _decor_occupied(cell: Vector2i) -> bool:
+	if not _main.farm_state.get_plot(cell).is_empty() or _world.player.get_cell() == cell:
+		return true
+	for placement: Dictionary in _main.machine_placements.get_all_placements():
+		if Rect2i(placement.cell, MachinePlacementState.MACHINE_SIZE).has_point(cell):
+			return true
+	var social: NpcSocialState = _main.npc_system.state
+	if social.cells.values().has(cell):
+		return true
+	for path: Variant in social.paths.values():
+		if path is Array and path.has(cell):
+			return true
+	return false
+
+func _queue_decor_refresh() -> void:
+	if not _decor_queued:
+		_decor_queued = true
+		call_deferred("_refresh_decor")
+
+func _refresh_decor() -> void:
+	_decor_queued = false
+	var present: Dictionary = {}
+	for child: Node in _world_art.get_children():
+		if child.get_meta("passive_tree", false):
+			(child as Node2D).visible = not _decor_occupied(child.get_meta("cell"))
+		if child.get_meta("scenery_kind", &"") in [&"flower", &"pebble", &"tuft"]:
+			var cell: Vector2i = child.get_meta("cell")
+			if _reserved_scenery_cell(cell) or _decor_occupied(cell):
+				_world_art.remove_child(child)
+				child.queue_free()
+			else:
+				present[cell] = true
+	var region: Rect2i = _world.CONFIG.scenery_region
+	for y: int in range(region.position.y, region.end.y):
+		for x: int in range(region.position.x, region.end.x):
+			var cell: Vector2i = Vector2i(x, y)
+			if present.has(cell) or _reserved_scenery_cell(cell):
+				continue
+			var entry: Dictionary = SceneryPlacementRules.select(_scenery_config, cell, true)
+			if not entry.is_empty() and entry.kind in [&"flower", &"pebble", &"tuft"] and not _decor_occupied(cell):
+				_add_scenery_sprite(entry, cell, _world_art.get_child_count())
 
 func _reserved_scenery_cell(cell: Vector2i) -> bool:
 	if _owned_cell(cell) or _source_reserved.has(cell) or _coop_reserved.has(cell):
@@ -124,30 +170,18 @@ func _build_water_sources() -> void:
 			well.configure(source,_world.grid,WATER_CONFIG,false)
 
 func _scenery_hash(cell: Vector2i) -> int:
-	return absi(cell.x * 92837111 + cell.y * 689287499 + 314159)
+	return SceneryPlacementRules.cell_hash(_scenery_config, cell)
 
-func _add_scenery_sprite(kind: StringName, cell: Vector2i, variant: int, index: int) -> void:
-	var size: StringName = SCENERY_SIZES[_scenery_hash(cell + Vector2i(41, 11)) % SCENERY_SIZES.size()]
-	var prefix: String = "rock" if kind == &"rock" else "grass_clump"
-	var asset_directory: String = "grass_clumps" if kind == &"grass_clump" else "rocks"
-	var path: String = "res://assets/%s/%s_%s_%d.png" % [asset_directory, prefix, size, variant + 1]
-	var texture: Texture2D = load(path) as Texture2D
-	var root: Node2D = Node2D.new()
-	root.name = "%s_%d_%d" % [prefix, index, _scenery_hash(cell) % 1000]
+func _add_scenery_sprite(entry: Dictionary, cell: Vector2i, index: int) -> void:
+	var root: SuppliedSceneryView = SuppliedSceneryView.new()
+	if not root.configure(entry):
+		root.free()
+		return
+	root.name = "%s_%d_%d" % [entry.kind, index, _scenery_hash(cell) % 1000]
 	root.set_meta("cell", cell)
-	root.set_meta("scenery_kind", kind)
-	root.set_meta("scenery_size", size)
-	root.set_meta("variant", variant)
-	root.global_position = _world.cell_to_global(cell)
 	_world_art.add_child(root)
-	var sprite: Sprite2D = Sprite2D.new()
-	sprite.name = "Sprite2D"
-	sprite.texture = texture
-	sprite.centered = false
-	sprite.position = Vector2(-64, -128)
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	root.add_child(sprite)
-	if kind == &"rock" and size == &"large":
+	root.global_position = _world.cell_to_global(cell)
+	if bool(entry.blocks):
 		_add_large_rock_collision(root)
 
 func _add_large_rock_collision(root: Node2D) -> void:
@@ -178,6 +212,7 @@ func configure_player_appearance(customization: Dictionary) -> void:
 	var profile: Dictionary = appearance.call("to_builder_dictionary")
 	_player_avatar.configure_profile(profile,customization)
 	_refresh_anchor_labels()
+	_queue_decor_refresh()
 
 func _refresh_anchor_labels() -> void:
 	if not is_instance_valid(_main):

@@ -1,5 +1,15 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## AUDIT-F6 supplied decorative tree wrappers (D92)
+
+WorldArt2D retains old Tree_i ground-level PlaceholderWorld2D adapters/count/cells for eligible C3tree placements, replacing only their visual child with Visual:SuppliedSceneryView -> Sprite2D. No physics/body/process or new layer/group/scene/editor wiring. Objects and WorldArt2D y-sort keep Player/crop/machine/tall origins in the same 2D ordering. Actual transient occupation can hide art, not delete saved content. Existing farm/land/load/appearance refresh drives visibility, no per-frame gameplay scan. Native color plus existing global time/weather lighting, safe locale/season callbacks; no change to actual weather/season simulation. Other anchor art and labels keep existing APIs. Exact tests/captures/manual limitations in PROGRESS.
+
+Adapter keeps existing kind=tree/color season metadata. self_modulate alpha0 suppresses only the root procedural drawing; supplied Visual child remains fully visible. Processing is disabled. The unchanged C3test passed after this compatibility fix; no old test was modified.
+
+## AUDIT-F5 supplied passive sprites (D91; no scene edits)
+
+WorldPresentation's existing WorldArt2D now instantiates SuppliedSceneryView Node2D roots for scattered assets using data-owned PNG/pivot/native scale. Sprite2D child keeps the old name and nearest sampling; root cell anchor drives nested y-sort. Existing large-rock physics is unchanged. Nine new small textures are pass-through and never consume mouse/camera/tool input. Small-decor-only coalesced occupancy reconciliation reads plot/placement-footprint/player/NPC cells and routes plus land/source/coop/anchor exclusion; no domain/nav/collision layer mutation. Nodes generated for decor may be detached, saved actors/plants/machines never are. No Inspector/project setting steps or new scene path; F6 will handle tall decorative object art.
+
 ## AUDIT-F1 derived crop stage (D87)
 
 No node/scene/Inspector/physics/input edit. FarmView._render_cell passes its actual plot.regrowing to CropPresentation's new optional final argument. Crop roots still use the manifest texture/pivot and shared world grid. Normal image stages change at25/50/75%; mature metadata waits for actual100% and a non-withered plot. Repeating crops keep normal/wilted image3 during the wait and image4 at maturity; no seed-stage tree replacement after harvest. Existing roots/hidden Labels/crop picking and farm state fields are retained. Care reads the shared stateless stage rules; no view advances days or grants produce. Full-gate/human acceptance is recorded separately in PROGRESS.
