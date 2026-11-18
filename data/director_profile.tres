@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="DirectorProfile" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/director_profile.gd" id="1"]
+[ext_resource type="Resource" path="res://data/ecology_profile.tres" id="2"]
+[ext_resource type="Resource" path="res://data/weather_profile.tres" id="3"]
+[ext_resource type="Resource" path="res://data/npcs/phase8_world.tres" id="4"]
+[ext_resource type="Resource" path="res://data/seasons/spring.tres" id="5"]
+[ext_resource type="Resource" path="res://data/seasons/summer.tres" id="6"]
+[ext_resource type="Resource" path="res://data/seasons/autumn.tres" id="7"]
+[ext_resource type="Resource" path="res://data/seasons/winter.tres" id="8"]
+[ext_resource type="Resource" path="res://data/director_events/gentle_dust.tres" id="9"]
+[ext_resource type="Resource" path="res://data/director_events/merchant_visit.tres" id="10"]
+[ext_resource type="Resource" path="res://data/director_events/butterfly_bloom.tres" id="11"]
+
+[resource]
+script = ExtResource("1")
+enabled = false
+grace_days = 7
+pity_days = 7
+max_negative_per_season = 2
+min_negative_gap = 3
+history_limit = 128
+no_event_weight = 1.0
+activity_bonus_max = 0.5
+ecology = ExtResource("2")
+weather = ExtResource("3")
+npc_world = ExtResource("4")
+seasons = Array[Resource]([ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("8")])
+events = Array[Resource]([ExtResource("9"), ExtResource("10"), ExtResource("11")])

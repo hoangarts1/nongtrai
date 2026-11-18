@@ -1,5 +1,11 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5b Director DATA Resource contract (D119)
+
+Shipped director_profile.tres enabledfalse, grace_days7,pity_days7,max_negative_per_season2,min_negative_gap3,history_limit128,no_event_weight1.0,activity_bonus_max0.5; typed references to current ecology/weather/NPC and ordered four SeasonData Resources. EventResources gentle_dust/merchant_visit/butterfly_bloom: all weight1/cooldown7. Dust negative cap2/telegraph2/duration1/mutexweather_dust; dry_start + metric_below(tree_cover,birds), extra_water_charge1/waive_raintrue/exempttree_cover-birds. Visit positive cap0(unlimited)/telegraph0/duration1/mutexmerchant, dry_start+extra_visit, actual minh/minh_market (existing schedule1020-1320, rain/night still authoritative), trade affinities item_purchased/item_sold. Bloom positive cap0/telegraph0/duration2/mutexbutterfly, metric_min(biodiversity,butterflies), butterfly_accentColor(1,0.82,0.24,1), care affinities crop_planted/plot_watered/crop_harvested. No count/price/yield/stamina/water-clarity terms.
+
+Conditions kinds/metric-threshold refs, effect terms and event fields are listed in API_INDEX. Units: all day/cap/charge fields int; weights finite floats, RGBA unit floats. Technical boundsINT32; total candidate weight must remain finite. Every event has title/explanation/counter key in both locales. Text is draft human tone review. Native Resource graph never goes in JSON saves; effect.terms produces only primitives/RGBA array for later captured decisions. Profile.frozen_copy detaches relevant nested data explicitly. This step adds no persistent schema/version; game saves remain13.
+
 ## Phase7.5a standalone Director activity wire (D118)
 
 Resource director_activity_config.tres: window_days7 (S14 valid7-14); activity_ids complete ordered unique six registered source names plot_tilled/crop_planted/plot_watered/crop_harvested/item_purchased/item_sold. Prospective collector supplies one per successful till/plant/water, actual quantity for harvest/trades. No actual collector or additional source exists in this slice.

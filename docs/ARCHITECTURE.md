@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5b DATA-only Director definitions (D119)
+
+DirectorProfile references existing ecology/weather/NPC/season Resources plus typed event/condition/effect Resources. DATA knows no DOMAIN/Node/autoload; validation and explicit frozen_copy are pure DATA operations. No runtime owner, clock listener, event executor or save13 component. DataValidator/CLI append structural+translation checks without removing any prior gate. Profile/metadata is copied before future owners consume it; current gameplay/visual/source assets remain unchanged. Three definitions are prototypes, not live events yet.
+
 ## Phase7.5a standalone activity observation boundary (D118)
 
 DirectorActivityConfig DATA -> pure DirectorActivityCodec/DirectorActivityState DOMAIN. State owns only standalone current day/counts/coverage and bounded consecutive completed history, supports serialization immediately; no Main/WorldState owner or game-save field is added yet. Inputs are explicit day/source/quantity, not Nodes/signals/time. Config is deep-frozen; query returns completed-window totals only when full coverage exists, otherwise no numeric totals. Typed local activity_changed after atomic record/advance stays guarded against mutation reentry. Configure/deserialize silent; no event replay. Validator/CLI append DATA gate; no runtime/view/autoload/Events/day-simulation/RNG change. EventDirector selection and actual collection remain future7.5 slices, D17 M2.4 policy unchanged.

@@ -704,3 +704,12 @@ SAVE_NOTICE_RECOVERED,Loaded backup %d. Save again when you are ready.
 SAVE_NOTICE_FUTURE,This save needs a newer game version.
 SAVE_NOTICE_INVALID,Progress could not load. No usable backup was found.
 PREFERENCES_APPLY_FAILED,Settings could not be applied. Your previous values are kept.
+DIR_DUST_TITLE,Gentle dust
+DIR_DUST_WHY,A dry breeze visits the garden. Each manually watered plot uses one extra can charge while it lasts.
+DIR_DUST_COUNTER,Refill at the well or stream or pond. Tend fruit trees to grow the canopy; rain also softens the breeze.
+DIR_VISIT_TITLE,Minh visits the market
+DIR_VISIT_WHY,Minh visits the market for an extra day with the usual goods.
+DIR_VISIT_COUNTER,Visit during the usual hours while it is dry and light. Goods already bought today are not restocked.
+DIR_BLOOM_TITLE,Golden butterfly wings
+DIR_BLOOM_WHY,The varied garden welcomes butterflies with golden wings.
+DIR_BLOOM_COUNTER,Grow different crops and tend the garden each day to keep its variety.

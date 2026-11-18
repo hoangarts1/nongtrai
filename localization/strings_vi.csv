@@ -704,3 +704,12 @@ SAVE_NOTICE_RECOVERED,Đã tải bản dự phòng %d. Bạn có thể lưu lạ
 SAVE_NOTICE_FUTURE,Bản lưu này cần phiên bản trò chơi mới hơn.
 SAVE_NOTICE_INVALID,Chưa tải được tiến độ. Không có bản dự phòng dùng được.
 PREFERENCES_APPLY_FAILED,Chưa áp dụng được cài đặt. Các giá trị trước vẫn được giữ.
+DIR_DUST_TITLE,Gió bụi nhẹ
+DIR_DUST_WHY,Một đợt gió khô ghé vườn. Khi có gió mỗi ô tưới dùng thêm một lượt nước.
+DIR_DUST_COUNTER,Nạp đầy bình ở giếng hoặc suối hoặc ao. Chăm cây ăn quả để tăng tán cây; trời mưa cũng giúp vườn dịu lại.
+DIR_VISIT_TITLE,Minh ghé chợ
+DIR_VISIT_WHY,Minh ghé chợ thêm một ngày với hàng hóa thường lệ.
+DIR_VISIT_COUNTER,Ghé chợ vào giờ thường lệ khi trời khô và còn sáng. Hàng đã mua trong ngày không được bổ sung lại.
+DIR_BLOOM_TITLE,Sắc vàng cánh bướm
+DIR_BLOOM_WHY,Vườn thêm đa dạng và những cánh bướm khoác sắc vàng.
+DIR_BLOOM_COUNTER,Trồng nhiều loài cây và chăm vườn mỗi ngày để giữ sự đa dạng.

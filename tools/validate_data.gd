@@ -299,5 +299,11 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
+	var director_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_director_profile(preload("res://data/director_profile.tres"), locale_paths)
+	if not director_errors.is_empty():
+		for message: String in director_errors:
+			push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

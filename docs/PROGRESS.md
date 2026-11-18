@@ -1,5 +1,452 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5b automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 189scripts/804/804/96478assert; groups137.494/110.633/155.242s<180, GUT403.369s/wall422.600s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2440, prior test/fixture verification396, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5b-230647/full-attempt1. No skip/weakening/timeout extension.
+
+Step1/10 of owner-approved7.5b-k, baseline2122ab9/full796/796. Four DATA Resource classes and shipped policy/three event Resources implement approved terms only: dust2day forecast/1day extra1can charge with measured canopy/rain exemption; Minh1day at existing minh_market/hours/stock; butterfly2day existing-node accent. Default off; grace/pity/cooldown7, global negative2/gap3, weights1/noevent1/bonus0.5, history128. All current source references/typed children/finite weights/day bounds/mutex/text keys validated. Positive cap0 is unlimited. Add9vi/en event keys; actual runtime/selector/save13/Player/InputMap/assets unchanged. Profile frozen_copy explicitly detaches nested conditions/effects/threshold/calendar/weather/NPC schedule DATA.
+
+Focused1 all8/8/84assert PASS, then added calendar-order rejection plus structural guard; final focused2 all8/8/85assert PASS. CLIpositive1 exit0/negativecap0 exit1, exact Resource restored. Independent40dependency project: pure1 and pure2 each1000validations/frozen-copy mutation probes/noautoload/world nodes PASS; original NPC TRES stale extUID->text-path warnings retained in isolated logs, no SCRIPT ERROR/leak. Original script UID copies added to probe without repo/source edits; warnings still belong to source NPC refs, not hidden or treated as new functionality. Import1/2 parse clean with inherited duplicate assetUID warnings. Full804/804 PASS. Checkpoint D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5b-230647. Data-only contracts in docs/SCENE_CONTRACTS/director.md; no scene/Inspector setup. Human tone/art/F5 acceptance separate.
+
+## NEXT10 DIRECTOR - APPROVED Phase7.5b -> Phase7.5k (2026-11-18)
+
+STATUS: owner approved all10 exact plans/policy/ALLOW_LIST and full-test/commit/push per milestone: Duyet ca10, trien khai va commit/push tung moc. Execute sequentially without repeated approval inside these scopes; checkpoint and delivery evidence appears above. Planning initially changed only PROGRESS. Baseline HEAD2122ab9a33136bf79f4a6e37b9f78befa307a570 (7.5a delivered, full187scripts/796tests/96393assert, pure4000days PASS). Existing deleted the_life_prompt.md and untracked the_life_master_prompt.md stay untouched/excluded.
+
+Planning package: D:/godot/game-godot-backups/next10-director-plan-20261118-223759/proposal/plans.json (machine-readable exact ten scopes), proposed-save14-test-compatibility.patch + .json (39lines/33files), existing-file-sha.json and PROGRESS.before.md. The patch changes only38current-schema expected literals13->14 plus one existing legacy golden loop1..13->1..14; leaves explicit historic13 fixtures/envelope limits and all old assertions/test names/golden bytes unchanged. No compatibility patch is applied before its own7.5h gate. Any other oldtest change requires a separate concrete reviewed scope; never weaken/remove an assertion or fixture to force green.
+
+### Approved product/policy decisions
+
+- Supported prototype events: gentle_dust, merchant_visit, butterfly_bloom. All definitions/numbers in Resources; these names/paths below are PROPOSED new contracts, not claims of existing APIs. NewGame/legacy Director default OFF. Actual M2.4 story ownership is absent, so release-game activation is not fabricated. Debug-preview enable/off via current debug-only Ctrl+M shop entry is explicit; saved debug enabled state cannot bypass a release story gate.
+- Gentle dust: decide with2day saved forewarning, active1day, successful manual watering uses2can charges instead of1 (extra1), with original farm water flag/growth/stamina unchanged. Refill at existing well/stream/pond is the immediate counter; existing current canopy birds threshold30 or rain waives extra cost. No fence/new water-clarity measurement/new crop-water-cycle model. Rain/bulk/day watering remains free of can debit. Text must explain actual charge cost/counter before activation; no hidden punishment.
+- Merchant visit: one extra1day Minh visit at EXISTING minh_market, using existing1020-1320 schedule hours, normal rain/night/path/proximity rules and the same daily offer/once-day consumed stock/prices. Current normal visit weekdays3/6 remain. This is deliberately a market prototype; riverside navigation/another NPC/new prices/extra stock are not implemented or claimed. Filter redundant already-normal-visit days where appropriate. No stock reset on force/load.
+- Butterfly bloom:2days of a reversible provisional color accent on already eligible butterflies; biodiversity threshold25 still comes from existing ecology profile. No extra critters beyond existing8butterflies+6birds/max14, no fake flowers/reward/ecology score. Colors/motion remain DATA/presentation, original3D assets untouched.
+- Proposed policy defaults: enabled=false; negative grace7days after enabling, per-event cooldown7days, positive pity7days only when a valid positive candidate exists; max2negative starts per actual TARGET season (pending counted), >=3days between negative starts; at most one decision for an adjacent completed day. base_weight1.0 for each event, no_event_weight1.0, positive activity bonus capped0.5 from active-day frequencies over observed7day window (not raw one-day quantities), no style penalty. Positive per-season cap0 means unlimited, negative per-event/season cap2; no-event and unavailable reasons explicit. Store last128decisions with independent retained cooldown/pity/season counters. Grace/pity/cooldowns/weights/history limit/telegraph/durations/cost live in Resource. These prototype values are now owner-approved for this batch.
+- Force control queues one event choice for the NEXT completed morning, never instantaneous extra watering/stock/critters. It bypasses lottery choice only; full activity coverage, bounds, story/debug gate, negative quotas/spacing, cooldowns, mutex/weather/counter checks and saved2day telegraph still apply. Disabled/off stops/cancels pending/active application and restores normal cost/schedule/color, without undoing already legitimate world actions.
+- Save14 introduced exactly once in7.5h after standalone codec/lifecycle tests. Add director_activity + director only, preserve existing13data/Player/weather/ecology/can/bag/land/coop/jobs/social/profile. Existing1..13goldens stay byte-identical; add actual-codec14golden. Legacy/missing/corrupt/mismatched components start current-day partial activity/off Director with no historical replay/fake zeros/story flags. Valid14 decisions/coverage/pending/history/terms/RNG data stay saved and are not rerolled. RNG int64 state uses canonical lossless text; existing weather1/merchant8 algorithms/goldens unchanged, reserved Director tag2 only.
+
+### Sequence and shared acceptance
+
+One milestone at a time. Before each code step: read its actual scene contracts and existing APIs; checkpoint workspace/index/HEAD/existing tests/goldens/real saves; enforce its exact ALLOW_LIST. New file names are explicitly authorized proposals; never guess an existing scene path/input/layer/API. DATA -> pure DOMAIN -> VIEW, typed GDScript, local signals where suitable, no new autoload/global event/input binding. All old .tscn/asset/import/Theme/font/camera/Player/map geometry stay protected; only NEW simple .tscn files individually listed below may be created.
+
+After EACH step: focused tests, applicable pure/CLI/native checks, unmodified original tools/run_tests.bat (pinned4.7.2 parse/data/headless/full graphics/Main). Fixed180s per existing sequential child group, no skip/reduced captures/assertions/timeout increase; archive true successes/failures. Source/test/fixture/golden/real-save hashes and scope audit, then one commit/push origin/master and verify remote. No code future-step before preceding full gate/commit completes. Existing test changes permitted ONLY the explicit7.5h39line/33file patch. No package install/destructive operation/force push. Human F5/art/tone acceptance remains separate.
+
+Shared documentation files allowed in EACH milestone: PROGRESS/API_INDEX/ROADMAP/DECISIONS/ARCHITECTURE/DATA_SCHEMA. Each full ALLOW_LIST below already includes them. Aggregate union227paths across the ten scopes; this union is not permission to modify another step early.
+
+| Order | Milestone | Work | Paths | Dependency |
+|---|---|---|---|---|
+| 1 | Phase7.5b | Director DATA/catalogue and policy | 27 | Phase7.5a |
+| 2 | Phase7.5c | Read-only Director snapshots and conditions | 14 | Phase7.5b |
+| 3 | Phase7.5d | Seeded candidate scoring and decision trace | 18 | Phase7.5c |
+| 4 | Phase7.5e | Serializable Director state, schedules and guards | 20 | Phase7.5d |
+| 5 | Phase7.5f | Pure effect terms and safe multi-charge watering | 20 | Phase7.5e |
+| 6 | Phase7.5g | Activity and Director persistence/lifecycle codecs | 20 | Phase7.5f |
+| 7 | Phase7.5h | Runtime command receipts, daily integration and save14 | 82 | Phase7.5g |
+| 8 | Phase7.5i | Modular debug controls and read-only trace inspector | 41 | Phase7.5h |
+| 9 | Phase7.5j | Morning forecast and journal explanations/counters | 39 | Phase7.5i |
+| 10 | Phase7.5k | 1000day Director invariants and native end-to-end harness | 15 | Phase7.5j |
+
+### 1. Phase7.5b - Director DATA/catalogue and policy
+
+MILESTONE: Roadmap7.5, Phase7.5b; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Create strict DATA definitions for three proposed events and a Resource policy; no runtime/selector/save change. Negative gentle_dust:2day telegraph,1day duration,+1can charge per successful manual watered plot(total2), waived at existing canopy birds threshold30 or rain. Positive merchant_visit:1day extra Minh visit at existing minh_market during existing1020-1320 schedule window, rain/night rules unchanged, same offer/once-day stock/prices. Positive butterfly_bloom:2day provisional wing-color accent on existing eligible butterflies, never extra nodes beyond14. Actual water clarity remains unavailable. No riverside navigation/fence/new NPC/prices/yields/stamina effects.
+ACCEPTANCE: Validate unique IDs/typed child conditions-effects/finite weights/integer durations/known metrics-thresholds-weather-NPC-location refs/negative telegraph-counter text/mutex groups; both locales and CLIpositive-negative. Freeze all gameplay defaults in Resources. New GUT and original full pass; data-only not claimed live.
+ALLOW_LIST (27 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/data/director_condition_data.gd`
+- `scripts/data/director_condition_data.gd.uid`
+- `scripts/data/director_effect_data.gd`
+- `scripts/data/director_effect_data.gd.uid`
+- `scripts/data/director_event_data.gd`
+- `scripts/data/director_event_data.gd.uid`
+- `scripts/data/director_profile.gd`
+- `scripts/data/director_profile.gd.uid`
+- `data/director_profile.tres`
+- `data/director_events/gentle_dust.tres`
+- `data/director_events/merchant_visit.tres`
+- `data/director_events/butterfly_bloom.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `docs/SCENE_CONTRACTS/director.md`
+- `tests/unit/test_director_data.gd`
+- `tests/unit/test_director_data.gd.uid`
+- `tests/unit/test_director_data_validation.gd`
+- `tests/unit/test_director_data_validation.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: define director events and bounded policy data`.
+
+### 2. Phase7.5c - Read-only Director snapshots and conditions
+
+MILESTONE: Roadmap7.5, Phase7.5c; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Build pure detached snapshot/condition rules from explicit validated ecology, completed activity window, current/saved forecast, season boundaries and actual normal Minh visit context. Derive active-day frequencies from completed coverage, not one-day quantities. Unavailable activity/window/water/story inputs are explicit and cannot silently score zero/true. Source chapter gate remains false until real story ownership exists; debug override is distinct.
+ACCEPTANCE: No Nodes/autoload/RNG/owner mutation. Busy/stale/day-mismatch/unknown/malformed/partial fields refused; threshold below/equal/above, signed seed and absolute season boundaries tested. Existing farm/stock/clock/save inputs unchanged; independent pure probe and full pass.
+ALLOW_LIST (14 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/domain/director/director_snapshot.gd`
+- `scripts/domain/director/director_snapshot.gd.uid`
+- `scripts/domain/director/director_condition_rules.gd`
+- `scripts/domain/director/director_condition_rules.gd.uid`
+- `tests/unit/test_director_snapshot.gd`
+- `tests/unit/test_director_snapshot.gd.uid`
+- `tests/unit/test_director_conditions.gd`
+- `tests/unit/test_director_conditions.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: build validated director snapshots and conditions`.
+
+### 3. Phase7.5d - Seeded candidate scoring and decision trace
+
+MILESTONE: Roadmap7.5, Phase7.5d; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Implement pure candidate evaluation/weighted choose with explicit no-event weight; add only reserved TAG_DIRECTOR2 to existing DetRandom, preserve mixer and weather1/merchant8 sequences. Score base1 plus bounded active-day frequency bonus max0.5 for supported positive affinities; no style penalty. Apply validity/availability/cooldown/season quotas/negative spacing/grace/weather/threshold/mutex and positive pity filters. Persistable result includes actual candidates/scores/reasons/seed_used plus lossless signed-int64 RNG state text; no live state mutation.
+ACCEPTANCE: Capture new golden from pinned native4.7.2 and rerun exact seed vectors. Same inputs give identical results; no RNG draw while disabled/unavailable, no historical history-as-current shortcut. Old RNG/goldens untouched; rejection reason trace for every candidate, arithmetic finite/bounds, pure1000day vectors and full pass.
+ALLOW_LIST (18 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/domain/director/director_candidate_rules.gd`
+- `scripts/domain/director/director_candidate_rules.gd.uid`
+- `scripts/domain/director/event_director.gd`
+- `scripts/domain/director/event_director.gd.uid`
+- `scripts/domain/quests/det_random.gd`
+- `tests/fixtures/director_rng_v0.json`
+- `tests/unit/test_director_candidates.gd`
+- `tests/unit/test_director_candidates.gd.uid`
+- `tests/unit/test_director_decision_rng.gd`
+- `tests/unit/test_director_decision_rng.gd.uid`
+- `tests/unit/test_director_trace.gd`
+- `tests/unit/test_director_trace.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: select seeded director events with decision traces`.
+
+### 4. Phase7.5e - Serializable Director state, schedules and guards
+
+MILESTONE: Roadmap7.5, Phase7.5e; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Add pure sole DirectorState owner with serialize/strict codec from first commit, explicit enabled/default-off, enable day, exact-next-day reservation tokens, pending/active events, cooldowns, target-season usage, last-positive state, bounded128decision history and preserved decision terms/trace/RNG text. Local typed guarded notifications; no runtime subscription/save change. Negative starts2days after choice, lasts1day, cap2per target season incl pending reservations, starts separated>=3days; no overlap in mutex group. Enable starts7day negative grace. Pity7 prioritizes eligible positive pool; if no valid positive exists record explicit waiting/no-event. Queue debug force for next decision day only, all safety/telegraph constraints retained.
+ACCEPTANCE: Duplicate/skipped/stale/reentrant decisions/force/toggle/load atomic; invalid token or candidate preserves owner; disabling clears future/active application without refunding legitimate past actions. Silent exact restore/no reroll, pending crossing a season charged to actual target season, expiry/reversal/history pruning maintain counters. GUT/fuzz/pure1000days/full pass.
+ALLOW_LIST (20 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/domain/director/director_state.gd`
+- `scripts/domain/director/director_state.gd.uid`
+- `scripts/domain/director/director_snapshot_codec.gd`
+- `scripts/domain/director/director_snapshot_codec.gd.uid`
+- `scripts/domain/director/director_schedule_rules.gd`
+- `scripts/domain/director/director_schedule_rules.gd.uid`
+- `scripts/domain/director/director_history_rules.gd`
+- `scripts/domain/director/director_history_rules.gd.uid`
+- `tests/unit/test_director_state.gd`
+- `tests/unit/test_director_state.gd.uid`
+- `tests/unit/test_director_reservation.gd`
+- `tests/unit/test_director_reservation.gd.uid`
+- `tests/unit/test_director_state_codec.gd`
+- `tests/unit/test_director_state_codec.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: persist guarded director decisions and schedules`.
+
+### 5. Phase7.5f - Pure effect terms and safe multi-charge watering
+
+MILESTONE: Roadmap7.5, Phase7.5f; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Project actual enabled active events and current measured context into detached can-cost/Minh-visit/butterfly-accent terms; no Main wiring yet. Add Resource manual_charge_cost1 to existing can config without changing20/40/200. Add compatible atomic bulk consume/refund primitives, preserve all one-charge APIs; WateringService accepts validated transient terms and defaults to original one-charge behavior. Extra-cost command charges2 atomically, rejects insufficient water before changing farm, refunds only its own debit under existing refill/load revision semantics. Rain/bulk/day watering untouched.
+ACCEPTANCE: No gameplay numbers outside DATA, no new state/save fields for can or visual caches. Test disabled/before-start/active/expired/rain/canopy exemptions, callback reentry/refill/load/upgrade/rejection/refund, quote freshness and no extra stamina/money/crop growth. Old watering tests unchanged, pure and full pass.
+ALLOW_LIST (20 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/domain/director/director_effect_projector.gd`
+- `scripts/domain/director/director_effect_projector.gd.uid`
+- `scripts/domain/director/director_effect_terms_codec.gd`
+- `scripts/domain/director/director_effect_terms_codec.gd.uid`
+- `scripts/data/watering_can_config.gd`
+- `data/watering_can_config.tres`
+- `scripts/domain/watering_can_state.gd`
+- `scripts/domain/watering_service.gd`
+- `tests/unit/test_director_effect_projection.gd`
+- `tests/unit/test_director_effect_projection.gd.uid`
+- `tests/unit/test_director_watering_modifier.gd`
+- `tests/unit/test_director_watering_modifier.gd.uid`
+- `tests/unit/test_director_effect_expiry.gd`
+- `tests/unit/test_director_effect_expiry.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: project reversible director effects and watering costs`.
+
+### 6. Phase7.5g - Activity and Director persistence/lifecycle codecs
+
+MILESTONE: Roadmap7.5, Phase7.5g; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Create pure paired context/component libraries for future save14. Valid matching-day activity/director states restore exactly incl coverage, terms/history/cooldowns/force intent and RNG text; missing/legacy/corrupt/mismatched components explicitly calibrate at actual loaded day, activity first day partial and Director disabled/history empty. No historical simulation, reward, forced unlock or guessed activity zeros; complete candidate before owner replacement. Keep GameClock/SaveService/Main and save13 unchanged in this library step.
+ACCEPTANCE: Use actual current catalog/season/weather/ecology/ownership validation, not fake nodes. All existing v1-v13 goldens decode through explicit context without modifying fixture bytes; malformed input atomic/fallback diagnostic, no lost other-owner fields. Independent1000roundtrips/strict fuzz/new GUT/full pass.
+ALLOW_LIST (20 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/domain/director/director_save_context.gd`
+- `scripts/domain/director/director_save_context.gd.uid`
+- `scripts/domain/director/director_save_codec.gd`
+- `scripts/domain/director/director_save_codec.gd.uid`
+- `scripts/domain/director/director_activity_lifecycle.gd`
+- `scripts/domain/director/director_activity_lifecycle.gd.uid`
+- `scripts/domain/director/director_lifecycle.gd`
+- `scripts/domain/director/director_lifecycle.gd.uid`
+- `tests/unit/test_director_save_context.gd`
+- `tests/unit/test_director_save_context.gd.uid`
+- `tests/unit/test_director_save_codec.gd`
+- `tests/unit/test_director_save_codec.gd.uid`
+- `tests/unit/test_director_lifecycle.gd`
+- `tests/unit/test_director_lifecycle.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: normalize director and activity persistence contexts`.
+
+### 7. Phase7.5h - Runtime command receipts, daily integration and save14
+
+MILESTONE: Roadmap7.5, Phase7.5h; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Compose actual owners and small view adapters from Main. Attribute six activities only from successful explicit command receipts across central tool/inspector/Space/mouse and seed/shipping/Minh/feed-item purchase routes; hold source-command/day/lifecycle guard across callbacks, do not infer manual actions by subscribing to global producer signals. Ignore debug/bulk/rain/simulation/restore events; preserve partial coverage when attribution cannot be proven (compatible mark_partial and atomic record_many APIs may be added; preserve all existing signatures/wire). Extend existing single DaySimulator/Main weather/ecology pipeline compatibly, no second clock listener: seal outgoing activities once and decide after completed world/forecast, before autosave/bulletin. Apply cost terms to actual WateringRuntime, optional default-empty Minh schedule override at existing market/hours (rain/night/route/finite stock unchanged), reversible accent on existing max14critters. Save14 adds only director_activity and director; v1-v13 baselines partial/off, no replay. Current flags remain default-off and M2.4 unimplemented; runtime can be exercised by tests/debug controls next step, never by fabricated story flags.
+ACCEPTANCE: Actual NewGame/load/Continue/title/manual sleep/cutoff/review/duplicate/reentry/forced-slot/weather/day-owner order and safe-save tests; capture/restore exact existing crop/water/coop/land/jobs/merchant/ecology/Player progress, plus no phantom activity/effects/stock or daily RNG reroll. Apply only attached39line/33file current-version compatibility patch (38expected-version changes and one golden-loop extension); preserve historic13 inputs and every assertion/test/golden. Add real-codec golden14, source/oldtest/golden/real-save SHA proofs, full pass before commit.
+ALLOW_LIST (82 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/view/director_runtime.gd`
+- `scripts/view/director_runtime.gd.uid`
+- `scripts/view/director_daily_flow.gd`
+- `scripts/view/director_daily_flow.gd.uid`
+- `scripts/view/director_activity_collector.gd`
+- `scripts/view/director_activity_collector.gd.uid`
+- `scripts/view/director_effects_flow.gd`
+- `scripts/view/director_effects_flow.gd.uid`
+- `scripts/view/director_npc_bridge.gd`
+- `scripts/view/director_npc_bridge.gd.uid`
+- `scripts/view/director_water_bridge.gd`
+- `scripts/view/director_water_bridge.gd.uid`
+- `tests/helpers/director_fixture.gd`
+- `tests/helpers/director_fixture.gd.uid`
+- `scripts/view/main.gd`
+- `scripts/core/save_service.gd`
+- `scripts/domain/day_simulator.gd`
+- `scripts/domain/director/director_activity_state.gd`
+- `scripts/view/tool_action_controller.gd`
+- `scripts/view/seed_shop_panel.gd`
+- `scripts/view/shipping_bin_panel.gd`
+- `scripts/view/watering_runtime.gd`
+- `scripts/domain/quests/npc_schedule.gd`
+- `scripts/domain/quests/npc_social_state.gd`
+- `scripts/view/npc_system.gd`
+- `scripts/view/ecology_effects_flow.gd`
+- `scripts/view/ecology_critter_2d.gd`
+- `tests/golden_saves/save_v14.json`
+- `docs/SCENE_CONTRACTS/director.md`
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `docs/SCENE_CONTRACTS/watering.md`
+- `docs/SCENE_CONTRACTS/npc_navigation.md`
+- `docs/SCENE_CONTRACTS/isometric_visuals.md`
+- `tests/unit/test_director_activity_runtime.gd`
+- `tests/unit/test_director_activity_runtime.gd.uid`
+- `tests/unit/test_director_runtime_save.gd`
+- `tests/unit/test_director_runtime_save.gd.uid`
+- `tests/unit/test_director_day_pipeline.gd`
+- `tests/unit/test_director_day_pipeline.gd.uid`
+- `tests/unit/test_director_effects_runtime.gd`
+- `tests/unit/test_director_effects_runtime.gd.uid`
+- `tests/unit/test_ambient_audio_runtime.gd`
+- `tests/unit/test_bag_upgrade_flow.gd`
+- `tests/unit/test_character_screen.gd`
+- `tests/unit/test_chicken_coop_collection.gd`
+- `tests/unit/test_chicken_coop_feeding.gd`
+- `tests/unit/test_chicken_coop_runtime_save.gd`
+- `tests/unit/test_crop_care_save.gd`
+- `tests/unit/test_crop_regrow_save.gd`
+- `tests/unit/test_crop_stage_runtime.gd`
+- `tests/unit/test_day_end_flow.gd`
+- `tests/unit/test_day_end_save.gd`
+- `tests/unit/test_ecology_end_to_end.gd`
+- `tests/unit/test_ecology_runtime_save.gd`
+- `tests/unit/test_inventory_actions.gd`
+- `tests/unit/test_land_save.gd`
+- `tests/unit/test_machine_build_lifecycle.gd`
+- `tests/unit/test_machine_collection.gd`
+- `tests/unit/test_morning_flow.gd`
+- `tests/unit/test_npc_social_save.gd`
+- `tests/unit/test_pause_settings.gd`
+- `tests/unit/test_profile_creation.gd`
+- `tests/unit/test_quest_book.gd`
+- `tests/unit/test_recipe_economy.gd`
+- `tests/unit/test_save_backup_recovery.gd`
+- `tests/unit/test_save_service.gd`
+- `tests/unit/test_supplied_decor_runtime.gd`
+- `tests/unit/test_supplied_objects_runtime.gd`
+- `tests/unit/test_title_flow.gd`
+- `tests/unit/test_water_source_world.gd`
+- `tests/unit/test_watering_runtime_save.gd`
+- `tests/unit/test_watering_upgrade_flow.gd`
+- `tests/unit/test_weather.gd`
+- `tests/unit/test_weather_runtime_save.gd`
+- `scripts/view/chicken_coop_flow.gd`
+- `docs/SCENE_CONTRACTS/chicken_coop.md`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: integrate guarded director runtime and save14`.
+
+### 8. Phase7.5i - Modular debug controls and read-only trace inspector
+
+MILESTONE: Roadmap7.5, Phase7.5i; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Small shared-theme scenes for actual activity coverage/metrics, candidate scores/reasons and saved trace/history. Accessible debug-only via a Director button in current Ctrl+M machine-shop header and existing DebugMenu.register_action; no new input action or changed Ctrl+M exact/debug matching. Enable/off changes only supported debug preview state, does not grant M2.4 flag. Force queues selection for next completed morning while enforcing quotas/cooldown/availability/telegraph, never applies immediate hidden effects. Unified modal close/pause/focus/lifecycle guards; disabled states have actual reasons. Preview recomputes candidates read-only, never rolls/advances/applies/saves.
+ACCEPTANCE: Native buttons/Esc/scroll and repeated enable/off/queue/reentry, release-build gate, title/load/NewGame/modal transitions; vi/en3sizes/fresh screenshots/read-only owner+save invariance, all old shop/input/layout tests unchanged. Core/profile/save14 unchanged; full pass.
+ALLOW_LIST (41 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `ui/director_debug/director_sheet.gd`
+- `ui/director_debug/director_sheet.gd.uid`
+- `ui/director_debug/director_sheet.tscn`
+- `ui/director_debug/candidate_row.gd`
+- `ui/director_debug/candidate_row.gd.uid`
+- `ui/director_debug/candidate_row.tscn`
+- `ui/director_debug/trace_panel.gd`
+- `ui/director_debug/trace_panel.gd.uid`
+- `ui/director_debug/trace_panel.tscn`
+- `ui/director_debug/director_debug_flow.gd`
+- `ui/director_debug/director_debug_flow.gd.uid`
+- `ui/director_debug/debug_snapshot.gd`
+- `ui/director_debug/debug_snapshot.gd.uid`
+- `ui/director_debug/debug_presenter.gd`
+- `ui/director_debug/debug_presenter.gd.uid`
+- `scripts/view/main.gd`
+- `scripts/view/debug_menu.gd`
+- `scripts/view/ui_coordinator.gd`
+- `scripts/view/ui_layout.gd`
+- `ui/machine/machine_header.gd`
+- `ui/machine/machine_screen.gd`
+- `ui/machine/machine_controller.gd`
+- `scripts/view/machine_shop_panel.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `docs/SCENE_CONTRACTS/director.md`
+- `docs/SCENE_CONTRACTS/machine_shop.md`
+- `tests/unit/test_director_debug_controls.gd`
+- `tests/unit/test_director_debug_controls.gd.uid`
+- `tests/unit/test_director_debug_layout.gd`
+- `tests/unit/test_director_debug_layout.gd.uid`
+- `tests/unit/test_director_debug_readonly.gd`
+- `tests/unit/test_director_debug_readonly.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: add modular director debug controls and trace inspector`.
+
+### 9. Phase7.5j - Morning forecast and journal explanations/counters
+
+MILESTONE: Roadmap7.5, Phase7.5j; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Render only committed pending/active/history Director data: actual2day dust forewarning, localized reason, actual2charge can cost and immediate refill/tree-canopy counter hints; real Minh market/hours and butterfly accent duration. Small separate morning strip and lazy ecology-journal history component preserve J/QE/back and ordinary quest-mode no-progress invariant. Water-meter tooltip reflects actual current can cost, no resource/owner mutation. No invented weather prediction or water clarity, no fake timeline/negative event. Disabled/no-observation states explicit and readonly; refresh/dismiss never simulate, reroll or save.
+ACCEPTANCE: Native both locales1152/1280/1920, pending/active/expired/off/partial/stale/long-history/long-text fit/focus/scroll; actual successful day/save before morning, no load replays. Fresh captures and owner/save-byte invariance. All old morning/J/HUD tests unchanged, save14 stable and full pass.
+ALLOW_LIST (39 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `ui/morning/director_strip.gd`
+- `ui/morning/director_strip.gd.uid`
+- `ui/morning/director_strip.tscn`
+- `ui/ecology/director_history.gd`
+- `ui/ecology/director_history.gd.uid`
+- `ui/ecology/director_history.tscn`
+- `ui/director/director_snapshot.gd`
+- `ui/director/director_snapshot.gd.uid`
+- `ui/director/director_presenter.gd`
+- `ui/director/director_presenter.gd.uid`
+- `ui/morning/morning_snapshot.gd`
+- `ui/morning/morning_presenter.gd`
+- `ui/morning/morning_sheet.gd`
+- `ui/ecology/ecology_controller.gd`
+- `ui/ecology/ecology_sheet.gd`
+- `ui/ecology/ecology_presenter.gd`
+- `scripts/view/ui_layout.gd`
+- `ui/hud/hud_presenter.gd`
+- `ui/hud/water_meter.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `docs/SCENE_CONTRACTS/director.md`
+- `docs/SCENE_CONTRACTS/morning_bulletin.md`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `docs/SCENE_CONTRACTS/watering.md`
+- `tests/unit/test_director_morning.gd`
+- `tests/unit/test_director_morning.gd.uid`
+- `tests/unit/test_director_journal.gd`
+- `tests/unit/test_director_journal.gd.uid`
+- `tests/unit/test_director_readout_layout.gd`
+- `tests/unit/test_director_readout_layout.gd.uid`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `feat: explain director forecasts and counters in morning and journal`.
+
+### 10. Phase7.5k - 1000day Director invariants and native end-to-end harness
+
+MILESTONE: Roadmap7.5, Phase7.5k; proposed, NOT implemented.
+READ-ONLY CONTEXT: shared rules/current progress/API/architecture/schema/decisions; Master Plan S14/F7/D17, existing activity/ecology/weather/can/NPC/day/save APIs and scene contracts named in scope. Source files not listed remain read-only.
+TASK: Isolated CLI1000day seeded actual farm/weather/ecology/activity/Director simulations for supported gardener/trader/balanced/inactive profiles; explicit unavailable woodcutting/fishing rather than forged production counters. Compare individual/batched/save14 decoded continuations and off-switch isolation, golden vectors unchanged. Short native actual command receipt/day/review/autosave/load/Continue/debug/morning/J/extra-water/refill/Minh once-stock/accent expiry sequences. No package/runner/oldtest/golden/timeout rewrite.
+ACCEPTANCE: Cap2negative per target season, >=3day starts,2day forewarning, reversible1/2day terms, no overlapping mutex/duplicate events/reroll, grace/pity correct when eligible, full actual coverage and integer bounds, unchanged weather/merchant RNG streams/old prices/yields/stamina, max14critters, no save corruption, all790+previous cases retained. Pure/headless/CLIpositive-negative/native3sizes2locales/fresh captures/leak/owner/save hashes/full gates archived. Final matrix honestly separates implemented debug-preview system from absent M2.4 story, fence/riverside/fishing/woodcutting/water measurement/final art/human F5 acceptance. Verify final commit/push remote.
+ALLOW_LIST (15 exact paths):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `tools/sim_director.gd`
+- `tools/sim_director.gd.uid`
+- `tests/unit/test_director_simulation.gd`
+- `tests/unit/test_director_simulation.gd.uid`
+- `tests/unit/test_director_end_to_end.gd`
+- `tests/unit/test_director_end_to_end.gd.uid`
+- `tests/unit/test_director_golden_continuation.gd`
+- `tests/unit/test_director_golden_continuation.gd.uid`
+- `docs/SCENE_CONTRACTS/director.md`
+DO NOT TOUCH: everything else; no old .tscn/InputMap/assets/Player/maps/global-event/runner/golden edits. In7.5h, only stated oldtest compatibility lines may change.
+PROPOSED COMMIT after full gate: `test: verify director simulation and full lifecycle end to end`.
+
+### Risks / completion boundaries
+
+This batch is much larger than the prior DATA-only activity slice; APIs can be split only among the explicitly listed new helpers, not extra files silently added later. Calendar boundaries/pending negative quota reservations, exact force/disable/reentry semantics, water refund ownership and trade receipt provenance need real regression proof. Global Events alone cannot prove manual intent; actual successful command receipts are required. Collector failure must mark coverage partial rather than fake zero/history; actual owner remains domain. Existing clock-first adapter remains a known integration constraint: fail safely/explicitly, no silent duplicate simulation or half-save.
+
+No woodcutting/fishing/fence/cleanup/story-M2.4 owner exists. Production counters for missing activities are not invented;1000day harness covers supported actual profiles and explicitly marks unavailable inputs. Market prototype differs from S14's eventual riverside event; future riverside map/navigation/art work needs another scope. Final parent7.5/7.6 acceptance cannot claim complete story integration or human F5/final art. If any approved gate reveals a genuine required change outside its ALLOW_LIST, prepare exact before/after evidence/patch then ask once for that addition; never edit old tests blindly or hide failure.
+
 ## Phase7.5a automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 187scripts/796/796/96393assert; groups153.331/125.783/116.153s<180, GUT395.267s/wall414.091s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2430, prior test/fixture verification390, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/phase75a-run-20261118-221411/phase7.5a-221411/full-attempt1. No skip/weakening/timeout extension.

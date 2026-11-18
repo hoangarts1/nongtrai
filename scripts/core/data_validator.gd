@@ -1,5 +1,6 @@
 ## DataValidator — validates shipped gameplay Resources before tests or builds.
 ## API:
+##   static func validate_director_profile(profile: DirectorProfile, locales: Array[String]) -> PackedStringArray
 ##   static func validate_director_activity(config: DirectorActivityConfig) -> PackedStringArray
 ##   static func validate_ecology_feedback(config: EcologyFeedbackProfile, profile: EcologyProfile) -> PackedStringArray
 ##   static func validate_ecology_journal(config: EcologyJournalConfig, profile: EcologyProfile, locales: Array[String]) -> PackedStringArray
@@ -27,6 +28,14 @@
 ##   static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray
 class_name DataValidator
 extends RefCounted
+
+static func validate_director_profile(profile: DirectorProfile, locales: Array[String]) -> PackedStringArray:
+	if profile == null:
+		return PackedStringArray(["director profile is required"])
+	var errors: PackedStringArray = profile.validation_errors()
+	if errors.is_empty():
+		errors.append_array(validate_translation_keys(locales, profile.get_translation_keys()))
+	return errors
 
 static func validate_director_activity(config: DirectorActivityConfig) -> PackedStringArray:
 	return config.validation_errors() if config != null else PackedStringArray(["director activity config is required"])

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="DirectorEventData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/director_event_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/director_condition_data.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/director_effect_data.gd" id="3"]
+
+[sub_resource type="Resource" id="Condition0"]
+script = ExtResource("2")
+kind = &"dry_start"
+
+[sub_resource type="Resource" id="Condition1"]
+script = ExtResource("2")
+kind = &"metric_below"
+metric_id = &"tree_cover"
+threshold_id = &"birds"
+
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("3")
+kind = &"extra_water_charge"
+extra_charge = 1
+exempt_metric_id = &"tree_cover"
+exempt_threshold_id = &"birds"
+waive_rain = true
+
+[resource]
+script = ExtResource("1")
+id = &"gentle_dust"
+tags = PackedStringArray("weather_dust")
+conditions = Array[Resource]([SubResource("Condition0"), SubResource("Condition1")])
+effects = Array[Resource]([SubResource("Effect")])
+weight = 1.0
+cooldown_days = 7
+max_per_season = 2
+is_negative = true
+telegraph_days = 2
+duration_days = 1
+mutex_group = &"weather_dust"
+activity_affinities = PackedStringArray()
+title_key = &"DIR_DUST_TITLE"
+explanation_key = &"DIR_DUST_WHY"
+counter_hint_key = &"DIR_DUST_COUNTER"

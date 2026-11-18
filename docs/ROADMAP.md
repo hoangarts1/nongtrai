@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5b automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 189scripts/804/804/96478assert; groups137.494/110.633/155.242s<180, GUT403.369s/wall422.600s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2440, prior test/fixture verification396, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5b-230647/full-attempt1. No skip/weakening/timeout extension.
+
+Step1/10 adds validated three-event DATA/policy only, default off and no runtime/save13 change. Approved dust/extra market visit/butterfly accent terms and9draftvi/en keys; actual metric/weather/NPC/calendar references, explicit deep copies, finite/cap/telegraph/text guards. Focused final8/8/85assert, CLIpositive0/negativecap1/restoration, isolated40dependency1000copy/validation probe PASS (inherited NPC UID path fallbacks documented). Full804/804 PASS. Remaining c-k are approved and unimplemented until prior gates; parent7.5 remains partial.
+
 ## Phase7.5a automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 187scripts/796/796/96393assert; groups153.331/125.783/116.153s<180, GUT395.267s/wall414.091s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2430, prior test/fixture verification390, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/phase75a-run-20261118-221411/phase7.5a-221411/full-attempt1. No skip/weakening/timeout extension.
