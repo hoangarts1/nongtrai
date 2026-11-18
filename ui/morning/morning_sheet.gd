@@ -9,6 +9,7 @@ var weather: LifeMorningWeather
 var garden: LifeMorningGarden
 var market: LifeMorningMarket
 var tasks: LifeMorningTasks
+var ecology: LifeMorningEcologyStrip
 var begin_button: Button
 
 func _ready() -> void:
@@ -36,6 +37,8 @@ func _ready() -> void:
 	market = preload("res://ui/morning/market_column.tscn").instantiate() as LifeMorningMarket
 	market.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	columns.add_child(market)
+	ecology = preload("res://ui/morning/ecology_strip.tscn").instantiate() as LifeMorningEcologyStrip
+	column.add_child(ecology)
 	tasks = preload("res://ui/morning/task_strip.tscn").instantiate() as LifeMorningTasks
 	column.add_child(tasks)
 	var center: CenterContainer = CenterContainer.new()

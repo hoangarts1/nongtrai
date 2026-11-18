@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.3i transient morning readout (D114)
+
+No DATA/save13/schema change. Morning snapshot adds transient ecology readout using7.3g schema. Strip displays actual eased tree/species values and live counts; tooltips carry targets/ease/hints. Water label remains unmeasured regardless of saved placeholder. Busy/invalid model clears counts. No presentation fields persist or change owners.
+
 ## Phase7.3h transient UI only (D113)
 
 No DATA/wire/version change. Journal page/controller/scroll/focus/selection are transient view state, never saved. Controls consume7.3g model; native float bar min/max/value reflect current metrics with continuous step0, no integer truncation or owner writeback. Water generic bar stays hidden and no numeric fields are read. Quest mode lazily omits/destroys ecology controls to preserve original no-progress invariant. Resource keys and both locales unchanged; native captures and human tone review are separate acceptance.

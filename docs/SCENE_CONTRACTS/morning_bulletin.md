@@ -1,5 +1,11 @@
 # ISO-9 morning bulletin (D46)
 
+## Phase7.3i actual ecology strip (D114)
+
+No existing .tscn/Main/flow/UiCoordinator/InputMap/domain/save change. LifeMorningSheet adds ecology:LifeMorningEcologyStrip between existing three columns and task strip. New ui/morning/ecology_strip.tscn/.gd is a PanelContainer using shared LifeKeyHint Theme, fields heading/summary/water_label/water_value/trees/species:Label and counts:HBoxContainer; display(snapshot:Dictionary)->void. First row shows actual committed estimates and separate localized unmeasured water labels; second shows actual current garden counts/goals. Count tooltips show actual target/ease/action hint from existing localized presenter, not fabricated deltas/history. Busy/missing/stale readout shows waiting/empty counts, never fake zero estimates.
+
+MorningSnapshot adds ecology:EcologySnapshot.capture(main). MorningPresenter delegates it (or explicit invalid fallback) to strip; existing weather/forecast/prices/garden/tasks/Begin remain. Existing completed-morning queue/dedup/reset controls unchanged; no load-only bulletin or day simulation from rendering/translation. Native vi/en/3sizes/real state/save match/dismissal tests and captures plus original morning cases verify fit/read-only behavior. No editor setup. Human F5/tone acceptance remains separate.
+
 ## Phase7.1b weather transaction (D86; no scene edits)
 
 Main uses the existing WeatherState instance at actual GameClock day. On a legitimate next morning, reserve captured weather before outgoing-rain/farm callbacks; keep farm->animal->machine ordering, finish the weather day once, apply morning rain, reconcile ledger and then safe autosave/bulletin. Weather busy blocks save/load/new/title/sleep commands during callbacks; duplicate/skipped/stale signals do nothing. Saved3 forecasts remain exact through load/migration, newly needed tail uses DetRandom tag1. Save12 weather day must match saved clock; missing/corrupt weather is explicitly initialized at loaded day without replaying simulation. Existing typed events/views/modal tree/input/Inspector remain unchanged. Bulletin and tomorrow card only read forecast; no view rolls weather.

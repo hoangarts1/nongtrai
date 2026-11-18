@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D114 ? read-only morning ecology after committed day (2026-11-18)
+
+Approved7.3i consumes existing actual snapshot/presenter in a separate compact strip. No state mutation, forecast replay or fake measured water; actual current estimates/counts and target/ease/hints stay distinct. Invalid context is waiting. Short fixed labels must not word-wrap at shrink width; long summary/counts may wrap. Native both-locale/three-size fit and old price scroll/dismiss tests are required. Save13 and morning timing remain unchanged; human wording acceptance separate.
+
 ### D113 — lazy ecology page within the existing journal modal (2026-11-18)
 
 Approved7.3h adds separate small sheet/metric/source scene pairs and a transient Node controller to the existing J Quest book. Keep3enabled common-tab indices/4filters, close/modal/pause/QE and original quest transaction paths. Explicit Ecology entry creates page lazily; Back/reset/close detaches and queue_frees it, so ordinary quest mode continues to satisfy old no-progress/no-fake-XP invariant without changing its tests. Header entry shrinks to content instead of taking half the tab bar; Close remains far right. Same native Theme/Fonts, no global inputs/styles/art or old .tscn edit. Render only7.3g actual detached data; water remains unmeasured/hidden bar. Busy-state localization and deferred focus/reset guards avoid stale UI work. No world state/save13 mutation. Native captures/automated layout acceptance are distinct from human F5/tone review.

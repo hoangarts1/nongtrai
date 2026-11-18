@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.3i compact morning ecology (D114)
+
+MorningSnapshot appends actual EcologySnapshot; MorningPresenter passes it into new separate LifeMorningEcologyStrip under existing sheet after columns/before tasks. Strip uses shared read-only formatter/current localized keys. No extra owner/controller/day subscription and no new modal route. Existing MorningFlow decides when completed saved day can display; refresh/dismiss/load never simulate ecology. Missing/stale/busy waits, unmeasured water has no numeric score.
+
 ## Phase7.3h existing journal modal, lazy ecology controls (D113)
 
 Existing NpcJournal/NpcPanel remains the sole modal owner. LifeQuestBook header contains Ecology entry and unchanged tabs; original quest body remains intact. LifeQuestBookController owns transient LifeEcologyController Node; explicit entry creates small LifeEcologySheet under book.paper, hides quest body, renders actual snapshot/presenter model. Back/reset/close removes sheet from tree immediately then queue_frees it; ordinary quest mode has no ProgressBar descendants and all original APIs/transactions stay. State/farm/wallet/locale changes coalesce deferred read-only refresh. Busy/stale view shows waiting with current locale. NewGame/load/title use existing controller reset; hidden stale reset/focus work is guarded. No Main/domain/UiCoordinator/InputMap/autoload/save13 changes. New simple scenes/scripts and typed fields are documented in scene contracts; no editor setup.

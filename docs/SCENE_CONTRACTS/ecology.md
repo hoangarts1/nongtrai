@@ -1,5 +1,9 @@
 # Ecology runtime and presentation contract
 
+## Phase7.3i morning consumer (D114)
+
+Existing morning sheet adds one separate LifeMorningEcologyStrip from ui/morning/ecology_strip.tscn/.gd. MorningSnapshot carries actual ecology snapshot after committed rollover; presenter displays current estimates, current garden counts/goals, target/ease/action tooltips and water unmeasured. Invalid/busy/stale view has waiting/empty counts. No fake yesterday delta/event/history, no render-time simulation/save. Existing morning queue/modal/dismissal/reset rules remain; exact fields in morning_bulletin.md.
+
 ## Phase7.3h journal controls (D113)
 
 Existing Main/NpcJournal modal and3common tabs/4quest filters remain. LifeQuestBook exposes navigation:HBoxContainer (Ecology entry button followed by existing tabs so Close stays far right), paper:VBoxContainer, body:HBoxContainer, ecology_button:Button and nullable ecology_sheet:LifeEcologySheet. Original tabs/filters/list/people/detail/hint fields remain. No new input action or external path. Quest mode has no ProgressBar descendants: sheet is instantiated lazily on explicit entry and detached/queue_freed on Back/reset/close, preserving old no-fake-XP contract.

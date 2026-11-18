@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.3i automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 179scripts/766/766/89168assert; groups120.882/139.521/118.275s<180, GUT378.678s/wall397.286s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2412, prior test/fixture verification378, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3i-205442/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step7/10 after7.3h pushed4a034c3/full763/763. Adds separate LifeMorningEcologyStrip scene/script between existing columns and tasks; snapshot captures actual ecology, presenter reads existing localized model. Current eased estimates, real source counts, target/ease/hints in tooltips and unmeasured water; no simulation/save/input/new string. Missing/busy/stale readouts wait without fabricated zeros. Same completed-morning flow and no replay after load/dismiss.
+
+Native1 rejected: wrong PackedStringArray.join API caused compile/cascade failures. Corrected to String.join. Native2 9/12 exposed one-character wrapping of shrink labels, oversized bulletin and blocked price scroll. Fixed only three short strip labels to no-wrap. Native3 original old flow/layout plus3newcases:3scripts/12/12/1818assert/11.742s PASS, no SCRIPT ERROR/leak. Six fresh vi/en1152/1280/1920 captures archived in checkpoint native3-captures; final1152vi image visually reviewed, readable/fit, tasks/Begin visible, scroll passes. Old tests unchanged. Full766/766 PASS. Checkpoint phase7.3i-205442 under current batch root. Human F5/tone acceptance separate.
+
 ## Phase7.3h automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 178scripts/763/763/89059assert; groups134.813/128.806/118.302s<180, GUT381.921s/wall400.035s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2409, prior test/fixture verification376, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3h-201521/full-attempt1. No skipped/removed cases or timeout extension.

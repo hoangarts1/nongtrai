@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase7.3i morning ecology component (D114)
+
+LifeMorningEcologyStrip extends PanelContainer, ecology_strip.tscn: display(snapshot:Dictionary)->void uses EcologyPresenter.describe. Typed heading/summary/water_label/water_value/counts/trees/species controls. Count tooltips show current garden target/ease/action hint. Invalid/busy/stale clears counts and shows waiting; water always unmeasured. MorningSnapshot.capture adds detached ecology field; MorningPresenter renders it and LifeMorningSheet owns strip between columns and tasks. Short labels use no-wrap/shrink to preserve native small-window fit. Existing APIs/flow/input/save unchanged.
+
 ## Phase7.3h native ecology journal controls (D113)
 
 LifeQuestBook adds navigation:HBoxContainer, paper:VBoxContainer, body:HBoxContainer, ecology_button:Button and nullable ecology_sheet:LifeEcologySheet. Original tabs/filters/list/people/detail/hint APIs remain. Existing3enabled common-tab indices/4quest filters and journal modal unchanged. Ecology entry does not expand across header; tabs/Close retain space. No new input action.

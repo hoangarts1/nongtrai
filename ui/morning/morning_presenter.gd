@@ -16,5 +16,6 @@ static func render(panel: LifeMorningSheet, snapshot: Dictionary) -> void:
 	var prices: Array[Dictionary] = []
 	prices.assign(snapshot.prices)
 	panel.market.display(prices)
+	panel.ecology.display(snapshot.get("ecology", {"ok": false}))
 	panel.tasks.display(int(snapshot.ready),int(snapshot.water),int(snapshot.empty))
 	panel.begin_button.text = TranslationServer.translate(&"NEWS_BEGIN")

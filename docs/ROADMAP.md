@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.3i automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 179scripts/766/766/89168assert; groups120.882/139.521/118.275s<180, GUT378.678s/wall397.286s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2412, prior test/fixture verification378, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3i-205442/full-attempt1. No skipped/removed cases or timeout extension.
+
+Step7/10: actual ecology summary/counts/unmeasured water in a small morning strip. Existing completed-day/save-before-bulletin/no replay remains. Native final12/12/1818assert PASS including unchanged morning flow/layout at3sizes/2locales; six captures archived. Initial compile and shrink-label layout failures fixed in new component, no weakened assertions. Full766/766 PASS; water measurement/human review deferred.
+
 ## Phase7.3h automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 178scripts/763/763/89059assert; groups134.813/128.806/118.302s<180, GUT381.921s/wall400.035s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2409, prior test/fixture verification376, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.3h-201521/full-attempt1. No skipped/removed cases or timeout extension.
