@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DirectorActivityConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/director_activity_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+window_days = 7
+activity_ids = PackedStringArray("plot_tilled", "crop_planted", "plot_watered", "crop_harvested", "item_purchased", "item_sold")

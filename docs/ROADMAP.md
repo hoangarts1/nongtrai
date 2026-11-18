@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5a automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 187scripts/796/796/96393assert; groups153.331/125.783/116.153s<180, GUT395.267s/wall414.091s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2430, prior test/fixture verification390, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/phase75a-run-20261118-221411/phase7.5a-221411/full-attempt1. No skip/weakening/timeout extension.
+
+Approved21path foundation implemented: Resource7day/six actual source IDs, pure standalone observation owner/strict codec, explicit full/partial coverage and unavailable partial totals. Focused14/14/6603assert, independent4000days(7/14windows,partial/full,every-day nativeJSON continuations), CLIpositive0/negative0day-config1 PASS. No runtime collector/decision/effect/Director activation or save13 change; all old cases/runners protected. Full796/796 PASS. Exact signatures/contracts/checkpoint in PROGRESS/API_INDEX/D118. Parent7.5 remains partial, no claim of three working events or human playtest.
+
 ## Phase7.4c automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 184scripts/782/782/89790assert; groups154.541/129.022/117.921s<180, GUT401.484s/wall421.661s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2423, prior test/fixture verification386, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4c-214139/full-attempt1. No skipped/removed cases or timeout extension.
@@ -453,7 +459,8 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.4a | Bounded feedback DATA/selector (D115; automation delivered) |8butterflies+6birds, current threshold/availability, strict validator/CLI/pure1000selections/new6cases/full772/772 PASS | [~] |
 | 7.4b | Live bounded2D feedback (D116; automation delivered) | Shared owned-grid anchors/reused max14 nodes/pause/night-rain/lifecycle cleanup; native15/15/12captures/full777/777 PASS | [~] |
 | 7.4c |1000day and native complete lifecycle (D117; automation delivered) | CLI1000days/35roundtrips/48crossings, pure1000days/native5cases/18captures PASS; full782/782 PASS | [~] |
-| 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness | golden test; 1000-day invariants; off-switch works | [ ] |
+| 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness |7.5a standalone activity foundation delivered; runtime/three events/scoring/effects/debug/save/off-switch integration remain deferred | [~] |
+| 7.5a | Director activity window foundation (D118; automation delivered) | Shipped7day config, explicit partial/full observation, pure serialized state/strict codec;14newcases/pure4000days/CLI0-1 PASS, full796/796 PASS; no runtime/save13 change | [~] |
 | 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
 
 ## Phase 8 — NPCs & quests  ~60–110 h

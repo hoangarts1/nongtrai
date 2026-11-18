@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5a standalone activity observation boundary (D118)
+
+DirectorActivityConfig DATA -> pure DirectorActivityCodec/DirectorActivityState DOMAIN. State owns only standalone current day/counts/coverage and bounded consecutive completed history, supports serialization immediately; no Main/WorldState owner or game-save field is added yet. Inputs are explicit day/source/quantity, not Nodes/signals/time. Config is deep-frozen; query returns completed-window totals only when full coverage exists, otherwise no numeric totals. Typed local activity_changed after atomic record/advance stays guarded against mutation reentry. Configure/deserialize silent; no event replay. Validator/CLI append DATA gate; no runtime/view/autoload/Events/day-simulation/RNG change. EventDirector selection and actual collection remain future7.5 slices, D17 M2.4 policy unchanged.
+
 ## Phase7.4c verification boundary (D117)
 
 No live architecture change. Isolated SceneTree tool uses existing autoload clock/data only, deferred-loads runtime-dependent FarmGridState/DaySimulator, and verifies two separate farm/ecology owners as test references. Actual reserved simulator callback is compared daily with individual lifecycle path; fixed checkpoint positions nativeJSON-decode both before continuing. No world/Main/new game state/save storage or gameplay RNG. GUT native integration separately proves actual Main review/autosave/morning/journal/feedback/lifecycle ownership and immutable reads. Tool restores prior serialized clock/pause before return and never belongs in a live scene. Existing production dependency direction/wire unchanged.

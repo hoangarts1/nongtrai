@@ -1,5 +1,66 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5a automation delivered (2026-11-18)
+
+Full1 original launcher exit0: 187scripts/796/796/96393assert; groups153.331/125.783/116.153s<180, GUT395.267s/wall414.091s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2430, prior test/fixture verification390, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/phase75a-run-20261118-221411/phase7.5a-221411/full-attempt1. No skip/weakening/timeout extension.
+
+Owner approved21paths and implementation/test/commit/push. Baseline5e175e4/full782/782 preserved. Shipped DirectorActivityConfig selects7completed days (S14 supports7-14), six existing source IDs, typed pure owner and independent strict codec. No subscription/runtime/UI/save13 integration/Director activation yet. Counts and explicit full/partial coverage persist only through the standalone owner. Default configure(day) is partial, next adjacent observation opens complete; query totals structurally empty until the full configured window consists of genuinely observed complete days. No historical zero padding, open-day contribution or retroactive event. Current-only positive integer recording, checked per-counter current+closed-window JSON-safe sum, bounded ordered retention and immutable config/snapshots. Local typed activity_changed publishes atomic state under a mutation guard; configure/deserialize silent. No global bus/Node/clock/RNG dependency.
+
+Focused1 headless3scripts/14/14/6603assert/3.715s PASS; all new cases collected, no SCRIPT ERROR/leak/orphan. Source-signal/typed-quantity check matches actual Events;1000day sliding reference, partial-first-day eviction, known zero days, open-day exclusion, stale/skipped/duplicate/overflow and capacity release, frozen config/detached reads, callback reentry and strict JSON/fuzz/large-integer/day-limit tests. CLI-positive1 exit0; deliberate window_days0 negative1 with identified director activity window diagnostic; exact Resource bytes restored in finally. Pure1 isolated4production dependencies/noautoload/world nodes:4000days across7/14 windows and partial/full coverage, every-day native JSON continuation/reference totals/duplicate/stale atomicity PASS. Import1/2 parse clean, existing duplicate assetUID warnings retained. Full796/796 PASS.
+
+Checkpoint: D:/godot/game-godot-backups/phase75a-run-20261118-221411/phase7.5a-221411. Source/test/golden/real-save SHA and full logs archived there before commit. Only approved21paths may change; two pre-existing prompt changes remain excluded. No editor setup, existing Player/InputMap/save13/old tests/fixtures/goldens/runners/180s group limits protected. Parent7.5 remains partial: live collector, actual snapshot/scoring/three events/weights/effects/history save/UI/debug/harness and M2.4 enable gate still require later scopes. Producer callbacks during load/rain/bulk/simulation must be addressed before live collection; woodcutting/fishing/cleanup sources are absent and not fabricated.
+
+Manual: tools/run_tests.bat for entire suite. No visible gameplay behavior is added by this library step. Human F5 acceptance for eventual live Director is pending. Proposed commit: feat: add serialized activity window for event director.
+
+## Approved Phase7.5a scope - Director activity window foundation (2026-11-18)
+
+STATUS: owner approved7.5a/21paths and test/commit/push: Duyet Phase7.5a, trien khai va commit/push. Implementation starts after external workspace/test/save checkpoint. Planning baseline HEAD5e175e46ecf175549005d58ee84a80f4f2760f0f, verified on origin/master; preceding batch7.3c->7.4c delivered all10 milestones, latest original launcher184scripts/782tests/89790assert PASS. Existing deleted the_life_prompt.md and untracked the_life_master_prompt.md remain excluded/preserved.
+
+MILESTONE: Phase7.5a, first foundation slice of Roadmap7.5 EventDirector v0.
+READ-ONLY CONTEXT: AGENTS.md; PROJECT_RULES; current PROGRESS/API_INDEX/ARCHITECTURE/ROADMAP/DECISIONS/DATA_SCHEMA/CODE_PATTERNS; Master Plan S14/F7/D17; existing Events declarations, DetRandom and current ecology/save/day libraries. No scene contract is touched because this slice has no scenes/view/runtime wiring.
+
+TASK: Add Resource-owned activity-window definitions and a pure serializable DirectorActivityState with an independent strict DirectorActivityCodec. Proposed default is7 completed days, within Master Plan S14's7-14 day range. This is observational input for the later rule-based EventDirector, not scoring, effects or player rewards. Six existing producer signal identities define prospective counters: plot_tilled/crop_planted/plot_watered count successful actions; crop_harvested/item_purchased/item_sold count their existing quantity:int. This slice does not subscribe to Events: an eventual runtime collector must feed actual successful producers in a separately approved step. Config/owner/codec validate complete known IDs and finite exact nonnegative integer counts with checked accumulation; invalid/malformed/reentrant/stale/future commands leave existing state unchanged. Data defaults/policy live in Resource, never in a view/gameplay script.
+
+OBSERVATION CONTRACT: configure at an explicit actual day with explicit full-day coverage (safe default: partial); record only the current day; close exactly one adjacent day, retain bounded ordered history and open the next. Track observed complete versus partial/unknown days explicitly. A loaded old game never receives fictitious zero-activity historical days; partial windows are unavailable for later Director scoring. A full7day readout requires7 genuinely observed complete consecutive days. Codec roundtrip retains coverage/counts/day, JSON integers are canonicalized, invalid input is atomically refused, getters/snapshots detached. Reset/configure/load do not emit retrospective activity or change other owners. Initial state is serializable from its first commit. No public existing API or signal renamed.
+
+APPROVED API outline (actual typed signatures in the implementation section/API_INDEX above): DirectorActivityConfig(Resource).validation_errors(); DirectorActivityState(RefCounted).configure(config,day,full_day=false), record(day,activity,quantity), advance_day(next_day), get_window_snapshot(), serialize(), deserialize(raw); DirectorActivityCodec(RefCounted).decode(config,raw). API_INDEX/DATA_SCHEMA will document exact typed signatures/results/wire after approval. DataValidator and existing CLI append a gate for the shipped config without removing any current gate.
+
+ALLOW_LIST (21 exact paths, approved):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `scripts/data/director_activity_config.gd`
+- `scripts/data/director_activity_config.gd.uid`
+- `data/director_activity_config.tres`
+- `scripts/domain/director/director_activity_state.gd`
+- `scripts/domain/director/director_activity_state.gd.uid`
+- `scripts/domain/director/director_activity_codec.gd`
+- `scripts/domain/director/director_activity_codec.gd.uid`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `tests/unit/test_director_activity_config.gd`
+- `tests/unit/test_director_activity_config.gd.uid`
+- `tests/unit/test_director_activity_state.gd`
+- `tests/unit/test_director_activity_state.gd.uid`
+- `tests/unit/test_director_activity_codec.gd`
+- `tests/unit/test_director_activity_codec.gd.uid`
+
+DO NOT TOUCH: everything else, including Main, GameClock, Events, DetRandom, existing tests/fixtures/goldens, all .tscn, assets/imports/audio, Player/character UI, InputMap/project.godot, save service/schema/version13 and fixed test launchers/180s child limits. No new autoload/global signal, event definition/weight/pity/effect/merchant behavior, story flag, money/stamina/crop/water/weather mutation, save migration or Director activation. ChapterII/M2.4 gate remains the target D17 policy, not fabricated as already implemented.
+
+ACCEPTANCE:
+- Shipped7day config and six known activity IDs validate; null/bad/duplicate IDs or unsupported window/count fields fail with explicit diagnostics. All gameplay settings are Resource data; no new balancing values for the three eventual events are invented.
+- Pure state verifies current-only recording, exact quantities, overflow refusal, adjacent-day close, duplicate/skipped/stale/future rejection, bounded sliding retention, partial coverage and honest availability; all failure paths preserve prior bytes/state.
+- Strict detached codec verifies native JSON roundtrips, malformed/fuzzed flags/counts/IDs/day ordering, missing/unknown state and no phantom historical observations. Existing real saves stay byte-identical because this state is not integrated into them yet.
+- New additive GUT suites plus an isolated no-autoload/domain probe (at least1000 day transitions), CLI positive and deliberate invalid-config negative with exact restoration; then unmodified tools/run_tests.bat: parse/data/headless/full graphics/Main, every old case retained, fixed180s group limits. Archive real outputs including any rejected/incomplete attempt.
+- Exact scope/source/test/golden and20real-save SHA checks before/after tests and commit. Update the six shared docs accurately. No editor setup required; manual F5 acceptance for eventual live Director remains pending and is not claimed.
+
+ASSUMPTIONS/RISKS: Owner approved the7day choice with this plan. This foundation cannot yet infer logging from replayed domain signals; future runtime integration needs busy/load/rain/transaction guards so simulation, restore or bulk actions cannot masquerade as manual activity. No woodcutting/fishing/flower/fence/cleanup owners exist to feed missing categories, so no fake counts are added. Event weights, pity/grace durations and negative-event counteractions need a later concrete design before runtime activation; the three-event full7.5 parent is still NOT implemented here. Native JSON exact-integer limits and hostile count overflow must be explicit. Earlier full groups154.541/129.022/117.921s are below180; new tests must preserve that gate without weakening cases/increasing timeout.
+
+PROPOSED EXECUTION: after approval implement only this slice, focused/pure/CLI/full gates, then one commit/push origin/master with scope/remote verification, following the user's existing delivery workflow. Proposed message: feat: add serialized activity window for event director. No commit/push before approval of this new scope.
+
 ## Phase7.4c automation delivered (2026-11-18)
 
 Full1 original launcher exit0: 184scripts/782/782/89790assert; groups154.541/129.022/117.921s<180, GUT401.484s/wall421.661s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2423, prior test/fixture verification386, real-save SHA20 verified. Complete raw log/summary/manifest archive: D:/godot/game-godot-backups/next10-ecology-20261118-190210/phase7.4c-214139/full-attempt1. No skipped/removed cases or timeout extension.
