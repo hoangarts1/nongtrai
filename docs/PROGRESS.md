@@ -1,5 +1,33 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## F12 Git index raw hash khác nhưng không có staged change (2026-11-18)
+
+Scope helper trướccommit dừng tại rawindexSHA, chưastage/commit/push. git diff --cached --exit-code trả0, HEAD vẫn d47eae7, stagedstat rỗng. Không có bản binaryindex-before (chỉhash) nên không khẳngđịnh từngbyte khác làstatcache; metadatarefresh phùhợp nhưng nguyênnhânbyte không xácđịnhđược. Đã thay riêng diagnostichelper ngoài repo để đối chiếu mọi indexentry mode/oid/path/stage0 với git ls-tree HEAD, giữ gate chặnmọi semanticstage khác, báo riêng index_bytes_unchanged=false. Sau stagingcủamình còn kiểm exactstagedpaths trướccommit. Không reset/restore index, không đụng source/test/AL; full646PASS/frozenbytes vẫn hiệu lực. Kiểm rawhash quá chặt không được báo nhầm thành stagedcode đã đổi.
+
+## AUDIT-F12 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
+
+Thêm4case UI, giữ toàn bộ642case/fixture/golden cũ nguyênbyte. Actual17/19path ALLOW_LIST (hai generated .value.translation không có trackedchange, không force-add). Nativefocused cuối16/16,668assert,13.571s;36finalframes vànative1152đãreview, contact-final giữảnh saupaddingfix. Lịch sử fixture profile thiếu vàsửa/newassertions giữởfocused1..4, không sửa oldtest đểpass.
+
+Full1 nguyên launcher exit0:
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 156 scripts, 646/646 tests, 85444 assertions; GUT 319.706s, wall 337.0886424s
+[run_tests] PASS
+~~~
+Nhóm109.942/110.082/99.682s<180s, MainPASS; sourcefreeze1 và156testhash khớp, strictgate không error/pending/leak. Notice UI thật chỉ dùngreport actual/inspection; no falseContinue/no stalebusy/no duplicate toast/live locale/profilehide được kiểm. Save12/core/restoreorder/worldowners/InputMap/oldscene/assets không đổi. Không Inspector/manual wiring; F5human/export chưachứngnhận.
+
+Backup/before-after/exactlist/implementation.patch/captures/contact-final/focused/import/full/archive/manifest/summary: D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f12-100539/.20save thật vàoutside/HEAD/index kiểmtrướccommit,2prompt ngoài scope. Commit: feat: show actual save recovery and load failures in modular UI. F13 đượcphép bắtđầusauPASS này; hash/push ghi checkpoint kế.
+
+## F11 đã push; AUDIT-F12 đang triển khai (2026-11-18)
+
+F11 commitd47eae7ac2bc3b13f223183bc0f841c988eb962c đã pushorigin/master, remotehash khớp; exact13file/outside0/20save thật nguyênhash. Fullgroups94.510/105.140/110.151s. F12backup D:/godot/game-godot-backups/commit-f4-f6-plan10-20261118-072052/f12-100539. D98 contract/API khai báo component/getter trướccaller; UI passive, noowner/schema12/InputMap/oldscene/asset change. Title usesinspect, Main onlypublishesfeedback afterrestoresuccess, pause usesactualcallback feedbackbefore summary; busyclearsreport, no stale recovery success. Private_load_payload returnsbool withoutrestoreorder change. Notice translatesdetachedreport and stayshiddenprofile/settings acrosslocale; padding keepsglyphs offborder.
+
+Focused1renderer16/16,536assertPASS. Addedpausematrix/long savedname fixture; focused2fails4newcases because golden12 hasno profile key (newfixture wronglyaccessed raw.profile). Fixedonlynewfixture toset explicit profile, focused3PASS16/16,608assert. Inspected36nativeframes viaoverview andnative1152; sawtext touchingborder, addedmargin inactualcomponent +newpaddingassertions. Finalfocused4PASS16/16,668assert,13.571s; all642previous case/fixture/golden bytes unchanged.36finalframes(captures/) are24title(primary/recovered/future/corrupt) +12pause(recovered/future), vi/en1152/1280/1920, GUTopacity0. Actualgolden day31/coins160/epochtimestamp and savedlongname aretestfixtures, notfakeproductionvalues. Longnames scroll, actions/notices inbounds; owners/fileprimaryhash/readreports stable, exactlyoneContinue recoverytoast; pause notice stayslocalized, blocked/future/failures honest. Oldtitle/pause assertions stillPASS.
+
+Import expected duplicateUIDwarnings retained; no newparse/script/error/leak claimed. Full đang chờ, sourcefreeze sau tấtcảlayout/fixture changes. No Inspector/settings/manualwiring. Manual dùng bản sao/testuserdata: recover từbackup2, primaryfuture/corrupt khôngContinue, đổiVi/En khi pause, failSave khôngbáođãlưu. Không thử phá save thật. Commit dự kiến: feat: show actual save recovery and load failures in modular UI.
+
 ## AUDIT-F11 hoàn tất tự động — chuẩn bị commit/push (2026-11-18)
 
 Đúng13path ALLOW_LIST:6docs, SaveService,2corehelper+2UID, test+UID.6case mới; toàn bộ636case/testfixture/golden cũ giữ nguyên byte. Focused cuối17/17,366assert,0.505s; lỗi nestedArray của fixture mới trong focused1 đã ghi và sửa rõ ở dưới. Full1 nguyên launcher exit0:

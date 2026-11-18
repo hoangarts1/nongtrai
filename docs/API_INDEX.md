@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## AUDIT-F12 truthful save/recovery presentation (D98)
+
+LifeSaveNotice (ui/components/save_notice.gd/new.tscn) is a passive PanelContainer: label:Label, presentation_enabled:bool, display(report:Dictionary)->void, static message(report:Dictionary,include_primary:bool=false)->String. It keeps a detached report and translates only source/error codes; source1..3 must be a finite integer, no internal paths appear. Empty/missing/primary(default static) produce no error message. The instance can display a primary source caption. Translation notifications re-render without I/O; presentation_enabled keeps title-only notices hidden in other modes. Uses existing Theme with native inset margins.
+
+LifeTitleScreen.notice:LifeSaveNotice and display_save_report(report:Dictionary)->void add localized source feedback, visible only in TITLE. TitlePresenter.refresh uses inspect_latest rather than actual load, so refresh cannot publish/overwrite the actual-load report. Continue revalidation remains. Main.get_load_feedback()->Dictionary returns a deep copy of its latest request feedback, cleared before blocked loads; only completed restore publishes a success report. Private _load_payload now returns bool (restore order unchanged). Continue shows one recovered toast after successful restore/title closure. PausePresenter.notice replaces the generic status region only for actual recovery/error feedback from the callback owner; generic callbacks/primary/missing/blocked retain existing result keys. Capture report before summary refresh. No extra pause-load toast, new modal, world/save ownership, or schema change.
+
 ## AUDIT-F11 checked save publication (D97)
 
 SaveService.save_game(payload,slot)->bool keeps its wrapper/schema and safe caller API, now delegates bytes to SaveWriteTransaction. get_write_report()->Dictionary returns a deep copy of {ok,error,committed,rollback_ok,cleanup_pending,recovery_paths}. Invalid slot returns false/invalid_slot; concurrent reentry returns false without replacing an in-flight report. I/O failure warns with context; committed cleanup-pending also warns. No report is persisted.

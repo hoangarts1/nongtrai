@@ -674,3 +674,7 @@ COOP_CHANGED,Thông tin vừa thay đổi. Bạn kiểm tra rồi thử lại nh
 COOP_PROMPT,[E] Chăm đàn gà
 COOP_LEDGER,Dựng chuồng gà
 COOP_FOOD_LEDGER,Mua thức ăn gà
+SAVE_NOTICE_PRIMARY,Bản lưu chính
+SAVE_NOTICE_RECOVERED,Đã tải bản dự phòng %d. Bạn có thể lưu lại khi sẵn sàng.
+SAVE_NOTICE_FUTURE,Bản lưu này cần phiên bản trò chơi mới hơn.
+SAVE_NOTICE_INVALID,Chưa tải được tiến độ. Không có bản dự phòng dùng được.

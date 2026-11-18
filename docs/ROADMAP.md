@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## AUDIT-F12 automation delivered (2026-11-18)
+
+Shared localized source/error notice and completed-load feedback added4cases; finalnativefocused16/16/668assert and36frames reviewed. First fullPASS646/646 (85444assert/156scripts), parse/data/headless63/Main PASS, groups109.942/110.082/99.682s<180s. All642previous case/fixture/golden bytes unchanged. Actual17allowedpaths; optional generated translations unchanged/ignored, no force-add. Exactdiff/output/visual/fixture history in PROGRESS. F13transactional settings next, no human F5/export or full final-art acceptance claim.
+
+## AUDIT-F12 in progress (2026-11-18)
+
+F11 committed/pushedd47eae7 after full642/642. F12 shared source/recovery/error notice, read-only title inspection and completed-load feedback delivered. Focused renderer16/16,668assert includes4additive cases and old title/pause suites;36native vi/en/3size title+pause frames reviewed, padding corrected in production component. One new fixture initially assumed absent golden profile; fixed fixture with explicit saved profile, old tests unchanged. Full gate pending. This is error/recovery presentation, not new settings persistence or full final-art completion.
+
 ## AUDIT-F11 automation delivered (2026-11-18)
 
 Checked staged save writer/adapter added6cases; focused17/17/366assert. First fullPASS642/642 (85006assert/155scripts), parse/data/headless63/Main PASS, all groups<180s. All636previous case/fixture/golden bytes unchanged. Exact13paths, native Windows rename/readback, fault/rollback/collision probes and guarantee limits in PROGRESS. Save12/owners remain; F12truthful recoveryUI next. No multi-file power-loss/disk-full hardware acceptance.

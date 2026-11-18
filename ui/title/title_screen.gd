@@ -8,6 +8,7 @@ var tagline: Label
 var version: Label
 var hint: Label
 var latest: LifeLatestSaveCard
+var notice: LifeSaveNotice
 var actions: LifeTitleActions
 var profile: LifeTitleProfileForm
 var settings: LifeTitleSettings
@@ -17,6 +18,7 @@ var _version_value: String = ""
 var _paper: PanelContainer
 var _banner: PanelContainer
 var _footer: HBoxContainer
+var _save_report: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
@@ -33,6 +35,8 @@ func _ready() -> void:
 	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	latest = preload("res://ui/title/latest_save_card.tscn").instantiate() as LifeLatestSaveCard
 	column.add_child(latest)
+	notice = preload("res://ui/components/save_notice.tscn").instantiate() as LifeSaveNotice
+	column.add_child(notice)
 	actions = preload("res://ui/title/title_actions.tscn").instantiate() as LifeTitleActions
 	column.add_child(actions)
 	profile = preload("res://ui/title/profile_form.tscn").instantiate() as LifeTitleProfileForm
@@ -67,6 +71,13 @@ func set_mode(value: Mode) -> void:
 	_space.visible = mode == Mode.TITLE
 	profile.visible = mode == Mode.PROFILE
 	settings.visible = mode == Mode.SETTINGS
+	display_save_report(_save_report)
+
+func display_save_report(report: Dictionary) -> void:
+	_save_report = report.duplicate(true)
+	if notice != null:
+		notice.presentation_enabled = mode == Mode.TITLE
+		notice.display(_save_report)
 
 func _draw() -> void:
 	if mode != Mode.PROFILE:

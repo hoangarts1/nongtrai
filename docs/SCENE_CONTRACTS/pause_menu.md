@@ -1,5 +1,11 @@
 # ISO-7 Pause/settings contract (D43)
 
+## F12 truthful recovery feedback (D98)
+
+Presenter.notice:LifeSaveNotice is a new runtime component beside the existing status Label in its documented parent column. Recovered/error messages hide the generic Label and show this component; generic show_result clears its report and restores the Label. Its own translation notification re-renders the detached report, so language changes do not revive a stale generic status. Title uses presentation_enabled to keep the same component hidden in profile/settings even across translation changes. No existing .tscn edits.
+
+PausePresenter captures bool load result and the callback owner's get_load_feedback()->Dictionary before refreshing the summary. Main provides this transient detached report only for that actual request, clears it before blocked/error paths, and sets it after restore succeeds (or a real load error). Custom callbacks without the getter keep the original generic result messages. Recovered/future/corrupt feedback uses LifeSaveNotice.message; primary/missing/blocked keep PAUSE_LOADED/PAUSE_LOAD_FAILED. No extra modal/toast for pause loading; Continue recovery uses one Main toast. Save/return failure remains bool-based and cannot show UI_SAVED or exit the running game. Existing settings draft/modal/lock and restore order stay.
+
 Approved by owner: commit ISO-6b1 and implement the ISO-7 plan/ALLOW_LIST in PROGRESS. Main/PauseMenu remains the existing PanelContainer and public configure/open/close/toggle API; no existing scene edits. Its new runtime child shell comes from ui/pause/pause_shell.tscn. UiLayout supplies the wide modal rectangle; UiCoordinator owns exclusivity, focus and clock/input restoration. Closing or switching discards drafts. DayEndSheet retains precedence.
 
 All six component scenes use script-built native Controls and the shared Theme; scripts own only presentation/request state. Each scene has its same-named .gd, no editor signal connections or external node paths.

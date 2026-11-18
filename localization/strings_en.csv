@@ -674,3 +674,7 @@ COOP_CHANGED,Things have changed. Please check and try again.
 COOP_PROMPT,[E] Visit the chicken coop
 COOP_LEDGER,Chicken coop
 COOP_FOOD_LEDGER,Chicken feed
+SAVE_NOTICE_PRIMARY,Primary save
+SAVE_NOTICE_RECOVERED,Loaded backup %d. Save again when you are ready.
+SAVE_NOTICE_FUTURE,This save needs a newer game version.
+SAVE_NOTICE_INVALID,Progress could not load. No usable backup was found.

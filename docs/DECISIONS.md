@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D98 — present actual completed load results (2026-11-18)
+
+ApprovedF12 separates title inspection from actual load notification. A small shared notice renders detached source/error reports with vi/en keys and no filesystem paths; title hides it outside TITLE, including live translation. Main exposes transient request feedback cleared before busy/error guards; recovered success requires the restore routine to finish. Pause captures this feedback from its callback owner before refreshing summaries and uses the existing status area, not another toast/modal. Continue alone shows one recovered toast after entering the restored world. Save failure remains bool-based. Gameplay restore order, owners, save12 and all old scene/InputMap/assets remain unchanged.
+
 ### D97 — staged save publication and observable rollback (2026-11-18)
 
 ApprovedF11 replaces unchecked destructive rotation with a core adapter/transaction. Read originals, stage their copies and all desired new bytes, then move/publish with retained copies. Backup history is existing primary then backups in order, truncated to3, compacting holes without discarding history merely because primary is absent. No new persistent owner/schema. An observed precommit failure returns false and restores originals when rollback I/O succeeds. If rollback also fails, retain copies and report their paths; never silently destroy the last previous bytes. Once the complete family commits, cleanup failure is reported as committed cleanup_pending, not a false failed save. Tests inject I/O errors and exercise Windows rename; no claim of atomicity across power cuts or actual disk-full testing.

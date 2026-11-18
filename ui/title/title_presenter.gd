@@ -16,8 +16,10 @@ func configure(menu: StartMenu, screen: LifeTitleScreen, start: Callable, resume
 	_exit = exit
 
 func refresh() -> void:
-	var payload: Dictionary = SaveService.load_latest()
+	var inspected: Dictionary = SaveService.inspect_latest()
+	var payload: Dictionary = inspected.payload
 	_screen.latest.display(payload)
+	_screen.display_save_report(inspected.report)
 	_screen.actions.continue_button.disabled = payload.is_empty()
 	var meta: Dictionary = LifeTitleParts.dictionary(payload.get("meta",{}))
 	var version: String = LifeTitleParts.text(meta,&"game_version")
