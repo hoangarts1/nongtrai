@@ -1,5 +1,127 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.2a hoàn tất tự động — commit/push (2026-11-18)
+
+Đúng12path ALLOW_LIST: sáu docs/contract, default_bus_layout.tres, AudioService, router+UID và test+UID.4case mới, toàn341file test/fixture/golden cũ và bốn WAV gốc nguyênbyte. Native focused8/8/103assert/0.586s và boot tự nạp5bus PASS; không có failed attempt. Full1 nguyênlauncher exit0:
+
+~~~text
+[check_parse] OK
+[validate_data] PASS
+Headless: 63/63
+[graphics_tests] PASS: 161 scripts, 666/666 tests, 86641 assertions; GUT 331.415s, wall 349.392532s
+[run_tests] PASS
+~~~
+
+Ba nhóm 112.712/103.639/115.064s dưới180s/nhóm, strict gate khôngerror/pending/leak. Expected missing-layout warning từ fixture giữ nguyên, inherited warnings không xóa. Freeze2348file khớp và20save thật nguyênSHA, oldtests unchanged. Bằng chứng/diff/before-after/exactfilelist/APIprobe/import/focused/full/archive/manifest/summary/scopeaudit tại D:/godot/game-godot-backups/phase72-20261118-122731/phase7.2a-122731/. Không Inspector bước bắt buộc, không human listening claim; chưa có music/ambience playback đến7.2c. Commit: feat: route accepted audio preferences through five native buses. Sau commit/push remotehash khớp mới bắt đầu7.2b; hash ghi ở checkpoint tiếp và commit-result.json.
+
+## Phase7.2a focused/native PASS — full gate đang chờ (2026-11-18)
+
+Final focused2 native8/8,103assert,0.586s PASS:4new bus-routing +3live-SFX +1original-asset case. Focused1 trước đó cũng8/8/100assert; thêm đúng3assert sai send củaUI sau đó để chứng minh preflight không ghi gainMusic trước khi kiểm đủ route. Không có failed focused attempt. Native boot probe2 tự nạp default_bus_layout.tres cho5bus mà không đổi project.godot; probe1 trước resource chỉ1Master. API/linear-zero/actual SFX player bus/gain được chạy trên pin4.7.2. Expected warning duy nhất từ fixture cố ý xóa layout; không giấu stderr. Import giữ inherited duplicateUID warnings.
+
+Bus route/accepted gain1,.5,0,1, master gain giữ nguyên, failedApply/draft/spoofed event, thiếu/sai route fail-without-partial-write, một listener và freed receiver đã kiểm. Bốn WAV gốc/test cũ và save12/owners/scene/input giữ nguyên. Không loop/runtime/Main thay đổi ở7.2a. Manual: project mở tự có5bus, existing effects nghe theo accepted slider; Music/Ambience chưa có track ở bước này. Không có Inspector bước bắt buộc. Full phải chạy nguyên tools/run_tests.bat sau freeze và PASS trước commit/push. Commit dự kiến: feat: route accepted audio preferences through five native buses.
+
+## Phase7.2a–c đã duyệt; triển khai7.2a (2026-11-18)
+
+Owner: “Duyệt cả3bước, triển khai vàcommit/push”. Exact approved ALLOW_LIST12/30/17path ở proposal dưới và JSON D:/godot/game-godot-backups/phase72-20261118-122058/plans.json. Mốc đang làm7.2a, không triển khai sớm7.2b/c. Batch backup D:/godot/game-godot-backups/phase72-20261118-122731;7.2a baselinebefore/HEAD/index/status/20save thật SHA đã chốt. Hai prompt D/?? giữ ngoài commit. Latest actual full vẫn662/662/86584assert ởf0137b9; chưa có PASS mới cho mã7.2a.
+
+Pinned native API probe1 exit0 đã xác minh AudioServer bus index/name/send/layout/get-set linear volume/mute và WAV data/loop fields/load/save methods. Default bus hiện chỉMaster trước thay đổi; contract D103 khai báo trước caller. SFX vẫn áp volume_linear cũ, busSFXunity để không gain bình phương; router đọc acceptedSettings, không thêm persistent owner/Node/autoload. Không sửa oldtest/scene/InputMap/assets/save12.
+
+## ĐỀ XUẤT Phase7.2a → 7.2b → 7.2c — CHỜ DUYỆT, CHƯA VIẾT MÃ (2026-11-18)
+
+Yêu cầu mới: tiếp tục hoàn thành plan sau batch F7–F16. Baseline HEAD/origin/master f0137b9121fd01ab431a13869c4eb050137bddf6; kết quả cuối đã chạy: parse/data/headless63/Main PASS, graphics662/662/86584assert. Lượt lập kế hoạch này chưa chạy test mới và không mượn kết quả cũ cho mã chưa tồn tại. Git chỉ có hai thay đổi prompt đã biết; giữ nguyên, không stage/restore/xóa.
+
+MILESTONE: ROADMAP7.2, master S18. Đây là một mốc end-to-end chia ba bước tuần tự: bus → asset/data → runtime. Day/night/rain VFX hiện có không cần viết lại. Hiện chỉ bốn SFX WAV có consumer; music slider chưa có track để phát. Dùng audio tổng hợp gốc làm placeholder thay được, ghi rõ không phải field recording/bộ âm thanh final. Đây là đề xuất WAV tương thích runtime thay vì OGG đích; cần duyệt cùng phạm vi, không âm thầm đổi tiêu chuẩn.
+
+READ-ONLY CONTEXT: AGENTS.md; PROJECT_RULES; ROADMAP; API_INDEX; ARCHITECTURE; DECISIONS D100/D102 và D17; DATA_SCHEMA; CODE_PATTERNS; MASTER_PLAN S18/7.2; scene contracts gray_box_world/start_menu/pause_menu; SettingsCodec/Settings/F13 preferences, four original WAV, existing audio/settings/day-night/weather/NPC/book tests. Không dùng audit snapshot cũ để đánh dấu lại hệ đã hoàn tất.
+
+DO NOT TOUCH: ngoài từng ALLOW_LIST; đặc biệt existing .tscn, InputMap/autoloads, domain/data cân bằng, save/goldens/test cũ, bốn WAV gốc, world/camera/Player/character/house/land/coop/crops/machines, hai file prompt ngoài scope. New contract phải khai báo API/tree trước caller; mọi API AudioServer/AudioStream được kiểm native pin trước dùng.
+
+Các file chung cho MỖI bước (chỉ sửa khi cần):
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/SCENE_CONTRACTS/audio.md`
+
+### Phase7.2a — Năm audio bus và gain đúng một lần
+
+TASK: Tạo Master/Music/SFX/Ambience/UI, nối accepted Settings hiện có. Giữ API/playback bốn SFX và volume_linear cũ; SFX bus unity để tránh nhân gain hai lần. Music dùng music_volume; Ambience và UI dùng effects_volume. Không thêm slider, autoload hay giá trị save. Router core nhỏ, preference event một lần, chỉ accepted Apply mới đổi âm lượng.
+
+ALLOW_LIST thêm đúng các đường dẫn sau, cùng sáu file chung:
+
+- `default_bus_layout.tres`
+- `scripts/core/audio_bus_router.gd`
+- `scripts/core/audio_bus_router.gd.uid`
+- `scripts/core/audio_service.gd`
+- `tests/unit/test_audio_bus_routing.gd`
+- `tests/unit/test_audio_bus_routing.gd.uid`
+
+ACCEPTANCE: Native pin kiểm sự tồn tại API/property/bus trước dùng. Bus name/send chính xác, gain1/.5/0/unmute và active/new SFX đúng, không gain bình phương; draft/failedApply không đổi gain. Receiver cleanup và bus restoration trong fixture. Mọi662case cũ/golden nguyên byte; parse/data/full/main PASS trước commit/push.
+
+### Phase7.2b — Bộ ambience/nhạc gốc thay thế được và cấu hình DATA
+
+TASK: Sinh offline tám loop PCM gốc bằng script riêng, không ghi đè hoe/seed/water/harvest. File WAV là placeholder theo khả năng runtime đã có, ghi rõ khác định dạng OGG đích trong master; không tải/cài codec hoặc lấy âm thanh bên ngoài. Profile Resource giữ ID/path/gain/crossfade/time bands/audio zones; vùng âm thanh chỉ là presentation, không mở đất hay thay bản đồ. Dùng file thật, không chỉ khai báo path rỗng; ghi nguồn/provenance vào CREDITS. Chưa bật loop runtime đến7.2c.
+
+ALLOW_LIST thêm đúng các đường dẫn sau, cùng sáu file chung:
+
+- `docs/CREDITS.md`
+- `scripts/data/ambient_audio_profile.gd`
+- `scripts/data/ambient_audio_profile.gd.uid`
+- `data/ambient_audio_profile.tres`
+- `tools/build_ambient_audio.gd`
+- `tools/build_ambient_audio.gd.uid`
+- `tests/unit/test_ambient_audio_assets.gd`
+- `tests/unit/test_ambient_audio_assets.gd.uid`
+- `assets/audio/amb_farm_day.wav`
+- `assets/audio/amb_farm_day.wav.import`
+- `assets/audio/amb_forest_day.wav`
+- `assets/audio/amb_forest_day.wav.import`
+- `assets/audio/amb_village_day.wav`
+- `assets/audio/amb_village_day.wav.import`
+- `assets/audio/amb_water_day.wav`
+- `assets/audio/amb_water_day.wav.import`
+- `assets/audio/amb_night.wav`
+- `assets/audio/amb_night.wav.import`
+- `assets/audio/amb_rain.wav`
+- `assets/audio/amb_rain.wav.import`
+- `assets/audio/mus_farm_morning.wav`
+- `assets/audio/mus_farm_morning.wav.import`
+- `assets/audio/mus_farm_afternoon.wav`
+- `assets/audio/mus_farm_afternoon.wav.import`
+
+ACCEPTANCE: Builder exit chính xác, deterministic bytes khi chạy lại vào thư mục probe ngoài repo; xác minh tám file PCM hợp lệ, có tín hiệu/không clipping, loop endpoint/seam, duration/import/Resource paths và profile malformed checks. Bốn WAV cũ giữ SHA. Full gate PASS, không gọi bản tổng hợp là bản thu tự nhiên hay art/audio đã human accept.
+
+### Phase7.2c — Ambience/nhạc chạy thật theo context, lifecycle và cài đặt
+
+TASK: Main tạo flow VIEW nhỏ; selector thuần nhận context thật từ clock/weather/player/Resource, không tự tiến ngày. Môi trường ruộng/rừng/làng/nước, ngày/đêm và mưa chọn loop thật; nhạc sáng/chiều chuyển mềm. Clock/weather nghe tín hiệu; chỉ kiểm vị trí Player cho việc chọn âm thanh, delta chỉ dùng fade cosmetic. Không phát gameplay ambience ở title, không thêm bản phát trùng khi load/NewGame/mởđóng modal; cleanup khi scene free. Hai slider hiện có điều khiển nghe thật, mute chính xác. Save12/Player/input/world geometry/state owners giữ nguyên.
+
+ALLOW_LIST thêm đúng các đường dẫn sau, cùng sáu file chung:
+
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `docs/SCENE_CONTRACTS/start_menu.md`
+- `docs/SCENE_CONTRACTS/pause_menu.md`
+- `scripts/view/main.gd`
+- `scripts/view/ambient_audio_context.gd`
+- `scripts/view/ambient_audio_context.gd.uid`
+- `scripts/view/ambient_audio_flow.gd`
+- `scripts/view/ambient_audio_flow.gd.uid`
+- `data/ambient_audio_profile.tres`
+- `tests/unit/test_ambient_audio_runtime.gd`
+- `tests/unit/test_ambient_audio_runtime.gd.uid`
+
+ACCEPTANCE: Native Main kiểm chuyển zone/day/night/rain/sunny, crossfade, accepted music/effects Apply và failedApply, pause/title/Continue/load/NewGame/teardown; không leak/player nhân đôi, tín hiệu không lặp, clock/farm/weather/ledger/save bytes không bị âm thanh đổi. Toàn bộ test cũ giữ nguyên, full discovery/parse/data/headless/Main PASS dưới180s mỗi nhóm. Chỉ commit/push sau gate; bàn giao đường dẫn nghe loop và checklist F5, không tự ghi human listening PASS.
+
+Giả định: giữ Player và luồng tạo/nhân vật hiện tại theo lần khôi phục và batch vừa duyệt; không tự quay lại manager-removal. Không cần hỏi lại giá 20/30/200/300/500/700 đã chốt. Vùng nghe là cosmetic, không có ecology/story/perk mới. Settings hiện có music/effects; không thêm master/ambience/UI sliders trong phạm vi này. SFX player vẫn áp effects một lần, không cộng thêm effects ở SFX bus.
+
+Rủi ro: gain bị áp hai lần, global bus state rò giữa test, loop click/clipping, fade/node tồn đọng qua load/NewGame/title, poll vị trí làm công việc thừa; test phải đo các điểm này. Audio tổng hợp chưa được người dùng nghe/chấp thuận; WAV provisional chưa thay OGG final. Không claim clean-device listening hay hoàn thành tất cả S18 chỉ từ automated playback.
+
+Thực hiện sau khi duyệt: backup và SHA save thật trước từng bước; viết một milestone một lần, focused native + nguyên full launcher ba nhóm tuần tự 180s; không sửa test/golden/runner để né lỗi; commit/push từng bước theo yêu cầu tiếp tục batch, xác minh remote hash. Nếu cần file ngoài danh sách hoặc thay schema/giá/gameplay phải dừng xin duyệt phần mới.
+
+Các phần không thể tự đánh dấu hoàn tất toàn roadmap: GateA/B và playtest cần kết quả người thật; nhà/giá bảy thành phẩm/phân bón/tier nâng sau còn thiếu quyết định; ecology cần chốt số đếm mục tiêu và smoothing (master chỉ đưa ví dụ5–10%); Director/story cần owner mở khóa/counter thật. Không tự bịa số để đóng các mục đó. Sau7.2 sẽ lập phạm vi đúng dữ liệu đã chốt, chưa mở social trước GateB.
+
+Bản kế hoạch JSON và bản PROGRESS trước thay đổi: D:/godot/game-godot-backups/phase72-proposal-20261118-122058/. Chỉ docs/PROGRESS.md được sửa khi chuẩn bị; chưa có code/asset/bus/scene/InputMap/test mới, chưa commit/push lượt này.
+
 ## AUDIT-F7–F16 hoàn tất tự động — commit/push mốc cuối (2026-11-18)
 
 Đã triển khai tuần tự đủ 10 kế hoạch được duyệt. F7–F15 đã commit/push riêng và xác minh remote; snapshot này hoàn tất F16. Hash F16 sau commit/push được ghi trong commit-result.json và BATCH_DELIVERY.md ngoài repo để không tạo commit chỉ nhằm tự ghi hash của chính nó. Không triển khai thêm milestone tương lai.

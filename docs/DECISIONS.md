@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D103 — five audio buses with one accepted gain per path (2026-11-18)
+
+Owner approved all Phase7.2a–c and per-step commit/push. For7.2a add default Master/Music/SFX/Ambience/UI layout; existing Settings accepted values remain the only preference owner. Keep original SFX player.volume_linear for public/tests compatibility and SFX bus unity, while Music uses music_volume and Ambience/UI use effects_volume. Master stays user/device-independent unity by default. Validate bus names/sends before any write; no partial rebuild/mutation on missing layout. Router is core RefCounted with no Node references, not another autoload. Four original WAV/API/cleanup/scene/inputs/save12 and all old tests remain. Native APIs are verified before use. No loop playback until7.2c; audio asset WAV placeholder exception is explicitly approved for7.2b, not a final OGG/content acceptance.
+
 ### D102 — wire modular dialogue through existing owners with guarded requests (2026-11-18)
 
 ApprovedF16 reuses F15 views in existing NpcPanel/NpcSystem, retaining column/title_label/close_button aliases to actual controls and legacy show_content/book behavior. A transient VIEW controller checks fresh identity, enabled action, nearby visible NPC and modal/game/clock context before routing original handlers. Its synchronous busy guard rejects stale/reentrant GUI requests and close/shortcut callbacks while existing domain transactions execute; a separate route guard prevents recursive execution. No world/schema12/owner/transaction arithmetic changes. Coalesced inventory/social/schedule/locale refreshes read state only and hidden lifecycle changes invalidate displayed identities.

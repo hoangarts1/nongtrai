@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase7.2a audio routing (D103)
+
+LifeAudioBusRouter (scripts/core/audio_bus_router.gd), transient core RefCounted: static is_layout_ready()->bool validates Master at0 and required child sends toMaster; apply_accepted()->bool reads accepted Settings, validates first, sets Music music gain, Ambience/UI effects gain and SFX unity, leaves Master unchanged. Missing/misrouted bus returnsfalse without gain writes. AudioService retains one listener and existing API/child-player behavior, owns a router and routes effects toSFX (fallbackMaster if unavailable). Active/new effects still use their own accepted effects_volume exactly once. default_bus_layout.tres is the native five-bus resource. Contract: SCENE_CONTRACTS/audio.md. No music/ambience playback until7.2c.
+
 ## AUDIT-F16 runtime dialogue adapter (D102)
 
 NpcPanel.enable_dialogue(main:Node,system:NpcSystem)->void creates only the dialogue branch's LifeDialogueScreen/Controller. show_dialogue(snapshot:Dictionary)->void maps existing column/title_label/close_button onto real choices/speaker-name/stable Close; retained show_content and standalone legacy fields remain available. Journal/quest-book branch is unchanged. Main/NpcDialogue remains the existing root, with no existing .tscn changes.

@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase7.2a automation delivered (2026-11-18)
+
+Five native buses/default auto-load and accepted single-gain routing delivered; focused8/8/103assert and first full666/666/86641assert/161scripts PASS, parse/data/headless63/Main PASS. Groups112.712/103.639/115.064s<180. All662prior cases/341testfiles/fouroriginalWAV unchanged. Human listening separate;7.2b/c remain approved next steps, not enabled in this snapshot. Exact scope/evidence in PROGRESS.
+
+## Phase7.2a–c approved continuation (2026-11-18)
+
+Owner approved three sequential steps and per-step commit/push:7.2a native five-bus routing,7.2b eight original replaceable WAV loops/profile,7.2c actual context-driven ambience/music. Current7.2a focused native8/8/103assert and auto-loaded5bus proof PASS; full pending. Existing daynight/rain and all662previous cases/Player/save12/art/UI/input remain unchanged. No loop until7.2c, no human listening or full-roadmap completion claim. Exact per-step ALLOW_LIST and evidence in PROGRESS.
+
 ## AUDIT-F7–F16 batch đã qua toàn bộ kiểm thử tự động (2026-11-18)
 
 Đủ10kế hoạch được duyệt đã triển khai tuần tự, full gate sau từng mốc. F7–F15 đã commit/push69ea922/6e9d6f7/4221e22/fcd608d/d47eae7/e5f4e01/058091b/79fafc1/de5c16b; F16 thuộc snapshot này và chỉ push sau full PASS662/662,86584assert,160script. Parse/data/headless63/Main đều PASS; ba nhóm104.261/117.294/114.577s dưới180s. Các hash/log/exactdiff và save proof ở PROGRESS/BATCH_DELIVERY.625hàm test baseline giữ nguyên, chỉ3fixtureF10 đã được duyệt bổ sung. F16 thêm4case và nối dialogue thật, giữ owner/save12/Player/InputMap/scene/art hiện tại. Human F5/export/audio/art acceptance và các mục roadmap ngoài batch vẫn pending; không tự mở scope tiếp theo.
