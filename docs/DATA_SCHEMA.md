@@ -1,5 +1,13 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5e wire and derived state (2026-11-19)
+
+﻿Step5/10 after8.5d pushedc0cfe8f/full918. DogVisualProfile supplies shared ArtPalette cream/brown/outline/ground shadow, finite polygon geometry and cosmetic timing. Avatar owns only phase/facing; actor reads sole DogState, interpolates real IsometricGrid ground points and emits arrived without mutating domain. Exactly avatar+non-interactive name Label, no physics/input/3D. Actor is not spawned by Main until approvedf. configure/reset_position/begin_step/advance and set_unnamed_caption are the composition API; unnamed caption empty until localized UI integrationh. External Resource palette and shape arrays detached by frozen_copy.
+
+Import1 clean except inherited duplicate artUID warnings. Focused1 2scripts/4/4/86assert/1.766s PASS, native1 1script/2/2/86assert/2.954s PASS. Native actual Main grid vi/en x1152/1280/1920 x5zooms rendered, six fresh PNGs archived; manually inspected vi1152 silhouette/ground/name/shadow. Ground invariant, pause pose/position freeze, no owner mutation, finite validator negative cases pass. No scene/InputMap/Player/assets/economy/day/RNG/save14 changes. Main spawn followsf; provisional art still needs human acceptance.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ## Phase8.5d transient movement quote (D132)
 
 Local quote exactly{ok:true,origin:Vector2i,target:Vector2i,owner_revision:int,navigation_revision:int}, generated from actual adjacent walkable cells. Not JSON/user save data. Arrival requires unchanged owner/revisions and rechecked current adjacency/obstacles. Follow result mode idle/follow/wait and path are derived, never stored as competing progress. Invalid-origin recovery only changes sole cell owner after finding bounded nearest safe cell; name/wire remain three fields and save14 unchanged.

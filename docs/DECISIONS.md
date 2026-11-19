@@ -1,5 +1,13 @@
 # DECISIONS — THE LIFE
 
+## Phase8.5e approved implementation boundary (2026-11-19)
+
+﻿Step5/10 after8.5d pushedc0cfe8f/full918. DogVisualProfile supplies shared ArtPalette cream/brown/outline/ground shadow, finite polygon geometry and cosmetic timing. Avatar owns only phase/facing; actor reads sole DogState, interpolates real IsometricGrid ground points and emits arrived without mutating domain. Exactly avatar+non-interactive name Label, no physics/input/3D. Actor is not spawned by Main until approvedf. configure/reset_position/begin_step/advance and set_unnamed_caption are the composition API; unnamed caption empty until localized UI integrationh. External Resource palette and shape arrays detached by frozen_copy.
+
+Import1 clean except inherited duplicate artUID warnings. Focused1 2scripts/4/4/86assert/1.766s PASS, native1 1script/2/2/86assert/2.954s PASS. Native actual Main grid vi/en x1152/1280/1920 x5zooms rendered, six fresh PNGs archived; manually inspected vi1152 silhouette/ground/name/shadow. Ground invariant, pause pose/position freeze, no owner mutation, finite validator negative cases pass. No scene/InputMap/Player/assets/economy/day/RNG/save14 changes. Main spawn followsf; provisional art still needs human acceptance.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ### D132 — validated adjacent movement and limited invalid-origin repair (2026-11-19)
 
 Approved8.5d respects start3/stop1 hysteresis and actual reachable space. Choose closest stop-radius goal before lowest route cost and stable grid ties; blocked components wait rather than jumping across walls. Movement service captures owner/nav revisions and rechecks adjacent walkable step at commit, retains guard through callback. Only an origin made invalid by changed world may relocate to bounded nearest safe cell; normal movement never teleports toward Player. No free cell leaves name/cell unchanged. No new progress owner/timers/save fields/economy, only references and transient guard. Rendering/runtime follows later scopes.

@@ -329,5 +329,10 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
+	var dog_visual_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_dog_visual(preload("res://data/art/characters/dog_visual_profile.tres"))
+	if not dog_visual_errors.is_empty():
+		for message: String in dog_visual_errors: push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

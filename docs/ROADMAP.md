@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5e automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 227scripts/922/922/99518assert; groups134.801/152.93/166.247s<180, GUT453.978s/wall472.880s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2528, prior test/fixture verification476, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5e-203345/full-attempt1. No skip/weakening/timeout extension.
+
+﻿Step5/10 after8.5d pushedc0cfe8f/full918. DogVisualProfile supplies shared ArtPalette cream/brown/outline/ground shadow, finite polygon geometry and cosmetic timing. Avatar owns only phase/facing; actor reads sole DogState, interpolates real IsometricGrid ground points and emits arrived without mutating domain. Exactly avatar+non-interactive name Label, no physics/input/3D. Actor is not spawned by Main until approvedf. configure/reset_position/begin_step/advance and set_unnamed_caption are the composition API; unnamed caption empty until localized UI integrationh. External Resource palette and shape arrays detached by frozen_copy.
+
+Import1 clean except inherited duplicate artUID warnings. Focused1 2scripts/4/4/86assert/1.766s PASS, native1 1script/2/2/86assert/2.954s PASS. Native actual Main grid vi/en x1152/1280/1920 x5zooms rendered, six fresh PNGs archived; manually inspected vi1152 silhouette/ground/name/shadow. Ground invariant, pause pose/position freeze, no owner mutation, finite validator negative cases pass. No scene/InputMap/Player/assets/economy/day/RNG/save14 changes. Main spawn followsf; provisional art still needs human acceptance.
+
+Full922/922 PASS. Original launcher/bounds and old-test/real-save SHA verification follow; no editor art/tone acceptance inferred.
+
 ## Phase8.5d automation delivered (2026-11-19)
 
 Full2 original launcher exit0: 225scripts/918/918/99420assert; groups144.846/117.315/166.145s<180, GUT428.306s/wall446.200s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2522, prior test/fixture verification472, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5d-162919/full-attempt2. No skip/weakening/timeout extension.

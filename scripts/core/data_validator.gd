@@ -628,3 +628,6 @@ static func validate_recipe_catalog(recipes: Array[Resource], machines: Array[Re
 
 static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
 	return RecipeEconomyRules.validate(config,recipes,machines,items)
+
+static func validate_dog_visual(profile: DogVisualProfile) -> PackedStringArray:
+	return profile.validation_errors() if profile != null else PackedStringArray(["dog visual profile is required"])

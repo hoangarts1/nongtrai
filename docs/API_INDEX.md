@@ -1,5 +1,88 @@
 # API INDEX — THE LIFE
 
+## Phase8.5e implemented API
+
+﻿Step5/10 after8.5d pushedc0cfe8f/full918. DogVisualProfile supplies shared ArtPalette cream/brown/outline/ground shadow, finite polygon geometry and cosmetic timing. Avatar owns only phase/facing; actor reads sole DogState, interpolates real IsometricGrid ground points and emits arrived without mutating domain. Exactly avatar+non-interactive name Label, no physics/input/3D. Actor is not spawned by Main until approvedf. configure/reset_position/begin_step/advance and set_unnamed_caption are the composition API; unnamed caption empty until localized UI integrationh. External Resource palette and shape arrays detached by frozen_copy.
+
+Import1 clean except inherited duplicate artUID warnings. Focused1 2scripts/4/4/86assert/1.766s PASS, native1 1script/2/2/86assert/2.954s PASS. Native actual Main grid vi/en x1152/1280/1920 x5zooms rendered, six fresh PNGs archived; manually inspected vi1152 silhouette/ground/name/shadow. Ground invariant, pause pose/position freeze, no owner mutation, finite validator negative cases pass. No scene/InputMap/Player/assets/economy/day/RNG/save14 changes. Main spawn followsf; provisional art still needs human acceptance.
+
+`scripts/data/dog_visual_profile.gd`:
+```gdscript
+
+func validation_errors() -> PackedStringArray:
+func frozen_copy() -> DogVisualProfile:
+func color(role: String) -> Color:
+
+```
+
+`scripts/view/dog/dog_avatar_2d.gd`:
+```gdscript
+
+func configure(profile: DogVisualProfile) -> bool:
+func set_motion(walking: bool, direction: Vector2 = Vector2.ZERO) -> void:
+func advance(delta: float, playing: bool = true) -> void:
+func get_phase() -> float: return _phase
+
+```
+
+`scripts/view/dog/dog_actor_2d.gd`:
+```gdscript
+
+signal arrived(cell: Vector2i)
+func configure(state: DogState, grid: IsometricGrid, config: DogConfig, profile: DogVisualProfile) -> bool:
+func set_unnamed_caption(text: String) -> void:
+func reset_position() -> void:
+func begin_step(cell: Vector2i) -> bool:
+func is_moving() -> bool: return _moving
+func advance(delta: float, playing: bool = true) -> void:
+
+```
+
+`scripts/core/data_validator.gd`:
+```gdscript
+
+static func validate_dog_config(config: DogConfig) -> PackedStringArray:
+static func validate_director_profile(profile: DirectorProfile, locales: Array[String]) -> PackedStringArray:
+static func validate_director_debug_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
+static func validate_director_activity(config: DirectorActivityConfig) -> PackedStringArray:
+static func validate_ecology_feedback(config: EcologyFeedbackProfile, profile: EcologyProfile) -> PackedStringArray:
+static func validate_ecology_journal(config: EcologyJournalConfig, profile: EcologyProfile, locales: Array[String]) -> PackedStringArray:
+static func validate_ecology_sampling(config: EcologySamplingConfig, crops: Array[Resource]) -> PackedStringArray:
+static func validate_ecology_profile(profile: EcologyProfile) -> PackedStringArray:
+static func validate_scenery_catalog(catalog: SceneryArtCatalog) -> PackedStringArray:
+static func validate_crop_stage_config(config: CropStageConfig) -> PackedStringArray:
+static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray:
+static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray:
+static func validate_machine_build_config(config: MachineBuildConfig, world: IsometricWorldConfig) -> PackedStringArray:
+static func validate_watering_can_config(config: WateringCanConfig) -> PackedStringArray:
+static func validate_bag_upgrade_config(config: BagUpgradeConfig) -> PackedStringArray:
+static func validate_land_expansion_config(config: LandExpansionConfig) -> PackedStringArray:
+static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray:
+static func validate_isometric_2d_assets(asset_root: String = "res://assets") -> PackedStringArray:
+static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray:
+static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray:
+static func validate_item_paths(paths: Array[String]) -> PackedStringArray:
+static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_crop_paths(crop_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray:
+static func validate_weather_profile(path: String) -> PackedStringArray:
+static func validate_weather_resource(profile: WeatherProfile) -> PackedStringArray:
+static func validate_art_palette_path(path: String) -> PackedStringArray:
+static func validate_character_catalog_path(path: String) -> PackedStringArray:
+static func validate_farming_art_catalog_path(path: String) -> PackedStringArray:
+static func validate_world_art_catalog_path(path: String) -> PackedStringArray:
+static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray:
+static func validate_quest_resources(quests: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_quest_paths(quest_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+static func validate_npc_world(data: NpcWorldData, items: Array[Resource], quests: Array[Resource], locale_paths: Array[String]) -> PackedStringArray:
+static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:
+static func validate_recipe_catalog(recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_dog_visual(profile: DogVisualProfile) -> PackedStringArray:
+
+```
+
 ## Phase8.5d dog follow commands (D132)
 
 DogFollowRules static distance(a,b),decide(config,navigation,origin,player,following=false)->{ok,mode,following,goal,path}|failure,nearest_walkable(config,navigation,desired)->{ok,cell}|failure. Deterministic Manhattan hysteresis/reachable goal, path includes origin. No state/Node/clock/RNG. DogMovementService.configure(config,state,navigation)->bool,is_busy(),plan(player,following=false),quote_step(target),step(quote),repair_invalid_origin(). Holds references/transient guard only; DogState remains sole serialized name/cell owner. Quote exact5fields ok/origin/target/owner_revision/navigation_revision, local Vector2i values, never persisted. Changed owner/nav/adjacency/blocked cells reject before mutation. Repair is only for current invalid cell; valid cells unchanged. Future motion flow interpolates but cannot commit stale arrival.
