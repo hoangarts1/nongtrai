@@ -9,6 +9,7 @@ var weather: LifeMorningWeather
 var garden: LifeMorningGarden
 var market: LifeMorningMarket
 var tasks: LifeMorningTasks
+var director: LifeMorningDirectorStrip
 var ecology: LifeMorningEcologyStrip
 var begin_button: Button
 
@@ -39,6 +40,8 @@ func _ready() -> void:
 	columns.add_child(market)
 	ecology = preload("res://ui/morning/ecology_strip.tscn").instantiate() as LifeMorningEcologyStrip
 	column.add_child(ecology)
+	director = preload("res://ui/morning/director_strip.tscn").instantiate() as LifeMorningDirectorStrip
+	column.add_child(director)
 	tasks = preload("res://ui/morning/task_strip.tscn").instantiate() as LifeMorningTasks
 	column.add_child(tasks)
 	var center: CenterContainer = CenterContainer.new()

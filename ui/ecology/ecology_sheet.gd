@@ -9,6 +9,7 @@ var waiting: Label
 var scroll: ScrollContainer
 var rows_column: VBoxContainer
 var metric_rows: Array[LifeEcologyMetricRow] = []
+var director_history: LifeDirectorHistory
 var back_button: Button
 
 func _ready() -> void:
@@ -27,6 +28,8 @@ func _ready() -> void:
 	add_child(scroll)
 	rows_column = LifeHudParts.column(scroll)
 	rows_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	director_history = preload("res://ui/ecology/director_history.tscn").instantiate() as LifeDirectorHistory
+	rows_column.add_child(director_history)
 	back_button = LifePauseParts.button(self, &"ECO_BACK")
 	back_button.pressed.connect(func() -> void: back_requested.emit())
 
@@ -44,6 +47,7 @@ func display(model: Dictionary) -> void:
 		var row: LifeEcologyMetricRow = preload("res://ui/ecology/metric_row.tscn").instantiate() as LifeEcologyMetricRow
 		rows_column.add_child(row)
 		metric_rows.append(row)
+	rows_column.move_child(director_history, rows_column.get_child_count() - 1)
 	for index: int in range(metric_rows.size()):
 		metric_rows[index].visible = index < model.rows.size()
 		if index < model.rows.size():

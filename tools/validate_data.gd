@@ -305,7 +305,7 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
-	var debug_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_director_debug_text(locale_paths, LifeDirectorDebugPresenter.translation_keys())
+	var debug_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_director_debug_text(locale_paths, LifeDirectorDebugPresenter.translation_keys() + LifeDirectorPresenter.KEYS)
 	if not debug_text_errors.is_empty():
 		for message: String in debug_text_errors:
 			push_error(message)

@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5j presentation consumers (D127)
+
+Morning and lazy ecology journal use one detached LifeDirectorSnapshot reading actual completed owners. Pure projection supplies current cost only, never applies it. Presenter/localized small components own no progress or decisions. HUD coalesces owner notifications and changes only tooltip. Main daily/save ordering and all existing lifecycle/input rules remain unchanged.
+
 ## Phase7.5i debug inspection boundary (D126)
 
 VIEW composes six small director_debug scripts and three scenes. Snapshot reads actual owners; stateless candidate evaluation cannot draw or save. Commands go only through existing guarded DirectorRuntime. UiCoordinator owns pause/modal; Main valid lifecycle resets transient view. OS debug entry only, existing matcher/input unchanged. No new owner/autoload/event/save field or production story entitlement.

@@ -13,6 +13,9 @@ func configure(panel: NpcPanel, main: Node) -> void:
 	_panel.book.ecology_button.pressed.connect(open)
 	_panel.visibility_changed.connect(_visibility_changed)
 	main.ecology_state.ecology_changed.connect(_metrics_changed)
+	main.director_state.director_changed.connect(_director_changed)
+	main.director_activity.activity_changed.connect(_director_changed)
+	main.weather_state.weather_changed.connect(_director_changed)
 	main.farm_state.plot_changed.connect(_plot_changed)
 	main.wallet.coins_changed.connect(_money_changed)
 	_sync_label()
@@ -60,6 +63,7 @@ func _render() -> void:
 	_queued = false
 	if _open and is_instance_valid(_panel) and _panel.is_visible_in_tree() and is_instance_valid(_panel.book.ecology_sheet):
 		_panel.book.ecology_sheet.display(EcologyPresenter.describe(EcologySnapshot.capture(_main)))
+		_panel.book.ecology_sheet.director_history.display(LifeDirectorSnapshot.capture(_main))
 
 func _focus_back() -> void:
 	if _open and is_instance_valid(_panel) and _panel.is_visible_in_tree() and is_instance_valid(_panel.book.ecology_sheet):
@@ -80,6 +84,9 @@ func _visibility_changed() -> void:
 func _reset_if_hidden() -> void:
 	if is_instance_valid(_panel) and not _panel.is_visible_in_tree():
 		reset()
+
+func _director_changed(_value: Variant = null) -> void:
+	queue_render()
 
 func _metrics_changed(_metrics: Dictionary) -> void:
 	queue_render()

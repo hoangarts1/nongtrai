@@ -769,3 +769,24 @@ DIR_ACTIVITY_WATER,Tưới
 DIR_ACTIVITY_HARVEST,Nông sản thu
 DIR_ACTIVITY_BUY,Vật phẩm mua
 DIR_ACTIVITY_SELL,Vật phẩm bán
+DIR_NEWS_TITLE,Cỗ máy Mùa
+DIR_READ_WAIT,Đang chờ dữ liệu đúng ngày.
+DIR_READ_OFF,Đang tắt sự kiện.
+DIR_READ_PARTIAL,Chưa đủ ngày quan sát; không chọn sự kiện mới.
+DIR_READ_EMPTY,Hôm nay chưa có lịch sự kiện.
+DIR_READ_ACTIVE,Hôm nay
+DIR_READ_PENDING,Sắp tới
+DIR_READ_PERIOD,Ngày %d–%d
+DIR_READ_SELECTED,Đã chọn
+DIR_READ_HISTORY,Sổ sự kiện
+DIR_READ_HISTORY_NOTE,Sổ ghi các quyết định đã chọn và thời gian dự kiến. Tắt chế độ thử sẽ ngừng hiệu ứng; sổ không chứng minh hiệu ứng đã diễn ra.
+DIR_READ_NONE,Chưa có quyết định đã lưu.
+DIR_READ_WATER,Mỗi ô tưới tay hiện dùng %d lượt nước.
+DIR_READ_NORMAL,Chi phí bình thường.
+DIR_READ_DUST,Gió bụi đang làm tốn thêm nước.
+DIR_READ_RAIN,Mưa hôm nay đã bỏ phần nước thêm.
+DIR_READ_CANOPY,Tán cây hiện đủ che gió; không tốn nước thêm.
+DIR_READ_UNMEASURED,Chưa đo được tán cây; chưa áp dụng nước thêm.
+DIR_READ_REFILL,"Chọn bình và nhấn E tại giếng, suối hoặc ao để nạp đầy; tán cây đủ dày cũng giúp che gió."
+DIR_READ_RECORD,Ngày %d · %s · %s
+DIR_READ_DETAIL,%s: %s · %s · %s · %s

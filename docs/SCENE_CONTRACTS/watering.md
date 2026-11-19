@@ -34,3 +34,7 @@ Save schema10 adds watering_can:{capacity,charges}. Old formats1..9 get data-own
 ## Phase6.5h3 upgrade integration (D79)
 
 Main configures existing WateringCanUpgradeService with actual can/wallet and Resource20/40/200. Separate transient WateringUpgradeFlow joins shared busy guard; existing Runtime/Service/source geometry/manual commands remain byte-identical. Post-command Runtime.refresh updates HUD/dirty after actual can changes, including independent changes during rejected grant. Capacity40 preserves charges; source refill still authorizes actual dry bank/current context. Savev10 unchanged. See watering_upgrade.md.
+
+## Phase7.5j read-only explanations (D127)
+
+LifeHudWaterMeter.set_cost_detail appends actual current can cost/rain-canopy reason/refill hint; display(charges,capacity) and amount unchanged. Meter pointer PASS/children IGNORE lets tooltip appear and events pass; existing keys/sources/priority unchanged. HudPresenter coalesces actual owner/weather/locale refresh, no owner mutation. F5 active dust compare2charges, rain/current canopy1, E at all existing sources refill, save/load/expiry/off; human playtest separate.

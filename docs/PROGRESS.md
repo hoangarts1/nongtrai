@@ -1,5 +1,15 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5j automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 213scripts/889/889/98634assert; groups143.174/119.596/153.567s<180, GUT416.337s/wall433.461s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2500, prior test/fixture verification446, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5j-114546/full-attempt1. No skip/weakening/timeout extension.
+
+Step9/10 after7.5i pushed7b2c73b/full882. Stateless LifeDirectorSnapshot reads actual committed current-day owners and pure current effect terms; no draw/command/effect/save. Separate compact morning strip shows selected pending/active names and exact one-based planned periods, full explanation/counter/current can cost in tooltip. J->Ecology lazily adds DirectorHistory inside existing scroll; Back/reset/hide removes entire branch, ordinary quest mode still has no ProgressBar descendants. History labels selected decisions/planned dates, explicitly not proof an effect ran after disable. Off/partial/stale/empty explicit; no invented weather, water clarity or narrative unlock.
+
+Water meter keeps original amount/capacity API and caption, adds actual cost/reason/refill-canopy tooltip. Meter uses pointer PASS (children ignore), so tooltip can appear without swallowing world input; no changed key/shortcuts. Coalesced actual owner/weather/locale refresh, no per-frame full garden capture. Existing Main/core/domain/save14/Player/assets/oldscenes/InputMap unchanged.
+
+Import1 clean (inherited duplicate assetUID warnings). Native1 16/17, new morning fixture incorrectly read manual slot1 instead of actual completed-day autosave0; original runtime and old tests unchanged. Corrected new fixture to slot0, same strict save/day/owner assertions. Native2 actual pinned graphics5scripts/17/17/650assert/22.987s PASS (7new+10old morning/J), no SCRIPT ERROR/leak/orphan. Post-log rg had no error matches and returned1; native wrapper itself passed. Tests cover actual save-before-bulletin, no load replay, pending2day warning/active/expired/off/partial/stale, water2/rain1/canopy1 and unchanged charges, J native entry/Back/Esc/focus/lazy invariant, read-only owner/save SHA, 128record/long-text stress. Eighteen fresh pending/active/journal vi/en1152/1280/1920 PNGs+SHA archived native-captures2; viewed pendingvi1152 and journalen1152, scroll/footer fit. Human tone/art/F5 and real release export remain separate. Full889/889 PASS.
+
 ## Phase7.5i automation delivered (2026-11-19)
 
 Full2 original launcher exit0: 210scripts/882/882/98405assert; groups137.877/105.383/148.97s<180, GUT392.230s/wall408.775s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2491, prior test/fixture verification440, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5i-112256/full-attempt2. No skip/weakening/timeout extension.

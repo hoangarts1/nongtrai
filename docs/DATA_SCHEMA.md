@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5j view-only event readout (D127)
+
+Save14 unchanged. UI DTO: ok/day_index/enabled/ready/reason/pending/active/history/charge_cost/dust_reason, captured from aligned actual owners. Wire start_day inclusive/end_day exclusive maps one-based display start+1 through end. Stored decisions are not an execution/reward ledger. Locale CSV adds validated DIR_READ/NEWS keys on one physical line. No extra counters, estimate sources or saved UI dismissal state.
+
 ## Phase7.5i transient debug DTO (D126)
 
 No save14/Resource schema change. Detached UI DTO carries actual day/coverage/availability/metrics/candidates/stored history/pending/active/force and effective control gate. Scores are unavailable until full observations; water remains unmeasured. Locale CSV adds required DIR_DEBUG/REASON/ACTIVITY keys validated at data gate; one record per physical line. Current preview and stored RNG trace have separate provenance.

@@ -32,3 +32,7 @@ Begin Day/Escape closes presentation only; native Tab/Enter/Space and normal mod
 Fixed masthead/footer/button surround three independently readable columns; garden/market scroll. Existing Theme/icons/weather symbols reused. vi/en/1152x648/1280x720/1920x1080 checks include rain/empty/ripe/wither/repeat states, old saves, completed quests and native scroll/input.
 
 Manual: F5/start/continue, reach evening, sleep through day-end review; completed morning appears once. Compare crop/weather/ledger/coins/items before/after dismissal, double Begin/Escape, save/load/return-title resets and original forced-review behavior. No editor tree/Inspector/project changes needed.
+
+## Phase7.5j read-only explanations (D127)
+
+LifeMorningSheet.director:LifeMorningDirectorStrip is a separate small scene after ecology/before tasks. display(MorningSnapshot.director) shows exact pending/active selected names/planned dates; tooltip includes captured reason/counter/current water cost. Existing completed-save/once/dismissal/load rules untouched, footer remains native visible. No editor setup.

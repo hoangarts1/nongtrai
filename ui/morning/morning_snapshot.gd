@@ -36,5 +36,6 @@ static func capture(main: Node) -> Dictionary:
 			prices.append({"id":StringName(item.get("item_id")),"name_key":StringName(item.get("display_name_key")),"price":int(item.get("sell_price"))})
 	prices.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return String(a.id)<String(b.id))
 	result.prices = prices
+	result.director = LifeDirectorSnapshot.capture(main)
 	result.ecology = EcologySnapshot.capture(main)
 	return result

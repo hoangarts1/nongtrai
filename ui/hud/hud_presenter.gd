@@ -4,6 +4,7 @@ extends Node
 
 var root: LifeHudRoot
 var _main: Node
+var _water_queued: bool = false
 
 func configure(main: Node) -> void:
 	_main = main
@@ -17,6 +18,10 @@ func configure(main: Node) -> void:
 	main.quest_state.step_changed.connect(_quest_changed)
 	main.feedback.message_shown.connect(show_message)
 	main.watering_runtime.water_changed.connect(_water_changed)
+	main.director_state.director_changed.connect(_queue_water_detail)
+	main.director_activity.activity_changed.connect(_queue_water_detail)
+	main.ecology_state.ecology_changed.connect(_queue_water_detail)
+	main.weather_state.weather_changed.connect(_queue_water_detail)
 	_refresh_clock()
 	_water_changed(main.watering_can.get_charges(),main.watering_can.get_capacity())
 	root.coins.set_coins(main.wallet.get_coins())
@@ -24,6 +29,7 @@ func configure(main: Node) -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and root != null:
 		_refresh_clock()
+		_queue_water_detail()
 
 func show_message(message: String, icon_id: StringName = &"journal") -> void:
 	root.toasts.show_message(message,icon_id)
@@ -62,3 +68,13 @@ func _quest_changed(index: int, completed: bool) -> void:
 
 func _water_changed(charges: int, capacity: int) -> void:
 	_main.hotbar_panel.toolbar.water_meter.display(charges,capacity)
+	_queue_water_detail()
+
+func _queue_water_detail(_value: Variant = null) -> void:
+	if not _water_queued:
+		_water_queued = true
+		call_deferred("_refresh_water_detail")
+
+func _refresh_water_detail() -> void:
+	_water_queued = false
+	_main.hotbar_panel.toolbar.water_meter.set_cost_detail(LifeDirectorPresenter.water_text(LifeDirectorSnapshot.capture(_main)))

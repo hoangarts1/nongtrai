@@ -50,3 +50,7 @@ SaveService13 adds ecology{day_index,metrics,triggered} with full-precision JSON
 This substep has no daily ecology callback yet. Direct saves after a changed clock normalize mismatched ecology to the current-garden baseline without replay;7.3f adds the once-per-day reserved simulation before this becomes a complete live ecology feature. No journal/VFX until their approved steps. Human editor acceptance is separate.
 
 Manual: NewGame/Continue/slot save-load/title, compare inventory/wallet/crops/jobs/watering/coop/land/forecasts/Player; loaded ecology day equals clock, exact floats/history survive, no load signal/reward/bulletin. Callback attempts at Main save/load/NewGame/title must be blocked while restore runs. No node-tree or Inspector setup.
+
+## Phase7.5j read-only explanations (D127)
+
+LifeEcologySheet.director_history:LifeDirectorHistory is instantiated only with existing lazy ecology branch, inside rows_column after actual metrics; existing scroll handles history128/long text, Back fixed. Controller refreshes from actual aligned owners, no simulation. Back/hide/reset detaches all; ordinary quest branch has zero ProgressBar descendants. No editor setup.

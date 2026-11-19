@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.5j player readouts (D127)
+
+LifeDirectorSnapshot.capture(main)->Dictionary actual aligned committed pending/active/history/current charge_cost/dust_reason/effective gate. Invalid/busy/title returns okfalse; detached. LifeDirectorPresenter.KEYS/status/event_text/water_text/describe returns localized values; no selector/simulation/save. describe history is immutable decisions/planned dates, not execution log. LifeMorningDirectorStrip.display(snapshot) heading/summary/full tooltip, separate scene between ecology/tasks. MorningSnapshot.director and MorningPresenter delegate.
+
+LifeDirectorHistory.display(snapshot) heading/current/water/note/records inside existing lazy LifeEcologySheet.scroll after metric rows. EcologyController coalesces Director/activity/weather signals; same Back/hide/reset drops branch. LifeHudWaterMeter.set_cost_detail(value) retains display(charges,capacity) and amount; HudPresenter queues actual current description after owners/locale, meter pointer PASS/child-ignore for native tooltip. Validation tool includes all new key names. Existing public commands and schemas unchanged.
+
 ## Phase7.5i debug modal (D126)
 
 Main.director_debug_flow:LifeDirectorDebugFlow nullable (only constructed OS debug). configure(main),open()->bool,close(),reset(),set_enabled(value)->bool,queue_force(id)->bool,refresh(),queue_refresh(value=null); panel/model/result/busy. No new input. LifeDirectorDebugSnapshot.capture(main)->detached actual data, no EventDirector call. LifeDirectorDebugPresenter.translation_keys/reason/event_name/metric/trace_text/render; strict key-presence validation from tools/validate_data via DataValidator.validate_director_debug_text(locales,keys). Domain never imports UI.

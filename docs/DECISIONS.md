@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D127 - explain committed plans without inventing effect history (2026-11-19)
+
+Approved7.5j uses separate small morning/history components and a shared detached current snapshot/presenter. Stored decisions describe selected intent and planned period; disabling may cancel application, so do not present past selections as proven executed effects. Current cost comes from pure validated projection/actual measured rain-canopy context; no guessed water measurement. Compact morning summary keeps full counter text in tooltip and journal. Native tooltip requires meter pointer PASS, children ignore; no input action or new modal. Ordinary J branch retains no-progress invariant. Human text/art/editor acceptance remains separate.
+
 ### D126 - read-only current preview beside immutable decision trace (2026-11-19)
 
 Approved7.5i adds a modular debug modal through existing exact Ctrl+M shop, never a new input action/story unlock. Current evaluation is recomputed without RNG; trace/history is stored source truth, not recomputed past. Missing observation/measurement uses explicit unavailable labels, no fabricated scores/water zeros. Queue checks current eligibility and next completed morning checks again; only lottery bypass, never safety/telegraph. UI remains paused and follows shared modal/lifecycle guards. Strings are one-line CSV because existing localization parser is line-oriented. Human tone and real release export remain separate acceptance.
