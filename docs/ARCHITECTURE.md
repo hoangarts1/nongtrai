@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.5d movement boundary (D132)
+
+DATA policy + derived DogNavigation + sole DogState → stateless follow rules/reference-only movement command service. VIEW will request quote before interpolating and revalidate on arrival; pixel motion cannot become authoritative cell state. Owner and navigation revisions reject stale commands, guarded publication prevents lifecycle reentry. No scene/Node/clock/economy in these helpers. Spawn/load codec handles invalid raw input separately from limited live invalid-origin repair.
+
 ## Phase8.5c bounded route derivation (D131)
 
 DATA world/NPC geometry plus explicit dynamic rect DTO → pure DogNavigationCodec/DogNavigation. Native AStarGrid2D is RefCounted, no world/scene Node. Cache independent of existing NPCs; route/reachable data detached, no real-time simulation or owner writes. DogState cell remains truth. Later VIEW adapter alone supplies actual current footprints; no saved nav graph or new signal/autoload/input.

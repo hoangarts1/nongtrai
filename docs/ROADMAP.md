@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5d automation delivered (2026-11-19)
+
+Full2 original launcher exit0: 225scripts/918/918/99420assert; groups144.846/117.315/166.145s<180, GUT428.306s/wall446.200s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2522, prior test/fixture verification472, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5d-162919/full-attempt2. No skip/weakening/timeout extension.
+
+Step4/10 after8.5c pushed6b15dab/full913. Stateless DogFollowRules uses approved Manhattan start3/stop1 hysteresis, actual reachable component and deterministic nearest stop-radius goal with minimum travel/tie ordering. Unreachable targets wait on their component, do not warp through walls; opening a path resumes. DogMovementService owns references/transient command guard only, no second position or game-save state. Quotes capture adjacent origin/target and actual owner/navigation revisions; commit revalidates both walkability and adjacency, refuses stale/repeated/forged quotes. Guard spans owner publication/callbacks. Only newly invalid origin repair scans bounded configured region for nearest walkable cell, preserves name; valid origin never snaps, fully covered map leaves owner unchanged.
+
+Import1 clean with inherited assetUID warnings. Focused1 2scripts/5/5/60assert/0.476s PASS/no errors/leaks. Current-source independent pure1000follow/quote/JSON/obstacle-change/repair/name-preservation steps PASS without autoload/world nodes. No Node/delta/gameplay RNG/currency/items/stamina/day/save14/Player/NPC/input changes; runtime actor integration remains later approvede/f. Old tests/goldens/real saves protected and original full proof follows. Full918/918 PASS.
+
 ## Phase8.5c automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 223scripts/913/913/99360assert; groups159.897/124.505/131.918s<180, GUT416.320s/wall432.894s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2518, prior test/fixture verification468, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5c-161810/full-attempt1. No skip/weakening/timeout extension.

@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5d transient movement quote (D132)
+
+Local quote exactly{ok:true,origin:Vector2i,target:Vector2i,owner_revision:int,navigation_revision:int}, generated from actual adjacent walkable cells. Not JSON/user save data. Arrival requires unchanged owner/revisions and rechecked current adjacency/obstacles. Follow result mode idle/follow/wait and path are derived, never stored as competing progress. Invalid-origin recovery only changes sole cell owner after finding bounded nearest safe cell; name/wire remain three fields and save14 unchanged.
+
 ## Phase8.5c derived navigation context (D131)
 
 Library wire{bounds:{x,y,w,h},dynamic:[{x,y,w,h}...]}; known configured player bounds only, exact signed32int coordinates/positive sizes/safe end arithmetic, clipping/drop wholly outside/dedupe/stable y-x-w-h ordering. Actual Resource static solids always reapplied. JSON-integral doubles canonicalize; bool/fraction/nonfinite/unknown fields fail before grid mutation. No routes/tokens/revision/cell owner in context. This is not a save14/15 root.

@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase8.5d dog follow commands (D132)
+
+DogFollowRules static distance(a,b),decide(config,navigation,origin,player,following=false)->{ok,mode,following,goal,path}|failure,nearest_walkable(config,navigation,desired)->{ok,cell}|failure. Deterministic Manhattan hysteresis/reachable goal, path includes origin. No state/Node/clock/RNG. DogMovementService.configure(config,state,navigation)->bool,is_busy(),plan(player,following=false),quote_step(target),step(quote),repair_invalid_origin(). Holds references/transient guard only; DogState remains sole serialized name/cell owner. Quote exact5fields ok/origin/target/owner_revision/navigation_revision, local Vector2i values, never persisted. Changed owner/nav/adjacency/blocked cells reject before mutation. Repair is only for current invalid cell; valid cells unchanged. Future motion flow interpolates but cannot commit stale arrival.
+
 ## Phase8.5c derived dog navigation (D131)
 
 DogNavigation(RefCounted): configure(config,dynamic:Array[Rect2i]=[])->bool captures static DATA/builds once; set_dynamic_obstacles(regions)->bool,serialize()->Dictionary,deserialize(raw)->bool,get_revision()/get_rebuild_count()->int,is_walkable(cell)->bool,route(origin,target)->Array[Vector2i] includes origin,reachable(origin)->{ok,cells,distances}|failure. Full configured player_region, immutable WorldLocations solids always included, no diagonals. Equivalent dynamic context/JSON restore does not rebuild. Runtime should configure only lifecycle/static changes and use set_dynamic_obstacles for dirty dynamics; never reconfigure every frame.

@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D132 — validated adjacent movement and limited invalid-origin repair (2026-11-19)
+
+Approved8.5d respects start3/stop1 hysteresis and actual reachable space. Choose closest stop-radius goal before lowest route cost and stable grid ties; blocked components wait rather than jumping across walls. Movement service captures owner/nav revisions and rechecks adjacent walkable step at commit, retains guard through callback. Only an origin made invalid by changed world may relocate to bounded nearest safe cell; normal movement never teleports toward Player. No free cell leaves name/cell unchanged. No new progress owner/timers/save fields/economy, only references and transient guard. Rendering/runtime follows later scopes.
+
 ### D131 — independent bounded navigation cache, no position owner (2026-11-19)
 
 Approved8.5c uses native AStarGrid2D over current player_region39x39 and actual static DATA exclusions, with orthogonal routes. Keep NPC grid and world physics untouched. Context wire contains dynamic sources/bounds only; trustworthy static exclusions are reapplied from frozen config, never deletable by cache restore. Configure captures a new static configuration; equivalent dynamic updates/restores retain revision/build count. Derived context serialization satisfies stateful-library contract but is never included in game saves. DogState remains sole name/cell owner; callbacks/movement arrive later.
