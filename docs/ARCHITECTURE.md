@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.5b pure companion owner (D130)
+
+DATA DogConfig → DogNameRules/DogSnapshotCodec/DogState. No Node/autoload/clock/view references. Exactly one future Main-owned state for name/cell; navigation caches and actor interpolation cannot own a competing position. This step has no live composition or saved root. Codec/configure/restore validate before replacement and publish no restore notifications; command callbacks see committed state but cannot mutate it.
+
 ## Phase8.5a dog DATA boundary (D129)
 
 DogConfig is a Resource policy referencing actual world/NPC DATA; validator only. No dog Node/owner/global event/autoload/physics/input/save field in this step. Full detached Resource graph prevents caller changes leaking to configured consumers. Planned layers/API and one actor under Objects are documented in dog.md, not yet implemented. Original single day path and all existing owners unchanged.

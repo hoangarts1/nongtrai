@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D130 — sole pet identity and exact logical-cell wire (2026-11-19)
+
+Approved8.5b owns only name/cell, derives no economic/story progress. A blank saved name is an unnamed localized label, not translated text stored as a custom name. Commands reject invalid/too-long names without cutting user text; source Vietnamese codepoints retained. Pinned Godot decoder replaces NUL withU+FFFD before the domain layer, so reject that normalized corruption marker and keep decoder diagnostic in independent probe. Silent replacement increments transient revision to invalidate pre-load UI quotes. Callback guard spans typed publication; navigation/adjacency belongs to later movement service, no second cell owner.
+
 ### D129 — approved dog batch and DATA-only first slice (2026-11-19)
 
 Owner approved all10steps8.5a-j/160paths, explicit parameters/provisional2D/name UI/save15 exact38row33file compatibility; each full test/commit/push sequentially. Currenta only DATA/validator/contracts; real Player preserved. S21 cosmetic companion, no hunger/rewards/economic effects/story intro invented. Name max24codepoints, follow3/1,speed3cells/s,context0.25s,idle3s/radius2,reaction0.8s in Resource. Dog data deep-copy must detach external Resource graph (duplicate(true) alone did not), preserve internal shared references, leave immutable Script resources shared. Data CLI must defer VIEW translation-key catalogue compilation until autoload identifiers exist. Human art/F5/tone remains separate; later steps alone add runtime/save15/UI.

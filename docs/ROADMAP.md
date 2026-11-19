@@ -1,5 +1,13 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5b automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 221scripts/908/908/99115assert; groups132.699/142.225/144.388s<180, GUT419.312s/wall435.956s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2514, prior test/fixture verification462, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5b-160622/full-attempt1. No skip/weakening/timeout extension.
+
+Step2/10 after8.5a pushedd184032/full901. DogState is sole name/logical-cell owner with exact wire{name,cell_x,cell_y}, no route/view/economy/clock. Config frozen, signed cell bounds strict, native JSON integral numbers normalized but bool/fraction/nonfinite/overflow/extra fields rejected. Name trim/1..24printable codepoints, no silent truncation, Vietnamese combining accents preserved; empty stored name represents localized default, rename-empty rejected. Typed changed(cell,name), monotonic transient revision, stale quote/mutation callback guards, idempotent commands; configure/restore silent, successful replacement invalidates older quotes. DogNameRules/DogSnapshotCodec pure stateless. No Main/scene/actor/InputMap/assets/save14 integration yet.
+
+Import1 clean with inherited assetUID warnings. Focused1/2 6/7: NUL fixture was normalized by pinned Godot string/JSON decoder toU+FFFD with its own diagnostic before reaching name rules. Independent external nul-probe1 confirms TYPE4/POINTS[77,105,65533,108,111]; warning retained, not treated as clean validation. Reject replacement/noncharacter/surrogate values and test actual decoder-normalized input; all original control/line/wrong-type assertions retained. Final focused3 3scripts/7/7/77assert/0.420s PASS/no SCRIPT ERROR/leak. Pure1 passed state/JSON/revision checks but PowerShell transport changed its accented literal to M?y. Corrected external probe using native String.chr(0xe2); pure2 PASS1000 actual accented names/nativeJSON/state/revision/invalid mutation checks, no autoload/world nodes. Old tests/goldens untouched; source/save protection and full proof follow. Full908/908 PASS.
+
 ## Phase8.5a automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 218scripts/901/901/99038assert; groups132.795/142.468/143.983s<180, GUT419.246s/wall435.931s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2508, prior test/fixture verification458, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5a-155018/full-attempt1. No skip/weakening/timeout extension.

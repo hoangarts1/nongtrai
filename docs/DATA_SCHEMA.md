@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5b standalone dog wire (D130)
+
+Exact dictionary{name:String,cell_x:int,cell_y:int}; native JSON integral doubles accepted only exact signed32and current configured region, no bool/fraction/nonfinite/out-of-map/extra keys. name trimmed, max24Unicode codepoints from Resource, empty stored value means unnamed; commands require nonempty. Controls/line/format and invalid-decoder replacement/noncharacters/surrogates rejected; combining Vietnamese remains exact. Revision/busy/route are transient and absent. Not a game-save root before8.5g; current save14 unchanged.
+
 ## Phase8.5a DogConfig (D129)
 
 Shipped dog_config.tres: world/npc_world existing Resources; name_max_length24,follow_start_distance3,follow_stop_distance1 (Manhattan cells),move_speed3cells/s,context_interval0.25real s,idle_wait_seconds3,idle_radius2cells,reaction_seconds0.8. Positive finite timings, start>stop>=1 within region span, names1..24, nested region/spawn/fallback and valid nav references. Config freeze detaches all mutable DATA, keeps internal aliases. No gameplay rewards/prices, daily simulation, actor or save14 schema change. Future dog wire{name,cell_x,cell_y} is only a plan until8.5b/g.

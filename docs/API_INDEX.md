@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase8.5b dog identity owner (D130)
+
+DogState(RefCounted): configure(config:DogConfig,cell:Vector2i)->bool,serialize()->Dictionary,deserialize(raw:Dictionary)->bool,get_name()->String,get_cell()->Vector2i,get_revision()->int,is_busy()->bool,try_set_name(value:String,expected_revision:int=-1)->Dictionary,try_set_cell(cell:Vector2i,expected_revision:int=-1)->Dictionary. changed(cell:Vector2i,dog_name:String) publishes coherent committed state under mutation lock. Restore/configure silent; success increments transient revision. Queries detached; serialized fields exactlyname/cell_x/cell_y. Cell setter enforces bounds only; planned movement service alone validates navigation/adjacency.
+
+DogNameRules.normalize(config,value:Variant,allow_empty=false)->{ok,name}|{ok:false,reason}. Reject control/line/format/replacement/noncharacter/surrogate scalars; no truncation/normalization of Vietnamese combining sequences. DogSnapshotCodec.decode(config,raw)->{ok,snapshot}|failure,integer(value)->bool for signed32exact nativeJSON cells, no Node/clock. No caller/runtime/save schema change until later approved steps.
+
 ## Phase8.5a Dog DATA foundation (D129)
 
 DogConfig(Resource), data/dog_config.tres: world:IsometricWorldConfig,npc_world:NpcWorldData,name_max_length,follow_start_distance,follow_stop_distance,move_speed,context_interval,idle_wait_seconds,idle_radius,reaction_seconds. validation_errors()->PackedStringArray; frozen_copy()->DogConfig fully detaches DATA Resource graph with internal shared-reference memo. No owner/actor/UI yet. DataValidator.validate_dog_config(config)->PackedStringArray; null rejected. tools/validate_data always runs it; optional --dog-fixture=invalid-distance mutates only detached memory for negative CLI verification. Default CLI unchanged; localized UI key catalogues deferred-load after autoload startup. Scene contract dog.md reserves approved future API names; read current PROGRESS before treating them as implemented.

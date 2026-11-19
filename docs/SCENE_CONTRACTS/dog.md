@@ -59,3 +59,7 @@ save/load/Continue, resize/locale/Back/Esc; compare all existing progress. After
 walk/sprint across the39×39playable map, watch water/buildings/farm/machines/coop,
 pause/title/overnight, reroute after placement, rain/harvest reaction and one actor.
 The1000step/native final proof belongs to8.5j; ChapterI/M2.4 remain separate.
+
+## Phase8.5b implemented owner only (D130)
+
+DogState and name/snapshot rules above are now implemented; exact APIs in API_INDEX. No actor/UI/Main owner yet. try_set_cell bounds-checks identity storage; caller must use approved future DogMovementService for route/adjacency. Commands return explicit ok/reason/revision/changed; stale revisions and publication reentry blocked. No editor setup. Native decoder NUL normalization and current full evidence recorded in PROGRESS.
