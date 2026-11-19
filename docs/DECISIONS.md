@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D124 - paired persistence without inventing observed history (2026-11-19)
+
+Approved7.5g libraries validate actual saved day/catalogue/calendar/weather/ecology/owned land using existing pure boundaries. Preserve already saved weather even if seed algorithm differs; unavailable weather remains unavailable, no forecast generation. Calendar mismatch is recorded rather than silently fixing core clock. Valid current pair restores coverage/captured decisions/terms/force/counters/RNG exactly without reroll or notification. Corrupt/missing/misaligned pair resets together to explicit current-day partial/off baseline; do not let one surviving component imply complete observation provenance. Legacy ignores unknown future components. Prepare all candidates before replacing either owner, respect both busy flags and keep unrelated progress. No live runtime/root schema/version change until7.5h.
+
 ### D123 - reversible terms and captured multi-charge watering (2026-11-19)
 
 Approved7.5f keeps effects projections, no extra gameplay owner or direct world mutation. Saved debug enabled cannot authorize production effects; actual caller gate/current measured weather-canopy apply. Unmeasured canopy is unknown and neutral rather than inferred zero; refill/rain remain immediate counters. Add explicit DATA base manual cost1 while preserving20/40/200 and all one-unit APIs/save fields. Debit entire cost before farm mutation, reject insufficient first, refund only captured debit under existing refill/load revision rules. Optional quote includes water/modifier revisions and actual cost. No extra stamina/yield/coin/growth, fake merchant stock, extra ecology actors or live Main integration. Following approved runtime alone supplies current terms.

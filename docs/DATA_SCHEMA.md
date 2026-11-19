@@ -1,5 +1,11 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5g future paired component normalization (D124)
+
+Standalone owner wire unchanged: director_activity D1185fields, director D12213fields. DirectorSaveCodec outputs exactly validated detached owner wires plus transient{ok,reason,used_fallback}. Current matching-day input preserves complete/partial coverage, pending/active captured terms/trace, independent counters, queued force and canonical signed-int64 RNG strings. Legacy/missing/corrupt/mismatch -> activity{current_day=started_day=actual saved day,current_complete:false,current_counts:actual6known open zeros,completed_days:[]} and Director disabled at same day/history empty. Open zeros have explicitly unknown coverage and never become closed observed zeros. No past simulation/reroll/reward.
+
+DirectorSaveContext11fields listed in API_INDEX are ephemeral (Rect2i regions and detached known catalogue IDs/current normalized ecology/weather). Resource-backed known owned regions/current catalog checked, waterfalse, unknown saved weather{} explicitly unavailable, calendar alignment diagnostic. Context/root-other fields never serialized by these libraries. No root field/version/golden14 is added in7.5g; all13existing golden files remain byte-identical.
+
 ## Phase7.5f transient effect instructions / unchanged can wire (D123)
 
 WateringCanConfig adds exported manual_charge_cost:int, shipped1, positive<=base_capacity. Capacities20/40 and price200 unchanged. Can wire remains exactly{capacity,charges}; refill revision, service terms/revisions and projections never saved. Transient water instruction raw{} defaults to DATA base, or exact{day_index:int,event:{}|known active captured dust terms}; reject missing/extra/forged/expired/other-kind terms. Cost computed base+captured extra with checked integer headroom. Projection outer fields in API_INDEX; visitor uses actual known NPC/destination and accent existing RGBA primitives. Current context contains real availability/gates; water_clarity stays unmeasured. No new game-save schema/version/cache fields until later7.5h root components.

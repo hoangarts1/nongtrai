@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5g automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 203scripts/857/857/97703assert; groups115.221/142.081/123.077s<180, GUT380.379s/wall397.645s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2468, prior test/fixture verification423, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5g-095946/full-attempt1. No skip/weakening/timeout extension.
+
+Step6/10 after7.5f pushed3977ae0/full846. Pure DirectorSaveContext uses actual CropData catalogue/current Resource seasons, existing farm migration/ownership/ecology codecs and saved weather validation. Missing weather remains explicitly unavailable, never rerolled; calendar mismatch is explicit and raw clock unchanged. DirectorSaveCodec restores a valid matching-day activity/director pair exactly (coverage, terms/history/counters/force/RNG text). Legacy/missing/corrupt/mismatched pair gets current-day partial activity plus disabled empty-history Director together, never fake observations/history/rewards. No unrelated payload mutation or replay. Lifecycle prepares full candidate before callback-free silent owner replacement and rejects busy owners.
+
+Focused1 3scripts/11/11/412assert/1.804s PASS/no errors/leaks. All13actual v1-v13 golden fixtures exercised unchanged, real catalogue/parcel/resource validation, partial coverage grace, silent valid restore, invalid-context atomicity and busy notification/token guards. Import1 clean. Independent100dependency pure1 exit0 PASS1000native full-precision JSON paired roundtrips with active+pending+queued force/coverage/counters/lossless RNG exact parsed-wire restore; malformed component fallback, all13actual golden/current crop catalogue and unchanged unrelated payload. No autoload/world nodes/replay/SCRIPT ERROR/leak. Full857/857 PASS. SaveService/Main/GameClock/save13/Player/InputMap/scenes/assets/oldtests unchanged; no root components until7.5h.
+
 ## Phase7.5f automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 200scripts/846/846/97291assert; groups114.974/143.387/124.415s<180, GUT382.776s/wall400.110s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2461, prior test/fixture verification417, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5f-094500/full-attempt1. No skip/weakening/timeout extension.

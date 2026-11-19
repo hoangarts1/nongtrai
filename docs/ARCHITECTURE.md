@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5g pure paired lifecycle boundary (D124)
+
+Actual Resource catalogue + saved payload -> DirectorSaveContext (existing farm/land/ecology/weather validation) -> DirectorSaveCodec complete paired candidate -> DirectorLifecycle silent same-identity owners. Components remain sole activity/Director states; context/libraries own none and subscribe to no clock/global event. Any bad pair uses explicit actual-day baseline, never simulation backfill, notifications/rewards or fictitious M2.4 unlock. Raw other owners untouched. Weather/calendars supply validation/availability only, not rerolls. Current SaveService/Main13 remain unchanged; approved next h performs sole game integration/version14.
+
 ## Phase7.5f effect projection and existing can owner (D123)
 
 Captured Director state + validated current observation -> stateless DirectorEffectProjector/TermsCodec -> detached optional water/merchant/accent instructions. Projection cannot change owners/world, mutate eligibility counts or grant story. Current authorization/rain/measured canopy wins over historical trigger flags. WateringCanState stays sole charges/capacity owner; WateringService keeps refs/transient projected terms/revision/busy only. Whole cost captured/debited before farm callbacks, failed command credits exact debit unless refill/load replaced it. Existing one-charge callers, free rain/bulk/day semantics and game save13 persist. No Node/clock/RNG in new libraries; future Main adapters alone refresh actual current-day terms.

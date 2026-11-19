@@ -1,5 +1,13 @@
 # API INDEX — THE LIFE
 
+## Phase7.5g paired persistence libraries (D124)
+
+DirectorSaveContext.capture(profile:DirectorProfile,payload:Variant,crops:Array[Resource])->Dictionary; valid(profile,context)->bool. Uses shipped LAND/LEGACY/SAMPLING Resources and existing EcologySaveContext/Codec, WeatherSaveCodec. Success exact11fields{ok,reason,day_index,calendar,calendar_aligned,catalog_ids,weather,weather_available,ecology,available,regions}. Day defaults to existing origin0 only if absent, invalid explicit day rejected. Known typed actual crop catalogue/migration/garden/owned regions validated; calendar mismatch diagnostic cannot rewrite clock; unknown weather stays{} / availablefalse. Water clarity always unavailable. Context is transient, regions Rect2i; never a game-save field.
+
+DirectorSaveCodec.normalize(profile,config:DirectorActivityConfig,activity:Variant,director:Variant,context:Dictionary,legacy:bool=false)->{ok,reason,used_fallback,director_activity,director}|failure. Strict valid pair at context day restores exactly; legacy explicitly ignores any untrusted future fields. Any bad/missing/mismatched member resets pair together at actual day to partial open activity/no closed history and defaultoff/no decision history, with diagnostic reason. Does not mutate unrelated root progress.
+
+DirectorActivityLifecycle.baseline(config,day),resolve(config,raw,day),restore(state,config,raw,day) return explicit result/snapshot; standalone missing/mismatched observations begin partial, never reconstructed zeros. DirectorLifecycle.restore(activity_owner:DirectorActivityState,director_owner:DirectorState,profile,config,activity,director,context,legacy=false)->Dictionary prevalidates pair/configuration and busy guards before silent callback-free replacement. No signals/replay/RNG/time advancement/storage/Nodes. Callers retain same owner identities; Main/SaveService integration is following scope.
+
 ## Phase7.5f reversible effect terms and water costs (D123)
 
 DirectorEffectProjector.project(profile:DirectorProfile,owner:Variant,observation:Dictionary)->Dictionary validates strict current-day owner/DTO and returns{ok,day_index,enabled,water:{day_index,event:{}|capturedDust},visitor:{}|{day_index,npc_id,location_id},accent:RGBA[]|[],event_ids:[],dust_reason}. Effective enabled requires actual caller story/debug authorization as well as saved gate. Rain/measured-canopy threshold waive dust extra; missing canopy is explicit unavailable/neutral. Open observation incompleteness affects future choice, not previously committed effects. Does not alter nodes/counts/stock/owners.

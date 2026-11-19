@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5g automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 203scripts/857/857/97703assert; groups115.221/142.081/123.077s<180, GUT380.379s/wall397.645s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2468, prior test/fixture verification423, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5g-095946/full-attempt1. No skip/weakening/timeout extension.
+
+Step6/10 pure paired persistence context/codec/lifecycle implemented, actual catalogue/calendar/weather/ecology/land boundary. Focused11/11/412assert and13old golden fixtures PASS, source fixtures unchanged. Independent100dependency pure1 PASS1000strict JSON paired roundtrips and13goldens, no autoload/world nodes/replay/errors/leaks. Full857/857 PASS. Current game save remains13; next7.5h alone adds live collector/effects/save14.
+
 ## Phase7.5f automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 200scripts/846/846/97291assert; groups114.974/143.387/124.415s<180, GUT382.776s/wall400.110s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2461, prior test/fixture verification417, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5f-094500/full-attempt1. No skip/weakening/timeout extension.
