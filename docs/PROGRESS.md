@@ -1,5 +1,15 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.6b automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 243scripts/958/958/99921assert; groups140.661/110.8/94.959/114.128s, each<180; GUT460.548s/wall482.428s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2603, prior test-fixture verification513, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6b-013021/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step2/10 after8.6a pushed700cbd7/full954. Pure StorySnapshotCodec defines only {completed_objectives:Array[String],read_pages:Array[String]}, canonical Resource order. Strict native string/array/key types, no extra fields, duplicate/unknown/planned IDs, missing objective/page prerequisites or invalid config. Empty snapshot independent; decode returns detached output and never mutates input. No persistent owner/Node/autoload/game save or runtime integration at this step; save15 unchanged.
+
+Import1 clean except inherited assetUID warnings. Focused1:1script/4/4/27assert/0.402s PASS/no errors/leaks. Current-source isolated34dependency no-autoload/core/view/world-node project imported and ran1000nativeJSON roundtrips plus1000locked-M2rejections in407ms, exit0/PASS; pure probe explicitly uses verification snapshots, not observed gameplay. Unit cases include booleans/fractions/StringName values, bad field types/extra keys, duplicates, unknown/locked pages, prerequisite chains and canonical/detached data. Old tests/goldens/20real saves protected; full gate follows. No scene/Inspector/InputMap steps. Owner/revision/publication follows only in approved8.6c.
+
+Full958/958 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
 ## Phase8.6a automation delivered (2026-11-20)
 
 Full1 original launcher exit0: 242scripts/954/954/99894assert; groups154.124/109.32/88.392/113.392s, each<180; GUT465.228s/wall487.639s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2601, prior test-fixture verification509, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6a-011237/full-attempt1. No skipped/weakened tests or bounds extended.

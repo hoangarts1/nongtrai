@@ -1,5 +1,19 @@
 # API INDEX — THE LIFE
 
+## Phase8.6b implemented API
+
+Step2/10 after8.6a pushed700cbd7/full954. Pure StorySnapshotCodec defines only {completed_objectives:Array[String],read_pages:Array[String]}, canonical Resource order. Strict native string/array/key types, no extra fields, duplicate/unknown/planned IDs, missing objective/page prerequisites or invalid config. Empty snapshot independent; decode returns detached output and never mutates input. No persistent owner/Node/autoload/game save or runtime integration at this step; save15 unchanged.
+
+Import1 clean except inherited assetUID warnings. Focused1:1script/4/4/27assert/0.402s PASS/no errors/leaks. Current-source isolated34dependency no-autoload/core/view/world-node project imported and ran1000nativeJSON roundtrips plus1000locked-M2rejections in407ms, exit0/PASS; pure probe explicitly uses verification snapshots, not observed gameplay. Unit cases include booleans/fractions/StringName values, bad field types/extra keys, duplicates, unknown/locked pages, prerequisite chains and canonical/detached data. Old tests/goldens/20real saves protected; full gate follows. No scene/Inspector/InputMap steps. Owner/revision/publication follows only in approved8.6c.
+
+`scripts/domain/story/story_snapshot_codec.gd`:
+```gdscript
+
+static func empty() -> Dictionary:
+static func decode(config: StoryConfig, raw: Variant) -> Dictionary:
+
+```
+
 ## Phase8.6a implemented API
 
 Step1/10 approved8.6a-j on2026-11-20; base b808308/full948. DATA StoryConfig/Objective/Page catalogue only: five supported objective IDs, five planned-only chapter tasks, four planned-only M2 repairs, six optional grandmother pages. Actual QuestData turnip_delivery and first land parcel are referenced; no new NPC/price/reward/world object/owner/UI/forecast or Director gate. All42localized catalogue keys present in vi/en; wording remains a draft for human tone acceptance.
