@@ -27,6 +27,8 @@ func configure(main: Node) -> void:
 	_panels.append(main.bag_upgrade_flow.panel)
 	_panels.append(main.watering_upgrade_flow.panel)
 	_panels.append(main.chicken_coop_flow.panel)
+	if main.director_debug_flow != null:
+		_panels.append(main.director_debug_flow.panel)
 	# Read-only HUD decoration must not intercept the wide modal header beneath it.
 	_ignore_pointer(main.hud_presenter.root.right_column)
 	_backdrop = ColorRect.new()
@@ -106,7 +108,9 @@ func _visibility_changed(panel: Control) -> void:
 	call_deferred("_resize")
 
 func _close(panel: Control) -> void:
-	if panel == _main.chicken_coop_flow.panel:
+	if _main.director_debug_flow != null and panel == _main.director_debug_flow.panel:
+		_main.director_debug_flow.close()
+	elif panel == _main.chicken_coop_flow.panel:
 		_main.chicken_coop_flow.close()
 	elif panel == _main.watering_upgrade_flow.panel:
 		_main.watering_upgrade_flow.close()
@@ -215,7 +219,7 @@ func _input(event: InputEvent) -> void:
 					get_viewport().set_input_as_handled()
 		return
 	var target: StringName = &""
-	if _active == _main.chicken_coop_flow.panel or _active == _main.watering_upgrade_flow.panel or _active == _main.bag_upgrade_flow.panel or _active == _main.land_runtime.panel or _active == _main.machine_placement_flow.panel or _active == _main.machine_shop_panel or _active == _main.pause_menu or _active == _main.morning_flow.panel or _active == _main.character_flow.panel or (_active == _main.npc_system.journal and _main.npc_system.journal.book!=null):
+	if (_main.director_debug_flow != null and _active == _main.director_debug_flow.panel) or _active == _main.chicken_coop_flow.panel or _active == _main.watering_upgrade_flow.panel or _active == _main.bag_upgrade_flow.panel or _active == _main.land_runtime.panel or _active == _main.machine_placement_flow.panel or _active == _main.machine_shop_panel or _active == _main.pause_menu or _active == _main.morning_flow.panel or _active == _main.character_flow.panel or (_active == _main.npc_system.journal and _main.npc_system.journal.book!=null):
 		# Tab/Space also bind world actions; native GUI focus/activation wins here.
 		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
 			if event.is_action_pressed(action):

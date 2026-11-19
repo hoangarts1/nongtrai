@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.5i debug modal (D126)
+
+Main.director_debug_flow:LifeDirectorDebugFlow nullable (only constructed OS debug). configure(main),open()->bool,close(),reset(),set_enabled(value)->bool,queue_force(id)->bool,refresh(),queue_refresh(value=null); panel/model/result/busy. No new input. LifeDirectorDebugSnapshot.capture(main)->detached actual data, no EventDirector call. LifeDirectorDebugPresenter.translation_keys/reason/event_name/metric/trace_text/render; strict key-presence validation from tools/validate_data via DataValidator.validate_director_debug_text(locales,keys). Domain never imports UI.
+
+LifeDirectorDebugSheet owns native toggle/clear/Close/Scroll and candidate rows, forwards requests only. LifeDirectorCandidateRow.display(view), forced(id). LifeDirectorTracePanel.display(title,body). LifeMachineHeader.director_button/director_requested forwarded by screen/controller deferred open; hidden in operations and outside debug. DebugMenu.register_action(label,callback,translation_key=&"") is backward-compatible, keyed action relocalizes. Shared coordinator includes debug modal; supported lifecycle clears stale panel. See contract and PROGRESS/full evidence.
+
 ## Phase7.5h Main runtime / save14 (D125)
 
 Main owns director_activity:DirectorActivityState,director_state:DirectorState and six small nonvisual children documented in SCENE_CONTRACTS/director.md. Main._purchase_in_progress includes lifecycle/day/source/domain busy; normal save/load/NewGame/title/review and duplicate day calls cannot interleave command receipts. Existing one-argument injectable farm simulator kept; same Main morning handler reserves/seals/chooses after completed core/forecast before ledger/save/bulletin. No new clock listener/global producer subscriber.

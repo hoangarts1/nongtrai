@@ -27,7 +27,7 @@ static func apply(main: Node) -> void:
 static func _style_children(node: Node) -> void:
 	if node is LifeMachineBuildOverlay:
 		return
-	if node is MachineShopPanel or node is LifeCharacterSheet or node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and (node.tabs!=null or node.dialogue_screen!=null)):
+	if node is LifeDirectorDebugSheet or node is MachineShopPanel or node is LifeCharacterSheet or node is LifeMorningSheet or node is StartMenu or node is HotbarPanel or node is HudButtonBar or node is QuestPanel or node is LifeHudRoot or node is LifeDayEndSheet or node is InventoryPanel or node.get_script() == preload("res://scripts/view/pause_menu.gd") or (node is NpcPanel and (node.tabs!=null or node.dialogue_screen!=null)):
 		return
 	if node is Label:
 		var label: Label = node as Label
@@ -61,6 +61,8 @@ static func reflow(main: Node) -> void:
 		_rect(main.start_menu,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.day_end_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.morning_flow.panel,(viewport-summary_size)*0.5,summary_size)
+	if main.director_debug_flow != null:
+		_rect(main.director_debug_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.character_flow.panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.inventory_panel,(viewport-summary_size)*0.5,summary_size)
 	_rect(main.pause_menu,(viewport-summary_size)*0.5,summary_size)

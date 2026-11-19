@@ -71,10 +71,10 @@ func configure_weather(weather_state: Object) -> void:
 	register_action(tr("UI_DEBUG_WEATHER_RAIN"), func() -> void: _weather.call("force_weather", &"rain"))
 	register_action(tr("UI_DEBUG_WEATHER_STORM"), func() -> void: _weather.call("force_weather", &"storm"))
 
-func register_action(label: String, callback: Callable) -> void:
-	_actions.append({"label": label, "callback": callback})
+func register_action(label: String, callback: Callable, translation_key: StringName = &"") -> void:
+	_actions.append({"label": label, "callback": callback, "key": translation_key})
 	if is_node_ready():
-		_add_action_button(label, callback)
+		_add_action_button(label, callback, translation_key)
 
 func _build_base_ui() -> void:
 	var margin: MarginContainer = MarginContainer.new()
@@ -109,13 +109,14 @@ func _build_base_ui() -> void:
 	_action_buttons.add_theme_constant_override("separation", 4)
 	action_scroll.add_child(_action_buttons)
 	for action: Dictionary in _actions:
-		_add_action_button(action["label"] as String, action["callback"] as Callable)
+		_add_action_button(action["label"] as String, action["callback"] as Callable, action["key"] as StringName)
 
-func _add_action_button(label: String, callback: Callable) -> void:
+func _add_action_button(label: String, callback: Callable, translation_key: StringName = &"") -> void:
 	if _action_buttons == null:
 		return
 	var button: Button = Button.new()
-	button.text = label
+	button.text = tr(translation_key) if not translation_key.is_empty() else label
+	button.set_meta(&"translation_key", translation_key)
 	button.pressed.connect(callback)
 	_action_buttons.add_child(button)
 
@@ -199,3 +200,10 @@ func _update_status() -> void:
 		GameClock.time_speed,
 		"PAUSED" if GameClock.paused else "RUNNING"
 	]
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and _action_buttons != null:
+		for button: Node in _action_buttons.get_children():
+			var key: StringName = button.get_meta(&"translation_key", &"")
+			if not key.is_empty():
+				button.text = tr(key)

@@ -1,5 +1,13 @@
 # Director runtime and presentation contract
 
+## Phase7.5i approved modular debug UI (verification pending)
+
+New minimal scenes ui/director_debug/director_sheet.tscn (LifeDirectorDebugSheet:LifeHudFrame), candidate_row.tscn (LifeDirectorCandidateRow:PanelContainer), trace_panel.tscn (LifeDirectorTracePanel:VBoxContainer). Sheet composes shared paper/banner Close header, enabled_button:CheckButton, clear_button:Button, coverage/metrics/notice Labels, ScrollContainer -> content VBox -> candidate rows -> trace panel. Each row exposes name_label/details_label/score_label/force_button and forced(id:StringName). Trace exposes title_label/body_label. Sheet signals closed(),enabled_requested(value:bool),force_requested(id:StringName); no owner state.
+
+Main debug-only director_debug_flow:LifeDirectorDebugFlow creates sheet before UiCoordinator.configure. Flow.open()/close()/reset()/refresh(),set_enabled(value)->bool,queue_force(id)->bool. Existing Ctrl+M exact/debug route stays machine shop; new compact header Director entry forwards requested(director), defers this modal. Existing DebugMenu.register_action also gets locale-keyed entry; no new InputMap. UiCoordinator owns focus/pause/Player/modal/backdrop and native Tab/Space/Esc; lifecycle reset closes stale view. OS debug plus Runtime authorization, real context and busy/review/sleep guards required. No M2.4 flag granted.
+
+LifeDirectorDebugSnapshot.capture(main) derives detached actual coverage/current measured metrics/current candidate evaluation and saved history/trace, no selection/RNG/advance/apply/save. Candidate scoring labelled current conditions; force button only when currently eligible, actual next morning rechecks every constraint. Forced intent/enable toggle are explicit domain commands; read-only refresh is not. Strings use localized draft keys; human tone/F5 review separate.
+
 ## Phase7.5h automation verified boundary (human F5 pending)
 
 Main owns director_activity:DirectorActivityState and director_state:DirectorState, stable through new/load. Six nonvisual runtime children: DirectorRuntime(LifeDirectorRuntime), DirectorDailyFlow(LifeDirectorDailyFlow), DirectorActivityCollector(LifeDirectorActivityCollector), DirectorEffectsFlow(LifeDirectorEffectsFlow), DirectorNpcBridge(LifeDirectorNpcBridge), DirectorWaterBridge(LifeDirectorWaterBridge). No old scene, Player/camera/grid/InputMap/autoload/global event changes.

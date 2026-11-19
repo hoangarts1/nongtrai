@@ -53,6 +53,7 @@ var ecology_runtime: LifeEcologyRuntime
 var ecology_effects_flow: LifeEcologyEffectsFlow
 var director_activity: DirectorActivityState = DirectorActivityState.new()
 var director_state: DirectorState = DirectorState.new()
+var director_debug_flow: LifeDirectorDebugFlow
 var director_runtime: LifeDirectorRuntime
 var director_daily_flow: LifeDirectorDailyFlow
 var director_activity_collector: LifeDirectorActivityCollector
@@ -276,6 +277,10 @@ func _ready() -> void:
 	director_runtime = LifeDirectorRuntime.new()
 	add_child(director_runtime)
 	director_runtime.configure(self)
+	if OS.is_debug_build():
+		director_debug_flow = LifeDirectorDebugFlow.new()
+		add_child(director_debug_flow)
+		director_debug_flow.configure(self)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -441,6 +446,8 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 		return
 	if not director_runtime.begin_restore(director_restore):
 		return
+	if director_debug_flow != null:
+		director_debug_flow.reset()
 	bag_upgrade_flow.close()
 	watering_upgrade_flow.close()
 	chicken_coop_runtime.prepare_restore()
@@ -506,6 +513,8 @@ func _continue_game() -> void:
 func _return_to_start_menu() -> bool:
 	if _purchase_in_progress():
 		return false
+	if director_debug_flow != null:
+		director_debug_flow.reset()
 	bag_upgrade_flow.close()
 	watering_upgrade_flow.close()
 	land_runtime.close()
@@ -534,6 +543,8 @@ func _load_payload(payload: Dictionary) -> bool:
 		return false
 	if not director_runtime.begin_restore(director_restore):
 		return false
+	if director_debug_flow != null:
+		director_debug_flow.reset()
 	bag_upgrade_flow.close()
 	watering_upgrade_flow.close()
 	chicken_coop_runtime.prepare_restore()

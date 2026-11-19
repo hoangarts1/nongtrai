@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5i automation delivered (2026-11-19)
+
+Full2 original launcher exit0: 210scripts/882/882/98405assert; groups137.877/105.383/148.97s<180, GUT392.230s/wall408.775s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2491, prior test/fixture verification440, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5i-112256/full-attempt2. No skip/weakening/timeout extension.
+
+Step8/10 after7.5h pushed c947a01/full875. Three small shared-theme scenes (sheet/candidate row/trace) and stateless snapshot/presenter plus guarded flow show actual complete activity coverage, measured metric availability, current eligibility/score breakdown and saved trace/RNG/history. Preview never calls selector/day/save/effects. Current evaluation is not a promise about tomorrow. Force only queues next morning; current conditions and next-morning safety checks remain, dust telegraph unchanged. Disable cancels application without rewriting decision history.
+
+Debug-only entry from current Ctrl+M machine header and registered DebugMenu action. Existing exact/debug input matcher unchanged. Optional translation-key registration preserves old two-argument callers. OS debug plus effective runtime authorization required; no fabricated story flag. Shared modal pause/input/focus/Esc, lifecycle reset on valid new/load/title. Existing scene/asset/Player/InputMap/domain/profile/save14 unchanged.
+
+Import1 completed with inherited duplicate assetUID warnings. Native1 failed: multiline CSV unsupported by existing line-oriented localization loader, malformed inserted validator API comment, new fixture missing validator preload and wrong signal callback arity; no clean claim (one script not collected). Fixed new code/fixtures/one-line translation; all old tests unchanged. Native2 actual pinned graphics4scripts/11/11/1607assert/25.547s PASS, no SCRIPT ERROR/leak/orphan. Covers mouse Ctrl+M header entry/toggle, Tab/Esc focus, queue/clear/off/reentry, effective release restriction/title/load/new/modal, detached preview/read-only owner and isolated save SHA, partial/stale data and positive/missing-key validation. Six fresh vi/en1152/1280/1920 captures with SHA external/native-captures2; viewed vi1152 scroll bottom fits. Native release-export and human F5/art/tone remain separate. Full882/882 PASS.
+
 ## Phase7.5h automation delivered (2026-11-19)
 
 Full3 original launcher exit0: 207scripts/875/875/98214assert; groups144.706/104.336/147.262s<180, GUT396.304s/wall414.206s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2479, prior test/fixture verification429, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5h-101444/full-attempt3. No skip/weakening/timeout extension.

@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5i debug inspection boundary (D126)
+
+VIEW composes six small director_debug scripts and three scenes. Snapshot reads actual owners; stateless candidate evaluation cannot draw or save. Commands go only through existing guarded DirectorRuntime. UiCoordinator owns pause/modal; Main valid lifecycle resets transient view. OS debug entry only, existing matcher/input unchanged. No new owner/autoload/event/save field or production story entitlement.
+
 ## Phase7.5h runtime integration / sole daily path (D125)
 
 DATA Resources -> pure activity/Director states and codecs -> Main-owned small application adapters -> existing water/NPC/ecology views. Main remains world owner; no autoload/global event/new simulation path. Runtime/source/day/lifecycle flags and cached projection are transient. Source receipt guards span actual command callbacks and domain observation publication; actor/world state is never inferred from global producer signals. Unknown attribution cannot claim full coverage.

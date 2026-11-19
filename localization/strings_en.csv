@@ -713,3 +713,59 @@ DIR_VISIT_COUNTER,Visit during the usual hours while it is dry and light. Goods 
 DIR_BLOOM_TITLE,Golden butterfly wings
 DIR_BLOOM_WHY,The varied garden welcomes butterflies with golden wings.
 DIR_BLOOM_COUNTER,Grow different crops and tend the garden each day to keep its variety.
+DIR_DEBUG_ENTRY,Event preview
+DIR_DEBUG_TITLE,Season Machine · Preview
+DIR_DEBUG_ENABLE,Enable event preview
+DIR_DEBUG_CLEAR,Clear request
+DIR_DEBUG_COVERAGE,Complete observations: %d/%d days · Today: day %d
+DIR_DEBUG_METRICS,Canopy: %s · Diversity: %s · Water: %s
+DIR_DEBUG_PERCENT,%.1f%%
+DIR_DEBUG_UNKNOWN,—
+DIR_DEBUG_MODE,Preview only; the story unlock is not available.
+DIR_DEBUG_FORCE,Request
+DIR_DEBUG_FORCE_HINT,Conditions are checked again tomorrow. Dust still gives two days of notice.
+DIR_DEBUG_SCORE,Score %.2f · Base %.2f · Activity +%.2f
+DIR_DEBUG_NOT_SCORED,Not ready to score
+DIR_DEBUG_EVENT_INFO,%s ? %s
+DIR_DEBUG_TRACE,Saved decisions
+DIR_DEBUG_EMPTY,No decisions yet.
+DIR_DEBUG_RECORD,Day %d · %s · %s
+DIR_DEBUG_RNG,Saved seed: %s · State: %s
+DIR_DEBUG_CANDIDATE,%s · %s · %s
+DIR_DEBUG_ACTIVITY,Activities in the observation window: %s
+DIR_DEBUG_COUNT,%s: %s
+DIR_DEBUG_INTENT,Requested for the next morning: %s
+DIR_DEBUG_NONE,No event
+DIR_DEBUG_ENABLED,Preview enabled.
+DIR_DEBUG_DISABLED,Preview disabled; effects no longer apply.
+DIR_DEBUG_QUEUED,Request queued for the next morning.
+DIR_DEBUG_CLEARED,Request cleared.
+DIR_DEBUG_BLOCKED,This is not available right now.
+DIR_DEBUG_HINT,Viewing this sheet does not advance time or draw an event. Requests keep all limits and conditions.
+DIR_DEBUG_WAIT,Waiting for actual observations.
+DIR_REASON_ELIGIBLE,Currently eligible
+DIR_REASON_DISABLED,Disabled
+DIR_REASON_LOCKED,Not unlocked
+DIR_REASON_OBSERVATIONS,Not enough complete days
+DIR_REASON_RAIN,Rain on the proposed day
+DIR_REASON_THRESHOLD,Ecology condition not met
+DIR_REASON_REGULAR,Minh already has a regular visit
+DIR_REASON_COOLDOWN,Still on cooldown
+DIR_REASON_QUOTA,Season limit reached
+DIR_REASON_GRACE,Within the grace period
+DIR_REASON_SPACING,Too close to the previous dust day
+DIR_REASON_CONFLICT,Overlaps a selected event
+DIR_REASON_POSITIVE,A positive event has priority
+DIR_REASON_WAIT,Waiting for suitable conditions
+DIR_REASON_UNKNOWN,Unmeasured or unavailable
+DIR_REASON_BUSY,Finishing another action
+DIR_REASON_CHOSEN,Selected
+DIR_REASON_FORCED,Selected by preview request
+DIR_REASON_DECLINED,Request no longer eligible
+DIR_REASON_NONE,No event selected today
+DIR_ACTIVITY_TILL,Tilled
+DIR_ACTIVITY_PLANT,Planted
+DIR_ACTIVITY_WATER,Watered
+DIR_ACTIVITY_HARVEST,Harvested items
+DIR_ACTIVITY_BUY,Purchased items
+DIR_ACTIVITY_SELL,Sold items

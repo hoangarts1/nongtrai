@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D126 - read-only current preview beside immutable decision trace (2026-11-19)
+
+Approved7.5i adds a modular debug modal through existing exact Ctrl+M shop, never a new input action/story unlock. Current evaluation is recomputed without RNG; trace/history is stored source truth, not recomputed past. Missing observation/measurement uses explicit unavailable labels, no fabricated scores/water zeros. Queue checks current eligibility and next completed morning checks again; only lottery bypass, never safety/telegraph. UI remains paused and follows shared modal/lifecycle guards. Strings are one-line CSV because existing localization parser is line-oriented. Human tone and real release export remain separate acceptance.
+
 ### D125 - actual command receipts and completed-morning save14 (2026-11-19)
 
 Approved7.5h integrates both pure owners through small Main adapters and existing single day handler. Attribute human activities at explicit successful source boundaries, not global notifications that also describe rain/debug/load. Hold command lock through callbacks and record_many; actual quantities, partial coverage if proof lost. Keep public old tool/water/shop/scheduler calls compatible. UI feed purchase reuses original domain shop with copied original runtime entry checks and runtime busy, so its receipt lock does not self-block the existing public execute guard. Raw programmatic/debug routes are not human observations.

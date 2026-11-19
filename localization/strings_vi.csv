@@ -713,3 +713,59 @@ DIR_VISIT_COUNTER,Ghé chợ vào giờ thường lệ khi trời khô và còn 
 DIR_BLOOM_TITLE,Sắc vàng cánh bướm
 DIR_BLOOM_WHY,Vườn thêm đa dạng và những cánh bướm khoác sắc vàng.
 DIR_BLOOM_COUNTER,Trồng nhiều loài cây và chăm vườn mỗi ngày để giữ sự đa dạng.
+DIR_DEBUG_ENTRY,Thử sự kiện
+DIR_DEBUG_TITLE,Cỗ máy Mùa · Chế độ thử
+DIR_DEBUG_ENABLE,Bật thử sự kiện
+DIR_DEBUG_CLEAR,Bỏ lịch thử
+DIR_DEBUG_COVERAGE,Quan sát đủ %d/%d ngày · Hôm nay: ngày %d
+DIR_DEBUG_METRICS,Tán cây: %s · Đa dạng: %s · Nước: %s
+DIR_DEBUG_PERCENT,%.1f%%
+DIR_DEBUG_UNKNOWN,—
+DIR_DEBUG_MODE,Chỉ dùng thử; câu chuyện mở khóa chưa có.
+DIR_DEBUG_FORCE,Hẹn thử
+DIR_DEBUG_FORCE_HINT,Chờ sáng mai kiểm tra lại điều kiện. Gió bụi vẫn báo trước hai ngày.
+DIR_DEBUG_SCORE,Điểm %.2f · Gốc %.2f · Hoạt động +%.2f
+DIR_DEBUG_NOT_SCORED,Chưa đủ điều kiện tính điểm
+DIR_DEBUG_EVENT_INFO,%s ? %s
+DIR_DEBUG_TRACE,Quyết định đã lưu
+DIR_DEBUG_EMPTY,Chưa có quyết định nào.
+DIR_DEBUG_RECORD,Ngày %d · %s · %s
+DIR_DEBUG_RNG,Seed đã lưu: %s · Trạng thái: %s
+DIR_DEBUG_CANDIDATE,%s · %s · %s
+DIR_DEBUG_ACTIVITY,Hoạt động trong cửa sổ quan sát: %s
+DIR_DEBUG_COUNT,%s: %s
+DIR_DEBUG_INTENT,Hẹn sáng kế tiếp: %s
+DIR_DEBUG_NONE,Không có sự kiện
+DIR_DEBUG_ENABLED,Đã bật chế độ thử.
+DIR_DEBUG_DISABLED,Đã tắt; hiệu ứng không còn áp dụng.
+DIR_DEBUG_QUEUED,Đã hẹn thử cho sáng kế tiếp.
+DIR_DEBUG_CLEARED,Đã bỏ lịch thử.
+DIR_DEBUG_BLOCKED,Chưa thể thực hiện lúc này.
+DIR_DEBUG_HINT,Xem bảng không đổi ngày hay bốc sự kiện. Hẹn thử vẫn giữ giới hạn và điều kiện.
+DIR_DEBUG_WAIT,Đang chờ quan sát thực tế.
+DIR_REASON_ELIGIBLE,Đủ điều kiện hiện tại
+DIR_REASON_DISABLED,Đang tắt
+DIR_REASON_LOCKED,Chưa được mở
+DIR_REASON_OBSERVATIONS,Chưa đủ ngày quan sát
+DIR_REASON_RAIN,Có mưa vào ngày dự kiến
+DIR_REASON_THRESHOLD,Chưa đạt ngưỡng sinh thái
+DIR_REASON_REGULAR,Minh đã có lịch ghé chợ
+DIR_REASON_COOLDOWN,Chưa hết thời gian chờ
+DIR_REASON_QUOTA,Đã đủ số lần trong mùa
+DIR_REASON_GRACE,Đang trong những ngày đầu
+DIR_REASON_SPACING,Cần cách xa đợt gió trước
+DIR_REASON_CONFLICT,Trùng với lịch đã chọn
+DIR_REASON_POSITIVE,Ưu tiên một điều dễ chịu
+DIR_REASON_WAIT,Chờ điều kiện phù hợp
+DIR_REASON_UNKNOWN,Chưa đo hoặc dữ liệu chưa sẵn sàng
+DIR_REASON_BUSY,Đang hoàn tất thao tác
+DIR_REASON_CHOSEN,Đã chọn
+DIR_REASON_FORCED,Đã chọn theo lịch thử
+DIR_REASON_DECLINED,Lịch thử không còn đủ điều kiện
+DIR_REASON_NONE,Hôm nay không chọn sự kiện
+DIR_ACTIVITY_TILL,Cuốc đất
+DIR_ACTIVITY_PLANT,Trồng
+DIR_ACTIVITY_WATER,Tưới
+DIR_ACTIVITY_HARVEST,Nông sản thu
+DIR_ACTIVITY_BUY,Vật phẩm mua
+DIR_ACTIVITY_SELL,Vật phẩm bán

@@ -59,6 +59,10 @@ func select(key: StringName) -> void:
 func request(action: StringName) -> void:
 	if _busy or not panel.visible or GameClock.is_sleeping() or main.ui_coordinator.get_active_panel()!=panel:
 		return
+	if action == &"director" and not operation_mode:
+		if OS.is_debug_build() and main.director_debug_flow != null and main.director_runtime.authorization_allowed():
+			main.director_debug_flow.call_deferred("open")
+		return
 	if action==&"land" and not operation_mode:
 		main.land_runtime.call_deferred("open")
 		return
@@ -128,6 +132,7 @@ func _refresh() -> void:
 	recipe_id = StringName(next.recipe.id)
 	model = next
 	panel.screen.display(model,result)
+	panel.screen.header.director_button.disabled = not main.director_runtime.authorization_allowed()
 	if not action.is_empty():
 		for node: Node in panel.find_children("*","Button",true,false):
 			var button: Button = node as Button

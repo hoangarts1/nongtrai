@@ -25,6 +25,7 @@ func _ready() -> void:
 	banner = header.banner
 	land_button = header.land_button
 	close_button = header.close_button
+	header.director_requested.connect(func() -> void: requested.emit(&"director"))
 	header.land_requested.connect(func() -> void: requested.emit(&"land"))
 	header.closed.connect(func() -> void: closed.emit())
 	body = HBoxContainer.new()

@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5i transient debug DTO (D126)
+
+No save14/Resource schema change. Detached UI DTO carries actual day/coverage/availability/metrics/candidates/stored history/pending/active/force and effective control gate. Scores are unavailable until full observations; water remains unmeasured. Locale CSV adds required DIR_DEBUG/REASON/ACTIVITY keys validated at data gate; one record per physical line. Current preview and stored RNG trace have separate provenance.
+
 ## Phase7.5h game save14 (D125)
 
 CURRENT_VERSION14, introduction threshold14 independent of future versions. New roots exactly director_activity (unchanged5field D118wire) and director (unchanged13field D122wire). Valid current matching-day pair preserves coverage/terms/history/target-season counters/cooldown/pity/queued force/canonical signed-int64 RNG text, never rerolls. Migrate1..13 adds actual saved-day partial/off empty-history baseline; unknown old future fields ignored. Corrupt/missing/misaligned current pair resets together with warning, other progress unchanged. New game actual initial morning is fully observed; legacy first day partial. SaveService generated save_v14.json via real write/read from migrated repository save_v13, no actual player data.

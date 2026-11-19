@@ -67,3 +67,7 @@ Manual F5: buy/place/start an existing machine, complete actual game days, hover
 ## Phase6.4b land entry (D69)
 
 Existing .tscn unchanged. LifeMachineScreen header adds land_button:Button before Close, visible only in shop mode, translated LAND_TITLE. It emits existing requested(action:StringName) with land. Controller defers LandRuntime.open() only from active shop mode; existing three tabs and operation actions remain intact. Land modal becomes the sole active panel and closes shop through UiCoordinator. Entry still inherits debug Ctrl+M, not an invented F1/NPC role. No scene wiring or Inspector change. See land_expansion.md.
+
+## Phase7.5i debug preview entry
+
+LifeMachineHeader adds a shrink/nonwrapping director_button only in debug catalog mode. It forwards director_requested through screen.requested to deferred guarded Main.director_debug_flow.open; no immediate domain change. Existing land/close aliases and old input matcher preserved. No manual Inspector setup; F5 Ctrl+M > Event preview, toggle, inspect, Esc; queue eligible event then actual sleep to observe, default remains off.
