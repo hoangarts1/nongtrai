@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D131 — independent bounded navigation cache, no position owner (2026-11-19)
+
+Approved8.5c uses native AStarGrid2D over current player_region39x39 and actual static DATA exclusions, with orthogonal routes. Keep NPC grid and world physics untouched. Context wire contains dynamic sources/bounds only; trustworthy static exclusions are reapplied from frozen config, never deletable by cache restore. Configure captures a new static configuration; equivalent dynamic updates/restores retain revision/build count. Derived context serialization satisfies stateful-library contract but is never included in game saves. DogState remains sole name/cell owner; callbacks/movement arrive later.
+
 ### D130 — sole pet identity and exact logical-cell wire (2026-11-19)
 
 Approved8.5b owns only name/cell, derives no economic/story progress. A blank saved name is an unnamed localized label, not translated text stored as a custom name. Commands reject invalid/too-long names without cutting user text; source Vietnamese codepoints retained. Pinned Godot decoder replaces NUL withU+FFFD before the domain layer, so reject that normalized corruption marker and keep decoder diagnostic in independent probe. Silent replacement increments transient revision to invalidate pre-load UI quotes. Callback guard spans typed publication; navigation/adjacency belongs to later movement service, no second cell owner.

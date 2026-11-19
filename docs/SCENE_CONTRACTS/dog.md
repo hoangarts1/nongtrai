@@ -63,3 +63,7 @@ The1000step/native final proof belongs to8.5j; ChapterI/M2.4 remain separate.
 ## Phase8.5b implemented owner only (D130)
 
 DogState and name/snapshot rules above are now implemented; exact APIs in API_INDEX. No actor/UI/Main owner yet. try_set_cell bounds-checks identity storage; caller must use approved future DogMovementService for route/adjacency. Commands return explicit ok/reason/revision/changed; stale revisions and publication reentry blocked. No editor setup. Native decoder NUL normalization and current full evidence recorded in PROGRESS.
+
+## Phase8.5c implemented derived navigation only (D131)
+
+DogNavigation/Codec APIs above now implemented. Native routes include origin and only orthogonal walkable neighbors. Configuration captures existing Resource geometry once; dirty dynamic DTO changes use set_dynamic_obstacles, equivalent context does not rebuild. Player region39x39, no NPC/map/physics edits. No live dog, scene or Inspector work yet; route-to-owner bridge belongs to8.5d/f. Cache serialization stays outside game saves.

@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase8.5c derived dog navigation (D131)
+
+DogNavigation(RefCounted): configure(config,dynamic:Array[Rect2i]=[])->bool captures static DATA/builds once; set_dynamic_obstacles(regions)->bool,serialize()->Dictionary,deserialize(raw)->bool,get_revision()/get_rebuild_count()->int,is_walkable(cell)->bool,route(origin,target)->Array[Vector2i] includes origin,reachable(origin)->{ok,cells,distances}|failure. Full configured player_region, immutable WorldLocations solids always included, no diagonals. Equivalent dynamic context/JSON restore does not rebuild. Runtime should configure only lifecycle/static changes and use set_dynamic_obstacles for dirty dynamics; never reconfigure every frame.
+
+DogNavigationCodec.rectangle(Rect2i)->Dictionary,from_regions(config,regions)->{ok,context}|failure,decode(config,raw)->same. Exact context{bounds:{x,y,w,h},dynamic:[{x,y,w,h}...]}, canonical clip/order/dedupe, strict integer/bounds/shape/overflow, Resource statics not overwritten. Context is derived, not game-save state. No Main/actor/input integration yet.
+
 ## Phase8.5b dog identity owner (D130)
 
 DogState(RefCounted): configure(config:DogConfig,cell:Vector2i)->bool,serialize()->Dictionary,deserialize(raw:Dictionary)->bool,get_name()->String,get_cell()->Vector2i,get_revision()->int,is_busy()->bool,try_set_name(value:String,expected_revision:int=-1)->Dictionary,try_set_cell(cell:Vector2i,expected_revision:int=-1)->Dictionary. changed(cell:Vector2i,dog_name:String) publishes coherent committed state under mutation lock. Restore/configure silent; success increments transient revision. Queries detached; serialized fields exactlyname/cell_x/cell_y. Cell setter enforces bounds only; planned movement service alone validates navigation/adjacency.

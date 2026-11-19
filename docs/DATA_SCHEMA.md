@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5c derived navigation context (D131)
+
+Library wire{bounds:{x,y,w,h},dynamic:[{x,y,w,h}...]}; known configured player bounds only, exact signed32int coordinates/positive sizes/safe end arithmetic, clipping/drop wholly outside/dedupe/stable y-x-w-h ordering. Actual Resource static solids always reapplied. JSON-integral doubles canonicalize; bool/fraction/nonfinite/unknown fields fail before grid mutation. No routes/tokens/revision/cell owner in context. This is not a save14/15 root.
+
 ## Phase8.5b standalone dog wire (D130)
 
 Exact dictionary{name:String,cell_x:int,cell_y:int}; native JSON integral doubles accepted only exact signed32and current configured region, no bool/fraction/nonfinite/out-of-map/extra keys. name trimmed, max24Unicode codepoints from Resource, empty stored value means unnamed; commands require nonempty. Controls/line/format and invalid-decoder replacement/noncharacters/surrogates rejected; combining Vietnamese remains exact. Revision/busy/route are transient and absent. Not a game-save root before8.5g; current save14 unchanged.

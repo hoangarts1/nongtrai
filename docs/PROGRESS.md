@@ -1,5 +1,13 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.5c automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 223scripts/913/913/99360assert; groups159.897/124.505/131.918s<180, GUT416.320s/wall432.894s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2518, prior test/fixture verification468, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5c-161810/full-attempt1. No skip/weakening/timeout extension.
+
+Step3/10 after8.5b pushedcaa3c95/full908. DogNavigation owns only derived AStarGrid2D cache/context, full actual39x39player region and immutable real WorldLocations solids (water/buildings/farm), plus supplied dynamic footprints. Four orthogonal neighbors, safe blocked/outside/unreachable rejection, route includes origin, reachable component uses bounded queue with exact distances. DogNavigationCodec canonical signed-int32 rects clips/deduplicates/orders dynamic regions; rejects unknown/missing/bool/fraction/nonfinite/overflow and wrong bounds. Static Resource exclusions cannot be removed by serialized dynamic context. Context serialize/deserialize is diagnostic/library contract only, not a game-save field or second pet-position owner.
+
+configure explicitly captures a new frozen static configuration and builds once; set_dynamic_obstacles/deserialization skip equivalent context, even reordered/clipped duplicate regions. Revision/rebuild diagnostics transient; returned wire/reachable/path data detached. Native AStar shares no NPC grid; existing NpcSchedule/physics/map/Player/input unchanged. Focused1 2scripts/5/5/245assert/0.421s PASS/no errors/leaks. Independent current-source pure1000wall-change/nativeJSON/cache-invariance/route checks PASS, no autoload/world nodes. Old tests/goldens/real saves protected; full follows. Full913/913 PASS.
+
 ## Phase8.5b automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 221scripts/908/908/99115assert; groups132.699/142.225/144.388s<180, GUT419.312s/wall435.956s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2514, prior test/fixture verification462, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5b-160622/full-attempt1. No skip/weakening/timeout extension.

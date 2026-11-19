@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.5c bounded route derivation (D131)
+
+DATA world/NPC geometry plus explicit dynamic rect DTO → pure DogNavigationCodec/DogNavigation. Native AStarGrid2D is RefCounted, no world/scene Node. Cache independent of existing NPCs; route/reachable data detached, no real-time simulation or owner writes. DogState cell remains truth. Later VIEW adapter alone supplies actual current footprints; no saved nav graph or new signal/autoload/input.
+
 ## Phase8.5b pure companion owner (D130)
 
 DATA DogConfig → DogNameRules/DogSnapshotCodec/DogState. No Node/autoload/clock/view references. Exactly one future Main-owned state for name/cell; navigation caches and actor interpolation cannot own a competing position. This step has no live composition or saved root. Codec/configure/restore validate before replacement and publish no restore notifications; command callbacks see committed state but cannot mutate it.
