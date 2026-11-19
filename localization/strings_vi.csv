@@ -194,417 +194,417 @@ CROP_PEPPER,Tiêu
 CROP_ORANGE,Cam
 CROP_APPLE,Táo
 CROP_BANANA,Chuối
-UI_WALLET_COINS,"%d Xu"
-UI_PROMPT_SELL,"[E] Bán hàng"
-UI_SHIPPING_BIN_TITLE,"THÙNG BÁN HÀNG"
-UI_CONFIRM_SELL,"Bán"
-UI_SELL_PRICE,"Giá: %d Xu"
-UI_TOTAL_PRICE,"Tổng: %d Xu"
-UI_NO_SELLABLE_ITEMS,"Không có vật phẩm nào để bán"
-UI_FEEDBACK_SOLD,"+ %d Xu"
-UI_MAX,"Tối đa"
-UI_PROMPT_SHOP,"[E] Mua hạt giống"
-UI_PROMPT_MACHINE_SHOP,"[E] Mua máy móc"
-UI_MACHINE_SHOP_TITLE,"Cửa hàng máy móc"
-UI_COINS,"xu"
-UI_HOUSE_LEVEL,"Nhà cấp %d"
-UI_BUY,"Mua"
-UI_MACHINE_PLACE_TEST,"Đặt thử máy"
-UI_MACHINE_START,"Chạy"
-UI_MACHINE_COLLECT,"Nhận sản phẩm"
-UI_SEED_SHOP_TITLE,"CỬA HÀNG HẠT GIỐNG"
-UI_BUY_PRICE,"Giá: %d Xu"
-UI_CONFIRM_BUY,"Mua hạt"
-UI_FEEDBACK_BOUGHT,"Đã mua %s x%d (-%d Xu)"
-UI_FEEDBACK_NOT_ENOUGH_COINS,"Không đủ tiền!"
-UI_FEEDBACK_INVENTORY_FULL,"Túi đồ đã đầy!"
-UI_SEASON_NOTE,"(Mùa %s)"
-UI_QUEST_SELL,"Bán nông sản"
-UI_QUEST_BUY_SEED,"Mua hạt giống"
-UI_DEBUG_ADD_COINS,"Thêm 500 Xu"
-UI_DEBUG_ADD_ALL_SEEDS,"Thêm mọi loại hạt giống"
-QUEST_TURNIP_DELIVERY_TITLE,"Giao củ cải cho Minh"
-QUEST_TURNIP_DELIVERY_DESC,"Thương nhân Minh cần 3 củ cải tươi cho chợ phiên làng."
-UI_QUEST_DELIVERY_TITLE,"GIAO HÀNG NHIỆM VỤ"
-UI_QUEST_REQUIREMENT,"Yêu cầu: %s x%d (Hiện có: %d)"
+UI_WALLET_COINS,%d Xu
+UI_PROMPT_SELL,[E] Bán hàng
+UI_SHIPPING_BIN_TITLE,THÙNG BÁN HÀNG
+UI_CONFIRM_SELL,Bán
+UI_SELL_PRICE,Giá: %d Xu
+UI_TOTAL_PRICE,Tổng: %d Xu
+UI_NO_SELLABLE_ITEMS,Không có vật phẩm nào để bán
+UI_FEEDBACK_SOLD,+ %d Xu
+UI_MAX,Tối đa
+UI_PROMPT_SHOP,[E] Mua hạt giống
+UI_PROMPT_MACHINE_SHOP,[E] Mua máy móc
+UI_MACHINE_SHOP_TITLE,Cửa hàng máy móc
+UI_COINS,xu
+UI_HOUSE_LEVEL,Nhà cấp %d
+UI_BUY,Mua
+UI_MACHINE_PLACE_TEST,Đặt thử máy
+UI_MACHINE_START,Chạy
+UI_MACHINE_COLLECT,Nhận sản phẩm
+UI_SEED_SHOP_TITLE,CỬA HÀNG HẠT GIỐNG
+UI_BUY_PRICE,Giá: %d Xu
+UI_CONFIRM_BUY,Mua hạt
+UI_FEEDBACK_BOUGHT,Đã mua %s x%d (-%d Xu)
+UI_FEEDBACK_NOT_ENOUGH_COINS,Không đủ tiền!
+UI_FEEDBACK_INVENTORY_FULL,Túi đồ đã đầy!
+UI_SEASON_NOTE,(Mùa %s)
+UI_QUEST_SELL,Bán nông sản
+UI_QUEST_BUY_SEED,Mua hạt giống
+UI_DEBUG_ADD_COINS,Thêm 500 Xu
+UI_DEBUG_ADD_ALL_SEEDS,Thêm mọi loại hạt giống
+QUEST_TURNIP_DELIVERY_TITLE,Giao củ cải cho Minh
+QUEST_TURNIP_DELIVERY_DESC,Thương nhân Minh cần 3 củ cải tươi cho chợ phiên làng.
+UI_QUEST_DELIVERY_TITLE,GIAO HÀNG NHIỆM VỤ
+UI_QUEST_REQUIREMENT,Yêu cầu: %s x%d (Hiện có: %d)
 UI_QUEST_REWARD,"Phần thưởng: %d Xu, %s x%d"
-UI_CONFIRM_DELIVERY,"Xác nhận nộp"
-UI_FEEDBACK_QUEST_COMPLETED,"Đã hoàn thành nhiệm vụ!"
-UI_FEEDBACK_NOT_ENOUGH_ITEMS,"Chưa đủ vật phẩm để nộp!"
-NPC_MINH_NAME,"Minh"
-NPC_LINH_NAME,"Linh"
-DIALOGUE_MINH_INTRO,"Chào bạn! Mình cần ba củ cải cho chợ làng. Bạn giúp mình nhé?"
+UI_CONFIRM_DELIVERY,Xác nhận nộp
+UI_FEEDBACK_QUEST_COMPLETED,Đã hoàn thành nhiệm vụ!
+UI_FEEDBACK_NOT_ENOUGH_ITEMS,Chưa đủ vật phẩm để nộp!
+NPC_MINH_NAME,Minh
+NPC_LINH_NAME,Linh
+DIALOGUE_MINH_INTRO,Chào bạn! Mình cần ba củ cải cho chợ làng. Bạn giúp mình nhé?
 DIALOGUE_MINH_ACTIVE,"Bạn cứ thong thả nhé. Khi đủ củ cải, bạn xác nhận nộp tại đây."
-DIALOGUE_MINH_DONE,"Cảm ơn bạn đã mang củ cải đến. Chợ làng hôm nay sẽ vui hơn rồi."
-DIALOGUE_LINH_HELLO,"Chào bạn. Mình thích ngắm vườn đổi màu qua từng mùa. Hôm mưa mình sẽ ở nhà."
-UI_NPC_CLOSE,"Đóng (Esc)"
-UI_NPC_TALK_HINT,"[E] Trò chuyện"
-UI_NPC_HOME,"Nhà của %s"
-UI_NPC_JOURNAL,"Sổ nhiệm vụ"
+DIALOGUE_MINH_DONE,Cảm ơn bạn đã mang củ cải đến. Chợ làng hôm nay sẽ vui hơn rồi.
+DIALOGUE_LINH_HELLO,Chào bạn. Mình thích ngắm vườn đổi màu qua từng mùa. Hôm mưa mình sẽ ở nhà.
+UI_NPC_CLOSE,Đóng (Esc)
+UI_NPC_TALK_HINT,[E] Trò chuyện
+UI_NPC_HOME,Nhà của %s
+UI_NPC_JOURNAL,Sổ nhiệm vụ
 UI_NPC_JOURNAL_HINT,"J để mở sổ. Đến gần người dân rồi nhấn E để trò chuyện. Minh ghé vào ngày 3 và 6 mỗi tuần, từ 17:00 đến khi trời tối. Trời mưa, mọi người ở nhà."
-UI_NPC_FRIENDSHIP,"%s: thân thiết %d/%d"
-UI_NPC_QUEST_NEW,"Chưa nhận"
-UI_NPC_QUEST_ACTIVE,"Đang làm"
-UI_NPC_QUEST_DONE,"Đã hoàn thành"
-UI_NPC_ACCEPT_QUEST,"Nhận nhiệm vụ"
-UI_NPC_OFFER_DISCOUNT,"Hôm nay giảm giá: %s ×%d — tổng %d Xu"
-UI_NPC_OFFER_REQUEST,"Hôm nay thu mua: %s ×%d — trả %d Xu"
-UI_NPC_CONFIRM_TRADE,"Xác nhận giao dịch hôm nay"
-UI_NPC_TRADE_DONE,"Giao dịch xong rồi. Cảm ơn bạn nhé!"
+UI_NPC_FRIENDSHIP,%s: thân thiết %d/%d
+UI_NPC_QUEST_NEW,Chưa nhận
+UI_NPC_QUEST_ACTIVE,Đang làm
+UI_NPC_QUEST_DONE,Đã hoàn thành
+UI_NPC_ACCEPT_QUEST,Nhận nhiệm vụ
+UI_NPC_OFFER_DISCOUNT,Hôm nay giảm giá: %s ×%d — tổng %d Xu
+UI_NPC_OFFER_REQUEST,Hôm nay thu mua: %s ×%d — trả %d Xu
+UI_NPC_CONFIRM_TRADE,Xác nhận giao dịch hôm nay
+UI_NPC_TRADE_DONE,Giao dịch xong rồi. Cảm ơn bạn nhé!
 UI_NPC_TRADE_BLOCKED,"Chưa thể giao dịch. Bạn kiểm tra Xu, vật phẩm và chỗ trống trong túi nhé."
 UI_DEBUG_NPC_VISIT,"Test Minh: ngày ghé, trời nắng, đến gần"
-UI_DEBUG_NPC_ITEMS,"Test nhiệm vụ: thêm củ cải để nộp"
-UI_DEBUG_NPC_JOURNAL,"Test: mở sổ nhiệm vụ"
-UI_NPC_DELIVERY_BLOCKED,"Bạn cần đủ vật phẩm và chỗ trống để nhận thưởng nhé."
-UI_HOTBAR_CAPTION,"Phím 1–9 chọn vật phẩm · I mở toàn bộ kho đồ"
-UI_TITLE_TAGLINE,"Một khu vườn nhỏ. Một ngày bình yên."
-UI_TITLE_SAVE_SUMMARY,"Tiếp tục: %s · Ngày %d"
-UI_BIND_MOUSE_LEFT,"chuột trái"
-UI_BIND_TOOL_ALTERNATIVE,"%s hoặc chuột trái"
-UI_BIND_UP,"Mũi tên lên"
-UI_BIND_DOWN,"Mũi tên xuống"
-UI_BIND_LEFT,"Mũi tên trái"
-UI_BIND_RIGHT,"Mũi tên phải"
-UI_INVENTORY_SELECT,"Chọn"
-UI_INVENTORY_SELECT_ITEM,"Chọn %s để sử dụng"
-UI_CROP_COUNTDOWN,"Còn %d ngày %02d:%02d"
-UI_CROP_ESTIMATE_AT,"Dự kiến: Ngày %d · %s"
+UI_DEBUG_NPC_ITEMS,Test nhiệm vụ: thêm củ cải để nộp
+UI_DEBUG_NPC_JOURNAL,Test: mở sổ nhiệm vụ
+UI_NPC_DELIVERY_BLOCKED,Bạn cần đủ vật phẩm và chỗ trống để nhận thưởng nhé.
+UI_HOTBAR_CAPTION,Phím 1–9 chọn vật phẩm · I mở toàn bộ kho đồ
+UI_TITLE_TAGLINE,Một khu vườn nhỏ. Một ngày bình yên.
+UI_TITLE_SAVE_SUMMARY,Tiếp tục: %s · Ngày %d
+UI_BIND_MOUSE_LEFT,chuột trái
+UI_BIND_TOOL_ALTERNATIVE,%s hoặc chuột trái
+UI_BIND_UP,Mũi tên lên
+UI_BIND_DOWN,Mũi tên xuống
+UI_BIND_LEFT,Mũi tên trái
+UI_BIND_RIGHT,Mũi tên phải
+UI_INVENTORY_SELECT,Chọn
+UI_INVENTORY_SELECT_ITEM,Chọn %s để sử dụng
+UI_CROP_COUNTDOWN,Còn %d ngày %02d:%02d
+UI_CROP_ESTIMATE_AT,Dự kiến: Ngày %d · %s
 UI_CROP_ESTIMATE_NOTE,"Nếu tưới đủ mỗi ngày, đúng mùa."
-UI_CROP_WATERED,"Đã tưới hôm nay"
+UI_CROP_WATERED,Đã tưới hôm nay
 UI_CROP_READY_NOTE,"Cây đã chín, bạn có thể thu hoạch."
-UI_CROP_WITHERED_NOTE,"Cây đã héo. Dọn cây để dành chỗ cho hạt giống mới nhé."
-UI_CROP_OUT_OF_REACH,"Bạn đến gần cây hơn một chút nhé."
-UI_BACK,"Quay lại"
-UI_APPEARANCE_HAIR_STYLE,"Kiểu tóc"
-UI_APPEARANCE_SKIN_TONE,"Tông da"
-UI_APPEARANCE_HAIR_COLOR,"Màu tóc"
-UI_APPEARANCE_OUTFIT_COLOR,"Màu áo"
-UI_APPEARANCE_OPTION_NUMBER,"%s %d"
-UI_APPEARANCE_HAIR_ROUND_BOB,"Tóc bob tròn"
-UI_APPEARANCE_HAIR_SOFT_BANGS,"Tóc mái mềm"
-UI_APPEARANCE_HAIR_LEAF_BRAID,"Tóc tết lá"
-UI_APPEARANCE_HAIR_SIDE_SWOOP,"Tóc lệch"
-UI_APPEARANCE_HAIR_SHORT_PEAK,"Tóc ngắn dựng"
-UI_APPEARANCE_HAIR_TWIN_PUFFS,"Tóc búi đôi"
-NPC_AN_NAME,"An"
-NPC_LAM_NAME,"Bác Lâm"
-PET_DOG_NAME,"Cún nhỏ"
-UI_KIT_TITLE,"Bộ giao diện · THE LIFE"
+UI_CROP_WITHERED_NOTE,Cây đã héo. Dọn cây để dành chỗ cho hạt giống mới nhé.
+UI_CROP_OUT_OF_REACH,Bạn đến gần cây hơn một chút nhé.
+UI_BACK,Quay lại
+UI_APPEARANCE_HAIR_STYLE,Kiểu tóc
+UI_APPEARANCE_SKIN_TONE,Tông da
+UI_APPEARANCE_HAIR_COLOR,Màu tóc
+UI_APPEARANCE_OUTFIT_COLOR,Màu áo
+UI_APPEARANCE_OPTION_NUMBER,%s %d
+UI_APPEARANCE_HAIR_ROUND_BOB,Tóc bob tròn
+UI_APPEARANCE_HAIR_SOFT_BANGS,Tóc mái mềm
+UI_APPEARANCE_HAIR_LEAF_BRAID,Tóc tết lá
+UI_APPEARANCE_HAIR_SIDE_SWOOP,Tóc lệch
+UI_APPEARANCE_HAIR_SHORT_PEAK,Tóc ngắn dựng
+UI_APPEARANCE_HAIR_TWIN_PUFFS,Tóc búi đôi
+NPC_AN_NAME,An
+NPC_LAM_NAME,Bác Lâm
+PET_DOG_NAME,Cún nhỏ
+UI_KIT_TITLE,Bộ giao diện · THE LIFE
 UI_KIT_SAMPLES,"Mẫu thành phần — số liệu minh họa, không phải dữ liệu trò chơi."
-UI_KIT_BUTTONS,"Nút bấm"
-UI_KIT_ITEMS,"Ô đồ vật & thanh"
-UI_KIT_COLORS,"Bảng màu"
-UI_KIT_INPUTS,"Điều khiển"
-UI_KIT_BADGES,"Nhãn & phím"
-UI_KIT_FONTS,"Khung & chữ"
-UI_KIT_ICONS,"Biểu tượng mẫu"
-UI_KIT_FRAME,"Khung dùng lại"
-UI_KIT_FRAME_NOTE,"Khung 28 px mỗi cạnh. Có thể thay bằng texture 9-slice sau."
-UI_KIT_TABS,"Thanh tab dùng chung"
-UI_KIT_PRIMARY,"Nút chính"
-UI_KIT_SECONDARY,"Nút phụ"
-UI_KIT_DANGER,"Nút nguy hiểm"
-UI_KIT_ACCENT,"Nút nhấn"
-UI_KIT_STATE_NORMAL,"Bình thường"
-UI_KIT_STATE_HOVER,"Di chuột"
-UI_KIT_STATE_PRESSED,"Đang nhấn"
-UI_KIT_STATE_DISABLED,"Chưa đủ xu"
-UI_KIT_ICON,"Biểu tượng"
-UI_KIT_ITEM,"Đồ vật"
-UI_KIT_LOCKED,"Khóa"
-UI_KIT_EMPTY,"Trống"
-UI_KIT_ON,"BẬT"
-UI_KIT_OFF,"TẮT"
-UI_KIT_DAY,"Ngày %d"
-UI_KIT_NEW,"Mới"
-UI_KIT_MAIN,"Chính"
-UI_KIT_COIN,"Xu"
-UI_KIT_COINS,"%s xu"
-UI_KIT_BANNER,"Tiêu đề"
-UI_KIT_TAB_BAG,"Túi đồ"
-UI_KIT_TAB_CHARACTER,"Nhân vật"
-UI_KIT_TAB_QUEST,"Nhiệm vụ"
-UI_KIT_TAB_CALENDAR,"Lịch & Sự kiện"
-UI_KIT_TAB_MAP,"Bản đồ"
-UI_KIT_VI_SAMPLE,"Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ · ắ ặ ể ữ ự"
-UI_KIT_FONT_NOTE,"Baloo 2 ExtraBold · Nunito SemiBold · Noto Serif Italic"
-UI_KIT_TOKEN_INK,"Viền nâu"
-UI_KIT_TOKEN_WOOD,"Gỗ"
-UI_KIT_TOKEN_PAPER,"Giấy kem"
-UI_KIT_TOKEN_GREEN,"Xanh lá"
-UI_KIT_TOKEN_YELLOW,"Vàng"
-UI_KIT_TOKEN_RED,"Đỏ"
-UI_KIT_TOKEN_SKY,"Xanh trời"
-UI_KIT_TOKEN_COIN,"Xu"
-UI_KIT_ICON_COIN,"Xu"
-UI_KIT_ICON_HEART,"Tim"
-UI_KIT_ICON_ENERGY,"Thể lực"
-UI_KIT_ICON_SUN,"Mặt trời"
-UI_KIT_ICON_RAIN,"Mưa"
-UI_KIT_ICON_MOON,"Trăng"
-UI_KIT_ICON_HOE,"Cuốc"
-UI_KIT_ICON_WATER,"Bình tưới"
-UI_KIT_ICON_SICKLE,"Liềm"
-UI_KIT_ICON_BASKET,"Giỏ"
-UI_KIT_ICON_CARROT,"Cà rốt"
-UI_KIT_ICON_TOMATO,"Cà chua"
-UI_KIT_ICON_TURNIP,"Củ cải"
-UI_KIT_ICON_CORN,"Ngô"
-UI_KIT_ICON_PUMPKIN,"Bí ngô"
-UI_KIT_ICON_WOOD,"Gỗ"
-UI_KIT_ICON_STONE,"Đá"
-UI_KIT_ICON_STRAW,"Rơm"
-UI_KIT_ICON_BAG,"Túi"
-UI_KIT_ICON_QUEST,"Sổ"
-UI_KIT_ICON_CALENDAR,"Lịch"
-UI_KIT_ICON_MAP,"Bản đồ"
-UI_KIT_ICON_MARKET,"Chợ"
-UI_KIT_ICON_GIFT,"Quà"
-HUD_DATE,"%s · %d"
-HUD_SEASON_YEAR,"%s · Năm %d"
-HUD_QUEST_TITLE,"Khởi đầu nông trại"
-HUD_QUEST_PROGRESS,"Đã xong %d / %d bước"
-HUD_QUEST_DONE,"Xong: %s"
-HUD_ITEM_GAINED,"+%d %s"
-HUD_WEATHER,"%s · Mai: %s"
-HUD_WEEKDAY_0,"Thứ Hai"
-HUD_WEEKDAY_1,"Thứ Ba"
-HUD_WEEKDAY_2,"Thứ Tư"
-HUD_WEEKDAY_3,"Thứ Năm"
-HUD_WEEKDAY_4,"Thứ Sáu"
-HUD_WEEKDAY_5,"Thứ Bảy"
-HUD_WEEKDAY_6,"Chủ Nhật"
-HUD_KEY_ESCAPE,"Esc"
-END_TITLE,"Kết thúc ngày %d"
-END_LEDGER,"Thu chi hôm nay"
-END_INCOME,"Thu"
-END_EXPENSE,"Chi"
-END_PROFIT,"Lợi nhuận"
-END_QUANTITY,"×%d"
-END_NO_TRANSACTIONS,"Chưa ghi nhận giao dịch trong ngày."
-END_HISTORY_COMPLETE,"Hoàn tiền được tính giảm chi."
-END_HISTORY_INCOMPLETE,"Lịch sử hôm nay chưa đầy đủ. Số liệu chỉ gồm phần đã ghi nhận."
-END_UNWATERED,"%d ô cây chưa được tưới hôm nay. Bạn có thể quay lại chăm cây trước khi nghỉ."
-END_NEXT_DAY,"Sang ngày mới"
-END_STAY,"Ở lại thêm một lúc"
+UI_KIT_BUTTONS,Nút bấm
+UI_KIT_ITEMS,Ô đồ vật & thanh
+UI_KIT_COLORS,Bảng màu
+UI_KIT_INPUTS,Điều khiển
+UI_KIT_BADGES,Nhãn & phím
+UI_KIT_FONTS,Khung & chữ
+UI_KIT_ICONS,Biểu tượng mẫu
+UI_KIT_FRAME,Khung dùng lại
+UI_KIT_FRAME_NOTE,Khung 28 px mỗi cạnh. Có thể thay bằng texture 9-slice sau.
+UI_KIT_TABS,Thanh tab dùng chung
+UI_KIT_PRIMARY,Nút chính
+UI_KIT_SECONDARY,Nút phụ
+UI_KIT_DANGER,Nút nguy hiểm
+UI_KIT_ACCENT,Nút nhấn
+UI_KIT_STATE_NORMAL,Bình thường
+UI_KIT_STATE_HOVER,Di chuột
+UI_KIT_STATE_PRESSED,Đang nhấn
+UI_KIT_STATE_DISABLED,Chưa đủ xu
+UI_KIT_ICON,Biểu tượng
+UI_KIT_ITEM,Đồ vật
+UI_KIT_LOCKED,Khóa
+UI_KIT_EMPTY,Trống
+UI_KIT_ON,BẬT
+UI_KIT_OFF,TẮT
+UI_KIT_DAY,Ngày %d
+UI_KIT_NEW,Mới
+UI_KIT_MAIN,Chính
+UI_KIT_COIN,Xu
+UI_KIT_COINS,%s xu
+UI_KIT_BANNER,Tiêu đề
+UI_KIT_TAB_BAG,Túi đồ
+UI_KIT_TAB_CHARACTER,Nhân vật
+UI_KIT_TAB_QUEST,Nhiệm vụ
+UI_KIT_TAB_CALENDAR,Lịch & Sự kiện
+UI_KIT_TAB_MAP,Bản đồ
+UI_KIT_VI_SAMPLE,Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ · ắ ặ ể ữ ự
+UI_KIT_FONT_NOTE,Baloo 2 ExtraBold · Nunito SemiBold · Noto Serif Italic
+UI_KIT_TOKEN_INK,Viền nâu
+UI_KIT_TOKEN_WOOD,Gỗ
+UI_KIT_TOKEN_PAPER,Giấy kem
+UI_KIT_TOKEN_GREEN,Xanh lá
+UI_KIT_TOKEN_YELLOW,Vàng
+UI_KIT_TOKEN_RED,Đỏ
+UI_KIT_TOKEN_SKY,Xanh trời
+UI_KIT_TOKEN_COIN,Xu
+UI_KIT_ICON_COIN,Xu
+UI_KIT_ICON_HEART,Tim
+UI_KIT_ICON_ENERGY,Thể lực
+UI_KIT_ICON_SUN,Mặt trời
+UI_KIT_ICON_RAIN,Mưa
+UI_KIT_ICON_MOON,Trăng
+UI_KIT_ICON_HOE,Cuốc
+UI_KIT_ICON_WATER,Bình tưới
+UI_KIT_ICON_SICKLE,Liềm
+UI_KIT_ICON_BASKET,Giỏ
+UI_KIT_ICON_CARROT,Cà rốt
+UI_KIT_ICON_TOMATO,Cà chua
+UI_KIT_ICON_TURNIP,Củ cải
+UI_KIT_ICON_CORN,Ngô
+UI_KIT_ICON_PUMPKIN,Bí ngô
+UI_KIT_ICON_WOOD,Gỗ
+UI_KIT_ICON_STONE,Đá
+UI_KIT_ICON_STRAW,Rơm
+UI_KIT_ICON_BAG,Túi
+UI_KIT_ICON_QUEST,Sổ
+UI_KIT_ICON_CALENDAR,Lịch
+UI_KIT_ICON_MAP,Bản đồ
+UI_KIT_ICON_MARKET,Chợ
+UI_KIT_ICON_GIFT,Quà
+HUD_DATE,%s · %d
+HUD_SEASON_YEAR,%s · Năm %d
+HUD_QUEST_TITLE,Khởi đầu nông trại
+HUD_QUEST_PROGRESS,Đã xong %d / %d bước
+HUD_QUEST_DONE,Xong: %s
+HUD_ITEM_GAINED,+%d %s
+HUD_WEATHER,%s · Mai: %s
+HUD_WEEKDAY_0,Thứ Hai
+HUD_WEEKDAY_1,Thứ Ba
+HUD_WEEKDAY_2,Thứ Tư
+HUD_WEEKDAY_3,Thứ Năm
+HUD_WEEKDAY_4,Thứ Sáu
+HUD_WEEKDAY_5,Thứ Bảy
+HUD_WEEKDAY_6,Chủ Nhật
+HUD_KEY_ESCAPE,Esc
+END_TITLE,Kết thúc ngày %d
+END_LEDGER,Thu chi hôm nay
+END_INCOME,Thu
+END_EXPENSE,Chi
+END_PROFIT,Lợi nhuận
+END_QUANTITY,×%d
+END_NO_TRANSACTIONS,Chưa ghi nhận giao dịch trong ngày.
+END_HISTORY_COMPLETE,Hoàn tiền được tính giảm chi.
+END_HISTORY_INCOMPLETE,Lịch sử hôm nay chưa đầy đủ. Số liệu chỉ gồm phần đã ghi nhận.
+END_UNWATERED,%d ô cây chưa được tưới hôm nay. Bạn có thể quay lại chăm cây trước khi nghỉ.
+END_NEXT_DAY,Sang ngày mới
+END_STAY,Ở lại thêm một lúc
 END_RAIN_TIP,"Ngày mai có mưa, cây sẽ được tưới tự nhiên."
-END_TOMORROW_TIP,"Một ngày mới đang chờ bạn."
-END_QUEST_PROGRESS,"Đã hoàn thành %d / %d bước khởi đầu."
-END_SALE,"Bán nông sản"
-END_BUY_SEED,"Mua hạt giống"
-END_REFUND,"Hoàn tiền"
-END_MERCHANT_BUY,"Mua ở quầy của Minh"
-END_MERCHANT_SALE,"Giao hàng cho Minh"
-END_OTHER_IN,"Khoản thu khác"
-END_OTHER_OUT,"Khoản chi khác"
-END_TOMORROW,"Ngày mai · %s · %d"
-END_FORECAST_UNKNOWN,"Chưa có dự báo"
-END_UNWATERED_FORCED,"Các ô cây chưa tưới hôm nay: %d. Ngày mới sắp bắt đầu."
-INV_FILTER_ALL,"Tất cả"
-INV_CATEGORY_SEED,"Hạt giống"
-INV_CATEGORY_PRODUCE,"Nông sản"
-INV_CATEGORY_TOOL,"Công cụ"
-INV_CATEGORY_MATERIAL,"Vật liệu"
-INV_CATEGORY_OTHER,"Khác"
-INV_DESC_SEED,"Chọn hạt giống trên thanh công cụ để trồng vào đất đã cuốc trong mùa thích hợp."
-INV_DESC_PRODUCE,"Nông sản từ khu vườn. Có thể bán tại thùng giao hàng hoặc giữ lại cho đơn giao."
-INV_DESC_OTHER,"Chọn vật phẩm để dùng từ thanh công cụ."
-INV_UNAVAILABLE,"Chưa khả dụng"
-INV_SELECT_ITEM,"Chọn vật phẩm"
-INV_EMPTY_DETAIL,"Túi còn chỗ cho những điều mới. Chọn một chồng đồ để xem chi tiết."
-INV_QUANTITY,"Số lượng: %d"
-INV_SELL_PRICE,"Giá bán: %s xu mỗi món"
-INV_QUICK_SELECT,"Chọn trên thanh công cụ [F]"
-INV_DISCARD,"Bỏ đồ"
-INV_DISCARD_CONFIRM,"Bỏ %s? Chọn số lượng cần bỏ khỏi chồng này."
-INV_CANCEL,"Giữ lại"
-INV_CAPACITY,"Túi: %d / %d"
-INV_SORT,"Sắp xếp [Z]"
-INV_NO_MATCHES,"Chưa có vật phẩm thuộc nhóm này."
-INV_KEY_HINTS,"Q / E: Đổi mục · F: Chọn · Z: Sắp xếp · Esc: Đóng"
-UI_CROP_DRY_WARNING,"Cây đã thiếu nước. Tưới hôm nay nhé — sau %d ngày thiếu nước nữa cây sẽ héo."
-UI_CROP_REGROW_NOTE,"Cây đang ra quả mới. Tiếp tục tưới mỗi ngày nhé."
-PAUSE_AUDIO,"Âm thanh"
-PAUSE_GRAPHICS,"Hình ảnh"
-PAUSE_CONTROLS,"Điều khiển"
-PAUSE_GAME,"Trò chơi"
-PAUSE_LANGUAGE,"Ngôn ngữ"
-PAUSE_DEFAULT,"Mặc định"
-PAUSE_APPLY,"Áp dụng"
-PAUSE_UNAVAILABLE,"Tùy chọn này chưa khả dụng."
-PAUSE_MUSIC_NOTE,"Mức nhạc được ghi nhớ. Nhạc nền chưa khả dụng."
-PAUSE_WEATHER_AUDIO,"Tiếng mưa và gió"
-PAUSE_FULLSCREEN,"Toàn màn hình"
-PAUSE_FONT_SIZE,"Cỡ chữ S / M / L"
-PAUSE_KEY_HINTS,"Bật/tắt gợi ý phím"
-PAUSE_AUTOSAVE,"Bật/tắt tự lưu mỗi sáng"
-PAUSE_SHAKE,"Rung màn hình khi thu hoạch"
-PAUSE_AUTOSAVE_NOTE,"Các nút trên chưa khả dụng. Game vẫn tự lưu theo nhịp hiện tại."
-PAUSE_NAV_HINT,"Tab: chọn nút  •  ← →: chỉnh thanh trượt  •  Esc: quay lại"
-PAUSE_DRAFT_NOTE,"Chỉnh ngôn ngữ và âm lượng rồi chọn Áp dụng. Đóng để bỏ thay đổi."
-PAUSE_DEFAULT_DRAFT,"Đã chọn mặc định. Chọn Áp dụng để lưu."
-PAUSE_APPLIED,"Đã áp dụng ngôn ngữ và âm lượng."
-PAUSE_SAVE_FAILED,"Chưa lưu được. Bạn vẫn có thể tiếp tục chơi và thử lại."
-PAUSE_LOAD_FAILED,"Chưa có bản lưu hợp lệ để tải."
-PAUSE_LOADED,"Đã tải bản lưu."
-PAUSE_NO_SAVE,"Chưa có bản lưu."
-PAUSE_SAVE_SUMMARY,"Bản lưu mới nhất: Ngày %d · %s"
-PAUSE_MOVE_UP,"Đi lên"
-PAUSE_MOVE_DOWN,"Đi xuống"
-PAUSE_MOVE_LEFT,"Sang trái"
-PAUSE_MOVE_RIGHT,"Sang phải"
-PAUSE_INTERACT,"Tương tác"
-PAUSE_USE_TOOL,"Dùng công cụ"
-PAUSE_JOURNAL,"Sổ nhiệm vụ"
-PAUSE_HELP,"Hướng dẫn"
-TITLE_LATEST_SAVE,"BẢN LƯU GẦN NHẤT"
-TITLE_NO_SAVE,"Khu vườn đang chờ bạn. Bắt đầu game mới nhé."
-TITLE_SAVE_DAY,"Ngày %d"
-TITLE_PLAYER_NAME,"Tên người chơi"
-TITLE_FARM_NAME,"Tên trang trại"
-TITLE_NAV_HINT,"Enter: chọn"
-TITLE_VERSION,"Phiên bản %s"
-PROFILE_TITLE,"Tạo nông dân"
-PROFILE_START,"Bắt đầu làm vườn"
-PROFILE_PREVIOUS,"<"
-PROFILE_NEXT,">"
-PROFILE_PREV_HAIR,"Chọn kiểu tóc trước"
-PROFILE_NEXT_HAIR,"Chọn kiểu tóc sau"
-PROFILE_CYCLE_HINT,"%s · Dùng mũi tên để đổi kiểu tóc"
-NEWS_TITLE,"BẢN TIN THUNG LŨNG MÙA"
+END_TOMORROW_TIP,Một ngày mới đang chờ bạn.
+END_QUEST_PROGRESS,Đã hoàn thành %d / %d bước khởi đầu.
+END_SALE,Bán nông sản
+END_BUY_SEED,Mua hạt giống
+END_REFUND,Hoàn tiền
+END_MERCHANT_BUY,Mua ở quầy của Minh
+END_MERCHANT_SALE,Giao hàng cho Minh
+END_OTHER_IN,Khoản thu khác
+END_OTHER_OUT,Khoản chi khác
+END_TOMORROW,Ngày mai · %s · %d
+END_FORECAST_UNKNOWN,Chưa có dự báo
+END_UNWATERED_FORCED,Các ô cây chưa tưới hôm nay: %d. Ngày mới sắp bắt đầu.
+INV_FILTER_ALL,Tất cả
+INV_CATEGORY_SEED,Hạt giống
+INV_CATEGORY_PRODUCE,Nông sản
+INV_CATEGORY_TOOL,Công cụ
+INV_CATEGORY_MATERIAL,Vật liệu
+INV_CATEGORY_OTHER,Khác
+INV_DESC_SEED,Chọn hạt giống trên thanh công cụ để trồng vào đất đã cuốc trong mùa thích hợp.
+INV_DESC_PRODUCE,Nông sản từ khu vườn. Có thể bán tại thùng giao hàng hoặc giữ lại cho đơn giao.
+INV_DESC_OTHER,Chọn vật phẩm để dùng từ thanh công cụ.
+INV_UNAVAILABLE,Chưa khả dụng
+INV_SELECT_ITEM,Chọn vật phẩm
+INV_EMPTY_DETAIL,Túi còn chỗ cho những điều mới. Chọn một chồng đồ để xem chi tiết.
+INV_QUANTITY,Số lượng: %d
+INV_SELL_PRICE,Giá bán: %s xu mỗi món
+INV_QUICK_SELECT,Chọn trên thanh công cụ [F]
+INV_DISCARD,Bỏ đồ
+INV_DISCARD_CONFIRM,Bỏ %s? Chọn số lượng cần bỏ khỏi chồng này.
+INV_CANCEL,Giữ lại
+INV_CAPACITY,Túi: %d / %d
+INV_SORT,Sắp xếp [Z]
+INV_NO_MATCHES,Chưa có vật phẩm thuộc nhóm này.
+INV_KEY_HINTS,Q / E: Đổi mục · F: Chọn · Z: Sắp xếp · Esc: Đóng
+UI_CROP_DRY_WARNING,Cây đã thiếu nước. Tưới hôm nay nhé — sau %d ngày thiếu nước nữa cây sẽ héo.
+UI_CROP_REGROW_NOTE,Cây đang ra quả mới. Tiếp tục tưới mỗi ngày nhé.
+PAUSE_AUDIO,Âm thanh
+PAUSE_GRAPHICS,Hình ảnh
+PAUSE_CONTROLS,Điều khiển
+PAUSE_GAME,Trò chơi
+PAUSE_LANGUAGE,Ngôn ngữ
+PAUSE_DEFAULT,Mặc định
+PAUSE_APPLY,Áp dụng
+PAUSE_UNAVAILABLE,Tùy chọn này chưa khả dụng.
+PAUSE_MUSIC_NOTE,Mức nhạc được ghi nhớ. Nhạc nền chưa khả dụng.
+PAUSE_WEATHER_AUDIO,Tiếng mưa và gió
+PAUSE_FULLSCREEN,Toàn màn hình
+PAUSE_FONT_SIZE,Cỡ chữ S / M / L
+PAUSE_KEY_HINTS,Bật/tắt gợi ý phím
+PAUSE_AUTOSAVE,Bật/tắt tự lưu mỗi sáng
+PAUSE_SHAKE,Rung màn hình khi thu hoạch
+PAUSE_AUTOSAVE_NOTE,Các nút trên chưa khả dụng. Game vẫn tự lưu theo nhịp hiện tại.
+PAUSE_NAV_HINT,Tab: chọn nút  •  ← →: chỉnh thanh trượt  •  Esc: quay lại
+PAUSE_DRAFT_NOTE,Chỉnh ngôn ngữ và âm lượng rồi chọn Áp dụng. Đóng để bỏ thay đổi.
+PAUSE_DEFAULT_DRAFT,Đã chọn mặc định. Chọn Áp dụng để lưu.
+PAUSE_APPLIED,Đã áp dụng ngôn ngữ và âm lượng.
+PAUSE_SAVE_FAILED,Chưa lưu được. Bạn vẫn có thể tiếp tục chơi và thử lại.
+PAUSE_LOAD_FAILED,Chưa có bản lưu hợp lệ để tải.
+PAUSE_LOADED,Đã tải bản lưu.
+PAUSE_NO_SAVE,Chưa có bản lưu.
+PAUSE_SAVE_SUMMARY,Bản lưu mới nhất: Ngày %d · %s
+PAUSE_MOVE_UP,Đi lên
+PAUSE_MOVE_DOWN,Đi xuống
+PAUSE_MOVE_LEFT,Sang trái
+PAUSE_MOVE_RIGHT,Sang phải
+PAUSE_INTERACT,Tương tác
+PAUSE_USE_TOOL,Dùng công cụ
+PAUSE_JOURNAL,Sổ nhiệm vụ
+PAUSE_HELP,Hướng dẫn
+TITLE_LATEST_SAVE,BẢN LƯU GẦN NHẤT
+TITLE_NO_SAVE,Khu vườn đang chờ bạn. Bắt đầu game mới nhé.
+TITLE_SAVE_DAY,Ngày %d
+TITLE_PLAYER_NAME,Tên người chơi
+TITLE_FARM_NAME,Tên trang trại
+TITLE_NAV_HINT,Enter: chọn
+TITLE_VERSION,Phiên bản %s
+PROFILE_TITLE,Tạo nông dân
+PROFILE_START,Bắt đầu làm vườn
+PROFILE_PREVIOUS,<
+PROFILE_NEXT,>
+PROFILE_PREV_HAIR,Chọn kiểu tóc trước
+PROFILE_NEXT_HAIR,Chọn kiểu tóc sau
+PROFILE_CYCLE_HINT,%s · Dùng mũi tên để đổi kiểu tóc
+NEWS_TITLE,BẢN TIN THUNG LŨNG MÙA
 NEWS_DATE,"%s, ngày %d · %s · Năm %d"
-NEWS_WEATHER,"Thời tiết"
-NEWS_FORECAST,"Dự báo những ngày tới"
-NEWS_RAIN_TIP,"Trời mưa. Cây còn sống nhận nước mưa."
-NEWS_DRY_TIP,"Nhớ tưới những cây cần nước hôm nay nhé."
-NEWS_TODAY,"Hôm nay trong vườn"
-NEWS_QUEST_PROGRESS,"Hướng dẫn làm vườn: %d/%d"
-NEWS_QUEST_DONE,"Bạn đã hoàn thành các bước hướng dẫn làm vườn."
-NEWS_GARDEN_STATUS,"Sẵn sàng thu hoạch: %d ô · Cần nước: %d ô · Đã cuốc còn trống: %d ô · Cây héo: %d ô"
-NEWS_EVENTS_UNAVAILABLE,"Lịch sinh nhật và lễ hội chưa khả dụng."
-NEWS_PRICES,"Giá bán hiện tại"
-NEWS_PRICE_NOTE,"Giá mỗi nông sản khi bán qua thùng hàng."
-NEWS_TASKS,"VIỆC NÊN LÀM"
-NEWS_READY,"Có thể thu hoạch: %d ô"
-NEWS_WATER,"Cần tưới: %d ô"
-NEWS_EMPTY,"Đã cuốc còn trống: %d ô"
-NEWS_BEGIN,"Bắt đầu ngày mới"
-CHAR_PROFILE_NOTE,"Hồ sơ nông dân"
-CHAR_SKILLS,"Kỹ năng"
-CHAR_SKILL_GARDEN,"Làm vườn"
-CHAR_SKILL_WATER,"Tưới nước"
-CHAR_SKILL_HARVEST,"Thu hoạch"
-CHAR_SKILL_FISH,"Câu cá"
-CHAR_SKILL_TRADE,"Buôn bán"
-CHAR_SKILLS_NOTE,"Kỹ năng và kinh nghiệm chưa khả dụng."
-CHAR_RELATIONSHIPS,"Quan hệ"
-CHAR_FRIENDSHIP,"Quý mến: %d/%d"
-CHAR_NO_NPCS,"Chưa có thông tin cư dân."
-CHAR_KEYS,"Q · Tab trước     E · Tab sau     Esc · Đóng"
-BOOK_TUTORIAL,"Hướng dẫn làm vườn"
-BOOK_TUTORIAL_DESC,"Từng bước làm quen với khu vườn. Những việc đã hoàn thành được đánh dấu bên dưới."
-BOOK_ALL,"Tất cả"
-BOOK_ACTIVE,"Đang làm"
-BOOK_COMPLETED,"Đã xong"
-BOOK_DAILY,"Hằng ngày · Chưa khả dụng"
-BOOK_STATUS_NEW,"Chưa nhận"
-BOOK_STATUS_ACTIVE,"Đang làm"
-BOOK_STATUS_COMPLETED,"Đã hoàn thành"
-BOOK_COUNT,"%d/%d"
-BOOK_EMPTY,"Chưa có nhiệm vụ trong mục này."
-BOOK_IN_BAG,"Vật phẩm trong túi"
-BOOK_ITEM_PROGRESS,"%s · Trong túi: %d/%d"
-BOOK_ITEM_REWARD,"%s × %d"
-BOOK_REWARD_TERMS,"Phần thưởng của nhiệm vụ."
-BOOK_NO_REWARD,"Không có phần thưởng được liệt kê."
-BOOK_SELECT,"Chọn một nhiệm vụ"
-BOOK_OBJECTIVES,"Mục tiêu"
-BOOK_REWARDS,"Phần thưởng"
-BOOK_PIN,"Ghim · Chưa khả dụng"
-BOOK_MAP,"Bản đồ · Chưa khả dụng"
-BOOK_UNKNOWN_GIVER,"Chưa có thông tin người giao."
-BOOK_GIVER,"Từ: %s"
-BOOK_VISIT,"Nhận và giao nhiệm vụ qua hội thoại với %s."
-BOOK_KEYS,"Q · Tab trước     E · Tab sau     Esc · Đóng"
-ITEM_TEMP_CARROT_MEAL,"Món cà rốt"
-ITEM_TEMP_WHEAT_FLOUR,"Bột mì"
-ITEM_TEMP_ROASTED_COFFEE,"Cà phê rang"
-ITEM_TEMP_CORN_BREAD,"Bánh ngô"
-ITEM_TEMP_DRIED_CHILI,"Ớt khô"
-ITEM_TEMP_PICKLED_CABBAGE,"Bắp cải muối"
-ITEM_TEMP_ORANGE_JUICE,"Nước cam"
-ITEM_PROCESSED_DESCRIPTION,"Thành phẩm từ máy chế biến."
-UI_MACHINE_COLLECT_SUCCESS,"Đã cất %d %s vào túi."
+NEWS_WEATHER,Thời tiết
+NEWS_FORECAST,Dự báo những ngày tới
+NEWS_RAIN_TIP,Trời mưa. Cây còn sống nhận nước mưa.
+NEWS_DRY_TIP,Nhớ tưới những cây cần nước hôm nay nhé.
+NEWS_TODAY,Hôm nay trong vườn
+NEWS_QUEST_PROGRESS,Hướng dẫn làm vườn: %d/%d
+NEWS_QUEST_DONE,Bạn đã hoàn thành các bước hướng dẫn làm vườn.
+NEWS_GARDEN_STATUS,Sẵn sàng thu hoạch: %d ô · Cần nước: %d ô · Đã cuốc còn trống: %d ô · Cây héo: %d ô
+NEWS_EVENTS_UNAVAILABLE,Lịch sinh nhật và lễ hội chưa khả dụng.
+NEWS_PRICES,Giá bán hiện tại
+NEWS_PRICE_NOTE,Giá mỗi nông sản khi bán qua thùng hàng.
+NEWS_TASKS,VIỆC NÊN LÀM
+NEWS_READY,Có thể thu hoạch: %d ô
+NEWS_WATER,Cần tưới: %d ô
+NEWS_EMPTY,Đã cuốc còn trống: %d ô
+NEWS_BEGIN,Bắt đầu ngày mới
+CHAR_PROFILE_NOTE,Hồ sơ nông dân
+CHAR_SKILLS,Kỹ năng
+CHAR_SKILL_GARDEN,Làm vườn
+CHAR_SKILL_WATER,Tưới nước
+CHAR_SKILL_HARVEST,Thu hoạch
+CHAR_SKILL_FISH,Câu cá
+CHAR_SKILL_TRADE,Buôn bán
+CHAR_SKILLS_NOTE,Kỹ năng và kinh nghiệm chưa khả dụng.
+CHAR_RELATIONSHIPS,Quan hệ
+CHAR_FRIENDSHIP,Quý mến: %d/%d
+CHAR_NO_NPCS,Chưa có thông tin cư dân.
+CHAR_KEYS,Q · Tab trước     E · Tab sau     Esc · Đóng
+BOOK_TUTORIAL,Hướng dẫn làm vườn
+BOOK_TUTORIAL_DESC,Từng bước làm quen với khu vườn. Những việc đã hoàn thành được đánh dấu bên dưới.
+BOOK_ALL,Tất cả
+BOOK_ACTIVE,Đang làm
+BOOK_COMPLETED,Đã xong
+BOOK_DAILY,Hằng ngày · Chưa khả dụng
+BOOK_STATUS_NEW,Chưa nhận
+BOOK_STATUS_ACTIVE,Đang làm
+BOOK_STATUS_COMPLETED,Đã hoàn thành
+BOOK_COUNT,%d/%d
+BOOK_EMPTY,Chưa có nhiệm vụ trong mục này.
+BOOK_IN_BAG,Vật phẩm trong túi
+BOOK_ITEM_PROGRESS,%s · Trong túi: %d/%d
+BOOK_ITEM_REWARD,%s × %d
+BOOK_REWARD_TERMS,Phần thưởng của nhiệm vụ.
+BOOK_NO_REWARD,Không có phần thưởng được liệt kê.
+BOOK_SELECT,Chọn một nhiệm vụ
+BOOK_OBJECTIVES,Mục tiêu
+BOOK_REWARDS,Phần thưởng
+BOOK_PIN,Ghim · Chưa khả dụng
+BOOK_MAP,Bản đồ · Chưa khả dụng
+BOOK_UNKNOWN_GIVER,Chưa có thông tin người giao.
+BOOK_GIVER,Từ: %s
+BOOK_VISIT,Nhận và giao nhiệm vụ qua hội thoại với %s.
+BOOK_KEYS,Q · Tab trước     E · Tab sau     Esc · Đóng
+ITEM_TEMP_CARROT_MEAL,Món cà rốt
+ITEM_TEMP_WHEAT_FLOUR,Bột mì
+ITEM_TEMP_ROASTED_COFFEE,Cà phê rang
+ITEM_TEMP_CORN_BREAD,Bánh ngô
+ITEM_TEMP_DRIED_CHILI,Ớt khô
+ITEM_TEMP_PICKLED_CABBAGE,Bắp cải muối
+ITEM_TEMP_ORANGE_JUICE,Nước cam
+ITEM_PROCESSED_DESCRIPTION,Thành phẩm từ máy chế biến.
+UI_MACHINE_COLLECT_SUCCESS,Đã cất %d %s vào túi.
 UI_MACHINE_COLLECT_BUSY,"Đang chuyển sản phẩm, bạn chờ một chút nhé."
-UI_MACHINE_COLLECT_INVALID,"Chưa thể thu sản phẩm từ máy này."
-UI_MACHINE_COLLECT_NO_MACHINE,"Không tìm thấy máy tại ô này."
-UI_MACHINE_COLLECT_NO_OUTPUT,"Máy chưa có sản phẩm để thu."
-UI_MACHINE_COLLECT_UNKNOWN,"Chưa thể cất loại sản phẩm này vào túi."
-UI_MACHINE_COLLECT_FULL,"Túi chưa đủ chỗ. Sản phẩm vẫn được giữ trong máy."
-UI_MACHINE_COLLECT_FAILED,"Chưa chuyển được sản phẩm. Bạn hãy thử lại nhé."
-UI_MACHINE_OUTPUT,"Chờ thu: %s × %d"
-UI_MACHINE_STATE_IDLE,"Sẵn sàng"
-UI_MACHINE_STATE_WORKING,"Còn %d ngày"
-UI_MACHINE_STATE_BLOCKED,"Chờ thu sản phẩm"
-UI_MACHINE_PRODUCT_UNKNOWN,"Sản phẩm chưa có thông tin"
-MACHINE_STOVE_NAME,"Bếp"
-MACHINE_MILL_NAME,"Cối xay"
-MACHINE_PRESS_NAME,"Máy ép"
-MACHINE_BARREL_NAME,"Thùng muối"
-MACHINE_OVEN_NAME,"Lò nướng"
-MACHINE_DRYER_NAME,"Máy sấy"
-MACHINE_ROASTER_NAME,"Máy rang"
-MUI_OPERATION_TITLE,"Máy chế biến"
-MUI_MACHINE_PREVIEW,"Máy chế biến cho nông trại"
-MUI_SELL,"Bán"
-MUI_BUYBACK,"Mua lại"
-MUI_UNAVAILABLE,"Chưa có chức năng này."
-MUI_RECIPES,"Công thức"
-MUI_BACK,"Về cửa hàng"
-MUI_CARD,"%d xu · Nhà cấp %d · Trong kho: %d"
-MUI_PLACEMENT,"Máy đã đặt tại %s"
-MUI_REQUIREMENT,"Cần nhà cấp %d · Trong kho: %d"
-MUI_TEST_LEVEL,"Bản thử hiện dùng nhà cấp 1."
-MUI_RECIPE_TERMS,"Nguyên liệu: %s\nThành phẩm: %s\nThời gian: %d ngày"
-MUI_DAYS,"%d ngày chế biến"
-MUI_LOCKED,"Cần nhà cấp cao hơn. Bản thử hiện dùng cấp 1."
-MUI_NO_COINS,"Chưa đủ xu để mua máy này."
-MUI_MISSING_INPUT,"Chưa đủ nguyên liệu trong túi."
-MUI_BUSY,"Máy đang bận. Hãy chờ hoặc thu sản phẩm trước nhé."
-MUI_NOT_OWNED,"Trong kho chưa có máy này để đặt."
-MUI_NO_CELL,"Ô này chưa thể đặt máy. Hãy chọn ô trống khác nhé."
-MUI_PURCHASED,"Đã mua máy và cất vào kho."
-MUI_PLACED,"Đã đặt máy. Chọn ô máy rồi nhấn E để sử dụng."
-MUI_STARTED,"Máy đã bắt đầu chế biến."
-PLC_PLACE,"Đặt máy"
-PLC_RETURN,"Cất máy"
-PLC_RETURNED,"Đã cất máy vào kho."
-PLC_TITLE,"Đặt %s"
-PLC_CELL,"Ô %s · Góc %d° · Vùng đặt %d×%d ô"
-PLC_PICK,"Chọn một ô trống gần bạn nhé."
-PLC_VALID,"Có thể đặt máy ở ô này."
-PLC_HINTS,"Chuột trái / Space: đặt · R / Q: xoay · Chuột phải / Esc: hủy"
-PLC_LEFT,"Xoay trái [Q]"
-PLC_RIGHT,"Xoay phải [R]"
-PLC_CANCEL,"Hủy đặt"
-PLC_CONFIRM,"Đặt tại ô đã chọn"
-PLC_REGION,"Chọn ô trong vùng nông trại cho phép nhé."
-PLC_PLAYER,"Bạn đang đứng ở ô này."
-PLC_FAR,"Đi gần ô máy hơn rồi thử lại nhé."
-PLC_PLOT,"Ô này đã có đất xới hoặc cây. Hãy chọn ô khác nhé."
-PLC_MACHINE_CELL,"Ô này có máy. Chọn ô khác để xới hoặc gieo nhé."
-PLC_INVALID,"Chưa thể thực hiện thao tác này."
-PLC_MOVE,"Dời máy"
-PLC_MOVE_TITLE,"Dời %s"
-PLC_MOVE_CELL,"Từ ô %s · Đến ô %s · Góc %d°"
-PLC_MOVE_PICK,"Chọn vị trí mới gần bạn hoặc xoay máy tại ô cũ nhé."
-PLC_MOVE_VALID,"Có thể xác nhận vị trí và hướng này."
-PLC_MOVE_HINTS,"Chuột trái / Space: xác nhận · R / Q: xoay · Chuột phải / Esc: hủy"
-PLC_MOVE_CONFIRM,"Xác nhận vị trí"
-PLC_MOVE_CANCEL,"Hủy di chuyển"
-PLC_MOVED,"Đã dời máy đến vị trí mới."
-PLC_ROTATED,"Đã xác nhận hướng máy."
-PLC_MOVE_STALE,"Máy đã thay đổi. Hãy chọn lại máy nhé."
+UI_MACHINE_COLLECT_INVALID,Chưa thể thu sản phẩm từ máy này.
+UI_MACHINE_COLLECT_NO_MACHINE,Không tìm thấy máy tại ô này.
+UI_MACHINE_COLLECT_NO_OUTPUT,Máy chưa có sản phẩm để thu.
+UI_MACHINE_COLLECT_UNKNOWN,Chưa thể cất loại sản phẩm này vào túi.
+UI_MACHINE_COLLECT_FULL,Túi chưa đủ chỗ. Sản phẩm vẫn được giữ trong máy.
+UI_MACHINE_COLLECT_FAILED,Chưa chuyển được sản phẩm. Bạn hãy thử lại nhé.
+UI_MACHINE_OUTPUT,Chờ thu: %s × %d
+UI_MACHINE_STATE_IDLE,Sẵn sàng
+UI_MACHINE_STATE_WORKING,Còn %d ngày
+UI_MACHINE_STATE_BLOCKED,Chờ thu sản phẩm
+UI_MACHINE_PRODUCT_UNKNOWN,Sản phẩm chưa có thông tin
+MACHINE_STOVE_NAME,Bếp
+MACHINE_MILL_NAME,Cối xay
+MACHINE_PRESS_NAME,Máy ép
+MACHINE_BARREL_NAME,Thùng muối
+MACHINE_OVEN_NAME,Lò nướng
+MACHINE_DRYER_NAME,Máy sấy
+MACHINE_ROASTER_NAME,Máy rang
+MUI_OPERATION_TITLE,Máy chế biến
+MUI_MACHINE_PREVIEW,Máy chế biến cho nông trại
+MUI_SELL,Bán
+MUI_BUYBACK,Mua lại
+MUI_UNAVAILABLE,Chưa có chức năng này.
+MUI_RECIPES,Công thức
+MUI_BACK,Về cửa hàng
+MUI_CARD,%d xu · Nhà cấp %d · Trong kho: %d
+MUI_PLACEMENT,Máy đã đặt tại %s
+MUI_REQUIREMENT,Cần nhà cấp %d · Trong kho: %d
+MUI_TEST_LEVEL,Bản thử hiện dùng nhà cấp 1.
+MUI_RECIPE_TERMS,Nguyên liệu: %s\nThành phẩm: %s\nThời gian: %d ngày
+MUI_DAYS,%d ngày chế biến
+MUI_LOCKED,Cần nhà cấp cao hơn. Bản thử hiện dùng cấp 1.
+MUI_NO_COINS,Chưa đủ xu để mua máy này.
+MUI_MISSING_INPUT,Chưa đủ nguyên liệu trong túi.
+MUI_BUSY,Máy đang bận. Hãy chờ hoặc thu sản phẩm trước nhé.
+MUI_NOT_OWNED,Trong kho chưa có máy này để đặt.
+MUI_NO_CELL,Ô này chưa thể đặt máy. Hãy chọn ô trống khác nhé.
+MUI_PURCHASED,Đã mua máy và cất vào kho.
+MUI_PLACED,Đã đặt máy. Chọn ô máy rồi nhấn E để sử dụng.
+MUI_STARTED,Máy đã bắt đầu chế biến.
+PLC_PLACE,Đặt máy
+PLC_RETURN,Cất máy
+PLC_RETURNED,Đã cất máy vào kho.
+PLC_TITLE,Đặt %s
+PLC_CELL,Ô %s · Góc %d° · Vùng đặt %d×%d ô
+PLC_PICK,Chọn một ô trống gần bạn nhé.
+PLC_VALID,Có thể đặt máy ở ô này.
+PLC_HINTS,Chuột trái / Space: đặt · R / Q: xoay · Chuột phải / Esc: hủy
+PLC_LEFT,Xoay trái [Q]
+PLC_RIGHT,Xoay phải [R]
+PLC_CANCEL,Hủy đặt
+PLC_CONFIRM,Đặt tại ô đã chọn
+PLC_REGION,Chọn ô trong vùng nông trại cho phép nhé.
+PLC_PLAYER,Bạn đang đứng ở ô này.
+PLC_FAR,Đi gần ô máy hơn rồi thử lại nhé.
+PLC_PLOT,Ô này đã có đất xới hoặc cây. Hãy chọn ô khác nhé.
+PLC_MACHINE_CELL,Ô này có máy. Chọn ô khác để xới hoặc gieo nhé.
+PLC_INVALID,Chưa thể thực hiện thao tác này.
+PLC_MOVE,Dời máy
+PLC_MOVE_TITLE,Dời %s
+PLC_MOVE_CELL,Từ ô %s · Đến ô %s · Góc %d°
+PLC_MOVE_PICK,Chọn vị trí mới gần bạn hoặc xoay máy tại ô cũ nhé.
+PLC_MOVE_VALID,Có thể xác nhận vị trí và hướng này.
+PLC_MOVE_HINTS,Chuột trái / Space: xác nhận · R / Q: xoay · Chuột phải / Esc: hủy
+PLC_MOVE_CONFIRM,Xác nhận vị trí
+PLC_MOVE_CANCEL,Hủy di chuyển
+PLC_MOVED,Đã dời máy đến vị trí mới.
+PLC_ROTATED,Đã xác nhận hướng máy.
+PLC_MOVE_STALE,Máy đã thay đổi. Hãy chọn lại máy nhé.
 LAND_TITLE,Mở rộng đất
 LAND_EAST_NAME,Lô phía đông
 LAND_DESCRIPTION,Thêm đất liền kề khu vườn để trồng cây và đặt máy.
@@ -801,15 +801,15 @@ DOG_NAME_STALE,Tên đã đổi. Hãy đóng rồi mở lại nhé.
 STORY_CHAPTER_1,Chương I · Mầm sống
 STORY_CHAPTER_1_DESC,Từng việc nhỏ làm nên một mảnh vườn.
 STORY_GOAL_FIRST_SOWING,Gieo vụ đầu
-STORY_GOAL_FIRST_SOWING_DESC,Gieo vụ đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_SOWING_DESC,Gieo hạt đầu tiên trên mảnh vườn của con.
 STORY_GOAL_FIRST_HARVEST,Mùa thu hoạch đầu
-STORY_GOAL_FIRST_HARVEST_DESC,Mùa thu hoạch đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_HARVEST_DESC,Thu hoạch một cây đã chín trong vườn.
 STORY_GOAL_FIRST_SALE,Bán lần đầu
-STORY_GOAL_FIRST_SALE_DESC,Bán lần đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_SALE_DESC,Bán nông sản qua thùng giao hàng hoặc Minh.
 STORY_GOAL_FIRST_DELIVERY,Giao đơn đầu tiên
-STORY_GOAL_FIRST_DELIVERY_DESC,Giao đơn đầu tiên đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_DELIVERY_DESC,Hoàn tất đơn củ cải của Minh.
 STORY_GOAL_FIRST_EXPANSION,Mở rộng mảnh vườn
-STORY_GOAL_FIRST_EXPANSION_DESC,Mở rộng mảnh vườn đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_EXPANSION_DESC,Mua lô đất đầu tiên ở phía đông khu vườn.
 STORY_GOAL_CLEAR_LAND,Dọn đất
 STORY_GOAL_CLEAR_LAND_DESC,Phần việc này sẽ đến trong một chặng đường sau.
 STORY_GOAL_REPAIR_MAILBOX,Sửa hộp thư
@@ -840,3 +840,17 @@ STORY_PAGE_PAGE_DELIVERY,Lời hẹn đã giữ
 STORY_PAGE_PAGE_DELIVERY_BODY,Một việc đã hẹn rồi làm xong cũng là cách vun một khu vườn.
 STORY_PAGE_PAGE_EXPANSION,Thêm một khoảng đất
 STORY_PAGE_PAGE_EXPANSION_BODY,Đất rộng hơn rồi. Cứ chăm từng góc một thôi con.
+STORY_ENTRY,Sổ tay của bà
+STORY_BACK,Về sổ nhiệm vụ
+STORY_PROGRESS,Đã ghi nhận %d/%d mục tiêu
+STORY_OBJECTIVES,Những bước đầu tiên
+STORY_MILESTONES,Chuyện còn ở phía trước
+STORY_DONE,Đã ghi nhận
+STORY_READY,Có thể thực hiện
+STORY_PLANNED,Sắp có
+STORY_WAITING,Sổ tay đang chờ cập nhật.
+STORY_KEYS,Q/E · Chuyển sổ    J/Esc · Đóng
+STORY_PAGES,Những trang của bà
+STORY_READ,Đã đọc
+STORY_UNREAD,Chưa đọc
+STORY_LOCKED,Chưa mở

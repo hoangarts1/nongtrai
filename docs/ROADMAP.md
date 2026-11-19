@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.6g automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 254scripts/992/992/100388assert; groups155.703/110.083/90.549/114.188s, each<180; GUT470.523s/wall492.802s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2627, prior test-fixture verification536, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6g-053158/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step7/10 after f pushed14699d4/full987. LifeStorySnapshot captures a detached validated wire/readout from the sole StoryState; from_wire is also a pure display-fixture projection. LifeStoryPresenter formats current vi/en without state, source actions or save calls. Actual supported completion is at most5/10; five planned objectives and four M2 milestones remain Coming later, chapter_complete stays false. Six pages expose actual availability/read markers; locked bodies are empty. Missing/busy/unconfigured owners show a waiting readout. No fake rewards/XP/deadlines, new NPCs or repairs. Goal descriptions now give pending instructions instead of claiming progress before it happens. Draft grandmother prose remains for human tone review.
+
+Import1 PASS with inherited duplicate artUID warnings. Focused1 honestly failed one NEW legacy-display fixture because it supplied a dictionary instead of the documented tutorial boolean array; fixed the fixture shape without changing the expected three observations or production semantics. Focused2:2scripts/5/5/69assert/2.002s PASS, empty/partial/legacy/all-supported, planned boundaries, detached nested rows, invalid wire, vi/en key coverage and negative missing-key test, repeated locale reads preserving all owners/save bytes. DataValidator.validate_story_text and deferred validate_data presenter key gate cover the new keys. No scene/Inspector/InputMap setup. Native journal presentation comes only in approved h/i; original full gate and SHA checks follow.
+
+Full992/992 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
 ## Phase8.6f automation delivered (2026-11-20)
 
 Full1 original launcher exit0: 252scripts/987/987/100319assert; groups149.356/100.524/101.084/124.683s, each<180; GUT475.647s/wall498.651s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2623, prior test-fixture verification527, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6f-051823/full-attempt1. No skipped/weakened tests or bounds extended.

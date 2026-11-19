@@ -639,3 +639,6 @@ static func validate_story_config(config: StoryConfig, locales: Array[String] = 
 	var errors: PackedStringArray = StoryCatalogValidator.validate(config)
 	if errors.is_empty() and not locales.is_empty(): errors.append_array(validate_translation_keys(locales,config.translation_keys()))
 	return errors
+
+static func validate_story_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
+	return validate_translation_keys(locales,keys)

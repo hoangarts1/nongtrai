@@ -345,5 +345,11 @@ func _run() -> void:
 		for message: String in story_errors: push_error(message)
 		quit(1)
 		return
+	var story_presenter: Script = load("res://ui/story/story_presenter.gd") as Script
+	var story_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_story_text(locale_paths,story_presenter.KEYS)
+	if not story_text_errors.is_empty():
+		for message: String in story_text_errors: push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

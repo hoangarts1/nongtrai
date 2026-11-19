@@ -194,417 +194,417 @@ CROP_PEPPER,Pepper
 CROP_ORANGE,Orange
 CROP_APPLE,Apple
 CROP_BANANA,Banana
-UI_WALLET_COINS,"%d coins"
-UI_PROMPT_SELL,"[E] Sell items"
-UI_SHIPPING_BIN_TITLE,"SHIPPING BIN"
-UI_CONFIRM_SELL,"Sell"
-UI_SELL_PRICE,"Price: %d coins"
-UI_TOTAL_PRICE,"Total: %d coins"
-UI_NO_SELLABLE_ITEMS,"No sellable items to sell"
-UI_FEEDBACK_SOLD,"+ %d coins"
-UI_MAX,"Max"
-UI_PROMPT_SHOP,"[E] Buy Seeds"
-UI_PROMPT_MACHINE_SHOP,"[E] Buy Machines"
-UI_MACHINE_SHOP_TITLE,"Machine Shop"
-UI_COINS,"coins"
-UI_HOUSE_LEVEL,"House %d"
-UI_BUY,"Buy"
-UI_MACHINE_PLACE_TEST,"Place (test)"
-UI_MACHINE_START,"Start"
-UI_MACHINE_COLLECT,"Collect"
-UI_SEED_SHOP_TITLE,"SEED SHOP"
-UI_BUY_PRICE,"Price: %d coins"
-UI_CONFIRM_BUY,"Buy Seeds"
-UI_FEEDBACK_BOUGHT,"Bought %s x%d (-%d coins)"
-UI_FEEDBACK_NOT_ENOUGH_COINS,"Not enough coins!"
-UI_FEEDBACK_INVENTORY_FULL,"Inventory is full!"
-UI_SEASON_NOTE,"(%s Season)"
-UI_QUEST_SELL,"Sell produce"
-UI_QUEST_BUY_SEED,"Buy seeds"
-UI_DEBUG_ADD_COINS,"Add 500 coins"
-UI_DEBUG_ADD_ALL_SEEDS,"Add all seed types"
-QUEST_TURNIP_DELIVERY_TITLE,"Deliver Turnips for Minh"
-QUEST_TURNIP_DELIVERY_DESC,"Merchant Minh needs 3 fresh turnips for the village market stall."
-UI_QUEST_DELIVERY_TITLE,"QUEST DELIVERY"
-UI_QUEST_REQUIREMENT,"Required: %s x%d (Owned: %d)"
+UI_WALLET_COINS,%d coins
+UI_PROMPT_SELL,[E] Sell items
+UI_SHIPPING_BIN_TITLE,SHIPPING BIN
+UI_CONFIRM_SELL,Sell
+UI_SELL_PRICE,Price: %d coins
+UI_TOTAL_PRICE,Total: %d coins
+UI_NO_SELLABLE_ITEMS,No sellable items to sell
+UI_FEEDBACK_SOLD,+ %d coins
+UI_MAX,Max
+UI_PROMPT_SHOP,[E] Buy Seeds
+UI_PROMPT_MACHINE_SHOP,[E] Buy Machines
+UI_MACHINE_SHOP_TITLE,Machine Shop
+UI_COINS,coins
+UI_HOUSE_LEVEL,House %d
+UI_BUY,Buy
+UI_MACHINE_PLACE_TEST,Place (test)
+UI_MACHINE_START,Start
+UI_MACHINE_COLLECT,Collect
+UI_SEED_SHOP_TITLE,SEED SHOP
+UI_BUY_PRICE,Price: %d coins
+UI_CONFIRM_BUY,Buy Seeds
+UI_FEEDBACK_BOUGHT,Bought %s x%d (-%d coins)
+UI_FEEDBACK_NOT_ENOUGH_COINS,Not enough coins!
+UI_FEEDBACK_INVENTORY_FULL,Inventory is full!
+UI_SEASON_NOTE,(%s Season)
+UI_QUEST_SELL,Sell produce
+UI_QUEST_BUY_SEED,Buy seeds
+UI_DEBUG_ADD_COINS,Add 500 coins
+UI_DEBUG_ADD_ALL_SEEDS,Add all seed types
+QUEST_TURNIP_DELIVERY_TITLE,Deliver Turnips for Minh
+QUEST_TURNIP_DELIVERY_DESC,Merchant Minh needs 3 fresh turnips for the village market stall.
+UI_QUEST_DELIVERY_TITLE,QUEST DELIVERY
+UI_QUEST_REQUIREMENT,Required: %s x%d (Owned: %d)
 UI_QUEST_REWARD,"Rewards: %d Coins, %s x%d"
-UI_CONFIRM_DELIVERY,"Deliver Items"
-UI_FEEDBACK_QUEST_COMPLETED,"Quest completed!"
-UI_FEEDBACK_NOT_ENOUGH_ITEMS,"Not enough items to deliver!"
-NPC_MINH_NAME,"Minh"
-NPC_LINH_NAME,"Linh"
-DIALOGUE_MINH_INTRO,"Hello! I need three turnips for the village market. Could you help?"
+UI_CONFIRM_DELIVERY,Deliver Items
+UI_FEEDBACK_QUEST_COMPLETED,Quest completed!
+UI_FEEDBACK_NOT_ENOUGH_ITEMS,Not enough items to deliver!
+NPC_MINH_NAME,Minh
+NPC_LINH_NAME,Linh
+DIALOGUE_MINH_INTRO,Hello! I need three turnips for the village market. Could you help?
 DIALOGUE_MINH_ACTIVE,"Take your time. When you have enough turnips, confirm your delivery here."
-DIALOGUE_MINH_DONE,"Thank you for the turnips. The village market will be livelier today."
-DIALOGUE_LINH_HELLO,"Hello. I love watching the garden change with the seasons. On rainy days I stay home."
-UI_NPC_CLOSE,"Close (Esc)"
-UI_NPC_TALK_HINT,"[E] Talk"
-UI_NPC_HOME,"%s's home"
-UI_NPC_JOURNAL,"Quest journal"
+DIALOGUE_MINH_DONE,Thank you for the turnips. The village market will be livelier today.
+DIALOGUE_LINH_HELLO,Hello. I love watching the garden change with the seasons. On rainy days I stay home.
+UI_NPC_CLOSE,Close (Esc)
+UI_NPC_TALK_HINT,[E] Talk
+UI_NPC_HOME,%s's home
+UI_NPC_JOURNAL,Quest journal
 UI_NPC_JOURNAL_HINT,"Press J for your journal. Stand near a villager and press E to talk. Minh visits on days 3 and 6 each week, from 17:00 until nightfall. Everyone stays home in the rain."
-UI_NPC_FRIENDSHIP,"%s: friendship %d/%d"
-UI_NPC_QUEST_NEW,"Not accepted"
-UI_NPC_QUEST_ACTIVE,"In progress"
-UI_NPC_QUEST_DONE,"Completed"
-UI_NPC_ACCEPT_QUEST,"Accept quest"
-UI_NPC_OFFER_DISCOUNT,"Today's discount: %s ×%d — total %d coins"
-UI_NPC_OFFER_REQUEST,"Today's request: %s ×%d — pays %d coins"
-UI_NPC_CONFIRM_TRADE,"Confirm today's trade"
-UI_NPC_TRADE_DONE,"All done. Thank you!"
+UI_NPC_FRIENDSHIP,%s: friendship %d/%d
+UI_NPC_QUEST_NEW,Not accepted
+UI_NPC_QUEST_ACTIVE,In progress
+UI_NPC_QUEST_DONE,Completed
+UI_NPC_ACCEPT_QUEST,Accept quest
+UI_NPC_OFFER_DISCOUNT,Today's discount: %s ×%d — total %d coins
+UI_NPC_OFFER_REQUEST,Today's request: %s ×%d — pays %d coins
+UI_NPC_CONFIRM_TRADE,Confirm today's trade
+UI_NPC_TRADE_DONE,All done. Thank you!
 UI_NPC_TRADE_BLOCKED,"Please check your coins, items and free inventory space."
 UI_DEBUG_NPC_VISIT,"Test Minh: visit day, sunshine, move nearby"
-UI_DEBUG_NPC_ITEMS,"Test delivery: add turnips"
-UI_DEBUG_NPC_JOURNAL,"Test: open quest journal"
-UI_NPC_DELIVERY_BLOCKED,"Please bring enough items and leave room for your reward."
-UI_HOTBAR_CAPTION,"Keys 1–9 select items · I opens your full inventory"
-UI_TITLE_TAGLINE,"A little garden. A peaceful new day."
-UI_TITLE_SAVE_SUMMARY,"Continue: %s · Day %d"
-UI_BIND_MOUSE_LEFT,"left click"
-UI_BIND_TOOL_ALTERNATIVE,"%s or left click"
-UI_BIND_UP,"Up arrow"
-UI_BIND_DOWN,"Down arrow"
-UI_BIND_LEFT,"Left arrow"
-UI_BIND_RIGHT,"Right arrow"
-UI_INVENTORY_SELECT,"Select"
-UI_INVENTORY_SELECT_ITEM,"Select %s to use"
-UI_CROP_COUNTDOWN,"%dd %02d:%02d remaining"
-UI_CROP_ESTIMATE_AT,"Expected: Day %d · %s"
-UI_CROP_ESTIMATE_NOTE,"Assumes daily care in season."
-UI_CROP_WATERED,"Watered today"
-UI_CROP_READY_NOTE,"This crop is ripe and ready to harvest."
-UI_CROP_WITHERED_NOTE,"This plant has withered. Clear it to make room for new seeds."
-UI_CROP_OUT_OF_REACH,"Move a little closer to the crop."
-UI_BACK,"Back"
-UI_APPEARANCE_HAIR_STYLE,"Hair style"
-UI_APPEARANCE_SKIN_TONE,"Skin tone"
-UI_APPEARANCE_HAIR_COLOR,"Hair color"
-UI_APPEARANCE_OUTFIT_COLOR,"Outfit color"
-UI_APPEARANCE_OPTION_NUMBER,"%s %d"
-UI_APPEARANCE_HAIR_ROUND_BOB,"Round bob"
-UI_APPEARANCE_HAIR_SOFT_BANGS,"Soft bangs"
-UI_APPEARANCE_HAIR_LEAF_BRAID,"Leaf braid"
-UI_APPEARANCE_HAIR_SIDE_SWOOP,"Side swoop"
-UI_APPEARANCE_HAIR_SHORT_PEAK,"Short peak"
-UI_APPEARANCE_HAIR_TWIN_PUFFS,"Twin puffs"
-NPC_AN_NAME,"An"
-NPC_LAM_NAME,"Uncle Lam"
-PET_DOG_NAME,"Little pup"
-UI_KIT_TITLE,"UI kit · THE LIFE"
+UI_DEBUG_NPC_ITEMS,Test delivery: add turnips
+UI_DEBUG_NPC_JOURNAL,Test: open quest journal
+UI_NPC_DELIVERY_BLOCKED,Please bring enough items and leave room for your reward.
+UI_HOTBAR_CAPTION,Keys 1–9 select items · I opens your full inventory
+UI_TITLE_TAGLINE,A little garden. A peaceful new day.
+UI_TITLE_SAVE_SUMMARY,Continue: %s · Day %d
+UI_BIND_MOUSE_LEFT,left click
+UI_BIND_TOOL_ALTERNATIVE,%s or left click
+UI_BIND_UP,Up arrow
+UI_BIND_DOWN,Down arrow
+UI_BIND_LEFT,Left arrow
+UI_BIND_RIGHT,Right arrow
+UI_INVENTORY_SELECT,Select
+UI_INVENTORY_SELECT_ITEM,Select %s to use
+UI_CROP_COUNTDOWN,%dd %02d:%02d remaining
+UI_CROP_ESTIMATE_AT,Expected: Day %d · %s
+UI_CROP_ESTIMATE_NOTE,Assumes daily care in season.
+UI_CROP_WATERED,Watered today
+UI_CROP_READY_NOTE,This crop is ripe and ready to harvest.
+UI_CROP_WITHERED_NOTE,This plant has withered. Clear it to make room for new seeds.
+UI_CROP_OUT_OF_REACH,Move a little closer to the crop.
+UI_BACK,Back
+UI_APPEARANCE_HAIR_STYLE,Hair style
+UI_APPEARANCE_SKIN_TONE,Skin tone
+UI_APPEARANCE_HAIR_COLOR,Hair color
+UI_APPEARANCE_OUTFIT_COLOR,Outfit color
+UI_APPEARANCE_OPTION_NUMBER,%s %d
+UI_APPEARANCE_HAIR_ROUND_BOB,Round bob
+UI_APPEARANCE_HAIR_SOFT_BANGS,Soft bangs
+UI_APPEARANCE_HAIR_LEAF_BRAID,Leaf braid
+UI_APPEARANCE_HAIR_SIDE_SWOOP,Side swoop
+UI_APPEARANCE_HAIR_SHORT_PEAK,Short peak
+UI_APPEARANCE_HAIR_TWIN_PUFFS,Twin puffs
+NPC_AN_NAME,An
+NPC_LAM_NAME,Uncle Lam
+PET_DOG_NAME,Little pup
+UI_KIT_TITLE,UI kit · THE LIFE
 UI_KIT_SAMPLES,"Component samples — example values, not game state."
-UI_KIT_BUTTONS,"Buttons"
-UI_KIT_ITEMS,"Slots & bars"
-UI_KIT_COLORS,"Palette"
-UI_KIT_INPUTS,"Controls"
-UI_KIT_BADGES,"Badges & keys"
-UI_KIT_FONTS,"Frames & type"
-UI_KIT_ICONS,"Icon placeholders"
-UI_KIT_FRAME,"Reusable frame"
-UI_KIT_FRAME_NOTE,"28 px frame margins. Replace with a nine-slice texture later."
-UI_KIT_TABS,"Shared tab bar"
-UI_KIT_PRIMARY,"Primary"
-UI_KIT_SECONDARY,"Secondary"
-UI_KIT_DANGER,"Danger"
-UI_KIT_ACCENT,"Accent"
-UI_KIT_STATE_NORMAL,"Normal"
-UI_KIT_STATE_HOVER,"Hover"
-UI_KIT_STATE_PRESSED,"Pressed"
-UI_KIT_STATE_DISABLED,"Not enough coins"
-UI_KIT_ICON,"Icon"
-UI_KIT_ITEM,"Item"
-UI_KIT_LOCKED,"Locked"
-UI_KIT_EMPTY,"Empty"
-UI_KIT_ON,"ON"
-UI_KIT_OFF,"OFF"
-UI_KIT_DAY,"Day %d"
-UI_KIT_NEW,"New"
-UI_KIT_MAIN,"Main"
-UI_KIT_COIN,"Coin"
-UI_KIT_COINS,"%s coins"
-UI_KIT_BANNER,"Banner"
-UI_KIT_TAB_BAG,"Bag"
-UI_KIT_TAB_CHARACTER,"Character"
-UI_KIT_TAB_QUEST,"Quests"
-UI_KIT_TAB_CALENDAR,"Calendar & Events"
-UI_KIT_TAB_MAP,"Map"
-UI_KIT_VI_SAMPLE,"Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ · ắ ặ ể ữ ự"
-UI_KIT_FONT_NOTE,"Baloo 2 ExtraBold · Nunito SemiBold · Noto Serif Italic"
-UI_KIT_TOKEN_INK,"Ink"
-UI_KIT_TOKEN_WOOD,"Wood"
-UI_KIT_TOKEN_PAPER,"Paper"
-UI_KIT_TOKEN_GREEN,"Green"
-UI_KIT_TOKEN_YELLOW,"Yellow"
-UI_KIT_TOKEN_RED,"Red"
-UI_KIT_TOKEN_SKY,"Sky"
-UI_KIT_TOKEN_COIN,"Coin"
-UI_KIT_ICON_COIN,"Coin"
-UI_KIT_ICON_HEART,"Heart"
-UI_KIT_ICON_ENERGY,"Energy"
-UI_KIT_ICON_SUN,"Sun"
-UI_KIT_ICON_RAIN,"Rain"
-UI_KIT_ICON_MOON,"Moon"
-UI_KIT_ICON_HOE,"Hoe"
-UI_KIT_ICON_WATER,"Water"
-UI_KIT_ICON_SICKLE,"Sickle"
-UI_KIT_ICON_BASKET,"Basket"
-UI_KIT_ICON_CARROT,"Carrot"
-UI_KIT_ICON_TOMATO,"Tomato"
-UI_KIT_ICON_TURNIP,"Turnip"
-UI_KIT_ICON_CORN,"Corn"
-UI_KIT_ICON_PUMPKIN,"Pumpkin"
-UI_KIT_ICON_WOOD,"Wood"
-UI_KIT_ICON_STONE,"Stone"
-UI_KIT_ICON_STRAW,"Straw"
-UI_KIT_ICON_BAG,"Bag"
-UI_KIT_ICON_QUEST,"Journal"
-UI_KIT_ICON_CALENDAR,"Calendar"
-UI_KIT_ICON_MAP,"Map"
-UI_KIT_ICON_MARKET,"Market"
-UI_KIT_ICON_GIFT,"Gift"
-HUD_DATE,"%s · %d"
-HUD_SEASON_YEAR,"%s · Year %d"
-HUD_QUEST_TITLE,"Farm beginnings"
-HUD_QUEST_PROGRESS,"Completed %d / %d steps"
-HUD_QUEST_DONE,"Done: %s"
-HUD_ITEM_GAINED,"+%d %s"
-HUD_WEATHER,"%s · Tomorrow: %s"
-HUD_WEEKDAY_0,"Monday"
-HUD_WEEKDAY_1,"Tuesday"
-HUD_WEEKDAY_2,"Wednesday"
-HUD_WEEKDAY_3,"Thursday"
-HUD_WEEKDAY_4,"Friday"
-HUD_WEEKDAY_5,"Saturday"
-HUD_WEEKDAY_6,"Sunday"
-HUD_KEY_ESCAPE,"Esc"
-END_TITLE,"End of day %d"
-END_LEDGER,"Today's finances"
-END_INCOME,"Income"
-END_EXPENSE,"Expenses"
-END_PROFIT,"Net earnings"
-END_QUANTITY,"×%d"
-END_NO_TRANSACTIONS,"No transactions recorded today."
-END_HISTORY_COMPLETE,"Refunds reduce expenses."
-END_HISTORY_INCOMPLETE,"Today's history is incomplete. Figures include recorded transactions only."
-END_UNWATERED,"Unwatered crop plots today: %d. You can tend them before resting."
-END_UNWATERED_FORCED,"Unwatered crop plots today: %d. A new day is about to begin."
-END_NEXT_DAY,"Start the next day"
-END_STAY,"Stay a little longer"
-END_RAIN_TIP,"Rain tomorrow will water your crops."
-END_TOMORROW_TIP,"A new day is waiting for you."
-END_QUEST_PROGRESS,"Completed %d / %d farming steps."
-END_SALE,"Produce sales"
-END_BUY_SEED,"Seed purchases"
-END_REFUND,"Refunds"
-END_MERCHANT_BUY,"Purchases from Minh"
-END_MERCHANT_SALE,"Deliveries to Minh"
-END_OTHER_IN,"Other income"
-END_OTHER_OUT,"Other expenses"
-END_TOMORROW,"Tomorrow · %s · %d"
-END_FORECAST_UNKNOWN,"Forecast unavailable"
-INV_FILTER_ALL,"All"
-INV_CATEGORY_SEED,"Seeds"
-INV_CATEGORY_PRODUCE,"Produce"
-INV_CATEGORY_TOOL,"Tools"
-INV_CATEGORY_MATERIAL,"Materials"
-INV_CATEGORY_OTHER,"Other"
-INV_DESC_SEED,"Select these seeds on your toolbar to plant in prepared soil during their growing season."
-INV_DESC_PRODUCE,"Fresh from the farm. Sell at the shipping bin or keep for a delivery."
-INV_DESC_OTHER,"Select an item to use it from your toolbar."
-INV_UNAVAILABLE,"Not available yet"
-INV_SELECT_ITEM,"Choose an item"
-INV_EMPTY_DETAIL,"Your bag has room for new things. Select a stack to see its details."
-INV_QUANTITY,"Quantity: %d"
-INV_SELL_PRICE,"Sale price: %s coins each"
-INV_QUICK_SELECT,"Select on toolbar [F]"
-INV_DISCARD,"Discard"
-INV_DISCARD_CONFIRM,"Discard %s? Choose how many to remove from this stack."
-INV_CANCEL,"Keep items"
-INV_CAPACITY,"Bag: %d / %d"
-INV_SORT,"Sort [Z]"
-INV_NO_MATCHES,"No items in this category."
-INV_KEY_HINTS,"Q / E: Tabs · F: Select · Z: Sort · Esc: Close"
-UI_CROP_DRY_WARNING,"This plant is thirsty. Water it today — %d more dry day(s) will make it wither."
-UI_CROP_REGROW_NOTE,"New fruit is growing. Keep watering each day."
-PAUSE_AUDIO,"Audio"
-PAUSE_GRAPHICS,"Graphics"
-PAUSE_CONTROLS,"Controls"
-PAUSE_GAME,"Game"
-PAUSE_LANGUAGE,"Language"
-PAUSE_DEFAULT,"Default"
-PAUSE_APPLY,"Apply"
-PAUSE_UNAVAILABLE,"This option is not available yet."
-PAUSE_MUSIC_NOTE,"Music volume is remembered. Background music is not available yet."
-PAUSE_WEATHER_AUDIO,"Rain and wind audio"
-PAUSE_FULLSCREEN,"Fullscreen"
-PAUSE_FONT_SIZE,"Text size S / M / L"
-PAUSE_KEY_HINTS,"Show/hide key hints"
-PAUSE_AUTOSAVE,"Toggle morning autosave"
-PAUSE_SHAKE,"Harvest screen shake"
-PAUSE_AUTOSAVE_NOTE,"The switches above are not available yet. The game keeps its current autosave behavior."
-PAUSE_NAV_HINT,"Tab: choose control  •  ← →: adjust slider  •  Esc: return"
-PAUSE_DRAFT_NOTE,"Change language and volume then choose Apply. Close to discard changes."
-PAUSE_DEFAULT_DRAFT,"Defaults selected. Choose Apply to save them."
-PAUSE_APPLIED,"Language and volume applied."
-PAUSE_SAVE_FAILED,"Could not save. You can keep playing and try again."
-PAUSE_LOAD_FAILED,"There is no valid save to load."
-PAUSE_LOADED,"Save loaded."
-PAUSE_NO_SAVE,"No saved game yet."
-PAUSE_SAVE_SUMMARY,"Latest save: Day %d · %s"
-PAUSE_MOVE_UP,"Move up"
-PAUSE_MOVE_DOWN,"Move down"
-PAUSE_MOVE_LEFT,"Move left"
-PAUSE_MOVE_RIGHT,"Move right"
-PAUSE_INTERACT,"Interact"
-PAUSE_USE_TOOL,"Use tool"
-PAUSE_JOURNAL,"Quest journal"
-PAUSE_HELP,"Help"
-TITLE_LATEST_SAVE,"LATEST SAVE"
-TITLE_NO_SAVE,"Your garden is waiting. Start a new game."
-TITLE_SAVE_DAY,"Day %d"
-TITLE_PLAYER_NAME,"Player name"
-TITLE_FARM_NAME,"Farm name"
-TITLE_NAV_HINT,"Enter: select"
-TITLE_VERSION,"Version %s"
-PROFILE_TITLE,"Create your farmer"
-PROFILE_START,"Start gardening"
-PROFILE_PREVIOUS,"<"
-PROFILE_NEXT,">"
-PROFILE_PREV_HAIR,"Previous hairstyle"
-PROFILE_NEXT_HAIR,"Next hairstyle"
-PROFILE_CYCLE_HINT,"%s · Use arrows to change hairstyle"
-NEWS_TITLE,"THE VALLEY GAZETTE"
+UI_KIT_BUTTONS,Buttons
+UI_KIT_ITEMS,Slots & bars
+UI_KIT_COLORS,Palette
+UI_KIT_INPUTS,Controls
+UI_KIT_BADGES,Badges & keys
+UI_KIT_FONTS,Frames & type
+UI_KIT_ICONS,Icon placeholders
+UI_KIT_FRAME,Reusable frame
+UI_KIT_FRAME_NOTE,28 px frame margins. Replace with a nine-slice texture later.
+UI_KIT_TABS,Shared tab bar
+UI_KIT_PRIMARY,Primary
+UI_KIT_SECONDARY,Secondary
+UI_KIT_DANGER,Danger
+UI_KIT_ACCENT,Accent
+UI_KIT_STATE_NORMAL,Normal
+UI_KIT_STATE_HOVER,Hover
+UI_KIT_STATE_PRESSED,Pressed
+UI_KIT_STATE_DISABLED,Not enough coins
+UI_KIT_ICON,Icon
+UI_KIT_ITEM,Item
+UI_KIT_LOCKED,Locked
+UI_KIT_EMPTY,Empty
+UI_KIT_ON,ON
+UI_KIT_OFF,OFF
+UI_KIT_DAY,Day %d
+UI_KIT_NEW,New
+UI_KIT_MAIN,Main
+UI_KIT_COIN,Coin
+UI_KIT_COINS,%s coins
+UI_KIT_BANNER,Banner
+UI_KIT_TAB_BAG,Bag
+UI_KIT_TAB_CHARACTER,Character
+UI_KIT_TAB_QUEST,Quests
+UI_KIT_TAB_CALENDAR,Calendar & Events
+UI_KIT_TAB_MAP,Map
+UI_KIT_VI_SAMPLE,Thung Lũng Sống ẩn ệ ữ ợ ỡ ằ ẫ · ắ ặ ể ữ ự
+UI_KIT_FONT_NOTE,Baloo 2 ExtraBold · Nunito SemiBold · Noto Serif Italic
+UI_KIT_TOKEN_INK,Ink
+UI_KIT_TOKEN_WOOD,Wood
+UI_KIT_TOKEN_PAPER,Paper
+UI_KIT_TOKEN_GREEN,Green
+UI_KIT_TOKEN_YELLOW,Yellow
+UI_KIT_TOKEN_RED,Red
+UI_KIT_TOKEN_SKY,Sky
+UI_KIT_TOKEN_COIN,Coin
+UI_KIT_ICON_COIN,Coin
+UI_KIT_ICON_HEART,Heart
+UI_KIT_ICON_ENERGY,Energy
+UI_KIT_ICON_SUN,Sun
+UI_KIT_ICON_RAIN,Rain
+UI_KIT_ICON_MOON,Moon
+UI_KIT_ICON_HOE,Hoe
+UI_KIT_ICON_WATER,Water
+UI_KIT_ICON_SICKLE,Sickle
+UI_KIT_ICON_BASKET,Basket
+UI_KIT_ICON_CARROT,Carrot
+UI_KIT_ICON_TOMATO,Tomato
+UI_KIT_ICON_TURNIP,Turnip
+UI_KIT_ICON_CORN,Corn
+UI_KIT_ICON_PUMPKIN,Pumpkin
+UI_KIT_ICON_WOOD,Wood
+UI_KIT_ICON_STONE,Stone
+UI_KIT_ICON_STRAW,Straw
+UI_KIT_ICON_BAG,Bag
+UI_KIT_ICON_QUEST,Journal
+UI_KIT_ICON_CALENDAR,Calendar
+UI_KIT_ICON_MAP,Map
+UI_KIT_ICON_MARKET,Market
+UI_KIT_ICON_GIFT,Gift
+HUD_DATE,%s · %d
+HUD_SEASON_YEAR,%s · Year %d
+HUD_QUEST_TITLE,Farm beginnings
+HUD_QUEST_PROGRESS,Completed %d / %d steps
+HUD_QUEST_DONE,Done: %s
+HUD_ITEM_GAINED,+%d %s
+HUD_WEATHER,%s · Tomorrow: %s
+HUD_WEEKDAY_0,Monday
+HUD_WEEKDAY_1,Tuesday
+HUD_WEEKDAY_2,Wednesday
+HUD_WEEKDAY_3,Thursday
+HUD_WEEKDAY_4,Friday
+HUD_WEEKDAY_5,Saturday
+HUD_WEEKDAY_6,Sunday
+HUD_KEY_ESCAPE,Esc
+END_TITLE,End of day %d
+END_LEDGER,Today's finances
+END_INCOME,Income
+END_EXPENSE,Expenses
+END_PROFIT,Net earnings
+END_QUANTITY,×%d
+END_NO_TRANSACTIONS,No transactions recorded today.
+END_HISTORY_COMPLETE,Refunds reduce expenses.
+END_HISTORY_INCOMPLETE,Today's history is incomplete. Figures include recorded transactions only.
+END_UNWATERED,Unwatered crop plots today: %d. You can tend them before resting.
+END_UNWATERED_FORCED,Unwatered crop plots today: %d. A new day is about to begin.
+END_NEXT_DAY,Start the next day
+END_STAY,Stay a little longer
+END_RAIN_TIP,Rain tomorrow will water your crops.
+END_TOMORROW_TIP,A new day is waiting for you.
+END_QUEST_PROGRESS,Completed %d / %d farming steps.
+END_SALE,Produce sales
+END_BUY_SEED,Seed purchases
+END_REFUND,Refunds
+END_MERCHANT_BUY,Purchases from Minh
+END_MERCHANT_SALE,Deliveries to Minh
+END_OTHER_IN,Other income
+END_OTHER_OUT,Other expenses
+END_TOMORROW,Tomorrow · %s · %d
+END_FORECAST_UNKNOWN,Forecast unavailable
+INV_FILTER_ALL,All
+INV_CATEGORY_SEED,Seeds
+INV_CATEGORY_PRODUCE,Produce
+INV_CATEGORY_TOOL,Tools
+INV_CATEGORY_MATERIAL,Materials
+INV_CATEGORY_OTHER,Other
+INV_DESC_SEED,Select these seeds on your toolbar to plant in prepared soil during their growing season.
+INV_DESC_PRODUCE,Fresh from the farm. Sell at the shipping bin or keep for a delivery.
+INV_DESC_OTHER,Select an item to use it from your toolbar.
+INV_UNAVAILABLE,Not available yet
+INV_SELECT_ITEM,Choose an item
+INV_EMPTY_DETAIL,Your bag has room for new things. Select a stack to see its details.
+INV_QUANTITY,Quantity: %d
+INV_SELL_PRICE,Sale price: %s coins each
+INV_QUICK_SELECT,Select on toolbar [F]
+INV_DISCARD,Discard
+INV_DISCARD_CONFIRM,Discard %s? Choose how many to remove from this stack.
+INV_CANCEL,Keep items
+INV_CAPACITY,Bag: %d / %d
+INV_SORT,Sort [Z]
+INV_NO_MATCHES,No items in this category.
+INV_KEY_HINTS,Q / E: Tabs · F: Select · Z: Sort · Esc: Close
+UI_CROP_DRY_WARNING,This plant is thirsty. Water it today — %d more dry day(s) will make it wither.
+UI_CROP_REGROW_NOTE,New fruit is growing. Keep watering each day.
+PAUSE_AUDIO,Audio
+PAUSE_GRAPHICS,Graphics
+PAUSE_CONTROLS,Controls
+PAUSE_GAME,Game
+PAUSE_LANGUAGE,Language
+PAUSE_DEFAULT,Default
+PAUSE_APPLY,Apply
+PAUSE_UNAVAILABLE,This option is not available yet.
+PAUSE_MUSIC_NOTE,Music volume is remembered. Background music is not available yet.
+PAUSE_WEATHER_AUDIO,Rain and wind audio
+PAUSE_FULLSCREEN,Fullscreen
+PAUSE_FONT_SIZE,Text size S / M / L
+PAUSE_KEY_HINTS,Show/hide key hints
+PAUSE_AUTOSAVE,Toggle morning autosave
+PAUSE_SHAKE,Harvest screen shake
+PAUSE_AUTOSAVE_NOTE,The switches above are not available yet. The game keeps its current autosave behavior.
+PAUSE_NAV_HINT,Tab: choose control  •  ← →: adjust slider  •  Esc: return
+PAUSE_DRAFT_NOTE,Change language and volume then choose Apply. Close to discard changes.
+PAUSE_DEFAULT_DRAFT,Defaults selected. Choose Apply to save them.
+PAUSE_APPLIED,Language and volume applied.
+PAUSE_SAVE_FAILED,Could not save. You can keep playing and try again.
+PAUSE_LOAD_FAILED,There is no valid save to load.
+PAUSE_LOADED,Save loaded.
+PAUSE_NO_SAVE,No saved game yet.
+PAUSE_SAVE_SUMMARY,Latest save: Day %d · %s
+PAUSE_MOVE_UP,Move up
+PAUSE_MOVE_DOWN,Move down
+PAUSE_MOVE_LEFT,Move left
+PAUSE_MOVE_RIGHT,Move right
+PAUSE_INTERACT,Interact
+PAUSE_USE_TOOL,Use tool
+PAUSE_JOURNAL,Quest journal
+PAUSE_HELP,Help
+TITLE_LATEST_SAVE,LATEST SAVE
+TITLE_NO_SAVE,Your garden is waiting. Start a new game.
+TITLE_SAVE_DAY,Day %d
+TITLE_PLAYER_NAME,Player name
+TITLE_FARM_NAME,Farm name
+TITLE_NAV_HINT,Enter: select
+TITLE_VERSION,Version %s
+PROFILE_TITLE,Create your farmer
+PROFILE_START,Start gardening
+PROFILE_PREVIOUS,<
+PROFILE_NEXT,>
+PROFILE_PREV_HAIR,Previous hairstyle
+PROFILE_NEXT_HAIR,Next hairstyle
+PROFILE_CYCLE_HINT,%s · Use arrows to change hairstyle
+NEWS_TITLE,THE VALLEY GAZETTE
 NEWS_DATE,"%s, day %d · %s · Year %d"
-NEWS_WEATHER,"Weather"
-NEWS_FORECAST,"Upcoming forecast"
-NEWS_RAIN_TIP,"Rain brings water to living crops."
-NEWS_DRY_TIP,"Remember to water crops that need it today."
-NEWS_TODAY,"Today in the garden"
-NEWS_QUEST_PROGRESS,"Farming guide: %d/%d"
-NEWS_QUEST_DONE,"You have completed the farming guide."
-NEWS_GARDEN_STATUS,"Harvestable plots: %d · Plots needing water: %d · Empty tilled plots: %d · Withered plots: %d"
-NEWS_EVENTS_UNAVAILABLE,"Birthday and festival calendars are not available yet."
-NEWS_PRICES,"Current sale prices"
-NEWS_PRICE_NOTE,"Unit prices for selling produce through the shipping bin."
-NEWS_TASKS,"GARDEN NOTES"
-NEWS_READY,"Harvestable plots: %d"
-NEWS_WATER,"Plots needing water: %d"
-NEWS_EMPTY,"Empty tilled plots: %d"
-NEWS_BEGIN,"Begin the day"
-CHAR_PROFILE_NOTE,"Farmer profile"
-CHAR_SKILLS,"Skills"
-CHAR_SKILL_GARDEN,"Gardening"
-CHAR_SKILL_WATER,"Watering"
-CHAR_SKILL_HARVEST,"Harvesting"
-CHAR_SKILL_FISH,"Fishing"
-CHAR_SKILL_TRADE,"Trading"
-CHAR_SKILLS_NOTE,"Skills and experience are not available yet."
-CHAR_RELATIONSHIPS,"Relationships"
-CHAR_FRIENDSHIP,"Friendship: %d/%d"
-CHAR_NO_NPCS,"No villager information yet."
-CHAR_KEYS,"Q · Previous tab     E · Next tab     Esc · Close"
-BOOK_TUTORIAL,"Farming guide"
-BOOK_TUTORIAL_DESC,"Get to know your garden one step at a time. Finished tasks are marked below."
-BOOK_ALL,"All"
-BOOK_ACTIVE,"Active"
-BOOK_COMPLETED,"Completed"
-BOOK_DAILY,"Daily · Unavailable"
-BOOK_STATUS_NEW,"Not accepted"
-BOOK_STATUS_ACTIVE,"Active"
-BOOK_STATUS_COMPLETED,"Completed"
-BOOK_COUNT,"%d/%d"
-BOOK_EMPTY,"No tasks in this category yet."
-BOOK_IN_BAG,"Items in your bag"
-BOOK_ITEM_PROGRESS,"%s · In bag: %d/%d"
-BOOK_ITEM_REWARD,"%s × %d"
-BOOK_REWARD_TERMS,"Rewards for this task."
-BOOK_NO_REWARD,"No rewards are listed."
-BOOK_SELECT,"Choose a task"
-BOOK_OBJECTIVES,"Objectives"
-BOOK_REWARDS,"Rewards"
-BOOK_PIN,"Pin · Unavailable"
-BOOK_MAP,"Map · Unavailable"
-BOOK_UNKNOWN_GIVER,"Giver information is not available."
-BOOK_GIVER,"From: %s"
-BOOK_VISIT,"Accept and deliver this task through dialogue with %s."
-BOOK_KEYS,"Q · Previous tab     E · Next tab     Esc · Close"
-ITEM_TEMP_CARROT_MEAL,"Carrot meal"
-ITEM_TEMP_WHEAT_FLOUR,"Wheat flour"
-ITEM_TEMP_ROASTED_COFFEE,"Roasted coffee"
-ITEM_TEMP_CORN_BREAD,"Corn bread"
-ITEM_TEMP_DRIED_CHILI,"Dried chili"
-ITEM_TEMP_PICKLED_CABBAGE,"Pickled cabbage"
-ITEM_TEMP_ORANGE_JUICE,"Orange juice"
-ITEM_PROCESSED_DESCRIPTION,"A product from a processing machine."
-UI_MACHINE_COLLECT_SUCCESS,"Added %d %s to your bag."
-UI_MACHINE_COLLECT_BUSY,"Moving the product. Please wait a moment."
-UI_MACHINE_COLLECT_INVALID,"This machine's output cannot be collected yet."
-UI_MACHINE_COLLECT_NO_MACHINE,"There is no machine on this plot."
-UI_MACHINE_COLLECT_NO_OUTPUT,"There is no product to collect yet."
-UI_MACHINE_COLLECT_UNKNOWN,"This product cannot be stored in your bag yet."
-UI_MACHINE_COLLECT_FULL,"Your bag needs more space. The product stays in the machine."
-UI_MACHINE_COLLECT_FAILED,"The product could not be moved. Please try again."
-UI_MACHINE_OUTPUT,"Ready: %s × %d"
-UI_MACHINE_STATE_IDLE,"Ready"
-UI_MACHINE_STATE_WORKING,"%d days left"
-UI_MACHINE_STATE_BLOCKED,"Awaiting collection"
-UI_MACHINE_PRODUCT_UNKNOWN,"Unknown product"
-MACHINE_STOVE_NAME,"Stove"
-MACHINE_MILL_NAME,"Mill"
-MACHINE_PRESS_NAME,"Press"
-MACHINE_BARREL_NAME,"Pickling barrel"
-MACHINE_OVEN_NAME,"Oven"
-MACHINE_DRYER_NAME,"Dryer"
-MACHINE_ROASTER_NAME,"Roaster"
-MUI_OPERATION_TITLE,"Processing machine"
-MUI_MACHINE_PREVIEW,"Farm processing equipment"
-MUI_SELL,"Sell"
-MUI_BUYBACK,"Buyback"
-MUI_UNAVAILABLE,"This feature is not available yet."
-MUI_RECIPES,"Recipes"
-MUI_BACK,"Back to shop"
-MUI_CARD,"%d coins · House level %d · Stored: %d"
-MUI_PLACEMENT,"Placed machine at %s"
-MUI_REQUIREMENT,"Requires house level %d · Stored: %d"
-MUI_TEST_LEVEL,"This test view uses house level 1."
-MUI_RECIPE_TERMS,"Inputs: %s\nOutput: %s\nDuration: %d days"
-MUI_DAYS,"%d processing days"
-MUI_LOCKED,"Requires a higher house level. This test view uses level 1."
-MUI_NO_COINS,"You need more coins to buy this machine."
-MUI_MISSING_INPUT,"Your bag does not have all the ingredients yet."
-MUI_BUSY,"This machine is busy. Wait or collect its output first."
-MUI_NOT_OWNED,"There is no stored machine of this type to place."
-MUI_NO_CELL,"This cell is unavailable. Choose another free cell."
-MUI_PURCHASED,"Machine purchased and added to storage."
-MUI_PLACED,"Machine placed. Select its cell and press E to use it."
-MUI_STARTED,"The machine has started processing."
-PLC_PLACE,"Place machine"
-PLC_RETURN,"Store machine"
-PLC_RETURNED,"Machine returned to storage."
-PLC_TITLE,"Place %s"
-PLC_CELL,"Cell %s · Rotation %d° · Placement area %d×%d cells"
-PLC_PICK,"Choose a free cell near you."
-PLC_VALID,"You can place the machine here."
-PLC_HINTS,"Left click / Space: place · R / Q: rotate · Right click / Esc: cancel"
-PLC_LEFT,"Rotate left [Q]"
-PLC_RIGHT,"Rotate right [R]"
-PLC_CANCEL,"Cancel placement"
-PLC_CONFIRM,"Place at selected cell"
-PLC_REGION,"Choose a cell inside the permitted farm area."
-PLC_PLAYER,"You are standing on this cell."
-PLC_FAR,"Move closer to the machine cell and try again."
-PLC_PLOT,"This cell has tilled soil or a crop. Choose another cell."
-PLC_MACHINE_CELL,"A machine occupies this cell. Choose another cell to till or sow."
-PLC_INVALID,"This action is not available right now."
-PLC_MOVE,"Move machine"
-PLC_MOVE_TITLE,"Move %s"
-PLC_MOVE_CELL,"From cell %s · To cell %s · Rotation %d°"
-PLC_MOVE_PICK,"Choose a new nearby cell or rotate the machine in place."
-PLC_MOVE_VALID,"You can confirm this position and rotation."
-PLC_MOVE_HINTS,"Left click / Space: confirm · R / Q: rotate · Right click / Esc: cancel"
-PLC_MOVE_CONFIRM,"Confirm position"
-PLC_MOVE_CANCEL,"Cancel move"
-PLC_MOVED,"The machine has moved to its new position."
-PLC_ROTATED,"Machine rotation confirmed."
-PLC_MOVE_STALE,"The machine has changed. Please select it again."
+NEWS_WEATHER,Weather
+NEWS_FORECAST,Upcoming forecast
+NEWS_RAIN_TIP,Rain brings water to living crops.
+NEWS_DRY_TIP,Remember to water crops that need it today.
+NEWS_TODAY,Today in the garden
+NEWS_QUEST_PROGRESS,Farming guide: %d/%d
+NEWS_QUEST_DONE,You have completed the farming guide.
+NEWS_GARDEN_STATUS,Harvestable plots: %d · Plots needing water: %d · Empty tilled plots: %d · Withered plots: %d
+NEWS_EVENTS_UNAVAILABLE,Birthday and festival calendars are not available yet.
+NEWS_PRICES,Current sale prices
+NEWS_PRICE_NOTE,Unit prices for selling produce through the shipping bin.
+NEWS_TASKS,GARDEN NOTES
+NEWS_READY,Harvestable plots: %d
+NEWS_WATER,Plots needing water: %d
+NEWS_EMPTY,Empty tilled plots: %d
+NEWS_BEGIN,Begin the day
+CHAR_PROFILE_NOTE,Farmer profile
+CHAR_SKILLS,Skills
+CHAR_SKILL_GARDEN,Gardening
+CHAR_SKILL_WATER,Watering
+CHAR_SKILL_HARVEST,Harvesting
+CHAR_SKILL_FISH,Fishing
+CHAR_SKILL_TRADE,Trading
+CHAR_SKILLS_NOTE,Skills and experience are not available yet.
+CHAR_RELATIONSHIPS,Relationships
+CHAR_FRIENDSHIP,Friendship: %d/%d
+CHAR_NO_NPCS,No villager information yet.
+CHAR_KEYS,Q · Previous tab     E · Next tab     Esc · Close
+BOOK_TUTORIAL,Farming guide
+BOOK_TUTORIAL_DESC,Get to know your garden one step at a time. Finished tasks are marked below.
+BOOK_ALL,All
+BOOK_ACTIVE,Active
+BOOK_COMPLETED,Completed
+BOOK_DAILY,Daily · Unavailable
+BOOK_STATUS_NEW,Not accepted
+BOOK_STATUS_ACTIVE,Active
+BOOK_STATUS_COMPLETED,Completed
+BOOK_COUNT,%d/%d
+BOOK_EMPTY,No tasks in this category yet.
+BOOK_IN_BAG,Items in your bag
+BOOK_ITEM_PROGRESS,%s · In bag: %d/%d
+BOOK_ITEM_REWARD,%s × %d
+BOOK_REWARD_TERMS,Rewards for this task.
+BOOK_NO_REWARD,No rewards are listed.
+BOOK_SELECT,Choose a task
+BOOK_OBJECTIVES,Objectives
+BOOK_REWARDS,Rewards
+BOOK_PIN,Pin · Unavailable
+BOOK_MAP,Map · Unavailable
+BOOK_UNKNOWN_GIVER,Giver information is not available.
+BOOK_GIVER,From: %s
+BOOK_VISIT,Accept and deliver this task through dialogue with %s.
+BOOK_KEYS,Q · Previous tab     E · Next tab     Esc · Close
+ITEM_TEMP_CARROT_MEAL,Carrot meal
+ITEM_TEMP_WHEAT_FLOUR,Wheat flour
+ITEM_TEMP_ROASTED_COFFEE,Roasted coffee
+ITEM_TEMP_CORN_BREAD,Corn bread
+ITEM_TEMP_DRIED_CHILI,Dried chili
+ITEM_TEMP_PICKLED_CABBAGE,Pickled cabbage
+ITEM_TEMP_ORANGE_JUICE,Orange juice
+ITEM_PROCESSED_DESCRIPTION,A product from a processing machine.
+UI_MACHINE_COLLECT_SUCCESS,Added %d %s to your bag.
+UI_MACHINE_COLLECT_BUSY,Moving the product. Please wait a moment.
+UI_MACHINE_COLLECT_INVALID,This machine's output cannot be collected yet.
+UI_MACHINE_COLLECT_NO_MACHINE,There is no machine on this plot.
+UI_MACHINE_COLLECT_NO_OUTPUT,There is no product to collect yet.
+UI_MACHINE_COLLECT_UNKNOWN,This product cannot be stored in your bag yet.
+UI_MACHINE_COLLECT_FULL,Your bag needs more space. The product stays in the machine.
+UI_MACHINE_COLLECT_FAILED,The product could not be moved. Please try again.
+UI_MACHINE_OUTPUT,Ready: %s × %d
+UI_MACHINE_STATE_IDLE,Ready
+UI_MACHINE_STATE_WORKING,%d days left
+UI_MACHINE_STATE_BLOCKED,Awaiting collection
+UI_MACHINE_PRODUCT_UNKNOWN,Unknown product
+MACHINE_STOVE_NAME,Stove
+MACHINE_MILL_NAME,Mill
+MACHINE_PRESS_NAME,Press
+MACHINE_BARREL_NAME,Pickling barrel
+MACHINE_OVEN_NAME,Oven
+MACHINE_DRYER_NAME,Dryer
+MACHINE_ROASTER_NAME,Roaster
+MUI_OPERATION_TITLE,Processing machine
+MUI_MACHINE_PREVIEW,Farm processing equipment
+MUI_SELL,Sell
+MUI_BUYBACK,Buyback
+MUI_UNAVAILABLE,This feature is not available yet.
+MUI_RECIPES,Recipes
+MUI_BACK,Back to shop
+MUI_CARD,%d coins · House level %d · Stored: %d
+MUI_PLACEMENT,Placed machine at %s
+MUI_REQUIREMENT,Requires house level %d · Stored: %d
+MUI_TEST_LEVEL,This test view uses house level 1.
+MUI_RECIPE_TERMS,Inputs: %s\nOutput: %s\nDuration: %d days
+MUI_DAYS,%d processing days
+MUI_LOCKED,Requires a higher house level. This test view uses level 1.
+MUI_NO_COINS,You need more coins to buy this machine.
+MUI_MISSING_INPUT,Your bag does not have all the ingredients yet.
+MUI_BUSY,This machine is busy. Wait or collect its output first.
+MUI_NOT_OWNED,There is no stored machine of this type to place.
+MUI_NO_CELL,This cell is unavailable. Choose another free cell.
+MUI_PURCHASED,Machine purchased and added to storage.
+MUI_PLACED,Machine placed. Select its cell and press E to use it.
+MUI_STARTED,The machine has started processing.
+PLC_PLACE,Place machine
+PLC_RETURN,Store machine
+PLC_RETURNED,Machine returned to storage.
+PLC_TITLE,Place %s
+PLC_CELL,Cell %s · Rotation %d° · Placement area %d×%d cells
+PLC_PICK,Choose a free cell near you.
+PLC_VALID,You can place the machine here.
+PLC_HINTS,Left click / Space: place · R / Q: rotate · Right click / Esc: cancel
+PLC_LEFT,Rotate left [Q]
+PLC_RIGHT,Rotate right [R]
+PLC_CANCEL,Cancel placement
+PLC_CONFIRM,Place at selected cell
+PLC_REGION,Choose a cell inside the permitted farm area.
+PLC_PLAYER,You are standing on this cell.
+PLC_FAR,Move closer to the machine cell and try again.
+PLC_PLOT,This cell has tilled soil or a crop. Choose another cell.
+PLC_MACHINE_CELL,A machine occupies this cell. Choose another cell to till or sow.
+PLC_INVALID,This action is not available right now.
+PLC_MOVE,Move machine
+PLC_MOVE_TITLE,Move %s
+PLC_MOVE_CELL,From cell %s · To cell %s · Rotation %d°
+PLC_MOVE_PICK,Choose a new nearby cell or rotate the machine in place.
+PLC_MOVE_VALID,You can confirm this position and rotation.
+PLC_MOVE_HINTS,Left click / Space: confirm · R / Q: rotate · Right click / Esc: cancel
+PLC_MOVE_CONFIRM,Confirm position
+PLC_MOVE_CANCEL,Cancel move
+PLC_MOVED,The machine has moved to its new position.
+PLC_ROTATED,Machine rotation confirmed.
+PLC_MOVE_STALE,The machine has changed. Please select it again.
 LAND_TITLE,Expand farm
 LAND_EAST_NAME,East parcel
 LAND_DESCRIPTION,Add land beside your garden for crops and machines.
@@ -801,15 +801,15 @@ DOG_NAME_STALE,The name has changed. Please close and reopen.
 STORY_CHAPTER_1,Chapter I · First shoots
 STORY_CHAPTER_1_DESC,Small steps make a garden.
 STORY_GOAL_FIRST_SOWING,First sowing
-STORY_GOAL_FIRST_SOWING_DESC,Recorded from your progress: first sowing.
+STORY_GOAL_FIRST_SOWING_DESC,Sow your first seed in the garden.
 STORY_GOAL_FIRST_HARVEST,First harvest
-STORY_GOAL_FIRST_HARVEST_DESC,Recorded from your progress: first harvest.
+STORY_GOAL_FIRST_HARVEST_DESC,Harvest a ripe crop from the garden.
 STORY_GOAL_FIRST_SALE,First sale
-STORY_GOAL_FIRST_SALE_DESC,Recorded from your progress: first sale.
+STORY_GOAL_FIRST_SALE_DESC,Sell produce through the shipping bin or Minh.
 STORY_GOAL_FIRST_DELIVERY,First delivery
-STORY_GOAL_FIRST_DELIVERY_DESC,Recorded from your progress: first delivery.
+STORY_GOAL_FIRST_DELIVERY_DESC,Complete Minh’s turnip order.
 STORY_GOAL_FIRST_EXPANSION,Expand the garden
-STORY_GOAL_FIRST_EXPANSION_DESC,Recorded from your progress: expand the garden.
+STORY_GOAL_FIRST_EXPANSION_DESC,Buy the first parcel east of the garden.
 STORY_GOAL_CLEAR_LAND,Clear the land
 STORY_GOAL_CLEAR_LAND_DESC,This part of the journey is coming later.
 STORY_GOAL_REPAIR_MAILBOX,Repair the mailbox
@@ -840,3 +840,17 @@ STORY_PAGE_PAGE_DELIVERY,A promise kept
 STORY_PAGE_PAGE_DELIVERY_BODY,Keeping a small promise helps a garden grow too.
 STORY_PAGE_PAGE_EXPANSION,A little more room
 STORY_PAGE_PAGE_EXPANSION_BODY,There is a little more room now. Tend it one corner at a time.
+STORY_ENTRY,Grandma’s notebook
+STORY_BACK,Back to quests
+STORY_PROGRESS,Recorded %d/%d objectives
+STORY_OBJECTIVES,First steps
+STORY_MILESTONES,Still to come
+STORY_DONE,Recorded
+STORY_READY,Available
+STORY_PLANNED,Coming later
+STORY_WAITING,The notebook is waiting for an update.
+STORY_KEYS,Q/E · Switch journal    J/Esc · Close
+STORY_PAGES,Pages from Grandma
+STORY_READ,Read
+STORY_UNREAD,Unread
+STORY_LOCKED,Not yet available
