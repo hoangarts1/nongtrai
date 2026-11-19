@@ -1,0 +1,136 @@
+extends GutTest
+const FIXTURE: Script = preload("res://tests/helpers/dog_fixture.gd")
+var f: RefCounted
+func before_each() -> void:
+	f = FIXTURE.new()
+	f.setup(self)
+func after_each() -> void:
+	f.cleanup()
+	await get_tree().process_frame
+
+func test_real_name_follow_save_title_continue_cancel_and_new() -> void:
+	f.main.character_flow.open()
+	f.main.dog_name_flow.open()
+	f.main.dog_name_flow.panel.form.field.text = "Mây"
+	await f.settle(self)
+	await f.key(self,KEY_ENTER)
+	assert_eq(f.main.dog_state.get_name(),"Mây")
+	f.main.ui_coordinator.close_active()
+	f.main.world.player.move_to_cell(Vector2i(-16,-16))
+	f.play()
+	for _index: int in range(220):
+		f.ticks(1)
+		if DogFollowRules.distance(f.main.dog_state.get_cell(),f.main.world.player.get_cell())<=f.main.dog_runtime.CONFIG.follow_stop_distance: break
+	assert_lte(DogFollowRules.distance(f.main.dog_state.get_cell(),f.main.world.player.get_cell()),f.main.dog_runtime.CONFIG.follow_stop_distance)
+	var dog: Dictionary = f.main.dog_state.serialize()
+	assert_true(f.main.call("_return_to_start_menu"))
+	assert_false(f.main.dog_runtime.actor.visible)
+	await f.settle(self)
+	await f.mouse(self,f.main.start_menu.screen.actions.continue_button.get_global_rect().get_center())
+	assert_eq(f.main.dog_state.serialize(),dog)
+	f.main.character_flow.open()
+	f.main.dog_name_flow.open()
+	f.main.dog_name_flow.panel.form.field.text = "Canceled"
+	f.main.dog_name_flow.back()
+	assert_eq(f.main.dog_state.serialize(),dog)
+	assert_true(f.main.call("_return_to_start_menu"))
+	await f.settle(self)
+	await f.mouse(self,f.main.start_menu.screen.actions.new_game_button.get_global_rect().get_center())
+	f.main.start_menu.screen.profile.player_name.text = "Mai"
+	f.main.start_menu.screen.profile.farm_name.text = "Garden"
+	await f.settle(self)
+	await f.mouse(self,f.main.start_menu.screen.profile.confirm_button.get_global_rect().get_center())
+	assert_false(f.main.start_menu.visible)
+	assert_eq(f.main.dog_state.get_name(),"")
+	assert_eq(f.actors().size(),1)
+func test_real_completed_night_review_and_morning_do_not_duplicate_companion() -> void:
+	f.main.dog_state.try_set_name("Mây")
+	var dog: Dictionary = f.main.dog_state.serialize()
+	var actor: DogActor2D = f.main.dog_runtime.actor
+	GameClock.set_time(21,0)
+	assert_true(f.main.day_end_flow.request())
+	var before: int = GameClock.day_index
+	await f.settle(self)
+	await f.mouse(self,f.main.day_end_flow.panel.continue_button.get_global_rect().get_center())
+	f.main.day_end_flow.confirm()
+	await f.settle(self)
+	assert_eq(GameClock.day_index,before+1)
+	assert_eq(SaveService.load_game(0).dog,dog)
+	assert_eq(f.main.dog_state.serialize(),dog)
+	assert_eq(f.main.dog_runtime.actor,actor)
+	assert_eq(f.actors().size(),1)
+	assert_true(f.main.morning_flow.panel.visible)
+	await f.mouse(self,f.main.morning_flow.panel.begin_button.get_global_rect().get_center())
+	assert_false(f.main.morning_flow.panel.visible)
+	f.main.ui_coordinator.close_active()
+	assert_true(f.main.call("_save_game_to_slot",98))
+	assert_eq(SaveService.load_game(98).dog,dog)
+
+func test_native_land_machine_coop_then_restore_rebuilds_only_changed_context() -> void:
+	var runtime: LifeDogRuntime = f.main.dog_runtime
+	f.main.dog_state.try_set_name("M"+String.chr(0xe2)+"y")
+	f.main.wallet.add_coins(5000,&"test_dog_journey")
+	f.main.machine_shop_panel.open()
+	await f.settle(self)
+	await f.mouse(self,f.main.machine_shop_panel.screen.land_button.get_global_rect().get_center())
+	assert_true(f.main.land_runtime.panel.visible)
+	await f.mouse(self,f.main.land_runtime.panel.footer.buy_button.get_global_rect().get_center())
+	assert_eq(LifeLandSnapshot.owned_cells(f.main.land_ownership),72)
+	f.main.ui_coordinator.close_active()
+	runtime.refresh_context()
+	assert_false(runtime.navigation.is_walkable(Vector2i(6,2)))
+	f.main.machine_inventory.add_machine(&"stove")
+	f.main.world.player.move_to_cell(Vector2i(5,2))
+	f.main.machine_shop_panel.open()
+	f.main.machine_placement_flow.begin(&"stove")
+	assert_true(f.main.machine_placement_flow.active)
+	await f.settle(self)
+	var pointer: InputEventMouseMotion = InputEventMouseMotion.new()
+	pointer.position = f.main.world.grid.cell_to_screen(Vector2i(6,2))
+	f.viewport.push_input(pointer,true)
+	await f.settle(self)
+	assert_true(f.main.machine_placement_flow.preview.ok)
+	await f.mouse(self,f.main.machine_placement_flow.panel.status.confirm_button.get_global_rect().get_center())
+	assert_false(f.main.machine_placement_flow.active)
+	assert_eq(StringName(f.main.machine_placements.get_placement(Vector2i(6,2)).machine_id),&"stove")
+	assert_true(f.main.farm_state.get_plot(Vector2i(6,2)).is_empty())
+	f.main.world.player.move_to_cell(f.main.chicken_coop_runtime.CONFIG.entrance)
+	f.main.ui_coordinator._sync()
+	f.main.chicken_coop_flow.open()
+	await f.settle(self)
+	await f.mouse(self,f.main.chicken_coop_flow.panel.controls.buy.get_global_rect().get_center())
+	assert_true(f.main.chicken_coop.is_owned())
+	f.main.ui_coordinator.close_active()
+	runtime.refresh_context()
+	assert_false(runtime.navigation.is_walkable(f.main.chicken_coop_runtime.CONFIG.footprint.position))
+	var owners: Dictionary = f.owners()
+	var dog: Dictionary = f.main.dog_state.serialize()
+	assert_true(f.main.call("_save_game_to_slot",98))
+	assert_true(f.main.call("_load_game_from_slot",98))
+	assert_eq(f.owners(),owners)
+	assert_eq(f.main.dog_state.serialize(),dog)
+	assert_true(runtime.navigation.is_walkable(f.main.dog_state.get_cell()))
+	assert_eq(runtime.actor.global_position,f.main.world.grid.cell_to_global(f.main.dog_state.get_cell()))
+	assert_eq(f.actors().size(),1)
+	var rebuilds: int = runtime.navigation.get_rebuild_count()
+	for _index: int in range(50): runtime.refresh_context()
+	assert_eq(runtime.navigation.get_rebuild_count(),rebuilds)
+	for locale: String in ["vi","en"]:
+		TranslationServer.set_locale(locale)
+		for size: Vector2i in [Vector2i(1152,648),Vector2i(1280,720),Vector2i(1920,1080)]:
+			f.viewport.size = size
+			f.main.character_flow.open()
+			f.main.dog_name_flow.open()
+			await f.settle(self)
+			var panel: LifeDogNameSheet = f.main.dog_name_flow.panel
+			assert_true(Rect2(Vector2.ZERO,Vector2(size)).encloses(panel.get_global_rect()))
+			assert_eq(panel.form.field.text,dog.name)
+			if DisplayServer.get_name()!="headless":
+				f.viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+				await RenderingServer.frame_post_draw
+				var picture: Image = f.viewport.get_texture().get_image()
+				assert_eq(picture.get_size(),size)
+				assert_eq(picture.save_png("user://dog_journey_%s_%d.png" % [locale,size.x]),OK)
+			f.main.ui_coordinator.close_active()
+	assert_eq(f.owners(),owners)
+	assert_eq(f.main.dog_state.serialize(),dog)

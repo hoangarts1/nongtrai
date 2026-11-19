@@ -1,9 +1,16 @@
 # Dog companion — approved Phase8.5a–j contract
 
-## Current boundary: Phase8.5a DATA only
+## Current boundary: implemented runtime, modular UI and save15
 
-Approved one cosmetic dog, existing Player retained. Only DogConfig/data/validator are
-live at this step. No dog actor, owner, UI, save field or input binding yet. References
+Approved one cosmetic dog, existing Player retained. DATA/domain/runtime, save15,
+Character companion card/name editor, idle and rain/harvest feedback are implemented.
+Automated results are in PROGRESS; human F5/art/IME/FPS acceptance remains pending.
+No additional scene/Inspector/InputMap setup is required.
+
+## Initial Phase8.5a DATA baseline (historical)
+
+At8.5a only DogConfig/data/validator were live; later steps below implement the actor,
+owner, UI and save field. No new input binding was introduced. References
 are actual isometric_world_config.tres and npcs/phase8_world.tres. Config exports
 world/npc_world, name_max_length24, follow_start_distance3/stop1, move_speed3cells/s,
 context_interval0.25s, idle_wait_seconds3, idle_radius2, reaction_seconds0.8.
@@ -11,7 +18,7 @@ validation_errors() returns explicit errors; frozen_copy() detaches the full Res
 DATA graph, including external Resources, preserving internal shared references.
 Source Script references are immutable and shared; no runtime Nodes are copied.
 
-## Approved composition reserved for later steps (not implemented by this contract)
+## Implemented composition (Phase8.5b-i)
 
 - DOMAIN DogState owns only name/cell, exact3field wire{name,cell_x,cell_y}; configure,
   serialize/deserialize, guarded typed changes. Empty saved name means locale default;
@@ -52,7 +59,7 @@ Source Script references are immutable and shared; no runtime Nodes are copied.
 
 Each step records actual tests in PROGRESS; this contract alone is not completion.
 Existing scenes/Player/InputMap/assets/old tests stay outside scope except the exact
-approved save15 version patch at8.5g. No editor setup for DATA. Later runtime creates
+approved save15 version patch at8.5g. No editor setup for DATA. Runtime creates
 only the new approved scenes/components in code. Human F5/art/tone review is separate.
 After8.5h: open Bag→Character, compare dog name, edit with Vietnamese input, cancel,
 save/load/Continue, resize/locale/Back/Esc; compare all existing progress. After8.5i:
@@ -113,3 +120,19 @@ Manual: approved original contract above; no old scene/Inspector/InputMap edits.
 Import1 clean except inherited duplicate assetUID warnings. Focused1 before adding render-pose case:2scripts/4/4/27assert/1.963s PASS. Final native1:2scripts/5/5/40assert/2.581s PASS with3fresh rain/happy/normal PNGs archived, first visually inspected. Tests cover idle/local bounds/follow interruption, actual harvest/inventory receipt once, repeat/producer spoof ignored, rain once and expiry, pause pose/owner freeze, save/load/title clear without actor/node growth. Known legacy starter turnip uses existing visual fallback warning; no crop data/art changed. Old tests/goldens/20real saves protected; final full follows.
 
 Manual: approved original contract above; no old scene/Inspector/InputMap edits. New code composes only approved modules. Automated evidence in PROGRESS does not replace human F5/art/tone review.
+
+## Phase8.5j implemented boundary
+
+Step10/10 after8.5i pushed ab757756f9ba2c8b9a6c7d1bda7f37a478f427c4 with full942 and user-approved four sequential graphics groups,180s each. This step adds only tools/sim_dog.gd and three new test scripts, plus authorized documentation; runtime/Resources/save15/InputMap/old scenes and all prior tests/goldens remain unchanged.
+
+CLI uses actual DogConfig, DogState, DogNavigation and DogMovementService for1000 successful adjacent commits per trace, changes actual bounded obstacle contexts/targets, validates every route cell/edge and name, and separately counts19 explicit invalid-origin repairs (not disguised as adjacent movement). Three traces (single/group13/group17 with nativeJSON checkpoint500) and final state agree;59 navigation rebuilds, identical context repolls never rebuild. Original-project CLI positive exit0:1000steps/10.252s; negative unknown fixture exit1. Independent31-dependency current-source project has no autoload/view/core/world-node dependencies: import/CLI exit0, same1000steps/19repairs/59rebuilds/name and trace equality,9.948s measured. Timing is this CLI workload, no FPS/no-perf-impact promise.
+
+Import1 passes with inherited duplicate assetUID warnings. Initial focused1 was5/6 because the NEW test parsed engine banners as JSON; corrected new report-line extraction and nativeJSON numeric expectation, retaining every assertion and adding unique-report verification. Final focused2:3scripts/6/6/74assert/14.636s; final native1:3scripts/6/6/86assert/15.852s, no errors/leaks. Real native mouse/Enter traverses name, follow, title/Continue, cancel, new-game profile submission, land purchase, machine placement confirmation, coop purchase, night review/confirmation/autosave/morning dismissal. Actual golden14 and15 load/save/load preserve other owners and dog; one actor, restored view/nav, no moving route, no farm-click leak,50unchanged-context refreshes without rebuild. vi/en x1152/1280/1920 yields6fresh PNGs with verified dimensions; vi1152 and en1920 visually inspected. Legacy turnip visual fallback warnings remain inherited.
+
+Tool entry: pinned Godot --headless --path . --script res://tools/sim_dog.gd; success prints one JSON report with status,steps,adjacent_commits,repairs,rebuilds,name,cell_x/cell_y,grouped_match,json_match,elapsed_ms and exits0; unknown user arguments or failed checks exit1. This diagnostic trace/cache is never added to the game save. Human F5/art/tone/OS IME/FPS acceptance stays separate; no Inspector, scene tree or InputMap setup is required. Full launcher and SHA proofs follow.
+
+Manual: approved original contract above; no old scene/Inspector/InputMap edits. New code composes only approved modules. Automated evidence in PROGRESS does not replace human F5/art/tone review.
+
+## Phase8.5j final automated proof
+
+Full1 final launcher exit0:240scripts/948/948/99865assert; four sequential groups 140.385/98.237/99.243/121.706s, each<180. Parse/data/headless63/Main PASS. Complete native/source/old-test/real-save/commit proof is recorded in PROGRESS and batch delivery; human F5/art/IME/FPS is still required. This is automation delivery of the approved8.5a-j batch, not final human acceptance of roadmap8.5.

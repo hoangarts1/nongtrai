@@ -1,5 +1,17 @@
 # DECISIONS — THE LIFE
 
+## Phase8.5j approved implementation boundary (2026-11-19)
+
+Step10/10 after8.5i pushed ab757756f9ba2c8b9a6c7d1bda7f37a478f427c4 with full942 and user-approved four sequential graphics groups,180s each. This step adds only tools/sim_dog.gd and three new test scripts, plus authorized documentation; runtime/Resources/save15/InputMap/old scenes and all prior tests/goldens remain unchanged.
+
+CLI uses actual DogConfig, DogState, DogNavigation and DogMovementService for1000 successful adjacent commits per trace, changes actual bounded obstacle contexts/targets, validates every route cell/edge and name, and separately counts19 explicit invalid-origin repairs (not disguised as adjacent movement). Three traces (single/group13/group17 with nativeJSON checkpoint500) and final state agree;59 navigation rebuilds, identical context repolls never rebuild. Original-project CLI positive exit0:1000steps/10.252s; negative unknown fixture exit1. Independent31-dependency current-source project has no autoload/view/core/world-node dependencies: import/CLI exit0, same1000steps/19repairs/59rebuilds/name and trace equality,9.948s measured. Timing is this CLI workload, no FPS/no-perf-impact promise.
+
+Import1 passes with inherited duplicate assetUID warnings. Initial focused1 was5/6 because the NEW test parsed engine banners as JSON; corrected new report-line extraction and nativeJSON numeric expectation, retaining every assertion and adding unique-report verification. Final focused2:3scripts/6/6/74assert/14.636s; final native1:3scripts/6/6/86assert/15.852s, no errors/leaks. Real native mouse/Enter traverses name, follow, title/Continue, cancel, new-game profile submission, land purchase, machine placement confirmation, coop purchase, night review/confirmation/autosave/morning dismissal. Actual golden14 and15 load/save/load preserve other owners and dog; one actor, restored view/nav, no moving route, no farm-click leak,50unchanged-context refreshes without rebuild. vi/en x1152/1280/1920 yields6fresh PNGs with verified dimensions; vi1152 and en1920 visually inspected. Legacy turnip visual fallback warnings remain inherited.
+
+Tool entry: pinned Godot --headless --path . --script res://tools/sim_dog.gd; success prints one JSON report with status,steps,adjacent_commits,repairs,rebuilds,name,cell_x/cell_y,grouped_match,json_match,elapsed_ms and exits0; unknown user arguments or failed checks exit1. This diagnostic trace/cache is never added to the game save. Human F5/art/tone/OS IME/FPS acceptance stays separate; no Inspector, scene tree or InputMap setup is required. Full launcher and SHA proofs follow.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ## Phase8.5i approved runner amendment
 
 User-approved runner correction is applied: exact two-file patch, four sequential graphics groups, full coverage and unchanged180000ms per child. Real repository runner contract:279checks PASS. Full3 launcher exit0:237scripts/942/942/99779assert; groups122.076/131.580/95.773/108.048s. Parse/data/headless63/Main PASS. Source2589/prior499test-fixture files/20real saves verified; prior two3group timeouts retained as failed evidence, no assertion/test/image removal. Commit/push verification follows this successful run.
