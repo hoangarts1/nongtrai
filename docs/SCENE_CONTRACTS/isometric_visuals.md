@@ -1,5 +1,9 @@
 # Inherited D72 visuals and C1 completion (D73)
 
+## Phase7.5h reversible accent on existing ecology roots (D125)
+
+LifeEcologyCritter2D.set_director_accent reads validated captured RGBA and changes modulate only for existing butterflies; birds/absent/inactive reset Color.WHITE. Existing self_modulate alpha, world tint, geometry, phase, anchors, eligibility/count/14cap and public presentation snapshot shape stay. Effects refresh after completed lifecycle/day/toggle; existing ecological reconciliation handles current eligibility and retains root identity. No new critter/PNG/3D node or asset/import/old scene/Player change. Native vi/en three-size proof archived in PROGRESS; silhouettes remain provisional human art/F5 review.
+
 ## Phase7.4b provisional live silhouettes (D116)
 
 Two native VIEW scripts draw data-owned polygon bodies/flapping wings with small cosmetic offsets at actual owned grid-cell anchors under Objects. Max14 roots, no child/physics/input/globalRNG; stable key reuse and synchronous cleanup. Existing world lighting/camera/y-sort apply; profile night/rain opacity and pause freezes honor current presentation. Main lifecycle refresh and bounded context poll handle silent loads/land without extra simulation. Native12day/night-rain both-locale3size captures/read-only/nodecap tests in PROGRESS. Historical3D art retained, no PNG/scene replacement; human art/F5 acceptance separate.

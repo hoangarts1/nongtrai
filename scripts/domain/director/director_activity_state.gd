@@ -2,6 +2,8 @@
 ## API: configure(config,day,full_day=false)->bool; record(day,activity,quantity)->Dictionary;
 ## advance_day(next_day)->Dictionary; get_window_snapshot(); serialize(); deserialize(raw)->bool.
 ## signal activity_changed(day_index:int); is_busy()->bool.
+## record_many(day,counts)->Dictionary; mark_partial(day)->Dictionary;
+## begin_day(next_day)->Dictionary; finish_day(token)->Dictionary; abort_day(token)->bool.
 class_name DirectorActivityState
 extends RefCounted
 
@@ -9,9 +11,11 @@ signal activity_changed(day_index: int)
 var _config: DirectorActivityConfig
 var _snapshot: Dictionary = {}
 var _busy: bool = false
+var _day_token: RefCounted
+var _reserved_day: Dictionary = {}
 
 func configure(config: DirectorActivityConfig, day: int, full_day: bool = false) -> bool:
-	if _busy:
+	if is_busy():
 		return false
 	_busy = true
 	if config == null or not DirectorActivityCodec.valid_integer(day) or not config.validation_errors().is_empty():
@@ -26,29 +30,47 @@ func configure(config: DirectorActivityConfig, day: int, full_day: bool = false)
 	return true
 
 func record(day: int, activity: StringName, quantity: int) -> Dictionary:
-	if _busy:
+	return record_many(day, {String(activity): quantity})
+
+func record_many(day: int, counts: Dictionary) -> Dictionary:
+	if is_busy():
 		return _failure(&"busy")
 	if _config == null:
 		return _failure(&"unconfigured")
 	if day != int(_snapshot.current_day):
 		return _failure(&"wrong_day")
-	if not _config.activity_ids.has(String(activity)):
-		return _failure(&"unknown_activity")
-	if quantity <= 0 or quantity > DirectorActivityCodec.MAX_JSON_INTEGER - int(_snapshot.current_counts[String(activity)]):
-		return _failure(&"invalid_or_overflow_quantity")
+	for id: Variant in counts:
+		if not DirectorActivityConfig.valid_id(id) or not _config.activity_ids.has(String(id)):
+			return _failure(&"unknown_activity")
+		if not DirectorActivityCodec.valid_integer(counts[id]) or int(counts[id]) <= 0 or int(counts[id]) > DirectorActivityCodec.MAX_JSON_INTEGER - int(_snapshot.current_counts[String(id)]):
+			return _failure(&"invalid_or_overflow_quantity")
+	if counts.is_empty():
+		return {"ok": true, "reason": &"no_receipts"}
 	_busy = true
 	var candidate: Dictionary = serialize()
-	candidate.current_counts[String(activity)] += quantity
+	for id: Variant in counts:
+		candidate.current_counts[String(id)] += int(counts[id])
 	return _commit(candidate, &"recorded")
 
-func advance_day(next_day: int) -> Dictionary:
-	if _busy:
+func mark_partial(day: int) -> Dictionary:
+	if is_busy():
+		return _failure(&"busy")
+	if _config == null or day != int(_snapshot.current_day):
+		return _failure(&"wrong_day")
+	if not _snapshot.current_complete:
+		return {"ok": true, "reason": &"already_partial"}
+	_busy = true
+	var candidate: Dictionary = serialize()
+	candidate.current_complete = false
+	return _commit(candidate, &"partial")
+
+func begin_day(next_day: int) -> Dictionary:
+	if is_busy():
 		return _failure(&"busy")
 	if _config == null:
 		return _failure(&"unconfigured")
 	if int(_snapshot.current_day) >= DirectorActivityCodec.MAX_JSON_INTEGER or next_day != int(_snapshot.current_day) + 1:
 		return _failure(&"wrong_day")
-	_busy = true
 	var candidate: Dictionary = serialize()
 	candidate.completed_days.append({"day_index": int(candidate.current_day), "complete": candidate.current_complete, "counts": candidate.current_counts.duplicate()})
 	if candidate.completed_days.size() > _config.window_days:
@@ -56,7 +78,33 @@ func advance_day(next_day: int) -> Dictionary:
 	candidate.current_day = next_day
 	candidate.current_complete = true
 	candidate.current_counts = DirectorActivityCodec.empty_counts(_config)
-	return _commit(candidate, &"advanced")
+	var decoded: Dictionary = DirectorActivityCodec.decode(_config, candidate)
+	if not decoded.ok:
+		return _failure(&"invalid_or_overflow_snapshot")
+	_reserved_day = decoded.snapshot
+	_day_token = RefCounted.new()
+	return {"ok": true, "token": _day_token}
+
+func finish_day(token: RefCounted) -> Dictionary:
+	if token == null or token != _day_token or _busy:
+		return _failure(&"invalid_token")
+	_busy = true
+	var result: Dictionary = _commit(_reserved_day, &"advanced")
+	if result.ok:
+		_day_token = null
+		_reserved_day = {}
+	return result
+
+func abort_day(token: RefCounted) -> bool:
+	if token == null or token != _day_token or _busy:
+		return false
+	_day_token = null
+	_reserved_day = {}
+	return true
+
+func advance_day(next_day: int) -> Dictionary:
+	var reserved: Dictionary = begin_day(next_day)
+	return finish_day(reserved.token) if reserved.ok else reserved
 
 func _commit(candidate: Dictionary, reason: StringName) -> Dictionary:
 	var decoded: Dictionary = DirectorActivityCodec.decode(_config, candidate)
@@ -87,7 +135,7 @@ func serialize() -> Dictionary:
 	return _snapshot.duplicate(true)
 
 func deserialize(raw: Dictionary) -> bool:
-	if _busy:
+	if is_busy():
 		return false
 	_busy = true
 	var decoded: Dictionary = DirectorActivityCodec.decode(_config, raw)
@@ -99,7 +147,7 @@ func deserialize(raw: Dictionary) -> bool:
 	return true
 
 func is_busy() -> bool:
-	return _busy
+	return _busy or _day_token != null
 
 func _failure(reason: StringName) -> Dictionary:
 	return {"ok": false, "reason": reason}

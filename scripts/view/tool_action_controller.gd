@@ -5,6 +5,12 @@ extends Node
 const TOOL_DRAG_STROKE: Script = preload("res://scripts/view/tool_drag_stroke.gd")
 
 var _watering: WateringRuntime
+var _director: LifeDirectorActivityCollector
+var _receipts: Dictionary = {}
+var _proven_receipt: bool = true
+
+func configure_director(collector: LifeDirectorActivityCollector) -> void:
+	_director = collector
 
 func configure_watering(runtime: WateringRuntime) -> void:
 	_watering = runtime
@@ -172,25 +178,38 @@ func _apply_drag_cell(cell: Vector2i) -> bool:
 	return true
 
 func _use_selected_tool() -> void:
+	if _selected_tool == &"water" or _director == null:
+		_apply_selected_tool(_selected_tool, _hovered_cell)
+		return
+	var receipt: Dictionary = _director.begin_command(&"tool")
+	if not receipt.ok:
+		return
+	_receipts = {}
+	_proven_receipt = true
+	_apply_selected_tool(_selected_tool, _hovered_cell)
+	_director.finish_command(receipt.token, _receipts, _proven_receipt)
+	_receipts = {}
+
+func _apply_selected_tool(action: StringName, cell: Vector2i) -> void:
 	if _placement_request!=null:
-		var permission: Dictionary = _placement_request.can_use_farm_tool(_hovered_cell,_selected_tool)
+		var permission: Dictionary = _placement_request.can_use_farm_tool(cell,action)
 		if not bool(permission.ok):
 			_show_feedback("LAND_LOCKED" if permission.reason==&"land_locked" else "PLC_MACHINE_CELL")
 			return
-	if _selected_tool == &"harvest":
-		_harvest_selected_crop()
+	if action == &"harvest":
+		_apply_harvest_at(cell)
 		return
-	if _selected_tool == &"water":
+	if action == &"water":
 		if _watering==null:
 			_show_feedback("UI_FEEDBACK_NOT_READY")
 			return
-		var result: Dictionary = _watering.water(_hovered_cell)
+		var result: Dictionary = _watering.water(cell)
 		if bool(result.ok):
 			_play_character_tool(&"water")
 			_play_sound(&"water")
 			_play_farm_effect(&"water")
 		return
-	if _selected_tool == &"seed":
+	if action == &"seed":
 		var seed_item_id: StringName = &""
 		var crop_id: StringName = &""
 		if _hotbar_panel != null:
@@ -227,25 +246,33 @@ func _use_selected_tool() -> void:
 		if not crop_seasons.is_empty() and not crop_seasons.has(String(GameClock.season)):
 			_show_feedback("UI_FEEDBACK_OUT_OF_SEASON")
 			return
-		if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, crop_id):
+		if not ToolAction.apply(action, _farm_state, cell, crop_id):
 			_show_feedback("UI_FEEDBACK_NOT_READY")
 			return
-		_inventory.remove_item(seed_item_id, 1)
+		if _inventory.remove_item(seed_item_id, 1):
+			_receipts["crop_planted"] = 1
+		else:
+			_proven_receipt = false
 		_play_character_tool(&"seed")
 		_play_sound(&"seed")
 		_play_farm_effect(&"seed")
 		return
-	if not ToolAction.apply(_selected_tool, _farm_state, _hovered_cell, &""):
+	if not ToolAction.apply(action, _farm_state, cell, &""):
 		_show_feedback("UI_FEEDBACK_NOT_READY")
 	else:
-		_play_character_tool(_selected_tool)
-		_play_sound(&"hoe" if _selected_tool == &"hoe" else &"water")
-		_play_farm_effect(_selected_tool)
+		if action == &"hoe":
+			_receipts["plot_tilled"] = 1
+		_play_character_tool(action)
+		_play_sound(&"hoe" if action == &"hoe" else &"water")
+		_play_farm_effect(action)
 
 func _harvest_selected_crop() -> void:
-	var payload: Dictionary = _farm_state.get_harvest_payload(_hovered_cell)
+	_apply_harvest_at(_hovered_cell)
+
+func _apply_harvest_at(cell: Vector2i) -> void:
+	var payload: Dictionary = _farm_state.get_harvest_payload(cell)
 	if not bool(payload.get("success", false)):
-		var remaining_days: int = _farm_state.get_growth_remaining(_hovered_cell)
+		var remaining_days: int = _farm_state.get_growth_remaining(cell)
 		if remaining_days > 0:
 			_show_feedback("UI_FEEDBACK_NOT_READY_DAYS", remaining_days)
 		else:
@@ -256,13 +283,17 @@ func _harvest_selected_crop() -> void:
 	if not _inventory.can_add_item(product_item, quantity):
 		_show_feedback("UI_FEEDBACK_INVENTORY_FULL")
 		return
-	var result: Dictionary = _farm_state.harvest_cell(_hovered_cell)
+	var result: Dictionary = _farm_state.harvest_cell(cell)
 	if bool(result.get("success", false)):
-		_inventory.add_item(product_item, quantity)
+		var added: int = _inventory.add_item(product_item, quantity)
+		if added == quantity:
+			_receipts["crop_harvested"] = quantity
+		else:
+			_proven_receipt = false
 		_play_character_tool(&"harvest")
 		_play_sound(&"harvest")
 		_play_farm_effect(&"harvest")
-	elif _farm_state.get_plot(_hovered_cell).is_empty():
+	elif _farm_state.get_plot(cell).is_empty():
 		_show_feedback("UI_FEEDBACK_NOT_READY")
 
 func _show_feedback(key: StringName, format_value: int = -1) -> void:

@@ -113,8 +113,10 @@ func _apply_lighting() -> void:
 	var opacity: float = _profile.night_opacity if float(lighting.get("sun_energy", 0.0)) <= _profile.night_sun_energy else 1.0
 	if bool(_main.weather_state.call("is_rainy")):
 		opacity *= _profile.rain_opacity
+	var accent: Array = _main.director_runtime.get_projection().accent if _main.director_runtime != null else []
 	for critter: LifeEcologyCritter2D in _critters.values():
 		critter.self_modulate.a = opacity
+		critter.set_director_accent(accent)
 
 func _remove(key: String) -> void:
 	var critter: LifeEcologyCritter2D = _critters[key] as LifeEcologyCritter2D

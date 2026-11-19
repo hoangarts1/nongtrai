@@ -1,5 +1,9 @@
 # gray_box_world.tscn — ISO-1 implemented and historical C4 contract
 
+## Phase7.5h nonvisual Director composition (D125)
+
+Main adds six named nonvisual application children and two pure owners (director.md). Existing world/Player/Camera2D/grid/markers/physics/input/scene tree unchanged. Main's one morning callback reserves activity/Director with weather/ecology, keeps farm->coop->machines->ecology, commits forecast/rain, closes observations/chooses once before ledger/autosave/bulletin. Existing Objects ecology roots get reversible modulate only, no new actor/stock/teleport/asset. Manual: debug preview after next step, perform actual actions then sleep/review, inspect saved current-day history; load/Continue alone cannot simulate. All human F5 separate.
+
 ## Phase7.4b cosmetic ecology roots (D116)
 
 Existing Objects:Node2D gains dynamic childless LifeEcologyCritter2D instances owned by Main.ecology_effects_flow. No scene/grid/Player/camera/collider/ground/input change. Owned cell metadata and shared world.grid.cell_to_global -> Objects.to_local projection; default max8butterflies+6birds. Same world tint/y-sort follows camera automatically; no input hit area. Flow handles stable reconciliation/title/load/reset/free/pause; APIs/manual checks in ecology.md. No Inspector setup and no saved nodes.

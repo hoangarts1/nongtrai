@@ -77,10 +77,10 @@ func talk(npc_id: StringName, day: int, season: StringName) -> DialogueData:
 	changed.emit()
 	return line
 
-func update_schedule(day: int, minute: int, season: StringName, rainy: bool) -> void:
+func update_schedule(day: int, minute: int, season: StringName, rainy: bool, extra_visit: Dictionary = {}) -> void:
 	for resource: Resource in content.npcs:
 		var npc: NpcData = resource as NpcData
-		var target: StringName = scheduler.destination(npc, day, minute, season, rainy)
+		var target: StringName = scheduler.destination(npc, day, minute, season, rainy, extra_visit)
 		if targets.get(npc.npc_id, &"") == target:
 			continue
 		targets[npc.npc_id] = target

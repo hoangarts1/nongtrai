@@ -23,6 +23,15 @@ func advance(delta: float) -> void:
 func get_phase() -> Vector2:
 	return Vector2(_phase, _flap)
 
+func set_director_accent(accent: Array) -> void:
+	modulate = Color.WHITE
+	if _definition.get("id") != "butterflies" or accent.size() != 4:
+		return
+	for value: Variant in accent:
+		if not EcologyMetricData.number(value) or float(value) < 0.0 or float(value) > 1.0:
+			return
+	modulate = Color(float(accent[0]), float(accent[1]), float(accent[2]), float(accent[3]))
+
 func _draw() -> void:
 	if _definition.is_empty():
 		return

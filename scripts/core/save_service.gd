@@ -15,9 +15,13 @@
 ##   func migrate_10_to_11(data: Dictionary) -> Dictionary
 ##   func migrate_11_to_12(data: Dictionary) -> Dictionary
 ##   func migrate_12_to_13(data: Dictionary) -> Dictionary
+##   func migrate_13_to_14(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 13
+const CURRENT_VERSION: int = 14
+const DIRECTOR_INTRODUCED_VERSION: int = 14
+const DIRECTOR_PROFILE: DirectorProfile = preload("res://data/director_profile.tres")
+const DIRECTOR_ACTIVITY: DirectorActivityConfig = preload("res://data/director_activity_config.tres")
 const ECOLOGY_PROFILE: EcologyProfile = preload("res://data/ecology_profile.tres")
 const ECOLOGY_SAMPLING: EcologySamplingConfig = preload("res://data/ecology_sampling_config.tres")
 const ECOLOGY_LAND: LandExpansionConfig = preload("res://data/land_expansion_config.tres")
@@ -43,6 +47,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if not ecology.ok:
 		_last_write_report = {"ok": false, "error": &"invalid_ecology_context", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
 		return false
+	var director: Dictionary = _normalize_director(payload, false)
+	if not director.ok:
+		_last_write_report = {"ok": false, "error": &"invalid_director_context", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
+		return false
 	var wrapped: Dictionary = {
 		"meta": {
 			"save_version": CURRENT_VERSION,
@@ -61,6 +69,8 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"chicken_coop": payload.get("chicken_coop", ChickenCoopSaveCodec.empty(_coop_day(payload))),
 		"farm": payload.get("farm", {}),
 		"ecology": ecology.snapshot,
+		"director_activity": director.director_activity,
+		"director": director.director,
 		"quests": payload.get("quests", {}),
 		"profile": payload.get("profile", {}),
 		"weather": WeatherSaveCodec.pack(WEATHER_CONFIG,payload.get("weather",{}),_coop_day(payload)),
@@ -183,6 +193,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_11_to_12(migrated)
 	if version<=12:
 		migrated = migrate_12_to_13(migrated)
+	if version<=13:
+		migrated = migrate_13_to_14(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -207,6 +219,9 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	migrated["weather"] = WeatherSaveCodec.normalize(WEATHER_CONFIG,migrated.get("weather",{}),_coop_day(migrated))
 	var ecology: Dictionary = _normalize_ecology(migrated, migrated.get("ecology"))
 	migrated["ecology"] = ecology.snapshot if ecology.ok else {}
+	var director: Dictionary = _normalize_director(migrated, false)
+	migrated["director_activity"] = director.director_activity if director.ok else {}
+	migrated["director"] = director.director if director.ok else {}
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -307,4 +322,20 @@ func _normalize_ecology(payload: Dictionary, raw: Variant) -> Dictionary:
 		push_warning("SaveService: invalid ecology context; explicit runtime fallback required")
 	elif raw != null and result.reason != &"restored":
 		push_warning("SaveService: ecology " + String(result.reason))
+	return result
+
+func migrate_13_to_14(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var pair: Dictionary = _normalize_director(migrated, true)
+	migrated["director_activity"] = pair.director_activity if pair.ok else {}
+	migrated["director"] = pair.director if pair.ok else {}
+	return migrated
+
+func _normalize_director(payload: Dictionary, legacy: bool) -> Dictionary:
+	var context: Dictionary = DirectorSaveContext.capture(DIRECTOR_PROFILE, payload, DataRegistry.get_all_crops())
+	if not context.ok:
+		return {"ok": false, "reason": &"invalid_director_context"}
+	var result: Dictionary = DirectorSaveCodec.normalize(DIRECTOR_PROFILE, DIRECTOR_ACTIVITY, payload.get("director_activity"), payload.get("director"), context, legacy)
+	if result.ok and result.used_fallback and not legacy and (payload.has("director_activity") or payload.has("director")):
+		push_warning("SaveService: Director " + String(result.reason))
 	return result

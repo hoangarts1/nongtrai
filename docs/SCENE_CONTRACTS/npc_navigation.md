@@ -1,5 +1,9 @@
 # NPC derived coop obstacle contract
 
+## Phase7.5h optional extra market visit (D125)
+
+NpcSchedule.destination and NpcSocialState.update_schedule add optional default-empty extra_visit:Dictionary; original five/four arguments remain valid. LifeDirectorNpcBridge supplies only known current-day{day_index,npc_id,location_id}, actual minh/minh_market. It ignores weekday only for that existing entry while retaining applies_to seasons/minutes and original rain/night-first home rule. NpcSystem.refresh_director_schedule reuses current cells/routes; no actor reset/teleport, new destination/stock/price or scene edit. Original proximity/dialogue context and once-per-day MerchantService unchanged. Successful original trade command records captured actual offer quantity/kind; direct programmatic/debug grants do not count.
+
 ## AUDIT-F16 modular dialogue integration (D102)
 
 NpcSystem.configure calls dialogue.enable_dialogue(main,self) for existing Main/NpcDialogue only; actors/homes/schedules/quest-book are unchanged. Existing E opens nearby NPC, GUI Tab/Enter/Space and mouse activate real controls, Esc closes. Root's public column/title_label/close_button alias actual choices/name/stable Close; AcceptQuest/DeliverQuest/ConfirmOffer IDs retain old consumer paths. Main/NpcJournal keeps its book branch and standalone NpcPanel.show_content still works. No editor tree/Inspector/InputMap changes.

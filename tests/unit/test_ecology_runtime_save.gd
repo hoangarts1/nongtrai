@@ -27,12 +27,12 @@ func _saved(day: int) -> Dictionary:
 
 func test_all_thirteen_goldens_migrate_and_restore_ecology_without_other_progress_loss() -> void:
 	var owner: EcologyState = _main.ecology_state
-	for version: int in range(1, 14):
+	for version: int in range(1, 15):
 		var raw: Dictionary = _golden(version)
 		var before: Dictionary = raw.duplicate(true)
 		_write(raw)
 		var loaded: Dictionary = SaveService.load_game(98)
-		assert_eq(int(loaded.meta.save_version), 13)
+		assert_eq(int(loaded.meta.save_version), 14)
 		assert_eq(int(loaded.ecology.day_index), int(loaded.clock.day_index))
 		assert_eq(loaded.inventory.slots, raw.inventory.slots)
 		assert_eq(loaded.clock, raw.clock)

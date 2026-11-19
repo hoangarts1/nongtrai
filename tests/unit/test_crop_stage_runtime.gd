@@ -100,7 +100,7 @@ func test_save_twelve_restores_mid_repeat_and_every_existing_owner_without_advan
 	var others: Dictionary = _wire(_other_owners())
 	assert_true(_main.call("_save_game_to_slot", 17))
 	var payload: Dictionary = SaveService.load_game(17)
-	assert_eq(int(payload.meta.save_version), 13)
+	assert_eq(int(payload.meta.save_version), 14)
 	_main.farm_state.reset()
 	_main.inventory.clear()
 	_main.call("_load_payload", payload)

@@ -240,7 +240,19 @@ func _deliver(id: StringName) -> void:
 
 func _trade() -> void:
 	var available: bool = state.targets.get(&"minh") == &"minh_market" and not state.is_indoors(&"minh")
+	var offer: MerchantOfferData = state.merchant.get_offer(GameClock.day_index, GameClock.season)
+	var quantity: int = offer.quantity if offer != null else 0
+	var kind: StringName = StringName(offer.kind) if offer != null else &""
+	var receipt: Dictionary = _main.director_activity_collector.begin_command(&"minh") if _main.director_activity_collector != null else {"ok": true}
+	if not receipt.ok:
+		return
 	var success: bool = state.merchant.confirm_trade(GameClock.day_index, GameClock.season, available, _main.inventory, _main.wallet)
+	if _main.director_activity_collector != null:
+		var proven: bool = offer == null or (offer.quantity == quantity and StringName(offer.kind) == kind)
+		var counts: Dictionary = {}
+		if success and quantity > 0:
+			counts["item_purchased" if kind == &"discount" else "item_sold"] = quantity
+		_main.director_activity_collector.finish_command(receipt.token, counts, proven)
 	_main.feedback.show_message(tr("UI_NPC_TRADE_DONE" if success else "UI_NPC_TRADE_BLOCKED"))
 	_state_changed()
 	_render_dialogue()
@@ -253,9 +265,13 @@ func _weather_changed(_id: StringName) -> void:
 
 func _refresh_schedule() -> void:
 	if _main != null:
-		state.update_schedule(GameClock.day_index, GameClock.minute, GameClock.season, bool(_main.weather_state.call("is_rainy")))
+		var extra: Dictionary = _main.director_npc_bridge.override() if _main.director_npc_bridge != null else {}
+		state.update_schedule(GameClock.day_index, GameClock.minute, GameClock.season, bool(_main.weather_state.call("is_rainy")), extra)
 		if dialogue != null and dialogue.dialogue_controller != null:
 			dialogue.dialogue_controller.queue_render()
+
+func refresh_director_schedule() -> void:
+	_refresh_schedule()
 
 func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
 	state.scheduler.set_dynamic_obstacles(regions)

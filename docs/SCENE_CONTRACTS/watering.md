@@ -1,5 +1,9 @@
 # Phase6.5h2b runtime watering contract (owner approved)
 
+## Phase7.5h current Director modifier (D125)
+
+Existing WateringRuntime applies fresh LifeDirectorWaterBridge terms before every actual manual command, then holds water/source receipt guard through can/farm callbacks and activity record. set_director_terms(terms)->bool,get_charge_cost()->int; old APIs stay. Default DATAcost1, active saved dust total2 only for actual active day without rain/current measured canopy exemption. Insufficient positive water fails before farm; existing well/stream/pond E remains immediate refill. Rain/bulk/day/debug never creates manual receipts or consumes extra can/stamina. No source/HUD/scene/input/Player edit yet; expanded cost text follows approved7.5j. Save14 preserves same can2field wire; modifier derived from Director owner only.
+
 ## D83 save-version independence
 WateringRuntime.restore recognizes watering data from WATERING_INTRODUCED_VERSION10, independent of current savev11. Existing valid partial/empty40-tier stock survives v10; olderv1-v9 grant existing initial20 as before. No watering scene/price/source/input/state change.
 

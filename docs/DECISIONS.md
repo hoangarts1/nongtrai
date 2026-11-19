@@ -1,5 +1,13 @@
 # DECISIONS — THE LIFE
 
+### D125 - actual command receipts and completed-morning save14 (2026-11-19)
+
+Approved7.5h integrates both pure owners through small Main adapters and existing single day handler. Attribute human activities at explicit successful source boundaries, not global notifications that also describe rain/debug/load. Hold command lock through callbacks and record_many; actual quantities, partial coverage if proof lost. Keep public old tool/water/shop/scheduler calls compatible. UI feed purchase reuses original domain shop with copied original runtime entry checks and runtime busy, so its receipt lock does not self-block the existing public execute guard. Raw programmatic/debug routes are not human observations.
+
+Reserve outgoing activity/Director before farm callbacks, commit after existing complete world/forecast and before ledger/autosave/bulletin. Source quotes/normal lifecycle cannot interleave. No second listener, catch-up or fake story flag. Debug intent remains stored independently from effective OS-bound authorization; release gets no effects. If raw debug calendar is unavailable at finished optional selection, explicitly turn events off without replaying core day. Effects use current measured counters and captured terms, preserve finite stock/routes/cells/14critter identity/phase/opacity. No extra stamina/yield/money, no asset/oldscene/InputMap/Player edits.
+
+Save14 introduces only paired activity/director fields; legacy/corrupt baseline is current-day partial/off, no inferred history. Apply exactly owner-approved39line/33file version compatibility patch; no other old assertion/test/fixture changes. Golden14 is actual SaveService write/read of migrated repository13, not human data. Native and headless evidence separated; human tone/art/F5 and actual release-export remain pending.
+
 ### D124 - paired persistence without inventing observed history (2026-11-19)
 
 Approved7.5g libraries validate actual saved day/catalogue/calendar/weather/ecology/owned land using existing pure boundaries. Preserve already saved weather even if seed algorithm differs; unavailable weather remains unavailable, no forecast generation. Calendar mismatch is recorded rather than silently fixing core clock. Valid current pair restores coverage/captured decisions/terms/force/counters/RNG exactly without reroll or notification. Corrupt/missing/misaligned pair resets together to explicit current-day partial/off baseline; do not let one surviving component imply complete observation provenance. Legacy ignores unknown future components. Prepare all candidates before replacing either owner, respect both busy flags and keep unrelated progress. No live runtime/root schema/version change until7.5h.

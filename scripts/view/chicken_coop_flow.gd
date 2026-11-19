@@ -49,8 +49,28 @@ func command(action: StringName, quantity: int) -> void:
 	if current.price!=model.price or current.feed_price!=model.feed_price or current.hens!=model.hens:
 		result = {"ok":false,"reason":&"stale_quantity"}
 	else:
-		result = _main.chicken_coop_runtime.execute(action,quantity)
+		result = _buy_feed_with_receipt(quantity) if action == &"buy_feed" else _main.chicken_coop_runtime.execute(action,quantity)
 	refresh()
+
+func _buy_feed_with_receipt(quantity: int) -> Dictionary:
+	var runtime: ChickenCoopRuntime = _main.chicken_coop_runtime
+	var config: ChickenCoopSiteConfig = ChickenCoopRuntime.CONFIG
+	var near: bool = GrayBoxWorld.is_player_near_interactable(Vector2(_main.world.get_player_cell()), Vector2(config.entrance), _main.world.CONFIG.interaction_reach)
+	if bool(_main.call("_purchase_in_progress")) or not bool(_main.get("_game_started")) or not near or GameClock.is_sleeping() or _main.ui_coordinator.get_active_panel() != panel:
+		return ChickenCoopPurchaseRules.failure(&"invalid_context")
+	var receipt: Dictionary = _main.director_activity_collector.begin_command(&"chicken_feed")
+	if not receipt.ok:
+		return ChickenCoopPurchaseRules.failure(&"invalid_context")
+	# Reuse the exact existing shop command under the same runtime lock. Its public
+	# execute() preflight rejects the collector lock, so this UI adapter owns entry.
+	runtime.busy = true
+	var purchased: Dictionary = runtime.shop.purchase(&"buy_feed", quantity, runtime.occupied_cells)
+	runtime.busy = false
+	runtime.refresh_site()
+	_main.call("_mark_save_dirty")
+	runtime.changed.emit()
+	_main.director_activity_collector.finish_command(receipt.token, {"item_purchased": int(purchased.quantity)} if purchased.ok else {}, purchased.reason != &"settlement_failed")
+	return purchased
 
 func _queue_refresh() -> void:
 	if not _queued and panel.visible:

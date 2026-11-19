@@ -1,5 +1,13 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5h runtime integration / sole daily path (D125)
+
+DATA Resources -> pure activity/Director states and codecs -> Main-owned small application adapters -> existing water/NPC/ecology views. Main remains world owner; no autoload/global event/new simulation path. Runtime/source/day/lifecycle flags and cached projection are transient. Source receipt guards span actual command callbacks and domain observation publication; actor/world state is never inferred from global producer signals. Unknown attribution cannot claim full coverage.
+
+Main reserves weather/ecology/activity/Director before existing farm -> coop -> machines -> ecology sequence, keeps one-argument farm injection, commits forecast/new rain, seals activity and chooses Director from complete aligned owners, then reconciles ledger, refreshes derived effects, saves and queues bulletin. Day/owner tokens reject reentry/duplicates/skips. UI-only queued force waits for next completed day; production story gate absent and OS-bound debug only. Lifecycle preflight all candidates, mutate existing stable owners silently inside lock, apply effects after safe completion.
+
+WateringCanState/merchant inventory/ecology owners remain authoritative. Current-day projection changes only manual can cost (rain/bulk unchanged), existing market weekday availability at original hours/rain/night/routes, or existing butterfly color under max14. No teleports/new stock/actors/gameplay colors saved outside captured terms. Save14 adds two domain root components; view trees/tokens/modifiers/caches not saved. Old thirteen fixtures and all non-approved test bytes protected; real save families read-only.
+
 ## Phase7.5g pure paired lifecycle boundary (D124)
 
 Actual Resource catalogue + saved payload -> DirectorSaveContext (existing farm/land/ecology/weather validation) -> DirectorSaveCodec complete paired candidate -> DirectorLifecycle silent same-identity owners. Components remain sole activity/Director states; context/libraries own none and subscribe to no clock/global event. Any bad pair uses explicit actual-day baseline, never simulation backfill, notifications/rewards or fictitious M2.4 unlock. Raw other owners untouched. Weather/calendars supply validation/availability only, not rerolls. Current SaveService/Main13 remain unchanged; approved next h performs sole game integration/version14.

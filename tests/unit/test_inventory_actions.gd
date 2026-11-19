@@ -57,7 +57,7 @@ func test_all_old_migrations_and_v6_round_trip_preserve_contents() -> void:
 	for version: int in range(1,6):
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v%d.json" % version))
 		var migrated: Dictionary = SaveService._migrate(original,version)
-		assert_eq(int(migrated["meta"]["save_version"]),13)
+		assert_eq(int(migrated["meta"]["save_version"]),14)
 		assert_eq(migrated["inventory"]["slots"],original["inventory"]["slots"])
 		assert_gte(int(migrated["inventory"]["capacity"]),40)
 		if version==5:

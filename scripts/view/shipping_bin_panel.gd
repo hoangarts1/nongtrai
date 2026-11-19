@@ -15,6 +15,10 @@ var _inventory: InventoryState
 var _wallet: WalletState
 var _player: Player
 var _feedback: Node
+var _director: LifeDirectorActivityCollector
+
+func configure_director(collector: LifeDirectorActivityCollector) -> void:
+	_director = collector
 
 var _list_container: VBoxContainer
 var _detail_box: VBoxContainer
@@ -281,13 +285,22 @@ func _confirm_sale() -> void:
 	var unit_price: int = int(item_data.get("sell_price"))
 	var total_price: int = unit_price * _selected_quantity
 	
-	if _inventory.remove_item(_selected_item_id, _selected_quantity):
+	var item_id: StringName = _selected_item_id
+	var quantity: int = _selected_quantity
+	var receipt: Dictionary = _director.begin_command(&"shipping_bin") if _director != null else {"ok": true}
+	if not receipt.ok:
+		return
+	if _inventory.remove_item(item_id, quantity):
 		_wallet.add_coins(total_price, &"sell_produce")
-		item_sold.emit(_selected_item_id, _selected_quantity, total_price)
-		Events.item_sold.emit(_selected_item_id, _selected_quantity, total_price)
-		Events.item_delivered.emit(_selected_item_id, _selected_quantity, &"shipping_bin")
+		item_sold.emit(item_id, quantity, total_price)
+		Events.item_sold.emit(item_id, quantity, total_price)
+		Events.item_delivered.emit(item_id, quantity, &"shipping_bin")
 		if _feedback != null:
 			_feedback.call("show_message", tr("UI_FEEDBACK_SOLD") % total_price)
 		_selected_item_id = &""
 		_selected_quantity = 1
 		_render()
+		if _director != null:
+			_director.finish_command(receipt.token, {"item_sold": quantity})
+	elif _director != null:
+		_director.finish_command(receipt.token, {})

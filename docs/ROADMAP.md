@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5h automation delivered (2026-11-19)
+
+Full3 original launcher exit0: 207scripts/875/875/98214assert; groups144.706/104.336/147.262s<180, GUT396.304s/wall414.206s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2479, prior test/fixture verification429, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5h-101444/full-attempt3. No skip/weakening/timeout extension.
+
+Step7/10 runtime receipts/single daily path/reversible actual effects/save14 implemented. Headless16/16/423assert, final native24/24/1007assert (6old+18new) with6fresh captures, old compatibility25/25/6836assert PASS; production inactive-clock/backend-Fx compatibility regressions fixed, all old tests unchanged except exact version patch; exact39line/33file version patch and real-codec golden14 only. Full875/875 PASS. Director defaultoff/debug preview only, no M2.4 story invented; existing Player/art/InputMap retained. Human F5/tone/art separate.
+
 ## Phase7.5g automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 203scripts/857/857/97703assert; groups115.221/142.081/123.077s<180, GUT380.379s/wall397.645s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2468, prior test/fixture verification423, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5g-095946/full-attempt1. No skip/weakening/timeout extension.

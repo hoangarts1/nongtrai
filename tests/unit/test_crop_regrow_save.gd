@@ -18,7 +18,7 @@ func test_v1_through_v7_preserve_original_fields_and_historical_targets() -> voi
 	for version: int in range(1,8):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),13)
+		assert_eq(int(loaded["meta"]["save_version"]),14)
 		for key: String in original:
 			if key not in ["meta","inventory","farm"]:
 				var expected: Variant = original[key]

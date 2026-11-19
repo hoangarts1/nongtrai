@@ -17,6 +17,10 @@ var _inventory: InventoryState
 var _wallet: WalletState
 var _player: Player
 var _feedback: Node
+var _director: LifeDirectorActivityCollector
+
+func configure_director(collector: LifeDirectorActivityCollector) -> void:
+	_director = collector
 
 var _list_container: VBoxContainer
 var _detail_box: VBoxContainer
@@ -344,6 +348,9 @@ func try_buy_item(item_id: StringName, quantity: int) -> bool:
 		return false
 	
 	# Atomic transaction:
+	var receipt: Dictionary = _director.begin_command(&"seed_shop") if _director != null else {"ok": true}
+	if not receipt.ok:
+		return false
 	if _wallet.remove_coins(total_price, &"buy_seed"):
 		var added: int = _inventory.add_item(item_id, quantity)
 		if added < quantity:
@@ -355,5 +362,9 @@ func try_buy_item(item_id: StringName, quantity: int) -> bool:
 		if _feedback != null:
 			_feedback.call("show_message", tr("UI_FEEDBACK_BOUGHT") % [tr(String(item_data.get("display_name_key"))), quantity, total_price])
 		_render()
+		if _director != null:
+			_director.finish_command(receipt.token, {"item_purchased": added} if added > 0 and added <= quantity else {}, added >= 0 and added <= quantity)
 		return true
+	if _director != null:
+		_director.finish_command(receipt.token, {})
 	return false

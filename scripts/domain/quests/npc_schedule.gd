@@ -28,10 +28,15 @@ func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
 	if content!=null:
 		configure(content)
 
-func destination(npc: NpcData, day: int, minute: int, season: StringName, rainy: bool) -> StringName:
+func destination(npc: NpcData, day: int, minute: int, season: StringName, rainy: bool, extra_visit: Dictionary = {}) -> StringName:
 	var light: Dictionary = content.day_night_profile.sample(minute)
 	if rainy or float(light.get("moon_energy", 0.0)) >= content.night_moon_energy:
 		return npc.home_location
+	if extra_visit.size() == 3 and (extra_visit.get("npc_id") is String or extra_visit.get("npc_id") is StringName) and (extra_visit.get("location_id") is String or extra_visit.get("location_id") is StringName) and DirectorActivityCodec.valid_integer(extra_visit.get("day_index")) and int(extra_visit.day_index) == day and String(extra_visit.npc_id) == String(npc.npc_id) and npc.is_merchant and content.locations.has_location(StringName(extra_visit.location_id)):
+		for resource: Resource in npc.schedule:
+			var entry: NpcScheduleEntry = resource as NpcScheduleEntry
+			if entry != null and entry.location_id == StringName(extra_visit.location_id) and entry.applies_to(season, minute):
+				return entry.location_id
 	var weekday: int = posmod(day, content.days_per_week) + 1
 	for resource: Resource in npc.schedule:
 		var entry: NpcScheduleEntry = resource as NpcScheduleEntry

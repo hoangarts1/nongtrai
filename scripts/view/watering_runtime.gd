@@ -38,14 +38,27 @@ func water(cell: Vector2i) -> Dictionary:
 	if not bool(permission.ok):
 		_feedback("LAND_LOCKED" if permission.reason==&"land_locked" else "PLC_MACHINE_CELL")
 		return permission
+	if _main.director_water_bridge != null and not _main.director_water_bridge.apply():
+		return _failure(&"invalid_modifier")
+	var receipt: Dictionary = _main.director_activity_collector.begin_command(&"water") if _main.director_activity_collector != null else {"ok": true}
+	if not receipt.ok:
+		return _failure(&"input_locked")
 	busy = true
 	var result: Dictionary = _water.water(cell)
+	if _main.director_activity_collector != null:
+		_main.director_activity_collector.finish_command(receipt.token, {"plot_watered": 1} if result.ok else {})
 	busy = false
 	if bool(result.ok):
 		refresh()
 	else:
 		_feedback("WATER_CAN_EMPTY" if result.reason==&"water_empty" else "UI_FEEDBACK_NOT_READY")
 	return result
+
+func set_director_terms(terms: Dictionary) -> bool:
+	return _water.set_effect_terms(terms)
+
+func get_charge_cost() -> int:
+	return _water.get_charge_cost()
 
 func can_refill() -> Dictionary:
 	if not _available() or _main.tool_controller.get_selected_tool()!=&"water":

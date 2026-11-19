@@ -1,5 +1,11 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5h game save14 (D125)
+
+CURRENT_VERSION14, introduction threshold14 independent of future versions. New roots exactly director_activity (unchanged5field D118wire) and director (unchanged13field D122wire). Valid current matching-day pair preserves coverage/terms/history/target-season counters/cooldown/pity/queued force/canonical signed-int64 RNG text, never rerolls. Migrate1..13 adds actual saved-day partial/off empty-history baseline; unknown old future fields ignored. Corrupt/missing/misaligned current pair resets together with warning, other progress unchanged. New game actual initial morning is fully observed; legacy first day partial. SaveService generated save_v14.json via real write/read from migrated repository save_v13, no actual player data.
+
+Stateful domain wires otherwise unchanged: can remains{capacity,charges}, weather4fields, ecology3fields, coop/land/jobs/social/profile/player/ledger preserved. Optional scheduler hint exactly{day_index,npc_id,location_id}; transient known merchant/day only, never persisted. Activity record_many adds no fields, all-or-nothing known exact positive quantities; mark_partial only current coverage. Day/source/lifecycle reservations, six Nodes/cached projections and critter modulate are not JSON state. Only attached39rows/33files expectation patch allowed in oldtests; historical13 inputs retained and golden loops explicitly extended where approved.
+
 ## Phase7.5g future paired component normalization (D124)
 
 Standalone owner wire unchanged: director_activity D1185fields, director D12213fields. DirectorSaveCodec outputs exactly validated detached owner wires plus transient{ok,reason,used_fallback}. Current matching-day input preserves complete/partial coverage, pending/active captured terms/trace, independent counters, queued force and canonical signed-int64 RNG strings. Legacy/missing/corrupt/mismatch -> activity{current_day=started_day=actual saved day,current_complete:false,current_counts:actual6known open zeros,completed_days:[]} and Director disabled at same day/history empty. Open zeros have explicitly unknown coverage and never become closed observed zeros. No past simulation/reroll/reward.

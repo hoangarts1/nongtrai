@@ -16,7 +16,7 @@ func test_all_historical_goldens_migrate_without_land_grants_or_lost_progress() 
 		var old: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v%d.json" % version))
 		_write(old)
 		var current: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(current.meta.save_version),13)
+		assert_eq(int(current.meta.save_version),14)
 		assert_eq(current.land_ownership,{"owned_parcels":[]})
 		for key: String in old:
 			if key not in ["meta","farm","inventory","day_ledger","day_end"]:
