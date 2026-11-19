@@ -1,0 +1,185 @@
+{
+	"chicken_coop": {
+		"coop": {
+			"current_day": 30,
+			"fed_hens": 2,
+			"hen_count": 4,
+			"pending_eggs": 3
+		},
+		"owned": true
+	},
+	"clock": {
+		"day_index": 30.0,
+		"minute": 1200.0,
+		"season": "summer",
+		"year": 1.0
+	},
+	"day_end": {
+		"day_index": 2.0,
+		"forced": false,
+		"last_completed_day": 1.0,
+		"phase": 1.0
+	},
+	"day_ledger": {
+		"complete": true,
+		"day_index": 2.0,
+		"entries": [
+			{
+				"amount": 105.0,
+				"item_id": "spring_carrot",
+				"quantity": 3.0,
+				"reason": "sell_produce"
+			},
+			{
+				"amount": -80.0,
+				"item_id": "",
+				"quantity": 0.0,
+				"reason": "buy_seed"
+			},
+			{
+				"amount": 20.0,
+				"item_id": "",
+				"quantity": 0.0,
+				"reason": "refund"
+			}
+		]
+	},
+	"director": {
+		"active": [],
+		"cooldowns": {},
+		"day_index": 30,
+		"enabled": false,
+		"enabled_day": 30,
+		"event_usage": {},
+		"forced": "",
+		"history": [],
+		"last_negative_start": null,
+		"last_positive_day": null,
+		"pending": [],
+		"season_usage": {},
+		"started_day": 30
+	},
+	"director_activity": {
+		"completed_days": [],
+		"current_complete": false,
+		"current_counts": {
+			"crop_harvested": 0,
+			"crop_planted": 0,
+			"item_purchased": 0,
+			"item_sold": 0,
+			"plot_tilled": 0,
+			"plot_watered": 0
+		},
+		"current_day": 30,
+		"started_day": 30
+	},
+	"dog": {
+		"cell_x": -5,
+		"cell_y": 5,
+		"name": ""
+	},
+	"ecology": {
+		"day_index": 30,
+		"metrics": {
+			"biodiversity": 12.5,
+			"tree_cover": 0.0,
+			"water_clarity": 0.0
+		},
+		"triggered": []
+	},
+	"farm": {
+		"plots": [
+			{
+				"cell_x": 0.0,
+				"cell_y": 0.0,
+				"consecutive_dry_days": 0.0,
+				"crop_id": "summer_tomato",
+				"growth_days": 1.0,
+				"growth_target": 2.0,
+				"regrowing": true,
+				"tilled": true,
+				"watered": false,
+				"withered": false
+			},
+			{
+				"cell_x": 1.0,
+				"cell_y": 0.0,
+				"consecutive_dry_days": 2.0,
+				"crop_id": "turnip",
+				"growth_days": 2.0,
+				"growth_target": 2.0,
+				"regrowing": false,
+				"tilled": true,
+				"watered": false,
+				"withered": true
+			}
+		]
+	},
+	"inventory": {
+		"capacity": 40.0,
+		"slots": [
+			{
+				"item_id": "turnip",
+				"quantity": 2.0
+			}
+		]
+	},
+	"land_ownership": {
+		"owned_parcels": [
+			"farm_east_1"
+		]
+	},
+	"machine_inventory": {},
+	"machine_operations": {},
+	"machine_placements": {},
+	"meta": {
+		"game_version": "0.1.0",
+		"save_version": 16,
+		"saved_at": "2026-11-19T10:33:08",
+		"saved_utc": 1795059188.931
+	},
+	"player": {
+		"position": {
+			"x": -4.5,
+			"y": 0.0,
+			"z": 5.5
+		}
+	},
+	"profile": {},
+	"quests": {
+		"completed": [
+			true,
+			true,
+			false,
+			false,
+			false,
+			false,
+			false
+		]
+	},
+	"social": {},
+	"story": {
+		"completed_objectives": [
+			"first_sowing",
+			"first_expansion"
+		],
+		"read_pages": []
+	},
+	"wallet": {
+		"coins": 160.0
+	},
+	"watering_can": {
+		"capacity": 20,
+		"charges": 13
+	},
+	"weather": {
+		"day_index": 30,
+		"forecast": [
+			"cloudy",
+			"rain",
+			"sunny"
+		],
+		"today": "sunny",
+		"world_seed": 0
+	}
+}

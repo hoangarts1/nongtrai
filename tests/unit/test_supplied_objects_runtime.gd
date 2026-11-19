@@ -114,7 +114,7 @@ func test_locale_season_save_load_and_refresh_preserve_objects_without_touching_
 			assert_eq(_owners(), before)
 	assert_true(_main.call("_save_game_to_slot", 1))
 	var payload: Dictionary = SaveService.load_game(1)
-	assert_eq(payload.meta.save_version, 15)
+	assert_eq(payload.meta.save_version, 16)
 	var before: Dictionary = _owners()
 	_main.call("_load_payload", payload)
 	await _settle()

@@ -152,3 +152,6 @@ func deserialize(data: Dictionary) -> void:
 				_completed_quests.append(q_id)
 			else:
 				_active_quests.append(q_id)
+
+func is_busy() -> bool:
+	return _busy

@@ -49,7 +49,7 @@ func test_expanded_ground_source_nodes_and_reserved_corridors_preserve_old_ancho
 	assert_eq(main.world.grid.global_to_cell(main.world.bed_marker.global_position),Vector2i(11,10))
 	assert_eq(main.world.grid.global_to_cell(main.world.seed_shop_marker.global_position),Vector2i(-2,7))
 	assert_eq(main.world.grid.global_to_cell(main.world.shipping_bin_marker.global_position),Vector2i(5,10))
-	assert_eq(SaveService.CURRENT_VERSION,15)
+	assert_eq(SaveService.CURRENT_VERSION,16)
 	var reserved: Dictionary = WaterSourceRules.reserved_cells(CONFIG)
 	var scenery: Node2D = main.presentation.get_world_art_root()
 	assert_gt(scenery.get_child_count(),0)

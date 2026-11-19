@@ -48,6 +48,8 @@ var chicken_coop: ChickenCoopHoldingState = ChickenCoopHoldingState.new()
 var chicken_coop_runtime: ChickenCoopRuntime
 var chicken_coop_flow: ChickenCoopFlow
 var farm_state: FarmGridState
+var story_state: StoryState = StoryState.new()
+var story_runtime: LifeStoryRuntime
 var dog_state: DogState = DogState.new()
 var dog_name_flow: LifeDogNameFlow
 var dog_runtime: LifeDogRuntime
@@ -288,6 +290,12 @@ func _ready() -> void:
 	add_child(dog_runtime)
 	dog_runtime.configure(self)
 	dog_state.changed.connect(_mark_save_dirty)
+	story_runtime = LifeStoryRuntime.new()
+	add_child(story_runtime)
+	if not story_runtime.configure(self):
+		push_error("Main: story configuration failed")
+		return
+	story_state.changed.connect(_mark_save_dirty)
 	dog_name_flow = LifeDogNameFlow.new()
 	add_child(dog_name_flow)
 	dog_name_flow.configure(self)
@@ -394,6 +402,7 @@ func _save_game_to_slot(slot: int) -> bool:
 	if _purchase_in_progress() or npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
 		return false
 	var payload: Dictionary = {
+		"story": story_state.serialize(),
 		"dog": dog_state.serialize(),
 		"clock": GameClock.serialize(),
 		"player": {"position": _legacy_player_position()},
@@ -503,6 +512,7 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 		return
 	director_runtime.refresh_effects()
 	dog_runtime.reset()
+	if not story_runtime.reset(): return
 	_save_game_to_slot(1)
 	if not Settings.is_tutorial_dismissed():
 		tutorial_panel.open_help()
@@ -546,11 +556,14 @@ func _return_to_start_menu() -> bool:
 	world.player.movement_enabled = false
 	director_runtime.refresh_effects()
 	dog_runtime.suspend()
+	story_runtime.suspend()
 	return true
 
 func _load_payload(payload: Dictionary) -> bool:
 	if _purchase_in_progress():
 		return false
+	var story_restore: Dictionary = story_runtime.prepare(payload)
+	if not story_restore.ok: return false
 	var director_restore: Dictionary = director_runtime.prepare_restore(payload)
 	if not director_restore.ok:
 		return false
@@ -618,6 +631,7 @@ func _load_payload(payload: Dictionary) -> bool:
 	var ecology_restored: bool = ecology_runtime.finish_restore(GameClock.day_index, farm_state, land_ownership)
 	var director_restored: bool = director_runtime.finish_restore()
 	if ecology_restored and director_restored:
+		if not story_runtime.restore(story_restore): return false
 		director_runtime.refresh_effects()
 		if not dog_runtime.restore(payload.get("dog")): return false
 	return ecology_restored and director_restored
@@ -630,7 +644,7 @@ func _restore_land_for_lifecycle(data: Dictionary) -> void:
 		presentation.refresh_land(land_ownership.get_owned_regions())
 
 func _purchase_in_progress() -> bool:
-	return (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
+	return story_state.is_busy() or (story_runtime!=null and story_runtime.is_busy()) or (npc_system!=null and npc_system.state.quests.is_busy()) or (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:

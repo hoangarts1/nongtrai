@@ -3,6 +3,8 @@
 class_name LandRuntime
 extends Node
 
+signal purchased(parcel_id: StringName)
+
 var panel: LifeLandScreen
 var busy: bool = false
 var model: Dictionary = {}
@@ -55,6 +57,7 @@ func purchase(parcel_id: StringName) -> void:
 	if bool(result.ok):
 		_refresh_world()
 		_main.call("_mark_save_dirty")
+		purchased.emit(parcel_id)
 	busy = false
 	refresh()
 

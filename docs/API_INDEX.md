@@ -1,5 +1,57 @@
 # API INDEX — THE LIFE
 
+## Phase8.6f implemented API
+
+Step6/10 after8.6e pushed1fac368/full977. Main owns stable StoryState/LifeStoryRuntime. Actual command receipt adapter LifeStoryObserverFlow extends unchanged LifeDirectorActivityCollector, calls inherited finish first, emits typed command_committed only on TRUE return, holds inherited busy through extra dispatch and rejects fake emissions outside dispatch. Original collector publishes counters before proven check: merely watching activity_changed would falsely credit unproven commands. Existing DirectorRuntime creates collector outside this scope; new StoryRuntime replaces that idle node once at startup with same-name/base-compatible subtype, rebinds three documented cached tool/shop/bin references, frees original; all other adapters query Main field. One live collector and owner persist across new/load/title, counters/base semantics untouched. No second simulation/counting path or queued-save gap. QuestManager gains only is_busy getter; actual quest completion and typed LandRuntime.purchased under its existing guard provide other proven sources. Lifecycle suppresses observation through existing ecology/director busy flags; no raw Events/possession/proven=false credit.
+
+SaveService.CURRENT_VERSION16 adds only story{completed_objectives,read_pages}; migrate15to16 ignores injected earlier story/read history and calibrates only verifiable old progress. Current valid story preserved; bad component fallback preserves other owners and removes fabricated read history. Dog15/director14/can10 introduction behavior and all historical fixtures remain. Main preflights full story candidate before core restore and commits silent same-owner restore after core success; Root save/new/load/title/publication and source-dispatch reentry protected. NewGame clears story, Continue/slots retain exact read flags. No new scene/input/Player/dog removal, prices/rewards, chapter completion or Director entitlement.
+
+Import1 clean except inherited duplicate artUID warnings. Actual deferred SaveService migration of tracked golden15 produced golden16; write/readback exit0, never human save. Focused1:3scripts/10/10/142assert/3.978s PASS; native1 same10/10/142assert/4.140s PASS, no script errors/leaks. Includes real sow/water/completed-day growth/harvest/shipping, quest payout/land purchase, wrong-token/cancel, unproven published counts, forged producer/notice, inactive backend, exact save/load/Continue, corrupt-only fallback,15historical goldens/actual16, one collector/owner/dog over3new-load cycles, and rejected Main/command callback reentry. Known legacy turnip visual fallback warnings retained. Exact approved40row/34old-file patch verified byte-for-byte (493other prior tests/fixtures unchanged),20real saves SHA unchanged. Full gate follows. No editor setup; visible story notebook/pages are later g-i, not implemented here.
+
+`scripts/view/story/story_runtime.gd`:
+```gdscript
+
+func configure(main: Node) -> bool:
+func is_busy() -> bool:
+func prepare(payload: Dictionary) -> Dictionary:
+func restore(candidate: Dictionary) -> bool:
+func reset() -> bool:
+func suspend() -> void:
+
+```
+
+`scripts/view/story/story_observer_flow.gd`:
+```gdscript
+
+signal command_committed(day: int, source: StringName, counts: Dictionary)
+func is_dispatching() -> bool: return _dispatching
+func begin_command(source: StringName) -> Dictionary:
+func finish_command(token: RefCounted, counts: Dictionary, proven: bool = true) -> bool:
+func reset_receipt() -> bool:
+
+```
+
+`scripts/core/save_service.gd`:
+```gdscript
+
+func migrate_15_to_16(data: Dictionary) -> Dictionary:
+
+```
+
+`scripts/domain/quests/quest_manager.gd`:
+```gdscript
+
+func is_busy() -> bool:
+
+```
+
+`scripts/view/land_runtime.gd`:
+```gdscript
+
+signal purchased(parcel_id: StringName)
+
+```
+
 ## Phase8.6e implemented API
 
 Step5/10 after8.6d pushed9860caf/full971. StorySaveContext prepares a canonical baseline from strict verifiable old owner evidence. StorySaveCodec preserves valid current progress/read pages exactly; legacy or malformed component falls back only story with verified supported progress and no read markers, chronology or reward replay. Other input payload fields never mutate. StoryLifecycle holds only refs/transient guard, validates complete candidate before replacing the same StoryState, restores silently, resets through original owner and rejects reentrant/busy/bad candidates. No game-save wiring yet: current version remains15 until approved f.

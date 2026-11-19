@@ -117,7 +117,7 @@ func test_backup_three_is_last_resort_and_all_invalid_returns_explicit_failure()
 	assert_eq(_family(), hashes)
 	_write(SLOT, 3, FileAccess.get_file_as_string("res://tests/golden_saves/save_v1.json"))
 	var payload: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(payload.meta.save_version, 15)
+	assert_eq(payload.meta.save_version, 16)
 	assert_eq(SaveService.get_load_report().source_index, 3)
 	assert_eq(SaveService.get_load_report().status, &"recovered")
 

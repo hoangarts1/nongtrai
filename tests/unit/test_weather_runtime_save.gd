@@ -19,7 +19,7 @@ func test_all_twelve_real_goldens_migrate_preserving_existing_prerolls_and_other
 		var original: Dictionary = raw.duplicate(true)
 		_write(raw)
 		var loaded: Dictionary = SaveService.load_game(98)
-		assert_eq(int(loaded.meta.save_version),15)
+		assert_eq(int(loaded.meta.save_version),16)
 		assert_eq(loaded.clock,raw.clock)
 		assert_eq(loaded.get("wallet",{}),raw.get("wallet",loaded.get("wallet",{})))
 		assert_eq(loaded.inventory.slots,raw.inventory.slots)

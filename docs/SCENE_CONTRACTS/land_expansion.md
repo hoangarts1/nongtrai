@@ -13,3 +13,7 @@ Manual F5: start/continue a farm, prepare500 coins, press existing Ctrl+M -> lan
 ## Phase6.5g shared transaction safe point (D70)
 
 LandRuntime now checks Main._purchase_in_progress(), shared with the new BagUpgradeFlow. Land open/restore/purchase rejects a bag purchase callback stack; bag/main requests reject a land stack likewise. Existing land domain/pricing/state/service/scenes/data and D69 behavior remain unchanged. No new land feature or source art edit.
+
+## Phase8.6f committed ownership notice
+
+LandRuntime adds typed local purchased(parcel_id:StringName). It emits only after a successful service purchase, world refresh and dirty mark, while its existing busy guard remains true. Story receipt adapter checks that guard/result and actual owned prefix. Existing Screen.purchased request signal, purchase behavior/prices/UI and Root guard are unchanged. No new InputMap/scene setup.

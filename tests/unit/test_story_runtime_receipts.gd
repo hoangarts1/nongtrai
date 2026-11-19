@@ -1,0 +1,78 @@
+extends GutTest
+const FIXTURE: Script = preload("res://tests/helpers/story_fixture.gd")
+var f: RefCounted
+func before_each() -> void:
+	f = FIXTURE.new()
+	f.setup(self)
+func after_each() -> void:
+	f.cleanup()
+	await get_tree().process_frame
+
+func test_actual_sow_harvest_and_shipping_commit_story_once() -> void:
+	f.play()
+	var cell: Vector2i = Vector2i(1,1)
+	f.use(&"hoe",cell)
+	f.use(&"seed",cell)
+	assert_eq(f.main.story_state.serialize().completed_objectives,["first_sowing"])
+	for _day: int in range(f.main.farm_state.get_growth_target(cell)):
+		f.play()
+		f.use(&"watering_can",cell)
+		GameClock.sleep_to_morning()
+		f.main.morning_flow.reset()
+		f.main.ui_coordinator.close_active()
+	f.play()
+	f.use(&"harvest",cell)
+	assert_true(f.main.story_state.serialize().completed_objectives.has("first_harvest"))
+	assert_gt(f.main.inventory.get_quantity(&"turnip"),0)
+	f.main.shipping_bin_panel.call("_select_item",&"turnip")
+	f.main.shipping_bin_panel.call("_set_max_quantity")
+	f.main.shipping_bin_panel.call("_confirm_sale")
+	assert_true(f.main.story_state.serialize().completed_objectives.has("first_sale"))
+	var state: Dictionary = f.main.story_state.serialize()
+	f.main.shipping_bin_panel.call("_confirm_sale")
+	assert_eq(f.main.story_state.serialize(),state)
+	assert_false(f.main.story_state.is_complete())
+func test_unproven_counter_publication_and_raw_producer_cannot_credit_story() -> void:
+	f.play()
+	var observer: LifeStoryObserverFlow = f.main.director_activity_collector as LifeStoryObserverFlow
+	var receipt: Dictionary = observer.begin_command(&"tool")
+	assert_true(receipt.ok)
+	assert_false(observer.finish_command(receipt.token,{"crop_planted":1},false))
+	assert_eq(f.main.story_state.serialize(),StorySnapshotCodec.empty())
+	Events.crop_planted.emit(Vector2i(1,1),&"turnip")
+	observer.command_committed.emit(GameClock.day_index,&"tool",{"crop_planted":1})
+	assert_eq(f.main.story_state.serialize(),StorySnapshotCodec.empty())
+	assert_false(observer.busy)
+	assert_false(observer.is_dispatching())
+func test_failed_seed_early_harvest_and_cancelled_wrong_token_do_not_progress() -> void:
+	f.play()
+	f.main.inventory.deserialize({"slots":[]})
+	f.use(&"hoe",Vector2i(1,1))
+	f.use(&"seed",Vector2i(1,1))
+	f.use(&"harvest",Vector2i(1,1))
+	assert_eq(f.main.story_state.serialize(),StorySnapshotCodec.empty())
+	var observer: LifeStoryObserverFlow = f.main.director_activity_collector as LifeStoryObserverFlow
+	var receipt: Dictionary = observer.begin_command(&"tool")
+	assert_false(observer.finish_command(RefCounted.new(),{"crop_planted":1}))
+	assert_true(observer.busy)
+	assert_true(observer.cancel_command(receipt.token))
+	assert_eq(f.main.story_state.serialize(),StorySnapshotCodec.empty())
+func test_real_quest_payout_and_land_purchase_are_once_only_guarded_sources() -> void:
+	f.play()
+	f.main.inventory.add_item(&"turnip",3)
+	var quests: QuestManager = f.main.npc_system.state.quests
+	assert_true(quests.accept_quest(&"turnip_delivery"))
+	assert_true(quests.confirm_delivery(&"turnip_delivery",f.main.inventory,f.main.wallet))
+	assert_eq(f.main.story_state.serialize().completed_objectives,["first_delivery"])
+	assert_false(quests.confirm_delivery(&"turnip_delivery",f.main.inventory,f.main.wallet))
+	f.main.wallet.add_coins(5000,&"test_story_land")
+	f.main.machine_shop_panel.open()
+	f.main.land_runtime.open()
+	f.main.land_runtime.purchase(&"farm_east_1")
+	assert_true(f.main.land_ownership.get_owned_ids().has(&"farm_east_1"))
+	assert_eq(f.main.story_state.serialize().completed_objectives,["first_delivery","first_expansion"])
+	var state: Dictionary = f.main.story_state.serialize()
+	f.main.land_runtime.purchase(&"farm_east_1")
+	f.main.land_runtime.purchased.emit(&"farm_east_1")
+	quests.quest_completed.emit(&"turnip_delivery",60,&"spring_carrot_seed",2)
+	assert_eq(f.main.story_state.serialize(),state)

@@ -18,7 +18,8 @@
 ##   func migrate_13_to_14(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 15
+const CURRENT_VERSION: int = 16
+const STORY_CONFIG: StoryConfig = preload("res://data/story/chapter1.tres")
 const DOG_CONFIG: DogConfig = preload("res://data/dog_config.tres")
 const DIRECTOR_INTRODUCED_VERSION: int = 14
 const DIRECTOR_PROFILE: DirectorProfile = preload("res://data/director_profile.tres")
@@ -52,6 +53,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if not director.ok:
 		_last_write_report = {"ok": false, "error": &"invalid_director_context", "committed": false, "rollback_ok": true, "cleanup_pending": false, "recovery_paths": PackedStringArray()}
 		return false
+	var story: Dictionary = _normalize_story(payload)
+	if not story.ok:
+		_last_write_report = {"ok":false,"error":&"invalid_story_context","committed":false,"rollback_ok":true,"cleanup_pending":false,"recovery_paths":PackedStringArray()}
+		return false
 	var wrapped: Dictionary = {
 		"meta": {
 			"save_version": CURRENT_VERSION,
@@ -59,6 +64,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 			"saved_utc": Time.get_unix_time_from_system(),
 			"saved_at": Time.get_datetime_string_from_system()
 		},
+		"story": story.snapshot,
 		"dog": _normalize_dog(payload),
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
@@ -199,6 +205,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_13_to_14(migrated)
 	if version <= 14:
 		migrated = migrate_14_to_15(migrated)
+	if version <= 15:
+		migrated = migrate_15_to_16(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -227,6 +235,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	migrated["director_activity"] = director.director_activity if director.ok else {}
 	migrated["director"] = director.director if director.ok else {}
 	migrated["dog"] = _normalize_dog(migrated)
+	var story: Dictionary = _normalize_story(migrated)
+	migrated["story"] = story.snapshot if story.ok else {}
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -364,3 +374,14 @@ func _normalize_dog(payload: Dictionary) -> Dictionary:
 				desired = GridMath.world_to_cell(Vector3(float(x),0.0,float(z)))
 	var normalized: Dictionary = DogSaveCodec.normalize(DOG_CONFIG, payload.get("dog"), desired)
 	return normalized.snapshot if normalized.ok else {}
+
+func migrate_15_to_16(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# Pre16 has no story owner; never accept injected read/repair history.
+	migrated.erase("story")
+	var result: Dictionary = StorySaveCodec.normalize(STORY_CONFIG,null,migrated,true)
+	migrated["story"] = result.snapshot if result.ok else {}
+	return migrated
+
+func _normalize_story(payload: Dictionary) -> Dictionary:
+	return StorySaveCodec.normalize(STORY_CONFIG,payload.get("story"),payload)

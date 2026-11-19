@@ -119,7 +119,7 @@ func test_real_v10_save_roundtrip_keeps_collected_egg_stacks_without_animal_save
 	var farm: Dictionary = payload.farm.duplicate(true)
 	assert_true(SaveService.save_game(payload,SLOT))
 	var loaded: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(int(loaded.meta.save_version),15)
+	assert_eq(int(loaded.meta.save_version),16)
 	assert_false(bool(loaded.chicken_coop.owned))
 	assert_eq(loaded.wallet,wallet)
 	assert_eq(loaded.farm,farm)
