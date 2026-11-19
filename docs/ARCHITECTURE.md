@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5e sole Director domain owner (D122)
+
+DATA frozen DirectorProfile -> pure candidate/decision libraries -> DirectorState owner, supported by stateless schedule/history/codec rules. Owner holds all persistent gates/counters/captured pending-active terms/trace/history/force; token/next target/notification flags transient only. No second owner, Node/autoload/world/RNG during restore, global event or runtime listener. Caller reserves before adjacent completed-day work and later supplies validated final observations. Atomic publication keeps token live through callbacks. Expiry is absolute-day projection, no delta timer. Current version13 remains untouched until7.5h; later integration alone connects Main and effects.
+
 ## Phase7.5d pure decision boundary (D121)
 
 DirectorCandidateRules consumes validated detached snapshots and explicit policy context; EventDirector consumes its eligible scored pool and uses DetRandom tag2 once. Both are pure RefCounted with no WorldState ownership, Node/autoload/clock/world mutation. Context counters/pending metadata are caller inputs, not a second owner. Outcome captures immutable primitive terms and trace; disabled/unavailable contexts never draw. Persistent schedules/atomic day reservation are next7.5e, actual effects/runtime/save later.

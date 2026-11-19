@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D122 - guarded sole Director owner before runtime (2026-11-19)
+
+Approved7.5e creates a pure serializable owner from its first commit. Reserve adjacent day by opaque identity; commit selection/schedules/history atomically under token and guarded typed notification. Invalid candidates leave prior owner/token for explicit retry/abort, stale tokens cannot unlock another operation. Preserve immutable actual decisions/trace/RNG and independent cooldown/season/pity counters when128history prunes. Negative reservation charges actual target season when selected. Off cancels application but retains booked counters/cooldowns conservatively, with no refund of past actions; reenabling starts new grace/pity at actual day. Force queues for next decision only; failed safety checks record declined intent without random replacement. No production unlock/clock subscription/Node/world/save13 change. Full-precision JSON is the existing game protocol, not a new rounded format.
+
 ### D121 - seeded choice before persistent scheduling (2026-11-19)
 
 Approved7.5d chooses with explicit no-event weight and deterministic dedicated tag2, preserving existing stream tags/mixer. Quotas apply to actual proposed start season and count pending reservations; cooldown/grace/negative spacing/mutex all filter before drawing. Supported active-day affinity bonus is bounded by DATA, never quantity/style punishment. Pity waits for an eligible positive instead of inventing one. Force retains all constraints/telegraph and bypasses lottery only. Capture actual terms/seed/lossless RNG state/trace; never use history as current ecology. No live owner/save/runtime until following steps.
