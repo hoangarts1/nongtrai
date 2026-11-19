@@ -1,5 +1,11 @@
 # API INDEX — THE LIFE
 
+## Phase7.5k isolated verification tool (D128)
+
+tools/sim_director.gd extends SceneTree, deferred CLI initialization, dynamic load of autoload-dependent real farm/services after actual autoload readiness. static run_scenario(days=1000,chunk_size=17,style="balanced",seed=731,checkpoint={},budget_days=0)->Dictionary restores prior clock/pause, writes no saves. Styles gardener/trader/balanced/inactive. Result ok/complete/days/target_days/stats/decision_sha256/actual final owners/checkpoint. Invalid arguments/envelope/codec/day/provenance fail explicitly. Budget must end on actual Resource season boundary unless final target; resume validates known style/seed/target/group/day and real v14 world codecs.
+
+CLI --days/--chunk/--profile/--seed plus --budget=224 and --resume=<JSON verification checkpoint>. New checkpoint is a verification envelope, not game save schema. Large CLI JSON prints4096character [sim_director_json] chunks then [sim_director] PASS_CHUNKS <character_count>; join chunks exactly, validate length/JSON, persist only external verification checkpoint, resume until complete. This avoids existing PowerShell giant-line post-processing cost while retaining bounded180s child. External run_k_checkpoints.py in delivery batch implements complete four-profile/1000day chain with SHA. Standard tools/run_tests.bat unchanged. No new public gameplay API/owner/autoload/input or save migration.
+
 ## Phase7.5j player readouts (D127)
 
 LifeDirectorSnapshot.capture(main)->Dictionary actual aligned committed pending/active/history/current charge_cost/dust_reason/effective gate. Invalid/busy/title returns okfalse; detached. LifeDirectorPresenter.KEYS/status/event_text/water_text/describe returns localized values; no selector/simulation/save. describe history is immutable decisions/planned dates, not execution log. LifeMorningDirectorStrip.display(snapshot) heading/summary/full tooltip, separate scene between ecology/tasks. MorningSnapshot.director and MorningPresenter delegate.

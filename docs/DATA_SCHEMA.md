@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase7.5k verification envelope only (D128)
+
+Game save14 unchanged. External CLI checkpoint version1 carries profile/seed/target_days/chunk/day/worlds[3]/stats/negative/seasons/decisions, produced only at current Resource season boundary. Each world contains actual v14 clock/farm/inventory/wallet/weather/ecology/land/can/director_activity/director/social merchant and empty current-day coop. Validate metadata/day/known profile, normalize via actual SaveService, reject mismatched pairs before silent restore. Full native JSON parsed wire stays exact; binary double decimal trace roundings counted, exact day/seed/RNG text retained, threshold sides checked. Decision strings preserve prior emitted bytes. Envelope/chunk markers are tool artifacts, never additional game roots or UI state.
+
 ## Phase7.5j view-only event readout (D127)
 
 Save14 unchanged. UI DTO: ok/day_index/enabled/ready/reason/pending/active/history/charge_cost/dust_reason, captured from aligned actual owners. Wire start_day inclusive/end_day exclusive maps one-based display start+1 through end. Stored decisions are not an execution/reward ledger. Locale CSV adds validated DIR_READ/NEWS keys on one physical line. No extra counters, estimate sources or saved UI dismissal state.

@@ -1,6 +1,6 @@
 # Director runtime and presentation contract
 
-## Phase7.5i approved modular debug UI (verification pending)
+## Phase7.5i automation verified UI (human F5 pending)
 
 New minimal scenes ui/director_debug/director_sheet.tscn (LifeDirectorDebugSheet:LifeHudFrame), candidate_row.tscn (LifeDirectorCandidateRow:PanelContainer), trace_panel.tscn (LifeDirectorTracePanel:VBoxContainer). Sheet composes shared paper/banner Close header, enabled_button:CheckButton, clear_button:Button, coverage/metrics/notice Labels, ScrollContainer -> content VBox -> candidate rows -> trace panel. Each row exposes name_label/details_label/score_label/force_button and forced(id:StringName). Trace exposes title_label/body_label. Sheet signals closed(),enabled_requested(value:bool),force_requested(id:StringName); no owner state.
 
@@ -29,3 +29,9 @@ Manual setup: none. Validate with original tools/run_tests.bat. Human F5/tone/ar
 ## Phase7.5j read-only explanations (D127)
 
 Morning strip and lazy J ecology history show committed terms only; past decisions labeled selected/planned, off retains history without claiming effects. LifeDirectorSnapshot/Presenter are read-only. Native vi/en3sizes and save/owner proofs in PROGRESS. No Inspector setup.
+
+## Phase7.5k final handoff (D128)
+
+No extra scene/Inspector/input/project setup. Current Ctrl+M machine catalog > Event preview is debug-only. Enable preview (production story absent), observe7complete closed days, inspect actual score/reason/stored trace, request only currently eligible event; actual next morning rechecks conditions. Dust remains two-day notice, active manual cost2 unless rain/current canopy counter, existing well/stream/pond E refill. Morning and J->Ecology show selected/planned history with exact dates, water tooltip actual current cost. Toggle off stops application but preserves past selected records, no claim they ran. Native close/Tab/Esc/Back/load/title/Continue must not advance/replay or reroll; original Player and controls remain.
+
+Isolated verification CLI (never beside live Main): use pinned bounded wrapper and tools/sim_director.gd -- --days=1000 --chunk=17 --profile=balanced --seed=731 --budget=224. Join [sim_director_json] chunks exactly, validate PASS_CHUNKS character count, extract checkpoint to external JSON, pass --resume=<path> for remaining224day children until complete. External batch run_k_checkpoints.py automates all four profiles and records source/segment/checkpoint SHA; each child still180s. No game saves written. Pure current-source and full launcher evidence in PROGRESS/external delivery. StoryM2.4/fence/riverside/fishing/woodcutting/water source measurement/final art/tone and real human F5/release-export remain separate/unavailable. Do not call whole project complete.

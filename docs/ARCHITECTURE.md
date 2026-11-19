@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5k verification boundary (D128)
+
+Isolated SceneTree tool uses actual autoload clock/data only after deferred initialization, never a live Main. It restores prior clock/pause and writes no game save. Actual independent farms/weather/ecology/inventory/wallet/can/merchant/activity/Director owners exercise the same single DaySimulator. Grouping and validated save14 checkpoint continuation are compared, disabled core isolation checked. CLI transport chunks verification JSON, external orchestration persists artifacts only. Production composition/source/input/defaultoff/story gate unchanged.
+
 ## Phase7.5j presentation consumers (D127)
 
 Morning and lazy ecology journal use one detached LifeDirectorSnapshot reading actual completed owners. Pure projection supplies current cost only, never applies it. Presenter/localized small components own no progress or decisions. HUD coalesces owner notifications and changes only tooltip. Main daily/save ordering and all existing lifecycle/input rules remain unchanged.

@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D128 - complete bounded simulations through validated seasonal checkpoints (2026-11-19)
+
+Approved7.5k verifies current production code without changing domain/runner/old tests. Direct three-world1000day probes exceed180s, so retain all days/invariants across explicit validated season checkpoints and keep the same per-child bound. Resume carries actual three v14-normalized worlds, clock, observations, histories/counters/seed/decision bytes, never recalibration or replay. Checkpoints/loops are verification-only, with stdout/source/SHA chain archived externally. Native JSON decimal trace rounding/integral spelling is reported; compare exact parsed wire, all exact decision/RNG fields and unchanged threshold sides. Both consumers receive the same decoded checkpoint. Large JSON output is chunked losslessly to avoid the existing PowerShell giant-line bottleneck; no timeout extension or assertion skip. Human production story/release/art/tone acceptance remains separate.
+
 ### D127 - explain committed plans without inventing effect history (2026-11-19)
 
 Approved7.5j uses separate small morning/history components and a shared detached current snapshot/presenter. Stored decisions describe selected intent and planned period; disabling may cancel application, so do not present past selections as proven executed effects. Current cost comes from pure validated projection/actual measured rain-canopy context; no guessed water measurement. Compact morning summary keeps full counter text in tooltip and journal. Native tooltip requires meter pointer PASS, children ignore; no input action or new modal. Ordinary J branch retains no-progress invariant. Human text/art/editor acceptance remains separate.
