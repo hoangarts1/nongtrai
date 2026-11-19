@@ -334,5 +334,11 @@ func _run() -> void:
 		for message: String in dog_visual_errors: push_error(message)
 		quit(1)
 		return
+	var dog_presenter: Script = load("res://ui/pet/dog_presenter.gd") as Script
+	var dog_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_dog_text(locale_paths, dog_presenter.KEYS)
+	if not dog_text_errors.is_empty():
+		for message: String in dog_text_errors: push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

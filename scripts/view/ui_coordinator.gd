@@ -22,6 +22,7 @@ func configure(main: Node) -> void:
 	_panels.append(main.day_end_flow.panel)
 	_panels.append(main.morning_flow.panel)
 	_panels.append(main.character_flow.panel)
+	_panels.append(main.dog_name_flow.panel)
 	_panels.append(main.machine_placement_flow.panel)
 	_panels.append(main.land_runtime.panel)
 	_panels.append(main.bag_upgrade_flow.panel)
@@ -108,7 +109,9 @@ func _visibility_changed(panel: Control) -> void:
 	call_deferred("_resize")
 
 func _close(panel: Control) -> void:
-	if _main.director_debug_flow != null and panel == _main.director_debug_flow.panel:
+	if panel == _main.dog_name_flow.panel:
+		_main.dog_name_flow.close()
+	elif _main.director_debug_flow != null and panel == _main.director_debug_flow.panel:
 		_main.director_debug_flow.close()
 	elif panel == _main.chicken_coop_flow.panel:
 		_main.chicken_coop_flow.close()
@@ -184,6 +187,13 @@ func _input(event: InputEvent) -> void:
 		return
 	# Let GUI buttons/scrollbars receive mouse events before gameplay filtering.
 	if event is InputEventMouse:
+		return
+	if _active == _main.dog_name_flow.panel:
+		if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
+			close_active()
+			get_viewport().set_input_as_handled()
+		elif MachineShopShortcut.matches(event, OS.is_debug_build()):
+			get_viewport().set_input_as_handled()
 		return
 	if _active == _main.day_end_flow.panel:
 		if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):

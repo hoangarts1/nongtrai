@@ -1,5 +1,132 @@
 # API INDEX — THE LIFE
 
+## Phase8.5h implemented API
+
+﻿Step8/10 after8.5g pushed4e5c471/full933. Companion card below Character identity uses detached DogSnapshot and localized DogPresenter. New NameSheet/Form/Card scenes compose only shared Theme/native controls; Character retains public identity/skills/relationships/tabs aliases and left profile can scroll. NameFlow captures expected owner revision, native LineEdit has max_length0 (no silent24-character truncation), command goes through DogState validation and guarded publication. Successful save and explicit Cancel/Back return to Character; Esc/coordinator/lifecycle close only hide and never reopen. Owner remains authoritative, default world caption follows locale and named caption remains actual name. UiCoordinator alone owns holds/focus/input, native text/Tab/Enter preserved without world shortcuts; new/load/title close naming. No new actions/autoload/old scene/Player/save15 wire or other domain changes.
+
+Import1 clean except inherited assetUID warnings. Focused1 3scripts/4/4/46assert/2.284s PASS. Native1 adds original Character layout/screen regressions:5scripts/12/12/1099assert/13.780s PASS; warnings only expected missing legacy crop/coop fallbacks. Native mouse open, Unicode key events M+U00E2+y, Enter/Tab/Esc, cancel/invalid/25char/control/stale quote/lifecycle close all pass. vi/en x1152/1280/1920 long24codepoint names produced12fresh name/card captures, vi1152 card and modal visually inspected. Forty read-only open/cancel/render refreshes preserve owners and save bytes; locale default caption verified. All old tests/goldens and20real saves protected. Human OS IME composition/art/tone/F5 remain pending, not inferred from synthetic native key events. Full follows.
+
+`ui/pet/dog_companion_card.gd`:
+```gdscript
+
+signal rename_requested()
+
+```
+
+`ui/pet/dog_name_flow.gd`:
+```gdscript
+
+func configure(main: Node) -> void:
+func open() -> void:
+func close() -> void:
+func back() -> void:
+func save() -> void:
+
+```
+
+`ui/pet/dog_snapshot.gd`:
+```gdscript
+
+static func capture(main: Node) -> Dictionary:
+
+```
+
+`ui/pet/dog_presenter.gd`:
+```gdscript
+
+static func name_text(snapshot: Dictionary) -> String:
+static func card(panel: LifeDogCompanionCard, snapshot: Dictionary) -> void:
+static func form(panel: LifeDogNameSheet, result: Dictionary = {}) -> void:
+
+```
+
+`ui/character/character_snapshot.gd`:
+```gdscript
+
+static func capture(main: Node) -> Dictionary:
+
+```
+
+`ui/character/character_presenter.gd`:
+```gdscript
+
+static func render(panel: LifeCharacterSheet, snapshot: Dictionary) -> void:
+
+```
+
+`ui/character/character_flow.gd`:
+```gdscript
+
+func configure(main: Node) -> void:
+func open() -> void:
+func close() -> void:
+func refresh() -> void:
+
+```
+
+`scripts/view/ui_coordinator.gd`:
+```gdscript
+
+func configure(main: Node) -> void:
+func get_active_panel() -> Control:
+func close_active() -> void:
+
+```
+
+`scripts/view/ui_layout.gd`:
+```gdscript
+
+static func apply(main: Node) -> void:
+static func reflow(main: Node) -> void:
+
+```
+
+`scripts/core/data_validator.gd`:
+```gdscript
+
+static func validate_dog_config(config: DogConfig) -> PackedStringArray:
+static func validate_director_profile(profile: DirectorProfile, locales: Array[String]) -> PackedStringArray:
+static func validate_director_debug_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
+static func validate_director_activity(config: DirectorActivityConfig) -> PackedStringArray:
+static func validate_ecology_feedback(config: EcologyFeedbackProfile, profile: EcologyProfile) -> PackedStringArray:
+static func validate_ecology_journal(config: EcologyJournalConfig, profile: EcologyProfile, locales: Array[String]) -> PackedStringArray:
+static func validate_ecology_sampling(config: EcologySamplingConfig, crops: Array[Resource]) -> PackedStringArray:
+static func validate_ecology_profile(profile: EcologyProfile) -> PackedStringArray:
+static func validate_scenery_catalog(catalog: SceneryArtCatalog) -> PackedStringArray:
+static func validate_crop_stage_config(config: CropStageConfig) -> PackedStringArray:
+static func validate_crop_economy(config: CropEconomyConfig, crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_crop_migration(config: CropMigrationConfig, crops: Array[Resource]) -> PackedStringArray:
+static func validate_inventory_config(config: InventoryConfig) -> PackedStringArray:
+static func validate_machine_build_config(config: MachineBuildConfig, world: IsometricWorldConfig) -> PackedStringArray:
+static func validate_watering_can_config(config: WateringCanConfig) -> PackedStringArray:
+static func validate_bag_upgrade_config(config: BagUpgradeConfig) -> PackedStringArray:
+static func validate_land_expansion_config(config: LandExpansionConfig) -> PackedStringArray:
+static func validate_water_source_config(config: WaterSourceConfig, locations: WorldLocations, land: LandExpansionConfig) -> PackedStringArray:
+static func validate_isometric_2d_assets(asset_root: String = "res://assets") -> PackedStringArray:
+static func validate_isometric_world_config(config: IsometricWorldConfig) -> PackedStringArray:
+static func validate_item_resources(resources: Array[Resource]) -> PackedStringArray:
+static func validate_item_paths(paths: Array[String]) -> PackedStringArray:
+static func validate_crop_references(crops: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_crop_paths(crop_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+static func validate_translation_keys(paths: Array[String], required_keys: PackedStringArray) -> PackedStringArray:
+static func validate_weather_profile(path: String) -> PackedStringArray:
+static func validate_weather_resource(profile: WeatherProfile) -> PackedStringArray:
+static func validate_art_palette_path(path: String) -> PackedStringArray:
+static func validate_character_catalog_path(path: String) -> PackedStringArray:
+static func validate_farming_art_catalog_path(path: String) -> PackedStringArray:
+static func validate_world_art_catalog_path(path: String) -> PackedStringArray:
+static func validate_item_visual_assets(resources: Array[Resource]) -> PackedStringArray:
+static func validate_quest_resources(quests: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_quest_paths(quest_paths: Array[String], item_paths: Array[String]) -> PackedStringArray:
+static func validate_npc_world(data: NpcWorldData, items: Array[Resource], quests: Array[Resource], locale_paths: Array[String]) -> PackedStringArray:
+static func validate_vietnamese_values(english_path: String, vietnamese_path: String) -> PackedStringArray:
+static func validate_recipe_catalog(recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[Resource], machines: Array[Resource], items: Array[Resource]) -> PackedStringArray:
+static func validate_dog_visual(profile: DogVisualProfile) -> PackedStringArray:
+static func validate_dog_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
+
+```
+
 ## Phase8.5g implemented API
 
 ﻿Step7/10 after8.5f pushed8fc035c/full929. SaveService.CURRENT_VERSION15 adds only dog{name,cell_x,cell_y}; 14-to15 baseline and all earlier migrations preserve prior systems and do not simulate days. Independent DogSaveCodec canonicalizes nativeJSON integers/name, preserves a valid Unicode name on bad/missing position and supplies bounded safe Resource baseline. DogLifecycle prepares against current actual nav before silent replacement of the same DogState; runtime refreshes sparse obstacles and reuses actor/children after load. Good current cells preserved; blocked positions repair locally with good name retained. No saved route/timer/nav cache/Nodes; dirty-save observes actual dog commands. Root busy guard remains across publication. Director intent/default-off, weather three forecasts, ecology/coop/can/land/jobs/progress unchanged.

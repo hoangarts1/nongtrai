@@ -790,3 +790,11 @@ DIR_READ_UNMEASURED,Canopy is unavailable; no extra charge is applied.
 DIR_READ_REFILL,"Select the can and press E at the well, stream or pond to refill; enough canopy also shelters the garden."
 DIR_READ_RECORD,Day %d · %s · %s
 DIR_READ_DETAIL,%s: %s · %s · %s · %s
+DOG_COMPANION,Companion
+DOG_UNNAMED,Little dog
+DOG_NAME_OPEN,Name your dog
+DOG_NAME_TITLE,Your companion’s name
+DOG_NAME_SAVE,Save name
+DOG_NAME_CANCEL,Cancel and go back
+DOG_NAME_INVALID,Use 1–24 printable characters on one line.
+DOG_NAME_STALE,The name has changed. Please close and reopen.

@@ -13,6 +13,8 @@ func configure(main: Node) -> void:
 	panel.tabs.close_requested.connect(close)
 	panel.visibility_changed.connect(refresh)
 	main.npc_system.state.changed.connect(refresh)
+	main.dog_state.changed.connect(_dog_changed)
+	panel.companion.rename_requested.connect(func() -> void: main.dog_name_flow.open())
 
 func open() -> void:
 	if not bool(_main.get("_game_started")) or _main.start_menu.visible or _main.tutorial_panel.visible or GameClock.is_sleeping():
@@ -33,3 +35,6 @@ func refresh() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and panel != null:
 		refresh()
+
+func _dog_changed(_cell: Vector2i, _name: String) -> void:
+	refresh()

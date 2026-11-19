@@ -13,5 +13,6 @@ static func capture(main: Node) -> Dictionary:
 		var npc: NpcData = resource as NpcData
 		rows.append({"id":npc.npc_id,"name_key":npc.display_name_key,"color":npc.color,
 			"points":int(social.friendship.get(npc.npc_id,0)),"maximum":npc.friendship_max})
+	result.dog = LifeDogSnapshot.capture(main)
 	result.npcs = rows
 	return result

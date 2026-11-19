@@ -790,3 +790,11 @@ DIR_READ_UNMEASURED,Chưa đo được tán cây; chưa áp dụng nước thêm
 DIR_READ_REFILL,"Chọn bình và nhấn E tại giếng, suối hoặc ao để nạp đầy; tán cây đủ dày cũng giúp che gió."
 DIR_READ_RECORD,Ngày %d · %s · %s
 DIR_READ_DETAIL,%s: %s · %s · %s · %s
+DOG_COMPANION,Bạn đồng hành
+DOG_UNNAMED,Chú chó
+DOG_NAME_OPEN,Đặt tên
+DOG_NAME_TITLE,Tên bạn nhỏ
+DOG_NAME_SAVE,Lưu tên
+DOG_NAME_CANCEL,Hủy và quay lại
+DOG_NAME_INVALID,Tên cần có 1–24 ký tự và không xuống dòng.
+DOG_NAME_STALE,Tên đã đổi. Hãy đóng rồi mở lại nhé.

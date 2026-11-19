@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5h automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 235scripts/937/937/99739assert; groups169.691/130.959/144.091s<180, GUT444.741s/wall462.127s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2586, prior test/fixture verification493, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5h-210355/full-attempt1. No skip/weakening/timeout extension.
+
+﻿Step8/10 after8.5g pushed4e5c471/full933. Companion card below Character identity uses detached DogSnapshot and localized DogPresenter. New NameSheet/Form/Card scenes compose only shared Theme/native controls; Character retains public identity/skills/relationships/tabs aliases and left profile can scroll. NameFlow captures expected owner revision, native LineEdit has max_length0 (no silent24-character truncation), command goes through DogState validation and guarded publication. Successful save and explicit Cancel/Back return to Character; Esc/coordinator/lifecycle close only hide and never reopen. Owner remains authoritative, default world caption follows locale and named caption remains actual name. UiCoordinator alone owns holds/focus/input, native text/Tab/Enter preserved without world shortcuts; new/load/title close naming. No new actions/autoload/old scene/Player/save15 wire or other domain changes.
+
+Import1 clean except inherited assetUID warnings. Focused1 3scripts/4/4/46assert/2.284s PASS. Native1 adds original Character layout/screen regressions:5scripts/12/12/1099assert/13.780s PASS; warnings only expected missing legacy crop/coop fallbacks. Native mouse open, Unicode key events M+U00E2+y, Enter/Tab/Esc, cancel/invalid/25char/control/stale quote/lifecycle close all pass. vi/en x1152/1280/1920 long24codepoint names produced12fresh name/card captures, vi1152 card and modal visually inspected. Forty read-only open/cancel/render refreshes preserve owners and save bytes; locale default caption verified. All old tests/goldens and20real saves protected. Human OS IME composition/art/tone/F5 remain pending, not inferred from synthetic native key events. Full follows.
+
+Full937/937 PASS. Original launcher/bounds and old-test/real-save SHA verification follow; no editor art/tone acceptance inferred.
+
 ## Phase8.5g automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 232scripts/933/933/99681assert; groups172.091/129.942/140.2s<180, GUT442.233s/wall460.134s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2574, prior test/fixture verification488, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5g-205348/full-attempt1. No skip/weakening/timeout extension.

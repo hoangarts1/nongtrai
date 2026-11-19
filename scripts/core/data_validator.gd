@@ -631,3 +631,6 @@ static func validate_recipe_economy(config: RecipeEconomyConfig, recipes: Array[
 
 static func validate_dog_visual(profile: DogVisualProfile) -> PackedStringArray:
 	return profile.validation_errors() if profile != null else PackedStringArray(["dog visual profile is required"])
+
+static func validate_dog_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
+	return validate_translation_keys(locales, keys)

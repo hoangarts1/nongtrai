@@ -2,6 +2,7 @@
 class_name LifeCharacterSheet
 extends VBoxContainer
 
+var companion: LifeDogCompanionCard
 var tabs: LifeInventoryTabs
 var identity: LifeCharacterIdentity
 var skills: LifeCharacterSkills
@@ -25,7 +26,17 @@ func _ready() -> void:
 	paper.add_child(body)
 	identity = preload("res://ui/character/identity_card.tscn").instantiate() as LifeCharacterIdentity
 	identity.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	body.add_child(identity)
+	var scroll: ScrollContainer = ScrollContainer.new()
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.custom_minimum_size.x = 240
+	body.add_child(scroll)
+	var left: VBoxContainer = VBoxContainer.new()
+	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(left)
+	left.add_child(identity)
+	companion = preload("res://ui/pet/dog_companion_card.tscn").instantiate() as LifeDogCompanionCard
+	left.add_child(companion)
 	var right: VBoxContainer = LifeHudParts.column(body)
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	right.size_flags_stretch_ratio = 2.3

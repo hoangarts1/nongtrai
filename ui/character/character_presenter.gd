@@ -4,6 +4,7 @@ extends RefCounted
 
 static func render(panel: LifeCharacterSheet, snapshot: Dictionary) -> void:
 	panel.identity.display(snapshot)
+	LifeDogPresenter.card(panel.companion,snapshot.dog)
 	panel.skills.refresh()
 	var rows: Array[Dictionary] = []
 	rows.assign(snapshot.npcs)
