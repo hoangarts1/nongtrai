@@ -1,5 +1,15 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.6c automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 245scripts/963/963/99963assert; groups150.788/100.84/85.659/125.401s, each<180; GUT462.688s/wall484.949s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2607, prior test-fixture verification515, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6c-020320/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step3/10 after8.6b pusheda1ed122/full958. StoryState is the sole pure RefCounted owner of the two-field wire; configured immutable DATA, canonical guarded observations, page availability/acknowledge with expected revision, idempotence, serialize/deep detached return values and silent validated deserialize from this first commit. Revision is derived/transient and increments on reset/restore; stale requests cannot cross lifecycle. Only known supported objective IDs can be observed; planned goals/M2 cannot be written and5/10 supported progress is never full ChapterI. StoryRules queries do not grant entitlements. No Node/autoload/events/game-save/economy/runtime connection yet; save15 remains.
+
+Import1 passes with inherited duplicate assetUID warnings. Focused1 had5/5/42assert but new test closure captured the RefCounted emitter, retaining69objects/19resources at exit; NOT accepted as clean. Fixture now explicitly disconnects that callback, every assertion retained. Final focused2:2scripts/5/5/42assert/0.439s PASS, no errors/leaks. Tests cover once-only/locked/unknown/duplicate/stale, commit-before-publish, mutation/configure/restore reentry, silent JSON restore, data/output detachment and quote invalidation. Current-source independent36dependency no-autoload/core/view/world-node project:1000mixed steps,1000JSON restores,1000stale rejections and1000planned rejections,462actual publications,710ms, exit0/PASS/no leaks. These are verification commands, not observed gameplay or simulated days. Full gate and old-test/golden/20real-save SHA proof follow. No editor tree/Inspector/InputMap steps; actual evidence sampler and lifecycle/runtime are later approved steps.
+
+Full963/963 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
 ## Phase8.6b automation delivered (2026-11-20)
 
 Full1 original launcher exit0: 243scripts/958/958/99921assert; groups140.661/110.8/94.959/114.128s, each<180; GUT460.548s/wall482.428s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2603, prior test-fixture verification513, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6b-013021/full-attempt1. No skipped/weakened tests or bounds extended.

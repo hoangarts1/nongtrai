@@ -1,5 +1,13 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.6c composition and ownership (2026-11-20)
+
+Step3/10 after8.6b pusheda1ed122/full958. StoryState is the sole pure RefCounted owner of the two-field wire; configured immutable DATA, canonical guarded observations, page availability/acknowledge with expected revision, idempotence, serialize/deep detached return values and silent validated deserialize from this first commit. Revision is derived/transient and increments on reset/restore; stale requests cannot cross lifecycle. Only known supported objective IDs can be observed; planned goals/M2 cannot be written and5/10 supported progress is never full ChapterI. StoryRules queries do not grant entitlements. No Node/autoload/events/game-save/economy/runtime connection yet; save15 remains.
+
+Import1 passes with inherited duplicate assetUID warnings. Focused1 had5/5/42assert but new test closure captured the RefCounted emitter, retaining69objects/19resources at exit; NOT accepted as clean. Fixture now explicitly disconnects that callback, every assertion retained. Final focused2:2scripts/5/5/42assert/0.439s PASS, no errors/leaks. Tests cover once-only/locked/unknown/duplicate/stale, commit-before-publish, mutation/configure/restore reentry, silent JSON restore, data/output detachment and quote invalidation. Current-source independent36dependency no-autoload/core/view/world-node project:1000mixed steps,1000JSON restores,1000stale rejections and1000planned rejections,462actual publications,710ms, exit0/PASS/no leaks. These are verification commands, not observed gameplay or simulated days. Full gate and old-test/golden/20real-save SHA proof follow. No editor tree/Inspector/InputMap steps; actual evidence sampler and lifecycle/runtime are later approved steps.
+
+DATA -> pure DOMAIN -> VIEW; only StoryState owns story progress when implemented. Planned repairs/NPCs/M2.4 remain unavailable; no new rewards/economy/Director entitlement/input actions. Existing Player/dog/other progress and historical goldens are preserved.
+
 ## Phase8.6b composition and ownership (2026-11-20)
 
 Step2/10 after8.6a pushed700cbd7/full954. Pure StorySnapshotCodec defines only {completed_objectives:Array[String],read_pages:Array[String]}, canonical Resource order. Strict native string/array/key types, no extra fields, duplicate/unknown/planned IDs, missing objective/page prerequisites or invalid config. Empty snapshot independent; decode returns detached output and never mutates input. No persistent owner/Node/autoload/game save or runtime integration at this step; save15 unchanged.
