@@ -43,7 +43,7 @@ func test_shipped_terms_and_unpriced_products_remain_unchanged() -> void:
 	for item: Resource in DataRegistry.get_all_items():
 		assert_eq([item.sell_price,item.buy_price],before[item.item_id])
 	assert_eq((preload("res://data/crop_economy_config.tres") as CropEconomyConfig).max_profit_per_plot_day,80)
-	assert_eq(SaveService.CURRENT_VERSION,14)
+	assert_eq(SaveService.CURRENT_VERSION,15)
 	assert_eq((DataRegistry.get_item(&"chicken_feed") as ItemData).buy_price,20)
 	assert_eq((DataRegistry.get_item(&"egg") as ItemData).sell_price,30)
 	assert_eq((DataRegistry.get_item(&"autumn_wheat") as ItemData).sell_price,42)

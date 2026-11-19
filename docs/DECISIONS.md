@@ -1,5 +1,13 @@
 # DECISIONS — THE LIFE
 
+## Phase8.5g approved implementation boundary (2026-11-19)
+
+﻿Step7/10 after8.5f pushed8fc035c/full929. SaveService.CURRENT_VERSION15 adds only dog{name,cell_x,cell_y}; 14-to15 baseline and all earlier migrations preserve prior systems and do not simulate days. Independent DogSaveCodec canonicalizes nativeJSON integers/name, preserves a valid Unicode name on bad/missing position and supplies bounded safe Resource baseline. DogLifecycle prepares against current actual nav before silent replacement of the same DogState; runtime refreshes sparse obstacles and reuses actor/children after load. Good current cells preserved; blocked positions repair locally with good name retained. No saved route/timer/nav cache/Nodes; dirty-save observes actual dog commands. Root busy guard remains across publication. Director intent/default-off, weather three forecasts, ecology/coop/can/land/jobs/progress unchanged.
+
+Import1 clean except inherited assetUID warnings. Focused1 2scripts/4/4/94assert/1.404s PASS; native1 1script/2/2/71assert/1.384s PASS. All fourteen historical golden inputs tested, prior files untouched. Actual SaveService._migrate produced new golden15 from tracked golden14 (never a human save). Independent32-dependency no-autoload project:1000nativeJSON/Unicode/safe-cell/restore steps PASS. Current save/load/Continue/new/title and bad dog-only fallback retain other real owners. Exact approved38row/33oldtest compatibility verified byte-for-byte; remaining455prior tests/fixtures and20real saves SHA unchanged. Full follows; no assertion removal/fixture/golden1..14 changes or timeout extension.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ## Phase8.5f approved implementation boundary (2026-11-19)
 
 ﻿Step6/10 after8.5e pushed6c0fb32/full922. Main retains stable DogState and one LifeDogRuntime/DogActor2D under actual world.objects. DogNavigationContext snapshots actual owned land regions, MachinePlacementState.MACHINE_SIZE footprints and owned coop Resource footprint (placement occupancy is currently one cell irrespective of art). Static world water/buildings/farm use original Resource. Polls sparse sources at configured0.25s and immediately before adjacent arrival; navigation rebuild only on canonical change. DogMotionFlow quotes before pixels, rechecks on arrival then resets display from sole owner; stale/blocked arrivals cannot commit. Only newly covered origin uses bounded repair; one actor/two child display nodes reused. Lifecycle reconfigures existing visual references after silent owner reset, keeps name/cell display coherent.

@@ -5,6 +5,7 @@ const CONFIG: DogConfig = preload("res://data/dog_config.tres")
 const VISUAL: DogVisualProfile = preload("res://data/art/characters/dog_visual_profile.tres")
 var actor: DogActor2D
 var navigation: DogNavigation = DogNavigation.new()
+var lifecycle: DogLifecycle = DogLifecycle.new()
 var movement: DogMovementService = DogMovementService.new()
 var motion: DogMotionFlow = DogMotionFlow.new()
 var _main: Node
@@ -15,6 +16,7 @@ func configure(main: Node) -> bool:
 	if not navigation.configure(CONFIG, DogNavigationContext.capture(main)): return false
 	var safe: Dictionary = DogFollowRules.nearest_walkable(CONFIG, navigation, main.world.player.get_cell())
 	if not safe.ok or not main.dog_state.configure(CONFIG, safe.cell): return false
+	if not lifecycle.configure(CONFIG, main.dog_state): return false
 	if not movement.configure(CONFIG, main.dog_state, navigation): return false
 	actor = DogActor2D.new()
 	actor.name = "DogCompanion"
@@ -61,3 +63,14 @@ func suspend() -> void:
 	actor.hide()
 func _exit_tree() -> void:
 	if is_instance_valid(actor): actor.free()
+
+func restore(raw: Variant) -> bool:
+	if is_busy(): return false
+	motion.cancel()
+	navigation.set_dynamic_obstacles(DogNavigationContext.capture(_main))
+	var prepared: Dictionary = lifecycle.prepare(raw, _main.world.player.get_cell(), navigation)
+	if not prepared.ok or not lifecycle.restore(prepared): return false
+	_elapsed = 0.0
+	actor.configure(_main.dog_state, _main.world.grid, CONFIG, VISUAL)
+	actor.visible = bool(_main.get("_game_started")) and not _main.start_menu.visible
+	return true

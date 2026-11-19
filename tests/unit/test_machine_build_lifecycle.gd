@@ -209,7 +209,7 @@ func test_save_load_before_after_move_return_and_replacement_preserves_one_payou
 	assert_eq(_operations.can_collect_output(SOURCE).reason,&"no_output")
 	assert_eq(_bag.get_quantity(&"temp_carrot_meal"),1)
 	assert_eq(_wallet.get_coins(),500)
-	assert_eq(SaveService.CURRENT_VERSION,14)
+	assert_eq(SaveService.CURRENT_VERSION,15)
 
 func test_main_wires_the_real_job_owner_into_build_facade() -> void:
 	SaveService.delete_save(0)

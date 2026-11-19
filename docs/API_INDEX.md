@@ -1,5 +1,69 @@
 # API INDEX — THE LIFE
 
+## Phase8.5g implemented API
+
+﻿Step7/10 after8.5f pushed8fc035c/full929. SaveService.CURRENT_VERSION15 adds only dog{name,cell_x,cell_y}; 14-to15 baseline and all earlier migrations preserve prior systems and do not simulate days. Independent DogSaveCodec canonicalizes nativeJSON integers/name, preserves a valid Unicode name on bad/missing position and supplies bounded safe Resource baseline. DogLifecycle prepares against current actual nav before silent replacement of the same DogState; runtime refreshes sparse obstacles and reuses actor/children after load. Good current cells preserved; blocked positions repair locally with good name retained. No saved route/timer/nav cache/Nodes; dirty-save observes actual dog commands. Root busy guard remains across publication. Director intent/default-off, weather three forecasts, ecology/coop/can/land/jobs/progress unchanged.
+
+Import1 clean except inherited assetUID warnings. Focused1 2scripts/4/4/94assert/1.404s PASS; native1 1script/2/2/71assert/1.384s PASS. All fourteen historical golden inputs tested, prior files untouched. Actual SaveService._migrate produced new golden15 from tracked golden14 (never a human save). Independent32-dependency no-autoload project:1000nativeJSON/Unicode/safe-cell/restore steps PASS. Current save/load/Continue/new/title and bad dog-only fallback retain other real owners. Exact approved38row/33oldtest compatibility verified byte-for-byte; remaining455prior tests/fixtures and20real saves SHA unchanged. Full follows; no assertion removal/fixture/golden1..14 changes or timeout extension.
+
+`scripts/domain/pets/dog_save_codec.gd`:
+```gdscript
+
+static func normalize(config: DogConfig, raw: Variant, desired: Vector2i) -> Dictionary:
+
+```
+
+`scripts/domain/pets/dog_lifecycle.gd`:
+```gdscript
+
+func configure(config: DogConfig, state: DogState) -> bool:
+func prepare(raw: Variant, desired: Vector2i, navigation: DogNavigation) -> Dictionary:
+func restore(prepared: Dictionary) -> bool:
+
+```
+
+`scripts/core/save_service.gd`:
+```gdscript
+
+func save_game(payload: Dictionary, slot: int = 1) -> bool:
+func get_write_report() -> Dictionary:
+func load_game(slot: int = 1) -> Dictionary:
+func inspect_slot(slot: int = 1) -> Dictionary:
+func get_load_report(slot: int = -1) -> Dictionary:
+func has_save(slot: int = 1) -> bool:
+func load_latest() -> Dictionary:
+func inspect_latest() -> Dictionary:
+func get_latest_summary() -> Dictionary:
+func delete_save(slot: int = 1) -> void:
+func migrate_3_to_4(data: Dictionary) -> Dictionary:
+func migrate_4_to_5(data: Dictionary) -> Dictionary:
+func migrate_5_to_6(data: Dictionary) -> Dictionary:
+func migrate_6_to_7(data: Dictionary) -> Dictionary:
+func migrate_7_to_8(data: Dictionary) -> Dictionary:
+func migrate_8_to_9(data: Dictionary) -> Dictionary:
+func migrate_9_to_10(data: Dictionary) -> Dictionary:
+func migrate_10_to_11(data: Dictionary) -> Dictionary:
+func migrate_11_to_12(data: Dictionary) -> Dictionary:
+func migrate_12_to_13(data: Dictionary) -> Dictionary:
+func migrate_13_to_14(data: Dictionary) -> Dictionary:
+func migrate_14_to_15(data: Dictionary) -> Dictionary:
+
+```
+
+`scripts/view/dog/dog_runtime.gd`:
+```gdscript
+
+func configure(main: Node) -> bool:
+func is_busy() -> bool:
+func can_play() -> bool:
+func advance(delta: float) -> void:
+func refresh_context() -> void:
+func reset() -> bool:
+func suspend() -> void:
+func restore(raw: Variant) -> bool:
+
+```
+
 ## Phase8.5f implemented API
 
 ﻿Step6/10 after8.5e pushed6c0fb32/full922. Main retains stable DogState and one LifeDogRuntime/DogActor2D under actual world.objects. DogNavigationContext snapshots actual owned land regions, MachinePlacementState.MACHINE_SIZE footprints and owned coop Resource footprint (placement occupancy is currently one cell irrespective of art). Static world water/buildings/farm use original Resource. Polls sparse sources at configured0.25s and immediately before adjacent arrival; navigation rebuild only on canonical change. DogMotionFlow quotes before pixels, rechecks on arrival then resets display from sole owner; stale/blocked arrivals cannot commit. Only newly covered origin uses bounded repair; one actor/two child display nodes reused. Lifecycle reconfigures existing visual references after silent owner reset, keeps name/cell display coherent.

@@ -150,7 +150,7 @@ func test_json_partial_feed_and_v10_remaining_food_roundtrip_without_animal_fiel
 	payload.inventory = inventory.serialize()
 	assert_true(SaveService.save_game(payload,SLOT))
 	var loaded: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(int(loaded.meta.save_version),14)
+	assert_eq(int(loaded.meta.save_version),15)
 	assert_false(bool(loaded.chicken_coop.owned))
 	var restored: InventoryState = InventoryState.new()
 	restored.deserialize(loaded.inventory)

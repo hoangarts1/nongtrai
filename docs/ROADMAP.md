@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5g automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 232scripts/933/933/99681assert; groups172.091/129.942/140.2s<180, GUT442.233s/wall460.134s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2574, prior test/fixture verification488, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5g-205348/full-attempt1. No skip/weakening/timeout extension.
+
+﻿Step7/10 after8.5f pushed8fc035c/full929. SaveService.CURRENT_VERSION15 adds only dog{name,cell_x,cell_y}; 14-to15 baseline and all earlier migrations preserve prior systems and do not simulate days. Independent DogSaveCodec canonicalizes nativeJSON integers/name, preserves a valid Unicode name on bad/missing position and supplies bounded safe Resource baseline. DogLifecycle prepares against current actual nav before silent replacement of the same DogState; runtime refreshes sparse obstacles and reuses actor/children after load. Good current cells preserved; blocked positions repair locally with good name retained. No saved route/timer/nav cache/Nodes; dirty-save observes actual dog commands. Root busy guard remains across publication. Director intent/default-off, weather three forecasts, ecology/coop/can/land/jobs/progress unchanged.
+
+Import1 clean except inherited assetUID warnings. Focused1 2scripts/4/4/94assert/1.404s PASS; native1 1script/2/2/71assert/1.384s PASS. All fourteen historical golden inputs tested, prior files untouched. Actual SaveService._migrate produced new golden15 from tracked golden14 (never a human save). Independent32-dependency no-autoload project:1000nativeJSON/Unicode/safe-cell/restore steps PASS. Current save/load/Continue/new/title and bad dog-only fallback retain other real owners. Exact approved38row/33oldtest compatibility verified byte-for-byte; remaining455prior tests/fixtures and20real saves SHA unchanged. Full follows; no assertion removal/fixture/golden1..14 changes or timeout extension.
+
+Full933/933 PASS. Original launcher/bounds and old-test/real-save SHA verification follow; no editor art/tone acceptance inferred.
+
 ## Phase8.5f automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 230scripts/929/929/99572assert; groups140.713/155.45/157.201s<180, GUT453.364s/wall472.576s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2535, prior test/fixture verification480, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5f-204353/full-attempt1. No skip/weakening/timeout extension.

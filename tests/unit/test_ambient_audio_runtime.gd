@@ -299,7 +299,7 @@ func test_native_title_continue_load_newgame_reuse_slots_and_preserve_saved_owne
 	assert_eq(_ids(), ids)
 	assert_eq(_owners(), fresh)
 	assert_eq(_playing(_snapshot()).size(), 2)
-	assert_eq(SaveService.load_game(1).meta.save_version, 14)
+	assert_eq(SaveService.load_game(1).meta.save_version, 15)
 
 func test_invalid_profile_and_freed_running_flow_have_no_receivers_or_node_leaks() -> void:
 	var invalid: LifeAmbientAudioFlow = LifeAmbientAudioFlow.new()

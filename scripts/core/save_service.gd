@@ -18,7 +18,8 @@
 ##   func migrate_13_to_14(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 14
+const CURRENT_VERSION: int = 15
+const DOG_CONFIG: DogConfig = preload("res://data/dog_config.tres")
 const DIRECTOR_INTRODUCED_VERSION: int = 14
 const DIRECTOR_PROFILE: DirectorProfile = preload("res://data/director_profile.tres")
 const DIRECTOR_ACTIVITY: DirectorActivityConfig = preload("res://data/director_activity_config.tres")
@@ -58,6 +59,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 			"saved_utc": Time.get_unix_time_from_system(),
 			"saved_at": Time.get_datetime_string_from_system()
 		},
+		"dog": _normalize_dog(payload),
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
 		"inventory": payload.get("inventory", {}),
@@ -195,6 +197,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_12_to_13(migrated)
 	if version<=13:
 		migrated = migrate_13_to_14(migrated)
+	if version <= 14:
+		migrated = migrate_14_to_15(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -222,6 +226,7 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	var director: Dictionary = _normalize_director(migrated, false)
 	migrated["director_activity"] = director.director_activity if director.ok else {}
 	migrated["director"] = director.director if director.ok else {}
+	migrated["dog"] = _normalize_dog(migrated)
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -339,3 +344,23 @@ func _normalize_director(payload: Dictionary, legacy: bool) -> Dictionary:
 	if result.ok and result.used_fallback and not legacy and (payload.has("director_activity") or payload.has("director")):
 		push_warning("SaveService: Director " + String(result.reason))
 	return result
+
+func migrate_14_to_15(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# Earlier formats never had a dog owner. Baseline without simulating a day.
+	migrated.erase("dog")
+	migrated["dog"] = _normalize_dog(migrated)
+	return migrated
+
+func _normalize_dog(payload: Dictionary) -> Dictionary:
+	var desired: Vector2i = DOG_CONFIG.world.spawn_cell
+	var player: Variant = payload.get("player")
+	if player is Dictionary:
+		var position_data: Variant = player.get("position")
+		if position_data is Dictionary:
+			var x: Variant = position_data.get("x")
+			var z: Variant = position_data.get("z")
+			if (x is int or x is float) and (z is int or z is float) and is_finite(float(x)) and is_finite(float(z)) and absf(float(x)) < 2147483647.0 and absf(float(z)) < 2147483647.0:
+				desired = GridMath.world_to_cell(Vector3(float(x),0.0,float(z)))
+	var normalized: Dictionary = DogSaveCodec.normalize(DOG_CONFIG, payload.get("dog"), desired)
+	return normalized.snapshot if normalized.ok else {}

@@ -286,6 +286,7 @@ func _ready() -> void:
 	dog_runtime = LifeDogRuntime.new()
 	add_child(dog_runtime)
 	dog_runtime.configure(self)
+	dog_state.changed.connect(_mark_save_dirty)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -389,6 +390,7 @@ func _save_game_to_slot(slot: int) -> bool:
 	if _purchase_in_progress() or npc_system.is_open() or GameClock.is_sleeping() or (day_end_flow != null and day_end_flow.is_advancing()):
 		return false
 	var payload: Dictionary = {
+		"dog": dog_state.serialize(),
 		"clock": GameClock.serialize(),
 		"player": {"position": _legacy_player_position()},
 		"inventory": inventory.serialize(),
@@ -610,7 +612,7 @@ func _load_payload(payload: Dictionary) -> bool:
 	var director_restored: bool = director_runtime.finish_restore()
 	if ecology_restored and director_restored:
 		director_runtime.refresh_effects()
-		dog_runtime.reset()
+		if not dog_runtime.restore(payload.get("dog")): return false
 	return ecology_restored and director_restored
 
 func _restore_land_for_lifecycle(data: Dictionary) -> void:

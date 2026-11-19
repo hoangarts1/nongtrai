@@ -52,7 +52,7 @@ func test_every_legacy_golden_gets_explicit_full_base_without_losing_prior_paylo
 		var before: Dictionary = raw.duplicate(true)
 		_write(raw)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded.meta.save_version),14)
+		assert_eq(int(loaded.meta.save_version),15)
 		assert_eq(loaded.watering_can,{"capacity":20,"charges":20})
 		assert_eq(raw,before)
 		for key: String in ["clock","profile","wallet","machine_inventory","machine_placements","machine_operations","social","weather"]:

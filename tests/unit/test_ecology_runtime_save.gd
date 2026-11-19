@@ -32,7 +32,7 @@ func test_all_thirteen_goldens_migrate_and_restore_ecology_without_other_progres
 		var before: Dictionary = raw.duplicate(true)
 		_write(raw)
 		var loaded: Dictionary = SaveService.load_game(98)
-		assert_eq(int(loaded.meta.save_version), 14)
+		assert_eq(int(loaded.meta.save_version), 15)
 		assert_eq(int(loaded.ecology.day_index), int(loaded.clock.day_index))
 		assert_eq(loaded.inventory.slots, raw.inventory.slots)
 		assert_eq(loaded.clock, raw.clock)
