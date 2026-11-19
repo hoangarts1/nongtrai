@@ -43,3 +43,21 @@ static func nearest_walkable(config: DogConfig, navigation: DogNavigation, desir
 				best = cell
 				best_distance = gap
 	return {"ok": true, "cell": best} if found else {"ok": false, "reason": &"no_dog_cell"}
+
+static func idle(config: DogConfig, navigation: DogNavigation, origin: Vector2i, player: Vector2i, sequence: int = 0) -> Dictionary:
+	if config==null or navigation==null or not navigation.is_walkable(origin) or distance(origin,player)>config.idle_radius: return {"ok":false,"reason":&"idle_unavailable"}
+	var candidates: Array[Vector2i] = []
+	for y: int in range(player.y-config.idle_radius,player.y+config.idle_radius+1):
+		for x: int in range(player.x-config.idle_radius,player.x+config.idle_radius+1):
+			var cell: Vector2i = Vector2i(x,y)
+			if cell!=origin and distance(cell,player)<=config.idle_radius and navigation.is_walkable(cell): candidates.append(cell)
+	if candidates.is_empty(): return {"ok":false,"reason":&"no_idle_cell"}
+	for offset: int in range(candidates.size()):
+		var goal: Vector2i = candidates[posmod(sequence+offset,candidates.size())]
+		var path: Array[Vector2i] = navigation.route(origin,goal)
+		if path.size()<2: continue
+		var nearby: bool = true
+		for cell: Vector2i in path:
+			if distance(cell,player)>config.idle_radius: nearby = false
+		if nearby: return {"ok":true,"goal":goal,"path":path}
+	return {"ok":false,"reason":&"no_idle_path"}

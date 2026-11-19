@@ -7,6 +7,10 @@ var actor: DogActor2D
 var navigation: DogNavigation = DogNavigation.new()
 var lifecycle: DogLifecycle = DogLifecycle.new()
 var movement: DogMovementService = DogMovementService.new()
+var reactions: DogReactionFlow = DogReactionFlow.new()
+var _idle_elapsed: float = 0.0
+var _idle_cursor: int = 0
+var _idle_walking: bool = false
 var motion: DogMotionFlow = DogMotionFlow.new()
 var _main: Node
 var _elapsed: float = 0.0
@@ -23,6 +27,7 @@ func configure(main: Node) -> bool:
 	main.world.objects.add_child(actor)
 	if not actor.configure(main.dog_state, main.world.grid, CONFIG, VISUAL): return false
 	motion.configure(actor, movement, refresh_context)
+	reactions.configure(main,self)
 	actor.hide()
 	return true
 func is_busy() -> bool:
@@ -41,7 +46,24 @@ func advance(delta: float) -> void:
 	if _elapsed >= CONFIG.context_interval:
 		_elapsed = 0.0
 		refresh_context()
-	motion.advance(delta, _main.world.player.get_cell(), true)
+
+	var player: Vector2i = _main.world.player.get_cell()
+	if _idle_walking and DogFollowRules.distance(_main.dog_state.get_cell(),player)>=CONFIG.follow_start_distance:
+		motion.cancel()
+		_idle_walking = false
+	if not actor.is_moving():
+		_idle_walking = false
+		var plan: Dictionary = movement.plan(player,motion.following)
+		if plan.ok and not plan.following:
+			_idle_elapsed += delta
+			if _idle_elapsed>=CONFIG.idle_wait_seconds:
+				_idle_elapsed = 0.0
+				var idle: Dictionary = DogFollowRules.idle(CONFIG,navigation,_main.dog_state.get_cell(),player,_idle_cursor)
+				_idle_cursor += 1
+				if idle.ok: _idle_walking = motion.begin_step(idle.path[1])
+		else: _idle_elapsed = 0.0
+	motion.advance(delta, player, true)
+	reactions.advance(delta,true)
 func refresh_context() -> void:
 	if is_busy(): return
 	if not navigation.set_dynamic_obstacles(DogNavigationContext.capture(_main)): return
@@ -55,13 +77,20 @@ func reset() -> bool:
 	var safe: Dictionary = DogFollowRules.nearest_walkable(CONFIG, navigation, _main.world.player.get_cell())
 	if not safe.ok or not _main.dog_state.configure(CONFIG, safe.cell): return false
 	_elapsed = 0.0
+	_idle_elapsed = 0.0
+	_idle_cursor = 0
+	_idle_walking = false
+	reactions.reset()
 	actor.configure(_main.dog_state, _main.world.grid, CONFIG, VISUAL)
 	actor.visible = bool(_main.get("_game_started")) and not _main.start_menu.visible
 	return true
 func suspend() -> void:
+	reactions.reset()
+	_idle_elapsed = 0.0
 	motion.cancel()
 	actor.hide()
 func _exit_tree() -> void:
+	reactions.dispose()
 	if is_instance_valid(actor): actor.free()
 
 func restore(raw: Variant) -> bool:
@@ -71,6 +100,10 @@ func restore(raw: Variant) -> bool:
 	var prepared: Dictionary = lifecycle.prepare(raw, _main.world.player.get_cell(), navigation)
 	if not prepared.ok or not lifecycle.restore(prepared): return false
 	_elapsed = 0.0
+	_idle_elapsed = 0.0
+	_idle_cursor = 0
+	_idle_walking = false
+	reactions.reset()
 	actor.configure(_main.dog_state, _main.world.grid, CONFIG, VISUAL)
 	actor.visible = bool(_main.get("_game_started")) and not _main.start_menu.visible
 	return true

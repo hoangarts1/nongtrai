@@ -1,5 +1,74 @@
 # API INDEX — THE LIFE
 
+## Phase8.5i approved runner amendment
+
+User-approved runner correction is applied: exact two-file patch, four sequential graphics groups, full coverage and unchanged180000ms per child. Real repository runner contract:279checks PASS. Full3 launcher exit0:237scripts/942/942/99779assert; groups122.076/131.580/95.773/108.048s. Parse/data/headless63/Main PASS. Source2589/prior499test-fixture files/20real saves verified; prior two3group timeouts retained as failed evidence, no assertion/test/image removal. Commit/push verification follows this successful run.
+
+## Phase8.5i implemented API
+
+﻿Step9/10 after8.5h pushedcd3a3b9/full937 (initial GitHub connection reset; retry and exact remote verification completed before this step). Runtime idle waits configured3s, chooses bounded deterministic walkable candidates within2Manhattan cells of actual Player, moves through original guarded adjacent quote flow; follow interrupts idle when Player leaves. Idle cursor/timing derived only, reset on lifecycle. DogReactionFlow reads actual rainy state and existing DirectorActivityState crop_harvested deltas only while real command collector publishes; raw producer signals cannot fabricate a reaction/observed action. This is read-only cosmetic feedback, does not record activity or create rewards. Happy tail lasts configured0.8s; pause freezes, new/load/title reset reaction/latches and reuse the same actor/two child nodes. Natural new-day rain can react after gameplay resumes; restored current rain does not replay. No hunger/feed/affinity/economy/sounds/new events/inputs/save15 fields.
+
+Import1 clean except inherited duplicate assetUID warnings. Focused1 before adding render-pose case:2scripts/4/4/27assert/1.963s PASS. Final native1:2scripts/5/5/40assert/2.581s PASS with3fresh rain/happy/normal PNGs archived, first visually inspected. Tests cover idle/local bounds/follow interruption, actual harvest/inventory receipt once, repeat/producer spoof ignored, rain once and expiry, pause pose/owner freeze, save/load/title clear without actor/node growth. Known legacy starter turnip uses existing visual fallback warning; no crop data/art changed. Old tests/goldens/20real saves protected; final full follows.
+
+`scripts/view/dog/dog_reaction_flow.gd`:
+```gdscript
+
+func configure(main: Node, runtime: LifeDogRuntime) -> void:
+func reset() -> void:
+func advance(delta: float, playing: bool) -> void:
+func dispose() -> void:
+
+```
+
+`scripts/view/dog/dog_avatar_2d.gd`:
+```gdscript
+
+func configure(profile: DogVisualProfile) -> bool:
+func set_motion(walking: bool, direction: Vector2 = Vector2.ZERO) -> void:
+func advance(delta: float, playing: bool = true) -> void:
+func set_happy(value: bool) -> void:
+func is_happy() -> bool: return _happy
+func get_phase() -> float: return _phase
+
+```
+
+`scripts/view/dog/dog_actor_2d.gd`:
+```gdscript
+
+signal arrived(cell: Vector2i)
+func configure(state: DogState, grid: IsometricGrid, config: DogConfig, profile: DogVisualProfile) -> bool:
+func set_unnamed_caption(text: String) -> void:
+func reset_position() -> void:
+func begin_step(cell: Vector2i) -> bool:
+func is_moving() -> bool: return _moving
+func advance(delta: float, playing: bool = true) -> void:
+
+```
+
+`scripts/view/dog/dog_runtime.gd`:
+```gdscript
+
+func configure(main: Node) -> bool:
+func is_busy() -> bool:
+func can_play() -> bool:
+func advance(delta: float) -> void:
+func refresh_context() -> void:
+func reset() -> bool:
+func suspend() -> void:
+func restore(raw: Variant) -> bool:
+
+```
+
+`scripts/domain/pets/dog_follow_rules.gd`:
+```gdscript
+
+static func distance(a: Vector2i, b: Vector2i) -> int:
+static func decide(config: DogConfig, navigation: DogNavigation, origin: Vector2i, player: Vector2i, following: bool = false) -> Dictionary:
+static func nearest_walkable(config: DogConfig, navigation: DogNavigation, desired: Vector2i) -> Dictionary:
+static func idle(config: DogConfig, navigation: DogNavigation, origin: Vector2i, player: Vector2i, sequence: int = 0) -> Dictionary:
+
+```
+
 ## Phase8.5h implemented API
 
 ﻿Step8/10 after8.5g pushed4e5c471/full933. Companion card below Character identity uses detached DogSnapshot and localized DogPresenter. New NameSheet/Form/Card scenes compose only shared Theme/native controls; Character retains public identity/skills/relationships/tabs aliases and left profile can scroll. NameFlow captures expected owner revision, native LineEdit has max_length0 (no silent24-character truncation), command goes through DogState validation and guarded publication. Successful save and explicit Cancel/Back return to Character; Esc/coordinator/lifecycle close only hide and never reopen. Owner remains authoritative, default world caption follows locale and named caption remains actual name. UiCoordinator alone owns holds/focus/input, native text/Tab/Enter preserved without world shortcuts; new/load/title close naming. No new actions/autoload/old scene/Player/save15 wire or other domain changes.

@@ -1,5 +1,17 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.5i approved runner amendment
+
+User-approved runner correction is applied: exact two-file patch, four sequential graphics groups, full coverage and unchanged180000ms per child. Real repository runner contract:279checks PASS. Full3 launcher exit0:237scripts/942/942/99779assert; groups122.076/131.580/95.773/108.048s. Parse/data/headless63/Main PASS. Source2589/prior499test-fixture files/20real saves verified; prior two3group timeouts retained as failed evidence, no assertion/test/image removal. Commit/push verification follows this successful run.
+
+## Phase8.5i composition and ownership (2026-11-19)
+
+﻿Step9/10 after8.5h pushedcd3a3b9/full937 (initial GitHub connection reset; retry and exact remote verification completed before this step). Runtime idle waits configured3s, chooses bounded deterministic walkable candidates within2Manhattan cells of actual Player, moves through original guarded adjacent quote flow; follow interrupts idle when Player leaves. Idle cursor/timing derived only, reset on lifecycle. DogReactionFlow reads actual rainy state and existing DirectorActivityState crop_harvested deltas only while real command collector publishes; raw producer signals cannot fabricate a reaction/observed action. This is read-only cosmetic feedback, does not record activity or create rewards. Happy tail lasts configured0.8s; pause freezes, new/load/title reset reaction/latches and reuse the same actor/two child nodes. Natural new-day rain can react after gameplay resumes; restored current rain does not replay. No hunger/feed/affinity/economy/sounds/new events/inputs/save15 fields.
+
+Import1 clean except inherited duplicate assetUID warnings. Focused1 before adding render-pose case:2scripts/4/4/27assert/1.963s PASS. Final native1:2scripts/5/5/40assert/2.581s PASS with3fresh rain/happy/normal PNGs archived, first visually inspected. Tests cover idle/local bounds/follow interruption, actual harvest/inventory receipt once, repeat/producer spoof ignored, rain once and expiry, pause pose/owner freeze, save/load/title clear without actor/node growth. Known legacy starter turnip uses existing visual fallback warning; no crop data/art changed. Old tests/goldens/20real saves protected; final full follows.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ## Phase8.5h composition and ownership (2026-11-19)
 
 ﻿Step8/10 after8.5g pushed4e5c471/full933. Companion card below Character identity uses detached DogSnapshot and localized DogPresenter. New NameSheet/Form/Card scenes compose only shared Theme/native controls; Character retains public identity/skills/relationships/tabs aliases and left profile can scroll. NameFlow captures expected owner revision, native LineEdit has max_length0 (no silent24-character truncation), command goes through DogState validation and guarded publication. Successful save and explicit Cancel/Back return to Character; Esc/coordinator/lifecycle close only hide and never reopen. Owner remains authoritative, default world caption follows locale and named caption remains actual name. UiCoordinator alone owns holds/focus/input, native text/Tab/Enter preserved without world shortcuts; new/load/title close naming. No new actions/autoload/old scene/Player/save15 wire or other domain changes.

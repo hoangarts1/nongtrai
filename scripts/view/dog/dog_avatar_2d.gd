@@ -3,6 +3,7 @@ class_name DogAvatar2D
 extends Node2D
 var _profile: DogVisualProfile
 var _phase: float = 0.0
+var _happy: bool = false
 var _walking: bool = false
 var _facing: float = 1.0
 
@@ -23,6 +24,12 @@ func advance(delta: float, playing: bool = true) -> void:
 	_phase = fposmod(_phase + delta * TAU / _profile.cycle_seconds, TAU)
 	queue_redraw()
 
+func set_happy(value: bool) -> void:
+	_happy = value
+	queue_redraw()
+
+func is_happy() -> bool: return _happy
+
 func get_phase() -> float: return _phase
 
 func _draw() -> void:
@@ -33,7 +40,7 @@ func _draw() -> void:
 		if part.motion != "ground":
 			offset.y = -absf(sin(_phase)) * _profile.bob if _walking else 0.0
 		if part.motion == "leg" and _walking: offset.x += sin(_phase + part.phase) * _profile.stride
-		if part.motion == "tail": angle = sin(_phase) * _profile.tail_angle
+		if part.motion == "tail": angle = sin(_phase * (2.0 if _happy else 1.0)) * _profile.tail_angle
 		var points: PackedVector2Array = []
 		for point: Vector2 in part.points:
 			var moved: Vector2 = (point - part.pivot).rotated(angle) + part.pivot + offset

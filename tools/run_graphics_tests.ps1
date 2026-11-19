@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 function Get-GraphicsInventory([string]$RepoRoot) {
 	[string[]]$names = @(Get-ChildItem -LiteralPath (Join-Path $RepoRoot 'tests/unit') -Filter 'test_*.gd' -File | ForEach-Object { $_.Name })
 	[Array]::Sort($names, [StringComparer]::Ordinal)
-	if ($names.Count -lt 3) { throw 'Graphics discovery requires at least three test scripts.' }
+	if ($names.Count -lt 4) { throw 'Graphics discovery requires at least four test scripts.' }
 	foreach ($name in $names) {
 		if ($name -cnotmatch '^test_[a-z0-9_]+\.gd$') { throw "Unsupported test filename: $name" }
 		$path = Join-Path $RepoRoot "tests/unit/$name"
@@ -31,9 +31,9 @@ function Assert-GraphicsCoverage([string[]]$Expected, [string[]]$Actual) {
 }
 
 function Get-GraphicsGroups([object[]]$Inventory) {
-	if ($Inventory.Count -lt 3) { throw 'Three graphics groups require at least three scripts.' }
-	$groups = @(@(), @(), @())
-	for ($index = 0; $index -lt $Inventory.Count; $index++) { $groups[$index % 3] += $Inventory[$index] }
+	if ($Inventory.Count -lt 4) { throw 'Four graphics groups require at least four scripts.' }
+	$groups = @(@(), @(), @(), @())
+	for ($index = 0; $index -lt $Inventory.Count; $index++) { $groups[$index % 4] += $Inventory[$index] }
 	return ,$groups
 }
 

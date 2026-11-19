@@ -19,14 +19,15 @@ function Reject([scriptblock]$Action,[string]$Message) {
 }
 $inventory = @(Get-GraphicsInventory $repo)
 $groups = Get-GraphicsGroups $inventory
-Check ($groups.Count -eq 3) 'Not three groups'
+Check ($groups.Count -eq 4) 'Not four groups'
 $assigned = @($groups | ForEach-Object { $_.Path })
 Assert-GraphicsCoverage @($inventory.Path) $assigned
 $checks++
 for ($index=0; $index -lt $inventory.Count; $index++) {
-	Check ($groups[$index%3][[math]::Floor($index/3)].Path -ceq $inventory[$index].Path) 'Unstable partition'
+	Check ($groups[$index%4][[math]::Floor($index/4)].Path -ceq $inventory[$index].Path) 'Unstable partition'
 }
 Reject { Get-GraphicsGroups @($inventory[0],$inventory[1]) } 'Accepted empty group'
+Reject { Get-GraphicsGroups @($inventory[0],$inventory[1],$inventory[2]) } 'Accepted three scripts for four groups'
 Reject { Assert-GraphicsCoverage @('a','b') @('a','a') } 'Accepted duplicate'
 Reject { Assert-GraphicsCoverage @('a','b') @('a') } 'Accepted omission'
 $out = Join-Path $root 'synthetic.stdout'; $err = Join-Path $root 'synthetic.stderr'
@@ -82,8 +83,8 @@ foreach ($mode in @('pass','timeout','parse','drift')) {
 	$report = Get-Content -LiteralPath "$prefix.summary.json" -Raw | ConvertFrom-Json
 	Check (($report.Status -eq 'passed') -eq ($mode -eq 'pass')) "Wrong report for $mode"
 	$calls = @(Get-Content -LiteralPath "$sandbox/tools/calls.txt")
-	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {3})) "Fail-fast failed for $mode"
+	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {4})) "Fail-fast failed for $mode"
 	Check (@($calls | Where-Object { $_ -ne '180000' }).Count -eq 0) 'Timeout changed'
-	if ($mode -eq 'pass') { Check ($report.Scripts -eq 7 -and $report.Tests -eq 7 -and $report.Groups.Count -eq 3) 'Aggregate incomplete' }
+	if ($mode -eq 'pass') { Check ($report.Scripts -eq 7 -and $report.Tests -eq 7 -and $report.Groups.Count -eq 4) 'Aggregate incomplete' }
 }
 Write-Host "[graphics_runner_tests] PASS: $checks checks; $($inventory.Count) real scripts partitioned; evidence $root"
