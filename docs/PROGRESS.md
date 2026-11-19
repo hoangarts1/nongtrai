@@ -1,5 +1,427 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.6a automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 242scripts/954/954/99894assert; groups154.124/109.32/88.392/113.392s, each<180; GUT465.228s/wall487.639s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2601, prior test-fixture verification509, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6a-011237/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step1/10 approved8.6a-j on2026-11-20; base b808308/full948. DATA StoryConfig/Objective/Page catalogue only: five supported objective IDs, five planned-only chapter tasks, four planned-only M2 repairs, six optional grandmother pages. Actual QuestData turnip_delivery and first land parcel are referenced; no new NPC/price/reward/world object/owner/UI/forecast or Director gate. All42localized catalogue keys present in vi/en; wording remains a draft for human tone acceptance.
+
+Pure StoryCatalogValidator checks sources/first-occurrence targets, duplicate/empty IDs, exact existing references, planned milestones, page prerequisites and objective/page cycles. DataValidator delegates to it and the original validate_data gate includes the actual catalogue. StoryConfig.freeze detaches full Resource graphs with shared-copy memo and packed arrays; the first focused run5/6 caught packed-array aliasing, production copy now duplicates all packed arrays and original assertion retained plus nested NPC weekday check added. Final focused2:2scripts/6/6/29assert/2.519s PASS, no errors/leaks. Import1 passes with inherited duplicate artUID warnings. CLI positive/invalid-cycle/unknown fixture tested through real child processes. Current-source isolated34-dependency project has no autoload/core/view/world nodes: import0, positive0/PASS, deliberate cloned cycle1/rejected. No source resource changed by invalid fixture. Old tests/goldens/20real saves protected; final full follows. No editor scene/Inspector/InputMap setup for this DATA-only step. Runtime story/save16 and notebook are later approved steps, not delivered here.
+
+Full954/954 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
+## Next10: Phase8.6a-j proposal (2026-11-20)
+
+**Approved2026-11-20: all10 scopes, sequential full test/commit/push. Implementation status is recorded per step above.**
+
+Scope: first foundation/notebook batch of roadmap8.6, not completion of full ChapterI/M2.1-M2.4. Existing Player, dog, prototypes, input, scenes/assets and current economy remain. Five supported objectives plus five planned-only objectives; four M2 repairs remain unavailable. No repair costs or new rewards are invented. Production Director/story entitlement remains false.
+
+Continue sequentially: full pinned4.7.2 launcher (four groups,180s each), exact source/old-test/golden/real-save checks, commit and verify push of each milestone. Human F5/art/tone/IME/FPS are separate. Preserve/exclude the existing prompt deletion and untracked replacement.
+
+Save16 compatibility exception ONLY at8.6f: exact40output-version rows/34old test files in proposed-save16-compatibility.patch; two assertion labels track the new version. Every assertion remains; historic input versions/ranges/fixtures/goldens remain byte-identical. At all other steps old tests stay unchanged. All other files outside each individual ALLOW_LIST are read-only.
+
+Sources: ROADMAP8.6; Master Plan4.2-4.3/STYLE_GUIDE; actual TutorialQuestState7flags, real turnip_delivery QuestData/QuestManager, ordered land ownership, committed DirectorActivityCollector receipts; Main/SaveService15. Code currently registers only minh/linh. Story wire proposal: story{completed_objectives,read_pages}; no Nodes/routes/timers or fabricated chronology.
+
+Deferred decisions before later playable repair content: resources/costs/rewards for mailbox/house/storage/canal/mill/bridge/station; An/Bac Lam NPC identity/content/locations/art; real irrigation/bread/bridge access/station gameplay; how to transition currently available prototype forecasts/Minh to production story gates. These do not block this scoped foundation batch.
+
+Risks: preserving all15goldens/dog15/introduction thresholds through save16; publication/receipt ordering and silent lifecycle; native J/Ecology/Quest/Story mutual exclusion; four-group timing; draft narrative tone. No existing test may be weakened to solve a failure.
+
+## Phase8.6a — Catalogue Chương I và trang sổ tay
+
+Depends on: Phase8.5j
+
+**TASK:** Define immutable DATA catalogue and validator. Five supported objective IDs: first_sowing, first_harvest, first_sale, first_delivery, first_expansion. Five planned-only IDs: clear_land, repair_mailbox, repair_house, meet_neighbors, unlock_storage. Planned-only milestones m2_1_canal/m2_2_mill/m2_3_bridge/m2_4_station retain Master Plan meaning. Six pages: intro plus one per supported objective. All are localized Resources; no repair costs, rewards, NPCs, map objects or runtime state added. Reference real quest_turnip_delivery.tres and land_expansion_config.tres; source catalogue distinguishes confirmed legacy owner evidence from guarded live receipts.
+
+**ACCEPTANCE:** Reject duplicate/unknown source IDs, invalid page links, cycles and unlocked planned-only milestones. Detach nested Resources/collections; validate vi/en keys and existing references. CLI valid exits0, deliberately invalid disposable data exits1. Pure/headless/new tests and full original launcher pass; old tests unchanged.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/data/story_config.gd`
+- `scripts/data/story_config.gd.uid`
+- `scripts/data/story_objective_data.gd`
+- `scripts/data/story_objective_data.gd.uid`
+- `scripts/data/story_page_data.gd`
+- `scripts/data/story_page_data.gd.uid`
+- `scripts/domain/story/story_catalog_validator.gd`
+- `scripts/domain/story/story_catalog_validator.gd.uid`
+- `tools/validate_story.gd`
+- `tools/validate_story.gd.uid`
+- `tests/unit/test_story_catalog.gd`
+- `tests/unit/test_story_catalog.gd.uid`
+- `tests/unit/test_story_validator_cli.gd`
+- `tests/unit/test_story_validator_cli.gd.uid`
+- `data/story/chapter1.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `localization/strings_vi.csv.import`
+- `localization/strings_en.csv.import`
+
+**Commit after gate:** `feat: define chapter one story and notebook data`.
+
+## Phase8.6b — Codec snapshot truyện độc lập
+
+Depends on: Phase8.6a
+
+**TASK:** Strict standalone canonical wire {completed_objectives:Array[String],read_pages:Array[String]}; catalogue-ordered known supported IDs, pages readable only after their prerequisites (intro always available). Reject invalid types, duplicate/unknown IDs and planned-only completions. No Node/autoload/filesystem; no game save change.
+
+**ACCEPTANCE:** Native JSON roundtrips, empty/full supported progress, bad arrays/extra fields/unknown M2 flags and contradictory page prerequisites tested. Decode is atomic, input not mutated. save15 and old tests stay unchanged; full gate then commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/domain/story/story_snapshot_codec.gd`
+- `scripts/domain/story/story_snapshot_codec.gd.uid`
+- `tests/unit/test_story_snapshot_codec.gd`
+- `tests/unit/test_story_snapshot_codec.gd.uid`
+
+**Commit after gate:** `feat: add strict story snapshot codec`.
+
+## Phase8.6c — Owner tiến độ và xác nhận đã đọc
+
+Depends on: Phase8.6b
+
+**TASK:** StoryState owns only the two-field wire, serializes/deserializes from its first commit. Configure/reset, capture progress, and acknowledge_page(page_id,expected_revision) use guard/revision checks. Changes publish only after full commit; restore is silent and rejects replacement while publishing. Only validated supported objective evidence is recordable; no money/items/stamina/story entitlements.
+
+**ACCEPTANCE:** Once-only/idempotent observations and read acknowledgments, locked/stale/forged requests, callback reentry and silent restore tested. Fully supported5/10 is not Chapter I completion, M2.4 remains false. Pure1000mixed commands/JSON continuations plus full gate pass.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/domain/story/story_state.gd`
+- `scripts/domain/story/story_state.gd.uid`
+- `scripts/domain/story/story_rules.gd`
+- `scripts/domain/story/story_rules.gd.uid`
+- `tests/unit/test_story_state.gd`
+- `tests/unit/test_story_state.gd.uid`
+- `tests/unit/test_story_publication.gd`
+- `tests/unit/test_story_publication.gd.uid`
+
+**Commit after gate:** `feat: track guarded chapter progress and read pages`.
+
+## Phase8.6d — Sampler bằng chứng từ hệ thống thật
+
+Depends on: Phase8.6c
+
+**TASK:** Pure normalized snapshot/receipt rules map real collector counts crop_planted/crop_harvested/item_sold, completed turnip_delivery and owned farm_east_1 to the five supported objectives. Legacy evidence is strict saved tutorial booleans1/4/5, registered completed quest and valid owned parcel prefix; do not infer dates, repairs, talks, rewards or past receipt counts. Live evidence requires the actual committed command context, not raw Events or bag possession.
+
+**ACCEPTANCE:** Actual Resource IDs checked; missing, malformed, rolled-back and spoofed live contexts rejected; legacy provenance remains explicit. Failures leave owners unchanged. Pure no-autoload tests and full gate pass; no live subscriptions yet.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/domain/story/story_observation_sampler.gd`
+- `scripts/domain/story/story_observation_sampler.gd.uid`
+- `scripts/domain/story/story_receipt_rules.gd`
+- `scripts/domain/story/story_receipt_rules.gd.uid`
+- `tests/unit/test_story_observation_sampler.gd`
+- `tests/unit/test_story_observation_sampler.gd.uid`
+- `tests/unit/test_story_receipt_rules.gd`
+- `tests/unit/test_story_receipt_rules.gd.uid`
+
+**Commit after gate:** `feat: derive story evidence from actual progress`.
+
+## Phase8.6e — Lifecycle và chuẩn hóa save thành phần
+
+Depends on: Phase8.6d
+
+**TASK:** Prepare a candidate before replacing the single StoryState. Valid component retains exact progress/read pages; legacy or bad component derives only verifiable old progress, read pages empty, no past moment replay. Normalize story independently from other systems. Restore/new reset are silent and reject busy owners. Component not wired into game saves until f.
+
+**ACCEPTANCE:** Test all15 tracked historical goldens as inputs without modifying them, valid exact restore, corrupt-only fallback, no invented timestamps/actions and callback safety. Independent1000restore/JSON probes, unchanged save15, full gate and commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/domain/story/story_save_codec.gd`
+- `scripts/domain/story/story_save_codec.gd.uid`
+- `scripts/domain/story/story_save_context.gd`
+- `scripts/domain/story/story_save_context.gd.uid`
+- `scripts/domain/story/story_lifecycle.gd`
+- `scripts/domain/story/story_lifecycle.gd.uid`
+- `tests/unit/test_story_save_codec.gd`
+- `tests/unit/test_story_save_codec.gd.uid`
+- `tests/unit/test_story_lifecycle.gd`
+- `tests/unit/test_story_lifecycle.gd.uid`
+
+**Commit after gate:** `feat: prepare safe story lifecycle and legacy evidence`.
+
+## Phase8.6f — Runtime owner và save v16
+
+Depends on: Phase8.6e
+
+**TASK:** Main owns stable story_state/story_runtime. Observe actual guarded collector publication after successful sow/harvest/sale, confirmed quest payout (new read-only QuestManager.is_busy getter), and a new typed LandRuntime.purchased(parcel_id) emitted only after successful committed purchase under its existing busy guard. Add story guards to root lifecycle/save boundaries and reset receipt latches on new/load/title. SaveService16 adds only story and migrate_15_to_16; generate golden16 from actual tracked golden15 migration. Preserve dog introduction15 and director14/watering10 thresholds and all other progress. Apply ONLY the attached40output-version rows in34old test files; preserve all historical input versions/ranges/goldens and assertions.
+
+**ACCEPTANCE:** Actual commands progress once; full inventory/failed/refunded/repeated commands and raw producer signals do not progress live story. New/load/Continue/title/reentry preserve existing owners/dog and silent story restore. Corrupt story does not corrupt other components; no day simulation or automatic Director enable. Exact old-test patch/SHA verified, all real saves protected; full launcher180s-per-child passes then commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `scripts/view/story/story_runtime.gd`
+- `scripts/view/story/story_runtime.gd.uid`
+- `scripts/view/story/story_observer_flow.gd`
+- `scripts/view/story/story_observer_flow.gd.uid`
+- `tests/helpers/story_fixture.gd`
+- `tests/helpers/story_fixture.gd.uid`
+- `tests/unit/test_story_runtime_save.gd`
+- `tests/unit/test_story_runtime_save.gd.uid`
+- `tests/unit/test_story_runtime_receipts.gd`
+- `tests/unit/test_story_runtime_receipts.gd.uid`
+- `tests/unit/test_story_runtime_lifecycle.gd`
+- `tests/unit/test_story_runtime_lifecycle.gd.uid`
+- `scripts/view/main.gd`
+- `scripts/core/save_service.gd`
+- `scripts/domain/quests/quest_manager.gd`
+- `scripts/view/land_runtime.gd`
+- `docs/SCENE_CONTRACTS/land_expansion.md`
+- `scripts/domain/story/story_save_codec.gd`
+- `scripts/domain/story/story_save_context.gd`
+- `scripts/domain/story/story_lifecycle.gd`
+- `scripts/domain/story/story_observation_sampler.gd`
+- `scripts/domain/story/story_state.gd`
+- `tests/golden_saves/save_v16.json`
+- `tests/unit/test_ambient_audio_runtime.gd`
+- `tests/unit/test_bag_upgrade_flow.gd`
+- `tests/unit/test_character_screen.gd`
+- `tests/unit/test_chicken_coop_collection.gd`
+- `tests/unit/test_chicken_coop_feeding.gd`
+- `tests/unit/test_chicken_coop_runtime_save.gd`
+- `tests/unit/test_crop_care_save.gd`
+- `tests/unit/test_crop_regrow_save.gd`
+- `tests/unit/test_crop_stage_runtime.gd`
+- `tests/unit/test_day_end_flow.gd`
+- `tests/unit/test_day_end_save.gd`
+- `tests/unit/test_dog_runtime_save.gd`
+- `tests/unit/test_ecology_end_to_end.gd`
+- `tests/unit/test_ecology_runtime_save.gd`
+- `tests/unit/test_inventory_actions.gd`
+- `tests/unit/test_land_save.gd`
+- `tests/unit/test_machine_build_lifecycle.gd`
+- `tests/unit/test_machine_collection.gd`
+- `tests/unit/test_morning_flow.gd`
+- `tests/unit/test_npc_social_save.gd`
+- `tests/unit/test_pause_settings.gd`
+- `tests/unit/test_profile_creation.gd`
+- `tests/unit/test_quest_book.gd`
+- `tests/unit/test_recipe_economy.gd`
+- `tests/unit/test_save_backup_recovery.gd`
+- `tests/unit/test_save_service.gd`
+- `tests/unit/test_supplied_decor_runtime.gd`
+- `tests/unit/test_supplied_objects_runtime.gd`
+- `tests/unit/test_title_flow.gd`
+- `tests/unit/test_water_source_world.gd`
+- `tests/unit/test_watering_runtime_save.gd`
+- `tests/unit/test_watering_upgrade_flow.gd`
+- `tests/unit/test_weather.gd`
+- `tests/unit/test_weather_runtime_save.gd`
+
+**Commit after gate:** `feat: persist live chapter observations with save16`.
+
+## Phase8.6g — Readout Việt/Anh chỉ đọc
+
+Depends on: Phase8.6f
+
+**TASK:** Detached read models/presenter expose actual story progress and page availability; five unsupported objectives and all four M2 milestones show coming-later availability. Source labels never pretend An/Bac Lam exist, the bridge/canal/house/storage are repaired, or the station has awakened. Draft grandmother voice follows STYLE_GUIDE, with original short text based on Master Plan. No fake reward/XP/deadline/forecast or claim Chapter I is complete.
+
+**ACCEPTANCE:** vi/en key coverage,5/10 supported maximum, empty/partial/legacy/all-supported states, unavailable milestones and detached models tested. Repeated reads/locale changes preserve all owners/save bytes; full gate then commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `ui/story/story_snapshot.gd`
+- `ui/story/story_snapshot.gd.uid`
+- `ui/story/story_presenter.gd`
+- `ui/story/story_presenter.gd.uid`
+- `tests/unit/test_story_readout.gd`
+- `tests/unit/test_story_readout.gd.uid`
+- `tests/unit/test_story_localization.gd`
+- `tests/unit/test_story_localization.gd.uid`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `localization/strings_vi.csv.import`
+- `localization/strings_en.csv.import`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+
+**Commit after gate:** `feat: present truthful localized chapter readouts`.
+
+## Phase8.6h — Sổ tay trong J bằng scene nhỏ
+
+Depends on: Phase8.6g
+
+**TASK:** Add a compact Story entry beside the existing Ecology entry in J; retain all existing three tabs, quest entry counts and native Q/E/J/Esc behavior. Lazy notebook branches reuse the shared Theme with title, independently scrollable actual objectives and planned milestones. Keep quest/ecology/story sections mutually exclusive; closing/new/load/title resets transient branch and frees lazy nodes. No new InputMap/old scene edits or active dead controls.
+
+**ACCEPTANCE:** Native mouse/focus/scroll/back/Q/E/Esc, new/load/title cleanup, unchanged owner/save state and no node growth tested. vi/en1152x648/1280x720/1920x1080 fresh captures, long-text/resize cases and original quest/ecology regression tests pass unchanged, then full gate/commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `ui/story/notebook.gd`
+- `ui/story/notebook.gd.uid`
+- `ui/story/notebook.tscn`
+- `ui/story/chapter_header.gd`
+- `ui/story/chapter_header.gd.uid`
+- `ui/story/chapter_header.tscn`
+- `ui/story/objective_list.gd`
+- `ui/story/objective_list.gd.uid`
+- `ui/story/objective_list.tscn`
+- `ui/story/objective_row.gd`
+- `ui/story/objective_row.gd.uid`
+- `ui/story/objective_row.tscn`
+- `ui/story/milestone_list.gd`
+- `ui/story/milestone_list.gd.uid`
+- `ui/story/milestone_list.tscn`
+- `ui/story/milestone_row.gd`
+- `ui/story/milestone_row.gd.uid`
+- `ui/story/milestone_row.tscn`
+- `ui/story/notebook_controller.gd`
+- `ui/story/notebook_controller.gd.uid`
+- `tests/unit/test_story_notebook.gd`
+- `tests/unit/test_story_notebook.gd.uid`
+- `tests/unit/test_story_notebook_layout.gd`
+- `tests/unit/test_story_notebook_layout.gd.uid`
+- `ui/story/story_snapshot.gd`
+- `ui/story/story_presenter.gd`
+- `ui/quests/quest_book.gd`
+- `ui/quests/book_controller.gd`
+- `ui/ecology/ecology_controller.gd`
+- `docs/SCENE_CONTRACTS/quest_book.md`
+- `docs/SCENE_CONTRACTS/ecology.md`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `localization/strings_vi.csv.import`
+- `localization/strings_en.csv.import`
+
+**Commit after gate:** `feat: add modular grandmother notebook to the journal`.
+
+## Phase8.6i — Thư của bà và trang đã đọc
+
+Depends on: Phase8.6h
+
+**TASK:** Expose optional intro letter and pages unlocked by the five proven objectives through notebook links. New shared-theme modal composes small body/actions scenes and native buttons. UiCoordinator alone owns holds/focus/Esc; explicit confirm calls guarded acknowledge_page with captured revision, Cancel/Esc never acknowledges. Keep saved read flags and current dog/other owners; new/load/title closes without replay or forced opening. No station scene, new audio/art, economic rewards or production unlock.
+
+**ACCEPTANCE:** Native open/confirm/cancel/Tab/Enter/Esc; stale/reentrant/locked page and publication/lifecycle guards; only actual confirmation persists a read flag, exactly once. vi/en3sizes fresh captures and all original UI/input tests unchanged; full gate then commit/push.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `ui/story/page_link.gd`
+- `ui/story/page_link.gd.uid`
+- `ui/story/page_link.tscn`
+- `ui/story/moment_sheet.gd`
+- `ui/story/moment_sheet.gd.uid`
+- `ui/story/moment_sheet.tscn`
+- `ui/story/moment_body.gd`
+- `ui/story/moment_body.gd.uid`
+- `ui/story/moment_body.tscn`
+- `ui/story/moment_actions.gd`
+- `ui/story/moment_actions.gd.uid`
+- `ui/story/moment_actions.tscn`
+- `ui/story/story_moment_flow.gd`
+- `ui/story/story_moment_flow.gd.uid`
+- `tests/unit/test_story_moment_flow.gd`
+- `tests/unit/test_story_moment_flow.gd.uid`
+- `tests/unit/test_story_moment_layout.gd`
+- `tests/unit/test_story_moment_layout.gd.uid`
+- `scripts/view/main.gd`
+- `scripts/view/ui_coordinator.gd`
+- `ui/story/notebook.gd`
+- `ui/story/notebook_controller.gd`
+- `ui/story/story_snapshot.gd`
+- `ui/story/story_presenter.gd`
+- `docs/SCENE_CONTRACTS/quest_book.md`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `localization/strings_vi.csv.import`
+- `localization/strings_en.csv.import`
+
+**Commit after gate:** `feat: add optional story pages with safe read acknowledgments`.
+
+## Phase8.6j — Kiểm chứng xuyên suốt và bàn giao
+
+Depends on: Phase8.6i
+
+**TASK:** Independent1000command probe using actual story DATA/domain compares single/grouped/nativeJSON continuation; synthetic verification inputs are explicitly test fixtures, never claimed as observed gameplay or simulated days. Native end-to-end performs actual supported farming/sale/delivery/land commands, J/notebook/page confirmation, night review/autosave, slot save/load/Continue/new/title with real existing owners. Test all16goldens. Verify planned repairs and M2.4 remain unavailable, existing Director authorization/forecast/merchant behavior unchanged, and dog/progress survive.
+
+**ACCEPTANCE:** CLI positive0/invalid fixture1, independent pure project, fresh vi/en3sizes captures, full original launcher4sequential groups/180s each. Exact cumulative scoped diffs, only40approved old-test output-version rows at f, historical goldens unchanged, real-save SHA and remote hash verified. Commit/push final step; human F5/tone/IME/FPS and remaining repairs/NPCs/M2.4 are explicitly separate.
+
+**ALLOW_LIST (exact):**
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/story.md`
+- `tools/sim_story.gd`
+- `tools/sim_story.gd.uid`
+- `tests/unit/test_story_simulation.gd`
+- `tests/unit/test_story_simulation.gd.uid`
+- `tests/unit/test_story_end_to_end.gd`
+- `tests/unit/test_story_end_to_end.gd.uid`
+- `tests/unit/test_story_golden_continuation.gd`
+- `tests/unit/test_story_golden_continuation.gd.uid`
+
+**Commit after gate:** `test: verify chapter notebook persistence and native lifecycle`.
+
+
+
 ## Phase8.5j automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 240scripts/948/948/99865assert; groups140.385/98.237/99.243/121.706s<180, GUT459.571s/wall481.579s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2593, prior test/fixture verification503, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5j-232402/full-attempt1. No skip/weakening/timeout extension.

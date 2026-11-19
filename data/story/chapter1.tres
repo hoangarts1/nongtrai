@@ -1,0 +1,293 @@
+[gd_resource type="Resource" script_class="StoryConfig" load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/story_config.gd" id="1"]
+
+[ext_resource type="Script" path="res://scripts/data/story_objective_data.gd" id="2"]
+
+[ext_resource type="Script" path="res://scripts/data/story_page_data.gd" id="3"]
+
+[ext_resource type="Resource" path="res://data/quests/quest_turnip_delivery.tres" id="4"]
+
+[ext_resource type="Resource" path="res://data/land_expansion_config.tres" id="5"]
+
+[sub_resource type="Resource" id="first_sowing"]
+
+script = ExtResource("2")
+
+objective_id = &"first_sowing"
+
+title_key = &"STORY_GOAL_FIRST_SOWING"
+
+description_key = &"STORY_GOAL_FIRST_SOWING_DESC"
+
+source = &"crop_planted"
+
+source_id = &""
+
+tutorial_step = 1
+
+target = 1
+
+planned = false
+
+[sub_resource type="Resource" id="first_harvest"]
+
+script = ExtResource("2")
+
+objective_id = &"first_harvest"
+
+title_key = &"STORY_GOAL_FIRST_HARVEST"
+
+description_key = &"STORY_GOAL_FIRST_HARVEST_DESC"
+
+source = &"crop_harvested"
+
+source_id = &""
+
+tutorial_step = 4
+
+target = 1
+
+planned = false
+
+[sub_resource type="Resource" id="first_sale"]
+
+script = ExtResource("2")
+
+objective_id = &"first_sale"
+
+title_key = &"STORY_GOAL_FIRST_SALE"
+
+description_key = &"STORY_GOAL_FIRST_SALE_DESC"
+
+source = &"item_sold"
+
+source_id = &""
+
+tutorial_step = 5
+
+target = 1
+
+planned = false
+
+[sub_resource type="Resource" id="first_delivery"]
+
+script = ExtResource("2")
+
+objective_id = &"first_delivery"
+
+title_key = &"STORY_GOAL_FIRST_DELIVERY"
+
+description_key = &"STORY_GOAL_FIRST_DELIVERY_DESC"
+
+source = &"quest_completed"
+
+source_id = &"turnip_delivery"
+
+tutorial_step = -1
+
+target = 1
+
+planned = false
+
+[sub_resource type="Resource" id="first_expansion"]
+
+script = ExtResource("2")
+
+objective_id = &"first_expansion"
+
+title_key = &"STORY_GOAL_FIRST_EXPANSION"
+
+description_key = &"STORY_GOAL_FIRST_EXPANSION_DESC"
+
+source = &"parcel_owned"
+
+source_id = &"farm_east_1"
+
+tutorial_step = -1
+
+target = 1
+
+planned = false
+
+[sub_resource type="Resource" id="clear_land"]
+
+script = ExtResource("2")
+
+objective_id = &"clear_land"
+
+title_key = &"STORY_GOAL_CLEAR_LAND"
+
+description_key = &"STORY_GOAL_CLEAR_LAND_DESC"
+
+[sub_resource type="Resource" id="repair_mailbox"]
+
+script = ExtResource("2")
+
+objective_id = &"repair_mailbox"
+
+title_key = &"STORY_GOAL_REPAIR_MAILBOX"
+
+description_key = &"STORY_GOAL_REPAIR_MAILBOX_DESC"
+
+[sub_resource type="Resource" id="repair_house"]
+
+script = ExtResource("2")
+
+objective_id = &"repair_house"
+
+title_key = &"STORY_GOAL_REPAIR_HOUSE"
+
+description_key = &"STORY_GOAL_REPAIR_HOUSE_DESC"
+
+[sub_resource type="Resource" id="meet_neighbors"]
+
+script = ExtResource("2")
+
+objective_id = &"meet_neighbors"
+
+title_key = &"STORY_GOAL_MEET_NEIGHBORS"
+
+description_key = &"STORY_GOAL_MEET_NEIGHBORS_DESC"
+
+[sub_resource type="Resource" id="unlock_storage"]
+
+script = ExtResource("2")
+
+objective_id = &"unlock_storage"
+
+title_key = &"STORY_GOAL_UNLOCK_STORAGE"
+
+description_key = &"STORY_GOAL_UNLOCK_STORAGE_DESC"
+
+[sub_resource type="Resource" id="m2_1_canal"]
+
+script = ExtResource("2")
+
+objective_id = &"m2_1_canal"
+
+title_key = &"STORY_GOAL_M2_1_CANAL"
+
+description_key = &"STORY_GOAL_M2_1_CANAL_DESC"
+
+[sub_resource type="Resource" id="m2_2_mill"]
+
+script = ExtResource("2")
+
+objective_id = &"m2_2_mill"
+
+title_key = &"STORY_GOAL_M2_2_MILL"
+
+description_key = &"STORY_GOAL_M2_2_MILL_DESC"
+
+[sub_resource type="Resource" id="m2_3_bridge"]
+
+script = ExtResource("2")
+
+objective_id = &"m2_3_bridge"
+
+title_key = &"STORY_GOAL_M2_3_BRIDGE"
+
+description_key = &"STORY_GOAL_M2_3_BRIDGE_DESC"
+
+[sub_resource type="Resource" id="m2_4_station"]
+
+script = ExtResource("2")
+
+objective_id = &"m2_4_station"
+
+title_key = &"STORY_GOAL_M2_4_STATION"
+
+description_key = &"STORY_GOAL_M2_4_STATION_DESC"
+
+[sub_resource type="Resource" id="intro"]
+
+script = ExtResource("3")
+
+page_id = &"intro"
+
+title_key = &"STORY_PAGE_INTRO"
+
+body_key = &"STORY_PAGE_INTRO_BODY"
+
+objective_id = &""
+
+[sub_resource type="Resource" id="page_sowing"]
+
+script = ExtResource("3")
+
+page_id = &"page_sowing"
+
+title_key = &"STORY_PAGE_PAGE_SOWING"
+
+body_key = &"STORY_PAGE_PAGE_SOWING_BODY"
+
+objective_id = &"first_sowing"
+
+[sub_resource type="Resource" id="page_harvest"]
+
+script = ExtResource("3")
+
+page_id = &"page_harvest"
+
+title_key = &"STORY_PAGE_PAGE_HARVEST"
+
+body_key = &"STORY_PAGE_PAGE_HARVEST_BODY"
+
+objective_id = &"first_harvest"
+
+[sub_resource type="Resource" id="page_sale"]
+
+script = ExtResource("3")
+
+page_id = &"page_sale"
+
+title_key = &"STORY_PAGE_PAGE_SALE"
+
+body_key = &"STORY_PAGE_PAGE_SALE_BODY"
+
+objective_id = &"first_sale"
+
+[sub_resource type="Resource" id="page_delivery"]
+
+script = ExtResource("3")
+
+page_id = &"page_delivery"
+
+title_key = &"STORY_PAGE_PAGE_DELIVERY"
+
+body_key = &"STORY_PAGE_PAGE_DELIVERY_BODY"
+
+objective_id = &"first_delivery"
+
+[sub_resource type="Resource" id="page_expansion"]
+
+script = ExtResource("3")
+
+page_id = &"page_expansion"
+
+title_key = &"STORY_PAGE_PAGE_EXPANSION"
+
+body_key = &"STORY_PAGE_PAGE_EXPANSION_BODY"
+
+objective_id = &"first_expansion"
+
+[resource]
+
+script = ExtResource("1")
+
+chapter_id = &"chapter_1"
+
+title_key = &"STORY_CHAPTER_1"
+
+description_key = &"STORY_CHAPTER_1_DESC"
+
+objectives = Array[ExtResource("2")]([SubResource("first_sowing"),SubResource("first_harvest"),SubResource("first_sale"),SubResource("first_delivery"),SubResource("first_expansion"),SubResource("clear_land"),SubResource("repair_mailbox"),SubResource("repair_house"),SubResource("meet_neighbors"),SubResource("unlock_storage")])
+
+milestones = Array[ExtResource("2")]([SubResource("m2_1_canal"),SubResource("m2_2_mill"),SubResource("m2_3_bridge"),SubResource("m2_4_station")])
+
+pages = Array[ExtResource("3")]([SubResource("intro"),SubResource("page_sowing"),SubResource("page_harvest"),SubResource("page_sale"),SubResource("page_delivery"),SubResource("page_expansion")])
+
+delivery = ExtResource("4")
+
+land = ExtResource("5")

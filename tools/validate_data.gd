@@ -340,5 +340,10 @@ func _run() -> void:
 		for message: String in dog_text_errors: push_error(message)
 		quit(1)
 		return
+	var story_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_story_config(preload("res://data/story/chapter1.tres"),locale_paths)
+	if not story_errors.is_empty():
+		for message: String in story_errors: push_error(message)
+		quit(1)
+		return
 	print("[validate_data] PASS")
 	quit(0)

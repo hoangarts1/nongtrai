@@ -1,5 +1,36 @@
 # API INDEX — THE LIFE
 
+## Phase8.6a implemented API
+
+Step1/10 approved8.6a-j on2026-11-20; base b808308/full948. DATA StoryConfig/Objective/Page catalogue only: five supported objective IDs, five planned-only chapter tasks, four planned-only M2 repairs, six optional grandmother pages. Actual QuestData turnip_delivery and first land parcel are referenced; no new NPC/price/reward/world object/owner/UI/forecast or Director gate. All42localized catalogue keys present in vi/en; wording remains a draft for human tone acceptance.
+
+Pure StoryCatalogValidator checks sources/first-occurrence targets, duplicate/empty IDs, exact existing references, planned milestones, page prerequisites and objective/page cycles. DataValidator delegates to it and the original validate_data gate includes the actual catalogue. StoryConfig.freeze detaches full Resource graphs with shared-copy memo and packed arrays; the first focused run5/6 caught packed-array aliasing, production copy now duplicates all packed arrays and original assertion retained plus nested NPC weekday check added. Final focused2:2scripts/6/6/29assert/2.519s PASS, no errors/leaks. Import1 passes with inherited duplicate artUID warnings. CLI positive/invalid-cycle/unknown fixture tested through real child processes. Current-source isolated34-dependency project has no autoload/core/view/world nodes: import0, positive0/PASS, deliberate cloned cycle1/rejected. No source resource changed by invalid fixture. Old tests/goldens/20real saves protected; final full follows. No editor scene/Inspector/InputMap setup for this DATA-only step. Runtime story/save16 and notebook are later approved steps, not delivered here.
+
+`scripts/data/story_config.gd`:
+```gdscript
+
+func get_objective(id: StringName) -> StoryObjectiveData:
+func get_page(id: StringName) -> StoryPageData:
+func supported_ids() -> PackedStringArray:
+func translation_keys() -> PackedStringArray:
+func frozen_copy() -> StoryConfig:
+
+```
+
+`scripts/domain/story/story_catalog_validator.gd`:
+```gdscript
+
+static func validate(config: StoryConfig) -> PackedStringArray:
+
+```
+
+`scripts/core/data_validator.gd`:
+```gdscript
+
+static func validate_story_config(config: StoryConfig, locales: Array[String] = []) -> PackedStringArray:
+
+```
+
 ## Phase8.5j implemented API
 
 Full1 final launcher exit0:240scripts/948/948/99865assert; four sequential groups 140.385/98.237/99.243/121.706s, each<180. Parse/data/headless63/Main PASS. Complete native/source/old-test/real-save/commit proof is recorded in PROGRESS and batch delivery; human F5/art/IME/FPS is still required. This is automation delivery of the approved8.5a-j batch, not final human acceptance of roadmap8.5.

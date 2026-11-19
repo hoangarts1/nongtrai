@@ -634,3 +634,8 @@ static func validate_dog_visual(profile: DogVisualProfile) -> PackedStringArray:
 
 static func validate_dog_text(locales: Array[String], keys: PackedStringArray) -> PackedStringArray:
 	return validate_translation_keys(locales, keys)
+
+static func validate_story_config(config: StoryConfig, locales: Array[String] = []) -> PackedStringArray:
+	var errors: PackedStringArray = StoryCatalogValidator.validate(config)
+	if errors.is_empty() and not locales.is_empty(): errors.append_array(validate_translation_keys(locales,config.translation_keys()))
+	return errors

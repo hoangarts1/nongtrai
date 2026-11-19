@@ -798,3 +798,45 @@ DOG_NAME_SAVE,Lưu tên
 DOG_NAME_CANCEL,Hủy và quay lại
 DOG_NAME_INVALID,Tên cần có 1–24 ký tự và không xuống dòng.
 DOG_NAME_STALE,Tên đã đổi. Hãy đóng rồi mở lại nhé.
+STORY_CHAPTER_1,Chương I · Mầm sống
+STORY_CHAPTER_1_DESC,Từng việc nhỏ làm nên một mảnh vườn.
+STORY_GOAL_FIRST_SOWING,Gieo vụ đầu
+STORY_GOAL_FIRST_SOWING_DESC,Gieo vụ đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_HARVEST,Mùa thu hoạch đầu
+STORY_GOAL_FIRST_HARVEST_DESC,Mùa thu hoạch đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_SALE,Bán lần đầu
+STORY_GOAL_FIRST_SALE_DESC,Bán lần đầu đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_DELIVERY,Giao đơn đầu tiên
+STORY_GOAL_FIRST_DELIVERY_DESC,Giao đơn đầu tiên đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_FIRST_EXPANSION,Mở rộng mảnh vườn
+STORY_GOAL_FIRST_EXPANSION_DESC,Mở rộng mảnh vườn đã được ghi nhận từ tiến độ của con.
+STORY_GOAL_CLEAR_LAND,Dọn đất
+STORY_GOAL_CLEAR_LAND_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_REPAIR_MAILBOX,Sửa hộp thư
+STORY_GOAL_REPAIR_MAILBOX_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_REPAIR_HOUSE,Sửa nhà
+STORY_GOAL_REPAIR_HOUSE_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_MEET_NEIGHBORS,Gặp An và Bác Lâm
+STORY_GOAL_MEET_NEIGHBORS_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_UNLOCK_STORAGE,Mở kho
+STORY_GOAL_UNLOCK_STORAGE_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_M2_1_CANAL,Sửa kênh tưới
+STORY_GOAL_M2_1_CANAL_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_M2_2_MILL,Khôi phục cối xay
+STORY_GOAL_M2_2_MILL_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_M2_3_BRIDGE,Sửa cầu qua sông
+STORY_GOAL_M2_3_BRIDGE_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_M2_4_STATION,Sửa trạm quan trắc
+STORY_GOAL_M2_4_STATION_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_PAGE_INTRO,Lời bà để lại
+STORY_PAGE_INTRO_BODY,Con cứ bắt đầu từ một hạt giống. Mảnh vườn sẽ kể phần còn lại.
+STORY_PAGE_PAGE_SOWING,Hạt giống đầu tiên
+STORY_PAGE_PAGE_SOWING_BODY,Ta đã chừa một trang cho mầm cây đầu tiên của con.
+STORY_PAGE_PAGE_HARVEST,Mùa đầu trong tay
+STORY_PAGE_PAGE_HARVEST_BODY,Con đã đợi được một mùa nhỏ. Nhớ dành lại một chỗ cho vụ sau.
+STORY_PAGE_PAGE_SALE,Một chuyến mang ra chợ
+STORY_PAGE_PAGE_SALE_BODY,Mong món con chăm sẽ làm ấm thêm một căn bếp.
+STORY_PAGE_PAGE_DELIVERY,Lời hẹn đã giữ
+STORY_PAGE_PAGE_DELIVERY_BODY,Một việc đã hẹn rồi làm xong cũng là cách vun một khu vườn.
+STORY_PAGE_PAGE_EXPANSION,Thêm một khoảng đất
+STORY_PAGE_PAGE_EXPANSION_BODY,Đất rộng hơn rồi. Cứ chăm từng góc một thôi con.

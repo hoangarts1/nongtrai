@@ -798,3 +798,45 @@ DOG_NAME_SAVE,Save name
 DOG_NAME_CANCEL,Cancel and go back
 DOG_NAME_INVALID,Use 1–24 printable characters on one line.
 DOG_NAME_STALE,The name has changed. Please close and reopen.
+STORY_CHAPTER_1,Chapter I · First shoots
+STORY_CHAPTER_1_DESC,Small steps make a garden.
+STORY_GOAL_FIRST_SOWING,First sowing
+STORY_GOAL_FIRST_SOWING_DESC,Recorded from your progress: first sowing.
+STORY_GOAL_FIRST_HARVEST,First harvest
+STORY_GOAL_FIRST_HARVEST_DESC,Recorded from your progress: first harvest.
+STORY_GOAL_FIRST_SALE,First sale
+STORY_GOAL_FIRST_SALE_DESC,Recorded from your progress: first sale.
+STORY_GOAL_FIRST_DELIVERY,First delivery
+STORY_GOAL_FIRST_DELIVERY_DESC,Recorded from your progress: first delivery.
+STORY_GOAL_FIRST_EXPANSION,Expand the garden
+STORY_GOAL_FIRST_EXPANSION_DESC,Recorded from your progress: expand the garden.
+STORY_GOAL_CLEAR_LAND,Clear the land
+STORY_GOAL_CLEAR_LAND_DESC,This part of the journey is coming later.
+STORY_GOAL_REPAIR_MAILBOX,Repair the mailbox
+STORY_GOAL_REPAIR_MAILBOX_DESC,This part of the journey is coming later.
+STORY_GOAL_REPAIR_HOUSE,Repair the house
+STORY_GOAL_REPAIR_HOUSE_DESC,This part of the journey is coming later.
+STORY_GOAL_MEET_NEIGHBORS,Meet An and Bác Lâm
+STORY_GOAL_MEET_NEIGHBORS_DESC,This part of the journey is coming later.
+STORY_GOAL_UNLOCK_STORAGE,Open the storage
+STORY_GOAL_UNLOCK_STORAGE_DESC,This part of the journey is coming later.
+STORY_GOAL_M2_1_CANAL,Restore the irrigation canal
+STORY_GOAL_M2_1_CANAL_DESC,This part of the journey is coming later.
+STORY_GOAL_M2_2_MILL,Restore the mill
+STORY_GOAL_M2_2_MILL_DESC,This part of the journey is coming later.
+STORY_GOAL_M2_3_BRIDGE,Repair the river bridge
+STORY_GOAL_M2_3_BRIDGE_DESC,This part of the journey is coming later.
+STORY_GOAL_M2_4_STATION,Restore the observation station
+STORY_GOAL_M2_4_STATION_DESC,This part of the journey is coming later.
+STORY_PAGE_INTRO,A note from Grandma
+STORY_PAGE_INTRO_BODY,Begin with a seed. Let the garden tell the rest.
+STORY_PAGE_PAGE_SOWING,The first seed
+STORY_PAGE_PAGE_SOWING_BODY,I saved a page for your first little shoot.
+STORY_PAGE_PAGE_HARVEST,Your first harvest
+STORY_PAGE_PAGE_HARVEST_BODY,You have waited for a small harvest. Leave a little room for the next.
+STORY_PAGE_PAGE_SALE,A first sale
+STORY_PAGE_PAGE_SALE_BODY,May what you grew bring warmth to another kitchen.
+STORY_PAGE_PAGE_DELIVERY,A promise kept
+STORY_PAGE_PAGE_DELIVERY_BODY,Keeping a small promise helps a garden grow too.
+STORY_PAGE_PAGE_EXPANSION,A little more room
+STORY_PAGE_PAGE_EXPANSION_BODY,There is a little more room now. Tend it one corner at a time.
