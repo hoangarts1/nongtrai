@@ -19,6 +19,7 @@ func open() -> void:
 	var book: LifeQuestBook = _panel.book
 	book.story_sheet = preload("res://ui/story/notebook.tscn").instantiate() as LifeStoryNotebook
 	book.paper.add_child(book.story_sheet)
+	book.story_sheet.page_requested.connect(_main.story_moment_flow.open)
 	book.story_sheet.back_requested.connect(_back)
 	book.body.hide()
 	book.story_button.disabled = true

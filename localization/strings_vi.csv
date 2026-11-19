@@ -829,7 +829,7 @@ STORY_GOAL_M2_3_BRIDGE_DESC,Phần việc này sẽ đến trong một chặng �
 STORY_GOAL_M2_4_STATION,Sửa trạm quan trắc
 STORY_GOAL_M2_4_STATION_DESC,Phần việc này sẽ đến trong một chặng đường sau.
 STORY_PAGE_INTRO,Lời bà để lại
-STORY_PAGE_INTRO_BODY,Con cứ bắt đầu từ một hạt giống. Mảnh vườn sẽ kể phần còn lại.
+STORY_PAGE_INTRO_BODY,Một mảnh đất không trở nên giàu có chỉ nhờ những gì ta thu hoạch. Nó trở nên giàu có nhờ những gì ta để lại.
 STORY_PAGE_PAGE_SOWING,Hạt giống đầu tiên
 STORY_PAGE_PAGE_SOWING_BODY,Ta đã chừa một trang cho mầm cây đầu tiên của con.
 STORY_PAGE_PAGE_HARVEST,Mùa đầu trong tay
@@ -854,3 +854,7 @@ STORY_PAGES,Những trang của bà
 STORY_READ,Đã đọc
 STORY_UNREAD,Chưa đọc
 STORY_LOCKED,Chưa mở
+STORY_PAGE_LINK,%s · %s
+STORY_CONFIRM,Đánh dấu đã đọc
+STORY_CANCEL,Về sổ tay
+STORY_STALE,Trang sổ vừa cập nhật. Bạn trở về sổ tay rồi mở lại nhé.

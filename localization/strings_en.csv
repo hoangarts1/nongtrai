@@ -829,7 +829,7 @@ STORY_GOAL_M2_3_BRIDGE_DESC,This part of the journey is coming later.
 STORY_GOAL_M2_4_STATION,Restore the observation station
 STORY_GOAL_M2_4_STATION_DESC,This part of the journey is coming later.
 STORY_PAGE_INTRO,A note from Grandma
-STORY_PAGE_INTRO_BODY,Begin with a seed. Let the garden tell the rest.
+STORY_PAGE_INTRO_BODY,"A piece of land grows rich not only through what we harvest, but through what we leave behind."
 STORY_PAGE_PAGE_SOWING,The first seed
 STORY_PAGE_PAGE_SOWING_BODY,I saved a page for your first little shoot.
 STORY_PAGE_PAGE_HARVEST,Your first harvest
@@ -854,3 +854,7 @@ STORY_PAGES,Pages from Grandma
 STORY_READ,Read
 STORY_UNREAD,Unread
 STORY_LOCKED,Not yet available
+STORY_PAGE_LINK,%s · %s
+STORY_CONFIRM,Mark as read
+STORY_CANCEL,Back to notebook
+STORY_STALE,The notebook has changed. Please return and open this page again.

@@ -29,3 +29,7 @@ Manual F5/J: select/filter actual onboarding/delivery entries, compare flags/cur
 ## Phase8.6h notebook branch
 
 LifeQuestBook adds story_button:Button and nullable story_sheet:LifeStoryNotebook. Book controller owns LifeStoryNotebookController; configure/open/close/reset/is_open/queue_render are transient VIEW APIs. Ecology open closes story; story open closes ecology; existing ecology reset also drops story so NpcPanel.show_quest_book always returns to quests. New/load/title book reset and deferred hidden cleanup free the lazy branch. Native J/Q/E/Esc and all three existing tabs/quest counts remain. Six small shared-theme scenes compose a header, independently scrolling objective and milestone lists/rows, and fixed Back. No new InputMap or editor setup.
+
+## Phase8.6i optional pages
+
+The lazy notebook objective scroll contains six small page_link Buttons before objectives. Only available pages enable; read markers come from StoryState. page_requested(page_id:StringName) routes to Main.story_moment_flow; opening the separate shared-theme modal closes the journal through UiCoordinator. Cancel/Esc returns to a fresh notebook, confirmation alone acknowledges captured revision. Tab/Enter stay native; other journal/world shortcuts are held. Lifecycle closes without reopening or acknowledging. No new key, editor scene setup or reward.

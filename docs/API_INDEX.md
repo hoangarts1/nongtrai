@@ -1,5 +1,58 @@
 # API INDEX — THE LIFE
 
+## Phase8.6i implemented API
+
+Step9/10 after h pushed40fcf63/full997. Six optional page links live in the existing notebook objective scroll; locked links disable and expose no body. Four small shared-theme scene/script pairs compose page_link and moment_sheet/body/actions. Main owns one LifeStoryMomentFlow; UiCoordinator registers its panel and alone owns backdrop/pause/focus/Esc/native GUI routing and resize. UiLayout is unchanged/outside scope; coordinator applies the new panel rectangle after its existing reflow. Opening a page captures actual StoryState revision and closes journal through the existing coordinator. Cancel/Esc returns to a fresh notebook without acknowledgments. Explicit native confirm alone calls guarded acknowledge_page; stale quote shows localized Back/reopen guidance, duplicate acknowledgment does not republish. State/flow busy guards reject callback lifecycle/reentry; new/load/title closes without reopening/replay. No new save field/version, input action, audio/art/reward/production unlock. Intro body preserves the fixed original STYLE_GUIDE quotation; other grandmother text is a draft for tone review.
+
+Import1 PASS with inherited duplicate artUID warnings. Native1:19/20; all layout/old regressions passed, new native Enter revealed a real new modal input bug: pressed ui_accept passed to GUI but key release was consumed, so the native Button never committed. Production UiCoordinator new-branch fix passes both halves via documented event.is_action; all assertions unchanged. Native2:6scripts/20/20/791assert/26.466s PASS/no errors/leaks, including all14prior notebook/quest/ecology tests unchanged. Tests cover native page-link/mouse/Tab/Enter/Esc, held Q/E/J while reading, locked/hidden/stale/reentrant/duplicate requests, save/load read persistence, no other-owner mutation, load/new/title/Continue close without replay, and night-review precedence without acknowledgment/extra day. Fresh12letter plus24notebook PNGs cover vi/en1152x648/1280x720/1920x1080, short/long scrollable letters, actual page availability and fixed actions. Inspected Vietnamese1152intro: fixed quotation readable, buttons within paper and clear optional acknowledgment. Native OS IME/tone/FPS/human F5 remain separate. No Inspector/editor setup. Original full/source/prior-test/20real-save SHA gates follow.
+
+`ui/story/page_link.gd`:
+```gdscript
+
+signal page_requested(page_id: StringName)
+func display(page: Dictionary) -> void:
+
+```
+
+`ui/story/moment_sheet.gd`:
+```gdscript
+
+func display(model: Dictionary, failed: bool = false) -> void:
+
+```
+
+`ui/story/moment_body.gd`:
+```gdscript
+
+func display(model: Dictionary) -> void:
+
+```
+
+`ui/story/moment_actions.gd`:
+```gdscript
+
+func refresh() -> void:
+
+```
+
+`ui/story/story_moment_flow.gd`:
+```gdscript
+
+func configure(main: Node) -> void:
+func open(page_id: StringName) -> bool:
+func close() -> void:
+func back() -> void:
+func confirm() -> void:
+
+```
+
+`ui/story/notebook.gd`:
+```gdscript
+
+signal page_requested(page_id: StringName)
+
+```
+
 ## Phase8.6h implemented API
 
 Step8/10 after g pushed7cfa509/full992. Six small shared-theme scene/script pairs compose LifeStoryNotebook, chapter header, independently scrolling objective/milestone lists and rows, plus fixed Back. A compact Story Button beside Ecology uses the existing J journal and all three enabled common tabs; QuestBookSnapshot entry counts unchanged. Book controller owns transient LifeStoryNotebookController; both branches close each other, existing Ecology.reset also drops story so NpcPanel.show_quest_book returns to quests without editing NpcPanel. Hide/new/load/title detaches and frees lazy scene nodes; repeat-open child counts are stable. Back restores native entry focus. No save/domain/InputMap/old .tscn/Player/dog/art changes; no editor setup.

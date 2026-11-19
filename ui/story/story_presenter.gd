@@ -1,7 +1,7 @@
 ## Localized, detached presentation only. Translation keys are validated at startup.
 class_name LifeStoryPresenter
 extends RefCounted
-const KEYS: PackedStringArray = ["STORY_ENTRY","STORY_BACK","STORY_PROGRESS","STORY_OBJECTIVES","STORY_MILESTONES","STORY_DONE","STORY_READY","STORY_PLANNED","STORY_WAITING","STORY_KEYS","STORY_PAGES","STORY_READ","STORY_UNREAD","STORY_LOCKED"]
+const KEYS: PackedStringArray = ["STORY_ENTRY","STORY_BACK","STORY_PROGRESS","STORY_OBJECTIVES","STORY_MILESTONES","STORY_DONE","STORY_READY","STORY_PLANNED","STORY_WAITING","STORY_KEYS","STORY_PAGES","STORY_READ","STORY_UNREAD","STORY_LOCKED","STORY_PAGE_LINK","STORY_CONFIRM","STORY_CANCEL","STORY_STALE"]
 static func text(key: StringName) -> String:
 	return TranslationServer.translate(key)
 static func describe(snapshot: Dictionary) -> Dictionary:

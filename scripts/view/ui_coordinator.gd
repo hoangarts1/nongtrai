@@ -23,6 +23,7 @@ func configure(main: Node) -> void:
 	_panels.append(main.morning_flow.panel)
 	_panels.append(main.character_flow.panel)
 	_panels.append(main.dog_name_flow.panel)
+	_panels.append(main.story_moment_flow.panel)
 	_panels.append(main.machine_placement_flow.panel)
 	_panels.append(main.land_runtime.panel)
 	_panels.append(main.bag_upgrade_flow.panel)
@@ -51,6 +52,7 @@ func configure(main: Node) -> void:
 	main.toast.z_index = 82
 	main.feedback.z_index = 82
 	UiLayout.apply(main)
+	_layout_story()
 	main.get_viewport().size_changed.connect(_resize)
 	# Start screen takes precedence over automatic first-run help.
 	if main.start_menu.visible:
@@ -70,6 +72,16 @@ func _ignore_pointer(node: Node) -> void:
 func _resize() -> void:
 	_layout_queued = false
 	UiLayout.reflow(_main)
+	_layout_story()
+
+func _layout_story() -> void:
+	var viewport: Vector2 = _main.get_viewport().get_visible_rect().size
+	var dimensions: Vector2 = Vector2(minf(680,viewport.x-64),minf(500,viewport.y-48))
+	var panel: LifeStoryMomentSheet = _main.story_moment_flow.panel
+	LifeTheme.bind(panel,&"LifeHudPaper")
+	panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	panel.position = (viewport-dimensions)*0.5
+	panel.size = dimensions
 
 func _queue_layout() -> void:
 	if not _layout_queued:
@@ -109,7 +121,9 @@ func _visibility_changed(panel: Control) -> void:
 	call_deferred("_resize")
 
 func _close(panel: Control) -> void:
-	if panel == _main.dog_name_flow.panel:
+	if panel == _main.story_moment_flow.panel:
+		_main.story_moment_flow.close()
+	elif panel == _main.dog_name_flow.panel:
 		_main.dog_name_flow.close()
 	elif _main.director_debug_flow != null and panel == _main.director_debug_flow.panel:
 		_main.director_debug_flow.close()
@@ -187,6 +201,16 @@ func _input(event: InputEvent) -> void:
 		return
 	# Let GUI buttons/scrollbars receive mouse events before gameplay filtering.
 	if event is InputEventMouse:
+		return
+	if _active == _main.story_moment_flow.panel:
+		if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
+			_main.story_moment_flow.back()
+			get_viewport().set_input_as_handled()
+			return
+		for action: StringName in [&"ui_focus_next",&"ui_focus_prev",&"ui_accept",&"ui_left",&"ui_right",&"ui_up",&"ui_down"]:
+			# Native buttons commit on release; both halves must reach the GUI.
+			if event.is_action(action): return
+		get_viewport().set_input_as_handled()
 		return
 	if _active == _main.dog_name_flow.panel:
 		if event.is_action_pressed("pause") or event.is_action_pressed("cancel"):
