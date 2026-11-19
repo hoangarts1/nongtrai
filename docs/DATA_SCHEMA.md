@@ -1,5 +1,15 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5f wire and derived state (2026-11-19)
+
+﻿Step6/10 after8.5e pushed6c0fb32/full922. Main retains stable DogState and one LifeDogRuntime/DogActor2D under actual world.objects. DogNavigationContext snapshots actual owned land regions, MachinePlacementState.MACHINE_SIZE footprints and owned coop Resource footprint (placement occupancy is currently one cell irrespective of art). Static world water/buildings/farm use original Resource. Polls sparse sources at configured0.25s and immediately before adjacent arrival; navigation rebuild only on canonical change. DogMotionFlow quotes before pixels, rechecks on arrival then resets display from sole owner; stale/blocked arrivals cannot commit. Only newly covered origin uses bounded repair; one actor/two child display nodes reused. Lifecycle reconfigures existing visual references after silent owner reset, keeps name/cell display coherent.
+
+Paused clock, all UiCoordinator modals including DebugMenu, sleeping/day-end and title stop advance; title hides and cancels route. New/load reset derived routes; actual owner publication prevents save/load/new/title reentry. No new collision/input/Player/camera/NPC/scene/save14 fields or economic mutation. Live dog not persisted until approvedg. Native walking/sprint feel and final art remain human F5 acceptance.
+
+Import1 clean except inherited duplicate assetUID warnings. Focused1 3scripts/7/7/54assert/2.663s PASS; native1 same7/7/54assert/2.740s PASS, no errors/leaks. Real Main follow to far negative grid cells, hysteresis stop, pause/modal/title, stable cache, owned water/buildings/coop, actual machine place/move/remove and land grant, covered-origin/name preservation, stable owner/actor across lifecycle and publication reentry all verified. Existing tests and20real saves protected; full follows.
+
+Existing DATA/domain/view ownership and previous save fields remain. Actor pixels, routes and animation phases are derived; only DogState owns the dog name/cell. No economic/statistical/story reward or new input action.
+
 ## Phase8.5e wire and derived state (2026-11-19)
 
 ﻿Step5/10 after8.5d pushedc0cfe8f/full918. DogVisualProfile supplies shared ArtPalette cream/brown/outline/ground shadow, finite polygon geometry and cosmetic timing. Avatar owns only phase/facing; actor reads sole DogState, interpolates real IsometricGrid ground points and emits arrived without mutating domain. Exactly avatar+non-interactive name Label, no physics/input/3D. Actor is not spawned by Main until approvedf. configure/reset_position/begin_step/advance and set_unnamed_caption are the composition API; unnamed caption empty until localized UI integrationh. External Resource palette and shape arrays detached by frozen_copy.

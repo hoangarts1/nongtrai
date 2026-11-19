@@ -1,5 +1,17 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.5f automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 230scripts/929/929/99572assert; groups140.713/155.45/157.201s<180, GUT453.364s/wall472.576s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2535, prior test/fixture verification480, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5f-204353/full-attempt1. No skip/weakening/timeout extension.
+
+﻿Step6/10 after8.5e pushed6c0fb32/full922. Main retains stable DogState and one LifeDogRuntime/DogActor2D under actual world.objects. DogNavigationContext snapshots actual owned land regions, MachinePlacementState.MACHINE_SIZE footprints and owned coop Resource footprint (placement occupancy is currently one cell irrespective of art). Static world water/buildings/farm use original Resource. Polls sparse sources at configured0.25s and immediately before adjacent arrival; navigation rebuild only on canonical change. DogMotionFlow quotes before pixels, rechecks on arrival then resets display from sole owner; stale/blocked arrivals cannot commit. Only newly covered origin uses bounded repair; one actor/two child display nodes reused. Lifecycle reconfigures existing visual references after silent owner reset, keeps name/cell display coherent.
+
+Paused clock, all UiCoordinator modals including DebugMenu, sleeping/day-end and title stop advance; title hides and cancels route. New/load reset derived routes; actual owner publication prevents save/load/new/title reentry. No new collision/input/Player/camera/NPC/scene/save14 fields or economic mutation. Live dog not persisted until approvedg. Native walking/sprint feel and final art remain human F5 acceptance.
+
+Import1 clean except inherited duplicate assetUID warnings. Focused1 3scripts/7/7/54assert/2.663s PASS; native1 same7/7/54assert/2.740s PASS, no errors/leaks. Real Main follow to far negative grid cells, hysteresis stop, pause/modal/title, stable cache, owned water/buildings/coop, actual machine place/move/remove and land grant, covered-origin/name preservation, stable owner/actor across lifecycle and publication reentry all verified. Existing tests and20real saves protected; full follows.
+
+Full929/929 PASS. Original launcher/bounds and old-test/real-save SHA verification follow; no editor art/tone acceptance inferred.
+
 ## Phase8.5e automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 227scripts/922/922/99518assert; groups134.801/152.93/166.247s<180, GUT453.978s/wall472.880s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2528, prior test/fixture verification476, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5e-203345/full-attempt1. No skip/weakening/timeout extension.

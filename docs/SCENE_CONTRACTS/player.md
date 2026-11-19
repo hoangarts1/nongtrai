@@ -43,3 +43,7 @@ No player group is currently declared by the scene/script; the old draft group w
 ## D72-C1 preserved player/render boundary (D73)
 
 Player movement/collider/scene/save are untouched. The inherited procedural chibi avatar and shared six-style hair remain, with cosmetic phases pausing and existing real-time action/emotion feedback expiry retained. Camera pan extents are new Resource fields with inherited values; camera returns smoothly on walking and immediately on double-right/reset. Native wheel routing does not alter the player or tool domain. Preview tests retain actual resolved skin/hair/outfit choices; generated farmer_sheet PNG is an offline draft, not the live avatar.
+
+## Phase8.5f dog companion boundary
+
+Main.dog_runtime reads actual Player.get_cell() and shared IsometricGrid only; never writes movement, collider, camera, stamina or input. Actor is a nonblocking Node2D under world.objects. Existing player controls remain. Dog uses its separate bounded39x39 navigation cache; no NPC schedule/grid changes. Sparse machine/owned-land/coop snapshots and current WorldLocations supply dog exclusions, independently from NPC nav policy. Manual F5: walk/sprint to map edges, change machines/land/coop, pause/debug/sleep/title, check one dog and normal tools/camera. Automated evidence in PROGRESS.

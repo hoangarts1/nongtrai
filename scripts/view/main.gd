@@ -48,6 +48,8 @@ var chicken_coop: ChickenCoopHoldingState = ChickenCoopHoldingState.new()
 var chicken_coop_runtime: ChickenCoopRuntime
 var chicken_coop_flow: ChickenCoopFlow
 var farm_state: FarmGridState
+var dog_state: DogState = DogState.new()
+var dog_runtime: LifeDogRuntime
 var ecology_state: EcologyState = EcologyState.new()
 var ecology_runtime: LifeEcologyRuntime
 var ecology_effects_flow: LifeEcologyEffectsFlow
@@ -281,6 +283,9 @@ func _ready() -> void:
 		director_debug_flow = LifeDirectorDebugFlow.new()
 		add_child(director_debug_flow)
 		director_debug_flow.configure(self)
+	dog_runtime = LifeDogRuntime.new()
+	add_child(dog_runtime)
+	dog_runtime.configure(self)
 	inventory_panel.attach_main(self)
 	ui_coordinator.configure(self)
 	var title_backdrop: TitleBackdrop = TitleBackdrop.new()
@@ -490,6 +495,7 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	if not director_runtime.finish_restore():
 		return
 	director_runtime.refresh_effects()
+	dog_runtime.reset()
 	_save_game_to_slot(1)
 	if not Settings.is_tutorial_dismissed():
 		tutorial_panel.open_help()
@@ -531,6 +537,7 @@ func _return_to_start_menu() -> bool:
 	start_menu.visible = true
 	world.player.movement_enabled = false
 	director_runtime.refresh_effects()
+	dog_runtime.suspend()
 	return true
 
 func _load_payload(payload: Dictionary) -> bool:
@@ -603,6 +610,7 @@ func _load_payload(payload: Dictionary) -> bool:
 	var director_restored: bool = director_runtime.finish_restore()
 	if ecology_restored and director_restored:
 		director_runtime.refresh_effects()
+		dog_runtime.reset()
 	return ecology_restored and director_restored
 
 func _restore_land_for_lifecycle(data: Dictionary) -> void:
@@ -613,7 +621,7 @@ func _restore_land_for_lifecycle(data: Dictionary) -> void:
 		presentation.refresh_land(land_ownership.get_owned_regions())
 
 func _purchase_in_progress() -> bool:
-	return (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
+	return dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:
