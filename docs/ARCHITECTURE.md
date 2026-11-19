@@ -1,5 +1,15 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.6d composition and ownership (2026-11-20)
+
+Step4/10 after8.6c pushedaeb3fad/full963. Pure StoryObservationSampler imports only strict stored tutorial bools1/4/5, actual registered completed turnip_delivery and ordered valid first parcel prefix. Missing/malformed/coerced/possession/active-only fields do not invent evidence; no dates, talks, repairs, receipt counts or rewards inferred. StoryReceiptRules maps native positive integer command counts with valid source identity and explicit committed context, verified delivery completion and first-parcel ownership. Unknown/source-mismatched/unproven/zero/negative/bool/fraction/extra counters rejected; planned/M2 goals have no source. Detached DTO output, no owner/Node/autoload mutation or live subscription.
+
+Import1 passes with inherited duplicate artUID warnings. Focused1:2scripts/8/8/51assert/0.418s PASS/no errors/leaks. Independent current-source38dependency no-autoload/core/view/world-node project:1000projections,1000unproven and1000possession rejections,359ms, exit0/PASS. Verification snapshots explicitly are fixtures, not observed gameplay. Old tests/goldens/20real saves protected; original full follows. save15 unchanged; no editor scene/Inspector/InputMap steps.
+
+Runtime preparation found the original collector publishes counters BEFORE testing proven, so a busy counter signal alone is insufficient to credit story. In approved f, use the already-allowed new StoryObserverFlow script as a thin subclass/completion adapter around the unchanged LifeDirectorActivityCollector: inherited finish_command must return true before emitting a guarded story receipt. Main may instantiate that subtype while preserving the original public collector type/APIs. Original collector file stays untouched; no second counting/simulation path or queued-save gap. Quest/land use actual guarded completion/ownership as planned. This note is the chosen integration design, not a claim runtime is implemented in d.
+
+DATA -> pure DOMAIN -> VIEW; only StoryState owns story progress when implemented. Planned repairs/NPCs/M2.4 remain unavailable; no new rewards/economy/Director entitlement/input actions. Existing Player/dog/other progress and historical goldens are preserved.
+
 ## Phase8.6c composition and ownership (2026-11-20)
 
 Step3/10 after8.6b pusheda1ed122/full958. StoryState is the sole pure RefCounted owner of the two-field wire; configured immutable DATA, canonical guarded observations, page availability/acknowledge with expected revision, idempotence, serialize/deep detached return values and silent validated deserialize from this first commit. Revision is derived/transient and increments on reset/restore; stale requests cannot cross lifecycle. Only known supported objective IDs can be observed; planned goals/M2 cannot be written and5/10 supported progress is never full ChapterI. StoryRules queries do not grant entitlements. No Node/autoload/events/game-save/economy/runtime connection yet; save15 remains.

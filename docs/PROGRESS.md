@@ -1,5 +1,17 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.6d automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 247scripts/971/971/100014assert; groups140.299/111.13/95.177/114.311s, each<180; GUT460.917s/wall482.804s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2611, prior test-fixture verification519, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6d-031500/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step4/10 after8.6c pushedaeb3fad/full963. Pure StoryObservationSampler imports only strict stored tutorial bools1/4/5, actual registered completed turnip_delivery and ordered valid first parcel prefix. Missing/malformed/coerced/possession/active-only fields do not invent evidence; no dates, talks, repairs, receipt counts or rewards inferred. StoryReceiptRules maps native positive integer command counts with valid source identity and explicit committed context, verified delivery completion and first-parcel ownership. Unknown/source-mismatched/unproven/zero/negative/bool/fraction/extra counters rejected; planned/M2 goals have no source. Detached DTO output, no owner/Node/autoload mutation or live subscription.
+
+Import1 passes with inherited duplicate artUID warnings. Focused1:2scripts/8/8/51assert/0.418s PASS/no errors/leaks. Independent current-source38dependency no-autoload/core/view/world-node project:1000projections,1000unproven and1000possession rejections,359ms, exit0/PASS. Verification snapshots explicitly are fixtures, not observed gameplay. Old tests/goldens/20real saves protected; original full follows. save15 unchanged; no editor scene/Inspector/InputMap steps.
+
+Runtime preparation found the original collector publishes counters BEFORE testing proven, so a busy counter signal alone is insufficient to credit story. In approved f, use the already-allowed new StoryObserverFlow script as a thin subclass/completion adapter around the unchanged LifeDirectorActivityCollector: inherited finish_command must return true before emitting a guarded story receipt. Main may instantiate that subtype while preserving the original public collector type/APIs. Original collector file stays untouched; no second counting/simulation path or queued-save gap. Quest/land use actual guarded completion/ownership as planned. This note is the chosen integration design, not a claim runtime is implemented in d.
+
+Full971/971 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
 ## Phase8.6c automation delivered (2026-11-20)
 
 Full1 original launcher exit0: 245scripts/963/963/99963assert; groups150.788/100.84/85.659/125.401s, each<180; GUT462.688s/wall484.949s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2607, prior test-fixture verification515, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6c-020320/full-attempt1. No skipped/weakened tests or bounds extended.
