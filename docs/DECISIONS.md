@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D123 - reversible terms and captured multi-charge watering (2026-11-19)
+
+Approved7.5f keeps effects projections, no extra gameplay owner or direct world mutation. Saved debug enabled cannot authorize production effects; actual caller gate/current measured weather-canopy apply. Unmeasured canopy is unknown and neutral rather than inferred zero; refill/rain remain immediate counters. Add explicit DATA base manual cost1 while preserving20/40/200 and all one-unit APIs/save fields. Debit entire cost before farm mutation, reject insufficient first, refund only captured debit under existing refill/load revision rules. Optional quote includes water/modifier revisions and actual cost. No extra stamina/yield/coin/growth, fake merchant stock, extra ecology actors or live Main integration. Following approved runtime alone supplies current terms.
+
 ### D122 - guarded sole Director owner before runtime (2026-11-19)
 
 Approved7.5e creates a pure serializable owner from its first commit. Reserve adjacent day by opaque identity; commit selection/schedules/history atomically under token and guarded typed notification. Invalid candidates leave prior owner/token for explicit retry/abort, stale tokens cannot unlock another operation. Preserve immutable actual decisions/trace/RNG and independent cooldown/season/pity counters when128history prunes. Negative reservation charges actual target season when selected. Off cancels application but retains booked counters/cooldowns conservatively, with no refund of past actions; reenabling starts new grace/pity at actual day. Force queues for next decision only; failed safety checks record declined intent without random replacement. No production unlock/clock subscription/Node/world/save13 change. Full-precision JSON is the existing game protocol, not a new rounded format.

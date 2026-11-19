@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase7.5f effect projection and existing can owner (D123)
+
+Captured Director state + validated current observation -> stateless DirectorEffectProjector/TermsCodec -> detached optional water/merchant/accent instructions. Projection cannot change owners/world, mutate eligibility counts or grant story. Current authorization/rain/measured canopy wins over historical trigger flags. WateringCanState stays sole charges/capacity owner; WateringService keeps refs/transient projected terms/revision/busy only. Whole cost captured/debited before farm callbacks, failed command credits exact debit unless refill/load replaced it. Existing one-charge callers, free rain/bulk/day semantics and game save13 persist. No Node/clock/RNG in new libraries; future Main adapters alone refresh actual current-day terms.
+
 ## Phase7.5e sole Director domain owner (D122)
 
 DATA frozen DirectorProfile -> pure candidate/decision libraries -> DirectorState owner, supported by stateless schedule/history/codec rules. Owner holds all persistent gates/counters/captured pending-active terms/trace/history/force; token/next target/notification flags transient only. No second owner, Node/autoload/world/RNG during restore, global event or runtime listener. Caller reserves before adjacent completed-day work and later supplies validated final observations. Atomic publication keeps token live through callbacks. Expiry is absolute-day projection, no delta timer. Current version13 remains untouched until7.5h; later integration alone connects Main and effects.

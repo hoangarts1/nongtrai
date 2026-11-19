@@ -1,5 +1,11 @@
 # ROADMAP — THE LIFE
 
+## Phase7.5f automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 200scripts/846/846/97291assert; groups114.974/143.387/124.415s<180, GUT382.776s/wall400.110s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2461, prior test/fixture verification417, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5f-094500/full-attempt1. No skip/weakening/timeout extension.
+
+Step5/10 pure reversible effect projection and atomic variable water charge implemented; actual Resource basecost1 and unchanged20/40/200. Focused19/19/432assert including8old cases, positive/negative official validator PASS. Isolated59dependency pure2 PASS1000effect contexts and atomic can operations, exit0/no errors/leaks. First probe missing can Resource dependency recorded in PROGRESS, no source/assertion change. Full846/846 PASS. No Main/live effect wiring/save change yet.
+
 ## Phase7.5e automation delivered (2026-11-19)
 
 Full2 original launcher exit0: 197scripts/835/835/97150assert; groups108.035/131.198/134.945s<180, GUT374.178s/wall390.903s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2456, prior test/fixture verification411, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5e-000923/full-attempt2. No skip/weakening/timeout extension.

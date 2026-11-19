@@ -5,8 +5,10 @@
 ##   func get_capacity() -> int
 ##   func get_charges() -> int
 ##   func try_consume_one(expected_charges: int) -> bool
+##   func try_consume_charges(amount:int,expected_charges:int,expected_revision:int=-1)->bool
 ##   func get_refill_revision() -> int
 ##   func refund_one(expected_refill_revision: int = -1) -> bool
+##   func refund_charges(amount:int,expected_refill_revision:int=-1)->bool
 ##   func refill() -> bool
 ##   func try_upgrade(expected_capacity: int, target_capacity: int) -> bool
 ##   func serialize() -> Dictionary
@@ -36,20 +38,26 @@ func get_charges() -> int:
 	return _charges if is_ready_for(_config) else 0
 
 func try_consume_one(expected_charges: int) -> bool:
-	if not is_ready_for(_config) or expected_charges!=_charges or _charges<=0:
+	return try_consume_charges(1, expected_charges)
+
+func try_consume_charges(amount: int, expected_charges: int, expected_revision: int = -1) -> bool:
+	if not is_ready_for(_config) or amount<=0 or expected_charges!=_charges or amount>_charges or (expected_revision>=0 and expected_revision!=_refill_revision):
 		return false
-	_charges -= 1
+	_charges -= amount
 	return true
 
 func get_refill_revision() -> int:
 	return _refill_revision
 
 func refund_one(expected_refill_revision: int = -1) -> bool:
+	return refund_charges(1, expected_refill_revision)
+
+func refund_charges(amount: int, expected_refill_revision: int = -1) -> bool:
 	if expected_refill_revision>=0 and expected_refill_revision!=_refill_revision:
 		return false
-	if not is_ready_for(_config) or _charges>=_capacity:
+	if not is_ready_for(_config) or amount<=0 or amount>_capacity-_charges:
 		return false
-	_charges += 1
+	_charges += amount
 	return true
 
 func refill() -> bool:

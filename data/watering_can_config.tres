@@ -5,3 +5,4 @@ script = ExtResource("1")
 base_capacity = 20
 upgrade_capacity = 40
 upgrade_price = 200
+manual_charge_cost = 1

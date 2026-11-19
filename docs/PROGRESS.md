@@ -1,5 +1,15 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase7.5f automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 200scripts/846/846/97291assert; groups114.974/143.387/124.415s<180, GUT382.776s/wall400.110s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2461, prior test/fixture verification417, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5f-094500/full-attempt1. No skip/weakening/timeout extension.
+
+Step5/10 after7.5e pushede86d51c/full835. Pure DirectorEffectProjector reads validated actual-day owner/observations into detached water/Minh/accent terms. State enabled is insufficient: actual story/debug gate required, no production unlock invented. Pending/expired/off do not apply; current measured canopy birds threshold or rain waive dust extra, unmeasured canopy never treated as zero. Partial fresh activity cannot reroll/cancel an already committed active event. Visitor is existing minh/minh_market, accent only overlays existing eligibility/counts; no runtime wiring yet.
+
+WateringCanConfig Resource adds manual_charge_cost1, unchanged20/40/200. Compatible atomic bulk consume/refund preserves one-unit APIs, two-field save and refill/load revision semantics. WateringService validates transient active water terms, captures cost/ref/state/farm before callbacks, rejects insufficient charges before farm, refunds only its debit, and rejects stale optional quotes. Rain/bulk/day untouched. Resource/source/profile known terms validation rejects forged/expired/other-kind modifiers; no clock access or second owner.
+
+Focused1 5scripts/19/19/432assert/2.053s PASS including8unchanged original watering cases, no SCRIPT ERROR/leak. CLInegative manual_charge_cost0 exit1, exact Resource bytes restored; CLIpositive exit0/PASS. Import1 clean; pure1 lacked actual can Resource in isolated dependency copy (load/assert errors), own failed probe terminated explicitly exit-1. Added exact source Resource, no assertion/source change; independent59dependency pure2 exit0 PASS1000captured-effect contexts/actual measured-canopy-rain-release gates/read-only projection/atomic can debit-refund/unchanged2field wire, no autoload/world nodes/errors/leaks. Import2 clean. Full846/846 PASS. Main/Player/InputMap/scenes/assets/save13/oldtests unchanged; actual effect activation is later7.5h.
+
 ## Phase7.5e automation delivered (2026-11-19)
 
 Full2 original launcher exit0: 197scripts/835/835/97150assert; groups108.035/131.198/134.945s<180, GUT374.178s/wall390.903s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2456, prior test/fixture verification411, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5e-000923/full-attempt2. No skip/weakening/timeout extension.
