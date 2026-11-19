@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.6e automation delivered (2026-11-20)
+
+Full1 original launcher exit0: 249scripts/977/977/100162assert; groups155.296/105.239/88.154/128.478s, each<180; GUT477.167s/wall500.563s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2616, prior test-fixture verification523, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6e-040438/full-attempt1. No skipped/weakened tests or bounds extended.
+
+Step5/10 after8.6d pushed9860caf/full971. StorySaveContext prepares a canonical baseline from strict verifiable old owner evidence. StorySaveCodec preserves valid current progress/read pages exactly; legacy or malformed component falls back only story with verified supported progress and no read markers, chronology or reward replay. Other input payload fields never mutate. StoryLifecycle holds only refs/transient guard, validates complete candidate before replacing the same StoryState, restores silently, resets through original owner and rejects reentrant/busy/bad candidates. No game-save wiring yet: current version remains15 until approved f.
+
+Import1 passes with inherited duplicate artUID warnings. Focused1:2scripts/6/6/148assert/0.493s PASS/no errors/leaks, all15tracked goldens read/hash-checked unchanged, exact current preservation, corrupt/legacy fallback and busy/reset/quote cases. Current-source independent40dependency no-autoload/core/view/world-node project imported and passed1000legacy restores,1000exact nativeJSON restores,1000corrupt fallbacks and1000forged-M2rejections in2096ms, exit0/no leaks. Probe contexts are explicit fixtures, not gameplay observations/days. Original full and old-test/golden/20real-save SHA proofs follow; no scene/Inspector/InputMap changes. Read-only pages/UI and actual runtime follow only their approved scopes.
+
+Full977/977 PASS. Original pinned launcher/four sequential groups/180s per child; old-test/golden and real-save SHA proof required before commit/push. Human F5/tone/IME/FPS acceptance remains separate.
+
 ## Phase8.6d automation delivered (2026-11-20)
 
 Full1 original launcher exit0: 247scripts/971/971/100014assert; groups140.299/111.13/95.177/114.311s, each<180; GUT460.917s/wall482.804s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2611, prior test-fixture verification519, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/next10-story-run-20261120-011237/phase8.6d-031500/full-attempt1. No skipped/weakened tests or bounds extended.

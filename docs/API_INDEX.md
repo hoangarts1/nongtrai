@@ -1,5 +1,36 @@
 # API INDEX — THE LIFE
 
+## Phase8.6e implemented API
+
+Step5/10 after8.6d pushed9860caf/full971. StorySaveContext prepares a canonical baseline from strict verifiable old owner evidence. StorySaveCodec preserves valid current progress/read pages exactly; legacy or malformed component falls back only story with verified supported progress and no read markers, chronology or reward replay. Other input payload fields never mutate. StoryLifecycle holds only refs/transient guard, validates complete candidate before replacing the same StoryState, restores silently, resets through original owner and rejects reentrant/busy/bad candidates. No game-save wiring yet: current version remains15 until approved f.
+
+Import1 passes with inherited duplicate artUID warnings. Focused1:2scripts/6/6/148assert/0.493s PASS/no errors/leaks, all15tracked goldens read/hash-checked unchanged, exact current preservation, corrupt/legacy fallback and busy/reset/quote cases. Current-source independent40dependency no-autoload/core/view/world-node project imported and passed1000legacy restores,1000exact nativeJSON restores,1000corrupt fallbacks and1000forged-M2rejections in2096ms, exit0/no leaks. Probe contexts are explicit fixtures, not gameplay observations/days. Original full and old-test/golden/20real-save SHA proofs follow; no scene/Inspector/InputMap changes. Read-only pages/UI and actual runtime follow only their approved scopes.
+
+`scripts/domain/story/story_save_codec.gd`:
+```gdscript
+
+static func normalize(config: StoryConfig, raw: Variant, payload: Dictionary, legacy: bool = false) -> Dictionary:
+
+```
+
+`scripts/domain/story/story_save_context.gd`:
+```gdscript
+
+static func capture(config: StoryConfig, payload: Dictionary) -> Dictionary:
+
+```
+
+`scripts/domain/story/story_lifecycle.gd`:
+```gdscript
+
+func is_busy() -> bool:
+func configure(config: StoryConfig, state: StoryState) -> bool:
+func prepare(payload: Dictionary, legacy: bool = false) -> Dictionary:
+func restore(candidate: Dictionary) -> bool:
+func reset() -> bool:
+
+```
+
 ## Phase8.6d implemented API
 
 Step4/10 after8.6c pushedaeb3fad/full963. Pure StoryObservationSampler imports only strict stored tutorial bools1/4/5, actual registered completed turnip_delivery and ordered valid first parcel prefix. Missing/malformed/coerced/possession/active-only fields do not invent evidence; no dates, talks, repairs, receipt counts or rewards inferred. StoryReceiptRules maps native positive integer command counts with valid source identity and explicit committed context, verified delivery completion and first-parcel ownership. Unknown/source-mismatched/unproven/zero/negative/bool/fraction/extra counters rejected; planned/M2 goals have no source. Detached DTO output, no owner/Node/autoload mutation or live subscription.
