@@ -23,6 +23,7 @@ func configure(panel: NpcPanel, main: Node) -> void:
 func open() -> void:
 	if _open or not _panel.is_visible_in_tree() or not bool(_main.get("_game_started")) or _main.ui_coordinator.get_active_panel() != _panel or bool(_main.call("_purchase_in_progress")):
 		return
+	_panel.book_controller.story_controller.close()
 	var book: LifeQuestBook = _panel.book
 	book.ecology_sheet = preload("res://ui/ecology/ecology_sheet.tscn").instantiate() as LifeEcologySheet
 	book.paper.add_child(book.ecology_sheet)
@@ -49,6 +50,7 @@ func close() -> void:
 		call_deferred("_focus_entry")
 
 func reset() -> void:
+	if _panel.book_controller.story_controller!=null: _panel.book_controller.story_controller.close()
 	close()
 
 func is_open() -> bool:

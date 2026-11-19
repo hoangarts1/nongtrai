@@ -54,3 +54,7 @@ Manual: NewGame/Continue/slot save-load/title, compare inventory/wallet/crops/jo
 ## Phase7.5j read-only explanations (D127)
 
 LifeEcologySheet.director_history:LifeDirectorHistory is instantiated only with existing lazy ecology branch, inside rows_column after actual metrics; existing scroll handles history128/long text, Back fixed. Controller refreshes from actual aligned owners, no simulation. Back/hide/reset detaches all; ordinary quest branch has zero ProgressBar descendants. No editor setup.
+
+## Phase8.6h notebook branch
+
+LifeQuestBook adds story_button:Button and nullable story_sheet:LifeStoryNotebook. Book controller owns LifeStoryNotebookController; configure/open/close/reset/is_open/queue_render are transient VIEW APIs. Ecology open closes story; story open closes ecology; existing ecology reset also drops story so NpcPanel.show_quest_book always returns to quests. New/load/title book reset and deferred hidden cleanup free the lazy branch. Native J/Q/E/Esc and all three existing tabs/quest counts remain. Six small shared-theme scenes compose a header, independently scrolling objective and milestone lists/rows, and fixed Back. No new InputMap or editor setup.

@@ -13,6 +13,8 @@ var paper: VBoxContainer
 var body: HBoxContainer
 var ecology_button: Button
 var ecology_sheet: LifeEcologySheet
+var story_button: Button
+var story_sheet: LifeStoryNotebook
 
 func _ready() -> void:
 	LifeTheme.bind(self,&"LifeInvColumn")
@@ -21,6 +23,9 @@ func _ready() -> void:
 	ecology_button = LifeTitleParts.button(navigation, &"ECO_ENTRY", &"LifeSecondary")
 	ecology_button.custom_minimum_size = Vector2(118, 42)
 	ecology_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	story_button = LifeTitleParts.button(navigation,&"STORY_ENTRY",&"LifeSecondary")
+	story_button.custom_minimum_size = Vector2(118,42)
+	story_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tabs = preload("res://ui/inventory/common_tabs.tscn").instantiate() as LifeInventoryTabs
 	tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	navigation.add_child(tabs)
