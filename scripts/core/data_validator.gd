@@ -30,6 +30,9 @@
 class_name DataValidator
 extends RefCounted
 
+static func validate_dog_config(config: DogConfig) -> PackedStringArray:
+	return config.validation_errors() if config != null else PackedStringArray(["dog config is required"])
+
 static func validate_director_profile(profile: DirectorProfile, locales: Array[String]) -> PackedStringArray:
 	if profile == null:
 		return PackedStringArray(["director profile is required"])

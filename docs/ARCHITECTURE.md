@@ -1,5 +1,9 @@
 # ARCHITECTURE — THE LIFE
 
+## Phase8.5a dog DATA boundary (D129)
+
+DogConfig is a Resource policy referencing actual world/NPC DATA; validator only. No dog Node/owner/global event/autoload/physics/input/save field in this step. Full detached Resource graph prevents caller changes leaking to configured consumers. Planned layers/API and one actor under Objects are documented in dog.md, not yet implemented. Original single day path and all existing owners unchanged.
+
 ## Phase7.5k verification boundary (D128)
 
 Isolated SceneTree tool uses actual autoload clock/data only after deferred initialization, never a live Main. It restores prior clock/pause and writes no game save. Actual independent farms/weather/ecology/inventory/wallet/can/merchant/activity/Director owners exercise the same single DaySimulator. Grouping and validated save14 checkpoint continuation are compared, disabled core isolation checked. CLI transport chunks verification JSON, external orchestration persists artifacts only. Production composition/source/input/defaultoff/story gate unchanged.

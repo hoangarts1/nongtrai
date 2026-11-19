@@ -1,5 +1,382 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## Phase8.5a automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 218scripts/901/901/99038assert; groups132.795/142.468/143.983s<180, GUT419.246s/wall435.931s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2508, prior test/fixture verification458, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5a-155018/full-attempt1. No skip/weakening/timeout extension.
+
+Step1/10 owner-approved8.5a-j, baseline7477a75/full896. DogConfig Resource holds approved name24/start3/stop1/speed3/context0.25/idle3-radius2/reaction0.8 and real world/NPC references. Strict positive/finite/bounds/name/reference validation, no live dog/owner/UI/save14/input/Player/art change. frozen_copy recursively detaches complete DATA graph (including external Resources and typed Resource arrays), memo preserves shared reference identity within copy; source Script resources shared immutable. Existing key catalogues are loaded dynamically only after deferred autoload readiness in data CLI, so no custom-SceneTree lexical GameClock compilation error.
+
+Focused1 2/5: plain duplicate(true) shared external NPC/world data, so invalid-copy mutation reached original in-memory Resource; independent CLI exposed existing early VIEW catalogue dependency on GameClock. No disk Resource changed. Fixed new copy implementation and deferred tool key-catalogue load, old tests untouched. Focused2 5/5/61assert PASS. Added diamond-reference check; final focused3 2scripts/5/5/62assert/3.288s PASS, actual CLIpositive0/invalid-distance1 and unchanged source SHA. Import1 completed with inherited assetUID warnings. Independent23dependency pure project PASS1000valid/deep-copy/invalid-copy checks with no autoload/world nodes/SCRIPT ERROR/leak. Only baseline896 known before full; no current full claim until following proof. Full901/901 PASS.
+
+Contract dog.md documents DATA-only current boundary and later approved APIs/composition; no manual scene/Inspector setup. Native actor/UI/serialization integration remain later approved steps, not completion claims. ROADMAP stale7.5/7.6/8.1–8.4 rows corrected against delivered source/history without marking human gates complete. Existing prompt deletion/untracked replacement and20real saves protected. Exact diff/files/logs in external delivery after commit.
+
+## NEXT10 DOG — ĐÃ DUYỆT Phase8.5a → Phase8.5j (2026-11-19)
+
+Yêu cầu mới: “TIEP 10 PLAN”. Chủ dự án đã trả lời “Duyệt cả 10, triển khai và commit/push từng mốc”. Toàn bộ kế hoạch/thông số/ALLOW_LIST dưới đây đã được duyệt; tiến độ thực tế nằm ở các section giao mốc phía trên, không phải suy ra từ danh sách kế hoạch. Baseline HEAD7477a75; automation trước đó216scripts/896/896/98976assert, humanF5/art chưa nghiệm thu. Phần lập kế hoạch trước đó chỉ cập nhật PROGRESS; nay bắt đầu thực thi tuần tự. PROJECT_RULES§15 “one milestone at a time” được giữ bằng chạy tuần tự; yêu cầu người dùng làm10plan liên tiếp cho phép lập cả batch, không triển khai song song hay nhảy sang ChapterI.
+
+Nguồn: ROADMAP8.5/S21/F10 masterplan và D21/D29;8.1–8.4 đã có runtime,7.6 có morning/J7.5j. Dòng bảng roadmap cũ7.5/7.6/8.1–8.4 chưa phản ánh các bàn giao phía đầu file; sẽ đối chiếu/sửa ghi chú trong8.5a, không tự đánh dấu human gates hoàn thành. Chó3D hiện có chỉ là calibration; không coi đó là chó2D đã hoàn tất.
+
+Thông số/diện mạo đề xuất cần được duyệt cùng batch:
+- Một chó cosmetic có từ newgame/legacy baseline, không đói/chết/thức ăn/điểm hay bonus kinh tế; chưa làm beat intro/chươngI/M2.4.
+- Tên mới1–24Unicode codepoint in được sau trim, không controls/newline; tên chưa đặt lưu rỗng và hiển thị tr() mặc định theo locale. UI ở màn Nhân vật, không hotkey mới.
+- Follow bắt đầu khi Manhattan distance>=3ô, dừng<=1ô; tốc độ3ô/giây; đánh giá context tối đa mỗi0.25giây và chỉ rebuild grid khi đổi. Idle sau3giây, bán kính2ô; phản ứng vui0.8giây. Mọi tham số ở Resource, motion/visual dùng realtime nhưng không làm mô phỏng ngày.
+- Chó2D polygon mẫu tông kem/nâu theo palette, hình học tách Resource; asset3D cũ giữ nguyên và không load trong runtime. Hình cuối cần human art review; không tự nhận đã đạt art cuối.
+- Đi theo đường AStarGrid2D, né solids/ruộng/nước/máy/chuồng, không chặn Player/canh tác/đặt máy. Không có đường thì chờ và phục hồi khi mở. Nếu công trình phủ ô chó hiện tại, chỉ định vị lại ô không còn hợp lệ sang ô đi được gần nhất; không dùng nhảy vị trí để đuổi qua tường. Spawn/load tìm ô hợp lệ từ Resource/vị trí Player, không hardcode anchor mới.
+- Save v15 chỉ thêm dog{name,cell_x,cell_y}; nav cache/route/UI/timer không lưu. Migrations giữ tất cả tiến độ cũ, kể cả Director mặc định tắt và enabled intent đã lưu. Patch tương thích chỉ38dòng/33file đầu ra14→15, giữ nguyên golden1..14 và mọi assertion/fixture lịch sử; golden15 mới từ codec thật.
+
+Quy trình: backup ngoài repo và hash before/after theo từng bước; không chạm the_life_prompt.md đang xóa/the_life_master_prompt.md chưa theo dõi; không force/reset/install/đóng phiên F5 của người dùng. Giữ engine4.7.2/Forward+/launcher pin và180s mỗi graphics child. Mỗi mốc focused/pure/CLI hoặc native phù hợp rồi full launcher trước commit/push riêng. Nếu test dài, tối ưu probe/log/checkpoint giữ đủ assertion; không tăng timeout/giảm test. Có khác biệt scope/fixture ngoài patch đã duyệt thì dừng phần phụ thuộc và chuẩn bị diff để duyệt bổ sung. Mọi phần khác DO NOT TOUCH, kể cả existing .tscn, Player/camera/InputMap/giá/máy/cây. File mới chưa tồn tại chỉ được tạo trong bước đã duyệt; các API/node mới sẽ ghi contract trước caller.
+
+Proposal/patch đầy đủ (ngoài repo): D:/godot/game-godot-backups/next10-dog-plan-20261119-154401/plans.json và proposed-save15-version-compatibility.patch; tổng hợp160đường dẫn không phải quyền sửa sớm tất cả. Mỗi bước có ALLOW_LIST độc lập dưới đây. READ-ONLY CONTEXT chung: AGENTS,PROJECT_RULES,ROADMAP,API_INDEX,ARCHITECTURE,DECISIONS,DATA_SCHEMA,CODE_PATTERNS,STYLE_GUIDE,masterplan S21/F10/S03 và contract gray_box_world/player/npc_navigation/character/director/chicken_coop/machine_build/land_expansion. Existing contracts được đọc trước mọi scene caller; dog.md mới sẽ đặc tả composition và API đã duyệt.
+
+### Phase8.5a — DATA và hợp đồng chú chó 2D
+
+TASK: Định nghĩa Resource cấu hình có tham chiếu world/NpcWorld hiện có; tham số follow/idle/name đề xuất bên dưới; validator và contract các API/cảnh mới trước mọi caller. Chưa tạo actor hay owner live. Đồng bộ dòng roadmap7.5/7.6/8.1–8.4 với bằng chứng đã có, giữ human acceptance pending.
+
+ACCEPTANCE: Config shipped hợp lệ; sai ngưỡng/thời gian/vùng/tên/reference bị từ chối; CLI positive0/negative1; không đổi Resource gốc/giá/RNG/save14/scene/input; full pass.
+
+ALLOW_LIST (17đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/data/dog_config.gd`
+- `scripts/data/dog_config.gd.uid`
+- `data/dog_config.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `docs/SCENE_CONTRACTS/gray_box_world.md`
+- `tests/unit/test_dog_config.gd`
+- `tests/unit/test_dog_config.gd.uid`
+- `tests/unit/test_dog_validator_cli.gd`
+- `tests/unit/test_dog_validator_cli.gd.uid`
+
+Commit dự kiến: `feat: define validated dog companion configuration`.
+
+### Phase8.5b — Owner tên/vị trí và codec độc lập
+
+TASK: Một DogState duy nhất giữ name (rỗng nghĩa là tên mặc định theo locale), cell_x/cell_y; serialize/deserialize từ đầu, thông báo typed và khóa mutation qua callback. Tên mới1–24codepoint in được sau trim; không cắt âm thầm; từ chối controls/newline. Chưa Main/UI/save.
+
+ACCEPTANCE: NativeJSON/Unicode Việt–Anh/biên độ dài/chuỗi rỗng/unknown fields/bool-fraction/out-of-map/silent restore/reentry/detached copy; sai dữ liệu giữ owner cũ; pure không Node/autoload; full pass.
+
+ALLOW_LIST (19đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/domain/pets/dog_state.gd`
+- `scripts/domain/pets/dog_state.gd.uid`
+- `scripts/domain/pets/dog_name_rules.gd`
+- `scripts/domain/pets/dog_name_rules.gd.uid`
+- `scripts/domain/pets/dog_snapshot_codec.gd`
+- `scripts/domain/pets/dog_snapshot_codec.gd.uid`
+- `tests/unit/test_dog_state.gd`
+- `tests/unit/test_dog_state.gd.uid`
+- `tests/unit/test_dog_name_rules.gd`
+- `tests/unit/test_dog_name_rules.gd.uid`
+- `tests/unit/test_dog_snapshot_codec.gd`
+- `tests/unit/test_dog_snapshot_codec.gd.uid`
+
+Commit dự kiến: `feat: add serializable dog identity and position state`.
+
+### Phase8.5c — Lưới AStarGrid2D và snapshot vật cản
+
+TASK: Navigation thuần dùng player_region39×39 từ Resource hiện có, WorldLocations.get_solid_regions và footprint động do caller cung cấp. Không sửa NpcSchedule/physics/world map. Lưới cache chỉ rebuild khi context đổi; serialize/deserialize context để đúng quy tắc stateful, không ghi cache vào save game.
+
+ACCEPTANCE: Ô âm/biên/nước/tường/ruộng/vùng lệch/đường hẹp/đích bị chặn/không có đường/đường từ cell hợp lệ; không xuyên góc; input arrays detached; rebuild count giữ nguyên khi context không đổi; pure/full pass.
+
+ALLOW_LIST (15đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/domain/pets/dog_navigation.gd`
+- `scripts/domain/pets/dog_navigation.gd.uid`
+- `scripts/domain/pets/dog_navigation_codec.gd`
+- `scripts/domain/pets/dog_navigation_codec.gd.uid`
+- `tests/unit/test_dog_navigation.gd`
+- `tests/unit/test_dog_navigation.gd.uid`
+- `tests/unit/test_dog_navigation_codec.gd`
+- `tests/unit/test_dog_navigation_codec.gd.uid`
+
+Commit dự kiến: `feat: add bounded obstacle-aware dog navigation`.
+
+### Phase8.5d — Theo người chơi và phục hồi đường đi
+
+TASK: Chọn đích đi được gần Player bằng quy tắc xác định, có khoảng bắt đầu/dừng khác nhau để tránh rung. Route là dữ liệu dẫn xuất, cell thật chỉ DogState. Commit bước có expected cell/nav revision, callback guard. Đường bị chặn thì chọn lại hoặc chờ; khi công trình phủ ô hiện tại, sửa đúng vị trí không còn hợp lệ tới ô đi được gần nhất, không nhảy tới Player xuyên vật cản.
+
+ACCEPTANCE: Không lặp start/stop, không bước vào ô mới bị chặn hoặc bỏ qua stale quote; tái đi được khi mở đường; dừng an toàn khi bị bao kín; phục hồi invalid origin có giới hạn; không trừ đồ/tiền/stamina/RNG; pure/full pass.
+
+ALLOW_LIST (15đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/domain/pets/dog_follow_rules.gd`
+- `scripts/domain/pets/dog_follow_rules.gd.uid`
+- `scripts/domain/pets/dog_movement_service.gd`
+- `scripts/domain/pets/dog_movement_service.gd.uid`
+- `tests/unit/test_dog_follow_rules.gd`
+- `tests/unit/test_dog_follow_rules.gd.uid`
+- `tests/unit/test_dog_movement_service.gd`
+- `tests/unit/test_dog_movement_service.gd.uid`
+
+Commit dự kiến: `feat: implement guarded dog following and route recovery`.
+
+### Phase8.5e — Actor chó isometric 2D mẫu
+
+TASK: Dựng chó 2D mẫu bằng polygon/đường vẽ có hình học/màu trong Resource, cùng palette và bóng chân; art tạm, không nhập hay xóa model3D. Avatar tách actor, có idle/walk/tail; actor dùng IsometricGrid thật và ground-origin y-sort, không body/collision/input. Chưa Main spawn.
+
+ACCEPTANCE: Không Node3D/actor physics/input; chân đúng tâm grid qua transform/zoom; validator hình học hữu hạn; vi/en3sizes/camera5zoom/render/pause; không domain mutation từ vẽ; full pass và ảnh mới.
+
+ALLOW_LIST (20đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/data/dog_visual_profile.gd`
+- `scripts/data/dog_visual_profile.gd.uid`
+- `scripts/view/dog/dog_avatar_2d.gd`
+- `scripts/view/dog/dog_avatar_2d.gd.uid`
+- `scripts/view/dog/dog_actor_2d.gd`
+- `scripts/view/dog/dog_actor_2d.gd.uid`
+- `data/art/characters/dog_visual_profile.tres`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `tests/unit/test_dog_visual_profile.gd`
+- `tests/unit/test_dog_visual_profile.gd.uid`
+- `tests/unit/test_dog_actor_layout.gd`
+- `tests/unit/test_dog_actor_layout.gd.uid`
+
+Commit dự kiến: `feat: render a modular isometric dog prototype`.
+
+### Phase8.5f — Nối runtime, cảnh vật và vòng đời
+
+TASK: Main sở hữu DogState ổn định và các adapter nhỏ, tạo đúng1actor dưới world.objects; đọc Player.get_cell/grid/world Resource/placements/coop hiện có, cập nhật cache theo thay đổi. Spawn tìm ô hợp lệ gần vị trí từ Resource/player, không bịa anchor. Pause/modal/sleep/day-end/title dừng/ẩn; new/load reset route không nhân actor. Giữ save14 cho tới bước g; trạng thái live chưa lưu được phải ghi rõ ở bàn giao f.
+
+ACCEPTANCE: Theo đi bộ/chạy/sang vùng39×39, nước/nhà/máy/chuồng/đổi footprint; không cản canh tác/đặt máy/NPC/camera; invalid origin chỉ phục hồi có kiểm chứng;1actor, không scan/rebuild toàn map mỗi frame; owner/save14 cũ không đổi; native/full pass.
+
+ALLOW_LIST (24đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/view/dog/dog_runtime.gd`
+- `scripts/view/dog/dog_runtime.gd.uid`
+- `scripts/view/dog/dog_navigation_context.gd`
+- `scripts/view/dog/dog_navigation_context.gd.uid`
+- `scripts/view/dog/dog_motion_flow.gd`
+- `scripts/view/dog/dog_motion_flow.gd.uid`
+- `scripts/view/main.gd`
+- `docs/SCENE_CONTRACTS/player.md`
+- `docs/SCENE_CONTRACTS/npc_navigation.md`
+- `tests/helpers/dog_fixture.gd`
+- `tests/helpers/dog_fixture.gd.uid`
+- `tests/unit/test_dog_runtime.gd`
+- `tests/unit/test_dog_runtime.gd.uid`
+- `tests/unit/test_dog_world_obstacles.gd`
+- `tests/unit/test_dog_world_obstacles.gd.uid`
+- `tests/unit/test_dog_lifecycle.gd`
+- `tests/unit/test_dog_lifecycle.gd.uid`
+
+Commit dự kiến: `feat: integrate the dog companion lifecycle and world navigation`.
+
+### Phase8.5g — Save v15 và tương thích toàn bộ tiến độ
+
+TASK: Save15 chỉ thêm dog{name,cell_x,cell_y}; migrate14→15 và baseline cho1..14 giữ mọi hệ hiện có. Tên chưa đặt là rỗng, không tạo lịch sử/kinh tế/cốt truyện; vị trí lỗi được giải lại theo nav thực khi load, tên hợp lệ giữ nguyên. Lifecycle/busy guard, không lưu Node/route/timer/nav cache. Áp đúng patch38dòng/33file đính kèm, chỉ kỳ vọng đầu ra hiện tại14→15; mọi fixture/golden1..14/giá trị14lịch sử giữ nguyên.
+
+ACCEPTANCE: New/load/Continue/title/day-end/autosave cùng owner; exact tên/cell hợp lệ; corrupt/missing/old/off-map reset chỉ dog an toàn; không replay/RNG/day; golden15 sinh từ codec thật, không từ save người dùng. Kiểm SHA20save thật, full không giảm assertion/skip/timeout.
+
+ALLOW_LIST (52đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/domain/pets/dog_save_codec.gd`
+- `scripts/domain/pets/dog_save_codec.gd.uid`
+- `scripts/domain/pets/dog_lifecycle.gd`
+- `scripts/domain/pets/dog_lifecycle.gd.uid`
+- `scripts/core/save_service.gd`
+- `scripts/view/main.gd`
+- `scripts/view/dog/dog_runtime.gd`
+- `tests/golden_saves/save_v15.json`
+- `tests/unit/test_dog_save_codec.gd`
+- `tests/unit/test_dog_save_codec.gd.uid`
+- `tests/unit/test_dog_runtime_save.gd`
+- `tests/unit/test_dog_runtime_save.gd.uid`
+- `tests/unit/test_ambient_audio_runtime.gd`
+- `tests/unit/test_bag_upgrade_flow.gd`
+- `tests/unit/test_character_screen.gd`
+- `tests/unit/test_chicken_coop_collection.gd`
+- `tests/unit/test_chicken_coop_feeding.gd`
+- `tests/unit/test_chicken_coop_runtime_save.gd`
+- `tests/unit/test_crop_care_save.gd`
+- `tests/unit/test_crop_regrow_save.gd`
+- `tests/unit/test_crop_stage_runtime.gd`
+- `tests/unit/test_day_end_flow.gd`
+- `tests/unit/test_day_end_save.gd`
+- `tests/unit/test_ecology_end_to_end.gd`
+- `tests/unit/test_ecology_runtime_save.gd`
+- `tests/unit/test_inventory_actions.gd`
+- `tests/unit/test_land_save.gd`
+- `tests/unit/test_machine_build_lifecycle.gd`
+- `tests/unit/test_machine_collection.gd`
+- `tests/unit/test_morning_flow.gd`
+- `tests/unit/test_npc_social_save.gd`
+- `tests/unit/test_pause_settings.gd`
+- `tests/unit/test_profile_creation.gd`
+- `tests/unit/test_quest_book.gd`
+- `tests/unit/test_recipe_economy.gd`
+- `tests/unit/test_save_backup_recovery.gd`
+- `tests/unit/test_save_service.gd`
+- `tests/unit/test_supplied_decor_runtime.gd`
+- `tests/unit/test_supplied_objects_runtime.gd`
+- `tests/unit/test_title_flow.gd`
+- `tests/unit/test_water_source_world.gd`
+- `tests/unit/test_watering_runtime_save.gd`
+- `tests/unit/test_watering_upgrade_flow.gd`
+- `tests/unit/test_weather.gd`
+- `tests/unit/test_weather_runtime_save.gd`
+
+Commit dự kiến: `feat: persist dog companions with backward-compatible save15`.
+
+### Phase8.5h — UI đặt tên tách component nhỏ
+
+TASK: Thẻ chó gọn dưới hồ sơ trái của Nhân vật, đọc tên thật và nút Đặt tên; mở hộp tên riêng theo theme dùng LineEdit native và Lưu/Hủy. Snapshot/presenter/flow/form/card riêng, command đi qua DogState/service, expected revision chống stale. Quay lại Nhân vật bằng Back, lifecycle close không mở lại. Không input action hay màn tạo nhân vật mới.
+
+ACCEPTANCE: Chuột/Tab/Enter/Esc và nhập dấu Việt/native keyboard; hủy không đổi state; invalid/empty/too-long không cắt tên; callback reentry/save/load không half-state; vi/en1152/1280/1920/long names/scroll; UI read-only không save/day/RNG. Old Character/UI cases giữ nguyên ngoài patchg; full/ảnh pass.
+
+ALLOW_LIST (40đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `ui/pet/dog_name_sheet.gd`
+- `ui/pet/dog_name_sheet.gd.uid`
+- `ui/pet/dog_name_sheet.tscn`
+- `ui/pet/dog_name_form.gd`
+- `ui/pet/dog_name_form.gd.uid`
+- `ui/pet/dog_name_form.tscn`
+- `ui/pet/dog_companion_card.gd`
+- `ui/pet/dog_companion_card.gd.uid`
+- `ui/pet/dog_companion_card.tscn`
+- `ui/pet/dog_name_flow.gd`
+- `ui/pet/dog_name_flow.gd.uid`
+- `ui/pet/dog_snapshot.gd`
+- `ui/pet/dog_snapshot.gd.uid`
+- `ui/pet/dog_presenter.gd`
+- `ui/pet/dog_presenter.gd.uid`
+- `ui/character/character_sheet.gd`
+- `ui/character/character_snapshot.gd`
+- `ui/character/character_presenter.gd`
+- `ui/character/character_flow.gd`
+- `scripts/view/main.gd`
+- `scripts/view/ui_coordinator.gd`
+- `scripts/view/ui_layout.gd`
+- `localization/strings_vi.csv`
+- `localization/strings_en.csv`
+- `scripts/core/data_validator.gd`
+- `tools/validate_data.gd`
+- `docs/SCENE_CONTRACTS/character.md`
+- `tests/unit/test_dog_name_flow.gd`
+- `tests/unit/test_dog_name_flow.gd.uid`
+- `tests/unit/test_dog_name_layout.gd`
+- `tests/unit/test_dog_name_layout.gd.uid`
+- `tests/unit/test_dog_name_readonly.gd`
+- `tests/unit/test_dog_name_readonly.gd.uid`
+
+Commit dự kiến: `feat: add modular dog naming and companion UI`.
+
+### Phase8.5i — Idle quanh vườn và phản ứng vui
+
+TASK: Khi gần Player, lượn nhẹ trong bán kính2ô theo danh sách ứng viên xác định/đi được; dừng khi có lệnh follow. Phản ứng đuôi/vui0.8s khi mưa hoặc tín hiệu thu hoạch thành công hiện có, chỉ cosmetic; không tạo âm thanh mới, đạo cụ/món ăn, nhiệm vụ, điểm thân mật hay phần thưởng. Lúc pause/sleep/title/load không chạy lại phản ứng cũ.
+
+ACCEPTANCE: Mưa/harvest phản ứng một lần theo receipt/tín hiệu hợp lệ, không thưởng/giả hoạt động; idle không đi vào ruộng/nước/công trình, path bị chặn phải chờ/reroute; bộ đếm1actor/pause/restore/reactions không thêm node vô hạn; native/full pass.
+
+ALLOW_LIST (19đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `scripts/view/dog/dog_reaction_flow.gd`
+- `scripts/view/dog/dog_reaction_flow.gd.uid`
+- `scripts/view/dog/dog_avatar_2d.gd`
+- `scripts/view/dog/dog_actor_2d.gd`
+- `scripts/view/dog/dog_runtime.gd`
+- `scripts/domain/pets/dog_follow_rules.gd`
+- `data/dog_config.tres`
+- `data/art/characters/dog_visual_profile.tres`
+- `tests/unit/test_dog_idle_reactions.gd`
+- `tests/unit/test_dog_idle_reactions.gd.uid`
+- `tests/unit/test_dog_reaction_lifecycle.gd`
+- `tests/unit/test_dog_reaction_lifecycle.gd.uid`
+
+Commit dự kiến: `feat: add gentle dog idle and weather-harvest reactions`.
+
+### Phase8.5j — Kiểm chứng đường đi và hành trình đầy đủ
+
+TASK: Công cụ độc lập1000bước di chuyển/đổi vật cản/đổi đích/biên39×39, so chạy từng bước/theo nhóm/JSON checkpoint dùng state/Resource thật; không bịa ngày hoặc producer. Native luồng tạo game/theo/đặt tên/hủy/đặt máy/mua đất/chuồng/ngủ/review/autosave/load/Continue/title; kiểm view đồng bộ nav khi restore.
+
+ACCEPTANCE: Không origin/route xuyên vật cản, không cell ngoài biên/duplicate actor/name loss/save corruption/input leak; chứng minh cache không rebuild perframe, ghi thời gian thực không hứa FPS. vi/en3sizes/ảnh mới/1000steps/CLI0-1/pure/headless/full nguyên launcher180s; SHAoldtests/goldens/real saves, diff chính xác và commit/push remote. Human F5/art là nghiệm thu riêng.
+
+ALLOW_LIST (15đường dẫn, ghi rõ từng file):
+
+- `docs/PROGRESS.md`
+- `docs/API_INDEX.md`
+- `docs/ROADMAP.md`
+- `docs/DECISIONS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_SCHEMA.md`
+- `docs/SCENE_CONTRACTS/dog.md`
+- `tools/sim_dog.gd`
+- `tools/sim_dog.gd.uid`
+- `tests/unit/test_dog_simulation.gd`
+- `tests/unit/test_dog_simulation.gd.uid`
+- `tests/unit/test_dog_end_to_end.gd`
+- `tests/unit/test_dog_end_to_end.gd.uid`
+- `tests/unit/test_dog_golden_continuation.gd`
+- `tests/unit/test_dog_golden_continuation.gd.uid`
+
+Commit dự kiến: `test: verify dog navigation persistence and native lifecycle`.
+
+Chỉ riêng Phase8.5g,33file test cũ chỉ được áp đúng patch38dòng đã đính kèm; không sửa dòng khác dù nằm trong ALLOW_LIST. Ở mọi bước còn lại giữ nguyên toàn bộ test cũ. Phạm vi không bao gồm export/release/story activation hay tạo asset cuối.
+
+
 ## Phase7.5k automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 216scripts/896/896/98976assert; groups142.004/109.701/161.939s<180, GUT413.644s/wall429.798s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2504, prior test/fixture verification452, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5k-115622/full-attempt1. No skip/weakening/timeout extension.

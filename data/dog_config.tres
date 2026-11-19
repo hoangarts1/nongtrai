@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DogConfig" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/dog_config.gd" id="1"]
+[ext_resource type="Resource" path="res://data/isometric_world_config.tres" id="2"]
+[ext_resource type="Resource" path="res://data/npcs/phase8_world.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+world = ExtResource("2")
+npc_world = ExtResource("3")
+name_max_length = 24
+follow_start_distance = 3
+follow_stop_distance = 1
+move_speed = 3.0
+context_interval = 0.25
+idle_wait_seconds = 3.0
+idle_radius = 2
+reaction_seconds = 0.8

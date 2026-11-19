@@ -1,5 +1,9 @@
 # API INDEX — THE LIFE
 
+## Phase8.5a Dog DATA foundation (D129)
+
+DogConfig(Resource), data/dog_config.tres: world:IsometricWorldConfig,npc_world:NpcWorldData,name_max_length,follow_start_distance,follow_stop_distance,move_speed,context_interval,idle_wait_seconds,idle_radius,reaction_seconds. validation_errors()->PackedStringArray; frozen_copy()->DogConfig fully detaches DATA Resource graph with internal shared-reference memo. No owner/actor/UI yet. DataValidator.validate_dog_config(config)->PackedStringArray; null rejected. tools/validate_data always runs it; optional --dog-fixture=invalid-distance mutates only detached memory for negative CLI verification. Default CLI unchanged; localized UI key catalogues deferred-load after autoload startup. Scene contract dog.md reserves approved future API names; read current PROGRESS before treating them as implemented.
+
 ## Phase7.5k isolated verification tool (D128)
 
 tools/sim_director.gd extends SceneTree, deferred CLI initialization, dynamic load of autoload-dependent real farm/services after actual autoload readiness. static run_scenario(days=1000,chunk_size=17,style="balanced",seed=731,checkpoint={},budget_days=0)->Dictionary restores prior clock/pause, writes no saves. Styles gardener/trader/balanced/inactive. Result ok/complete/days/target_days/stats/decision_sha256/actual final owners/checkpoint. Invalid arguments/envelope/codec/day/provenance fail explicitly. Budget must end on actual Resource season boundary unless final target; resume validates known style/seed/target/group/day and real v14 world codecs.

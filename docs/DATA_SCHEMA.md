@@ -1,5 +1,9 @@
 # DATA SCHEMA — THE LIFE
 
+## Phase8.5a DogConfig (D129)
+
+Shipped dog_config.tres: world/npc_world existing Resources; name_max_length24,follow_start_distance3,follow_stop_distance1 (Manhattan cells),move_speed3cells/s,context_interval0.25real s,idle_wait_seconds3,idle_radius2cells,reaction_seconds0.8. Positive finite timings, start>stop>=1 within region span, names1..24, nested region/spawn/fallback and valid nav references. Config freeze detaches all mutable DATA, keeps internal aliases. No gameplay rewards/prices, daily simulation, actor or save14 schema change. Future dog wire{name,cell_x,cell_y} is only a plan until8.5b/g.
+
 ## Phase7.5k verification envelope only (D128)
 
 Game save14 unchanged. External CLI checkpoint version1 carries profile/seed/target_days/chunk/day/worlds[3]/stats/negative/seasons/decisions, produced only at current Resource season boundary. Each world contains actual v14 clock/farm/inventory/wallet/weather/ecology/land/can/director_activity/director/social merchant and empty current-day coop. Validate metadata/day/known profile, normalize via actual SaveService, reject mismatched pairs before silent restore. Full native JSON parsed wire stays exact; binary double decimal trace roundings counted, exact day/seed/RNG text retained, threshold sides checked. Decision strings preserve prior emitted bytes. Envelope/chunk markers are tool artifacts, never additional game roots or UI state.

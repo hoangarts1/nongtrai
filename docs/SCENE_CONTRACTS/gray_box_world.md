@@ -209,3 +209,7 @@ No existing scene/node path/Inspector edit. Main configures authoritative land b
 ## D72-C1 camera/presentation handoff completion (D73)
 
 No old scene/node/Inspector edit. Existing CameraRig/player Camera2D handles the inherited five zoom levels and RMB/MMB pan, now clamped by camera_pan_min/max Resource data. Native Shift/GUI-hover wheel yields to qualified hotbar/control input. Existing cell_to_screen/map picking/projection remain; native pan/zoom tests assert logical cells round-trip. Modal/sleep/placement retain authority. Machine work rows read actual state refs and switch to idle when ready; no job/day/save mutation. See isometric_visuals.md.
+
+## Phase8.5a dog DATA only (D129)
+
+No world/Player/grid/Objects/scene edit. Config references actual world and NPC locations; dog.md describes approved later composition, no actor exists in this slice. No Inspector setup or live companion claim yet.

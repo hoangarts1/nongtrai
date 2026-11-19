@@ -1,5 +1,9 @@
 # DECISIONS — THE LIFE
 
+### D129 — approved dog batch and DATA-only first slice (2026-11-19)
+
+Owner approved all10steps8.5a-j/160paths, explicit parameters/provisional2D/name UI/save15 exact38row33file compatibility; each full test/commit/push sequentially. Currenta only DATA/validator/contracts; real Player preserved. S21 cosmetic companion, no hunger/rewards/economic effects/story intro invented. Name max24codepoints, follow3/1,speed3cells/s,context0.25s,idle3s/radius2,reaction0.8s in Resource. Dog data deep-copy must detach external Resource graph (duplicate(true) alone did not), preserve internal shared references, leave immutable Script resources shared. Data CLI must defer VIEW translation-key catalogue compilation until autoload identifiers exist. Human art/F5/tone remains separate; later steps alone add runtime/save15/UI.
+
 ### D128 - complete bounded simulations through validated seasonal checkpoints (2026-11-19)
 
 Approved7.5k verifies current production code without changing domain/runner/old tests. Direct three-world1000day probes exceed180s, so retain all days/invariants across explicit validated season checkpoints and keep the same per-child bound. Resume carries actual three v14-normalized worlds, clock, observations, histories/counters/seed/decision bytes, never recalibration or replay. Checkpoints/loops are verification-only, with stdout/source/SHA chain archived externally. Native JSON decimal trace rounding/integral spelling is reported; compare exact parsed wire, all exact decision/RNG fields and unchanged threshold sides. Both consumers receive the same decoded checkpoint. Large JSON output is chunked losslessly to avoid the existing PowerShell giant-line bottleneck; no timeout extension or assertion skip. Human production story/release/art/tone acceptance remains separate.

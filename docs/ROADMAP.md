@@ -1,5 +1,15 @@
 # ROADMAP — THE LIFE
 
+## Phase8.5a automation delivered (2026-11-19)
+
+Full1 original launcher exit0: 218scripts/901/901/99038assert; groups132.795/142.468/143.983s<180, GUT419.246s/wall435.931s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2508, prior test/fixture verification458, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-dog-run-20261119-155018/phase8.5a-155018/full-attempt1. No skip/weakening/timeout extension.
+
+Step1/10 owner-approved8.5a-j, baseline7477a75/full896. DogConfig Resource holds approved name24/start3/stop1/speed3/context0.25/idle3-radius2/reaction0.8 and real world/NPC references. Strict positive/finite/bounds/name/reference validation, no live dog/owner/UI/save14/input/Player/art change. frozen_copy recursively detaches complete DATA graph (including external Resources and typed Resource arrays), memo preserves shared reference identity within copy; source Script resources shared immutable. Existing key catalogues are loaded dynamically only after deferred autoload readiness in data CLI, so no custom-SceneTree lexical GameClock compilation error.
+
+Focused1 2/5: plain duplicate(true) shared external NPC/world data, so invalid-copy mutation reached original in-memory Resource; independent CLI exposed existing early VIEW catalogue dependency on GameClock. No disk Resource changed. Fixed new copy implementation and deferred tool key-catalogue load, old tests untouched. Focused2 5/5/61assert PASS. Added diamond-reference check; final focused3 2scripts/5/5/62assert/3.288s PASS, actual CLIpositive0/invalid-distance1 and unchanged source SHA. Import1 completed with inherited assetUID warnings. Independent23dependency pure project PASS1000valid/deep-copy/invalid-copy checks with no autoload/world nodes/SCRIPT ERROR/leak. Only baseline896 known before full; no current full claim until following proof. Full901/901 PASS.
+
+Contract dog.md documents DATA-only current boundary and later approved APIs/composition; no manual scene/Inspector setup. Native actor/UI/serialization integration remain later approved steps, not completion claims. ROADMAP stale7.5/7.6/8.1–8.4 rows corrected against delivered source/history without marking human gates complete. Existing prompt deletion/untracked replacement and20real saves protected. Exact diff/files/logs in external delivery after commit.
+
 ## Phase7.5k automation delivered (2026-11-19)
 
 Full1 original launcher exit0: 216scripts/896/896/98976assert; groups142.004/109.701/161.939s<180, GUT413.644s/wall429.798s. Pinned4.7.2 parse/data/headless63/Main PASS. Source freeze2504, prior test/fixture verification452, real-save SHA20 verified. Raw logs/summary/manifest: D:/godot/game-godot-backups/next10-director-run-20261118-230647/phase7.5k-115622/full-attempt1. No skip/weakening/timeout extension.
@@ -542,18 +552,18 @@ References01/02/05/07/08 are separately approved under ISO-8a/b/9/10/11. Quest b
 | 7.4a | Bounded feedback DATA/selector (D115; automation delivered) |8butterflies+6birds, current threshold/availability, strict validator/CLI/pure1000selections/new6cases/full772/772 PASS | [~] |
 | 7.4b | Live bounded2D feedback (D116; automation delivered) | Shared owned-grid anchors/reused max14 nodes/pause/night-rain/lifecycle cleanup; native15/15/12captures/full777/777 PASS | [~] |
 | 7.4c |1000day and native complete lifecycle (D117; automation delivered) | CLI1000days/35roundtrips/48crossings, pure1000days/native5cases/18captures PASS; full782/782 PASS | [~] |
-| 7.5 | `EventDirector` v0: 3 events + decision trace + debug panel + sim harness |7.5a standalone activity foundation delivered; runtime/three events/scoring/effects/debug/save/off-switch integration remain deferred | [~] |
+| 7.5 | EventDirector v0 | D119-D128 three event prototypes/runtime/save14/debug/morning-J and4000profile-days delivered;7477a75/full896; real M2.4 entitlement/final art/human acceptance pending | [~] |
 | 7.5a | Director activity window foundation (D118; automation delivered) | Shipped7day config, explicit partial/full observation, pure serialized state/strict codec;14newcases/pure4000days/CLI0-1 PASS, full796/796 PASS; no runtime/save13 change | [~] |
-| 7.6 | Forecast + ecology journal ("telegraph / explain / counter") | every negative event has forecast + explanation + counter hint | [ ] |
+| 7.6 | Forecast + ecology journal | D127 morning/J committed pending-active-history/current cost and counters for shipped prototype;6cb2420/full889, final896; future events/story unlock/human tone acceptance separate | [~] |
 
 ## Phase 8 — NPCs & quests  ~60–110 h
 
 | ID | Task | Acceptance | Status |
 |---|---|---|---|
-| 8.1 | `DialogueData` + `DialogueService` | read from data; conditions/actions work | [ ] |
-| 8.2 | Quest state machine (1 quest) + save | state saved/loaded; objectives measured by events | [ ] |
-| 8.3 | NPC schedules on `AStarGrid2D` | right place at the right time; no stuck NPCs, also after load | [ ] |
-| 8.4 | NPC shop + merchant Minh by schedule | appears on the right days/hours; stock varies (seeded) | [ ] |
+| 8.1 | `DialogueData` + `DialogueService` | read from data; conditions/actions work | [~] |
+| 8.2 | Quest state machine (1 quest) + save | state saved/loaded; objectives measured by events | [~] |
+| 8.3 | NPC schedules on `AStarGrid2D` | right place at the right time; no stuck NPCs, also after load | [~] |
+| 8.4 | NPC shop + merchant Minh by schedule | appears on the right days/hours; stock varies (seeded) | [~] |
 | 8.5 | Dog (follow, name it) | follows, never stuck, no perf impact | [ ] |
 | 8.6 | Chapter I + M2.1–M2.4 as quest/dialogue/moment data | playable from day 1 to "station wakes up" without blockers | [ ] |
 

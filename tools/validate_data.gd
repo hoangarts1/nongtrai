@@ -305,9 +305,27 @@ func _run() -> void:
 			push_error(message)
 		quit(1)
 		return
-	var debug_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_director_debug_text(locale_paths, LifeDirectorDebugPresenter.translation_keys() + LifeDirectorPresenter.KEYS)
+	# Custom SceneTree entry points compile before autoload identifiers exist.
+	# Load these VIEW key catalogues only now, after deferred autoload startup.
+	var debug_presenter: Script = load("res://ui/director_debug/debug_presenter.gd") as Script
+	var readout_presenter: Script = load("res://ui/director/director_presenter.gd") as Script
+	var debug_text_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_director_debug_text(locale_paths, debug_presenter.translation_keys() + readout_presenter.KEYS)
 	if not debug_text_errors.is_empty():
 		for message: String in debug_text_errors:
+			push_error(message)
+		quit(1)
+		return
+	var dog: DogConfig = preload("res://data/dog_config.tres").frozen_copy()
+	for argument: String in OS.get_cmdline_user_args():
+		if argument == "--dog-fixture=invalid-distance":
+			dog.follow_start_distance = dog.follow_stop_distance
+		else:
+			push_error("validate_data: unknown dog fixture argument")
+			quit(1)
+			return
+	var dog_errors: PackedStringArray = VALIDATOR_SCRIPT.validate_dog_config(dog)
+	if not dog_errors.is_empty():
+		for message: String in dog_errors:
 			push_error(message)
 		quit(1)
 		return
