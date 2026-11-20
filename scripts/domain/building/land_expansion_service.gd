@@ -44,14 +44,14 @@ func purchase(parcel_id: StringName) -> Dictionary:
 	var state: LandOwnershipState = _state
 	var wallet: WalletState = _wallet
 	_purchasing = true
-	if not wallet.remove_coins(price,&"buy_land"):
+	if not EconomyService.debit(wallet,price,&"buy_land",true):
 		_purchasing = false
 		return _failure(&"insufficient_coins")
 	# Wallet callbacks can change resources/order or complete an independent purchase.
 	var current: Dictionary = LandExpansionRules.quote_cost(config,state.get_owned_ids().size()+1)
 	var unchanged: bool = state.is_ready_for(config) and state.next_parcel_id()==parcel_id and bool(current.ok) and int(current.get("price",0))==price
 	if not unchanged or not state.grant_next(parcel_id):
-		wallet.add_coins(price,&"buy_land_rollback")
+		EconomyService.credit(wallet,price,&"buy_land_rollback",true)
 		_purchasing = false
 		return _failure(&"grant_rejected")
 	_purchasing = false

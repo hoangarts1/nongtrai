@@ -22,7 +22,7 @@ func configure(inventory: InventoryState, placements: MachinePlacementState) -> 
 	_placements = placements
 
 func start(cell: Vector2i, recipe_id: StringName, house_level: int) -> Dictionary:
-	if _collecting:
+	if _collecting or InventoryService.is_busy(_inventory):
 		return _failure(&"collection_busy")
 	if _inventory == null or _placements == null:
 		return _failure(&"invalid_state")
@@ -51,7 +51,7 @@ func take_output(cell: Vector2i) -> Dictionary:
 	return state.take_output()
 
 func can_collect_output(cell: Vector2i) -> Dictionary:
-	if _collecting:
+	if _collecting or InventoryService.is_busy(_inventory):
 		return _failure(&"collection_busy")
 	if _inventory == null or _placements == null:
 		return _failure(&"invalid_state")
@@ -90,7 +90,7 @@ func collect_output_to_inventory(cell: Vector2i) -> Dictionary:
 	var output: Dictionary = state.take_output()
 	var id: StringName = StringName(output.get("item_id", ""))
 	var quantity: int = int(output.get("quantity", 0))
-	var added: int = _inventory.add_item(id, quantity)
+	var added: int = InventoryService.add(_inventory,id, quantity,&"collect_machine")
 	if id != StringName(preview.item_id) or quantity != int(preview.quantity) or added != quantity:
 		_inventory.deserialize(inventory_before)
 		state.deserialize(machine_before)

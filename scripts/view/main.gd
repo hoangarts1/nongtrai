@@ -183,7 +183,7 @@ func _ready() -> void:
 	hotbar_panel.configure(inventory)
 	if get_tree().current_scene == self and SaveService.load_game().is_empty():
 		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
-		inventory.add_item(starter_seed, 10)
+		InventoryService.add(inventory,starter_seed, 10,&"starter_seeds")
 	farm_view.setup(world)
 	farm_view.configure(farm_state)
 	feedback.configure(inventory)
@@ -294,7 +294,7 @@ func _ready() -> void:
 	story_runtime = LifeStoryRuntime.new()
 	add_child(story_runtime)
 	if not story_runtime.configure(self):
-		push_error("Main: story configuration failed")
+		Log.error(&"Main","Main: story configuration failed")
 		return
 	story_state.changed.connect(_mark_save_dirty)
 	dog_name_flow = LifeDogNameFlow.new()
@@ -344,7 +344,7 @@ func _on_day_started(_day_index: int) -> void:
 	var ecology_day: Dictionary = ecology_runtime.begin_day(_day_index, farm_state, land_ownership)
 	if not ecology_day.ok:
 		weather_state.call("abort_day", weather_day.token)
-		push_warning("Main: ecology preflight rejected: " + String(ecology_day.reason))
+		Log.warn(&"Main","Main: ecology preflight rejected: " + String(ecology_day.reason))
 		return
 	var director_day: Dictionary = director_daily_flow.begin(_day_index)
 	if not director_day.ok:
@@ -355,24 +355,24 @@ func _on_day_started(_day_index: int) -> void:
 	chicken_coop_runtime.simulator.simulate_day(farm_state,chicken_coop.coop,machine_operations,_day_index-1,_simulate_farm_day,_simulate_ecology_day.bind(_day_index))
 	if int(chicken_coop.coop.serialize().current_day)!=_day_index:
 		if not ecology_runtime.abort_day():
-			push_warning("Main: inconsistent completed owners; lifecycle remains locked")
+			Log.warn(&"Main","Main: inconsistent completed owners; lifecycle remains locked")
 			return
 		weather_state.call("abort_day",weather_day.token)
 		director_daily_flow.abort()
 		chicken_coop_runtime.busy = false
-		push_warning("Main: daily simulation did not complete; weather retained")
+		Log.warn(&"Main","Main: daily simulation did not complete; weather retained")
 		return
 	if ecology_state.get_day_index() != _day_index:
-		push_warning("Main: ecology did not complete; lifecycle remains locked")
+		Log.warn(&"Main","Main: ecology did not complete; lifecycle remains locked")
 		return
 	chicken_coop_runtime.refresh_site()
 	if not bool(weather_state.call("finish_day",weather_day.token)):
-		push_warning("Main: weather reservation failed after simulation; lifecycle remains locked")
+		Log.warn(&"Main","Main: weather reservation failed after simulation; lifecycle remains locked")
 		return
 	if bool(weather_state.call("is_rainy")):
 		farm_state.water_all_crops()
 	if not director_daily_flow.finish(_day_index):
-		push_warning("Main: Director did not finish; lifecycle remains locked")
+		Log.warn(&"Main","Main: Director did not finish; lifecycle remains locked")
 		return
 	day_end_flow.on_morning(_day_index)
 	chicken_coop_runtime.busy = false
@@ -392,7 +392,7 @@ func _simulate_farm_day(farm: FarmGridState) -> void:
 func _simulate_ecology_day(day: int) -> void:
 	var result: Dictionary = ecology_runtime.finish_day(day, farm_state)
 	if not result.ok:
-		push_warning("Main: ecology daily update rejected: " + String(result.reason))
+		Log.warn(&"Main","Main: ecology daily update rejected: " + String(result.reason))
 
 func _on_season_changed(season: StringName) -> void:
 	_show_toast(tr("UI_SEASON_CHANGED") % tr(String(DataRegistry.get_season(season).get("display_name_key"))))
@@ -430,7 +430,7 @@ func _save_game_to_slot(slot: int) -> bool:
 		"day_end": day_end_flow.state.serialize()
 	}
 	if not SaveService.save_game(payload, slot):
-		push_warning("Main: could not save slot %d" % slot)
+		Log.warn(&"Main","Main: could not save slot %d" % slot)
 		return false
 	return true
 
@@ -508,7 +508,7 @@ func _start_new_game(player_name: String, farm_name: String) -> void:
 	start_menu.visible = false
 	if inventory.get_slots().is_empty():
 		var starter_seed: StringName = DataRegistry.get_starter_seed_for_season(GameClock.season)
-		inventory.add_item(starter_seed, 10)
+		InventoryService.add(inventory,starter_seed, 10,&"starter_seeds")
 	watering_runtime.busy = false
 	watering_runtime.refresh()
 	if not ecology_runtime.finish_restore(GameClock.day_index, farm_state, land_ownership):
@@ -651,7 +651,7 @@ func _restore_land_for_lifecycle(data: Dictionary) -> void:
 		presentation.refresh_land(land_ownership.get_owned_regions())
 
 func _purchase_in_progress() -> bool:
-	return (story_moment_flow!=null and story_moment_flow.busy) or story_state.is_busy() or (story_runtime!=null and story_runtime.is_busy()) or (npc_system!=null and npc_system.state.quests.is_busy()) or (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
+	return EconomyService.is_busy(wallet) or InventoryService.is_busy(inventory) or (seed_shop_panel!=null and seed_shop_panel.is_busy()) or (shipping_bin_panel!=null and shipping_bin_panel.is_busy()) or (story_moment_flow!=null and story_moment_flow.busy) or story_state.is_busy() or (story_runtime!=null and story_runtime.is_busy()) or (npc_system!=null and npc_system.state.quests.is_busy()) or (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:

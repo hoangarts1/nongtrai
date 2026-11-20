@@ -40,12 +40,12 @@ func purchase(expected_capacity: int) -> Dictionary:
 	var target: int = int(quote.target)
 	var price: int = int(quote.price)
 	_purchasing = true
-	if not wallet.remove_coins(price,&"buy_watering_upgrade"):
+	if not EconomyService.debit(wallet,price,&"buy_watering_upgrade",true):
 		_purchasing = false
 		return _failure(&"insufficient_coins")
 	var unchanged: bool = state.is_ready_for(config) and config.upgrade_capacity==target and config.upgrade_price==price
 	if not unchanged or not state.try_upgrade(expected_capacity,target):
-		wallet.add_coins(price,&"buy_watering_upgrade_rollback")
+		EconomyService.credit(wallet,price,&"buy_watering_upgrade_rollback",true)
 		_purchasing = false
 		return _failure(&"grant_rejected")
 	_purchasing = false

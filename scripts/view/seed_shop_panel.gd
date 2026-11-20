@@ -17,6 +17,7 @@ var _inventory: InventoryState
 var _wallet: WalletState
 var _player: Player
 var _feedback: Node
+var _trading: bool = false
 var _director: LifeDirectorActivityCollector
 
 func configure_director(collector: LifeDirectorActivityCollector) -> void:
@@ -53,7 +54,7 @@ func configure(
 		_inventory.inventory_changed.connect(_on_inventory_changed)
 
 func open() -> void:
-	if GameClock.is_sleeping():
+	if _trading or GameClock.is_sleeping():
 		return
 	visible = true
 	if _player != null:
@@ -64,7 +65,7 @@ func open() -> void:
 	panel_toggled.emit(true)
 
 func close() -> void:
-	if not visible:
+	if _trading or not visible:
 		return
 	visible = false
 	if _player != null:
@@ -328,43 +329,30 @@ func _confirm_purchase() -> void:
 	try_buy_item(_selected_item_id, _selected_quantity)
 	_update_detail()
 
+func is_busy() -> bool:
+	return _trading
+
 func try_buy_item(item_id: StringName, quantity: int) -> bool:
-	if item_id.is_empty() or quantity <= 0:
-		return false
+	if _trading or item_id.is_empty() or quantity<=0: return false
 	var item_data: Resource = DataRegistry.get_item(item_id)
-	if item_data == null:
-		return false
+	if item_data==null: return false
 	var unit_price: int = int(item_data.get("buy_price"))
-	var total_price: int = unit_price * quantity
-	
-	if _wallet == null or not _wallet.can_afford(total_price):
-		if _feedback != null:
-			_feedback.call("show_message", tr("UI_FEEDBACK_NOT_ENOUGH_COINS"))
+	var total_price: int = EconomyService.total(unit_price,quantity)
+	if total_price<0 or _wallet==null or not _wallet.can_afford(total_price):
+		if _feedback!=null: _feedback.call("show_message",tr("UI_FEEDBACK_NOT_ENOUGH_COINS"))
 		return false
-	
-	if _inventory == null or not _inventory.can_add_item(item_id, quantity):
-		if _feedback != null:
-			_feedback.call("show_message", tr("UI_FEEDBACK_INVENTORY_FULL"))
+	if _inventory==null or not _inventory.can_add_item(item_id,quantity):
+		if _feedback!=null: _feedback.call("show_message",tr("UI_FEEDBACK_INVENTORY_FULL"))
 		return false
-	
-	# Atomic transaction:
-	var receipt: Dictionary = _director.begin_command(&"seed_shop") if _director != null else {"ok": true}
-	if not receipt.ok:
-		return false
-	if _wallet.remove_coins(total_price, &"buy_seed"):
-		var added: int = _inventory.add_item(item_id, quantity)
-		if added < quantity:
-			# Rollback coins if somehow partial add occurred
-			var refund: int = (quantity - added) * unit_price
-			_wallet.add_coins(refund, &"refund")
-		item_purchased.emit(item_id, quantity, total_price)
-		Events.item_purchased.emit(item_id, quantity, total_price)
-		if _feedback != null:
-			_feedback.call("show_message", tr("UI_FEEDBACK_BOUGHT") % [tr(String(item_data.get("display_name_key"))), quantity, total_price])
+	var receipt: Dictionary = _director.begin_command(&"seed_shop") if _director!=null else {"ok":true}
+	if not receipt.ok: return false
+	_trading = true
+	var result: Dictionary = EconomyService.buy(_wallet,_inventory,item_id,quantity,unit_price,&"buy_seed")
+	if result.ok:
+		item_purchased.emit(item_id,quantity,total_price)
+		Events.item_purchased.emit(item_id,quantity,total_price)
+		if _feedback!=null: _feedback.call("show_message",tr("UI_FEEDBACK_BOUGHT") % [tr(String(item_data.get("display_name_key"))),quantity,total_price])
 		_render()
-		if _director != null:
-			_director.finish_command(receipt.token, {"item_purchased": added} if added > 0 and added <= quantity else {}, added >= 0 and added <= quantity)
-		return true
-	if _director != null:
-		_director.finish_command(receipt.token, {})
-	return false
+	if _director!=null: _director.finish_command(receipt.token,{"item_purchased":quantity} if result.ok else {},bool(result.ok))
+	_trading = false
+	return bool(result.ok)

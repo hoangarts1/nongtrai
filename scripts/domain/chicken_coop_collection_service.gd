@@ -28,7 +28,7 @@ func collect(expected_quantity: int) -> Dictionary:
 		return reserved
 	var item_id: StringName = StringName(reserved.item_id)
 	var quantity: int = int(reserved.quantity)
-	var added: int = inventory.add_item(item_id,quantity)
+	var added: int = InventoryService.add(inventory,item_id,quantity,&"collect_eggs")
 	var remaining: int = quantity-added
 	if not state.finish_collection(reserved.token as RefCounted,remaining):
 		# A broken added-count contract cannot safely be guessed or paid out twice.

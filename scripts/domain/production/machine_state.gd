@@ -25,6 +25,8 @@ var _planned_output_quantity: int = 0
 func start(machine: MachineData, recipe: RecipeData, inventory: InventoryState, house_level: int) -> Dictionary:
 	if machine == null or recipe == null or inventory == null:
 		return _failure(&"invalid_data")
+	if InventoryService.is_busy(inventory):
+		return _failure(&"machine_busy")
 	if status != STATUS_IDLE:
 		return _failure(&"machine_busy")
 	if not machine.accepts_recipe(recipe.recipe_id) or not recipe.has_machine(machine.machine_id):
@@ -47,7 +49,7 @@ func start(machine: MachineData, recipe: RecipeData, inventory: InventoryState, 
 		if item_id.is_empty() or quantity <= 0 or not inventory.has_item(item_id, quantity):
 			return _failure(&"missing_input")
 	for entry: Dictionary in recipe.input_entries():
-		inventory.remove_item(StringName(entry.get("item_id", "")), int(entry.get("quantity", 0)))
+		InventoryService.remove(inventory,StringName(entry.get("item_id", "")), int(entry.get("quantity", 0)),&"start_recipe")
 	machine_id = machine.machine_id
 	recipe_id = recipe.recipe_id
 	days_remaining = recipe.duration_days

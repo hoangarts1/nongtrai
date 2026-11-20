@@ -15,6 +15,7 @@ var _inventory: InventoryState
 var _wallet: WalletState
 var _player: Player
 var _feedback: Node
+var _trading: bool = false
 var _director: LifeDirectorActivityCollector
 
 func configure_director(collector: LifeDirectorActivityCollector) -> void:
@@ -47,7 +48,7 @@ func configure(
 		_inventory.inventory_changed.connect(_on_inventory_changed)
 
 func open() -> void:
-	if GameClock.is_sleeping():
+	if _trading or GameClock.is_sleeping():
 		return
 	visible = true
 	if _player != null:
@@ -58,7 +59,7 @@ func open() -> void:
 	panel_toggled.emit(true)
 
 func close() -> void:
-	if not visible:
+	if _trading or not visible:
 		return
 	visible = false
 	if _player != null:
@@ -274,33 +275,27 @@ func _update_detail() -> void:
 	_total_label.text = tr("UI_TOTAL_PRICE") % total
 	_confirm_button.disabled = (_selected_quantity <= 0 or max_qty <= 0)
 
+func is_busy() -> bool:
+	return _trading
+
 func _confirm_sale() -> void:
-	if _selected_item_id.is_empty() or _selected_quantity <= 0 or _inventory == null or _wallet == null:
-		return
-	if not _inventory.has_item(_selected_item_id, _selected_quantity):
-		return
+	if _trading or _selected_item_id.is_empty() or _selected_quantity<=0 or _inventory==null or _wallet==null: return
 	var item_data: Resource = DataRegistry.get_item(_selected_item_id)
-	if item_data == null:
-		return
-	var unit_price: int = int(item_data.get("sell_price"))
-	var total_price: int = unit_price * _selected_quantity
-	
-	var item_id: StringName = _selected_item_id
+	if item_data==null: return
+	var id: StringName = _selected_item_id
 	var quantity: int = _selected_quantity
-	var receipt: Dictionary = _director.begin_command(&"shipping_bin") if _director != null else {"ok": true}
-	if not receipt.ok:
-		return
-	if _inventory.remove_item(item_id, quantity):
-		_wallet.add_coins(total_price, &"sell_produce")
-		item_sold.emit(item_id, quantity, total_price)
-		Events.item_sold.emit(item_id, quantity, total_price)
-		Events.item_delivered.emit(item_id, quantity, &"shipping_bin")
-		if _feedback != null:
-			_feedback.call("show_message", tr("UI_FEEDBACK_SOLD") % total_price)
+	var unit_price: int = int(item_data.get("sell_price"))
+	var receipt: Dictionary = _director.begin_command(&"shipping_bin") if _director!=null else {"ok":true}
+	if not receipt.ok: return
+	_trading = true
+	var result: Dictionary = EconomyService.sell(_wallet,_inventory,id,quantity,unit_price,&"sell_produce")
+	if result.ok:
+		item_sold.emit(id,quantity,int(result.total))
+		Events.item_sold.emit(id,quantity,int(result.total))
+		Events.item_delivered.emit(id,quantity,&"shipping_bin")
+		if _feedback!=null: _feedback.call("show_message",tr("UI_FEEDBACK_SOLD") % int(result.total))
 		_selected_item_id = &""
 		_selected_quantity = 1
 		_render()
-		if _director != null:
-			_director.finish_command(receipt.token, {"item_sold": quantity})
-	elif _director != null:
-		_director.finish_command(receipt.token, {})
+	if _director!=null: _director.finish_command(receipt.token,{"item_sold":quantity} if result.ok else {},bool(result.ok))
+	_trading = false

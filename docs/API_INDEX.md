@@ -1,5 +1,62 @@
 # API INDEX — THE LIFE
 
+## F01 implemented APIs
+
+F01 of the approved33package. Owner explicitly approved all proposed scopes, balancing via simulation, preserving locked prices/IDs/Player/legacy rights and sequential full test then normal commit/push. Baseline104290a/save16/full1008. This step introduces Log and stateless EconomyService/InventoryService command facades over the existing WalletState/InventoryState. Currency operations require a reason and checked exact JSON integer totals. Paired bag/coin trades reject same-owner callback commands through shared transient reservations. Specialized domain services may explicitly opt independent primitive credit/debit scopes in to preserve their existing nested-command and exact-refund contracts; both nested and outer scopes must opt in, and this cannot bypass a paired trade. Bag/coin buy and sell use those reservations, compensate their own partial/rejected transfer, and expose explicit failure on an unverifiable adapter settlement. Low-level owners/public APIs and historical notification order remain for compatibility; this does not claim raw public owner methods became an untrusted-code security boundary. Runtime consumers now route normal coin/item changes through facades, while lifecycle deserialize/typed capacity owners retain existing semantics. No extra balance, inventory, ledger, input, schema or autoload owner.
+
+SeedShop and ShippingBin no longer implement their own money/item settlement. Their small transient busy latch covers public notices as well as service execution; success receipts only follow a successful complete command. Main blocks save/load/reset/title through both service scopes and those notices. Machine start/collection rejects an already reserved bag before creating a job/reserving its output. Existing land/machine/coop/feeding/quest/merchant/upgrades keep specialized reservations/refunds, and all original partial adapter counts remain visible to those settlement owners. Sort/discard/debug grants also use the facade. Log adds contextual diagnostics to actual Main warning/error paths. No new player text or price/duration/Resource change; save16 and all16goldens stay unchanged.
+
+Review caught an overly broad method-name rewrite applying InventoryService.add to unrelated OptionButton.add_item in game_settings; that file was restored byte-identically. The generated seed method replacement initially matched its API-comment text; it was corrected from the protected before-copy using a real newline function anchor before import. Import1 honestly had the OptionButton parse error despite process exit0; import2/import3 clean apart from inherited duplicate artUID warnings. Focused1:28/29 because a NEW full-bag fixture assumed99 while turnip max_stack is20 in actual DATA. Fixture now uses the Resource limit and retains the full-bag/unchanged-state assertions. Focused2:7scripts/29/29/212assert/1.719s clean. Native1:3new scripts/14/14/98assert/1.764s clean, no errors/leaks. Coverage includes exact integer/overflow/reason rejection, insufficient/full/zero price, partial/reject refund, token forgery/nested service calls, root persistence/reset during debit, public sale notice reentry/close, exact save16 owner restore, and a second recipe start attempted during input publication. Prior15 focused tests unchanged. Full original launcher/old-test/golden/real-save proof follows.
+
+Full1 stopped with exit1 in renderer group2: test_bag_upgrade.test_reentry_independent_purchase_and_callback_context_reconfiguration expected grant_rejected but received upgraded. The new global primitive reservation had blocked a legitimate independent service purchase. Production credit/debit now support explicit independent primitive scopes while paired trades stay strict; specialized domain callers opt in and retain their original reservation/refund owners. The old test is unchanged. Focused3:6scripts/33/33/532assert/1.743s PASS, including unchanged bag/land/watering callback regressions and one added primitive-nesting/paired-trade isolation case. Full1 group1 passed243/243; group2 was285/286, not a timeout. Full2 is required before delivery.
+
+Full2 original launcher PASS:264scripts/1023of1023/101137assert, groups119.260/139.002/137.557/103.076s (<180 each), GUT498.895s/wall522.339s. Frozen2663source and554prior test/fixture files plus20real-save hashes verified; logs archived at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f01-094253/full-attempt2. Final locked-contract review then added mandatory explicit reasons to the NEW inventory command APIs and all their consumers, with contextual debug diagnostics for actual coin/item mutations; original WalletState notifications and ledger history remain unchanged, no saved log owner or player data. NEW tests reject empty inventory reasons without mutation/lock leakage. Focused4 caught an indentation error on the inserted refund diagnostic; corrected in production before focused5:6scripts/33of33/539assert/1.680s PASS. Native2:3scripts/15of15/113assert/1.703s PASS, no errors/leaks. This justified final code change requires Full3 before commit; Full2 is retained as actual earlier evidence.
+
+Global33plan is now in docs/REMAINING_PLAN.md; only F01 automation is being verified, not later features. No editor tree/Inspector/scene/asset/InputMap/package setup. Run tools/run_tests.bat; manual F5 buys/sells/collects/feeds/upgrades then saves/loads, compares real counts/coins and confirms no repeated action on rapid input. Core UI appearance is unchanged and all prior capture cases remain. Current pending prompt deletion/untracked replacement stay excluded. Human F5/tone/FPS and external H1/H2 gates remain separate; do not infer Phase10/Release completion from automation.
+
+`scripts/core/log.gd`:
+```gdscript
+static func format_message(level: StringName, context: StringName, message: String) -> String:
+static func debug(context: StringName, message: String) -> void:
+static func warn(context: StringName, message: String) -> void:
+static func error(context: StringName, message: String) -> void:
+```
+
+`scripts/domain/economy_service.gd`:
+```gdscript
+static func is_busy(wallet: WalletState) -> bool:
+static func can_credit(wallet: WalletState, amount: int) -> bool:
+static func total(unit_price: int, quantity: int) -> int:
+static func credit(wallet: WalletState, amount: int, reason: StringName, independent: bool = false) -> bool:
+static func debit(wallet: WalletState, amount: int, reason: StringName, independent: bool = false) -> bool:
+static func buy(wallet: WalletState, inventory: InventoryState, id: StringName, quantity: int, unit_price: int, reason: StringName, refund_reason: StringName = &"refund") -> Dictionary:
+static func sell(wallet: WalletState, inventory: InventoryState, id: StringName, quantity: int, unit_price: int, reason: StringName) -> Dictionary:
+```
+
+`scripts/domain/inventory_service.gd`:
+```gdscript
+static func is_busy(inventory: InventoryState) -> bool:
+static func begin_transfer(inventory: InventoryState, token: RefCounted) -> bool:
+static func finish_transfer(inventory: InventoryState, token: RefCounted) -> bool:
+static func add(inventory: InventoryState, id: StringName, quantity: int, reason: StringName) -> int:
+static func remove(inventory: InventoryState, id: StringName, quantity: int, reason: StringName) -> bool:
+static func add_reserved(inventory: InventoryState, token: RefCounted, id: StringName, quantity: int, reason: StringName) -> int:
+static func remove_reserved(inventory: InventoryState, token: RefCounted, id: StringName, quantity: int, reason: StringName) -> bool:
+static func clear(inventory: InventoryState, reason: StringName) -> bool:
+static func sort(inventory: InventoryState, reason: StringName) -> Array[int]:
+static func discard(inventory: InventoryState, index: int, id: StringName, expected_quantity: int, revision: int, quantity: int, reason: StringName) -> bool:
+```
+
+`scripts/view/seed_shop_panel.gd`:
+```gdscript
+func is_busy() -> bool:
+```
+
+`scripts/view/shipping_bin_panel.gd`:
+```gdscript
+func is_busy() -> bool:
+```
+
 ## Phase8.6j implemented API
 
 Step10/10 final verification after i pushedc4ca2a5/full1003. tools/sim_story.gd runs1000 explicit verification-fixture commands through actual StoryConfig/ReceiptRules/StoryState, comparing single/grouped/nativeJSON continuation traces. Sources/read acknowledgment/reset/stale/planned/unknown-page cases are exercised;231invalid commands reject per trace. No fixture is described as observed gameplay or extra simulated days. CLI valid exits0; invalid/unknown fixture exits1. Native integration executes real existing tool-controller sow/water/completed-day growth/harvest, shipping confirmation, QuestManager payout and native land purchase, then native J/notebook/Cancel/confirm/night review/autosave/slot load/title/Continue/NewGame. Supported5/10 and one dog remain; planned repairs/new NPCs/M2.4 and production Director remain unavailable. Existing forecasts/Minh and all prior sources/tests remain. Only verification tool/tests/docs change in this final step; save16/production code unchanged.

@@ -305,7 +305,7 @@ func debug_visit() -> void:
 	_state_changed()
 
 func debug_delivery_items() -> void:
-	_main.inventory.add_item(&"turnip", content.debug_delivery_quantity)
+	InventoryService.add(_main.inventory,&"turnip", content.debug_delivery_quantity,&"debug_delivery")
 
 func debug_journal() -> void:
 	_main.debug_menu.hide()

@@ -60,7 +60,7 @@ func purchase(action: StringName, quantity: int, occupancy: Callable) -> Diction
 		return reservation
 	var token: RefCounted = reservation.token
 	var reason: StringName = &"buy_chicken_coop" if action==&"buy_coop" else &"buy_chicken_feed"
-	var paid: bool = wallet.remove_coins(price,reason)
+	var paid: bool = EconomyService.debit(wallet,price,reason,true)
 	var valid: bool = paid and config.validation_errors().is_empty()
 	if action==&"buy_coop":
 		valid = valid and config.footprint==footprint and config.entrance==entrance and config.purchase_price==price and config.initial_hens==hens and ChickenCoopPurchaseRules.clear_site(config,occupancy.call())
@@ -69,13 +69,13 @@ func purchase(action: StringName, quantity: int, occupancy: Callable) -> Diction
 		valid = valid and item!=null and item.item_id==food and config.coop_config.feed_item_id==food and ChickenCoopPurchaseRules.feed_price(item,quantity)==price and inventory.can_add_item(food,quantity)
 	var added: int = 0
 	if valid and action==&"buy_feed":
-		added = inventory.add_item(food,quantity)
+		added = InventoryService.add(inventory,food,quantity,&"buy_chicken_food")
 		if added!=quantity and added!=0:
 			# Unknown inventory implementations must not turn transferred food into a free refund.
 			return ChickenCoopPurchaseRules.failure(&"settlement_failed")
 		valid = added==quantity
 	if paid and not valid:
-		wallet.add_coins(price,StringName(String(reason)+"_rollback"))
+		EconomyService.credit(wallet,price,StringName(String(reason)+"_rollback"),true)
 	var settled: bool = holding.finish_purchase(token,valid) if action==&"buy_coop" else holding.coop.finish_shop(token,valid)
 	if not settled:
 		return ChickenCoopPurchaseRules.failure(&"settlement_failed")

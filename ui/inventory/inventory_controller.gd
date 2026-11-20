@@ -92,7 +92,7 @@ func request_watering_upgrade() -> void:
 		_main.watering_upgrade_flow.call_deferred("open")
 
 func _can_act() -> bool:
-	return panel.visible and not GameClock.is_sleeping() and (_main==null or _main.ui_coordinator.get_active_panel()==panel)
+	return panel.visible and not GameClock.is_sleeping() and (_main==null or (_main.ui_coordinator.get_active_panel()==panel and not bool(_main.call("_purchase_in_progress"))))
 
 func quick_select() -> void:
 	if _can_act() and _pending.is_empty():

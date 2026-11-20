@@ -1,0 +1,56 @@
+extends GutTest
+
+func test_add_remove_sort_and_discard_use_existing_authoritative_slots() -> void:
+	var bag: InventoryState = InventoryState.new(2)
+	assert_eq(InventoryService.add(bag,&"turnip",2,&"test_inventory"),2)
+	assert_eq(InventoryService.add(bag,&"turnip_seed",3,&"test_inventory"),3)
+	assert_true(InventoryService.remove(bag,&"turnip",1,&"test_inventory"))
+	assert_false(InventoryService.remove(bag,&"turnip",2,&"test_inventory"))
+	var before: Dictionary = bag.serialize()
+	assert_eq(InventoryService.add(bag,&"turnip",1,&""),0)
+	assert_false(InventoryService.remove(bag,&"turnip",1,&""))
+	assert_false(InventoryService.clear(bag,&""))
+	assert_true(InventoryService.sort(bag,&"").is_empty())
+	assert_false(InventoryService.discard(bag,0,&"turnip",1,bag.revision,1,&""))
+	assert_eq(bag.serialize(),before)
+	assert_false(InventoryService.is_busy(bag))
+	var order: Array[int] = InventoryService.sort(bag,&"test_inventory")
+	assert_eq(order.size(),2)
+	var slots: Array[Dictionary] = bag.get_slots()
+	var revision: int = bag.revision
+	assert_false(InventoryService.discard(bag,0,slots[0].item_id,slots[0].quantity,revision-1,1,&"test_inventory"))
+	assert_true(InventoryService.discard(bag,0,slots[0].item_id,slots[0].quantity,revision,1,&"test_inventory"))
+	assert_true(InventoryService.clear(bag,&"test_inventory"))
+	assert_true(bag.get_slots().is_empty())
+	assert_false(InventoryService.is_busy(bag))
+
+func test_invalid_and_full_adds_do_not_remove_existing_legacy_contents() -> void:
+	var bag: InventoryState = InventoryState.new(1)
+	var stack: int = int(DataRegistry.get_item(&"turnip").max_stack)
+	assert_eq(InventoryService.add(bag,&"turnip",stack,&"test_inventory"),stack)
+	var before: Dictionary = bag.serialize()
+	assert_eq(InventoryService.add(bag,&"turnip_seed",1,&"test_inventory"),0)
+	assert_eq(InventoryService.add(bag,&"unknown_fixture",1,&"test_inventory"),0)
+	assert_eq(InventoryService.add(bag,&"turnip",-1,&"test_inventory"),0)
+	assert_eq(InventoryService.add(bag,&"turnip",InventoryState.MAX_JSON_INTEGER,&"test_inventory"),0)
+	assert_eq(bag.serialize(),before)
+
+func test_nested_facade_mutations_reject_during_publication_and_tokens_are_private() -> void:
+	var bag: InventoryState = InventoryState.new()
+	var attempts: Array[bool] = []
+	var observer: Callable = func(_slots: Array[Dictionary]) -> void:
+		attempts.append(InventoryService.is_busy(bag))
+		attempts.append(InventoryService.clear(bag,&"test_inventory"))
+		attempts.append(InventoryService.remove(bag,&"turnip",1,&"test_inventory"))
+	bag.inventory_changed.connect(observer)
+	assert_eq(InventoryService.add(bag,&"turnip",2,&"test_inventory"),2)
+	bag.inventory_changed.disconnect(observer)
+	assert_eq(attempts,[true,false,false])
+	var token: RefCounted = RefCounted.new()
+	assert_true(InventoryService.begin_transfer(bag,token))
+	assert_false(InventoryService.finish_transfer(bag,RefCounted.new()))
+	assert_eq(InventoryService.add_reserved(bag,RefCounted.new(),&"turnip",1,&"test_inventory"),0)
+	assert_eq(InventoryService.add(bag,&"turnip",1,&"test_inventory"),0)
+	assert_true(InventoryService.finish_transfer(bag,token))
+	assert_eq(bag.get_quantity(&"turnip"),2)
+	assert_eq(bag.serialize().keys().size(),2,"No transient lock is saved")

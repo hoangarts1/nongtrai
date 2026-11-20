@@ -44,19 +44,19 @@ func confirm_trade(day: int, season: StringName, available: bool, inventory: Inv
 		return false
 	_busy = true
 	if offer.kind == "discount":
-		if not wallet.remove_coins(total, &"minh_discount"):
+		if not EconomyService.debit(wallet,total, &"minh_discount",true):
 			_busy = false
 			return false
-		if inventory.add_item(offer.item_id, offer.quantity) != offer.quantity:
+		if InventoryService.add(inventory,offer.item_id, offer.quantity,&"minh_trade") != offer.quantity:
 			inventory.deserialize(snapshot)
-			wallet.add_coins(total, &"minh_rollback")
+			EconomyService.credit(wallet,total, &"minh_rollback",true)
 			_busy = false
 			return false
 	else:
-		if not inventory.remove_item(offer.item_id, offer.quantity):
+		if not InventoryService.remove(inventory,offer.item_id, offer.quantity,&"minh_trade"):
 			_busy = false
 			return false
-		wallet.add_coins(total, &"minh_request")
+		EconomyService.credit(wallet,total, &"minh_request",true)
 	_consumed_days.append(day)
 	_busy = false
 	return true

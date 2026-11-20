@@ -27,7 +27,7 @@ func feed(day_index: int, hens_to_feed: int) -> Dictionary:
 		return reserved
 	var item_id: StringName = StringName(reserved.item_id)
 	var units: int = int(reserved.feed_units)
-	var debited: bool = inventory.remove_item(item_id,units)
+	var debited: bool = InventoryService.remove(inventory,item_id,units,&"feed_chickens")
 	if not state.finish_feeding(reserved.token as RefCounted,debited):
 		return _failure(&"settlement_failed")
 	return {"ok":debited,"reason":&"fed" if debited else &"debit_rejected","item_id":item_id,"feed_units":units if debited else 0,"hens_fed":hens_to_feed if debited else 0,"fed_hens":int(state.serialize().fed_hens)}

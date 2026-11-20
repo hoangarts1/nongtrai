@@ -50,13 +50,13 @@ func purchase(expected_capacity: int) -> Dictionary:
 	var target: int = int(quote.target)
 	var price: int = int(quote.price)
 	_purchasing = true
-	if not wallet.remove_coins(price,&"buy_bag_upgrade"):
+	if not EconomyService.debit(wallet,price,&"buy_bag_upgrade",true):
 		_purchasing = false
 		return _failure(&"insufficient_coins")
 	# Callbacks may legitimately change items/config/capacity; never overwrite them.
 	var unchanged: bool = validate_config(config).is_empty() and config.purchase_price==price and config.base.default_capacity+config.additional_slots==target
 	if not unchanged or not inventory.try_expand_capacity(expected_capacity,target):
-		wallet.add_coins(price,&"buy_bag_upgrade_rollback")
+		EconomyService.credit(wallet,price,&"buy_bag_upgrade_rollback",true)
 		_purchasing = false
 		return _failure(&"grant_rejected")
 	_purchasing = false

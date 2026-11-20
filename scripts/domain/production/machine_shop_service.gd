@@ -25,10 +25,10 @@ func purchase(machine_id: StringName, house_level: int) -> Dictionary:
 		return _failure(&"house_level_locked")
 	if machine.purchase_price <= 0:
 		return _failure(&"invalid_price")
-	if not wallet.remove_coins(machine.purchase_price, &"buy_machine"):
+	if not EconomyService.debit(wallet,machine.purchase_price, &"buy_machine",true):
 		return _failure(&"insufficient_coins")
 	if not inventory.add_machine(machine_id):
-		wallet.add_coins(machine.purchase_price, &"buy_machine_rollback")
+		EconomyService.credit(wallet,machine.purchase_price, &"buy_machine_rollback",true)
 		return _failure(&"inventory_rejected")
 	return {"ok": true, "reason": &"purchased", "machine_id": machine_id}
 

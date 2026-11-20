@@ -249,7 +249,7 @@ func _apply_selected_tool(action: StringName, cell: Vector2i) -> void:
 		if not ToolAction.apply(action, _farm_state, cell, crop_id):
 			_show_feedback("UI_FEEDBACK_NOT_READY")
 			return
-		if _inventory.remove_item(seed_item_id, 1):
+		if InventoryService.remove(_inventory,seed_item_id, 1,&"farm_tool"):
 			_receipts["crop_planted"] = 1
 		else:
 			_proven_receipt = false
@@ -285,7 +285,7 @@ func _apply_harvest_at(cell: Vector2i) -> void:
 		return
 	var result: Dictionary = _farm_state.harvest_cell(cell)
 	if bool(result.get("success", false)):
-		var added: int = _inventory.add_item(product_item, quantity)
+		var added: int = InventoryService.add(_inventory,product_item, quantity,&"farm_tool")
 		if added == quantity:
 			_receipts["crop_harvested"] = quantity
 		else:

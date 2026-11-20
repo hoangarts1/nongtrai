@@ -95,18 +95,19 @@ func confirm_delivery(quest_id: StringName, inventory: InventoryState, wallet: W
 	var quest: QuestData = get_quest(quest_id)
 	if quest == null:
 		return false
+	if not EconomyService.can_credit(wallet,quest.reward_coins): return false
 	
 	_busy = true
 	var snapshot: Dictionary = inventory.serialize()
 	if not quest.required_item_id.is_empty() and quest.required_item_quantity > 0:
-		var removed: bool = inventory.remove_item(quest.required_item_id, quest.required_item_quantity)
+		var removed: bool = InventoryService.remove(inventory,quest.required_item_id, quest.required_item_quantity,&"quest_delivery")
 		if not removed:
 			_busy = false
 			return false
 	
 	# Payout rewards using WalletState and InventoryState
 	if not quest.reward_item_id.is_empty() and quest.reward_item_quantity > 0 and inventory != null:
-		if inventory.add_item(quest.reward_item_id, quest.reward_item_quantity) != quest.reward_item_quantity:
+		if InventoryService.add(inventory,quest.reward_item_id, quest.reward_item_quantity,&"quest_delivery") != quest.reward_item_quantity:
 			inventory.deserialize(snapshot)
 			_busy = false
 			return false
@@ -115,7 +116,7 @@ func confirm_delivery(quest_id: StringName, inventory: InventoryState, wallet: W
 	if not _completed_quests.has(quest_id):
 		_completed_quests.append(quest_id)
 	if quest.reward_coins > 0:
-		wallet.add_coins(quest.reward_coins, &"quest_reward")
+		EconomyService.credit(wallet,quest.reward_coins, &"quest_reward",true)
 	if quest.required_item_quantity > 0:
 		Events.item_delivered.emit(quest.required_item_id, quest.required_item_quantity, quest.giver_id)
 	
