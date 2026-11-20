@@ -15,6 +15,13 @@
 class_name NpcSystem
 extends Node
 
+signal conversation_started(npc_id: StringName)
+var workplaces: Dictionary = {}
+var _introducing: bool = false
+var _intro_receipt: Dictionary = {}
+var _external_navigation: Array[Rect2i] = []
+var _navigation: NpcNavigationFlow
+
 var homes: Dictionary = {}
 
 var state: NpcSocialState = NpcSocialState.new()
@@ -38,6 +45,12 @@ func _notification(what: int) -> void:
 			continue
 		home.label.text = tr("UI_NPC_HOME") % tr(String(npc.display_name_key))
 		home.queue_redraw()
+	for id: StringName in workplaces:
+		var site: PlaceholderWorld2D = workplaces[id] as PlaceholderWorld2D
+		var npc: NpcData = state.get_npc(id)
+		if is_instance_valid(site) and is_instance_valid(site.label) and npc!=null:
+			site.label.text = tr(String(npc.workplace_title_key))
+			site.queue_redraw()
 	if dialogue != null and dialogue.dialogue_controller != null:
 		dialogue.dialogue_controller.queue_render()
 
@@ -59,6 +72,7 @@ func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) ->
 		actor.configure(state, npc)
 		actors[npc.npc_id] = actor
 		_add_home(npc)
+		_add_workplace(npc)
 	GameClock.time_changed.connect(_time_changed)
 	Events.weather_changed.connect(_weather_changed)
 	_refresh_schedule()
@@ -67,6 +81,7 @@ func configure(main: Node, dialogue_panel: NpcPanel, journal_panel: NpcPanel) ->
 	_main.debug_menu.register_action(tr("UI_DEBUG_NPC_JOURNAL"), debug_journal)
 
 func _process(_delta: float) -> void:
+	if _navigation!=null: _navigation.advance(_delta)
 	if _main == null:
 		return
 	var nearest: StringName = _nearest_npc() if _can_open() else &""
@@ -114,6 +129,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func _can_open() -> bool:
+	if _introducing or (_main!=null and bool(_main.call("_purchase_in_progress"))): return false
 	if _main == null or not bool(_main.get("_game_started")) or GameClock.is_sleeping() or is_open():
 		return false
 	return bool(_main.world.player.movement_enabled) and not _main.pause_menu.visible and not _main.start_menu.visible
@@ -145,7 +161,7 @@ func _lock() -> void:
 		control.hide()
 
 func close_panels() -> void:
-	if is_dialogue_busy() or not is_open():
+	if _introducing or is_dialogue_busy() or not is_open():
 		return
 	dialogue.hide()
 	journal.hide()
@@ -179,17 +195,32 @@ func open_journal() -> void:
 	journal.show_content(tr("UI_NPC_JOURNAL"), body)
 
 func open_dialogue(npc_id: StringName) -> void:
-	if not _can_open() or state.is_indoors(npc_id) or _nearest_npc() != npc_id:
-		return
+	if not _can_open() or state.is_indoors(npc_id) or _nearest_npc()!=npc_id: return
+	_introducing = true
 	_current_npc = npc_id
-	state.talk(npc_id, GameClock.day_index, GameClock.season)
+	var day: int = GameClock.day_index
+	var line: DialogueData = state.talk(npc_id,day,GameClock.season)
+	if line==null:
+		_introducing = false
+		return
 	var actor: NpcActor = actors.get(npc_id) as NpcActor
-	if actor != null:
+	if actor!=null:
 		actor.play_talk()
 		actor.show_emotion(&"music")
 	_lock()
 	dialogue.show()
 	_render_dialogue()
+	if day==GameClock.day_index and is_dialogue_context_valid() and state.record_introduction(npc_id,line.dialogue_id,day):
+		_intro_receipt = {"npc_id":npc_id,"dialogue_id":line.dialogue_id,"day":day}
+		conversation_started.emit(npc_id)
+	_intro_receipt = {}
+	_introducing = false
+
+func is_introducing() -> bool:
+	return _introducing
+
+func is_committed_introduction(npc_id: StringName) -> bool:
+	return _introducing and _intro_receipt.get("npc_id",&"")==npc_id and _intro_receipt.get("day",-1)==GameClock.day_index and state.get_introduced_ids().has(String(npc_id)) and is_dialogue_context_valid()
 
 func _render_dialogue() -> void:
 	if is_dialogue_busy() or not dialogue.visible:
@@ -210,7 +241,7 @@ func is_dialogue_busy() -> bool:
 	return dialogue != null and dialogue.dialogue_controller != null and dialogue.dialogue_controller.is_busy()
 
 func is_dialogue_context_valid() -> bool:
-	return is_instance_valid(_main) and not _main.is_queued_for_deletion() and dialogue.visible and dialogue.dialogue_screen.visible and not journal.visible and bool(_main.get("_game_started")) and not _main.start_menu.visible and not GameClock.is_sleeping() and not GameClock.is_day_end_held() and not bool(_main.call("_purchase_in_progress")) and _main.ui_coordinator.get_active_panel() == dialogue and not _current_npc.is_empty() and not state.is_indoors(_current_npc) and _nearest_npc() == _current_npc
+	return is_instance_valid(_main) and not _main.is_queued_for_deletion() and dialogue.visible and dialogue.dialogue_screen.visible and not journal.visible and bool(_main.get("_game_started")) and not _main.start_menu.visible and not GameClock.is_sleeping() and not GameClock.is_day_end_held() and not bool(_main.call("_purchase_in_progress",true)) and _main.ui_coordinator.get_active_panel() == dialogue and not _current_npc.is_empty() and not state.is_indoors(_current_npc) and _nearest_npc() == _current_npc
 
 func request_dialogue_action(id: StringName) -> bool:
 	return dialogue.dialogue_controller.request(id)
@@ -274,8 +305,12 @@ func refresh_director_schedule() -> void:
 	_refresh_schedule()
 
 func set_dynamic_obstacles(regions: Array[Rect2i]) -> void:
-	state.scheduler.set_dynamic_obstacles(regions)
-	state.refresh_routes()
+	_external_navigation.assign(regions)
+	if _navigation!=null:
+		_navigation.set_extra(regions)
+	else:
+		state.scheduler.set_dynamic_obstacles(regions)
+		state.refresh_routes()
 
 func restore(data: Dictionary) -> void:
 	close_panels()
@@ -319,3 +354,18 @@ func _add_home(npc: NpcData) -> void:
 	home.global_position = _main.world.cell_to_global(state.scheduler.location_cell(npc.home_location))
 	home.configure(&"cottage", tr("UI_NPC_HOME") % tr(String(npc.display_name_key)), npc.color.lightened(0.24))
 	homes[npc.npc_id] = home
+
+
+func configure_navigation() -> void:
+	if _navigation!=null: return
+	_navigation = NpcNavigationFlow.new()
+	_navigation.configure(_main,self,_external_navigation)
+
+func _add_workplace(npc: NpcData) -> void:
+	if npc.workplace_location.is_empty(): return
+	var site: PlaceholderWorld2D = PlaceholderWorld2D.new()
+	site.name = "Work_"+String(npc.npc_id)
+	_main.world.objects.add_child(site)
+	site.global_position = _main.world.cell_to_global(state.scheduler.location_cell(npc.workplace_location))
+	site.configure(npc.workplace_kind,tr(String(npc.workplace_title_key)),npc.color.lightened(0.24))
+	workplaces[npc.npc_id] = site

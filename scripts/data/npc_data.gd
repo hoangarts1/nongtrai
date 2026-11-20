@@ -14,3 +14,7 @@ extends Resource
 @export_range(1, 1000) var friendship_max: int = 100
 @export var talk_friendship: int = 2
 @export var is_merchant: bool = false
+## Optional passive sample workplace; commands still belong to dialogue/domain.
+@export var workplace_location: StringName = &""
+@export var workplace_title_key: StringName = &""
+@export var workplace_kind: StringName = &""

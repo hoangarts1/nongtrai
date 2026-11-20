@@ -331,6 +331,7 @@ func _ready() -> void:
 	machine_presentation = preload("res://scripts/view/machine_presentation.gd").new()
 	add_child(machine_presentation)
 	machine_presentation.configure(self)
+	npc_system.configure_navigation()
 	ambient_audio_flow = LifeAmbientAudioFlow.new()
 	ambient_audio_flow.name = "AmbientAudioFlow"
 	add_child(ambient_audio_flow)
@@ -581,7 +582,18 @@ func _load_payload(payload: Dictionary) -> bool:
 		return false
 	var clearing_restore: Dictionary = clearing_runtime.prepare(payload)
 	if not clearing_restore.ok: return false
-	var story_restore: Dictionary = story_runtime.prepare(payload)
+	var raw_version: Variant = StoryObservationSampler.section(payload.get("meta")).get("save_version")
+	var legacy_neighbors: bool = not (raw_version is int or raw_version is float) or not is_finite(float(raw_version)) or float(raw_version)!=floorf(float(raw_version)) or float(raw_version)<NeighborRules.INTRODUCED_VERSION or float(raw_version)>SaveService.CURRENT_VERSION
+	var neighbor_day: int = maxi(0,DayLedgerState.number(StoryObservationSampler.section(payload.get("clock")).get("day_index",0)))
+	var neighbor_restore: Dictionary = NeighborRules.normalize_social(LifeStoryRuntime.CONFIG,payload.get("social"),neighbor_day,legacy_neighbors)
+	if not neighbor_restore.ok: return false
+	# Direct legacy loads bypass SaveService migration. Apply the same source
+	# boundary to story before preparing it, alongside the normalized social owner.
+	var story_payload: Dictionary = payload.duplicate(true)
+	story_payload["social"] = neighbor_restore.snapshot
+	if legacy_neighbors:
+		story_payload["story"] = StorySaveCodec.without_neighbors(LifeStoryRuntime.CONFIG,payload.get("story"))
+	var story_restore: Dictionary = story_runtime.prepare(story_payload)
 	if not story_restore.ok: return false
 	var director_restore: Dictionary = director_runtime.prepare_restore(payload)
 	if not director_restore.ok:
@@ -616,8 +628,7 @@ func _load_payload(payload: Dictionary) -> bool:
 	quest_state.deserialize(payload.get("quests", {}))
 	weather_state.call("restore_for_day",payload.get("weather",{}),GameClock.day_index,0)
 	wallet.deserialize(payload.get("wallet", {}))
-	var social_data: Variant = payload.get("social", {})
-	npc_system.restore(social_data if social_data is Dictionary else {})
+	npc_system.restore(neighbor_restore.snapshot)
 	wallet_hud.configure(wallet)
 	weather_hud.configure(weather_state)
 	var loaded_profile: Variant = payload.get("profile", {})
@@ -664,8 +675,8 @@ func _restore_land_for_lifecycle(data: Dictionary) -> void:
 	if presentation != null:
 		presentation.refresh_land(land_ownership.get_owned_regions())
 
-func _purchase_in_progress() -> bool:
-	return clearing_state.is_busy() or (clearing_runtime!=null and clearing_runtime.busy) or EconomyService.is_busy(wallet) or InventoryService.is_busy(inventory) or (seed_shop_panel!=null and seed_shop_panel.is_busy()) or (shipping_bin_panel!=null and shipping_bin_panel.is_busy()) or (story_moment_flow!=null and story_moment_flow.busy) or story_state.is_busy() or (story_runtime!=null and story_runtime.is_busy()) or (npc_system!=null and npc_system.state.quests.is_busy()) or (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
+func _purchase_in_progress(allow_npc_introduction: bool = false) -> bool:
+	return (npc_system!=null and (npc_system.state.is_busy() or (npc_system.is_introducing() and not allow_npc_introduction))) or clearing_state.is_busy() or (clearing_runtime!=null and clearing_runtime.busy) or EconomyService.is_busy(wallet) or InventoryService.is_busy(inventory) or (seed_shop_panel!=null and seed_shop_panel.is_busy()) or (shipping_bin_panel!=null and shipping_bin_panel.is_busy()) or (story_moment_flow!=null and story_moment_flow.busy) or story_state.is_busy() or (story_runtime!=null and story_runtime.is_busy()) or (npc_system!=null and npc_system.state.quests.is_busy()) or (dog_name_flow!=null and dog_name_flow.busy) or dog_state.is_busy() or (dog_runtime!=null and dog_runtime.is_busy()) or (director_runtime!=null and director_runtime.is_busy()) or (ecology_runtime!=null and ecology_runtime.busy) or ecology_state.is_busy() or (weather_state!=null and bool(weather_state.call("is_busy"))) or chicken_coop.coop.is_busy() or (chicken_coop_runtime!=null and chicken_coop_runtime.busy) or (watering_upgrade_flow!=null and watering_upgrade_flow.busy) or (land_runtime!=null and land_runtime.busy) or (bag_upgrade_flow!=null and bag_upgrade_flow.busy) or (watering_runtime!=null and watering_runtime.busy)
 
 func _mark_save_dirty(_value: Variant = null, _delta: Variant = null, _reason: Variant = null) -> void:
 	if _game_started:

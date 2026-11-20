@@ -16,11 +16,14 @@ func test_all_historical_goldens_migrate_without_land_grants_or_lost_progress() 
 		var old: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v%d.json" % version))
 		_write(old)
 		var current: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(current.meta.save_version),17)
+		assert_eq(int(current.meta.save_version),18)
 		assert_eq(current.land_ownership,{"owned_parcels":[]})
 		for key: String in old:
 			if key not in ["meta","farm","inventory","day_ledger","day_end"]:
 				var expected: Variant = old[key]
+				if key=="social":
+					expected = old[key].duplicate(true)
+					expected["introduced"] = []
 				if key=="weather" and not expected.is_empty():
 					expected = old[key].duplicate(true)
 					expected["world_seed"] = int(expected["world_seed"])

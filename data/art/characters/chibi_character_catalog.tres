@@ -101,6 +101,7 @@ blush_color = Color(0.831373, 0.67451, 0.482353, 1)
 
 [resource]
 script = ExtResource("2_catalog")
+npc_aliases = {&"bac_lam": &"lam"}
 catalog_id = &"chibi_characters"
 player_base = SubResource("AppearancePlayer")
 npc_appearances = Array[Resource]([SubResource("AppearanceAn"), SubResource("AppearanceLam"), SubResource("AppearanceLinh"), SubResource("AppearanceMinh")])

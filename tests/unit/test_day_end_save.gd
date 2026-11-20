@@ -17,10 +17,13 @@ func test_all_old_goldens_preserve_payloads_and_mark_unknown_history() -> void:
 	for version: int in range(1,5):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),17)
+		assert_eq(int(loaded["meta"]["save_version"]),18)
 		for key: String in ["clock","player","farm","quests","profile","weather","wallet","social"]:
 			if original.has(key):
 				var expected: Variant = original[key]
+				if key=="social":
+					expected = original[key].duplicate(true)
+					expected["introduced"] = []
 				if key == "farm":
 					expected = original[key].duplicate(true)
 					for plot: Dictionary in expected.get("plots", []):

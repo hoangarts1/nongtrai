@@ -819,7 +819,11 @@ STORY_GOAL_REPAIR_MAILBOX_DESC,Phần việc này sẽ đến trong một chặn
 STORY_GOAL_REPAIR_HOUSE,Sửa nhà
 STORY_GOAL_REPAIR_HOUSE_DESC,Phần việc này sẽ đến trong một chặng đường sau.
 STORY_GOAL_MEET_NEIGHBORS,Gặp An và Bác Lâm
-STORY_GOAL_MEET_NEIGHBORS_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_MEET_NEIGHBORS_DESC,Trò chuyện với An và bác Lâm.
+SITE_AN_BAKERY,Tiệm bánh của An
+SITE_LAM_WORKSHOP,Xưởng của bác Lâm
+DIALOGUE_AN_INTRO,"Chào bạn, mình là An. Mình làm bánh ở đây. Khi rảnh, ghé tiệm chơi nhé."
+DIALOGUE_LAM_INTRO,"Bác là Lâm, làm mộc ở thung lũng này đã lâu. Cần sửa sang gì, cứ ghé xưởng nhé, cháu."
 STORY_GOAL_UNLOCK_STORAGE,Mở kho
 STORY_GOAL_UNLOCK_STORAGE_DESC,Phần việc này sẽ đến trong một chặng đường sau.
 STORY_GOAL_M2_1_CANAL,Sửa kênh tưới

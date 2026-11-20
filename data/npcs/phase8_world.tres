@@ -55,7 +55,12 @@ locations = {
 &"linh_home": Vector3(7.5, 0, -2.5),
 &"linh_stream": Vector3(7.5, 0, 4.5),
 &"minh_home": Vector3(-5.5, 0, 9.5),
-&"minh_market": Vector3(-4.5, 0, 6.5)
+&"minh_market": Vector3(-4.5, 0, 6.5),
+&"an_home": Vector3(-7.5, 0, 11.5),
+&"an_bakery": Vector3(-8.5, 0, 7.5),
+&"bac_lam_home": Vector3(-8.5, 0, -6.5),
+&"bac_lam_workshop": Vector3(-7.5, 0, -3.5),
+&"village_square": Vector3(-6.5, 0, 6.5)
 }
 nav_region = Rect2i(-10, -10, 30, 30)
 water_sources = ExtResource("12_water")
@@ -100,10 +105,69 @@ color = Color(0.28, 0.65, 0.36, 1)
 home_location = &"linh_home"
 schedule = Array[Resource]([SubResource("linh_warm"), SubResource("linh_cool")])
 
+[sub_resource type="Resource" id="an_work"]
+script = ExtResource("3_schedule")
+start_minute = 420
+end_minute = 1080
+location_id = &"an_bakery"
+
+[sub_resource type="Resource" id="an"]
+script = ExtResource("2_npc")
+npc_id = &"an"
+display_name_key = &"NPC_AN_NAME"
+color = Color(0.905882, 0.541176, 0.498039, 1)
+home_location = &"an_home"
+schedule = Array[Resource]([SubResource("an_work")])
+move_speed = 2.5
+friendship_max = 100
+talk_friendship = 2
+workplace_location = &"an_bakery"
+workplace_title_key = &"SITE_AN_BAKERY"
+workplace_kind = &"market"
+
+[sub_resource type="Resource" id="bac_lam_work"]
+script = ExtResource("3_schedule")
+start_minute = 480
+end_minute = 1020
+location_id = &"bac_lam_workshop"
+
+[sub_resource type="Resource" id="bac_lam_evening"]
+script = ExtResource("3_schedule")
+start_minute = 1020
+end_minute = 1140
+location_id = &"village_square"
+
+[sub_resource type="Resource" id="bac_lam"]
+script = ExtResource("2_npc")
+npc_id = &"bac_lam"
+display_name_key = &"NPC_LAM_NAME"
+color = Color(0.388235, 0.541176, 0.654902, 1)
+home_location = &"bac_lam_home"
+schedule = Array[Resource]([SubResource("bac_lam_work"), SubResource("bac_lam_evening")])
+move_speed = 2.5
+friendship_max = 100
+talk_friendship = 2
+workplace_location = &"bac_lam_workshop"
+workplace_title_key = &"SITE_LAM_WORKSHOP"
+workplace_kind = &"cottage"
+
+[sub_resource type="Resource" id="an_intro"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"an_intro"
+npc_id = &"an"
+text_key = &"DIALOGUE_AN_INTRO"
+
+[sub_resource type="Resource" id="bac_lam_intro"]
+script = ExtResource("5_dialogue")
+dialogue_id = &"bac_lam_intro"
+npc_id = &"bac_lam"
+text_key = &"DIALOGUE_LAM_INTRO"
+
 [resource]
 script = ExtResource("1_world")
-npcs = Array[Resource]([SubResource("minh"), SubResource("linh")])
-dialogues = Array[Resource]([SubResource("minh_intro"), SubResource("minh_active"), SubResource("minh_done"), SubResource("linh_hello")])
+npcs = Array[Resource]([SubResource("minh"), SubResource("linh"), SubResource("an"), SubResource("bac_lam")])
+dialogues = Array[Resource]([SubResource("minh_intro"), SubResource("minh_active"), SubResource("minh_done"), SubResource("linh_hello"), SubResource("an_intro"), SubResource("bac_lam_intro")])
 offers = Array[Resource]([ExtResource("7_offer"), ExtResource("8_offer"), ExtResource("9_offer"), ExtResource("10_offer"), ExtResource("11_offer")])
 locations = SubResource("locations")
 day_night_profile = ExtResource("6_light")
+navigation_poll_seconds = 0.25

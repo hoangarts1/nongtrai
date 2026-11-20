@@ -10,6 +10,7 @@ extends Resource
 @export var delivery: QuestData
 @export var land: LandExpansionConfig
 @export var clearing: ClearingConfig
+@export var neighbor_introductions: Dictionary[StringName, StringName] = {}
 func get_objective(id: StringName) -> StoryObjectiveData:
 	for row: StoryObjectiveData in objectives:
 		if row != null and row.objective_id==id: return row

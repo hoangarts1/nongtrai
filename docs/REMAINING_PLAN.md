@@ -1,5 +1,11 @@
 # Kế hoạch hoàn tất phần còn lại của THE LIFE
 
+## F03 execution status
+
+F01 pushed e4adabda3581ed2383c7d072da77bb8269315a82/full1023. F02 pushed3620d2fe1a80839fe7ebb932c99c7adfeb89cc41/full1043. F03 is under full verification; F04 begins only after its actual full gate and scoped push. Later approved milestones remain planned.
+
+The existing NpcSocialState is the sole social owner. talk() still gives once-per-day friendship/heard history, but cannot itself prove meeting a new neighbor. Only NpcSystem's actual nearby outdoor E conversation, after rendering the active dialogue, records introduced and publishes a guarded conversation_started(npc_id). Its transient receipt, visible context and two distinct validated histories are all required by StoryRuntime; seeing actors, forged notices, friendship alone, raw talk or repeating An cannot finish meet_neighbors. Main save/load/new/title, close and duplicate conversation reject during talk/publication; callback attempts cannot split story/social persistence. Seven ChapterI sources are supported; repairs/mailbox/storage and all four M2 milestones remain planned. No chapter completion or production Director entitlement.
+
 **APPROVED2026-11-20: owner chose the recommended whole33package, simulation-owned missing balance, protected existing data/Player/legacy access, full gates and sequential commit/push.**
 
 Baseline: `104290a48e49fbfa7641123508461bc56bf32f43`, master=origin/master sau8.6a-j. Full đã chạy ở batch trước:261scripts/1008of1008/101031assertions;4nhóm157.612/106.796/97.820/133.200s, pinned4.7.2. Không gọi lại test chỉ để lập kế hoạch.

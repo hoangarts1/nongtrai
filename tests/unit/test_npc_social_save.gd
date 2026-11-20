@@ -40,7 +40,7 @@ func test_v3_migration_preserves_all_old_progress_and_older_fixtures() -> void:
 		file.store_string(JSON.stringify(original))
 		file.close()
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]), 17)
+		assert_eq(int(loaded["meta"]["save_version"]), 18)
 		for field: String in ["quests", "profile", "clock", "farm", "player"]:
 			var expected: Variant = original[field]
 			if field == "farm":
@@ -52,7 +52,7 @@ func test_v3_migration_preserves_all_old_progress_and_older_fixtures() -> void:
 			assert_eq(loaded[field], expected, "v%d preserves %s plus unknown-care default" % [version, field])
 		assert_eq(loaded["inventory"]["slots"],original["inventory"]["slots"])
 		assert_gte(int(loaded["inventory"]["capacity"]),40)
-		assert_eq(loaded["social"], {})
+		assert_eq(loaded["social"], {"introduced":[]})
 		assert_true(SaveService.save_game(loaded, SLOT))
 		assert_eq(SaveService.load_game(SLOT)["quests"], original["quests"])
 

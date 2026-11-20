@@ -1,5 +1,9 @@
 # NPC derived coop obstacle contract
 
+## F03 runtime contract
+
+NpcNavigationFlow is a derived RefCounted VIEW cache owned by NpcSystem. It composes actual supplied large-rock colliders, current one-cell MachinePlacementState footprints and the existing external coop regions. Machine refresh/clearing/land signals plus DATA0.25second polling reroute only on canonical blocker changes; no new saved cells, owner or day simulation. An actor whose legacy start becomes a single-cell dynamic obstacle may leave that cell, without teleporting or unblocking fixed/water/multicell obstacles or blocked destinations. Existing owned farm is not blanket-blocked because the original Linh target lies inside the east parcel.
+
 ## Phase7.5h optional extra market visit (D125)
 
 NpcSchedule.destination and NpcSocialState.update_schedule add optional default-empty extra_visit:Dictionary; original five/four arguments remain valid. LifeDirectorNpcBridge supplies only known current-day{day_index,npc_id,location_id}, actual minh/minh_market. It ignores weekday only for that existing entry while retaining applies_to seasons/minutes and original rain/night-first home rule. NpcSystem.refresh_director_schedule reuses current cells/routes; no actor reset/teleport, new destination/stock/price or scene edit. Original proximity/dialogue context and once-per-day MerchantService unchanged. Successful original trade command records captured actual offer quantity/kind; direct programmatic/debug grants do not count.

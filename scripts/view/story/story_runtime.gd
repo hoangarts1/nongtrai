@@ -30,6 +30,7 @@ func configure(main: Node) -> bool:
 	_land = main.land_runtime
 	_land.purchased.connect(_parcel)
 	main.clearing_runtime.cleared.connect(_scenery)
+	main.npc_system.conversation_started.connect(_conversation)
 	_bind_quests()
 	return true
 func is_busy() -> bool:
@@ -71,8 +72,13 @@ func _parcel(id: StringName) -> void:
 func _scenery(cell: Vector2i, id: StringName, count: int) -> void:
 	if _active() and _main.clearing_runtime.is_committed(cell,id,count):
 		_record(StoryReceiptRules.clearing(CONFIG,_main.clearing_state.serialize(),true))
+
+func _conversation(id: StringName) -> void:
+	if _active() and _main.npc_system.is_committed_introduction(id):
+		_record(StoryReceiptRules.neighbors(CONFIG,_main.npc_system.state.serialize(),GameClock.day_index,true))
 func _exit_tree() -> void:
 	if is_instance_valid(_observer) and _observer.command_committed.is_connected(_command): _observer.command_committed.disconnect(_command)
 	if _quests!=null and _quests.quest_completed.is_connected(_delivery): _quests.quest_completed.disconnect(_delivery)
 	if is_instance_valid(_land) and _land.purchased.is_connected(_parcel): _land.purchased.disconnect(_parcel)
 	if is_instance_valid(_main) and is_instance_valid(_main.clearing_runtime) and _main.clearing_runtime.cleared.is_connected(_scenery): _main.clearing_runtime.cleared.disconnect(_scenery)
+	if is_instance_valid(_main) and is_instance_valid(_main.npc_system) and _main.npc_system.conversation_started.is_connected(_conversation): _main.npc_system.conversation_started.disconnect(_conversation)

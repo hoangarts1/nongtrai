@@ -39,6 +39,14 @@ static func clearing(config: StoryConfig, snapshot: Dictionary, committed: bool)
 		if not goal.planned and goal.source==&"scenery_cleared" and decoded.snapshot.cleared.size()>=goal.target: ids.append(String(goal.objective_id))
 	return _success(ids)
 
+static func neighbors(config: StoryConfig, social: Dictionary, day: int, committed: bool) -> Dictionary:
+	if not committed or not StoryCatalogValidator.validate(config).is_empty(): return _failure()
+	var observed: PackedStringArray = NeighborRules.observed(config,social,day)
+	var ids: PackedStringArray = []
+	for goal: StoryObjectiveData in config.objectives:
+		if not goal.planned and goal.source==&"neighbors_met" and observed.size()>=goal.target: ids.append(String(goal.objective_id))
+	return _success(ids)
+
 static func _matching(config: StoryConfig, source: StringName, id: StringName) -> Dictionary:
 	var ids: PackedStringArray = []
 	for goal: StoryObjectiveData in config.objectives:

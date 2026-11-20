@@ -13,7 +13,7 @@ func test_current17_slot_continue_newgame_keep_one_owner_and_never_regrow_cleare
 	for cell: Vector2i in f.TARGETS: assert_true(f.clear_at(cell).ok)
 	assert_true(f.main.call("_save_game_to_slot",98))
 	var payload: Dictionary = SaveService.load_game(98)
-	assert_eq(int(payload.meta.save_version),17)
+	assert_eq(int(payload.meta.save_version),18)
 	var before: Dictionary = f.owners()
 	assert_eq(payload.clearing,before.clearing)
 	assert_true(f.main.call("_load_game_from_slot",98))
@@ -40,13 +40,15 @@ func test_all16_historical_goldens_cannot_import_injected_cleanup_and_new17_is_a
 		raw.clearing = injected
 		raw.story = {"completed_objectives":["clear_land"],"read_pages":["intro"]}
 		var migrated: Dictionary = SaveService._migrate(raw,version)
-		assert_eq(int(migrated.meta.save_version),17)
+		assert_eq(int(migrated.meta.save_version),18)
 		assert_eq(migrated.clearing,ClearingSaveCodec.empty())
 		assert_false(migrated.story.completed_objectives.has("clear_land"))
 		assert_eq(FileAccess.get_sha256(path),hash_before)
 	var original16: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v16.json"))
 	var expected: Dictionary = JSON.parse_string(JSON.stringify(SaveService._migrate(original16,16),"",true,true))
 	var golden: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v17.json"))
+	expected.meta.save_version = 17.0
+	expected.social.erase("introduced")
 	assert_eq(int(golden.meta.save_version),17)
 	assert_eq(golden,expected)
 	assert_true(f.main.call("_load_payload",golden))

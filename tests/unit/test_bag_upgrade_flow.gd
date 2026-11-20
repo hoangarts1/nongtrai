@@ -60,7 +60,7 @@ func test_v9_real_roundtrip_preserves_land_crops_jobs_items_and_new_game_resets_
 	assert_true(main.get("_save_dirty"))
 	assert_true(main.call("_save_game_to_slot",SLOT))
 	var saved: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(int(saved.meta.save_version),17)
+	assert_eq(int(saved.meta.save_version),18)
 	assert_eq(int(saved.inventory.capacity),52)
 	assert_false(saved.has("bag_upgrade"),"No new saved owner/flag")
 	main.call("_start_new_game","Other","Other")

@@ -25,6 +25,11 @@ static func legacy(config: StoryConfig, payload: Dictionary) -> Dictionary:
 			if (version is int or version is float) and is_finite(float(version)) and float(version)>=ClearingSaveCodec.INTRODUCED_VERSION:
 				var clearing: Dictionary = ClearingSaveCodec.normalize(config.clearing,payload.get("clearing"))
 				proven = clearing.ok and not clearing.fallback and clearing.snapshot.cleared.size()>=goal.target
+		elif goal.source==&"neighbors_met":
+			var version: Variant = section(payload.get("meta")).get("save_version")
+			var day: Variant = section(payload.get("clock")).get("day_index")
+			if (version is int or version is float) and is_finite(float(version)) and float(version)>=NeighborRules.INTRODUCED_VERSION and (day is int or day is float) and is_finite(float(day)) and float(day)==floorf(float(day)) and day>=0 and day<=ClearingSaveCodec.INT32_MAX:
+				proven = NeighborRules.observed(config,social,int(day)).size()>=goal.target
 		if proven: ids.append(String(goal.objective_id))
 	return {"ok":true,"objective_ids":ids,"provenance":&"saved_owner_progress"}
 

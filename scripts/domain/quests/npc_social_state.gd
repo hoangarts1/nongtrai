@@ -21,8 +21,36 @@ var cells: Dictionary = {}
 var targets: Dictionary = {}
 var paths: Dictionary = {}
 var _talk_days: Dictionary = {}
+var _introduced: Array[StringName] = []
+var _busy: bool = false
+
+func is_busy() -> bool:
+	return _busy
+
+func get_introduced_ids() -> PackedStringArray:
+	var ids: PackedStringArray = []
+	if content==null: return ids
+	for resource: Resource in content.npcs:
+		var npc: NpcData = resource as NpcData
+		if npc!=null and _introduced.has(npc.npc_id): ids.append(String(npc.npc_id))
+	return ids
+
+func record_introduction(npc_id: StringName, dialogue_id: StringName, day: int) -> bool:
+	if _busy or content==null or day<0 or get_npc(npc_id)==null or not heard.has(dialogue_id) or int(_talk_days.get(npc_id,-1))!=day: return false
+	var valid_line: bool = false
+	for resource: Resource in content.dialogues:
+		var line: DialogueData = resource as DialogueData
+		if line!=null and line.npc_id==npc_id and line.dialogue_id==dialogue_id: valid_line = true
+	if not valid_line: return false
+	if _introduced.has(npc_id): return true
+	_busy = true
+	_introduced.append(npc_id)
+	changed.emit()
+	_busy = false
+	return true
 
 func configure(data: NpcWorldData) -> void:
+	if _busy: return
 	content = data
 	scheduler.configure(data)
 	merchant.offers = data.offers
@@ -65,19 +93,23 @@ func get_dialogue(npc_id: StringName, season: StringName) -> DialogueData:
 	return null
 
 func talk(npc_id: StringName, day: int, season: StringName) -> DialogueData:
+	if _busy or content==null or day<0: return null
 	var npc: NpcData = get_npc(npc_id)
 	var line: DialogueData = get_dialogue(npc_id, season)
 	if npc == null or line == null:
 		return null
+	_busy = true
 	if not heard.has(line.dialogue_id):
 		heard.append(line.dialogue_id)
 	if int(_talk_days.get(npc_id, -1)) != day:
 		friendship[npc_id] = mini(npc.friendship_max, int(friendship.get(npc_id, 0)) + npc.talk_friendship)
 		_talk_days[npc_id] = day
 	changed.emit()
+	_busy = false
 	return line
 
 func update_schedule(day: int, minute: int, season: StringName, rainy: bool, extra_visit: Dictionary = {}) -> void:
+	if _busy: return
 	for resource: Resource in content.npcs:
 		var npc: NpcData = resource as NpcData
 		var target: StringName = scheduler.destination(npc, day, minute, season, rainy, extra_visit)
@@ -89,12 +121,14 @@ func update_schedule(day: int, minute: int, season: StringName, rainy: bool, ext
 			paths[npc.npc_id].pop_front()
 
 func refresh_routes() -> void:
+	if _busy: return
 	for npc_id: StringName in targets:
 		paths[npc_id] = scheduler.route(cells[npc_id],scheduler.location_cell(targets[npc_id]))
 		if not paths[npc_id].is_empty():
 			paths[npc_id].pop_front()
 
 func advance_step(npc_id: StringName) -> void:
+	if _busy: return
 	var path: Array = paths.get(npc_id, [])
 	if not path.is_empty():
 		cells[npc_id] = path.pop_front()
@@ -108,9 +142,10 @@ func serialize() -> Dictionary:
 	for id: StringName in cells:
 		var cell: Vector2i = cells[id]
 		saved_cells[String(id)] = "%d,%d" % [cell.x, cell.y]
-	return {"quests": quests.serialize(), "merchant": merchant.serialize(), "friendship": friendship.duplicate(), "heard": heard.duplicate(), "talk_days": _talk_days.duplicate(), "cells": saved_cells}
+	return {"quests": quests.serialize(), "merchant": merchant.serialize(), "friendship": friendship.duplicate(), "heard": heard.duplicate(), "talk_days": _talk_days.duplicate(), "cells": saved_cells, "introduced":Array(get_introduced_ids())}
 
 func deserialize(data: Dictionary) -> void:
+	if _busy: return
 	quests.deserialize(_dictionary(data.get("quests")))
 	merchant.deserialize(_dictionary(data.get("merchant")))
 	var points: Dictionary = _dictionary(data.get("friendship"))
@@ -118,6 +153,7 @@ func deserialize(data: Dictionary) -> void:
 	var positions: Dictionary = _dictionary(data.get("cells"))
 	_talk_days.clear()
 	heard.clear()
+	_introduced.clear()
 	var history: Variant = data.get("heard", [])
 	if history is Array:
 		for value: Variant in history:
@@ -143,6 +179,15 @@ func deserialize(data: Dictionary) -> void:
 				if not scheduler.route(candidate, cell).is_empty():
 					cell = candidate
 		cells[npc.npc_id] = cell
+	var introduced: Variant = data.get("introduced",[])
+	if introduced is Array:
+		var valid: bool = true
+		for value: Variant in introduced:
+			if typeof(value) not in [TYPE_STRING,TYPE_STRING_NAME] or get_npc(StringName(value))==null or _introduced.has(StringName(value)):
+				valid = false
+				break
+			_introduced.append(StringName(value))
+		if not valid: _introduced.clear()
 	targets.clear()
 	paths.clear()
 	changed.emit()

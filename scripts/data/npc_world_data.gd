@@ -11,3 +11,4 @@ extends Resource
 @export var days_per_week: int = 7
 @export var interaction_reach: float = 2.0
 @export var debug_delivery_quantity: int = 3
+@export var navigation_poll_seconds: float = 0.0

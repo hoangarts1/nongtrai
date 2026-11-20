@@ -1,5 +1,11 @@
 # DATA SCHEMA — THE LIFE
 
+## F03 schema18 (2026-11-20)
+
+SaveService CURRENT_VERSION18 adds social.introduced to the existing owner, not a new top-level owner. Canonical known unique NPC markers require matching registered heard introduction and a finite nonnegative integral talk day no later than the saved clock. Pre18 migration/direct legacy load discards injected new-neighbor history/markers and meet_neighbors, preserving Minh/Linh, prior progress/rights and clearing17. Current valid history persists; partial/fraction/future proofs cannot manufacture the goal. All17historical golden bytes stay immutable; new18 is actual pinned SaveService migration/readback of17. Historical16/17 equality tests explicitly project out only later fields and restore their original JSON version numbers.
+
+NpcData adds optional workplace_location/workplace_title_key/workplace_kind; original NPC defaults remain empty. NpcWorldData.navigation_poll_seconds is explicitly0.25 in the runtime Resource. StoryConfig.neighbor_introductions maps actual IDs to actual owned intro lines. CharacterAppearanceCatalog.npc_aliases resolves only new external NPC IDs to existing primary profiles and validates missing/duplicate targets. No new gameplay price or reward.
+
 ## F02 schema17 (2026-11-20)
 
 Save17 adds only `clearing:{cleared:[{x:int,y:int,asset_id:String}]}`; strict unique known cell/asset pairs, canonical y/x order, bounded by compiled eligibility. Tokens/publication guards never serialize. Pre17 discards injected cleanup and the newly supported scenery_cleared story source; story introduction16/read flags and all prior owners/rights remain. Current valid clearing preserves exactly; malformed component alone falls back empty. clear_land is the sixth supported goal, target3 from clearing_config.tres; four remaining ChapterI objectives/four M2 milestones stay planned. Proven typed runtime receipt/state is required; forged signals, buying land, possessing items or cosmetic suppression cannot complete it.

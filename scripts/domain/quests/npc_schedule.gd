@@ -50,6 +50,16 @@ func location_cell(location_id: StringName) -> Vector2i:
 func route(from_cell: Vector2i, to_cell: Vector2i) -> Array[Vector2i]:
 	if not _grid.region.has_point(from_cell) or not _grid.region.has_point(to_cell):
 		return []
-	if _grid.is_point_solid(from_cell) or _grid.is_point_solid(to_cell):
+	if _grid.is_point_solid(to_cell):
 		return []
-	return _grid.get_id_path(from_cell, to_cell)
+	if not _grid.is_point_solid(from_cell): return _grid.get_id_path(from_cell,to_cell)
+	# A valid legacy actor can start inside a newly derived one-cell prop/machine.
+	# Permit that starting cell only; fixed/water and multi-cell blockers stay closed.
+	for fixed: Rect2i in content.locations.get_solid_regions():
+		if fixed.has_point(from_cell): return []
+	for dynamic: Rect2i in _dynamic:
+		if dynamic.has_point(from_cell) and dynamic.size!=Vector2i.ONE: return []
+	_grid.set_point_solid(from_cell,false)
+	var path: Array[Vector2i] = _grid.get_id_path(from_cell,to_cell)
+	_grid.set_point_solid(from_cell,true)
+	return path

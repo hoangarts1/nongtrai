@@ -5,6 +5,8 @@
 class_name MachinePresentation
 extends Node
 
+signal refreshed()
+
 const MANIFEST_PATH: String = "res://assets/machines/machines_manifest.json"
 var _main: Node
 var _root: Node2D
@@ -62,6 +64,7 @@ func refresh() -> void:
 	for placement: Dictionary in _main.machine_placements.get_all_placements():
 		_add_machine(placement)
 	set_process(not _working_sprites.is_empty())
+	refreshed.emit()
 
 func _add_machine(placement: Dictionary) -> void:
 	var machine_id: StringName = placement["machine_id"]

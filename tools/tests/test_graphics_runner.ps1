@@ -19,21 +19,21 @@ function Reject([scriptblock]$Action,[string]$Message) {
 }
 $inventory = @(Get-GraphicsInventory $repo)
 $groups = Get-GraphicsGroups $inventory
-Check ($groups.Count -eq 5) 'Not five complete sequential groups'
+Check ($groups.Count -eq 6) 'Not six complete sequential groups'
 $assigned = @($groups | ForEach-Object { $_.Path })
 Assert-GraphicsCoverage @($inventory.Path) $assigned
 $checks++
 for ($index=0; $index -lt $inventory.Count; $index++) {
 	$baseGroup = $index % 4
 	$baseSlot = [int][math]::Floor($index/4)
-	$targetGroup = $(if ($baseGroup -eq 3) {3+($baseSlot%2)} else {$baseGroup})
-	$targetSlot = $(if ($baseGroup -eq 3) {[int][math]::Floor($baseSlot/2)} else {$baseSlot})
+	$targetGroup = $(if ($baseGroup -eq 3) {4+($baseSlot%2)} elseif ($baseGroup -eq 2) {2+($baseSlot%2)} else {$baseGroup})
+	$targetSlot = $(if ($baseGroup -ge 2) {[int][math]::Floor($baseSlot/2)} else {$baseSlot})
 	Check ($groups[$targetGroup][$targetSlot].Path -ceq $inventory[$index].Path) 'Unstable measured split'
 }
 for ($size=4; $size -le 20; $size++) {
 	$sample = @($inventory | Select-Object -First $size)
 	$sampleGroups = Get-GraphicsGroups $sample
-	Check ($sampleGroups.Count -eq $(if ($size -lt 8) {4} else {5})) 'Wrong small-inventory split'
+	Check ($sampleGroups.Count -eq $(if ($size -lt 8) {4} else {6})) 'Wrong small-inventory split'
 	Check (@($sampleGroups | Where-Object { $_.Count -eq 0 }).Count -eq 0) 'Empty split partition'
 	Assert-GraphicsCoverage @($sample.Path) @($sampleGroups | ForEach-Object { $_.Path })
 	$checks++
@@ -95,8 +95,8 @@ foreach ($mode in @('pass','timeout','parse','drift')) {
 	$report = Get-Content -LiteralPath "$prefix.summary.json" -Raw | ConvertFrom-Json
 	Check (($report.Status -eq 'passed') -eq ($mode -eq 'pass')) "Wrong report for $mode"
 	$calls = @(Get-Content -LiteralPath "$sandbox/tools/calls.txt")
-	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {5})) "Fail-fast failed for $mode"
+	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {6})) "Fail-fast failed for $mode"
 	Check (@($calls | Where-Object { $_ -ne '180000' }).Count -eq 0) 'Timeout changed'
-	if ($mode -eq 'pass') { Check ($report.Scripts -eq 8 -and $report.Tests -eq 8 -and $report.Groups.Count -eq 5) 'Aggregate incomplete' }
+	if ($mode -eq 'pass') { Check ($report.Scripts -eq 8 -and $report.Tests -eq 8 -and $report.Groups.Count -eq 6) 'Aggregate incomplete' }
 }
 Write-Host "[graphics_runner_tests] PASS: $checks checks; $($inventory.Count) real scripts partitioned; evidence $root"

@@ -1,5 +1,64 @@
 # API INDEX — THE LIFE
 
+## F03 implemented APIs
+
+The existing NpcSocialState is the sole social owner. talk() still gives once-per-day friendship/heard history, but cannot itself prove meeting a new neighbor. Only NpcSystem's actual nearby outdoor E conversation, after rendering the active dialogue, records introduced and publishes a guarded conversation_started(npc_id). Its transient receipt, visible context and two distinct validated histories are all required by StoryRuntime; seeing actors, forged notices, friendship alone, raw talk or repeating An cannot finish meet_neighbors. Main save/load/new/title, close and duplicate conversation reject during talk/publication; callback attempts cannot split story/social persistence. Seven ChapterI sources are supported; repairs/mailbox/storage and all four M2 milestones remain planned. No chapter completion or production Director entitlement.
+
+`scripts/core/save_service.gd`
+```gdscript
+func migrate_17_to_18(data: Dictionary) -> Dictionary:
+```
+
+`scripts/domain/quests/neighbor_rules.gd`
+```gdscript
+static func validate(config: StoryConfig) -> PackedStringArray:
+static func observed(config: StoryConfig, social: Dictionary, day: int) -> PackedStringArray:
+static func normalize_social(config: StoryConfig, raw: Variant, day: int, legacy: bool = false) -> Dictionary:
+```
+
+`scripts/domain/quests/npc_social_state.gd`
+```gdscript
+func is_busy() -> bool:
+func get_introduced_ids() -> PackedStringArray:
+func record_introduction(npc_id: StringName, dialogue_id: StringName, day: int) -> bool:
+```
+
+`scripts/domain/story/story_receipt_rules.gd`
+```gdscript
+static func neighbors(config: StoryConfig, social: Dictionary, day: int, committed: bool) -> Dictionary:
+```
+
+`scripts/domain/story/story_save_codec.gd`
+```gdscript
+static func without_neighbors(config: StoryConfig, raw: Variant) -> Variant:
+```
+
+`scripts/view/machine_presentation.gd`
+```gdscript
+signal refreshed()
+```
+
+`scripts/view/npc_navigation_flow.gd`
+```gdscript
+func configure(main: Node, system: NpcSystem, extra: Array[Rect2i]) -> void:
+func advance(delta: float) -> void:
+func set_extra(regions: Array[Rect2i]) -> void:
+func refresh() -> void:
+```
+
+`scripts/view/npc_system.gd`
+```gdscript
+signal conversation_started(npc_id: StringName)
+func is_introducing() -> bool:
+func is_committed_introduction(npc_id: StringName) -> bool:
+func configure_navigation() -> void:
+```
+
+`scripts/view/world_presentation.gd`
+```gdscript
+func get_navigation_blockers() -> Array[Rect2i]:
+```
+
 ## F02 implemented APIs
 
 Main now owns one ClearingState and ClearingRuntime. The existing shovel clears only supplied rock/grass_clump art whose real cell/asset matches the frozen deterministic DATA catalogue, within the shovel ToolData reach. Base/planned farmland, buildings, source/coop clearance and anchors are excluded; live crops/machines/Player/NPC/dog cells also reject. No items/coins/land entitlement, crop/perennial/passive-tree removal or day simulation. One reserve/commit/finish token holds the owner through both changed and settled-runtime notices; Main save/load/reset/title and duplicate commands reject throughout. The exact grounded root is detached immediately, including its large-rock collider. Same-owner slot/new-game restore forces reconciliation, so cleared props do not regrow; valid actor positions remain. A missing/corrupt component restoring Player onto an original large-rock cell suppresses only that blocker until Player leaves, without teleport or saved cleanup credit.

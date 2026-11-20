@@ -17,11 +17,14 @@ func test_every_old_fixture_preserves_all_original_fields_and_defaults_unknown_c
 	for version: int in range(1,7):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),17)
+		assert_eq(int(loaded["meta"]["save_version"]),18)
 		for key: String in original:
 			if key in ["meta","inventory","farm"]:
 				continue
 			var expected: Variant = original[key]
+			if key=="social":
+				expected = original[key].duplicate(true)
+				expected["introduced"] = []
 			if key=="weather" and not expected.is_empty():
 				expected = original[key].duplicate(true)
 				expected["world_seed"] = int(expected["world_seed"])

@@ -1,5 +1,138 @@
 # ROADMAP — THE LIFE
 
+## F03 automation delivered (2026-11-20)
+
+Full3 original launcher exit0: 274scripts/1062/1062/106108assert; groups152.596/128.067/84.571/89.213/93.489/61.908s, each<180; GUT609.844s/wall642.609s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2688, prior test-fixture verification573, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f03-135914/full-attempt3. No skipped/weakened tests or bounds extended.
+
+F03 registers An/an and Bac Lam/bac_lam alongside the unchanged Minh/Linh IDs, merchant schedule and legacy coordinates. Existing an/lam sample art supplies world actors and portraits through the explicit bac_lam->lam DATA alias, preserving the original art ID. Four homes and two passive script-built workplaces use existing PlaceholderWorld2D under world.objects; no new physical building collider, stock, service, scene or InputMap edit. DATA places An home(-8,11), bakery(-9,7), Lam home(-9,-7), workshop(-8,-4), square(-7,6). An works07:00-18:00; Lam08:00-17:00 workshop,17:00-19:00 square; original rain/night-first home behavior remains. All player names/place labels/dialogue use actual vi/en Resource keys.
+
+The existing NpcSocialState is the sole social owner. talk() still gives once-per-day friendship/heard history, but cannot itself prove meeting a new neighbor. Only NpcSystem's actual nearby outdoor E conversation, after rendering the active dialogue, records introduced and publishes a guarded conversation_started(npc_id). Its transient receipt, visible context and two distinct validated histories are all required by StoryRuntime; seeing actors, forged notices, friendship alone, raw talk or repeating An cannot finish meet_neighbors. Main save/load/new/title, close and duplicate conversation reject during talk/publication; callback attempts cannot split story/social persistence. Seven ChapterI sources are supported; repairs/mailbox/storage and all four M2 milestones remain planned. No chapter completion or production Director entitlement.
+
+SaveService CURRENT_VERSION18 adds social.introduced to the existing owner, not a new top-level owner. Canonical known unique NPC markers require matching registered heard introduction and a finite nonnegative integral talk day no later than the saved clock. Pre18 migration/direct legacy load discards injected new-neighbor history/markers and meet_neighbors, preserving Minh/Linh, prior progress/rights and clearing17. Current valid history persists; partial/fraction/future proofs cannot manufacture the goal. All17historical golden bytes stay immutable; new18 is actual pinned SaveService migration/readback of17. Historical16/17 equality tests explicitly project out only later fields and restore their original JSON version numbers.
+
+NpcNavigationFlow is a derived RefCounted VIEW cache owned by NpcSystem. It composes actual supplied large-rock colliders, current one-cell MachinePlacementState footprints and the existing external coop regions. Machine refresh/clearing/land signals plus DATA0.25second polling reroute only on canonical blocker changes; no new saved cells, owner or day simulation. An actor whose legacy start becomes a single-cell dynamic obstacle may leave that cell, without teleporting or unblocking fixed/water/multicell obstacles or blocked destinations. Existing owned farm is not blanket-blocked because the original Linh target lies inside the east parcel.
+
+Pinned import1/import2 exit0 with inherited duplicate artUID warnings only. Focused1:2scripts/8of8/66assert/1.945s. Focused2 headless: navigation/save and live locale/Esc passed; native-close matrix failed12assertions because the NEW test checked child.visible after its parent had hidden. Native1 reproduced the same fixture assertion; complete mouse position/global/button-mask events alone did not change it. NpcPanel.close_panels hides the parent, so the corrected test checks both parent.visible=false and child.is_visible_in_tree=false, retaining real native clicks. Native2:2scripts/8of8/171assert/6.467s, no errors/leaks, includes all6rules/CLI cases and both native cases. New navigation cases traverse every four-NPC/four-season/seven-weekday/seven-time route and check actual blockers, rain/night, machine/coop/clearing composition and legacy escape. New save cases exercise actual E introductions, slot/Continue/NewGame, every17historical golden, malformed proof and exact new18 migration. Fresh12vi/en three-size dialogue PNGs; inspected An Vietnamese1152 and Lam English1152. These are automated captures, not human F5 acceptance.
+
+Exact changed-spec compatibility:61rows/43old test files, verified against before-bytes; test function/assertion counts and all negative coverage unchanged. Current outputs17->18, seventh supported goal/four NPC count/canonical empty marker, and historical16/17 projection only. Other530prior test/fixture files remain byte-identical. Protected20real-save baseline and all source SHA checked by the full gate. No golden overwrite, test skip, lower assertion, renderer or180second bound change.
+
+No editor/Inspector/project-setting setup. Run tools/run_tests.bat with pinned4.7.2 and six complete sequential graphics groups,180seconds each. Manual F5: daytime sunny, walk to bakery/workshop, press E near An then Lam; seeing or repeating one is insufficient for J/notebook meet_neighbors. Confirm actual portraits/name/text, mouse Close and Esc, vi/en live labels, four NPC routes around rocks/machines/coop and rain/night home return. Save/load/Continue preserves both introductions/old owners/clearing; NewGame resets. Human F5/tone/FPS/art acceptance remains pending, as do the approved external H1/H2 gates.
+
+Exact ALLOW_LIST:
+
+```text
+data/art/characters/chibi_character_catalog.tres
+data/npcs/phase8_world.tres
+data/story/chapter1.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/REMAINING_PLAN.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/dialogue.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/neighbors.md
+docs/SCENE_CONTRACTS/npc_navigation.md
+docs/SCENE_CONTRACTS/story.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/data_validator.gd
+scripts/core/save_service.gd
+scripts/data/character_appearance_catalog.gd
+scripts/data/npc_data.gd
+scripts/data/npc_world_data.gd
+scripts/data/story_config.gd
+scripts/domain/quests/neighbor_rules.gd
+scripts/domain/quests/neighbor_rules.gd.uid
+scripts/domain/quests/npc_schedule.gd
+scripts/domain/quests/npc_social_state.gd
+scripts/domain/story/story_catalog_validator.gd
+scripts/domain/story/story_observation_sampler.gd
+scripts/domain/story/story_receipt_rules.gd
+scripts/domain/story/story_save_codec.gd
+scripts/view/machine_presentation.gd
+scripts/view/main.gd
+scripts/view/npc_navigation_flow.gd
+scripts/view/npc_navigation_flow.gd.uid
+scripts/view/npc_system.gd
+scripts/view/story/story_runtime.gd
+scripts/view/world_presentation.gd
+tests/golden_saves/save_v18.json
+tests/helpers/neighbor_fixture.gd
+tests/helpers/neighbor_fixture.gd.uid
+tests/unit/test_ambient_audio_runtime.gd
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_chicken_coop_collection.gd
+tests/unit/test_chicken_coop_feeding.gd
+tests/unit/test_chicken_coop_runtime_save.gd
+tests/unit/test_clearing_runtime_save.gd
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_crop_stage_runtime.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_dog_runtime_save.gd
+tests/unit/test_ecology_end_to_end.gd
+tests/unit/test_ecology_runtime_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_save.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_neighbor_native.gd
+tests/unit/test_neighbor_native.gd.uid
+tests/unit/test_neighbor_navigation.gd
+tests/unit/test_neighbor_navigation.gd.uid
+tests/unit/test_neighbor_rules.gd
+tests/unit/test_neighbor_rules.gd.uid
+tests/unit/test_neighbor_runtime.gd
+tests/unit/test_neighbor_runtime.gd.uid
+tests/unit/test_neighbor_save.gd
+tests/unit/test_neighbor_save.gd.uid
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_recipe_economy.gd
+tests/unit/test_save_backup_recovery.gd
+tests/unit/test_save_service.gd
+tests/unit/test_story_catalog.gd
+tests/unit/test_story_end_to_end.gd
+tests/unit/test_story_golden_continuation.gd
+tests/unit/test_story_localization.gd
+tests/unit/test_story_readout.gd
+tests/unit/test_story_runtime_save.gd
+tests/unit/test_story_state.gd
+tests/unit/test_supplied_decor_runtime.gd
+tests/unit/test_supplied_objects_runtime.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_transaction_facades.gd
+tests/unit/test_water_source_world.gd
+tests/unit/test_watering_runtime_save.gd
+tests/unit/test_watering_upgrade_flow.gd
+tests/unit/test_weather.gd
+tests/unit/test_weather_runtime_save.gd
+tools/sim_neighbors.gd
+tools/sim_neighbors.gd.uid
+tools/run_graphics_tests.ps1
+tools/tests/test_graphics_runner.ps1
+```
+
+Full1062/1062 PASS.
+
+
+Full1 original launcher exit1: parse/DATA/headless63 passed; renderer group1 completed248of249/69scripts/12891of12897assert in153.959s. Only test_watering_runtime_save.test_every_legacy_golden_gets_explicit_full_base_without_losing_prior_payload failed6legacy social comparisons because new schema18 explicitly adds introduced:[]; no timeout/orphan. Raw failed logs/manifest/frozen-source/diff archived in D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f03-135914/full-attempt1-failed. Exact compatibility amended with5rows in already-scoped old save tests (watering_runtime_save/crop_care_save/crop_regrow_save/land_save/day_end_save): detached expected social gains only empty introduced, all original fields and full equality remain. Total61rows/43files; test function/assertion counts unchanged, no skip/relaxed bounds. Full2 required.
+
+
+Full2 original launcher exit1: first two groups249/249 and254/254 passed153.145/127.219s. Third GUT summary reports296/296/57478assert/174.416s, but the whole child including startup/shutdown reached the unchanged180000ms bound and exited124; groups4/5 did not run. This is NOT a passing full run. All raw failed logs/manifest/frozen source/diff retained at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f03-135914/full-attempt2-failed. Approved global measured-split authority amends exact scope97to99paths BEFORE runner edits, adding tools/run_graphics_tests.ps1 and tools/tests/test_graphics_runner.ps1. Keep original base partitions1/2 unchanged, split only base3 in addition to already split base4: six complete sequential nonempty renderer groups,180s each, original discovery/hash/count/capture/failfast/error/orphan gates retained. Small4-7inventories retain four groups,8+six. Also add real direct-load regression/fix for absent or invalid schema metadata: normalize story using the same conservative neighbor history decision before owner restore; current18 save path remains unchanged. Full3 required.
+
+
+Native3 renderer regression PASS:9scripts/30of30/3158assert/21.469s, including the five corrected historical save tests, unchanged dialogue runtime, new portraits/native close/save/navigation, no error/orphan/leak output. Late direct-load negative-before:4of5/121of134assert; confirmed absent/invalid/future schema could preserve meet_neighbors after normalized history was dropped. The new non-social equality fixture initially compared current18 owners with legitimate older-version fallbacks; corrected to compare both inputs in the same legacy codec context, keeping exact equality. Production Main now treats only finite integral supported18 metadata as current neighbor history and prepares story from the same conservative social boundary. Negative-after PASS:3scripts/11of11/250assert/8.321s, including omitted/string/bool/fraction/infinite/future metadata, all old story restore regressions and no errors/leaks. Only introduced neighbor semantics change; SaveService unversioned current-write API still preserves real completed goals. Runner contract PASS367checks/274real scripts, small4-20inventories, six-group8script replica, failfast/timeout/parse/hash/duplicate/omission/error/orphan and exact180000ms bounds. Full3 freeze covers2688source files; expected274scripts/1062cases, now19new cases total. Original full launcher and real20save/prior573test-fixture SHA gates required before commit/push.
+
 ## F02 automation delivered (2026-11-20)
 
 Full3 original launcher exit0: 269scripts/1043/1043/103281assert; groups124.955/149.202/152.634/121.467/59.386s, each<180; GUT607.644s/wall637.273s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2678, prior test-fixture verification560, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt3. No skipped/weakened tests or bounds extended. Real-save verification uses the documented preserved post-test baseline:8external slot/backup updates at12:29 after full completion11:19, no protected-save writes/restores by the assistant; original SHA snapshot and exact delta retained.

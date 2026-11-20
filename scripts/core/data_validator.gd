@@ -499,6 +499,8 @@ static func validate_npc_world(data: NpcWorldData, items: Array[Resource], quest
 		return PackedStringArray(["NPC world requires locations and lighting profile"])
 	if data.days_per_week <= 0 or data.interaction_reach <= 0.0 or data.night_moon_energy <= 0.0:
 		errors.append("NPC schedule parameters must be positive")
+	if not is_finite(data.navigation_poll_seconds) or data.navigation_poll_seconds<=0.0:
+		errors.append("NPC navigation poll interval must be finite and positive")
 	var keys: PackedStringArray = PackedStringArray()
 	var ids: Dictionary = {}
 	var quest_ids: Dictionary = {}
@@ -518,6 +520,10 @@ static func validate_npc_world(data: NpcWorldData, items: Array[Resource], quest
 		keys.append(String(npc.display_name_key))
 		if not data.locations.has_location(npc.home_location):
 			errors.append("Unknown NPC home: %s" % npc.npc_id)
+		if not npc.workplace_location.is_empty():
+			keys.append(String(npc.workplace_title_key))
+			if not data.locations.has_location(npc.workplace_location) or npc.workplace_title_key.is_empty() or npc.workplace_kind not in [&"market",&"cottage"]:
+				errors.append("Invalid NPC workplace")
 		if npc.friendship_max <= 0 or npc.talk_friendship < 0 or npc.move_speed <= 0.0:
 			errors.append("Invalid NPC movement/friendship: %s" % npc.npc_id)
 		for block: Resource in npc.schedule:

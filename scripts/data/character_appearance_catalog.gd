@@ -13,6 +13,7 @@ const MIN_OPTION_COUNT: int = 6
 @export var catalog_id: StringName = &""
 @export var player_base: Resource
 @export var npc_appearances: Array[Resource] = []
+@export var npc_aliases: Dictionary[StringName, StringName] = {}
 @export var pet_appearance: Resource
 @export var player_hair_styles: PackedStringArray = PackedStringArray()
 @export var player_skin_tones: Array[Color] = []
@@ -20,8 +21,9 @@ const MIN_OPTION_COUNT: int = 6
 @export var player_outfit_colors: Array[Color] = []
 
 func get_npc_appearance(npc_id: StringName) -> Resource:
+	var visual_id: StringName = npc_aliases.get(npc_id,npc_id)
 	for appearance: Resource in npc_appearances:
-		if appearance != null and StringName(appearance.get("character_id")) == npc_id:
+		if appearance != null and StringName(appearance.get("character_id")) == visual_id:
 			return appearance
 	return null
 
@@ -117,6 +119,9 @@ func validate() -> PackedStringArray:
 	for required_id: StringName in [&"an", &"lam", &"linh", &"minh"]:
 		if not seen_npcs.has(String(required_id)):
 			errors.append("character catalog is missing NPC appearance: %s" % required_id)
+	for alias: StringName in npc_aliases:
+		if not _is_snake_case(String(alias)) or seen_npcs.has(String(alias)) or not seen_npcs.has(String(npc_aliases[alias])):
+			errors.append("character catalog alias must map a new ID to an existing visual")
 	return errors
 
 func _normalized_index(value: Variant, count: int) -> int:

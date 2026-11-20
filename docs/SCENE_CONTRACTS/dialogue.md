@@ -1,5 +1,11 @@
 # Dialogue presentation — mockup12 (AUDIT-F15 / D101)
 
+## F03 runtime contract
+
+The existing NpcSocialState is the sole social owner. talk() still gives once-per-day friendship/heard history, but cannot itself prove meeting a new neighbor. Only NpcSystem's actual nearby outdoor E conversation, after rendering the active dialogue, records introduced and publishes a guarded conversation_started(npc_id). Its transient receipt, visible context and two distinct validated histories are all required by StoryRuntime; seeing actors, forged notices, friendship alone, raw talk or repeating An cannot finish meet_neighbors. Main save/load/new/title, close and duplicate conversation reject during talk/publication; callback attempts cannot split story/social persistence. Seven ChapterI sources are supported; repairs/mailbox/storage and all four M2 milestones remain planned. No chapter completion or production Director entitlement.
+
+No editor/Inspector/project-setting setup. Run tools/run_tests.bat with pinned4.7.2 and five complete sequential graphics groups,180seconds each. Manual F5: daytime sunny, walk to bakery/workshop, press E near An then Lam; seeing or repeating one is insufficient for J/notebook meet_neighbors. Confirm actual portraits/name/text, mouse Close and Esc, vi/en live labels, four NPC routes around rocks/machines/coop and rain/night home return. Save/load/Continue preserves both introductions/old owners/clearing; NewGame resets. Human F5/tone/FPS/art acceptance remains pending, as do the approved external H1/H2 gates.
+
 ## F16 runtime adapter (D102)
 
 NpcPanel.enable_dialogue(main:Node,system:NpcSystem) creates dialogue_screen:LifeDialogueScreen and dialogue_controller:LifeDialogueController for the dialogue instance only. show_dialogue(snapshot)->void hides the retained legacy margin, displays the new screen and maps existing column/title_label/close_button to actual choices/speaker name/stable Close. show_content still activates retained legacy fields for standalone callers. Journal/book remains its separate unchanged branch. Root stays Main/NpcDialogue; no existing .tscn edits.

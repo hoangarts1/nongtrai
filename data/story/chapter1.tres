@@ -156,6 +156,10 @@ title_key = &"STORY_GOAL_MEET_NEIGHBORS"
 
 description_key = &"STORY_GOAL_MEET_NEIGHBORS_DESC"
 
+source = &"neighbors_met"
+target = 2
+planned = false
+
 [sub_resource type="Resource" id="unlock_storage"]
 
 script = ExtResource("2")
@@ -299,3 +303,5 @@ delivery = ExtResource("4")
 land = ExtResource("5")
 
 clearing = ExtResource("6")
+
+neighbor_introductions = {&"an": &"an_intro", &"bac_lam": &"bac_lam_intro"}

@@ -18,7 +18,7 @@
 ##   func migrate_13_to_14(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 17
+const CURRENT_VERSION: int = 18
 const CLEARING_CONFIG: ClearingConfig = preload("res://data/clearing_config.tres")
 const STORY_CONFIG: StoryConfig = preload("res://data/story/chapter1.tres")
 const DOG_CONFIG: DogConfig = preload("res://data/dog_config.tres")
@@ -62,6 +62,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if not clearing.ok:
 		_last_write_report = {"ok":false,"error":&"invalid_clearing_context","committed":false,"rollback_ok":true,"cleanup_pending":false,"recovery_paths":PackedStringArray()}
 		return false
+	var social: Dictionary = NeighborRules.normalize_social(STORY_CONFIG,payload.get("social"),_coop_day(payload))
+	if not social.ok:
+		_last_write_report = {"ok":false,"error":&"invalid_neighbor_context","committed":false,"rollback_ok":true,"cleanup_pending":false,"recovery_paths":PackedStringArray()}
+		return false
 	var wrapped: Dictionary = {
 		"meta": {
 			"save_version": CURRENT_VERSION,
@@ -89,7 +93,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 		"profile": payload.get("profile", {}),
 		"weather": WeatherSaveCodec.pack(WEATHER_CONFIG,payload.get("weather",{}),_coop_day(payload)),
 		"wallet": payload.get("wallet", {}),
-		"social": payload.get("social", {}),
+		"social": social.snapshot,
 		"day_ledger": payload.get("day_ledger", {}),
 		"day_end": payload.get("day_end", {})
 	}
@@ -215,6 +219,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_15_to_16(migrated)
 	if version<=16:
 		migrated = migrate_16_to_17(migrated)
+	if version<=17:
+		migrated = migrate_17_to_18(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -247,6 +253,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	migrated["story"] = story.snapshot if story.ok else {}
 	var clearing: Dictionary = ClearingSaveCodec.normalize(CLEARING_CONFIG,migrated.get("clearing"))
 	migrated["clearing"] = clearing.snapshot if clearing.ok else {}
+	var neighbors: Dictionary = NeighborRules.normalize_social(STORY_CONFIG,migrated.get("social"),_coop_day(migrated))
+	migrated["social"] = neighbors.snapshot if neighbors.ok else {}
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -401,4 +409,11 @@ func migrate_16_to_17(data: Dictionary) -> Dictionary:
 	# Earlier formats cannot prove cleanup or the newly supported source.
 	migrated["clearing"] = ClearingSaveCodec.empty()
 	migrated["story"] = StorySaveCodec.without_clearing(STORY_CONFIG,migrated.get("story"))
+	return migrated
+
+func migrate_17_to_18(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	var social: Dictionary = NeighborRules.normalize_social(STORY_CONFIG,migrated.get("social"),_coop_day(migrated),true)
+	migrated["social"] = social.snapshot if social.ok else {}
+	migrated["story"] = StorySaveCodec.without_neighbors(STORY_CONFIG,migrated.get("story"))
 	return migrated

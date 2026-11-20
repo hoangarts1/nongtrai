@@ -819,7 +819,11 @@ STORY_GOAL_REPAIR_MAILBOX_DESC,This part of the journey is coming later.
 STORY_GOAL_REPAIR_HOUSE,Repair the house
 STORY_GOAL_REPAIR_HOUSE_DESC,This part of the journey is coming later.
 STORY_GOAL_MEET_NEIGHBORS,Meet An and Bác Lâm
-STORY_GOAL_MEET_NEIGHBORS_DESC,This part of the journey is coming later.
+STORY_GOAL_MEET_NEIGHBORS_DESC,Talk with An and Uncle Lam.
+SITE_AN_BAKERY,An's Bakery
+SITE_LAM_WORKSHOP,Lam's Workshop
+DIALOGUE_AN_INTRO,"Hello! I'm An. I bake here. Drop by when you have a quiet moment."
+DIALOGUE_LAM_INTRO,"I'm Lam, the valley's carpenter. If something needs mending, come by the workshop."
 STORY_GOAL_UNLOCK_STORAGE,Open the storage
 STORY_GOAL_UNLOCK_STORAGE_DESC,This part of the journey is coming later.
 STORY_GOAL_M2_1_CANAL,Restore the irrigation canal

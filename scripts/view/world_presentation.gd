@@ -256,6 +256,14 @@ func get_player_avatar() -> PlaceholderAvatar2D:
 func get_world_art_root() -> Node2D:
 	return _world_art
 
+func get_navigation_blockers() -> Array[Rect2i]:
+	var regions: Array[Rect2i] = []
+	for child: Node in _world_art.get_children():
+		if child is SuppliedSceneryView and child.has_node("WorldStaticCollision"):
+			var cell: Vector2i = child.get_meta("cell")
+			regions.append(Rect2i(cell,Vector2i.ONE))
+	return regions
+
 func get_scenery_target(cell: Vector2i) -> Dictionary:
 	for child: Node in _world_art.get_children():
 		if child is SuppliedSceneryView and (child as Node2D).is_visible_in_tree() and child.get_meta("cell",null)==cell:

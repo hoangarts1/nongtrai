@@ -155,7 +155,7 @@ func test_old_saves_and_new_game_refresh_real_profile_without_saved_ui_state() -
 		var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/golden_saves/save_v%d.json" % version))
 		_main.call("_load_payload",raw)
 		assert_false(_main.character_flow.panel.visible)
-		assert_eq(SaveService.CURRENT_VERSION,17)
+		assert_eq(SaveService.CURRENT_VERSION,18)
 		var snapshot: Dictionary = CharacterSnapshot.capture(_main)
 		assert_eq(snapshot.appearance,LifeCharacterPortrait.CATALOG.normalize_player_customization(_main.profile.appearance))
 		var before: Dictionary = _domains()

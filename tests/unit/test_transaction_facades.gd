@@ -60,7 +60,7 @@ func test_shipping_notice_blocks_second_sale_and_persistence_until_complete() ->
 	var before: Dictionary = f.owners()
 	assert_true(main.call("_load_game_from_slot",98))
 	assert_eq(f.owners(),before)
-	assert_eq(int(SaveService.load_game(98).meta.save_version),17)
+	assert_eq(int(SaveService.load_game(98).meta.save_version),18)
 
 func test_recipe_input_callback_cannot_start_a_second_free_job() -> void:
 	var bag: InventoryState = InventoryState.new()
