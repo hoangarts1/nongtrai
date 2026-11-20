@@ -1,5 +1,91 @@
 # API INDEX — THE LIFE
 
+## F02 implemented APIs
+
+Main now owns one ClearingState and ClearingRuntime. The existing shovel clears only supplied rock/grass_clump art whose real cell/asset matches the frozen deterministic DATA catalogue, within the shovel ToolData reach. Base/planned farmland, buildings, source/coop clearance and anchors are excluded; live crops/machines/Player/NPC/dog cells also reject. No items/coins/land entitlement, crop/perennial/passive-tree removal or day simulation. One reserve/commit/finish token holds the owner through both changed and settled-runtime notices; Main save/load/reset/title and duplicate commands reject throughout. The exact grounded root is detached immediately, including its large-rock collider. Same-owner slot/new-game restore forces reconciliation, so cleared props do not regrow; valid actor positions remain. A missing/corrupt component restoring Player onto an original large-rock cell suppresses only that blocker until Player leaves, without teleport or saved cleanup credit.
+
+`scripts/core/save_service.gd`
+```gdscript
+func migrate_16_to_17(data: Dictionary) -> Dictionary:
+```
+
+`scripts/data/clearing_config.gd`
+```gdscript
+func validation_errors() -> PackedStringArray:
+```
+
+`scripts/domain/clearing/clearing_rules.gd`
+```gdscript
+static func compile(config: ClearingConfig) -> Dictionary:
+```
+
+`scripts/domain/clearing/clearing_save_codec.gd`
+```gdscript
+static func empty() -> Dictionary:
+static func normalize(config: ClearingConfig, raw: Variant, legacy: bool = false) -> Dictionary:
+static func decode(context: Dictionary, raw: Variant) -> Dictionary:
+```
+
+`scripts/domain/clearing/clearing_state.gd`
+```gdscript
+signal changed()
+func configure(config: ClearingConfig) -> bool:
+func is_busy() -> bool:
+func get_count() -> int:
+func get_goal() -> int:
+func is_cleared(cell: Vector2i, id: StringName) -> bool:
+func is_candidate(cell: Vector2i, id: StringName) -> bool:
+func get_candidates() -> Array[Dictionary]:
+func reserve(cell: Vector2i, id: StringName) -> Dictionary:
+func commit(token: RefCounted) -> bool:
+func finish(token: RefCounted) -> bool:
+func cancel(token: RefCounted) -> bool:
+func serialize() -> Dictionary:
+func deserialize(data: Dictionary) -> bool:
+```
+
+`scripts/domain/story/story_receipt_rules.gd`
+```gdscript
+static func clearing(config: StoryConfig, snapshot: Dictionary, committed: bool) -> Dictionary:
+```
+
+`scripts/domain/story/story_save_codec.gd`
+```gdscript
+static func without_clearing(config: StoryConfig, raw: Variant) -> Variant:
+```
+
+`scripts/view/clearing_runtime.gd`
+```gdscript
+signal cleared(cell: Vector2i, asset_id: StringName, count: int)
+func configure(main: Node) -> void:
+func pick(point: Vector2) -> Variant:
+func prepare(payload: Dictionary) -> Dictionary:
+func restore(candidate: Dictionary) -> bool:
+func reset() -> bool:
+func clear(cell: Vector2i) -> Dictionary:
+func is_committed(cell: Vector2i, id: StringName, count: int) -> bool:
+```
+
+`scripts/view/tool_action_controller.gd`
+```gdscript
+func configure_clearing(runtime: ClearingRuntime) -> void:
+```
+
+`scripts/view/world_presentation.gd`
+```gdscript
+func refresh_clearing() -> void:
+func get_scenery_target(cell: Vector2i) -> Dictionary:
+func refresh_clearing_safety() -> void:
+func pick_scenery(point: Vector2) -> Variant:
+func remove_scenery(cell: Vector2i, id: StringName) -> bool:
+```
+
+
+Full1 original launcher stopped with exit1 after group1:253of253 assertions-cases passed in119.842s, but strict harness correctly rejected989deferred orphan nodes in test_machine_move_ui invalidation and test_pause_menu immediate exit. Parse/DATA/headless checks passed; later renderer groups did not run. Raw failed logs, manifest, frozen source and exact before/after diff retained at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt1-failed. The unconditional clearing reconciliation detached passive generated roots and queued deletion, exposing pending orphans when Main ended immediately. First fix tracked retired nodes and reclaimed them on synchronous teardown; Native4:12of12/1689assert/9.356s still reported989orphans for queue_free(Main), so this was NOT a clean acceptance. Final production fix frees these passive generated roots immediately after detachment (they have no process/physics callbacks). Large-rock deletion is immediate and tested; no old test/harness/assertion was weakened. Added direct new regression captures every retired root and verifies invalidity before a frame/after synchronous Main teardown. Native5:3scripts/12of12/1235assert/9.566s PASS, including both unchanged old failing test scripts, no orphan/risky/error/leak output. Full2 is required for final delivery; expected269scripts/1043cases, with20new cases total.
+
+
+Full2 original launcher exit1: the first3renderer partitions passed253/255/288cases in121.234/144.041/147.471s with no orphan/error output; fourth hit the unchanged180000ms bound/exit124 near weather_rollover_guard, before complete summary. No editor F5 was running (only editor17544); this was measured harness load, not a test assertion failure. All4raw logs/manifest/source/diff preserved at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt2-failed. Under the explicitly approved global measured-split policy, exact scope amended96to98paths BEFORE editing: tools/run_graphics_tests.ps1 and tools/tests/test_graphics_runner.ps1. Keep base groups1-3 unchanged; split only the former fourth into2alternating sequential subgroups. Current269scripts run in5complete nonempty groups, each180s; original path discovery, duplicate/omission/source-hash/full-case/capture/error/orphan/failfast gates remain. Small4-7script inventories keep4nonempty partitions;8+use5. Runner contract PASS362checks/269real scripts, including small-size matrix4through20, 8script/5group replica, pass/timeout/parse/hash drift, exact180000ms calls and every existing malformed-summary/negative gate. New full3 required before commit/push; no skipped tests or timeout increase.
+
 ## F01 implemented APIs
 
 F01 of the approved33package. Owner explicitly approved all proposed scopes, balancing via simulation, preserving locked prices/IDs/Player/legacy rights and sequential full test then normal commit/push. Baseline104290a/save16/full1008. This step introduces Log and stateless EconomyService/InventoryService command facades over the existing WalletState/InventoryState. Currency operations require a reason and checked exact JSON integer totals. Paired bag/coin trades reject same-owner callback commands through shared transient reservations. Specialized domain services may explicitly opt independent primitive credit/debit scopes in to preserve their existing nested-command and exact-refund contracts; both nested and outer scopes must opt in, and this cannot bypass a paired trade. Bag/coin buy and sell use those reservations, compensate their own partial/rejected transfer, and expose explicit failure on an unverifiable adapter settlement. Low-level owners/public APIs and historical notification order remain for compatibility; this does not claim raw public owner methods became an untrusted-code security boundary. Runtime consumers now route normal coin/item changes through facades, while lifecycle deserialize/typed capacity owners retain existing semantics. No extra balance, inventory, ledger, input, schema or autoload owner.

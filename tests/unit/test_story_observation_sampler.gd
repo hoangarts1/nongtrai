@@ -5,7 +5,7 @@ func test_only_real_stored_owner_flags_import_without_fabricated_history() -> vo
 	var before: Dictionary = raw.duplicate(true)
 	var result: Dictionary = StoryObservationSampler.legacy(CONFIG,raw)
 	assert_true(result.ok)
-	assert_eq(result.objective_ids,CONFIG.supported_ids())
+	assert_eq(result.objective_ids,PackedStringArray(["first_sowing","first_harvest","first_sale","first_delivery","first_expansion"]))
 	assert_eq(result.provenance,&"saved_owner_progress")
 	assert_eq(raw,before)
 	assert_false(result.has("day_index"))

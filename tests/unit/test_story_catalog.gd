@@ -2,7 +2,7 @@ extends GutTest
 const CONFIG: StoryConfig = preload("res://data/story/chapter1.tres")
 func test_catalogue_uses_actual_sources_and_planned_repairs_never_claim_unlocks() -> void:
 	assert_eq(CONFIG.objectives.size(),10)
-	assert_eq(CONFIG.supported_ids().size(),5)
+	assert_eq(CONFIG.supported_ids().size(),6)
 	assert_eq(CONFIG.milestones.size(),4)
 	assert_eq(CONFIG.pages.size(),6)
 	assert_eq(CONFIG.delivery.quest_id,&"turnip_delivery")

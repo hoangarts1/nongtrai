@@ -17,7 +17,7 @@ func test_all_old_goldens_preserve_payloads_and_mark_unknown_history() -> void:
 	for version: int in range(1,5):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),16)
+		assert_eq(int(loaded["meta"]["save_version"]),17)
 		for key: String in ["clock","player","farm","quests","profile","weather","wallet","social"]:
 			if original.has(key):
 				var expected: Variant = original[key]

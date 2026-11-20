@@ -34,7 +34,12 @@ function Get-GraphicsGroups([object[]]$Inventory) {
 	if ($Inventory.Count -lt 4) { throw 'Four graphics groups require at least four scripts.' }
 	$groups = @(@(), @(), @(), @())
 	for ($index = 0; $index -lt $Inventory.Count; $index++) { $groups[$index % 4] += $Inventory[$index] }
-	return ,$groups
+	# Preserve the three bounded passing partitions. The fourth exceeded180s
+	# with269scripts; split it without dropping a path or changing any child bound.
+	if ($groups[3].Count -lt 2) { return ,$groups }
+	$split = @(@(), @())
+	for ($index = 0; $index -lt $groups[3].Count; $index++) { $split[$index % 2] += $groups[3][$index] }
+	return ,@($groups[0], $groups[1], $groups[2], $split[0], $split[1])
 }
 
 function Read-GraphicsSummary([string]$StdoutPath, [string]$StderrPath, [string[]]$ExpectedPaths, [int]$ExpectedTests) {

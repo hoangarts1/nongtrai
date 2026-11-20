@@ -22,7 +22,7 @@ func test_locale_refresh_is_readonly_and_never_calls_supported_progress_complete
 		var model: Dictionary = LifeStoryPresenter.describe(LifeStorySnapshot.capture(f.main))
 		titles.append(model.title)
 		assert_ne(model.title,"STORY_CHAPTER_1")
-		assert_true(model.progress.contains("5/10"))
+		assert_true(model.progress.contains("6/10"))
 		assert_false(model.chapter_complete)
 		for row: Dictionary in model.milestones: assert_eq(row.status,tr("STORY_PLANNED"))
 	assert_ne(titles[0],titles[1])

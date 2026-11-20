@@ -811,7 +811,9 @@ STORY_GOAL_FIRST_DELIVERY_DESC,Hoàn tất đơn củ cải của Minh.
 STORY_GOAL_FIRST_EXPANSION,Mở rộng mảnh vườn
 STORY_GOAL_FIRST_EXPANSION_DESC,Mua lô đất đầu tiên ở phía đông khu vườn.
 STORY_GOAL_CLEAR_LAND,Dọn đất
-STORY_GOAL_CLEAR_LAND_DESC,Phần việc này sẽ đến trong một chặng đường sau.
+STORY_GOAL_CLEAR_LAND_DESC,Dùng xẻng dọn đá và bụi cỏ quanh vườn.
+CLEARING_PROGRESS,Đã dọn %d chỗ. Mục tiêu: %d.
+CLEARING_UNAVAILABLE,Chọn đá hoặc bụi cỏ trong tầm xẻng nhé.
 STORY_GOAL_REPAIR_MAILBOX,Sửa hộp thư
 STORY_GOAL_REPAIR_MAILBOX_DESC,Phần việc này sẽ đến trong một chặng đường sau.
 STORY_GOAL_REPAIR_HOUSE,Sửa nhà

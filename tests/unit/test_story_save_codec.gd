@@ -18,7 +18,7 @@ func test_corrupt_or_legacy_story_uses_only_verified_flags_without_read_replay()
 		var result: Dictionary = StorySaveCodec.normalize(CONFIG,raw,payload)
 		assert_true(result.ok)
 		assert_true(result.fallback)
-		assert_eq(result.snapshot.completed_objectives,Array(CONFIG.supported_ids()))
+		assert_eq(result.snapshot.completed_objectives,["first_sowing","first_harvest","first_sale","first_delivery","first_expansion"])
 		assert_eq(result.snapshot.read_pages,[])
 		assert_eq(payload,before)
 	var forged: Dictionary = {"completed_objectives":[],"read_pages":["intro"]}

@@ -2,7 +2,7 @@
 ## API: validate(config:StoryConfig)->PackedStringArray.
 class_name StoryCatalogValidator
 extends RefCounted
-const SOURCES: PackedStringArray = ["crop_planted","crop_harvested","item_sold","quest_completed","parcel_owned"]
+const SOURCES: PackedStringArray = ["crop_planted","crop_harvested","item_sold","quest_completed","parcel_owned","scenery_cleared"]
 static func validate(config: StoryConfig) -> PackedStringArray:
 	var errors: PackedStringArray = []
 	if config==null: return PackedStringArray(["story config required"])
@@ -16,7 +16,10 @@ static func validate(config: StoryConfig) -> PackedStringArray:
 		goals[id] = row.requires
 		if row.planned:
 			if row.source!=&"planned" or row.target!=0 or not row.source_id.is_empty() or row.tutorial_step!=-1: errors.append("planned story cannot claim a live source")
-		elif not SOURCES.has(String(row.source)) or row.target!=1: errors.append("story source/first-occurrence target invalid")
+		elif not SOURCES.has(String(row.source)): errors.append("story source invalid")
+		elif row.source==&"scenery_cleared":
+			if config.clearing==null or not config.clearing.validation_errors().is_empty() or row.target!=config.clearing.story_goal or not row.source_id.is_empty() or row.tutorial_step!=-1: errors.append("story clearing reference invalid")
+		elif row.target!=1: errors.append("story first-occurrence target invalid")
 		elif row.source==&"quest_completed":
 			if config.delivery==null or row.source_id!=config.delivery.quest_id or row.tutorial_step!=-1: errors.append("story delivery reference invalid")
 		elif row.source==&"parcel_owned":

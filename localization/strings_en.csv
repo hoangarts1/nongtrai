@@ -811,7 +811,9 @@ STORY_GOAL_FIRST_DELIVERY_DESC,Complete Minh’s turnip order.
 STORY_GOAL_FIRST_EXPANSION,Expand the garden
 STORY_GOAL_FIRST_EXPANSION_DESC,Buy the first parcel east of the garden.
 STORY_GOAL_CLEAR_LAND,Clear the land
-STORY_GOAL_CLEAR_LAND_DESC,This part of the journey is coming later.
+STORY_GOAL_CLEAR_LAND_DESC,Use your shovel to clear rocks and grass around the garden.
+CLEARING_PROGRESS,%d places cleared. Goal: %d.
+CLEARING_UNAVAILABLE,Choose rocks or grass within shovel reach.
 STORY_GOAL_REPAIR_MAILBOX,Repair the mailbox
 STORY_GOAL_REPAIR_MAILBOX_DESC,This part of the journey is coming later.
 STORY_GOAL_REPAIR_HOUSE,Repair the house

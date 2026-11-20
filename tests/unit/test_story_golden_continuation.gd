@@ -16,7 +16,7 @@ func test_all16tracked_goldens_continue_exactly_without_old_page_replay() -> voi
 		var hash_before: String = FileAccess.get_sha256(path)
 		var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 		var migrated: Dictionary = SaveService._migrate(raw,version)
-		assert_eq(int(migrated.meta.save_version),16)
+		assert_eq(int(migrated.meta.save_version),17)
 		assert_true(f.main.call("_load_payload",migrated))
 		f.main.morning_flow.reset()
 		f.main.ui_coordinator.close_active()

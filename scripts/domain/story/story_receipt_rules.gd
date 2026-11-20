@@ -30,6 +30,15 @@ static func parcel(config: StoryConfig, id: StringName, ownership: Dictionary, c
 	if not committed or not StoryCatalogValidator.validate(config).is_empty() or not StoryObservationSampler.first_parcel(config,ownership): return _failure()
 	return _matching(config,&"parcel_owned",id)
 
+static func clearing(config: StoryConfig, snapshot: Dictionary, committed: bool) -> Dictionary:
+	if not committed or not StoryCatalogValidator.validate(config).is_empty(): return _failure()
+	var decoded: Dictionary = ClearingSaveCodec.normalize(config.clearing,snapshot)
+	if not decoded.ok or decoded.fallback: return _failure()
+	var ids: PackedStringArray = []
+	for goal: StoryObjectiveData in config.objectives:
+		if not goal.planned and goal.source==&"scenery_cleared" and decoded.snapshot.cleared.size()>=goal.target: ids.append(String(goal.objective_id))
+	return _success(ids)
+
 static func _matching(config: StoryConfig, source: StringName, id: StringName) -> Dictionary:
 	var ids: PackedStringArray = []
 	for goal: StoryObjectiveData in config.objectives:

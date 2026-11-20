@@ -19,12 +19,24 @@ function Reject([scriptblock]$Action,[string]$Message) {
 }
 $inventory = @(Get-GraphicsInventory $repo)
 $groups = Get-GraphicsGroups $inventory
-Check ($groups.Count -eq 4) 'Not four groups'
+Check ($groups.Count -eq 5) 'Not five complete sequential groups'
 $assigned = @($groups | ForEach-Object { $_.Path })
 Assert-GraphicsCoverage @($inventory.Path) $assigned
 $checks++
 for ($index=0; $index -lt $inventory.Count; $index++) {
-	Check ($groups[$index%4][[math]::Floor($index/4)].Path -ceq $inventory[$index].Path) 'Unstable partition'
+	$baseGroup = $index % 4
+	$baseSlot = [int][math]::Floor($index/4)
+	$targetGroup = $(if ($baseGroup -eq 3) {3+($baseSlot%2)} else {$baseGroup})
+	$targetSlot = $(if ($baseGroup -eq 3) {[int][math]::Floor($baseSlot/2)} else {$baseSlot})
+	Check ($groups[$targetGroup][$targetSlot].Path -ceq $inventory[$index].Path) 'Unstable measured split'
+}
+for ($size=4; $size -le 20; $size++) {
+	$sample = @($inventory | Select-Object -First $size)
+	$sampleGroups = Get-GraphicsGroups $sample
+	Check ($sampleGroups.Count -eq $(if ($size -lt 8) {4} else {5})) 'Wrong small-inventory split'
+	Check (@($sampleGroups | Where-Object { $_.Count -eq 0 }).Count -eq 0) 'Empty split partition'
+	Assert-GraphicsCoverage @($sample.Path) @($sampleGroups | ForEach-Object { $_.Path })
+	$checks++
 }
 Reject { Get-GraphicsGroups @($inventory[0],$inventory[1]) } 'Accepted empty group'
 Reject { Get-GraphicsGroups @($inventory[0],$inventory[1],$inventory[2]) } 'Accepted three scripts for four groups'
@@ -57,7 +69,7 @@ Reject { Read-GraphicsSummary ($out+'.missing') $err @('res://tests/unit/test_pr
 $sandbox = Join-Path $root 'replica'
 $null = New-Item -ItemType Directory -Path "$sandbox/tools","$sandbox/tests/unit"
 Copy-Item -LiteralPath $runner -Destination "$sandbox/tools/run_graphics_tests.ps1"
-for ($index=0; $index -lt 7; $index++) { [IO.File]::WriteAllText("$sandbox/tests/unit/test_probe_$index.gd","func test_probe() -> void:`n`tpass`n") }
+for ($index=0; $index -lt 8; $index++) { [IO.File]::WriteAllText("$sandbox/tests/unit/test_probe_$index.gd","func test_probe() -> void:`n`tpass`n") }
 $fakeHelper = @'
 param([string]$Godot,[string]$Arguments,[string]$OutputPath,[int]$TimeoutMs)
 Add-Content -LiteralPath "$PSScriptRoot/calls.txt" -Value $TimeoutMs
@@ -83,8 +95,8 @@ foreach ($mode in @('pass','timeout','parse','drift')) {
 	$report = Get-Content -LiteralPath "$prefix.summary.json" -Raw | ConvertFrom-Json
 	Check (($report.Status -eq 'passed') -eq ($mode -eq 'pass')) "Wrong report for $mode"
 	$calls = @(Get-Content -LiteralPath "$sandbox/tools/calls.txt")
-	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {4})) "Fail-fast failed for $mode"
+	Check ($calls.Count -eq $(if ($mode -in @('timeout','parse')) {1} else {5})) "Fail-fast failed for $mode"
 	Check (@($calls | Where-Object { $_ -ne '180000' }).Count -eq 0) 'Timeout changed'
-	if ($mode -eq 'pass') { Check ($report.Scripts -eq 7 -and $report.Tests -eq 7 -and $report.Groups.Count -eq 4) 'Aggregate incomplete' }
+	if ($mode -eq 'pass') { Check ($report.Scripts -eq 8 -and $report.Tests -eq 8 -and $report.Groups.Count -eq 5) 'Aggregate incomplete' }
 }
 Write-Host "[graphics_runner_tests] PASS: $checks checks; $($inventory.Count) real scripts partitioned; evidence $root"

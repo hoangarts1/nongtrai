@@ -5,6 +5,11 @@
 ##   func get_player_avatar() -> PlaceholderAvatar2D
 ##   func get_world_art_root() -> Node2D
 ##   func get_season_fx() -> Node
+##   func refresh_clearing() -> void
+##   func refresh_clearing_safety() -> void
+##   func get_scenery_target(cell: Vector2i) -> Dictionary
+##   func pick_scenery(point: Vector2) -> Variant
+##   func remove_scenery(cell: Vector2i, id: StringName) -> bool
 class_name WorldPresentation
 extends Node
 
@@ -14,6 +19,7 @@ const CHARACTER_CATALOG: Resource = preload("res://data/art/characters/chibi_cha
 const SCENERY_CATALOG: SceneryArtCatalog = preload("res://data/art/world/isometric_scenery_catalog.tres")
 const COOP_SITE: ChickenCoopSiteConfig = preload("res://data/chicken_coop_site.tres")
 const WATER_CONFIG: WaterSourceConfig = preload("res://data/water_sources.tres")
+const CLEARING_CONFIG: ClearingConfig = preload("res://data/clearing_config.tres")
 var _world: GrayBoxWorld
 var _main: Node
 var _world_art: Node2D
@@ -24,6 +30,11 @@ var _source_reserved: Dictionary = {}
 var _coop_reserved: Dictionary = COOP_SITE.reserved_cells()
 var _scenery_config: Dictionary = {}
 var _decor_queued: bool = false
+var _suppressed_blocker: Variant = null
+func _retire_scenery(child: Node) -> void:
+	# These generated roots are passive, without process/physics callbacks. Free
+	# immediately after detaching; even queue_free(Main) must leave no orphans.
+	child.free()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED:
@@ -55,10 +66,14 @@ func refresh_land(regions: Array[Rect2i]) -> void:
 		_queue_decor_refresh()
 		return
 	_owned_regions.assign(regions)
+	refresh_clearing()
+
+func refresh_clearing() -> void:
+	_suppressed_blocker = null
 	# Remove generated blockers immediately; queue_free alone leaves live collision.
 	for child: Node in _world_art.get_children():
 		_world_art.remove_child(child)
-		child.queue_free()
+		_retire_scenery(child)
 	_build_trees()
 	_build_natural_scenery()
 
@@ -132,7 +147,7 @@ func _refresh_decor() -> void:
 			var cell: Vector2i = child.get_meta("cell")
 			if _reserved_scenery_cell(cell) or _decor_occupied(cell):
 				_world_art.remove_child(child)
-				child.queue_free()
+				_retire_scenery(child)
 			else:
 				present[cell] = true
 	var region: Rect2i = _world.CONFIG.scenery_region
@@ -149,7 +164,7 @@ func _reserved_scenery_cell(cell: Vector2i) -> bool:
 	if _owned_cell(cell) or _source_reserved.has(cell) or _coop_reserved.has(cell):
 		return true
 	for reserved: Vector2i in [_world.CONFIG.house_cell, _world.CONFIG.shipping_bin_cell, _world.CONFIG.shop_cell, _world.CONFIG.spawn_cell]:
-		if cell.distance_squared_to(reserved) <= 4:
+		if cell.distance_squared_to(reserved) <= CLEARING_CONFIG.anchor_clearance_squared:
 			return true
 	return false
 
@@ -173,6 +188,13 @@ func _scenery_hash(cell: Vector2i) -> int:
 	return SceneryPlacementRules.cell_hash(_scenery_config, cell)
 
 func _add_scenery_sprite(entry: Dictionary, cell: Vector2i, index: int) -> void:
+	if _main.clearing_state.is_cleared(cell,StringName(entry.id)):
+		return
+	# A corrupt/missing cleanup component must not trap a restored Player.
+	# Suppression is cosmetic and temporary, never saved/credited as cleanup.
+	if bool(entry.blocks) and cell==_world.get_player_cell():
+		_suppressed_blocker = cell
+		return
 	var root: SuppliedSceneryView = SuppliedSceneryView.new()
 	if not root.configure(entry):
 		root.free()
@@ -233,6 +255,42 @@ func get_player_avatar() -> PlaceholderAvatar2D:
 
 func get_world_art_root() -> Node2D:
 	return _world_art
+
+func get_scenery_target(cell: Vector2i) -> Dictionary:
+	for child: Node in _world_art.get_children():
+		if child is SuppliedSceneryView and (child as Node2D).is_visible_in_tree() and child.get_meta("cell",null)==cell:
+			var id: StringName = StringName(child.get_meta("asset_id",&""))
+			if _main.clearing_state.is_candidate(cell,id):
+				return {"asset_id":id,"kind":child.get_meta("scenery_kind",&"")}
+	return {}
+
+func refresh_clearing_safety() -> void:
+	if _suppressed_blocker is Vector2i and _world.get_player_cell()!=_suppressed_blocker:
+		refresh_clearing()
+
+func pick_scenery(point: Vector2) -> Variant:
+	var picked: Variant = null
+	var front: float = -INF
+	for child: Node in _world_art.get_children():
+		if not child is SuppliedSceneryView: continue
+		var art: SuppliedSceneryView = child as SuppliedSceneryView
+		var cell: Vector2i = art.get_meta("cell")
+		if not art.is_visible_in_tree() or not _main.clearing_state.is_candidate(cell,StringName(art.get_meta("asset_id",&""))): continue
+		var sprite: Sprite2D = art.sprite
+		var local: Vector2 = sprite.get_global_transform_with_canvas().affine_inverse()*point
+		if sprite.texture!=null and sprite.get_rect().has_point(local) and art.global_position.y>=front:
+			picked = cell
+			front = art.global_position.y
+	return picked
+
+func remove_scenery(cell: Vector2i, id: StringName) -> bool:
+	if get_scenery_target(cell).get("asset_id",&"")!=id: return false
+	for child: Node in _world_art.get_children():
+		if child is SuppliedSceneryView and child.get_meta("cell",null)==cell and StringName(child.get_meta("asset_id",&""))==id:
+			_world_art.remove_child(child)
+			_retire_scenery(child)
+			return true
+	return false
 
 func get_season_fx() -> Node:
 	return _main.weather_fx

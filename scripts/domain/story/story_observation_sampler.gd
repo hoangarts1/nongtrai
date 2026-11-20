@@ -20,6 +20,11 @@ static func legacy(config: StoryConfig, payload: Dictionary) -> Dictionary:
 			proven = typeof(steps[goal.tutorial_step])==TYPE_BOOL and steps[goal.tutorial_step]
 		elif goal.source==&"quest_completed": proven = completed.has(String(goal.source_id))
 		elif goal.source==&"parcel_owned": proven = owned
+		elif goal.source==&"scenery_cleared":
+			var version: Variant = section(payload.get("meta")).get("save_version")
+			if (version is int or version is float) and is_finite(float(version)) and float(version)>=ClearingSaveCodec.INTRODUCED_VERSION:
+				var clearing: Dictionary = ClearingSaveCodec.normalize(config.clearing,payload.get("clearing"))
+				proven = clearing.ok and not clearing.fallback and clearing.snapshot.cleared.size()>=goal.target
 		if proven: ids.append(String(goal.objective_id))
 	return {"ok":true,"objective_ids":ids,"provenance":&"saved_owner_progress"}
 

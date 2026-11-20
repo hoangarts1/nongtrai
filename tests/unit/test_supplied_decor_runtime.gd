@@ -97,7 +97,7 @@ func test_actual_land_purchase_load_and_new_game_never_leave_decor_on_owned_cell
 	_assert_owned_clear()
 	assert_true(_main.call("_save_game_to_slot", 1))
 	var payload: Dictionary = SaveService.load_game(1)
-	assert_eq(payload.meta.save_version, 16)
+	assert_eq(payload.meta.save_version, 17)
 	var before: Dictionary = _owners()
 	_main.call("_load_payload", payload)
 	await _settle()

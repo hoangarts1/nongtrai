@@ -17,7 +17,7 @@ func test_every_old_fixture_preserves_all_original_fields_and_defaults_unknown_c
 	for version: int in range(1,7):
 		var original: Dictionary = _fixture(version)
 		var loaded: Dictionary = SaveService.load_game(SLOT)
-		assert_eq(int(loaded["meta"]["save_version"]),16)
+		assert_eq(int(loaded["meta"]["save_version"]),17)
 		for key: String in original:
 			if key in ["meta","inventory","farm"]:
 				continue

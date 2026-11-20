@@ -98,7 +98,7 @@ func test_all_old_goldens_remain_loadable_and_display_fields_from_migrated_paylo
 		assert_false(_main.start_menu.screen.actions.continue_button.disabled)
 		var farm: String = LifeTitleParts.text(LifeTitleParts.dictionary(payload.get("profile",{})),&"farm_name")
 		assert_eq(_main.start_menu.screen.latest.farm.text,farm)
-		assert_eq(int(payload.meta.save_version),16)
+		assert_eq(int(payload.meta.save_version),17)
 
 func test_bad_or_missing_optional_fields_are_omitted_without_fake_numbers() -> void:
 	var card: LifeLatestSaveCard = _main.start_menu.screen.latest
@@ -146,7 +146,7 @@ func test_form_retains_choices_and_submits_original_clean_game_flow() -> void:
 	assert_eq(String(_main.profile.farm_name),"Vườn Nhỏ")
 	assert_eq(String(_main.profile.appearance.hair_style),"twin_puffs")
 	assert_eq(int(_main.profile.appearance.skin_index),5)
-	assert_eq(int(SaveService.load_game(1).meta.save_version),16)
+	assert_eq(int(SaveService.load_game(1).meta.save_version),17)
 
 func test_title_settings_cancel_default_apply_reload_without_entering_game() -> void:
 	Settings.set_locale("vi")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ClearingConfig" load_steps=7 format=3]
+[ext_resource type="Script" path="res://scripts/data/clearing_config.gd" id="1"]
+[ext_resource type="Resource" path="res://data/isometric_world_config.tres" id="2"]
+[ext_resource type="Resource" path="res://data/art/world/isometric_scenery_catalog.tres" id="3"]
+[ext_resource type="Resource" path="res://data/water_sources.tres" id="4"]
+[ext_resource type="Resource" path="res://data/chicken_coop_site.tres" id="5"]
+[ext_resource type="Resource" path="res://data/land_expansion_config.tres" id="6"]
+[resource]
+script = ExtResource("1")
+world = ExtResource("2")
+scenery = ExtResource("3")
+water = ExtResource("4")
+coop = ExtResource("5")
+land = ExtResource("6")
+story_goal = 3
+anchor_clearance_squared = 4

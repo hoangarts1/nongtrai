@@ -37,7 +37,7 @@ func test_actual_five_goals_notebook_confirmation_review_autosave_and_continue()
 	# obstacle just as the live runtime's sparse context poll does before saving.
 	f.main.dog_runtime.refresh_context()
 	assert_true(f.main.dog_runtime.navigation.is_walkable(f.main.dog_state.get_cell()))
-	assert_eq(f.main.story_state.serialize().completed_objectives,Array(LifeStorySnapshot.CONFIG.supported_ids()))
+	assert_eq(f.main.story_state.serialize().completed_objectives,["first_sowing","first_harvest","first_sale","first_delivery","first_expansion"])
 	assert_false(f.main.story_state.is_complete())
 	await f.key(self,KEY_J)
 	var journal: NpcPanel = f.main.npc_system.journal
@@ -91,7 +91,7 @@ func test_fresh_both_locales_three_sizes_and_native_new_game_clear_only_new_stor
 			f.main.npc_system.journal.book_controller.story_controller.open()
 			await f.settle(self)
 			var sheet: LifeStoryNotebook = f.main.npc_system.journal.book.story_sheet
-			assert_true(sheet.header.progress.text.contains("5/10"))
+			assert_true(sheet.header.progress.text.contains("6/10"))
 			if DisplayServer.get_name()!="headless":
 				f.viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 				await RenderingServer.frame_post_draw

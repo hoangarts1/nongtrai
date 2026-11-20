@@ -13,7 +13,7 @@ func test_actual_known_progress_unlocks_pages_once_but_not_full_chapter_or_m2() 
 	assert_false(state.acknowledge_page(&"page_sale",state.get_revision()).changed)
 	assert_false(state.is_complete())
 	assert_false(state.observe(PackedStringArray(["m2_4_station"])).ok)
-	assert_eq(state.serialize().completed_objectives.size(),5)
+	assert_eq(state.serialize().completed_objectives.size(),6)
 func test_bad_observations_and_stale_page_requests_leave_state_unchanged() -> void:
 	var state: StoryState = StoryState.new()
 	assert_false(state.deserialize(StorySnapshotCodec.empty()))

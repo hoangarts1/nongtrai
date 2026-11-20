@@ -68,7 +68,7 @@ func test_native_review_autosave_bulletin_journal_and_feedback_both_locales_thre
 			assert_true(_main.morning_flow.panel.visible)
 			assert_eq(_main.ecology_effects_flow.get_presentation_snapshot().size(), 14)
 			var saved: Dictionary = SaveService.load_game(0)
-			assert_eq(int(saved.meta.save_version), 16)
+			assert_eq(int(saved.meta.save_version), 17)
 			assert_eq(saved.ecology, _main.ecology_state.serialize())
 			for id: String in ["tree_cover", "biodiversity"]:
 				var metric: EcologyMetricData = LifeEcologyRuntime.PROFILE.get_metric(StringName(id))

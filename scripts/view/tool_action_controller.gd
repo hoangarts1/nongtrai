@@ -2,9 +2,10 @@
 class_name ToolActionController
 extends Node
 
-const TOOL_DRAG_STROKE: Script = preload("res://scripts/view/tool_drag_stroke.gd")
+const TOOL_DRAG_STROKE: Script = preload("res://scripts/view/scenery_tool_drag_stroke.gd")
 
 var _watering: WateringRuntime
+var _clearing: ClearingRuntime
 var _director: LifeDirectorActivityCollector
 var _receipts: Dictionary = {}
 var _proven_receipt: bool = true
@@ -14,6 +15,15 @@ func configure_director(collector: LifeDirectorActivityCollector) -> void:
 
 func configure_watering(runtime: WateringRuntime) -> void:
 	_watering = runtime
+
+func configure_clearing(runtime: ClearingRuntime) -> void:
+	_clearing = runtime
+	_drag_stroke.scenery_picker = _pick_scenery
+
+func _pick_scenery(point: Vector2) -> Variant:
+	if _selected_tool!=&"shovel" or _clearing==null: return null
+	var crop: Variant = _farm_view.call("pick_crop",point,_world.camera)
+	return crop if crop is Vector2i else _clearing.pick(point)
 
 var _world: GrayBoxWorld
 var _farm_state: FarmGridState
@@ -129,7 +139,9 @@ func _process(_delta: float) -> void:
 		_placement_release_pending = false
 	if _placement_active or _world == null or _farm_view == null:
 		return
-	var cell_variant: Variant = _world.pick_cell(get_viewport().get_mouse_position())
+	var point: Vector2 = get_viewport().get_mouse_position()
+	var cell_variant: Variant = _pick_scenery(point)
+	if cell_variant==null: cell_variant = _world.pick_cell(point)
 	if cell_variant == null:
 		_farm_view.call("set_hovered_cell", Vector2i.ZERO, false, false)
 		_hovered_valid = false
@@ -178,7 +190,7 @@ func _apply_drag_cell(cell: Vector2i) -> bool:
 	return true
 
 func _use_selected_tool() -> void:
-	if _selected_tool == &"water" or _director == null:
+	if _selected_tool in [&"water",&"shovel"] or _director == null:
 		_apply_selected_tool(_selected_tool, _hovered_cell)
 		return
 	var receipt: Dictionary = _director.begin_command(&"tool")
@@ -196,6 +208,14 @@ func _apply_selected_tool(action: StringName, cell: Vector2i) -> void:
 		if not bool(permission.ok):
 			_show_feedback("LAND_LOCKED" if permission.reason==&"land_locked" else "PLC_MACHINE_CELL")
 			return
+	if action==&"shovel" and _clearing!=null and _farm_state.get_plot(cell).is_empty():
+		var cleared: Dictionary = _clearing.clear(cell)
+		if cleared.ok:
+			_play_character_tool(&"shovel")
+			_play_sound(&"hoe")
+		else:
+			_show_feedback("UI_CROP_OUT_OF_REACH" if cleared.reason==&"out_of_reach" else "CLEARING_UNAVAILABLE")
+		return
 	if action == &"harvest":
 		_apply_harvest_at(cell)
 		return
@@ -319,7 +339,7 @@ func _play_farm_effect(action_id: StringName) -> void:
 		_farm_view.call(&"play_action_fx", _hovered_cell, action_id)
 
 func _reach_for_selected_tool() -> int:
-	var tool_id: StringName = &"hoe" if _selected_tool == &"hoe" else &"watering_can"
+	var tool_id: StringName = _selected_tool if _selected_tool in [&"hoe",&"shovel"] else &"watering_can"
 	var tool_data: Resource = DataRegistry.get_tool(tool_id)
 	if tool_data == null:
 		return 0

@@ -77,7 +77,7 @@ func test_actual_v10_roundtrip_keeps_items_owned_land_crops_jobs_and_new_game_re
 	main.watering_upgrade_flow.purchase(20)
 	assert_true(main.call("_save_game_to_slot",SLOT))
 	var saved: Dictionary = SaveService.load_game(SLOT)
-	assert_eq(int(saved.meta.save_version),16)
+	assert_eq(int(saved.meta.save_version),17)
 	assert_eq(saved.watering_can,{"capacity":40,"charges":7})
 	assert_false(saved.has("watering_upgrade"))
 	main.call("_start_new_game","Other","Other")

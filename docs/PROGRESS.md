@@ -1,5 +1,130 @@
 # PROGRESS — THE LIFE  (agent memory: read first, update last)
 
+## F02 automation delivered (2026-11-20)
+
+Full3 original launcher exit0: 269scripts/1043/1043/103281assert; groups124.955/149.202/152.634/121.467/59.386s, each<180; GUT607.644s/wall637.273s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2678, prior test-fixture verification560, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt3. No skipped/weakened tests or bounds extended. Real-save verification uses the documented preserved post-test baseline:8external slot/backup updates at12:29 after full completion11:19, no protected-save writes/restores by the assistant; original SHA snapshot and exact delta retained.
+
+Main now owns one ClearingState and ClearingRuntime. The existing shovel clears only supplied rock/grass_clump art whose real cell/asset matches the frozen deterministic DATA catalogue, within the shovel ToolData reach. Base/planned farmland, buildings, source/coop clearance and anchors are excluded; live crops/machines/Player/NPC/dog cells also reject. No items/coins/land entitlement, crop/perennial/passive-tree removal or day simulation. One reserve/commit/finish token holds the owner through both changed and settled-runtime notices; Main save/load/reset/title and duplicate commands reject throughout. The exact grounded root is detached immediately, including its large-rock collider. Same-owner slot/new-game restore forces reconciliation, so cleared props do not regrow; valid actor positions remain. A missing/corrupt component restoring Player onto an original large-rock cell suppresses only that blocker until Player leaves, without teleport or saved cleanup credit.
+
+Save17 adds only `clearing:{cleared:[{x:int,y:int,asset_id:String}]}`; strict unique known cell/asset pairs, canonical y/x order, bounded by compiled eligibility. Tokens/publication guards never serialize. Pre17 discards injected cleanup and the newly supported scenery_cleared story source; story introduction16/read flags and all prior owners/rights remain. Current valid clearing preserves exactly; malformed component alone falls back empty. clear_land is the sixth supported goal, target3 from clearing_config.tres; four remaining ChapterI objectives/four M2 milestones stay planned. Proven typed runtime receipt/state is required; forged signals, buying land, possessing items or cosmetic suppression cannot complete it.
+
+Import1/import2 PASS apart from inherited duplicate artUID warnings. Pure focused1:2scripts/7of7/966assert/0.583s; initial actual runtime1:4of4/41assert/1.920s. Focused2:17of18: a NEW negative fixture incorrectly assumed natural debris existed in the east parcel; the actual DATA hash places none. Replaced that assumption with an explicit negative display fixture and retained all denial/unchanged assertions. Actual golden17 was produced/read back by pinned SaveService migration of immutable16; first external exporter could not resolve autoload name before SceneTree initialization and exited1, corrected to deferred root lookup (golden17b exit0). Native1:43of44: historical16 projection assigned int16 while its JSON wire is float16.0; a read-only diagnostic proved meta was the sole difference. Exact projection corrected, golden and equality assertion unchanged. Native2:14scripts/44of44/1797assert/22.754s,12fresh vi/en three-size before/after PNGs. Standalone simulation1 exposed a nested ToolAction/Events initial-parse error despite exit0; tool now loads that dispatcher after autoload initialization, and new CLI tests assert absence of child errors/leaks. Native3:3scripts/10of10/236assert/9.194s PASS/no errors/leaks, verifies corrected actual KEY2 selection, sprite-click/zoom/repeat, modal/release, localized captures, strict CLI and historical golden comparison. Inspected Vietnamese1152after: shovel caption/highlight match, debris gone, one-line feedback and all HUD controls clear. Capture-only direct-controller selection was replaced with native KEY2; production hotbar code unchanged.
+
+Actual pinned simulation2 exit0/stderr clean:216eligible/216reachable debris,1425conservative walkable centers, DATA goal3,3fixture commands, nativeJSON continuation match,0extra days. This is a verification fixture, not observed gameplay. Existing story CLI:1000fixture commands/grouped+JSON match/231invalid rejections,4638ms, exit0/stderr clean. Compatibility is exactly54rows/44old test files:44current-output version expectations16to17,9six-goal/explicit legacy-five expectations and1immutable historical16 projection; original test names/assertion counts/negative coverage remain. Freeze verifies those exact rows,516other prior test/fixture bytes and20real-save SHA unchanged. Test compatibility diff, raw logs and12captures: D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423. All16historical goldens unchanged; no scenes/assets/InputMap/engine/renderer bounds changed.
+
+No Inspector/scene/project-setting setup. Run tools/run_tests.bat (pinned4.7.2; current five sequential complete renderer groups180s each). Manual F5: choose shovel with2, walk north of the starting garden, click/hold Space or drag over reachable rocks/grass; repeat/far/modal/wrong-tool attempts leave state unchanged. Clear3distinct eligible props, open J then grandmother notebook, inspect actual clear_land completion; save/load/Continue keeps cleared art absent, NewGame restores it. Existing shovel still clears withered crops, healthy/perennial crops/passive trees remain. Check one dog, NPCs, coins/items/water/day/other machine jobs, large-rock collision, zoom/pan and vi/en UI. Human F5/tone/FPS/final-art and external H1/H2 remain pending; this does not complete ChapterI/production Director.
+
+Full1 original launcher stopped with exit1 after group1:253of253 assertions-cases passed in119.842s, but strict harness correctly rejected989deferred orphan nodes in test_machine_move_ui invalidation and test_pause_menu immediate exit. Parse/DATA/headless checks passed; later renderer groups did not run. Raw failed logs, manifest, frozen source and exact before/after diff retained at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt1-failed. The unconditional clearing reconciliation detached passive generated roots and queued deletion, exposing pending orphans when Main ended immediately. First fix tracked retired nodes and reclaimed them on synchronous teardown; Native4:12of12/1689assert/9.356s still reported989orphans for queue_free(Main), so this was NOT a clean acceptance. Final production fix frees these passive generated roots immediately after detachment (they have no process/physics callbacks). Large-rock deletion is immediate and tested; no old test/harness/assertion was weakened. Added direct new regression captures every retired root and verifies invalidity before a frame/after synchronous Main teardown. Native5:3scripts/12of12/1235assert/9.566s PASS, including both unchanged old failing test scripts, no orphan/risky/error/leak output. Full2 is required for final delivery; expected269scripts/1043cases, with20new cases total.
+
+
+Full2 original launcher exit1: the first3renderer partitions passed253/255/288cases in121.234/144.041/147.471s with no orphan/error output; fourth hit the unchanged180000ms bound/exit124 near weather_rollover_guard, before complete summary. No editor F5 was running (only editor17544); this was measured harness load, not a test assertion failure. All4raw logs/manifest/source/diff preserved at D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/full-attempt2-failed. Under the explicitly approved global measured-split policy, exact scope amended96to98paths BEFORE editing: tools/run_graphics_tests.ps1 and tools/tests/test_graphics_runner.ps1. Keep base groups1-3 unchanged; split only the former fourth into2alternating sequential subgroups. Current269scripts run in5complete nonempty groups, each180s; original path discovery, duplicate/omission/source-hash/full-case/capture/error/orphan/failfast gates remain. Small4-7script inventories keep4nonempty partitions;8+use5. Runner contract PASS362checks/269real scripts, including small-size matrix4through20, 8script/5group replica, pass/timeout/parse/hash drift, exact180000ms calls and every existing malformed-summary/negative gate. New full3 required before commit/push; no skipped tests or timeout increase.
+
+
+After full3 completed at11:19:08, external game saves rotated at12:29:07-12:29:37 while this turn was waiting for user input. Source/test/Resource/runner SHA is still identical to the tested freeze.8of20real-save files changed (slots0/1 and their3backups); the original slot0 primary hash is now backup1 and original slot1 primary is backup2, consistent with later game save rotation. Only the Editor is now running; no F5 was stopped. The assistant did not write, restore or revert these protected saves. Original task snapshot remains intact; exact old/current SHA+mtime delta is archived, and all20latest files are protected against further drift using an explicit post-test preserved baseline. This is not a claim that all original20bytes remained unchanged through the later user activity. See D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f02-102423/post-test-save-update-record.json.
+
+Exact ALLOW_LIST:
+
+```text
+data/clearing_config.tres
+data/story/chapter1.tres
+docs/API_INDEX.md
+docs/ARCHITECTURE.md
+docs/DATA_SCHEMA.md
+docs/DECISIONS.md
+docs/INPUT_MAP.md
+docs/PROGRESS.md
+docs/REMAINING_PLAN.md
+docs/ROADMAP.md
+docs/SCENE_CONTRACTS/clearing.md
+docs/SCENE_CONTRACTS/gray_box_world.md
+docs/SCENE_CONTRACTS/story.md
+localization/strings_en.csv
+localization/strings_vi.csv
+scripts/core/save_service.gd
+scripts/data/clearing_config.gd
+scripts/data/clearing_config.gd.uid
+scripts/data/story_config.gd
+scripts/domain/clearing/clearing_rules.gd
+scripts/domain/clearing/clearing_rules.gd.uid
+scripts/domain/clearing/clearing_save_codec.gd
+scripts/domain/clearing/clearing_save_codec.gd.uid
+scripts/domain/clearing/clearing_state.gd
+scripts/domain/clearing/clearing_state.gd.uid
+scripts/domain/story/story_catalog_validator.gd
+scripts/domain/story/story_observation_sampler.gd
+scripts/domain/story/story_receipt_rules.gd
+scripts/domain/story/story_save_codec.gd
+scripts/view/clearing_runtime.gd
+scripts/view/clearing_runtime.gd.uid
+scripts/view/main.gd
+scripts/view/scenery_tool_drag_stroke.gd
+scripts/view/scenery_tool_drag_stroke.gd.uid
+scripts/view/story/story_runtime.gd
+scripts/view/tool_action_controller.gd
+scripts/view/world_presentation.gd
+tests/golden_saves/save_v17.json
+tests/helpers/clearing_fixture.gd
+tests/helpers/clearing_fixture.gd.uid
+tests/unit/test_ambient_audio_runtime.gd
+tests/unit/test_bag_upgrade_flow.gd
+tests/unit/test_character_screen.gd
+tests/unit/test_chicken_coop_collection.gd
+tests/unit/test_chicken_coop_feeding.gd
+tests/unit/test_chicken_coop_runtime_save.gd
+tests/unit/test_clearing_codec.gd
+tests/unit/test_clearing_codec.gd.uid
+tests/unit/test_clearing_native.gd
+tests/unit/test_clearing_native.gd.uid
+tests/unit/test_clearing_runtime.gd
+tests/unit/test_clearing_runtime.gd.uid
+tests/unit/test_clearing_runtime_save.gd
+tests/unit/test_clearing_runtime_save.gd.uid
+tests/unit/test_clearing_state.gd
+tests/unit/test_clearing_state.gd.uid
+tests/unit/test_crop_care_save.gd
+tests/unit/test_crop_regrow_save.gd
+tests/unit/test_crop_stage_runtime.gd
+tests/unit/test_day_end_flow.gd
+tests/unit/test_day_end_save.gd
+tests/unit/test_dog_runtime_save.gd
+tests/unit/test_ecology_end_to_end.gd
+tests/unit/test_ecology_runtime_save.gd
+tests/unit/test_inventory_actions.gd
+tests/unit/test_land_save.gd
+tests/unit/test_machine_build_lifecycle.gd
+tests/unit/test_machine_collection.gd
+tests/unit/test_morning_flow.gd
+tests/unit/test_npc_social_save.gd
+tests/unit/test_pause_settings.gd
+tests/unit/test_profile_creation.gd
+tests/unit/test_quest_book.gd
+tests/unit/test_recipe_economy.gd
+tests/unit/test_save_backup_recovery.gd
+tests/unit/test_save_service.gd
+tests/unit/test_story_catalog.gd
+tests/unit/test_story_end_to_end.gd
+tests/unit/test_story_golden_continuation.gd
+tests/unit/test_story_localization.gd
+tests/unit/test_story_observation_sampler.gd
+tests/unit/test_story_readout.gd
+tests/unit/test_story_runtime_save.gd
+tests/unit/test_story_save_codec.gd
+tests/unit/test_story_state.gd
+tests/unit/test_supplied_decor_runtime.gd
+tests/unit/test_supplied_objects_runtime.gd
+tests/unit/test_title_flow.gd
+tests/unit/test_transaction_facades.gd
+tests/unit/test_water_source_world.gd
+tests/unit/test_watering_runtime_save.gd
+tests/unit/test_watering_upgrade_flow.gd
+tests/unit/test_weather.gd
+tests/unit/test_weather_runtime_save.gd
+tools/sim_clearing.gd
+tools/sim_clearing.gd.uid
+```
+
+Full1043/1043 PASS.
+
 ## F01 automation delivered (2026-11-20)
 
 Full3 original launcher exit0: 264scripts/1023/1023/101144assert; groups118.348/139.002/138.128/103.178s, each<180; GUT498.656s/wall521.795s. Pinned4.7.2 parse/DATA/headless63/Main PASS. Source2663, prior test-fixture verification554, real-save SHA20 verified. Raw logs/manifest/summary: D:/godot/game-godot-backups/finish-roadmap-run-20261120-093950/f01-094253/full-attempt3. No skipped/weakened tests or bounds extended.

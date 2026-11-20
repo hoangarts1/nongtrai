@@ -18,7 +18,8 @@
 ##   func migrate_13_to_14(data: Dictionary) -> Dictionary
 extends Node
 
-const CURRENT_VERSION: int = 16
+const CURRENT_VERSION: int = 17
+const CLEARING_CONFIG: ClearingConfig = preload("res://data/clearing_config.tres")
 const STORY_CONFIG: StoryConfig = preload("res://data/story/chapter1.tres")
 const DOG_CONFIG: DogConfig = preload("res://data/dog_config.tres")
 const DIRECTOR_INTRODUCED_VERSION: int = 14
@@ -57,6 +58,10 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 	if not story.ok:
 		_last_write_report = {"ok":false,"error":&"invalid_story_context","committed":false,"rollback_ok":true,"cleanup_pending":false,"recovery_paths":PackedStringArray()}
 		return false
+	var clearing: Dictionary = ClearingSaveCodec.normalize(CLEARING_CONFIG,payload.get("clearing"))
+	if not clearing.ok:
+		_last_write_report = {"ok":false,"error":&"invalid_clearing_context","committed":false,"rollback_ok":true,"cleanup_pending":false,"recovery_paths":PackedStringArray()}
+		return false
 	var wrapped: Dictionary = {
 		"meta": {
 			"save_version": CURRENT_VERSION,
@@ -65,6 +70,7 @@ func save_game(payload: Dictionary, slot: int = 1) -> bool:
 			"saved_at": Time.get_datetime_string_from_system()
 		},
 		"story": story.snapshot,
+		"clearing": clearing.snapshot,
 		"dog": _normalize_dog(payload),
 		"clock": payload.get("clock", {}),
 		"player": payload.get("player", {}),
@@ -207,6 +213,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 		migrated = migrate_14_to_15(migrated)
 	if version <= 15:
 		migrated = migrate_15_to_16(migrated)
+	if version<=16:
+		migrated = migrate_16_to_17(migrated)
 	if not migrated.has("machine_inventory"):
 		migrated["machine_inventory"] = {}
 	if not migrated.has("machine_placements"):
@@ -237,6 +245,8 @@ func _migrate(data: Dictionary, version: int) -> Dictionary:
 	migrated["dog"] = _normalize_dog(migrated)
 	var story: Dictionary = _normalize_story(migrated)
 	migrated["story"] = story.snapshot if story.ok else {}
+	var clearing: Dictionary = ClearingSaveCodec.normalize(CLEARING_CONFIG,migrated.get("clearing"))
+	migrated["clearing"] = clearing.snapshot if clearing.ok else {}
 	return migrated
 
 func migrate_3_to_4(data: Dictionary) -> Dictionary:
@@ -385,3 +395,10 @@ func migrate_15_to_16(data: Dictionary) -> Dictionary:
 
 func _normalize_story(payload: Dictionary) -> Dictionary:
 	return StorySaveCodec.normalize(STORY_CONFIG,payload.get("story"),payload)
+
+func migrate_16_to_17(data: Dictionary) -> Dictionary:
+	var migrated: Dictionary = data.duplicate(true)
+	# Earlier formats cannot prove cleanup or the newly supported source.
+	migrated["clearing"] = ClearingSaveCodec.empty()
+	migrated["story"] = StorySaveCodec.without_clearing(STORY_CONFIG,migrated.get("story"))
+	return migrated

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StoryConfig" load_steps=26 format=3]
+[gd_resource type="Resource" script_class="StoryConfig" load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/story_config.gd" id="1"]
 
@@ -9,6 +9,8 @@
 [ext_resource type="Resource" path="res://data/quests/quest_turnip_delivery.tres" id="4"]
 
 [ext_resource type="Resource" path="res://data/land_expansion_config.tres" id="5"]
+
+[ext_resource type="Resource" path="res://data/clearing_config.tres" id="6"]
 
 [sub_resource type="Resource" id="first_sowing"]
 
@@ -119,6 +121,10 @@ objective_id = &"clear_land"
 title_key = &"STORY_GOAL_CLEAR_LAND"
 
 description_key = &"STORY_GOAL_CLEAR_LAND_DESC"
+
+source = &"scenery_cleared"
+target = 3
+planned = false
 
 [sub_resource type="Resource" id="repair_mailbox"]
 
@@ -291,3 +297,5 @@ pages = Array[ExtResource("3")]([SubResource("intro"),SubResource("page_sowing")
 delivery = ExtResource("4")
 
 land = ExtResource("5")
+
+clearing = ExtResource("6")

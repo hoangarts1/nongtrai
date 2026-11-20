@@ -9,6 +9,7 @@ extends Resource
 @export var pages: Array[StoryPageData] = []
 @export var delivery: QuestData
 @export var land: LandExpansionConfig
+@export var clearing: ClearingConfig
 func get_objective(id: StringName) -> StoryObjectiveData:
 	for row: StoryObjectiveData in objectives:
 		if row != null and row.objective_id==id: return row
